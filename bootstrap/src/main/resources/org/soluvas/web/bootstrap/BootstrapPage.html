@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="urn:wicket"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:wicket http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master"
+	lang="id">
+<head>
+	<meta charset="utf-8" />
+	<title><span wicket:id="pageTitle"/> | Optimized UI for Node.js</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Soluvas Starter Web Application" />
+	<meta name="author" content="Soluvas" />
+
+	<!-- Le styles -->
+
+	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>	
+	<link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="/oui/favicon.ico" />
+
+	<link rel="apple-touch-icon-precomposed" sizes="114x114"
+		href="/static/images/ico/apple-touch-icon-114-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72"
+		href="/static/images/ico/apple-touch-icon-72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png" />
+
+	<link rel="stylesheet" href="/static/jquery-ui/css/ui-lightness/jquery-ui-1.8.20.custom.css"/>
+	<link rel="stylesheet" href="/static/jquery-notify/ui.notify.css"/>
+
+	<!-- Pass server-side variables to client-side script -->
+	<script type="text/javascript">
+	var baseUri = '/oui/';
+	var apiUri = baseUri + 'api/';
+	</script>
+
+</head>
+
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span></a>
+
+				<a class="brand" href="/oui/">Fashion Store</a>
+
+				<!--<a class="brand" href="#">Berbatik</a>-->
+				<div wicket:id="header"/>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="span3">
+				<div class="well sidebar-nav">
+
+					<ul class="nav nav-list">
+						<li class="nav-header">Categories</li>
+					<div>
+						<li><a href="#">Apparel</a></li>
+					</div>
+					</ul>
+
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+
+			<div class="span9">
+				<wicket:child>
+					<ol class="featured-products">
+						<div id="featuredProducts">
+							<li><a href="#">Product name</a></li>
+						</div>
+					</ol>
+				</wicket:child>
+			</div>
+			<!--/row-->
+		</div>
+		<hr />
+		<footer><small style="color: #808080;"><span wicket:id="footer"/> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small></footer>
+	</div>
+
+	<!--/.fluid-container-->
+
+	<!-- set the container hidden to avoid a flash of unstyled content
+	when the page first loads -->
+	<div id="growl-container" style="display:none; margin-top: 60px">
+
+	    <!--
+	    Later on, you can choose which template to use by referring to the
+	    ID assigned to each template.  Alternatively, you could refer
+	    to each template by index, so in this example, "basic-tempate" is
+	    index 0 and "advanced-template" is index 1.
+	    -->
+	    <div id="basic-template">
+	        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+	        <p><h:outputText value="#"/>{text}</p>
+	    </div>
+
+	</div>
+
+	<!-- Le javascript
+    ================================================== -->
+
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-transition.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-alert.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-tab.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-popover.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-button.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+
+</body>
+</html>

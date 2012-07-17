@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.soluvas</groupId>
+		<artifactId>org.soluvas.web.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>org.soluvas.web.bootstrap</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+	<description>Twitter bootstrap HTML5 template.</description>
+
+	<dependencies>
+		<!-- Pax Wicket Core -->
+		<dependency>
+			<groupId>org.ops4j.pax.wicket</groupId>
+			<artifactId>org.ops4j.pax.wicket.service</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<!-- Pax Wicket Test Utilities -->
+		<dependency>
+			<groupId>org.ops4j.pax.wicket</groupId>
+			<artifactId>org.ops4j.pax.wicket.test</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+		<!--
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>soluvas-image-store</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+		          <groupId>commons-logging</groupId>
+		          <artifactId>commons-logging</artifactId>
+		        </exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>soluvas-cdi</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>soluvas-ldap</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>soluvas-push</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+		</dependency>
+		
+		<!-- 
+		This does NOT work:
+		osgi:install mvn:org.scala-lang/scala-library/2.9.2
+		osgi:install wrap:mvn:com.typesafe.akka/akka-actor/2.0.1
+		Try downloading Akka-OSGi 2.1-SNAPSHOT from here:
+		https://github.com/jamie-allen/akka-osgi/tree/master/lib
+		-->
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<!--
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+		-->
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.felix</groupId>
+										<artifactId>maven-bundle-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>manifest</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore/>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<_wab>src/main/webapp</_wab>
+						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
+	<!-- 					<Import-Package>javax.servlet,javax.servlet.http, -->
+	<!-- 						org.apache.wicket.event,org.apache.wicket.settings, -->
+	<!-- 						org.apache.wicket.request,org.apache.wicket.request.http,org.apache.wicket.request.cycle, -->
+	<!-- 						org.apache.wicket.util,org.apache.wicket.util.file, -->
+	<!-- 						org.apache.wicket.ajax, -->
+	<!-- 						org.ops4j.pax.wicket.util.proxy, -->
+	<!-- 						net.sf.cglib.proxy;version="[2,3)", -->
+	<!-- 						net.sf.cglib.core;version="[2,3)", -->
+	<!-- 						net.sf.cglib.reflect;version="[2,3)",*</Import-Package> -->
+						<Import-Package>*, javax.servlet,javax.servlet.http,
+							org.ops4j.pax.wicket.util.proxy,
+							net.sf.cglib.proxy;version="[2,3)",
+							net.sf.cglib.core;version="[2,3)",
+							net.sf.cglib.reflect;version="[2,3)"</Import-Package>
+<!-- 						<Require-Bundle>org.ops4j.pax.wicket.service, -->
+<!-- 							com.typesafe.config, com.typesafe.akka.actor, org.scala-ide.scala.library</Require-Bundle> -->
+						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
+						<Bundle-ClassPath>WEB-INF/classes,{maven-dependencies}</Bundle-ClassPath>
+						<Web-ContextPath>/static/bootstrap</Web-ContextPath>
+						<!--<Export-Package>org.foo.myproject.*</Export-Package>-->
+						<!--<Private-Package>org.foo.myproject.*</Private-Package>-->
+						<!--<Bundle-Activator>org.foo.myproject.impl1.Activator</Bundle-Activator>-->
+					</instructions>
+				</configuration>
+			</plugin>
+
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>build-helper-maven-plugin</artifactId> -->
+<!-- 				<version>1.5</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>add-source</id> -->
+<!-- 						<phase>generate-sources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>add-source</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<sources> -->
+<!-- 								<source>src/main/webapp</source> -->
+<!-- 							</sources> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+		
+		</plugins>
+	</build>
+
+</project>
