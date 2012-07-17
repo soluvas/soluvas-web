@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.nav/src/main/java" modelPluginID="org.soluvas.web.nav"
+    modelName="Nav" importerID="org.eclipse.emf.importer.ecore" bundleManifest="false"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>nav.ecore</foreignModel>
+  <genPackages prefix="Nav" basePackage="org.soluvas.web" disposableProviderFactory="true"
+      ecorePackage="nav.ecore#/">
+    <genClasses ecoreClass="nav.ecore#//MenuItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/weight"/>
+    </genClasses>
+    <genClasses ecoreClass="nav.ecore#//Menu">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//Menu/id"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="nav.ecore#//MenuItemContainer">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference nav.ecore#//MenuItemContainer/children"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

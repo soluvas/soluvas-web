@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<nav:MenuCatalog
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:nav="http://www.soluvas.org/nav/1.0"
+    xsi:schemaLocation="http://www.soluvas.org/nav/1.0 ../../../../../model/nav.ecore">
+  <menus id="main"/>
+</nav:MenuCatalog>
