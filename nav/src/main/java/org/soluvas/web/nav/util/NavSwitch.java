@@ -94,17 +94,25 @@ public class NavSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case NavPackage.BOOKMARKABLE_PAGE_MENU_ITEM: {
-				BookmarkablePageMenuItem bookmarkablePageMenuItem = (BookmarkablePageMenuItem)theEObject;
-				T result = caseBookmarkablePageMenuItem(bookmarkablePageMenuItem);
-				if (result == null) result = caseMenuItem(bookmarkablePageMenuItem);
-				if (result == null) result = caseMenuItemContainer(bookmarkablePageMenuItem);
+			case NavPackage.PAGE_MENU_ITEM: {
+				PageMenuItem pageMenuItem = (PageMenuItem)theEObject;
+				T result = casePageMenuItem(pageMenuItem);
+				if (result == null) result = caseMenuItem(pageMenuItem);
+				if (result == null) result = caseMenuItemContainer(pageMenuItem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case NavPackage.PAGE_PARAMETER: {
 				@SuppressWarnings("unchecked") Map.Entry<String, String> pageParameter = (Map.Entry<String, String>)theEObject;
 				T result = casePageParameter(pageParameter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case NavPackage.PROCESS_MENU_ITEM: {
+				ProcessMenuItem processMenuItem = (ProcessMenuItem)theEObject;
+				T result = caseProcessMenuItem(processMenuItem);
+				if (result == null) result = caseMenuItem(processMenuItem);
+				if (result == null) result = caseMenuItemContainer(processMenuItem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -173,17 +181,17 @@ public class NavSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Bookmarkable Page Menu Item</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Page Menu Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Bookmarkable Page Menu Item</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Page Menu Item</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBookmarkablePageMenuItem(BookmarkablePageMenuItem object) {
+	public T casePageMenuItem(PageMenuItem object) {
 		return null;
 	}
 
@@ -199,6 +207,21 @@ public class NavSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePageParameter(Map.Entry<String, String> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Process Menu Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Process Menu Item</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProcessMenuItem(ProcessMenuItem object) {
 		return null;
 	}
 

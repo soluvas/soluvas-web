@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xsd2ecore:XSD2EcoreMappingRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="nav.ecore#/" outputs="NavXMI.xsd#/">
+  <nested inputs="nav.ecore#/" outputs="NavXMI.xsd#/">
+    <nested inputs="nav.ecore#//MenuItem" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition">
+      <nested inputs="nav.ecore#//MenuItem/id" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse"/>
+      <nested inputs="nav.ecore#//MenuItem/parentId" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=1"/>
+      <nested inputs="nav.ecore#//MenuItem/label" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=2"/>
+      <nested inputs="nav.ecore#//MenuItem/weight" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=3"/>
+      <nested inputs="nav.ecore#//MenuItem/bundle" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=4"/>
+    </nested>
+    <nested inputs="nav.ecore#//MenuItem" outputs="NavXMI.xsd#//MenuItem;XSDElementDeclaration"/>
+    <nested inputs="nav.ecore#//Menu" outputs="NavXMI.xsd#//Menu;XSDComplexTypeDefinition=1">
+      <nested inputs="nav.ecore#//Menu/id" outputs="NavXMI.xsd#//Menu;XSDComplexTypeDefinition=1/XSDAttributeUse"/>
+    </nested>
+    <nested inputs="nav.ecore#//Menu" outputs="NavXMI.xsd#//Menu;XSDElementDeclaration=1"/>
+    <nested inputs="nav.ecore#//MenuItemContainer" outputs="NavXMI.xsd#//MenuItemContainer;XSDComplexTypeDefinition=2">
+      <nested inputs="nav.ecore#//MenuItemContainer/items" outputs="NavXMI.xsd#//MenuItemContainer;XSDComplexTypeDefinition=2/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="nav.ecore#//MenuItemContainer" outputs="NavXMI.xsd#//MenuItemContainer;XSDElementDeclaration=2"/>
+    <nested inputs="nav.ecore#//MenuCatalog" outputs="NavXMI.xsd#//MenuCatalog;XSDComplexTypeDefinition=3">
+      <nested inputs="nav.ecore#//MenuCatalog/menus" outputs="NavXMI.xsd#//MenuCatalog;XSDComplexTypeDefinition=3/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="nav.ecore#//MenuCatalog" outputs="NavXMI.xsd#//MenuCatalog;XSDElementDeclaration=3"/>
+    <nested inputs="nav.ecore#//PageMenuItem" outputs="NavXMI.xsd#//PageMenuItem;XSDComplexTypeDefinition=4">
+      <nested inputs="nav.ecore#//PageMenuItem/pageClass" outputs="NavXMI.xsd#//PageMenuItem;XSDComplexTypeDefinition=4/XSDAttributeUse"/>
+      <nested inputs="nav.ecore#//PageMenuItem/parameters" outputs="NavXMI.xsd#//PageMenuItem;XSDComplexTypeDefinition=4/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="nav.ecore#//PageMenuItem" outputs="NavXMI.xsd#//PageMenuItem;XSDElementDeclaration=4"/>
+    <nested inputs="nav.ecore#//PageParameter" outputs="NavXMI.xsd#//PageParameter;XSDComplexTypeDefinition=5">
+      <nested inputs="nav.ecore#//PageParameter/key" outputs="NavXMI.xsd#//PageParameter;XSDComplexTypeDefinition=5/XSDAttributeUse=1"/>
+      <nested inputs="nav.ecore#//PageParameter/value" outputs="NavXMI.xsd#//PageParameter;XSDComplexTypeDefinition=5/XSDAttributeUse=2"/>
+    </nested>
+    <nested inputs="nav.ecore#//PageParameter" outputs="NavXMI.xsd#//PageParameter;XSDElementDeclaration=5"/>
+    <nested inputs="nav.ecore#//ProcessMenuItem" outputs="NavXMI.xsd#//ProcessMenuItem;XSDComplexTypeDefinition=6">
+      <nested inputs="nav.ecore#//ProcessMenuItem/processId" outputs="NavXMI.xsd#//ProcessMenuItem;XSDComplexTypeDefinition=6/XSDAttributeUse"/>
+    </nested>
+    <nested inputs="nav.ecore#//ProcessMenuItem" outputs="NavXMI.xsd#//ProcessMenuItem;XSDElementDeclaration=6"/>
+  </nested>
+</xsd2ecore:XSD2EcoreMappingRoot>

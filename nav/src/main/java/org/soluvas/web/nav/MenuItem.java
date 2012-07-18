@@ -2,6 +2,8 @@
  */
 package org.soluvas.web.nav;
 
+import org.osgi.framework.Bundle;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +17,7 @@ package org.soluvas.web.nav;
  *   <li>{@link org.soluvas.web.nav.MenuItem#getParentId <em>Parent Id</em>}</li>
  *   <li>{@link org.soluvas.web.nav.MenuItem#getLabel <em>Label</em>}</li>
  *   <li>{@link org.soluvas.web.nav.MenuItem#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.soluvas.web.nav.MenuItem#getBundle <em>Bundle</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,5 +156,31 @@ public interface MenuItem extends MenuItemContainer {
 	 * @generated
 	 */
 	void setWeight(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Bundle</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bundle</em>' attribute.
+	 * @see #setBundle(Bundle)
+	 * @see org.soluvas.web.nav.NavPackage#getMenuItem_Bundle()
+	 * @model dataType="org.soluvas.web.nav.Bundle"
+	 * @generated
+	 */
+	Bundle getBundle();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.nav.MenuItem#getBundle <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bundle</em>' attribute.
+	 * @see #getBundle()
+	 * @generated
+	 */
+	void setBundle(Bundle value);
 
 } // MenuItem

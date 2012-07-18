@@ -20,5 +20,6 @@
 			</bean>
 		</argument>
 	</bean>
+	<bean class="org.soluvas.web.nav.NavPackageUnloader" destroy-method="destroy"/>
 
 </blueprint>

@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osgi.framework.Bundle;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.soluvas.web.nav.MenuItem;
@@ -34,6 +35,7 @@ import org.soluvas.web.nav.NavPackage;
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getParentId <em>Parent Id</em>}</li>
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getBundle <em>Bundle</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,6 +140,26 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * @ordered
 	 */
 	protected int weight = WEIGHT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Bundle BUNDLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected Bundle bundle = BUNDLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -284,6 +306,27 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Bundle getBundle() {
+		return bundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBundle(Bundle newBundle) {
+		Bundle oldBundle = bundle;
+		bundle = newBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, NavPackage.MENU_ITEM__BUNDLE, oldBundle, bundle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -311,6 +354,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 				return getLabel();
 			case NavPackage.MENU_ITEM__WEIGHT:
 				return getWeight();
+			case NavPackage.MENU_ITEM__BUNDLE:
+				return getBundle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -340,6 +385,9 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 			case NavPackage.MENU_ITEM__WEIGHT:
 				setWeight((Integer)newValue);
 				return;
+			case NavPackage.MENU_ITEM__BUNDLE:
+				setBundle((Bundle)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -367,6 +415,9 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 			case NavPackage.MENU_ITEM__WEIGHT:
 				setWeight(WEIGHT_EDEFAULT);
 				return;
+			case NavPackage.MENU_ITEM__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -389,6 +440,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
 			case NavPackage.MENU_ITEM__WEIGHT:
 				return weight != WEIGHT_EDEFAULT;
+			case NavPackage.MENU_ITEM__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -411,6 +464,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 		result.append(label);
 		result.append(", weight: ");
 		result.append(weight);
+		result.append(", bundle: ");
+		result.append(bundle);
 		result.append(')');
 		return result.toString();
 	}

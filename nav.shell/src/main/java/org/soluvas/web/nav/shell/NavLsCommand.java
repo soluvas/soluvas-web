@@ -33,7 +33,10 @@ public class NavLsCommand extends OsgiCommandSupport {
 				for (Menu menu : data) {
 					System.out.println(String.format("%s : %d items", menu.getId(), menu.getItems().size()));
 					for (MenuItem item : menu.getItems()) {
-						System.out.println(String.format("  %-20s %s", item.getId(), item.getLabel()));	
+						System.out.println(String.format("  %-20s %-20s %-15s %-20s (%3d)", 
+								item.getId(), item.getLabel(),
+								item.eClass().getName(),
+								item.getBundle().getSymbolicName(), item.getBundle().getBundleId() ));	
 					}
 				}
 				System.out.println(String.format("%d menus", data.size()));

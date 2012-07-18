@@ -85,12 +85,16 @@ public class NavAdapterFactory extends AdapterFactoryImpl {
 				return createMenuCatalogAdapter();
 			}
 			@Override
-			public Adapter caseBookmarkablePageMenuItem(BookmarkablePageMenuItem object) {
-				return createBookmarkablePageMenuItemAdapter();
+			public Adapter casePageMenuItem(PageMenuItem object) {
+				return createPageMenuItemAdapter();
 			}
 			@Override
 			public Adapter casePageParameter(Map.Entry<String, String> object) {
 				return createPageParameterAdapter();
+			}
+			@Override
+			public Adapter caseProcessMenuItem(ProcessMenuItem object) {
+				return createProcessMenuItemAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -169,16 +173,16 @@ public class NavAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.nav.BookmarkablePageMenuItem <em>Bookmarkable Page Menu Item</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.nav.PageMenuItem <em>Page Menu Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem
+	 * @see org.soluvas.web.nav.PageMenuItem
 	 * @generated
 	 */
-	public Adapter createBookmarkablePageMenuItemAdapter() {
+	public Adapter createPageMenuItemAdapter() {
 		return null;
 	}
 
@@ -193,6 +197,20 @@ public class NavAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPageParameterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.nav.ProcessMenuItem <em>Process Menu Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.nav.ProcessMenuItem
+	 * @generated
+	 */
+	public Adapter createProcessMenuItemAdapter() {
 		return null;
 	}
 

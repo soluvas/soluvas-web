@@ -39,7 +39,7 @@ public class MenuTracker implements BundleTrackerCustomizer {
 	}
 
 	@Override
-	public MenuCatalog addingBundle(Bundle bundle, BundleEvent event) {
+	public MenuCatalog addingBundle(final Bundle bundle, BundleEvent event) {
 		Enumeration<URL> navEntries = bundle.findEntries("META-INF/nav", "*.xmi", true);
 		while (navEntries != null && navEntries.hasMoreElements()) {
 			URL navEntry = navEntries.nextElement();
@@ -78,6 +78,7 @@ public class MenuTracker implements BundleTrackerCustomizer {
 								return;
 							}
 							MenuItem cloned = EcoreUtil.copy(item);
+							cloned.setBundle(bundle);
 							log.info("Adding menu item {} to menu {}", item.getId(), menu.getId());
 							menu.getItems().add(cloned);
 						}
@@ -105,6 +106,8 @@ public class MenuTracker implements BundleTrackerCustomizer {
 	@Override
 	public void removedBundle(Bundle bundle, BundleEvent event,
 			Object object) {
+		if (object == null)
+			return;
 		MenuCatalog catalog = (MenuCatalog)object;
 
 		List<String> menuItemIds = Lists.transform(catalog.getItems(), new Function<MenuItem, String>() {

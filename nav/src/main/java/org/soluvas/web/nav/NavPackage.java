@@ -4,6 +4,7 @@ package org.soluvas.web.nav;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -139,13 +140,22 @@ public interface NavPackage extends EPackage {
 	int MENU_ITEM__WEIGHT = MENU_ITEM_CONTAINER_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_ITEM__BUNDLE = MENU_ITEM_CONTAINER_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Menu Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_ITEM_FEATURE_COUNT = MENU_ITEM_CONTAINER_FEATURE_COUNT + 4;
+	int MENU_ITEM_FEATURE_COUNT = MENU_ITEM_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.nav.impl.MenuImpl <em>Menu</em>}' class.
@@ -224,14 +234,14 @@ public interface NavPackage extends EPackage {
 
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl <em>Bookmarkable Page Menu Item</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.nav.impl.PageMenuItemImpl <em>Page Menu Item</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl
-	 * @see org.soluvas.web.nav.impl.NavPackageImpl#getBookmarkablePageMenuItem()
+	 * @see org.soluvas.web.nav.impl.PageMenuItemImpl
+	 * @see org.soluvas.web.nav.impl.NavPackageImpl#getPageMenuItem()
 	 * @generated
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM = 4;
+	int PAGE_MENU_ITEM = 4;
 
 	/**
 	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
@@ -240,7 +250,7 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__ITEMS = MENU_ITEM__ITEMS;
+	int PAGE_MENU_ITEM__ITEMS = MENU_ITEM__ITEMS;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -249,7 +259,7 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__ID = MENU_ITEM__ID;
+	int PAGE_MENU_ITEM__ID = MENU_ITEM__ID;
 
 	/**
 	 * The feature id for the '<em><b>Parent Id</b></em>' attribute.
@@ -258,7 +268,7 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__PARENT_ID = MENU_ITEM__PARENT_ID;
+	int PAGE_MENU_ITEM__PARENT_ID = MENU_ITEM__PARENT_ID;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -267,7 +277,7 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__LABEL = MENU_ITEM__LABEL;
+	int PAGE_MENU_ITEM__LABEL = MENU_ITEM__LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -276,7 +286,16 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__WEIGHT = MENU_ITEM__WEIGHT;
+	int PAGE_MENU_ITEM__WEIGHT = MENU_ITEM__WEIGHT;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_MENU_ITEM__BUNDLE = MENU_ITEM__BUNDLE;
 
 	/**
 	 * The feature id for the '<em><b>Page Class</b></em>' attribute.
@@ -285,7 +304,7 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__PAGE_CLASS = MENU_ITEM_FEATURE_COUNT + 0;
+	int PAGE_MENU_ITEM__PAGE_CLASS = MENU_ITEM_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' map.
@@ -294,16 +313,16 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM__PARAMETERS = MENU_ITEM_FEATURE_COUNT + 1;
+	int PAGE_MENU_ITEM__PARAMETERS = MENU_ITEM_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Bookmarkable Page Menu Item</em>' class.
+	 * The number of structural features of the '<em>Page Menu Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOOKMARKABLE_PAGE_MENU_ITEM_FEATURE_COUNT = MENU_ITEM_FEATURE_COUNT + 2;
+	int PAGE_MENU_ITEM_FEATURE_COUNT = MENU_ITEM_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.nav.impl.PageParameterImpl <em>Page Parameter</em>}' class.
@@ -341,6 +360,100 @@ public interface NavPackage extends EPackage {
 	 * @ordered
 	 */
 	int PAGE_PARAMETER_FEATURE_COUNT = 2;
+
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.nav.impl.ProcessMenuItemImpl <em>Process Menu Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.nav.impl.ProcessMenuItemImpl
+	 * @see org.soluvas.web.nav.impl.NavPackageImpl#getProcessMenuItem()
+	 * @generated
+	 */
+	int PROCESS_MENU_ITEM = 6;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__ITEMS = MENU_ITEM__ITEMS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__ID = MENU_ITEM__ID;
+
+	/**
+	 * The feature id for the '<em><b>Parent Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__PARENT_ID = MENU_ITEM__PARENT_ID;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__LABEL = MENU_ITEM__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__WEIGHT = MENU_ITEM__WEIGHT;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__BUNDLE = MENU_ITEM__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Process Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__PROCESS_ID = MENU_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Process Menu Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM_FEATURE_COUNT = MENU_ITEM_FEATURE_COUNT + 1;
+
+
+	/**
+	 * The meta object id for the '<em>Bundle</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osgi.framework.Bundle
+	 * @see org.soluvas.web.nav.impl.NavPackageImpl#getBundle()
+	 * @generated
+	 */
+	int BUNDLE = 7;
 
 
 	/**
@@ -396,6 +509,17 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMenuItem_Weight();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.nav.MenuItem#getBundle <em>Bundle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bundle</em>'.
+	 * @see org.soluvas.web.nav.MenuItem#getBundle()
+	 * @see #getMenuItem()
+	 * @generated
+	 */
+	EAttribute getMenuItem_Bundle();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.nav.Menu <em>Menu</em>}'.
@@ -461,36 +585,36 @@ public interface NavPackage extends EPackage {
 	EReference getMenuCatalog_Menus();
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.nav.BookmarkablePageMenuItem <em>Bookmarkable Page Menu Item</em>}'.
+	 * Returns the meta object for class '{@link org.soluvas.web.nav.PageMenuItem <em>Page Menu Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Bookmarkable Page Menu Item</em>'.
-	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem
+	 * @return the meta object for class '<em>Page Menu Item</em>'.
+	 * @see org.soluvas.web.nav.PageMenuItem
 	 * @generated
 	 */
-	EClass getBookmarkablePageMenuItem();
+	EClass getPageMenuItem();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.nav.BookmarkablePageMenuItem#getPageClass <em>Page Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.nav.PageMenuItem#getPageClass <em>Page Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Page Class</em>'.
-	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem#getPageClass()
-	 * @see #getBookmarkablePageMenuItem()
+	 * @see org.soluvas.web.nav.PageMenuItem#getPageClass()
+	 * @see #getPageMenuItem()
 	 * @generated
 	 */
-	EAttribute getBookmarkablePageMenuItem_PageClass();
+	EAttribute getPageMenuItem_PageClass();
 
 	/**
-	 * Returns the meta object for the map '{@link org.soluvas.web.nav.BookmarkablePageMenuItem#getParameters <em>Parameters</em>}'.
+	 * Returns the meta object for the map '{@link org.soluvas.web.nav.PageMenuItem#getParameters <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the map '<em>Parameters</em>'.
-	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem#getParameters()
-	 * @see #getBookmarkablePageMenuItem()
+	 * @see org.soluvas.web.nav.PageMenuItem#getParameters()
+	 * @see #getPageMenuItem()
 	 * @generated
 	 */
-	EReference getBookmarkablePageMenuItem_Parameters();
+	EReference getPageMenuItem_Parameters();
 
 	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Page Parameter</em>}'.
@@ -525,6 +649,38 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPageParameter_Value();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.nav.ProcessMenuItem <em>Process Menu Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Process Menu Item</em>'.
+	 * @see org.soluvas.web.nav.ProcessMenuItem
+	 * @generated
+	 */
+	EClass getProcessMenuItem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.nav.ProcessMenuItem#getProcessId <em>Process Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Process Id</em>'.
+	 * @see org.soluvas.web.nav.ProcessMenuItem#getProcessId()
+	 * @see #getProcessMenuItem()
+	 * @generated
+	 */
+	EAttribute getProcessMenuItem_ProcessId();
+
+	/**
+	 * Returns the meta object for data type '{@link org.osgi.framework.Bundle <em>Bundle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Bundle</em>'.
+	 * @see org.osgi.framework.Bundle
+	 * @model instanceClass="org.osgi.framework.Bundle"
+	 * @generated
+	 */
+	EDataType getBundle();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -591,6 +747,14 @@ public interface NavPackage extends EPackage {
 		EAttribute MENU_ITEM__WEIGHT = eINSTANCE.getMenuItem_Weight();
 
 		/**
+		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MENU_ITEM__BUNDLE = eINSTANCE.getMenuItem_Bundle();
+
+		/**
 		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.MenuImpl <em>Menu</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -645,14 +809,14 @@ public interface NavPackage extends EPackage {
 		EReference MENU_CATALOG__MENUS = eINSTANCE.getMenuCatalog_Menus();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl <em>Bookmarkable Page Menu Item</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.PageMenuItemImpl <em>Page Menu Item</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl
-		 * @see org.soluvas.web.nav.impl.NavPackageImpl#getBookmarkablePageMenuItem()
+		 * @see org.soluvas.web.nav.impl.PageMenuItemImpl
+		 * @see org.soluvas.web.nav.impl.NavPackageImpl#getPageMenuItem()
 		 * @generated
 		 */
-		EClass BOOKMARKABLE_PAGE_MENU_ITEM = eINSTANCE.getBookmarkablePageMenuItem();
+		EClass PAGE_MENU_ITEM = eINSTANCE.getPageMenuItem();
 
 		/**
 		 * The meta object literal for the '<em><b>Page Class</b></em>' attribute feature.
@@ -660,7 +824,7 @@ public interface NavPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BOOKMARKABLE_PAGE_MENU_ITEM__PAGE_CLASS = eINSTANCE.getBookmarkablePageMenuItem_PageClass();
+		EAttribute PAGE_MENU_ITEM__PAGE_CLASS = eINSTANCE.getPageMenuItem_PageClass();
 
 		/**
 		 * The meta object literal for the '<em><b>Parameters</b></em>' map feature.
@@ -668,7 +832,7 @@ public interface NavPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BOOKMARKABLE_PAGE_MENU_ITEM__PARAMETERS = eINSTANCE.getBookmarkablePageMenuItem_Parameters();
+		EReference PAGE_MENU_ITEM__PARAMETERS = eINSTANCE.getPageMenuItem_Parameters();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.PageParameterImpl <em>Page Parameter</em>}' class.
@@ -695,6 +859,34 @@ public interface NavPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PAGE_PARAMETER__VALUE = eINSTANCE.getPageParameter_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.ProcessMenuItemImpl <em>Process Menu Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.nav.impl.ProcessMenuItemImpl
+		 * @see org.soluvas.web.nav.impl.NavPackageImpl#getProcessMenuItem()
+		 * @generated
+		 */
+		EClass PROCESS_MENU_ITEM = eINSTANCE.getProcessMenuItem();
+
+		/**
+		 * The meta object literal for the '<em><b>Process Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROCESS_MENU_ITEM__PROCESS_ID = eINSTANCE.getProcessMenuItem_ProcessId();
+
+		/**
+		 * The meta object literal for the '<em>Bundle</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osgi.framework.Bundle
+		 * @see org.soluvas.web.nav.impl.NavPackageImpl#getBundle()
+		 * @generated
+		 */
+		EDataType BUNDLE = eINSTANCE.getBundle();
 
 	}
 

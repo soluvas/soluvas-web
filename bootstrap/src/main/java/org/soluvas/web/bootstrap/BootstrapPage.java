@@ -15,7 +15,8 @@ public class BootstrapPage extends WebPage {
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	
 	public BootstrapPage() {
-		add(new Label("pageTitle", "Soluvas Web Framework").setRenderBodyOnly(true));
+		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+		add(new Label("siteTitle", "Soluvas Web Framework").setRenderBodyOnly(true));
 		add(new Header());
 		add(new Footer());
 	}
