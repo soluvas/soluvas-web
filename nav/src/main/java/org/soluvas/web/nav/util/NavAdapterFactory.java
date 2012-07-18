@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.nav.util;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
@@ -84,6 +85,14 @@ public class NavAdapterFactory extends AdapterFactoryImpl {
 				return createMenuCatalogAdapter();
 			}
 			@Override
+			public Adapter caseBookmarkablePageMenuItem(BookmarkablePageMenuItem object) {
+				return createBookmarkablePageMenuItemAdapter();
+			}
+			@Override
+			public Adapter casePageParameter(Map.Entry<String, String> object) {
+				return createPageParameterAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -156,6 +165,34 @@ public class NavAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMenuCatalogAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.nav.BookmarkablePageMenuItem <em>Bookmarkable Page Menu Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem
+	 * @generated
+	 */
+	public Adapter createBookmarkablePageMenuItemAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Page Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Map.Entry
+	 * @generated
+	 */
+	public Adapter createPageParameterAdapter() {
 		return null;
 	}
 

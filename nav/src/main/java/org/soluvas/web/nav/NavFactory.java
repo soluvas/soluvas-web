@@ -49,6 +49,15 @@ public interface NavFactory extends EFactory {
 	MenuCatalog createMenuCatalog();
 
 	/**
+	 * Returns a new object of class '<em>Bookmarkable Page Menu Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Bookmarkable Page Menu Item</em>'.
+	 * @generated
+	 */
+	BookmarkablePageMenuItem createBookmarkablePageMenuItem();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

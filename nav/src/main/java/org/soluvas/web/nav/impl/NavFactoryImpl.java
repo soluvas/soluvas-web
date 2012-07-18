@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.nav.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -59,6 +60,8 @@ public class NavFactoryImpl extends EFactoryImpl implements NavFactory {
 			case NavPackage.MENU_ITEM: return createMenuItem();
 			case NavPackage.MENU: return createMenu();
 			case NavPackage.MENU_CATALOG: return createMenuCatalog();
+			case NavPackage.BOOKMARKABLE_PAGE_MENU_ITEM: return createBookmarkablePageMenuItem();
+			case NavPackage.PAGE_PARAMETER: return (EObject)createPageParameter();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -92,6 +95,26 @@ public class NavFactoryImpl extends EFactoryImpl implements NavFactory {
 	public MenuCatalog createMenuCatalog() {
 		MenuCatalogImpl menuCatalog = new MenuCatalogImpl();
 		return menuCatalog;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BookmarkablePageMenuItem createBookmarkablePageMenuItem() {
+		BookmarkablePageMenuItemImpl bookmarkablePageMenuItem = new BookmarkablePageMenuItemImpl();
+		return bookmarkablePageMenuItem;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, String> createPageParameter() {
+		PageParameterImpl pageParameter = new PageParameterImpl();
+		return pageParameter;
 	}
 
 	/**

@@ -2,13 +2,16 @@
  */
 package org.soluvas.web.nav.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.soluvas.web.nav.BookmarkablePageMenuItem;
 import org.soluvas.web.nav.Menu;
 import org.soluvas.web.nav.MenuCatalog;
 import org.soluvas.web.nav.MenuItem;
@@ -50,6 +53,20 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 	 * @generated
 	 */
 	private EClass menuCatalogEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass bookmarkablePageMenuItemEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pageParameterEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -216,6 +233,60 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBookmarkablePageMenuItem() {
+		return bookmarkablePageMenuItemEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBookmarkablePageMenuItem_PageClass() {
+		return (EAttribute)bookmarkablePageMenuItemEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBookmarkablePageMenuItem_Parameters() {
+		return (EReference)bookmarkablePageMenuItemEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPageParameter() {
+		return pageParameterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageParameter_Key() {
+		return (EAttribute)pageParameterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageParameter_Value() {
+		return (EAttribute)pageParameterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NavFactory getNavFactory() {
 		return (NavFactory)getEFactoryInstance();
 	}
@@ -253,6 +324,14 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 
 		menuCatalogEClass = createEClass(MENU_CATALOG);
 		createEReference(menuCatalogEClass, MENU_CATALOG__MENUS);
+
+		bookmarkablePageMenuItemEClass = createEClass(BOOKMARKABLE_PAGE_MENU_ITEM);
+		createEAttribute(bookmarkablePageMenuItemEClass, BOOKMARKABLE_PAGE_MENU_ITEM__PAGE_CLASS);
+		createEReference(bookmarkablePageMenuItemEClass, BOOKMARKABLE_PAGE_MENU_ITEM__PARAMETERS);
+
+		pageParameterEClass = createEClass(PAGE_PARAMETER);
+		createEAttribute(pageParameterEClass, PAGE_PARAMETER__KEY);
+		createEAttribute(pageParameterEClass, PAGE_PARAMETER__VALUE);
 	}
 
 	/**
@@ -286,6 +365,7 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 		menuItemEClass.getESuperTypes().add(this.getMenuItemContainer());
 		menuEClass.getESuperTypes().add(this.getMenuItemContainer());
 		menuCatalogEClass.getESuperTypes().add(this.getMenuItemContainer());
+		bookmarkablePageMenuItemEClass.getESuperTypes().add(this.getMenuItem());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(menuItemEClass, MenuItem.class, "MenuItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -302,6 +382,14 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 
 		initEClass(menuCatalogEClass, MenuCatalog.class, "MenuCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenuCatalog_Menus(), this.getMenu(), null, "menus", null, 0, -1, MenuCatalog.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(bookmarkablePageMenuItemEClass, BookmarkablePageMenuItem.class, "BookmarkablePageMenuItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBookmarkablePageMenuItem_PageClass(), ecorePackage.getEString(), "pageClass", null, 1, 1, BookmarkablePageMenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBookmarkablePageMenuItem_Parameters(), this.getPageParameter(), null, "parameters", null, 0, -1, BookmarkablePageMenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pageParameterEClass, Map.Entry.class, "PageParameter", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPageParameter_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageParameter_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

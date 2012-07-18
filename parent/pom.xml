@@ -66,6 +66,17 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.apache.karaf.shell</groupId>
+				<artifactId>org.apache.karaf.shell.console</artifactId>
+				<version>2.2.8</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.framework</artifactId>
+				<version>3.0.9</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
 				<version>3.16.1-GA</version>

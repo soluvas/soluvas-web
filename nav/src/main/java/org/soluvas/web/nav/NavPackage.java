@@ -224,6 +224,126 @@ public interface NavPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl <em>Bookmarkable Page Menu Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl
+	 * @see org.soluvas.web.nav.impl.NavPackageImpl#getBookmarkablePageMenuItem()
+	 * @generated
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM = 4;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__ITEMS = MENU_ITEM__ITEMS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__ID = MENU_ITEM__ID;
+
+	/**
+	 * The feature id for the '<em><b>Parent Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__PARENT_ID = MENU_ITEM__PARENT_ID;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__LABEL = MENU_ITEM__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__WEIGHT = MENU_ITEM__WEIGHT;
+
+	/**
+	 * The feature id for the '<em><b>Page Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__PAGE_CLASS = MENU_ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM__PARAMETERS = MENU_ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Bookmarkable Page Menu Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOKMARKABLE_PAGE_MENU_ITEM_FEATURE_COUNT = MENU_ITEM_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.nav.impl.PageParameterImpl <em>Page Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.nav.impl.PageParameterImpl
+	 * @see org.soluvas.web.nav.impl.NavPackageImpl#getPageParameter()
+	 * @generated
+	 */
+	int PAGE_PARAMETER = 5;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_PARAMETER__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_PARAMETER__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Page Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_PARAMETER_FEATURE_COUNT = 2;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.nav.MenuItem <em>Menu Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -339,6 +459,72 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMenuCatalog_Menus();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.nav.BookmarkablePageMenuItem <em>Bookmarkable Page Menu Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Bookmarkable Page Menu Item</em>'.
+	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem
+	 * @generated
+	 */
+	EClass getBookmarkablePageMenuItem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.nav.BookmarkablePageMenuItem#getPageClass <em>Page Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Page Class</em>'.
+	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem#getPageClass()
+	 * @see #getBookmarkablePageMenuItem()
+	 * @generated
+	 */
+	EAttribute getBookmarkablePageMenuItem_PageClass();
+
+	/**
+	 * Returns the meta object for the map '{@link org.soluvas.web.nav.BookmarkablePageMenuItem#getParameters <em>Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Parameters</em>'.
+	 * @see org.soluvas.web.nav.BookmarkablePageMenuItem#getParameters()
+	 * @see #getBookmarkablePageMenuItem()
+	 * @generated
+	 */
+	EReference getBookmarkablePageMenuItem_Parameters();
+
+	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Page Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Page Parameter</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyDataType="org.eclipse.emf.ecore.EString"
+	 *        valueDataType="org.eclipse.emf.ecore.EString"
+	 * @generated
+	 */
+	EClass getPageParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getPageParameter()
+	 * @generated
+	 */
+	EAttribute getPageParameter_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getPageParameter()
+	 * @generated
+	 */
+	EAttribute getPageParameter_Value();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -457,6 +643,58 @@ public interface NavPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MENU_CATALOG__MENUS = eINSTANCE.getMenuCatalog_Menus();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl <em>Bookmarkable Page Menu Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.nav.impl.BookmarkablePageMenuItemImpl
+		 * @see org.soluvas.web.nav.impl.NavPackageImpl#getBookmarkablePageMenuItem()
+		 * @generated
+		 */
+		EClass BOOKMARKABLE_PAGE_MENU_ITEM = eINSTANCE.getBookmarkablePageMenuItem();
+
+		/**
+		 * The meta object literal for the '<em><b>Page Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BOOKMARKABLE_PAGE_MENU_ITEM__PAGE_CLASS = eINSTANCE.getBookmarkablePageMenuItem_PageClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BOOKMARKABLE_PAGE_MENU_ITEM__PARAMETERS = eINSTANCE.getBookmarkablePageMenuItem_Parameters();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.PageParameterImpl <em>Page Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.nav.impl.PageParameterImpl
+		 * @see org.soluvas.web.nav.impl.NavPackageImpl#getPageParameter()
+		 * @generated
+		 */
+		EClass PAGE_PARAMETER = eINSTANCE.getPageParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_PARAMETER__KEY = eINSTANCE.getPageParameter_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_PARAMETER__VALUE = eINSTANCE.getPageParameter_Value();
 
 	}
 

@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
  * Tracks nav files and registers them with the menu repository. 
  * @author ceefour
  */
-public class MenuTracker implements BundleTrackerCustomizer<MenuCatalog> {
+public class MenuTracker implements BundleTrackerCustomizer {
 
 	private transient Logger log = LoggerFactory.getLogger(MenuTracker.class);
 	private MenuRepository menuRepository;
@@ -99,12 +99,14 @@ public class MenuTracker implements BundleTrackerCustomizer<MenuCatalog> {
 
 	@Override
 	public void modifiedBundle(Bundle bundle, BundleEvent event,
-			MenuCatalog object) {
+			Object object) {
 	}
 
 	@Override
 	public void removedBundle(Bundle bundle, BundleEvent event,
-			MenuCatalog catalog) {
+			Object object) {
+		MenuCatalog catalog = (MenuCatalog)object;
+
 		List<String> menuItemIds = Lists.transform(catalog.getItems(), new Function<MenuItem, String>() {
 			@Override @Nullable
 			public String apply(@Nullable MenuItem input) {

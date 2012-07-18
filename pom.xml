@@ -14,12 +14,17 @@
 
 	<modules>
 		<module>parent</module>
+		<!-- Foundation -->
 		<module>jquery</module>
 		<module>jqueryui</module>
 		<module>jquerynotify</module>
 		<module>backbone</module>
 		<module>bootstrap</module>
 		<module>stomp</module>
+		<!-- Structure -->
+		<module>nav</module>
+		<module>nav.shell</module>
+		<module>nav.ui</module>
 	</modules>
 
 </project>
