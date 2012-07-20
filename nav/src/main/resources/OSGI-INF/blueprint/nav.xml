@@ -8,15 +8,27 @@
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0
         http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0">
 
-	<bean id="menuRepo" class="org.soluvas.web.nav.InMemoryMenuRepository"/>
-	<service ref="menuRepo" auto-export="interfaces"/>
+<!-- 	<bean id="menuRepo" class="org.soluvas.web.nav.InMemoryMenuRepository"/> -->
+
+	<bean id="menuRepo" class="org.soluvas.web.nav.OsgiMenuRepository"/>
+	<reference-list interface="org.soluvas.web.nav.Menu" availability="optional">
+		<reference-listener ref="menuRepo" bind-method="add" unbind-method="remove"/>
+	</reference-list>
+	<reference-list interface="org.soluvas.web.nav.MenuItem" availability="optional">
+		<reference-listener ref="menuRepo" bind-method="add" unbind-method="remove"/>
+	</reference-list>
+
+ 	<service ref="menuRepo" auto-export="interfaces"/>
 	
-	<bean id="menuTracker" class="org.osgi.util.tracker.BundleTracker"  init-method="open" destroy-method="close">
+	<bean id="menuTracker" class="org.osgi.util.tracker.BundleTracker" init-method="open" destroy-method="close">
 		<argument ref="blueprintBundleContext"/>
 		<argument value="32"/>
 		<argument>
-			<bean class="org.soluvas.web.nav.MenuTracker">
-				<argument ref="menuRepo"/>
+<!-- 			<bean class="org.soluvas.web.nav.MenuTracker"> -->
+<!-- 				<argument ref="menuRepo"/> -->
+<!-- 			</bean> -->
+			<bean class="org.soluvas.web.nav.OsgiMenuTracker">
+				<argument ref="blueprintBundleContext"/>
 			</bean>
 		</argument>
 	</bean>

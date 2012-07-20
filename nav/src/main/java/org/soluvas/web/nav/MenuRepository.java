@@ -13,10 +13,12 @@ import org.soluvas.async.Callback;
  */
 public interface MenuRepository {
 	
-	public void add(Menu menu);
-	public void delete(String id);
-	public void findOne(String id, Callback<Menu> callback);
-	public void findAll(Callback<List<Menu>> callback);
-	public void findAllIds(Callback<List<String>> callback);
+	void add(Menu menu);
+	void delete(String id);
+	void findOne(String id, Callback<Menu> callback);
+	void findAll(Callback<List<Menu>> callback);
+	void findAllIds(Callback<List<String>> callback);
+	void remove(MenuItem menuItem);
+	void remove(Menu menu);
 
 }

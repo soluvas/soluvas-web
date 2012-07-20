@@ -11,8 +11,10 @@ import org.soluvas.async.Callback;
 import com.google.common.collect.ImmutableList;
 
 /**
+ * @deprecated Use {@link OsgiMenuRepository}.
  * @author ceefour
  */
+@Deprecated
 public class InMemoryMenuRepository implements MenuRepository {
 
 	private transient Logger log = LoggerFactory.getLogger(InMemoryMenuRepository.class);
@@ -53,6 +55,18 @@ public class InMemoryMenuRepository implements MenuRepository {
 	public void delete(String id) {
 		log.info("Deleting menu {}", id);
 		menus.remove(id);
+	}
+
+	@Override
+	public void remove(MenuItem menuItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove(Menu menu) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

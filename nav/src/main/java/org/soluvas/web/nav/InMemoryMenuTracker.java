@@ -24,15 +24,17 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 /**
- * Tracks nav files and registers them with the menu repository. 
+ * Tracks nav files and registers them with the menu repository.
+ * @deprecated Use {@link OsgiMenuTracker}. 
  * @author ceefour
  */
-public class MenuTracker implements BundleTrackerCustomizer {
+@Deprecated
+public class InMemoryMenuTracker implements BundleTrackerCustomizer {
 
-	private transient Logger log = LoggerFactory.getLogger(MenuTracker.class);
+	private transient Logger log = LoggerFactory.getLogger(InMemoryMenuTracker.class);
 	private MenuRepository menuRepository;
 	
-	public MenuTracker(MenuRepository menuRepository) {
+	public InMemoryMenuTracker(MenuRepository menuRepository) {
 		super();
 		this.menuRepository = menuRepository;
 		log.info("Menu tracker loading EPackage {}", NavPackage.eINSTANCE);
