@@ -32,13 +32,20 @@ import com.google.common.collect.Ordering;
 public class BootstrapPage extends WebPage {
 
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
-	@PaxWicketBean(name="site") private Site site;
-	@PaxWicketBean(name="cssLinks") private List<CssLink> cssLinks;
-	@PaxWicketBean(name="headJavaScripts") private List<JavaScriptLink> headJavaScripts;
-	@PaxWicketBean(name="footerJavaScripts") private List<JavaScriptLink> footerJavaScripts;
-	@PaxWicketBean(name="footerJavaScriptSources") private List<JavaScriptSource> footerJavaScriptSources;
-	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory<?>> sidebarBlocks;
-	@PaxWicketBean(name="beforeFooterJsBlocks") private List<ComponentFactory<?>> beforeFooterJsBlocks;
+	@PaxWicketBean(name="site")
+	private Site site;
+	@PaxWicketBean(name="cssLinks")
+	private List<CssLink> cssLinks;
+	@PaxWicketBean(name="headJavaScripts")
+	private List<JavaScriptLink> headJavaScripts;
+	@PaxWicketBean(name="footerJavaScripts")
+	private List<JavaScriptLink> footerJavaScripts;
+	@PaxWicketBean(name="footerJavaScriptSources")
+	private List<JavaScriptSource> footerJavaScriptSources;
+	@PaxWicketBean(name="sidebarBlocks")
+	private List<ComponentFactory<?>> sidebarBlocks;
+	@PaxWicketBean(name="beforeFooterJsBlocks")
+	private List<ComponentFactory<?>> beforeFooterJsBlocks;
 	
 	@Override
 	public void renderHead(IHeaderResponse response) {
