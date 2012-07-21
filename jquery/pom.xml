@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.soluvas</groupId>
+		<artifactId>org.soluvas.web.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>org.soluvas.web.jquery</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+	<description>jQuery library.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ops4j.pax.web</groupId>
+			<artifactId>pax-web-extender-whiteboard</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.wicket</groupId>
+			<artifactId>org.ops4j.pax.wicket.service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.wicket</groupId>
+			<artifactId>org.ops4j.pax.wicket.test</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<_wab>src/main/webapp</_wab>
+						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
+						<Import-Package>
+							org.ops4j.pax.web.extender.whiteboard;version="1.0.0",
+							org.ops4j.pax.web.extender.whiteboard.runtime;version="1.0.0",
+							javax.servlet,javax.servlet.http,
+							org.ops4j.pax.wicket.util.proxy,
+							net.sf.cglib.proxy;version="[2,3)",
+							net.sf.cglib.core;version="[2,3)",
+							net.sf.cglib.reflect;version="[2,3)",
+							*</Import-Package>
+						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
+					</instructions>
+				</configuration>
+			</plugin>
+		
+		</plugins>
+	</build>
+
+</project>

@@ -112,7 +112,7 @@ public class OsgiMenuTracker implements BundleTrackerCustomizer {
 		log.info("Bundle {} removed, removing {} ServiceRegistration objects", 
 				new Object[] { bundle, regs.size() });
 		
-		for (ServiceRegistration<?> ref : regs) {
+		for (ServiceRegistration ref : regs) {
 			ref.unregister();
 		}
 	}

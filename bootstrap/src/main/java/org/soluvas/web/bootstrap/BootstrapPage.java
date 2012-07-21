@@ -1,9 +1,12 @@
 package org.soluvas.web.bootstrap;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -14,7 +17,10 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ComponentFactory;
+import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.Site;
+
+import com.google.common.collect.Ordering;
 
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
@@ -25,14 +31,34 @@ public class BootstrapPage extends WebPage {
 
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	@PaxWicketBean(name="site") private Site site;
-	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory> sidebarBlocks;
+	@PaxWicketBean(name="headJavaScripts") private List<JavaScriptLink> headJavaScripts;
+	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory<?>> sidebarBlocks;
+	
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		super.renderHead(response);
+		log.debug("Page {} has {} head JavaScript links", getClass().getName(), headJavaScripts.size());
+		Ordering<JavaScriptLink> ordering = Ordering.from(new Comparator<JavaScriptLink>() {
+			public int compare(JavaScriptLink o1, JavaScriptLink o2) {
+				return o1.getWeight() - o2.getWeight();
+			};
+		});
+		List<JavaScriptLink> sortedJses = ordering.immutableSortedCopy(headJavaScripts);
+		for (JavaScriptLink js : sortedJses) {
+			response.renderJavaScriptReference(js.getSrc());
+		}
+	}
 	
 	public BootstrapPage() {
+		// HEAD
 		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
+		
+		// BODY
+		
 //		add(new Label("logoText", site.getLogoText()).setRenderBodyOnly(true));
 //		add(new Label("logoAlt", site.getLogoAlt()).setRenderBodyOnly(true));
-		add(new BookmarkablePageLink("homeLink", getApplication().getHomePage()) {
+		add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()) {
 			{
 				this.setBody(new Model<String>(site.getLogoText()));
 			}
@@ -46,10 +72,10 @@ public class BootstrapPage extends WebPage {
 		add(new Header());
 		
 		log.info("You have {} sidebar blocks", sidebarBlocks.size());
-		add(new ListView<ComponentFactory>("sidebarBlocks", sidebarBlocks) {
+		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
 			@Override
-			protected void populateItem(ListItem<ComponentFactory> item) {
-				final ComponentFactory sidebarBlockFactory = (ComponentFactory) item.getModelObject();
+			protected void populateItem(ListItem<ComponentFactory<?>> item) {
+				final ComponentFactory<?> sidebarBlockFactory = (ComponentFactory<?>) item.getModelObject();
 				Component sidebarBlock = sidebarBlockFactory.create("block");
 				item.add(sidebarBlock);
 			}
