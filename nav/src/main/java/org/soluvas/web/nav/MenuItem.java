@@ -4,6 +4,8 @@ package org.soluvas.web.nav;
 
 import org.osgi.framework.Bundle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -170,8 +172,8 @@ public interface MenuItem extends MenuItemContainer {
 	 * @see #setBundle(Bundle)
 	 * @see org.soluvas.web.nav.NavPackage#getMenuItem_Bundle()
 	 * @model dataType="org.soluvas.web.nav.Bundle"
-	 * @generated
 	 */
+	@JsonIgnore
 	Bundle getBundle();
 
 	/**
@@ -180,8 +182,8 @@ public interface MenuItem extends MenuItemContainer {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Bundle</em>' attribute.
 	 * @see #getBundle()
-	 * @generated
 	 */
+	@JsonIgnore
 	void setBundle(Bundle value);
 
 	/**

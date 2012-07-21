@@ -10,7 +10,17 @@
 
 <!-- 	<bean id="menuRepo" class="org.soluvas.web.nav.InMemoryMenuRepository"/> -->
 
-	<bean id="menuRepo" class="org.soluvas.web.nav.OsgiMenuRepository"/>
+	<bean id="amqpFactory" class="com.rabbitmq.client.ConnectionFactory">
+		<property name="uri" value="amqp://guest:guest@localhost/%2F"/>
+	</bean>
+	<bean id="amqp" factory-ref="amqpFactory" factory-method="newConnection"/>
+	<bean id="liveMenuRepositoryAdapter" class="org.soluvas.web.nav.live.LiveMenuRepositoryAdapter" destroy-method="destroy">
+		<argument ref="amqp"/>
+		<argument value="menu.main"/>
+	</bean>
+	<bean id="menuRepo" class="org.soluvas.web.nav.OsgiMenuRepository">
+		<argument ref="liveMenuRepositoryAdapter"/>
+	</bean>
 	<reference-list interface="org.soluvas.web.nav.Menu" availability="optional">
 		<reference-listener ref="menuRepo" bind-method="add" unbind-method="remove"/>
 	</reference-list>

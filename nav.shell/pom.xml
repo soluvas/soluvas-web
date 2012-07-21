@@ -23,7 +23,7 @@
 
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.async</artifactId>
+			<artifactId>soluvas-async</artifactId>
 		</dependency>
 		
 		<dependency>
