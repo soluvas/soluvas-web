@@ -10,4 +10,6 @@
 
 	<reference id="site" interface="org.soluvas.web.site.Site"/>
 	
+	<reference-list id="sidebarBlocks" interface="org.soluvas.web.site.SidebarBlock" availability="optional"/>
+	
 </blueprint>

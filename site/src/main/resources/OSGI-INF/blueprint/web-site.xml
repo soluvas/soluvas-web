@@ -34,4 +34,12 @@
 		</bean>
 	</service>
 	
+<!-- 	<reference id="wicketApplicationFactory" interface="org.apache.wicket.protocol.http.IWebApplicationFactory" availability="optional"/> -->
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.SidebarNavFactory">
+<!-- 			<argument value="block"/> -->
+		</bean>
+	</service>
+	
 </blueprint>
