@@ -1,0 +1,7 @@
+h1. jQuery UI Notify
+
+Originally developed by by Eric Hynds.
+
+Website: http://www.erichynds.com/examples/jquery-notify/
+
+Documentation: http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/

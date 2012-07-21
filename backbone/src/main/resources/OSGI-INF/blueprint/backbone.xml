@@ -1,0 +1,37 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+    xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:wicket="http://www.ops4j.org/schema/wicket"
+    xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0
+        http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0
+        http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0">
+
+	<service auto-export="interfaces">
+		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/static/backbone"/>
+			<property name="path" value="/webresources"/>
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="footer"/>
+		</service-properties>
+		<bean class="org.soluvas.web.site.JavaScriptLinkImpl">
+			<argument value="/static/backbone/underscore.js"/>
+			<argument value="-10"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="footer"/>
+		</service-properties>
+		<bean class="org.soluvas.web.site.JavaScriptLinkImpl">
+			<argument value="/static/backbone/backbone.js"/>
+			<argument value="-5"/>
+		</bean>
+	</service>
+
+</blueprint>
