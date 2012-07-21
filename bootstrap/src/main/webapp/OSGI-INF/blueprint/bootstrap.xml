@@ -23,5 +23,7 @@
 		filter="(region=before-footer-js)"/>
 	<reference-list id="footerJavaScripts" interface="org.soluvas.web.site.JavaScriptLink" availability="optional"
 		filter="(region=footer)"/>
+	<reference-list id="footerJavaScriptSources" interface="org.soluvas.web.site.JavaScriptSource" availability="optional"
+		filter="(region=footer)"/>
 
 </blueprint>

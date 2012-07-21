@@ -39,4 +39,14 @@
 		<bean class="org.soluvas.web.jquerynotify.NotifyPanelFactory"/>
 	</service>
 
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="footer"/>
+		</service-properties>
+		<bean class="org.soluvas.web.site.JavaScriptSourceImpl">
+			<argument value="$(document).ready(function() { $('#notify-container').notify(); });"/>
+			<argument value="0"/>
+		</bean>
+	</service>
+
 </blueprint>

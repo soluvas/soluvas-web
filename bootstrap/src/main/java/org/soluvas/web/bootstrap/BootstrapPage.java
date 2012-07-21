@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
+import org.soluvas.web.site.JavaScriptSource;
 import org.soluvas.web.site.Site;
 
 import com.google.common.collect.Ordering;
@@ -35,6 +36,7 @@ public class BootstrapPage extends WebPage {
 	@PaxWicketBean(name="cssLinks") private List<CssLink> cssLinks;
 	@PaxWicketBean(name="headJavaScripts") private List<JavaScriptLink> headJavaScripts;
 	@PaxWicketBean(name="footerJavaScripts") private List<JavaScriptLink> footerJavaScripts;
+	@PaxWicketBean(name="footerJavaScriptSources") private List<JavaScriptSource> footerJavaScriptSources;
 	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory<?>> sidebarBlocks;
 	@PaxWicketBean(name="beforeFooterJsBlocks") private List<ComponentFactory<?>> beforeFooterJsBlocks;
 	
@@ -131,6 +133,23 @@ public class BootstrapPage extends WebPage {
 				});
 			}
 		});
+		
+		log.debug("Page {} has {} footer JavaScript sources", getClass().getName(), footerJavaScriptSources.size());
+		Ordering<JavaScriptSource> jsourcesOrdering = Ordering.from(new Comparator<JavaScriptSource>() {
+			public int compare(JavaScriptSource o1, JavaScriptSource o2) {
+				return o1.getWeight() - o2.getWeight();
+			};
+		});
+		List<JavaScriptSource> sortedJsources = jsourcesOrdering.immutableSortedCopy(footerJavaScriptSources);
+		add(new ListView<JavaScriptSource>("footerJavaScriptSources", sortedJsources) {
+			@Override
+			protected void populateItem(ListItem<JavaScriptSource> item) {
+				item.setRenderBodyOnly(true);
+				final JavaScriptSource js = item.getModelObject();
+				item.add(new Label("js", js.getBody()).setEscapeModelStrings(false));
+			}
+		});
+		
 	}
 
 }

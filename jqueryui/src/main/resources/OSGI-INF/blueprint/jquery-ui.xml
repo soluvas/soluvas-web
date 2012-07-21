@@ -27,7 +27,7 @@
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/jquery-ui/development-bundle/ui-lightness/jquery-ui-1.8.20.custom.css"/>
+			<argument value="/static/jquery-ui/development-bundle/themes/ui-lightness/jquery-ui-1.8.20.custom.css"/>
 			<argument value="0"/>
 		</bean>
 	</service>
