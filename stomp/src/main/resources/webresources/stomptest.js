@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 			return this;
 		},
 		onRemove: function(item, collection) {
-			this.remove();
+			this.$el.slideUp('', this.remove);
 		}
 	});
 	SidebarNavView = Backbone.View.extend({
@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
 			});
 		},
 		addItemView: function(item, collection) {
-			var el = $('<li>');
+			var el = $('<li>').hide();
 			var view = new SidebarMenuItemView({model: item, el: el}).render();
 			var newIndex = collection.indexOf(item);
 			var nextItem = collection.at(newIndex + 1);
@@ -51,6 +51,7 @@ jQuery(document).ready(function() {
 			} else {
 				nextItem.view.$el.before(el);
 			}
+			el.slideDown();
 		},
 	});
 	sidebarMenuItems = new MenuItemList();
