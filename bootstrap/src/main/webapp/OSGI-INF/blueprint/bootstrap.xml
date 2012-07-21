@@ -18,6 +18,9 @@
 	<reference-list id="cssLinks" interface="org.soluvas.web.site.CssLink" availability="optional"/>
 	<reference-list id="headJavaScripts" interface="org.soluvas.web.site.JavaScriptLink" availability="optional"
 		filter="(region=head)"/>
+		
+	<reference-list id="beforeFooterJsBlocks" interface="org.soluvas.web.site.ComponentFactory"
+		filter="(region=before-footer-js)"/>
 	<reference-list id="footerJavaScripts" interface="org.soluvas.web.site.JavaScriptLink" availability="optional"
 		filter="(region=footer)"/>
 

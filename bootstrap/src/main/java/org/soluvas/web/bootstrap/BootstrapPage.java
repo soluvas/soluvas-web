@@ -36,6 +36,7 @@ public class BootstrapPage extends WebPage {
 	@PaxWicketBean(name="headJavaScripts") private List<JavaScriptLink> headJavaScripts;
 	@PaxWicketBean(name="footerJavaScripts") private List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory<?>> sidebarBlocks;
+	@PaxWicketBean(name="beforeFooterJsBlocks") private List<ComponentFactory<?>> beforeFooterJsBlocks;
 	
 	@Override
 	public void renderHead(IHeaderResponse response) {
@@ -90,14 +91,26 @@ public class BootstrapPage extends WebPage {
 		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
 			@Override
 			protected void populateItem(ListItem<ComponentFactory<?>> item) {
-				final ComponentFactory<?> sidebarBlockFactory = (ComponentFactory<?>) item.getModelObject();
-				Component sidebarBlock = sidebarBlockFactory.create("block");
-				item.add(sidebarBlock);
+				item.setRenderBodyOnly(true);
+				final ComponentFactory<?> compFactory = (ComponentFactory<?>) item.getModelObject();
+				Component block = compFactory.create("block");
+				item.add(block);
 			}
 		});
 		
 		add(new Footer(new Model<String>(site.getFooterText())));
 
+		log.info("Page {} has {} before-footer-js blocks", getClass().getName(), beforeFooterJsBlocks.size());
+		add(new ListView<ComponentFactory<?>>("beforeFooterJsBlocks", beforeFooterJsBlocks) {
+			@Override
+			protected void populateItem(ListItem<ComponentFactory<?>> item) {
+				item.setRenderBodyOnly(true);
+				final ComponentFactory<?> compFactory = (ComponentFactory<?>) item.getModelObject();
+				Component block = compFactory.create("block");
+				item.add(block);
+			}
+		});
+		
 		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());
 		Ordering<JavaScriptLink> jsOrdering = Ordering.from(new Comparator<JavaScriptLink>() {
 			public int compare(JavaScriptLink o1, JavaScriptLink o2) {

@@ -87,25 +87,10 @@
 		</div>
 		<hr />
 		<footer wicket:id="footer"><small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small></footer>
-	</div>
+	</div><!--/.fluid-container-->
 
-	<!--/.fluid-container-->
-
-	<!-- set the container hidden to avoid a flash of unstyled content
-	when the page first loads -->
-	<div id="growl-container" style="display:none; margin-top: 60px">
-
-	    <!--
-	    Later on, you can choose which template to use by referring to the
-	    ID assigned to each template.  Alternatively, you could refer
-	    to each template by index, so in this example, "basic-tempate" is
-	    index 0 and "advanced-template" is index 1.
-	    -->
-	    <div id="basic-template">
-	        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
-	        <p><h:outputText value="#"/>{text}</p>
-	    </div>
-
+	<div wicket:id="beforeFooterJsBlocks">
+		<div wicket:id="block">[beforeFooterJsBlocks]</div>
 	</div>
 
 	<!-- Placed at the end of the document so the pages load faster -->
