@@ -14,7 +14,9 @@
 
 	<modules>
 		<module>parent</module>
-		<!-- Foundation -->
+		<!-- Core -->
+		<module>site</module>
+		<!-- UI Foundation -->
 		<module>jquery</module>
 		<module>jqueryui</module>
 		<module>jquerynotify</module>
