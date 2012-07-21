@@ -14,6 +14,7 @@ If not set, will attach to the parent (container).</xsd:documentation>
         <xsd:attribute name="label" type="xsd:string"/>
         <xsd:attribute name="weight" type="xsd:int"/>
         <xsd:attribute name="bundle" type="xsd:string"/>
+        <xsd:attribute name="iconName" type="xsd:string"/>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

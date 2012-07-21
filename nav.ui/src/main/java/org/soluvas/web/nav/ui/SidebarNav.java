@@ -41,7 +41,13 @@ public class SidebarNav extends Panel {
 		add( new ListView<MenuItem>("menuItems", menuItemsModel) {
 			@Override
 			protected void populateItem(ListItem<MenuItem> listItem) {
-				MenuItem menuItem = listItem.getModelObject();
+				final MenuItem menuItem = listItem.getModelObject();
+				listItem.add(new Label("glyph") {
+					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
+						if (menuItem.getIconName() != null)
+							tag.getAttributes().put("class", "icon-" + menuItem.getIconName());
+					};
+				});
 				if (menuItem instanceof PageMenuItem) {
 					final PageMenuItem pageMi = (PageMenuItem) menuItem;
 					Class<Page> pageClass;

@@ -23,6 +23,10 @@
         <element xmi:type="ecore:EAttribute" href="nav.ecore#//MenuItem/bundle"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_UfL2odDeEeGHp8Q9IIYQ8A"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_u1JuINLpEeGGS8SDcR3tBw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="nav.ecore#//MenuItem/iconName"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_u1JuIdLpEeGGS8SDcR3tBw"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_69F4QswCEeGi26QEPtUoEQ"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_69F4Q8wCEeGi26QEPtUoEQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_69F4RMwCEeGi26QEPtUoEQ"/>

@@ -18,6 +18,7 @@ import org.osgi.framework.Bundle;
  *   <li>{@link org.soluvas.web.nav.MenuItem#getLabel <em>Label</em>}</li>
  *   <li>{@link org.soluvas.web.nav.MenuItem#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.soluvas.web.nav.MenuItem#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.nav.MenuItem#getIconName <em>Icon Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -182,5 +183,31 @@ public interface MenuItem extends MenuItemContainer {
 	 * @generated
 	 */
 	void setBundle(Bundle value);
+
+	/**
+	 * Returns the value of the '<em><b>Icon Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Icon Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Icon Name</em>' attribute.
+	 * @see #setIconName(String)
+	 * @see org.soluvas.web.nav.NavPackage#getMenuItem_IconName()
+	 * @model
+	 * @generated
+	 */
+	String getIconName();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.nav.MenuItem#getIconName <em>Icon Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Icon Name</em>' attribute.
+	 * @see #getIconName()
+	 * @generated
+	 */
+	void setIconName(String value);
 
 } // MenuItem

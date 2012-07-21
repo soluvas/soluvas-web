@@ -36,6 +36,7 @@ import org.soluvas.web.nav.NavPackage;
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getIconName <em>Icon Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -160,6 +161,26 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * @ordered
 	 */
 	protected Bundle bundle = BUNDLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getIconName() <em>Icon Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ICON_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getIconName() <em>Icon Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String iconName = ICON_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -327,6 +348,27 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getIconName() {
+		return iconName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIconName(String newIconName) {
+		String oldIconName = iconName;
+		iconName = newIconName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, NavPackage.MENU_ITEM__ICON_NAME, oldIconName, iconName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -356,6 +398,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 				return getWeight();
 			case NavPackage.MENU_ITEM__BUNDLE:
 				return getBundle();
+			case NavPackage.MENU_ITEM__ICON_NAME:
+				return getIconName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -388,6 +432,9 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 			case NavPackage.MENU_ITEM__BUNDLE:
 				setBundle((Bundle)newValue);
 				return;
+			case NavPackage.MENU_ITEM__ICON_NAME:
+				setIconName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -418,6 +465,9 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 			case NavPackage.MENU_ITEM__BUNDLE:
 				setBundle(BUNDLE_EDEFAULT);
 				return;
+			case NavPackage.MENU_ITEM__ICON_NAME:
+				setIconName(ICON_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -442,6 +492,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 				return weight != WEIGHT_EDEFAULT;
 			case NavPackage.MENU_ITEM__BUNDLE:
 				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case NavPackage.MENU_ITEM__ICON_NAME:
+				return ICON_NAME_EDEFAULT == null ? iconName != null : !ICON_NAME_EDEFAULT.equals(iconName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -466,6 +518,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 		result.append(weight);
 		result.append(", bundle: ");
 		result.append(bundle);
+		result.append(", iconName: ");
+		result.append(iconName);
 		result.append(')');
 		return result.toString();
 	}
