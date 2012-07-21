@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.eclipse.emf.ecore.EPackage.Registry;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -52,7 +54,9 @@ public class OsgiMenuTracker implements BundleTrackerCustomizer {
 		while (navEntries != null && navEntries.hasMoreElements()) {
 			URL navEntry = navEntries.nextElement();
 			log.info("Loading nav from {}", navEntry);
+			Registry.INSTANCE.put(NavPackage.eNS_URI, NavPackage.eINSTANCE);
 			XMIResourceImpl resource = new XMIResourceImpl();
+			log.trace("Package registry: {}", Registry.INSTANCE.keySet());
 			try {
 				resource.load(navEntry.openStream(), new HashMap<String, Object>());
 				MenuCatalog catalog = (MenuCatalog) resource.getContents().get(0);

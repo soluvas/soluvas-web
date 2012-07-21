@@ -15,6 +15,7 @@ import org.soluvas.web.nav.MenuItem;
 import org.soluvas.web.nav.MenuItemContainer;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -59,6 +60,10 @@ public class LiveMenuRepositoryAdapter extends EContentAdapter {
 					Preconditions.checkNotNull(channel, "AMQP channel must not be null");
 					Preconditions.checkNotNull(pushJson, "pushJson must not be null");
 					channel.basicPublish("amq.topic", topic, null, pushJson.getBytes());
+					
+					// UI Notify
+					String notifyJson = JsonUtils.asJson(ImmutableMap.of("text", "Menu item added: " + newItem.getLabel()));
+					channel.basicPublish("amq.topic", "notify", null, notifyJson.getBytes());
 				} catch (IOException e) {
 					log.error("Cannot publish CollectionAdd " + newItem + " to " + topic, e);
 				}
@@ -75,6 +80,10 @@ public class LiveMenuRepositoryAdapter extends EContentAdapter {
 					Preconditions.checkNotNull(channel, "AMQP channel must not be null");
 					Preconditions.checkNotNull(pushJson, "pushJson must not be null");
 					channel.basicPublish("amq.topic", topic, null, pushJson.getBytes());
+					
+					// UI Notify
+					String notifyJson = JsonUtils.asJson(ImmutableMap.of("text", "Menu item removed: " + oldItem.getLabel()));
+					channel.basicPublish("amq.topic", "notify", null, notifyJson.getBytes());
 				} catch (IOException e) {
 					log.error("Cannot publish CollectionDelete " + removedId + " to " + topic, e);
 				}
