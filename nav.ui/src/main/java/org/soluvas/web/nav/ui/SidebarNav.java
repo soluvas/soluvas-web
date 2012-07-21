@@ -44,6 +44,7 @@ public class SidebarNav extends Panel {
 				final MenuItem menuItem = listItem.getModelObject();
 				listItem.add(new Label("glyph") {
 					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
+						super.onComponentTag(tag);
 						if (menuItem.getIconName() != null)
 							tag.getAttributes().put("class", "icon-" + menuItem.getIconName());
 					};
