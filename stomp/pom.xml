@@ -9,10 +9,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>org.soluvas.web.backbone</artifactId>
+	<artifactId>org.soluvas.web.stomp</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<description>Underscore and Backbone library.</description>
+	<description>SockJS and Stomp.js library.</description>
 
 	<dependencies>
 		<dependency>
