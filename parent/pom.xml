@@ -42,7 +42,27 @@
 				<artifactId>org.soluvas.web.site</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+			<dependency>
+				<groupId>org.soluvas</groupId>
+				<artifactId>org.soluvas.web.bootstrap</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.soluvas</groupId>
+				<artifactId>org.soluvas.web.nav</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.soluvas</groupId>
+				<artifactId>org.soluvas.web.nav.ui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.soluvas</groupId>
+				<artifactId>org.soluvas.web.nav.shell</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.soluvas</groupId>
 				<artifactId>soluvas-parent</artifactId>
@@ -88,6 +108,19 @@
 				<groupId>org.mongodb</groupId>
 				<artifactId>mongo-java-driver</artifactId>
 				<version>2.7.3</version>
+			</dependency>
+			
+			<!-- Pax Wicket Core -->
+			<dependency>
+				<groupId>org.ops4j.pax.wicket</groupId>
+				<artifactId>org.ops4j.pax.wicket.service</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+			<!-- Pax Wicket Test Utilities -->
+			<dependency>
+				<groupId>org.ops4j.pax.wicket</groupId>
+				<artifactId>org.ops4j.pax.wicket.test</artifactId>
+				<version>1.0.1</version>
 			</dependency>
 
 			<dependency>
