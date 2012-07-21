@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.soluvas</groupId>
+		<artifactId>org.soluvas.web.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>org.soluvas.web.nav.ui</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+	<description>Soluvas Web Nav UI elements.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.web.nav</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.web.site</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ops4j.pax.wicket</groupId>
+			<artifactId>org.ops4j.pax.wicket.service</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
+	<!-- 					<Import-Package>javax.servlet,javax.servlet.http, -->
+	<!-- 						org.apache.wicket.event,org.apache.wicket.settings, -->
+	<!-- 						org.apache.wicket.request,org.apache.wicket.request.http,org.apache.wicket.request.cycle, -->
+	<!-- 						org.apache.wicket.util,org.apache.wicket.util.file, -->
+	<!-- 						org.apache.wicket.ajax, -->
+	<!-- 						org.ops4j.pax.wicket.util.proxy, -->
+	<!-- 						net.sf.cglib.proxy;version="[2,3)", -->
+	<!-- 						net.sf.cglib.core;version="[2,3)", -->
+	<!-- 						net.sf.cglib.reflect;version="[2,3)",*</Import-Package> -->
+						<Import-Package>*, javax.servlet,javax.servlet.http,
+							org.ops4j.pax.wicket.util.proxy,
+							net.sf.cglib.proxy;version="[2,3)",
+							net.sf.cglib.core;version="[2,3)",
+							net.sf.cglib.reflect;version="[2,3)"</Import-Package>
+<!-- 						<Require-Bundle>org.ops4j.pax.wicket.service, -->
+<!-- 							com.typesafe.config, com.typesafe.akka.actor, org.scala-ide.scala.library</Require-Bundle> -->
+						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
+					</instructions>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

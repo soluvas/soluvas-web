@@ -50,7 +50,7 @@ public class BootstrapPage extends WebPage {
 			@Override
 			protected void populateItem(ListItem<SidebarBlock> item) {
 				final SidebarBlock sidebarBlockFactory = (SidebarBlock) item.getModelObject();
-				Component sidebarBlock = sidebarBlockFactory.create();
+				Component sidebarBlock = sidebarBlockFactory.create("block");
 				item.add(sidebarBlock);
 			}
 		});

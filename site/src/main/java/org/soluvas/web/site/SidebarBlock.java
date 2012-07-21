@@ -7,6 +7,6 @@ import org.apache.wicket.Component;
  */
 public interface SidebarBlock {
 
-	Component create();
+	Component create(String id);
 
 }
