@@ -6,7 +6,7 @@
 	lang="id">
 <head>
 	<meta charset="utf-8" />
-	<title><span wicket:id="pageTitle"/> | <span wicket:id="siteTitle"/></title>
+	<title><span wicket:id="pageTitle"/> <span wicket:id="pageTitleSuffix"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="description" content="Soluvas Starter Web Application" />
 	<meta name="author" content="Soluvas" />
@@ -55,7 +55,7 @@
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span></a>
 
-				<a class="brand" href="/oui/">Fashion Store</a>
+				<a class="brand" href="/oui/" wicket:id="homeLink">Fashion Store</a>
 
 				<!--<a class="brand" href="#">Berbatik</a>-->
 				<div wicket:id="header"/>

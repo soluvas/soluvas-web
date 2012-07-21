@@ -9,18 +9,12 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>org.soluvas.web.bootstrap</artifactId>
+	<artifactId>org.soluvas.web.site</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<description>Twitter bootstrap HTML5 template.</description>
+	<description>Core Site API and Services.</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.web.site</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		
 		<!-- Pax Wicket Core -->
 		<dependency>
 			<groupId>org.ops4j.pax.wicket</groupId>
@@ -33,71 +27,18 @@
 			<artifactId>org.ops4j.pax.wicket.test</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-
-		<!--
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-image-store</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-		          <groupId>commons-logging</groupId>
-		          <artifactId>commons-logging</artifactId>
-		        </exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-cdi</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-ldap</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-push</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.rabbitmq</groupId>
-			<artifactId>amqp-client</artifactId>
-		</dependency>
 		
-		<!-- 
-		This does NOT work:
-		osgi:install mvn:org.scala-lang/scala-library/2.9.2
-		osgi:install wrap:mvn:com.typesafe.akka/akka-actor/2.0.1
-		Try downloading Akka-OSGi 2.1-SNAPSHOT from here:
-		https://github.com/jamie-allen/akka-osgi/tree/master/lib
-		-->
 		<dependency>
-			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-actor</artifactId>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<version>4.2.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.common</artifactId>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -108,24 +49,20 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
-		<!--
-		<dependency>
-			<groupId>org.jboss.spec.javax.ejb</groupId>
-			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-		</dependency>
-		-->
-
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -135,42 +72,12 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.felix</groupId>
-										<artifactId>maven-bundle-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>manifest</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore/>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
-						<_wab>src/main/webapp</_wab>
 						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
 	<!-- 					<Import-Package>javax.servlet,javax.servlet.http, -->
 	<!-- 						org.apache.wicket.event,org.apache.wicket.settings, -->
@@ -189,11 +96,6 @@
 <!-- 						<Require-Bundle>org.ops4j.pax.wicket.service, -->
 <!-- 							com.typesafe.config, com.typesafe.akka.actor, org.scala-ide.scala.library</Require-Bundle> -->
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
-						<Bundle-ClassPath>WEB-INF/classes,{maven-dependencies}</Bundle-ClassPath>
-						<Web-ContextPath>/static/bootstrap</Web-ContextPath>
-						<!--<Export-Package>org.foo.myproject.*</Export-Package>-->
-						<!--<Private-Package>org.foo.myproject.*</Private-Package>-->
-						<!--<Bundle-Activator>org.foo.myproject.impl1.Activator</Bundle-Activator>-->
 					</instructions>
 				</configuration>
 			</plugin>
