@@ -52,7 +52,7 @@ public class LiveMenuRepositoryAdapter extends EContentAdapter {
 		case Notification.ADD:
 			if (notification.getNotifier() instanceof MenuItemContainer && notification.getNewValue() instanceof MenuItem) {
 				final MenuItem newItem = (MenuItem) notification.getNewValue();
-				CollectionAdd<MenuItem> push = new CollectionAdd<MenuItem>(topic, newItem);
+				CollectionAdd<MenuItem> push = new CollectionAdd<MenuItem>(topic, newItem, notification.getPosition());
 				String pushJson = JsonUtils.asJson(push);
 				log.info("Publishing CollectionAdd {} to {}", newItem, topic);
 				try {
