@@ -55,6 +55,17 @@
 		</bean>
 	</service>
 
+	<reference id="processRepo" interface="org.soluvas.process.ProcessRepository" availability="optional"/>
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="footer"/>
+		</service-properties>
+		<bean class="org.soluvas.web.stomp.ProcessBackboneCollectionReset">
+			<argument ref="processRepo"/>
+			<argument value="0"/>
+		</bean>
+	</service>
+
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->
 <!-- 			<entry key="region" value="footer"/> -->
