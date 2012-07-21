@@ -55,8 +55,7 @@ public class BootstrapPage extends WebPage {
 			}
 		});
 		
-		
-		add(new Footer());
+		add(new Footer(new Model<String>(site.getFooterText())));
 	}
 
 }

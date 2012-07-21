@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
     xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
     xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0"
@@ -21,6 +22,7 @@
             <cm:property name="pageTitleSuffix"		value="| FashionWow"/>
             <cm:property name="logoText"			value="FashionWow"/>
             <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
+            <cm:property name="footerText"			value="Copyright © 2012 Soluvas"/>
         </cm:default-properties>
     </cm:property-placeholder>
 
@@ -30,7 +32,8 @@
 			<property name="homeTitle"			value="${homeTitle}"/>
 			<property name="pageTitleSuffix"	value="${pageTitleSuffix}"/>
 			<property name="logoText"			value="${logoText}"/>		
-			<property name="logoAlt"			value="${logoAlt}"/>		
+			<property name="logoAlt"			value="${logoAlt}"/>
+			<property name="footerText"			value="${footerText}"/>		
 		</bean>
 	</service>
 	

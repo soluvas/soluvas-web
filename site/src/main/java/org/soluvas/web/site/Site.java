@@ -3,6 +3,8 @@ package org.soluvas.web.site;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.apache.wicket.model.IModel;
+
 public interface Site extends Serializable {
 
 	String getSiteTitle();
@@ -26,6 +28,9 @@ public interface Site extends Serializable {
 	void setLogoAlt(String logoAlt);
 
 	String toString();
+
+	String getFooterText();
+	void setFooterText(String footerText);
 	
 //	void updated(Dictionary configuration);
 

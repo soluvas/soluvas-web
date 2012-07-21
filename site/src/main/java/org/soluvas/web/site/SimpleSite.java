@@ -21,21 +21,12 @@ public class SimpleSite implements Site, ManagedService {
 	private String pageTitleSuffix;
 	private String logoText;
 	private String logoAlt;
+	private String footerText;
 
 	public SimpleSite() {
 		super();
 	}
 	
-	public SimpleSite(String siteTitle, String homeTitle, String pageTitleSuffix,
-			String logoText, String logoAlt) {
-		super();
-		this.siteTitle = siteTitle;
-		this.homeTitle = homeTitle;
-		this.pageTitleSuffix = pageTitleSuffix;
-		this.logoText = logoText;
-		this.logoAlt = logoAlt;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.Site#getSiteTitle()
 	 */
@@ -116,13 +107,10 @@ public class SimpleSite implements Site, ManagedService {
 		this.logoAlt = logoAlt;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.Site#toString()
-	 */
 	@Override
 	public String toString() {
 		return String
-				.format("Site [siteTitle=%s, homeTitle=%s, pageTitleSuffix=%s, logoText=%s, logoAlt=%s]",
+				.format("SimpleSite [siteTitle=%s, homeTitle=%s, pageTitleSuffix=%s, logoText=%s, logoAlt=%s]",
 						siteTitle, homeTitle, pageTitleSuffix, logoText,
 						logoAlt);
 	}
@@ -135,6 +123,16 @@ public class SimpleSite implements Site, ManagedService {
 		} catch (Exception e) {
 			log.error("Cannot apply configuration " + configuration, e);
 		}
+	}
+
+	@Override
+	public String getFooterText() {
+		return footerText;
+	}
+
+	@Override
+	public void setFooterText(String footerText) {
+		this.footerText = footerText;
 	}
 
 }

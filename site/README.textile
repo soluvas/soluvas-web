@@ -11,6 +11,7 @@ homeTitle = Wikindonesia
 pageTitleSuffix = | Wikindonesia
 logoText = Wikindonesia
 logoAlt = Jalan-jalan wisata keliling Indonesia
+footerText = Copyright © 2012 Wikindonesia.com
 
 Note: In future versions (after ARIES-584 bug is fixed), we'll use Managed Service Factory, so the configuration file
 will be named @org.soluvas.web.site-default.cfg@.

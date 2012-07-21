@@ -27,7 +27,8 @@
 	</developers>
 	<licenses>
 		<license>
-			<name>Apache License 2.0</name>
+			<name>Eclipse Public License</name>
+			<url>http://www.eclipse.org/legal/epl-v10.html</url>
 		</license>
 	</licenses>
 
