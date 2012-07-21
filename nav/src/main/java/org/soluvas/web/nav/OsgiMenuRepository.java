@@ -1,5 +1,6 @@
 package org.soluvas.web.nav;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +15,7 @@ import org.soluvas.async.Callback;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
 
 /**
  * @author ceefour
@@ -46,6 +48,23 @@ public class OsgiMenuRepository implements MenuRepository {
 		rebuildMenus();
 	}
 	
+	protected void recursiveSort(MenuItemContainer menu) {
+		// Sort the parent
+		Ordering<MenuItem> ordering = Ordering.from(new Comparator<MenuItem>() {
+			@Override
+			public int compare(MenuItem o1, MenuItem o2) {
+				return o1.getWeight() - o2.getWeight();
+			}
+		});
+		List<MenuItem> ordered = ordering.immutableSortedCopy(menu.getItems());
+		menu.getItems().clear();
+		menu.getItems().addAll(ordered);
+		// Then sort the children
+		for (MenuItem menuItem : menu.getItems()) {
+			recursiveSort(menuItem);
+		}
+	}
+	
 	protected void rebuildMenus() {
 		log.debug("Rebuilding menus from {} menus and {} menu items registered",
 				menus.size(), menuItems.size() );
@@ -64,6 +83,10 @@ public class OsgiMenuRepository implements MenuRepository {
 				continue;
 			}
 			parentMenu.getItems().add( EcoreUtil.copy(menuItem) );
+		}
+		// Sort menu items
+		for (Menu menu : liveMenus.values()) {
+			recursiveSort(menu);
 		}
 	}
 	
