@@ -5,3 +5,9 @@ Originally developed by by Eric Hynds.
 Website: http://www.erichynds.com/examples/jquery-notify/
 
 Documentation: http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
+
+h2. Testing
+
+Using web browser's JavaScript console:
+
+bc. $('#notify-container').notify('create', {text: "Let's rock the world!"});
