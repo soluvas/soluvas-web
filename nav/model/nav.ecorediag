@@ -27,6 +27,10 @@
         <element xmi:type="ecore:EAttribute" href="nav.ecore#//MenuItem/iconName"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_u1JuIdLpEeGGS8SDcR3tBw"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_t3DN4NM7EeGFeIjLQy92IQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="nav.ecore#//MenuItem/clientPath"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_t3DN4dM7EeGFeIjLQy92IQ"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_69F4QswCEeGi26QEPtUoEQ"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_69F4Q8wCEeGi26QEPtUoEQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_69F4RMwCEeGi26QEPtUoEQ"/>

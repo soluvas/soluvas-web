@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -47,6 +48,7 @@ public class NavBar extends Panel {
 			@Override
 			protected void populateItem(ListItem<MenuItem> listItem) {
 				final MenuItem menuItem = listItem.getModelObject();
+				listItem.add(new AttributeAppender("id", "navbar-item-" + menuItem.getId()));
 				Label iconComponent = new Label("icon") {
 					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
 						super.onComponentTag(tag);
@@ -56,6 +58,7 @@ public class NavBar extends Panel {
 							setVisible(false);
 					};
 				};
+				final Label label = new Label("label", menuItem.getLabel());
 				if (menuItem instanceof PageMenuItem) {
 					final PageMenuItem pageMi = (PageMenuItem) menuItem;
 					Class<Page> pageClass;
@@ -67,13 +70,9 @@ public class NavBar extends Panel {
 						for (Entry<String, String> param : pageMi.getParameters()) {
 							pagePars.add(param.getKey(), param.getValue());
 						}
-						BookmarkablePageLink link = new BookmarkablePageLink<Page>("link", pageClass, pagePars) {
-							{
-								//setBody(new Model(pageMi.getLabel()));
-							}
-						};
+						BookmarkablePageLink link = new BookmarkablePageLink<Page>("link", pageClass, pagePars);
 						link.add(iconComponent);
-						link.add(new Label("label", menuItem.getLabel()));
+						link.add(label);
 						listItem.add(link);
 					} catch (ClassNotFoundException e) {
 						log.error("Cannot load Page class " + pageMi.getPageClass() +
@@ -84,7 +83,7 @@ public class NavBar extends Panel {
 					try {
 						Link<? extends Page> link = processLinkFactory.create("link", processMi);
 						link.add(iconComponent);
-						link.add(new Label("label", menuItem.getLabel()));
+						link.add(label);
 						listItem.add(link);
 					} catch (ServiceUnavailableException e) {
 						log.error("Cannot create process page link for menu item " + menuItem.getId() +
@@ -94,7 +93,7 @@ public class NavBar extends Panel {
 					log.warn("Unknown MenuItem subclass: {}", menuItem.eClass());
 					WebMarkupContainer link = new WebMarkupContainer("link");
 					link.add(iconComponent);
-					link.add(new Label("label", menuItem.getLabel()));
+					link.add(label);
 					listItem.add(link);
 				}
 			}

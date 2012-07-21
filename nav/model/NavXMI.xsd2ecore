@@ -9,6 +9,7 @@
       <nested inputs="nav.ecore#//MenuItem/weight" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=3"/>
       <nested inputs="nav.ecore#//MenuItem/bundle" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=4"/>
       <nested inputs="nav.ecore#//MenuItem/iconName" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=5"/>
+      <nested inputs="nav.ecore#//MenuItem/clientPath" outputs="NavXMI.xsd#//MenuItem;XSDComplexTypeDefinition/XSDAttributeUse=6"/>
     </nested>
     <nested inputs="nav.ecore#//MenuItem" outputs="NavXMI.xsd#//MenuItem;XSDElementDeclaration"/>
     <nested inputs="nav.ecore#//Menu" outputs="NavXMI.xsd#//Menu;XSDComplexTypeDefinition=1">

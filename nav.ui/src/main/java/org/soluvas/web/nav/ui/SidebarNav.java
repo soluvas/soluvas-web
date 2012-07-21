@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -49,13 +50,14 @@ public class SidebarNav extends Panel {
 			protected void populateItem(ListItem<MenuItem> listItem) {
 				final MenuItem menuItem = listItem.getModelObject();
 				listItem.add(new AttributeAppender("id", "sidebar-nav-item-" + menuItem.getId()));
-				listItem.add(new Label("glyph") {
+				final Label icon = new Label("icon") {
 					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
 						super.onComponentTag(tag);
 						if (menuItem.getIconName() != null)
 							tag.getAttributes().put("class", "icon-" + menuItem.getIconName());
 					};
-				});
+				};
+				final Label label = new Label("label", menuItem.getLabel());
 				if (menuItem instanceof PageMenuItem) {
 					final PageMenuItem pageMi = (PageMenuItem) menuItem;
 					Class<Page> pageClass;
@@ -67,11 +69,10 @@ public class SidebarNav extends Panel {
 						for (Entry<String, String> param : pageMi.getParameters()) {
 							pagePars.add(param.getKey(), param.getValue());
 						}
-						listItem.add( new BookmarkablePageLink<Page>("label", pageClass, pagePars) {
-							{
-								setBody(new Model(pageMi.getLabel()));
-							}
-						});
+						final BookmarkablePageLink<Page> link = new BookmarkablePageLink<Page>("link", pageClass, pagePars);
+						link.add(icon);
+						link.add(label);
+						listItem.add(link);
 					} catch (ClassNotFoundException e) {
 						log.error("Cannot load Page class " + pageMi.getPageClass() +
 								" from bundle " + menuItem.getBundle() + " for menu item " + pageMi.getId(), e);
@@ -79,8 +80,9 @@ public class SidebarNav extends Panel {
 				} else if (menuItem instanceof ProcessMenuItem) {
 					final ProcessMenuItem processMi = (ProcessMenuItem) menuItem;
 					try {
-						Link<? extends Page> link = processLinkFactory.create("label", processMi);
-						link.setBody(new Model(menuItem.getLabel()));
+						Link<? extends Page> link = processLinkFactory.create("link", processMi);
+						link.add(icon);
+						link.add(label);
 						listItem.add(link);
 					} catch (ServiceUnavailableException e) {
 						log.error("Cannot create process page link for menu item " + menuItem.getId() +
@@ -88,7 +90,10 @@ public class SidebarNav extends Panel {
 					}
 				} else {
 					log.warn("Unknown MenuItem subclass: {}", menuItem.eClass());
-					listItem.add( new Label("label", menuItem.getLabel()) );
+					WebMarkupContainer link = new WebMarkupContainer("link");
+					link.add(icon);
+					link.add(label);
+					listItem.add(link);
 				}
 			}
 		} );

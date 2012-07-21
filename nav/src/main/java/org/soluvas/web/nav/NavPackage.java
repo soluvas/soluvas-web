@@ -158,13 +158,22 @@ public interface NavPackage extends EPackage {
 	int MENU_ITEM__ICON_NAME = MENU_ITEM_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Client Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_ITEM__CLIENT_PATH = MENU_ITEM_CONTAINER_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Menu Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_ITEM_FEATURE_COUNT = MENU_ITEM_CONTAINER_FEATURE_COUNT + 6;
+	int MENU_ITEM_FEATURE_COUNT = MENU_ITEM_CONTAINER_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.nav.impl.MenuImpl <em>Menu</em>}' class.
@@ -316,6 +325,15 @@ public interface NavPackage extends EPackage {
 	int PAGE_MENU_ITEM__ICON_NAME = MENU_ITEM__ICON_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Client Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_MENU_ITEM__CLIENT_PATH = MENU_ITEM__CLIENT_PATH;
+
+	/**
 	 * The feature id for the '<em><b>Page Class</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -454,6 +472,15 @@ public interface NavPackage extends EPackage {
 	int PROCESS_MENU_ITEM__ICON_NAME = MENU_ITEM__ICON_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Client Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_MENU_ITEM__CLIENT_PATH = MENU_ITEM__CLIENT_PATH;
+
+	/**
 	 * The feature id for the '<em><b>Process Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -558,6 +585,17 @@ public interface NavPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMenuItem_IconName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.nav.MenuItem#getClientPath <em>Client Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Client Path</em>'.
+	 * @see org.soluvas.web.nav.MenuItem#getClientPath()
+	 * @see #getMenuItem()
+	 * @generated
+	 */
+	EAttribute getMenuItem_ClientPath();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.nav.Menu <em>Menu</em>}'.
@@ -799,6 +837,14 @@ public interface NavPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MENU_ITEM__ICON_NAME = eINSTANCE.getMenuItem_IconName();
+
+		/**
+		 * The meta object literal for the '<em><b>Client Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MENU_ITEM__CLIENT_PATH = eINSTANCE.getMenuItem_ClientPath();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.nav.impl.MenuImpl <em>Menu</em>}' class.

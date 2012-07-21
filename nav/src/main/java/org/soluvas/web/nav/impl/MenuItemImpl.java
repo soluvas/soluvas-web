@@ -37,6 +37,7 @@ import org.soluvas.web.nav.NavPackage;
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getBundle <em>Bundle</em>}</li>
  *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getIconName <em>Icon Name</em>}</li>
+ *   <li>{@link org.soluvas.web.nav.impl.MenuItemImpl#getClientPath <em>Client Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -181,6 +182,26 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * @ordered
 	 */
 	protected String iconName = ICON_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getClientPath() <em>Client Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClientPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CLIENT_PATH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getClientPath() <em>Client Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClientPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected String clientPath = CLIENT_PATH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -369,6 +390,27 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getClientPath() {
+		return clientPath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setClientPath(String newClientPath) {
+		String oldClientPath = clientPath;
+		clientPath = newClientPath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, NavPackage.MENU_ITEM__CLIENT_PATH, oldClientPath, clientPath));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -400,6 +442,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 				return getBundle();
 			case NavPackage.MENU_ITEM__ICON_NAME:
 				return getIconName();
+			case NavPackage.MENU_ITEM__CLIENT_PATH:
+				return getClientPath();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -435,6 +479,9 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 			case NavPackage.MENU_ITEM__ICON_NAME:
 				setIconName((String)newValue);
 				return;
+			case NavPackage.MENU_ITEM__CLIENT_PATH:
+				setClientPath((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -468,6 +515,9 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 			case NavPackage.MENU_ITEM__ICON_NAME:
 				setIconName(ICON_NAME_EDEFAULT);
 				return;
+			case NavPackage.MENU_ITEM__CLIENT_PATH:
+				setClientPath(CLIENT_PATH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -494,6 +544,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
 			case NavPackage.MENU_ITEM__ICON_NAME:
 				return ICON_NAME_EDEFAULT == null ? iconName != null : !ICON_NAME_EDEFAULT.equals(iconName);
+			case NavPackage.MENU_ITEM__CLIENT_PATH:
+				return CLIENT_PATH_EDEFAULT == null ? clientPath != null : !CLIENT_PATH_EDEFAULT.equals(clientPath);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -520,6 +572,8 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 		result.append(bundle);
 		result.append(", iconName: ");
 		result.append(iconName);
+		result.append(", clientPath: ");
+		result.append(clientPath);
 		result.append(')');
 		return result.toString();
 	}

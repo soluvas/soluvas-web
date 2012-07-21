@@ -19,6 +19,10 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.site</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.web.nav</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.ops4j.pax.wicket</groupId>

@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *   <li>{@link org.soluvas.web.nav.MenuItem#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.soluvas.web.nav.MenuItem#getBundle <em>Bundle</em>}</li>
  *   <li>{@link org.soluvas.web.nav.MenuItem#getIconName <em>Icon Name</em>}</li>
+ *   <li>{@link org.soluvas.web.nav.MenuItem#getClientPath <em>Client Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -211,5 +212,31 @@ public interface MenuItem extends MenuItemContainer {
 	 * @generated
 	 */
 	void setIconName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Client Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Path to be used by the Backbone client. The base URI of the web application will be prepended, which will form either a full URI like http://www.wikindonesia.com/process/ or a fragment-based one like http://www.wikindonesia.com/#!/process/
+	 * 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Client Path</em>' attribute.
+	 * @see #setClientPath(String)
+	 * @see org.soluvas.web.nav.NavPackage#getMenuItem_ClientPath()
+	 * @model
+	 * @generated
+	 */
+	String getClientPath();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.nav.MenuItem#getClientPath <em>Client Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Client Path</em>' attribute.
+	 * @see #getClientPath()
+	 * @generated
+	 */
+	void setClientPath(String value);
 
 } // MenuItem

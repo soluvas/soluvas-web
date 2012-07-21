@@ -214,6 +214,15 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMenuItem_ClientPath() {
+		return (EAttribute)menuItemEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMenu() {
 		return menuEClass;
 	}
@@ -379,6 +388,7 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 		createEAttribute(menuItemEClass, MENU_ITEM__WEIGHT);
 		createEAttribute(menuItemEClass, MENU_ITEM__BUNDLE);
 		createEAttribute(menuItemEClass, MENU_ITEM__ICON_NAME);
+		createEAttribute(menuItemEClass, MENU_ITEM__CLIENT_PATH);
 
 		menuEClass = createEClass(MENU);
 		createEAttribute(menuEClass, MENU__ID);
@@ -446,6 +456,7 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 		initEAttribute(getMenuItem_Weight(), ecorePackage.getEInt(), "weight", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMenuItem_Bundle(), this.getBundle(), "bundle", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMenuItem_IconName(), ecorePackage.getEString(), "iconName", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMenuItem_ClientPath(), ecorePackage.getEString(), "clientPath", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menuEClass, Menu.class, "Menu", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMenu_Id(), ecorePackage.getEString(), "id", null, 0, 1, Menu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
