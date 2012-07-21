@@ -1,7 +1,7 @@
 // Stomp via SockJS
 jQuery(document).ready(function() {
 
-	WebSocketStompMock = SockJS;
+	Stomp.WebSocketClass = SockJS;
 	client = Stomp.client('http://' + window.location.hostname + ':55674/stomp');
 	client.debug = function(x) { console.debug(x); };
 	
