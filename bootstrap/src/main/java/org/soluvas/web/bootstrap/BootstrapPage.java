@@ -17,6 +17,7 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ComponentFactory;
+import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.Site;
 
@@ -31,19 +32,33 @@ public class BootstrapPage extends WebPage {
 
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	@PaxWicketBean(name="site") private Site site;
+	@PaxWicketBean(name="cssLinks") private List<CssLink> cssLinks;
 	@PaxWicketBean(name="headJavaScripts") private List<JavaScriptLink> headJavaScripts;
+	@PaxWicketBean(name="footerJavaScripts") private List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory<?>> sidebarBlocks;
 	
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
+		
+		log.debug("Page {} has {} CSS links", getClass().getName(), cssLinks.size());
+		Ordering<CssLink> cssOrdering = Ordering.from(new Comparator<CssLink>() {
+			public int compare(CssLink o1, CssLink o2) {
+				return o1.getWeight() - o2.getWeight();
+			};
+		});
+		List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(cssLinks);
+		for (CssLink css : sortedCsses) {
+			response.renderCSSReference(css.getHref());
+		}
+		
 		log.debug("Page {} has {} head JavaScript links", getClass().getName(), headJavaScripts.size());
-		Ordering<JavaScriptLink> ordering = Ordering.from(new Comparator<JavaScriptLink>() {
+		Ordering<JavaScriptLink> jsOrdering = Ordering.from(new Comparator<JavaScriptLink>() {
 			public int compare(JavaScriptLink o1, JavaScriptLink o2) {
 				return o1.getWeight() - o2.getWeight();
 			};
 		});
-		List<JavaScriptLink> sortedJses = ordering.immutableSortedCopy(headJavaScripts);
+		List<JavaScriptLink> sortedJses = jsOrdering.immutableSortedCopy(headJavaScripts);
 		for (JavaScriptLink js : sortedJses) {
 			response.renderJavaScriptReference(js.getSrc());
 		}
@@ -71,7 +86,7 @@ public class BootstrapPage extends WebPage {
 		
 		add(new Header());
 		
-		log.info("You have {} sidebar blocks", sidebarBlocks.size());
+		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());
 		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
 			@Override
 			protected void populateItem(ListItem<ComponentFactory<?>> item) {
@@ -82,6 +97,27 @@ public class BootstrapPage extends WebPage {
 		});
 		
 		add(new Footer(new Model<String>(site.getFooterText())));
+
+		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());
+		Ordering<JavaScriptLink> jsOrdering = Ordering.from(new Comparator<JavaScriptLink>() {
+			public int compare(JavaScriptLink o1, JavaScriptLink o2) {
+				return o1.getWeight() - o2.getWeight();
+			};
+		});
+		List<JavaScriptLink> sortedJses = jsOrdering.immutableSortedCopy(footerJavaScripts);
+		add(new ListView<JavaScriptLink>("footerJavaScripts", sortedJses) {
+			@Override
+			protected void populateItem(ListItem<JavaScriptLink> item) {
+				item.setRenderBodyOnly(true);
+				final JavaScriptLink js = item.getModelObject();
+				item.add(new Label("js") {
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.getAttributes().put("src", js.getSrc());
+					};
+				});
+			}
+		});
 	}
 
 }

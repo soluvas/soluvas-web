@@ -36,7 +36,6 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
-						<_wab>src/main/webapp</_wab>
 						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
 						<Import-Package>
 							org.ops4j.pax.web.extender.whiteboard;version="1.0.0",
