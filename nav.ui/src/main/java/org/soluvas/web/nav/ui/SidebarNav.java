@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -47,6 +48,7 @@ public class SidebarNav extends Panel {
 			@Override
 			protected void populateItem(ListItem<MenuItem> listItem) {
 				final MenuItem menuItem = listItem.getModelObject();
+				listItem.add(new AttributeAppender("id", "sidebar-nav-item-" + menuItem.getId()));
 				listItem.add(new Label("glyph") {
 					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
 						super.onComponentTag(tag);
