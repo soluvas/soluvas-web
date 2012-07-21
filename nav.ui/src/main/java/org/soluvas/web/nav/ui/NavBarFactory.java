@@ -7,9 +7,9 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.soluvas.async.Callback;
 import org.soluvas.web.nav.Menu;
 import org.soluvas.web.nav.MenuRepository;
-import org.soluvas.web.site.SidebarBlock;
+import org.soluvas.web.site.ComponentFactory;
 
-public class NavBarFactory implements SidebarBlock {
+public class NavBarFactory implements ComponentFactory {
 	
 	private MenuRepository menuRepository;
 	

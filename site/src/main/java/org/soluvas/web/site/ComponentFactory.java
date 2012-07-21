@@ -5,8 +5,8 @@ import org.apache.wicket.Component;
 /**
  * @author ceefour
  */
-public interface SidebarBlock {
+public interface ComponentFactory<T extends Component> {
 
-	Component create(String id);
+	T create(String id);
 
 }

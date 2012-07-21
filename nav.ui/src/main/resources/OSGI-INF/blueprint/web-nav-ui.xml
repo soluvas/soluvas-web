@@ -9,6 +9,9 @@
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
 	<reference id="menuRepo" interface="org.soluvas.web.nav.MenuRepository"/>
+	<!-- TODO: find a cleaner & easier way for creating custom Link like to Process Run page -->
+	<reference id="processLinkFactory" interface="org.soluvas.web.nav.ui.ProcessLinkFactory"
+		timeout="100"/>
 
 	<service auto-export="interfaces">
 		<service-properties>

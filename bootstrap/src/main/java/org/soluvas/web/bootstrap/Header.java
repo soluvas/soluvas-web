@@ -2,7 +2,7 @@ package org.soluvas.web.bootstrap;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.soluvas.web.site.SidebarBlock;
+import org.soluvas.web.site.ComponentFactory;
 
 /**
  * @author ceefour
@@ -11,7 +11,7 @@ import org.soluvas.web.site.SidebarBlock;
 @SuppressWarnings("serial")
 public class Header extends Panel {
 	
-	@PaxWicketBean(name="navbarBlock") private SidebarBlock navbarBlock;
+	@PaxWicketBean(name="navbarBlock") private ComponentFactory navbarBlock;
 
 	/**
 	 * @todo Should accept an Either<Throwable, List<Categories>> for example

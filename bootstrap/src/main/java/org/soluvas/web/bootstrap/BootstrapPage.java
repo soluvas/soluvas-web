@@ -13,7 +13,7 @@ import org.apache.wicket.model.Model;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.web.site.SidebarBlock;
+import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.Site;
 
 /**
@@ -25,7 +25,7 @@ public class BootstrapPage extends WebPage {
 
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	@PaxWicketBean(name="site") private Site site;
-	@PaxWicketBean(name="sidebarBlocks") private List<SidebarBlock> sidebarBlocks;
+	@PaxWicketBean(name="sidebarBlocks") private List<ComponentFactory> sidebarBlocks;
 	
 	public BootstrapPage() {
 		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
@@ -46,10 +46,10 @@ public class BootstrapPage extends WebPage {
 		add(new Header());
 		
 		log.info("You have {} sidebar blocks", sidebarBlocks.size());
-		add(new ListView<SidebarBlock>("sidebarBlocks", sidebarBlocks) {
+		add(new ListView<ComponentFactory>("sidebarBlocks", sidebarBlocks) {
 			@Override
-			protected void populateItem(ListItem<SidebarBlock> item) {
-				final SidebarBlock sidebarBlockFactory = (SidebarBlock) item.getModelObject();
+			protected void populateItem(ListItem<ComponentFactory> item) {
+				final ComponentFactory sidebarBlockFactory = (ComponentFactory) item.getModelObject();
 				Component sidebarBlock = sidebarBlockFactory.create("block");
 				item.add(sidebarBlock);
 			}

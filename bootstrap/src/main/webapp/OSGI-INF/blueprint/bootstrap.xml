@@ -10,9 +10,9 @@
 
 	<reference id="site" interface="org.soluvas.web.site.Site"/>
 	
-	<reference-list id="sidebarBlocks" interface="org.soluvas.web.site.SidebarBlock" availability="optional"
+	<reference-list id="sidebarBlocks" interface="org.soluvas.web.site.ComponentFactory" availability="optional"
 		filter="(region=sidebar)"/>
-	<reference id="navbarBlock" interface="org.soluvas.web.site.SidebarBlock"
+	<reference id="navbarBlock" interface="org.soluvas.web.site.ComponentFactory"
 		filter="(region=navbar)"/>
 
 </blueprint>
