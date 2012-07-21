@@ -11,7 +11,19 @@
 	<reference id="menuRepo" interface="org.soluvas.web.nav.MenuRepository"/>
 
 	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="sidebar"/>
+		</service-properties>
 		<bean class="org.soluvas.web.nav.ui.SidebarNavFactory">
+			<argument ref="menuRepo"/>
+		</bean>
+	</service>
+	
+	<service id="navBar" auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="navbar"/>
+		</service-properties>
+		<bean class="org.soluvas.web.nav.ui.NavBarFactory">
 			<argument ref="menuRepo"/>
 		</bean>
 	</service>

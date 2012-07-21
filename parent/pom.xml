@@ -122,6 +122,7 @@
 				<groupId>org.ops4j.pax.wicket</groupId>
 				<artifactId>org.ops4j.pax.wicket.test</artifactId>
 				<version>1.0.1</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
