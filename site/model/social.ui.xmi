@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ui:UiCatalog
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="http://www.soluvas.org/schema/ui/1.0"
+    xsi:schemaLocation="http://www.soluvas.org/schema/ui/1.0 ui.ecore">
+  <layouts name="PersonProfile">
+    <regions
+        name="image">
+      <type
+          xsi:type="ui:LayoutBlock"
+          href="base.ui.xmi#//@blocks.4"/>
+    </regions>
+    <regions
+        name="name"
+        description=""/>
+  </layouts>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="FriendListBoard"
+      description="A dashboard page that shows story feed of people in a Friend List.">
+    <super xsi:type="ui:LayoutBlock"
+        href="base.ui.xmi#//@blocks.0"/>
+    <layout
+        href="base.ui.xmi#//@layouts.2"/>
+  </blocks>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="PersonProfile"/>
+  <activities
+      name="FriendListBoard"
+      block="//@blocks.0"/>
+</ui:UiCatalog>

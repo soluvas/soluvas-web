@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ui:UiCatalog
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="http://www.soluvas.org/schema/ui/1.0"
+    xsi:schemaLocation="http://www.soluvas.org/schema/ui/1.0 ui.ecore"
+    name="base">
+  <layouts name="OneColumn"/>
+  <layouts name="TwoColumnsLeft"/>
+  <layouts name="ThreeColumns"/>
+  <layouts name="TwoColumnsRight"/>
+  <layouts name="Page"
+      abstract="true">
+    <regions
+        name="nav"/>
+    <regions
+        name="content"/>
+    <regions
+        name="primary"/>
+    <regions
+        name="secondary"/>
+    <regions
+        name="footer"/>
+    <regions
+        name="side"/>
+  </layouts>
+  <layouts name="Nav">
+    <regions
+        name="logo"/>
+    <regions
+        name="icons"
+        type="//@blocks.2"/>
+    <regions
+        name="menu"/>
+  </layouts>
+  <layouts name="Single"
+      description="No layout. Means the block only presents itself."/>
+  <platforms
+      name="FullWeb"/>
+  <platforms
+      name="TouchWeb"/>
+  <platforms
+      name="Responsive"/>
+  <plans name="Item"
+      abstract="true">
+    <parts name="item"/>
+  </plans>
+  <plans super="//@plans.0"
+      name="Grid"/>
+  <plans super="//@plans.0"
+      name="HBox"/>
+  <plans super="//@plans.0"
+      name="VBox"/>
+  <plans super="//@plans.0"
+      name="Form">
+    <parts name="label"/>
+  </plans>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="Page"
+      description="Any full page."
+      layout="//@layouts.4"/>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="Nav"
+      description=""/>
+  <blocks xsi:type="ui:PlanBlock"
+      name="IconBar"
+      description="Icon bar inside the (top) nav area."
+      plan="//@plans.2"/>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="Logo"
+      description="Renders a linkable logo."
+      layout="//@layouts.6"/>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="Image"
+      layout="//@layouts.6"/>
+  <blocks xsi:type="ui:LayoutBlock"
+      name="PersonName"
+      description=""
+      layout="//@layouts.6"/>
+  <activities/>
+</ui:UiCatalog>

@@ -19,13 +19,11 @@
 		<dependency>
 			<groupId>org.ops4j.pax.wicket</groupId>
 			<artifactId>org.ops4j.pax.wicket.service</artifactId>
-			<version>1.0.1</version>
 		</dependency>
 		<!-- Pax Wicket Test Utilities -->
 		<dependency>
 			<groupId>org.ops4j.pax.wicket</groupId>
 			<artifactId>org.ops4j.pax.wicket.test</artifactId>
-			<version>1.0.1</version>
 		</dependency>
 		
 		<dependency>
