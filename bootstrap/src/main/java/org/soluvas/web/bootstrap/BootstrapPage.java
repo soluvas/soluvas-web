@@ -1,9 +1,9 @@
 package org.soluvas.web.bootstrap;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -20,20 +20,19 @@ import org.apache.wicket.model.Model;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.json.JsonUtils;
+import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
-import org.soluvas.web.site.JavaScriptSourceImpl;
 import org.soluvas.web.site.Site;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.ObjectCodec;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Ordering;
 
 /**
@@ -62,8 +61,9 @@ public class BootstrapPage extends WebPage {
 	@PaxWicketBean(name="beforeFooterJsBlocks")
 	private List<ComponentFactory<?>> beforeFooterJsBlocks;
 	
+	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
-	private List<JavaScriptSource> pageJavaScriptSources = new ArrayList<JavaScriptSource>();
+	private List<String> pageJavaScriptSources = new ArrayList<String>();
 	
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
@@ -71,13 +71,12 @@ public class BootstrapPage extends WebPage {
 		return js;
 	}
 	
-	public JavaScriptSource addJsSource(String source) {
-		JavaScriptSourceImpl js = new JavaScriptSourceImpl(source + "\n", 100);
-		pageJavaScriptSources.add(js);
-		return js;
+	public String addJsSource(String source) {
+		pageJavaScriptSources.add(source);
+		return source;
 	}
 	
-	public JavaScriptSource addBackboneModel(String name, String className, Object data) {
+	public String addBackboneModel(String name, String className, Object data) {
 		try {
 			ObjectMapper objectMapper = jacksonMapperFactory.get();
 			return addJsSource("var " + name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
@@ -86,11 +85,19 @@ public class BootstrapPage extends WebPage {
 		}
 	}
 
-	public JavaScriptSource addBackboneView(String name, String className, String modelName,
+	public String addBackboneView(String name, String className, String modelName,
 			String elementId) {
 		return addJsSource("var " + name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
+	public Map<String, String> getDependencies() {
+		return dependencies;
+	}
+
+	public void setDependencies(Map<String, String> dependencies) {
+		this.dependencies = dependencies;
+	}
+
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
@@ -177,7 +184,7 @@ public class BootstrapPage extends WebPage {
 				item.add(new Label("js") {
 					protected void onComponentTag(ComponentTag tag) {
 						super.onComponentTag(tag);
-						tag.getAttributes().put("src", js.getSrc());
+//						tag.getAttributes().put("src", js.getSrc());
 					};
 				});
 			}
@@ -190,7 +197,8 @@ public class BootstrapPage extends WebPage {
 			protected void populateItem(ListItem<JavaScriptSource> item) {
 				item.setRenderBodyOnly(true);
 				final JavaScriptSource js = item.getModelObject();
-				item.add(new Label("js", js.getBody()).setEscapeModelStrings(false));
+//				item.add(new Label("js", js.getScript()).setEscapeModelStrings(false));
+				item.add(new Label("js", "").setEscapeModelStrings(false));
 			}
 		});
 		
@@ -198,7 +206,8 @@ public class BootstrapPage extends WebPage {
 			protected List<JavaScriptLink> load() {
 				log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
 				List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
-				return sortedPageJsLinks;
+//				return sortedPageJsLinks;
+				return ImmutableList.of();
 			};
 		};
 		add(new ListView<JavaScriptLink>("pageJavaScripts", pageJavaScriptLinksModel) {
@@ -215,22 +224,15 @@ public class BootstrapPage extends WebPage {
 			}
 		});
 		
-		IModel<List<JavaScriptSource>> pageJavaScriptSourcesModel = new LoadableDetachableModel<List<JavaScriptSource>>() {
-			protected List<JavaScriptSource> load() {
+		IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
+			protected String load() {
 				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
-				List<JavaScriptSource> sortedPageJsSources = sourceOrdering.immutableSortedCopy(pageJavaScriptSources);
-				return sortedPageJsSources;
+				String merged = Joiner.on('\n').join(pageJavaScriptSources);
+				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencies);
+				return js.getScript();
 			};
 		};
-		add(new ListView<JavaScriptSource>("pageJavaScriptSources", pageJavaScriptSourcesModel) {
-			@Override
-			protected void populateItem(ListItem<JavaScriptSource> item) {
-				item.setRenderBodyOnly(true);
-				final JavaScriptSource js = item.getModelObject();
-				item.add(new Label("js", js.getBody()).setEscapeModelStrings(false));
-			}
-		});
-		
+		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel).setEscapeModelStrings(false));
 	}
 
 }

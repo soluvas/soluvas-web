@@ -88,11 +88,13 @@
 		<hr />
 		<footer wicket:id="footer"><small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small></footer>
 	</div><!--/.fluid-container-->
+	
+	<script data-main="/static/salesorder/js/salesorder.list.page.js" src="/static/bootstrap/js/require-2.0.5.js"></script>
 
 	<div wicket:id="beforeFooterJsBlocks">
 		<div wicket:id="block">[beforeFooterJsBlocks]</div>
 	</div>
-
+ 	
 	<!-- Placed at the end of the document so the pages load faster -->
 	<div wicket:id="footerJavaScripts">
 		<script type="text/javascript" src="something.js" wicket:id="js"></script>
@@ -100,6 +102,7 @@
 	<div wicket:id="footerJavaScriptSources">
 		<script type="text/javascript" wicket:id="js"></script>
 	</div>
+	<!-- 
 	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-transition.js"></script>
 	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-alert.js"></script>
 	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-modal.js"></script>
@@ -112,13 +115,13 @@
 	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-collapse.js"></script>
 	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-carousel.js"></script>
 	<script type="text/javascript" src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+	-->
 
 	<div wicket:id="pageJavaScripts">
 		<script type="text/javascript" src="something.js" wicket:id="js"></script>
 	</div>
-	<div wicket:id="pageJavaScriptSources">
-		<script type="text/javascript" wicket:id="js"></script>
-	</div>
+	<script wicket:id="pageJavaScriptSources" type="text/javascript">
+	</script>
 
 </body>
 </html>

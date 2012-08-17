@@ -7,9 +7,7 @@ public interface JavaScriptSource extends Serializable, Comparable<JavaScriptSou
 	String getBody();
 
 	void setBody(String body);
-
-	int getWeight();
-
-	void setWeight(int weight);
+	
+	String getScript();
 
 }

@@ -1,9 +1,11 @@
 package org.soluvas.web.site;
 
+
 /**
  * @author ceefour
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class JavaScriptSourceImpl implements JavaScriptSource {
 	
 	private String body;
@@ -38,7 +40,6 @@ public class JavaScriptSourceImpl implements JavaScriptSource {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptLink#getWeight()
 	 */
-	@Override
 	public int getWeight() {
 		return weight;
 	}
@@ -46,21 +47,24 @@ public class JavaScriptSourceImpl implements JavaScriptSource {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptLink#setWeight(int)
 	 */
-	@Override
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptLink#toString()
-	 */
-	public String toString() {
-		return String.format("JavaScriptLink [body=%s, weight=%s]", body, weight);
+	@Override
+	public int compareTo(JavaScriptSource o) {
+		return o != null && o instanceof JavaScriptSourceImpl ? weight - ((JavaScriptSourceImpl) o).getWeight() : 0;
 	}
 
 	@Override
-	public int compareTo(JavaScriptSource o) {
-		return o != null ? weight - o.getWeight() : 0;
+	public String toString() {
+		return String.format("JavaScriptSourceImpl [body=%s, weight=%d]",
+				body, weight);
+	}
+
+	@Override
+	public String getScript() {
+		return body;
 	}
 
 }
