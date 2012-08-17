@@ -14,6 +14,11 @@ public class JavaScriptLinkImpl implements JavaScriptLink {
 		super();
 	}
 
+	public JavaScriptLinkImpl(String src) {
+		super();
+		this.src = src;
+	}
+
 	public JavaScriptLinkImpl(String src, int weight) {
 		super();
 		this.src = src;
