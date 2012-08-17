@@ -15,34 +15,34 @@
 		</bean>
 	</service>
 
-	<service auto-export="interfaces">
-		<service-properties>
-			<entry key="region" value="footer"/>
-		</service-properties>
-		<bean class="org.soluvas.web.site.JavaScriptLinkImpl">
-			<argument value="/static/stomp/sockjs-0.3.2.js"/>
-			<argument value="0"/>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<service-properties>
-			<entry key="region" value="footer"/>
-		</service-properties>
-		<bean class="org.soluvas.web.site.JavaScriptLinkImpl">
-			<argument value="/static/stomp/stomp.js"/>
-			<argument value="10"/>
-		</bean>
-	</service>
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/stomp/sockjs-0.3.2.js"/> -->
+<!-- 			<argument value="0"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/stomp/stomp.js"/> -->
+<!-- 			<argument value="10"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
 
-	<service auto-export="interfaces">
-		<service-properties>
-			<entry key="region" value="footer"/>
-		</service-properties>
-		<bean class="org.soluvas.web.site.JavaScriptLinkImpl">
-			<argument value="/static/stomp/stomptest.js"/>
-			<argument value="10"/>
-		</bean>
-	</service>
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/stomp/stomptest.js"/> -->
+<!-- 			<argument value="10"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
 
 	<reference id="menuRepo" interface="org.soluvas.web.nav.MenuRepository" availability="optional"/>
 	<service auto-export="interfaces">
@@ -55,16 +55,16 @@
 		</bean>
 	</service>
 
-	<reference id="processRepo" interface="org.soluvas.process.ProcessRepository" availability="optional"/>
-	<service auto-export="interfaces">
-		<service-properties>
-			<entry key="region" value="footer"/>
-		</service-properties>
-		<bean class="org.soluvas.web.stomp.ProcessBackboneCollectionReset">
-			<argument ref="processRepo"/>
-			<argument value="0"/>
-		</bean>
-	</service>
+<!-- 	<reference id="processRepo" interface="org.soluvas.process.ProcessRepository" availability="optional"/> -->
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.stomp.ProcessBackboneCollectionReset"> -->
+<!-- 			<argument ref="processRepo"/> -->
+<!-- 			<argument value="0"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
 
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->

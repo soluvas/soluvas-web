@@ -15,14 +15,14 @@
 		</bean>
 	</service>
 
-	<service auto-export="interfaces">
-		<service-properties>
-			<entry key="region" value="footer"/>
-		</service-properties>
-		<bean class="org.soluvas.web.site.JavaScriptLinkImpl">
-			<argument value="/static/jquery/jquery-1.7.2.js"/>
-			<argument value="-100"/>
-		</bean>
-	</service>
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/jquery/jquery-1.7.2.js"/> -->
+<!-- 			<argument value="-100"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
 
 </blueprint>

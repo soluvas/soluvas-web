@@ -75,7 +75,8 @@ public class AmdJavaScriptSource implements JavaScriptSource {
 				return "'" + input + "'";
 			}
 		}) );
-		buf += "], function(";
+		buf += "],\n";
+		buf += "function(";
 		buf += Joiner.on(", ").join( dependencies.values() );
 		buf += ") {\n";
 		buf += body + "\n";

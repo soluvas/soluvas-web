@@ -79,7 +79,7 @@ public class BootstrapPage extends WebPage {
 	public String addBackboneModel(String name, String className, Object data) {
 		try {
 			ObjectMapper objectMapper = jacksonMapperFactory.get();
-			return addJsSource("var " + name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
+			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
 		}
@@ -87,7 +87,7 @@ public class BootstrapPage extends WebPage {
 
 	public String addBackboneView(String name, String className, String modelName,
 			String elementId) {
-		return addJsSource("var " + name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
+		return addJsSource(name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
 	public Map<String, String> getDependencies() {
@@ -184,7 +184,7 @@ public class BootstrapPage extends WebPage {
 				item.add(new Label("js") {
 					protected void onComponentTag(ComponentTag tag) {
 						super.onComponentTag(tag);
-//						tag.getAttributes().put("src", js.getSrc());
+						tag.getAttributes().put("src", js.getSrc());
 					};
 				});
 			}
@@ -197,8 +197,7 @@ public class BootstrapPage extends WebPage {
 			protected void populateItem(ListItem<JavaScriptSource> item) {
 				item.setRenderBodyOnly(true);
 				final JavaScriptSource js = item.getModelObject();
-//				item.add(new Label("js", js.getScript()).setEscapeModelStrings(false));
-				item.add(new Label("js", "").setEscapeModelStrings(false));
+				item.add(new Label("js", js.getScript()).setEscapeModelStrings(false));
 			}
 		});
 		
@@ -206,8 +205,7 @@ public class BootstrapPage extends WebPage {
 			protected List<JavaScriptLink> load() {
 				log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
 				List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
-//				return sortedPageJsLinks;
-				return ImmutableList.of();
+				return sortedPageJsLinks;
 			};
 		};
 		add(new ListView<JavaScriptLink>("pageJavaScripts", pageJavaScriptLinksModel) {

@@ -2,6 +2,7 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+@Deprecated
 public interface JavaScriptLink extends Comparable<JavaScriptLink>, Serializable {
 
 	String getSrc();

@@ -5,6 +5,7 @@ package org.soluvas.web.site;
  * @author ceefour
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class JavaScriptLinkImpl implements JavaScriptLink {
 	
 	private String src;

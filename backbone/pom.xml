@@ -19,15 +19,20 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.site</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+		</dependency>
 
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.service</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.test</artifactId>
-		</dependency>
+		<!-- 		<dependency> -->
+<!-- 			<groupId>org.ops4j.pax.wicket</groupId> -->
+<!-- 			<artifactId>org.ops4j.pax.wicket.service</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.ops4j.pax.wicket</groupId> -->
+<!-- 			<artifactId>org.ops4j.pax.wicket.test</artifactId> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>
