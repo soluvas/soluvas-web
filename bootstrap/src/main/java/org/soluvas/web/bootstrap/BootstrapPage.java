@@ -1,5 +1,7 @@
 package org.soluvas.web.bootstrap;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -12,16 +14,26 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.json.JsonUtils;
 import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
+import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
+import org.soluvas.web.site.JavaScriptSourceImpl;
 import org.soluvas.web.site.Site;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Supplier;
 import com.google.common.collect.Ordering;
 
 /**
@@ -32,6 +44,9 @@ import com.google.common.collect.Ordering;
 public class BootstrapPage extends WebPage {
 
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
+	
+	@PaxWicketBean(name="jacksonMapperFactory")
+	private Supplier<ObjectMapper> jacksonMapperFactory;
 	@PaxWicketBean(name="site")
 	private Site site;
 	@PaxWicketBean(name="cssLinks")
@@ -46,6 +61,35 @@ public class BootstrapPage extends WebPage {
 	private List<ComponentFactory<?>> sidebarBlocks;
 	@PaxWicketBean(name="beforeFooterJsBlocks")
 	private List<ComponentFactory<?>> beforeFooterJsBlocks;
+	
+	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
+	private List<JavaScriptSource> pageJavaScriptSources = new ArrayList<JavaScriptSource>();
+	
+	public JavaScriptLink addJsLink(String uri) {
+		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
+		pageJavaScriptLinks.add(js);
+		return js;
+	}
+	
+	public JavaScriptSource addJsSource(String source) {
+		JavaScriptSourceImpl js = new JavaScriptSourceImpl(source + "\n", 100);
+		pageJavaScriptSources.add(js);
+		return js;
+	}
+	
+	public JavaScriptSource addBackboneModel(String name, String className, Object data) {
+		try {
+			ObjectMapper objectMapper = jacksonMapperFactory.get();
+			return addJsSource("var " + name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
+		}
+	}
+
+	public JavaScriptSource addBackboneView(String name, String className, String modelName,
+			String elementId) {
+		return addJsSource("var " + name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
+	}
 	
 	@Override
 	public void renderHead(IHeaderResponse response) {
@@ -75,6 +119,9 @@ public class BootstrapPage extends WebPage {
 	}
 	
 	public BootstrapPage() {
+		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
+		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
+
 		// HEAD
 		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
@@ -121,12 +168,7 @@ public class BootstrapPage extends WebPage {
 		});
 		
 		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());
-		Ordering<JavaScriptLink> jsOrdering = Ordering.from(new Comparator<JavaScriptLink>() {
-			public int compare(JavaScriptLink o1, JavaScriptLink o2) {
-				return o1.getWeight() - o2.getWeight();
-			};
-		});
-		List<JavaScriptLink> sortedJses = jsOrdering.immutableSortedCopy(footerJavaScripts);
+		List<JavaScriptLink> sortedJses = linkOrdering.immutableSortedCopy(footerJavaScripts);
 		add(new ListView<JavaScriptLink>("footerJavaScripts", sortedJses) {
 			@Override
 			protected void populateItem(ListItem<JavaScriptLink> item) {
@@ -142,13 +184,45 @@ public class BootstrapPage extends WebPage {
 		});
 		
 		log.debug("Page {} has {} footer JavaScript sources", getClass().getName(), footerJavaScriptSources.size());
-		Ordering<JavaScriptSource> jsourcesOrdering = Ordering.from(new Comparator<JavaScriptSource>() {
-			public int compare(JavaScriptSource o1, JavaScriptSource o2) {
-				return o1.getWeight() - o2.getWeight();
-			};
+		List<JavaScriptSource> sortedJsSources = sourceOrdering.immutableSortedCopy(footerJavaScriptSources);
+		add(new ListView<JavaScriptSource>("footerJavaScriptSources", sortedJsSources) {
+			@Override
+			protected void populateItem(ListItem<JavaScriptSource> item) {
+				item.setRenderBodyOnly(true);
+				final JavaScriptSource js = item.getModelObject();
+				item.add(new Label("js", js.getBody()).setEscapeModelStrings(false));
+			}
 		});
-		List<JavaScriptSource> sortedJsources = jsourcesOrdering.immutableSortedCopy(footerJavaScriptSources);
-		add(new ListView<JavaScriptSource>("footerJavaScriptSources", sortedJsources) {
+		
+		IModel<List<JavaScriptLink>> pageJavaScriptLinksModel = new LoadableDetachableModel<List<JavaScriptLink>>() {
+			protected List<JavaScriptLink> load() {
+				log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
+				List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
+				return sortedPageJsLinks;
+			};
+		};
+		add(new ListView<JavaScriptLink>("pageJavaScripts", pageJavaScriptLinksModel) {
+			@Override
+			protected void populateItem(ListItem<JavaScriptLink> item) {
+				item.setRenderBodyOnly(true);
+				final JavaScriptLink js = item.getModelObject();
+				item.add(new Label("js") {
+					protected void onComponentTag(ComponentTag tag) {
+						super.onComponentTag(tag);
+						tag.getAttributes().put("src", js.getSrc());
+					};
+				});
+			}
+		});
+		
+		IModel<List<JavaScriptSource>> pageJavaScriptSourcesModel = new LoadableDetachableModel<List<JavaScriptSource>>() {
+			protected List<JavaScriptSource> load() {
+				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
+				List<JavaScriptSource> sortedPageJsSources = sourceOrdering.immutableSortedCopy(pageJavaScriptSources);
+				return sortedPageJsSources;
+			};
+		};
+		add(new ListView<JavaScriptSource>("pageJavaScriptSources", pageJavaScriptSourcesModel) {
 			@Override
 			protected void populateItem(ListItem<JavaScriptSource> item) {
 				item.setRenderBodyOnly(true);

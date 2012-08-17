@@ -64,4 +64,9 @@ public class JavaScriptLinkImpl implements JavaScriptLink {
 		return String.format("JavaScriptLink [src=%s, weight=%s]", src, weight);
 	}
 
+	@Override
+	public int compareTo(JavaScriptLink o) {
+		return o != null ? weight - o.getWeight() : 0;
+	}
+
 }

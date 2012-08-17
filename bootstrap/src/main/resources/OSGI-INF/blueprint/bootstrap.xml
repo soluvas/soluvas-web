@@ -16,6 +16,8 @@
 	</service>
 
 	<reference id="site" interface="org.soluvas.web.site.Site"/>
+	<reference id="jacksonMapperFactory" interface="com.google.common.base.Supplier"
+		filter="(className=com.fasterxml.jackson.databind.ObjectMapper)"/>
 	
 	<reference-list id="sidebarBlocks" interface="org.soluvas.web.site.ComponentFactory" availability="optional"
 		filter="(region=sidebar)"/>

@@ -58,4 +58,9 @@ public class JavaScriptSourceImpl implements JavaScriptSource {
 		return String.format("JavaScriptLink [body=%s, weight=%s]", body, weight);
 	}
 
+	@Override
+	public int compareTo(JavaScriptSource o) {
+		return o != null ? weight - o.getWeight() : 0;
+	}
+
 }
