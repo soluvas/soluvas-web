@@ -40,15 +40,15 @@
 			<argument value="-1"/>
 		</bean>
 	</service>
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<bean class="org.soluvas.web.site.CssLinkImpl"> -->
+<!-- 			<argument value="/static/jquery-ui/datatables/css/jquery.dataTables.css"/> -->
+<!-- 			<argument value="-2"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/jquery-ui/datatables/css/jquery.dataTables.css"/>
-			<argument value="-1"/>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/jquery-ui/datatables/css/jquery.dataTables_themeroller.css"/>
+			<argument value="/static/jquery-ui/datatables/css/jquery.dataTables_bootstrap2.css"/>
 			<argument value="-1"/>
 		</bean>
 	</service>
