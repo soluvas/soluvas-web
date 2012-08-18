@@ -1,0 +1,33 @@
+require(modules, shims) ::= <<
+var require = {
+    //By default load any module IDs from
+    baseUrl: '/static',
+    //except, if the module ID starts with "app",
+    //load it from the js/app directory. paths
+    //config is relative to the baseUrl, and
+    //never includes a ".js" extension since
+    //the paths config could be for a directory.
+    paths: {
+    	$modules:module();anchor, wrap, separator=", "$
+    },
+    shim: {
+    	$shims:shim();anchor, wrap, separator=", "$
+    }
+
+};
+>>
+
+module(m) ::= <<
+
+'$m.name$': '$m.path$'
+>>
+
+shim(m) ::= <<
+
+'$m.name$': { $if(m.dependencies && m.exports)$$[shim_deps(m.dependencies), shim_exports(m.exports) ]; anchor, wrap, separator=", "$$else$$shim_deps(m.dependencies)$$shim_exports(m.exports)$$endif$ }>>
+
+shim_deps(deps) ::= <<
+$if(deps)$deps: [$deps:{dep | '$dep$'}; anchor, wrap, separator=", "$]$endif$
+>>
+
+shim_exports(exports) ::= <<$if(exports)$exports: '$exports$'$endif$>>

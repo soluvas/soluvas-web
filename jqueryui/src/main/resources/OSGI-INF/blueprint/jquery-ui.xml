@@ -15,6 +15,42 @@
 		</bean>
 	</service>
 
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="jquery-ui"/>
+			<argument value="jquery-ui/development-bundle/ui/jquery-ui-1.8.22.custom"/>
+			<argument value="jquery-ui/js/jquery-ui-1.8.22.custom.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="jquery-ui"/>
+			<argument>
+				<set>
+					<value>jquery</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="jquery.dataTables"/>
+			<argument value="jquery-ui/datatables/js/jquery.dataTables"/>
+			<argument value="jquery-ui/datatables/js/jquery.dataTables.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="jquery.dataTables"/>
+			<argument>
+				<set>
+					<value>jquery</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->
 <!-- 			<entry key="region" value="footer"/> -->

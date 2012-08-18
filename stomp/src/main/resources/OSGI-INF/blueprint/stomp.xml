@@ -15,6 +15,35 @@
 		</bean>
 	</service>
 
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="sockjs"/>
+			<argument value="stomp/sockjs-0.3.2"/>
+			<argument value="stomp/sockjs-0.3.2.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="sockjs"/>
+			<argument><set/></argument>
+			<argument value="SockJS"/>
+		</bean>
+	</service>
+
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="stomp"/>
+			<argument value="/static/stomp/stomp"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="stomp"/>
+			<argument><set/></argument>
+			<argument value="Stomp"/>
+		</bean>
+	</service>
+
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->
 <!-- 			<entry key="region" value="footer"/> -->

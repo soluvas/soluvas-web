@@ -15,6 +15,91 @@
 		</bean>
 	</service>
 
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="underscore"/>
+			<argument value="backbone/underscore-1.3.3"/>
+			<argument value="backbone/underscore-1.3.3.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="underscore"/>
+			<argument>
+				<set/>
+			</argument>
+			<argument value="_"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="backbone"/>
+			<argument value="backbone/backbone-0.9.2"/>
+			<argument value="backbone/backbone-0.9.2.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="backbone"/>
+			<argument>
+				<set>
+					<value>underscore</value>
+					<value>jquery</value>
+				</set>
+			</argument>
+			<argument value="Backbone"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="mustache"/>
+			<argument value="backbone/mustache-0.5.2"/>
+			<argument value="backbone/mustache-0.5.2.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="mustache"/>
+			<argument>
+				<set/>
+			</argument>
+			<argument value="Mustache"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="sugar"/>
+			<argument value="backbone/sugar-1.3.min"/>
+			<argument value="backbone/sugar-1.3.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="sugar"/>
+			<argument>
+				<set/>
+			</argument>
+			<argument value="Date"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="sugar_id"/>
+			<argument value="backbone/sugar_id"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="sugar_id"/>
+			<argument>
+				<set>
+					<value>sugar</value>
+				</set>
+			</argument>
+			<argument value="Date"/>
+		</bean>
+	</service>
+
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->
 <!-- 			<entry key="region" value="footer"/> -->
@@ -61,9 +146,14 @@
 <!-- 		</bean> -->
 <!-- 	</service> -->
 
+	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule" availability="optional"/>
+	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional"/>
 	<jaxrs:server id="requireServer" address="/require">
 		<jaxrs:serviceBeans>
-			<bean class="org.soluvas.web.backbone.RequireResource"/>
+			<bean class="org.soluvas.web.backbone.RequireResource">
+				<argument ref="jsModules"/>
+				<argument ref="jsShims"/>
+			</bean>
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 

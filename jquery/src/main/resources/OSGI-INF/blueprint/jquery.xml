@@ -15,6 +15,14 @@
 		</bean>
 	</service>
 
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="jquery"/>
+			<argument value="/static/jquery/jquery-1.7.2"/>
+			<argument value="/static/jquery/jquery-1.7.2.min"/>
+		</bean>
+	</service>
+
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->
 <!-- 			<entry key="region" value="footer"/> -->
