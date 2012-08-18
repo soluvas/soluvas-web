@@ -12,6 +12,11 @@ public class CssLinkImpl implements CssLink {
 	public CssLinkImpl() {
 		super();
 	}
+	
+	public CssLinkImpl(String href) {
+		super();
+		this.href = href;
+	}
 
 	public CssLinkImpl(String href, int weight) {
 		super();
