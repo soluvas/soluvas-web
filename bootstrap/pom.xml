@@ -12,6 +12,7 @@
 	<artifactId>org.soluvas.web.bootstrap</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
+	<name>Soluvas Web Bootstrap</name>
 	<description>Twitter bootstrap HTML5 template.</description>
 
 	<dependencies>

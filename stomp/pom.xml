@@ -12,6 +12,7 @@
 	<artifactId>org.soluvas.web.stomp</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
+	<name>Soluvas Web Stomp</name>
 	<description>SockJS and Stomp.js library.</description>
 
 	<dependencies>

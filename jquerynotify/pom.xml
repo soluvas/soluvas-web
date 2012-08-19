@@ -12,6 +12,7 @@
 	<artifactId>org.soluvas.web.jquerynotify</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
+	<name>Soluvas Web jQuery UI Notify</name>
 	<description>jQuery UI Notify library.</description>
 
 	<dependencies>

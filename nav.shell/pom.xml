@@ -12,7 +12,8 @@
 	<artifactId>org.soluvas.web.nav.shell</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<description>Soluvas Nav.</description>
+	<name>Soluvas Web Nav Shell</name>
+	<description>Soluvas Web Nav Shell.</description>
 
 	<dependencies>
 		<dependency>

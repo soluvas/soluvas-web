@@ -12,6 +12,7 @@
 	<artifactId>org.soluvas.web.backbone</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
+	<name>Soluvas Web Backbone</name>
 	<description>Underscore and Backbone library.</description>
 
 	<dependencies>
