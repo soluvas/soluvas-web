@@ -1,6 +1,7 @@
 package org.soluvas.web.nav.live;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.annotation.PreDestroy;
 
@@ -49,11 +50,12 @@ public class LiveMenuRepositoryAdapter extends EContentAdapter {
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 		log.trace("Menu notification {}", notification);
+		final String trackingId = UUID.randomUUID().toString(); // TODO: real tracking ID 
 		switch (notification.getEventType()) {
 		case Notification.ADD:
 			if (notification.getNotifier() instanceof MenuItemContainer && notification.getNewValue() instanceof MenuItem) {
 				final MenuItem newItem = (MenuItem) notification.getNewValue();
-				CollectionAdd<MenuItem> push = new CollectionAdd<MenuItem>(topic, newItem, notification.getPosition());
+				CollectionAdd<MenuItem> push = new CollectionAdd<MenuItem>(trackingId, topic, topic, newItem, notification.getPosition());
 				String pushJson = JsonUtils.asJson(push);
 				log.info("Publishing CollectionAdd {} to {}", newItem, topic);
 				try {
@@ -73,7 +75,7 @@ public class LiveMenuRepositoryAdapter extends EContentAdapter {
 			if (notification.getNotifier() instanceof MenuItemContainer && notification.getOldValue() instanceof MenuItem) {
 				final MenuItem oldItem = (MenuItem) notification.getOldValue();
 				final String removedId = oldItem.getId();
-				CollectionDelete push = new CollectionDelete(topic, removedId);
+				CollectionDelete push = new CollectionDelete(trackingId, topic, topic, removedId);
 				String pushJson = JsonUtils.asJson(push);
 				log.info("Publishing CollectionDelete {} to {}", removedId, topic);
 				try {
