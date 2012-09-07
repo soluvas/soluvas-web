@@ -1,0 +1,152 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+    xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:wicket="http://www.ops4j.org/schema/wicket"
+    xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0
+        http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0
+        http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0">
+
+	<service auto-export="interfaces">
+		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/static/stomp"/>
+			<property name="path" value="/webresources"/>
+		</bean>
+	</service>
+
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="sockjs"/>
+			<argument value="stomp/sockjs-0.3.2"/>
+			<argument value="stomp/sockjs-0.3.2.min"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="sockjs"/>
+			<argument><set/></argument>
+			<argument value="SockJS"/>
+		</bean>
+	</service>
+
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="stomp"/>
+			<argument value="/static/stomp/stomp"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="stomp"/>
+			<argument><set/></argument>
+			<argument value="Stomp"/>
+		</bean>
+	</service>
+
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/stomp/sockjs-0.3.2.js"/> -->
+<!-- 			<argument value="0"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/stomp/stomp.js"/> -->
+<!-- 			<argument value="10"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
+<!-- 			<argument value="/static/stomp/stomptest.js"/> -->
+<!-- 			<argument value="10"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+
+	<reference id="menuRepo" interface="org.soluvas.web.nav.MenuRepository" availability="optional"/>
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="region" value="footer"/>
+		</service-properties>
+		<bean class="org.soluvas.web.stomp.BackboneCollectionReset">
+			<argument ref="menuRepo"/>
+			<argument value="0"/>
+		</bean>
+	</service>
+
+<!-- 	<reference id="processRepo" interface="org.soluvas.process.ProcessRepository" availability="optional"/> -->
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.stomp.ProcessBackboneCollectionReset"> -->
+<!-- 			<argument ref="processRepo"/> -->
+<!-- 			<argument value="0"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="region" value="footer"/> -->
+<!-- 		</service-properties> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptSourceImpl"> -->
+<!-- 			<argument><value><![CDATA[ -->
+<!-- // Stomp via SockJS -->
+<!-- jQuery(document).ready(function() { -->
+
+<!-- 	WebSocketStompMock = SockJS; -->
+<!-- 	client = Stomp.client('http://' + window.location.hostname + ':55674/stomp'); -->
+<!-- 	client.debug = function(x) { console.debug(x); }; -->
+
+<!-- 	client.connect('guest', 'guest', function(x) { -->
+<!-- 		client.subscribe("/topic/notify", function(d) { -->
+<!-- 			$('#notify-container').notify('create', JSON.parse(d.body)); -->
+<!-- 		}); -->
+	
+<!-- 		client.subscribe("/topic/product_category", function(d) { -->
+<!-- 			var message = JSON.parse(d.body); -->
+<!-- 			console.debug('product_category push', message); -->
+<!-- 			if (message['@class'] == 'org.soluvas.push.CollectionAdd') { -->
+<!-- 				productCategories.add(message.entry); -->
+<!-- 			} -->
+<!-- 			if (message['@class'] == 'org.soluvas.push.CollectionUpdate') { -->
+<!-- 				productCategories.get(message.entryId).set(message.entry); -->
+<!-- 			} -->
+<!-- 			if (message['@class'] == 'org.soluvas.push.CollectionDelete') { -->
+<!-- 				productCategories.remove(message.entryId); -->
+<!-- 			} -->
+<!-- 		}); -->
+		
+<!-- 		client.subscribe("/topic/product", function(d) { -->
+<!-- 			var message = JSON.parse(d.body); -->
+<!-- 			console.debug('product push', message); -->
+<!-- 			if (message['@class'] == 'org.soluvas.push.CollectionAdd') { -->
+<!-- 				featuredProducts.add(message.entry); -->
+<!-- 			} -->
+<!-- 			if (message['@class'] == 'org.soluvas.push.CollectionUpdate') { -->
+<!-- 				featuredProducts.get(message.entryId).set(message.entry); -->
+<!-- 			} -->
+<!-- 			if (message['@class'] == 'org.soluvas.push.CollectionDelete') { -->
+<!-- 				featuredProducts.remove(message.entryId); -->
+<!-- 			} -->
+<!-- 		}); -->
+		
+<!-- 	}); -->
+
+<!-- }); -->
+<!-- 			]]></value></argument> -->
+<!-- 			<argument value="0"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+
+</blueprint>

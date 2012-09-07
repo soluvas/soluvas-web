@@ -9,11 +9,11 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>org.soluvas.web.stomp</artifactId>
+	<artifactId>org.soluvas.process.stomp</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<name>Soluvas Web Stomp</name>
-	<description>SockJS and Stomp.js library.</description>
+	<name>Soluvas Process Stomp</name>
+	<description>Stomp via SockJS and Stomp.js library.</description>
 
 	<dependencies>
 		<dependency>
@@ -23,6 +23,10 @@
 		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.nav</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.process</artifactId>
 		</dependency>
 
 		<dependency>

@@ -1,0 +1,13 @@
+h1. SockJS and Stomp Web
+
+h2. Testing using jQuery Notify
+
+JavaScript client subscribe code:
+
+bc. client.subscribe("/topic/notify", function(d) {
+	$('#notify-container').notify('create', JSON.parse(d.body));
+});
+
+Test sending via AMQP CLI tool:
+
+bc. amqp-publish -e amq.topic -r notify -b '{"text": "Yuuk mandi"}'
