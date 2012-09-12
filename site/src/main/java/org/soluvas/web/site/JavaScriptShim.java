@@ -3,12 +3,14 @@ package org.soluvas.web.site;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.google.common.base.Optional;
+
 /**
  * AMD Shim config, for those libraries who aren't AMD-ready.
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class JavaScriptShim implements Serializable {
+public class JavaScriptShim implements Serializable, Comparable<JavaScriptShim> {
 
 	private String name;
 	private Set<String> dependencies;
@@ -60,6 +62,11 @@ public class JavaScriptShim implements Serializable {
 		return String.format(
 				"JavaScriptShim [name=%s, dependencies=%s, exports=%s]", name,
 				dependencies, exports);
+	}
+
+	@Override
+	public int compareTo(JavaScriptShim o) {
+		return Optional.fromNullable(getName()).or("").compareToIgnoreCase(o.getName());
 	}
 	
 }

@@ -2,11 +2,13 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+import com.google.common.base.Optional;
+
 /**
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class JavaScriptModule implements Serializable {
+public class JavaScriptModule implements Serializable, Comparable<JavaScriptModule> {
 
 	private String name;
 	private String path;
@@ -58,6 +60,11 @@ public class JavaScriptModule implements Serializable {
 		return String.format(
 				"JavaScriptModule [name=%s, path=%s, minifiedPath=%s]", name,
 				path, minifiedPath);
+	}
+
+	@Override
+	public int compareTo(JavaScriptModule o) {
+		return Optional.fromNullable(getName()).or("").compareToIgnoreCase(o.getName());
 	}
 	
 }

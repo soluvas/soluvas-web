@@ -11,6 +11,8 @@ import org.soluvas.web.site.JavaScriptShim;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
+import com.google.common.collect.Ordering;
+
 /**
  * @author ceefour
  *
@@ -31,8 +33,8 @@ public class RequireResource {
 	public String getRequireConfig() throws IOException {
 		STGroupFile stg = new STGroupFile(RequireResource.class.getResource("/require_config.stg"), "UTF-8", '$', '$');
 		ST requireSt = stg.getInstanceOf("require");
-		requireSt.add("modules", jsModules);
-		requireSt.add("shims", jsShims);
+		requireSt.add("modules", Ordering.natural().immutableSortedCopy(jsModules));
+		requireSt.add("shims", Ordering.natural().immutableSortedCopy(jsShims));
 		return requireSt.render(80);
 	}
 
