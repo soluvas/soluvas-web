@@ -35,6 +35,24 @@
 
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="jquery-selectmenu"/>
+			<argument value="jquery-ui/js/jquery.ui.selectmenu"/>
+			<argument value="jquery-ui/js/jquery.ui.selectmenu"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="jquery-selectmenu"/>
+			<argument>
+				<set>
+					<value>jquery-ui</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
 			<argument value="jquery.dataTables"/>
 			<argument value="jquery-ui/datatables/js/jquery.dataTables"/>
 			<argument value="jquery-ui/datatables/js/jquery.dataTables.min"/>
@@ -64,6 +82,11 @@
 		<bean class="org.soluvas.web.site.CssLinkImpl">
 			<argument value="/static/jquery-ui/development-bundle/themes/ui-lightness/jquery-ui-1.8.22.custom.css"/>
 			<argument value="-1"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.CssLinkImpl">
+			<argument value="/static/jquery-ui/css/jquery.ui.selectmenu.css"/>
 		</bean>
 	</service>
 	
