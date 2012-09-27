@@ -31,7 +31,6 @@ import org.soluvas.web.site.Site;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Ordering;
 
@@ -64,7 +63,7 @@ public class BootstrapPage extends WebPage {
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	private List<String> pageJavaScriptSources = new ArrayList<String>();
-	
+
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
 		pageJavaScriptLinks.add(js);
@@ -133,11 +132,12 @@ public class BootstrapPage extends WebPage {
 		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
 		
-		// BODY
-		
+		// HEADER
+		Navbar navbar = new Navbar("navbar");
+		add(navbar);
 //		add(new Label("logoText", site.getLogoText()).setRenderBodyOnly(true));
 //		add(new Label("logoAlt", site.getLogoAlt()).setRenderBodyOnly(true));
-		add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()) {
+		navbar.add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()) {
 			{
 				this.setBody(new Model<String>(site.getLogoText()));
 			}
@@ -147,8 +147,9 @@ public class BootstrapPage extends WebPage {
 				tag.getAttributes().put("title", site.getLogoAlt());
 			}
 		});
+		navbar.add(new Header());
 		
-		add(new Header());
+		// SIDEBAR
 		
 		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());
 		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
@@ -161,7 +162,11 @@ public class BootstrapPage extends WebPage {
 			}
 		});
 		
+		// FOOTER
+		
 		add(new Footer(new Model<String>(site.getFooterText())));
+		
+		// JAVASCRIPT
 
 		log.info("Page {} has {} before-footer-js blocks", getClass().getName(), beforeFooterJsBlocks.size());
 		add(new ListView<ComponentFactory<?>>("beforeFooterJsBlocks", beforeFooterJsBlocks) {
