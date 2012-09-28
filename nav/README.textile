@@ -30,3 +30,7 @@ i.e. /berbatik_dev/
 h2. Multiple sign-in support
 
 i.e. /u/1
+
+h2. Realtime changes support
+
+TBD.
