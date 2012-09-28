@@ -151,7 +151,7 @@ public class OsgiMenuRepository implements MenuRepository {
 			public boolean apply(@Nullable Menu input) {
 				return input.getId().equals(id);
 			}
-		});
+		}, null);
 		callback.success(menu);
 	}
 

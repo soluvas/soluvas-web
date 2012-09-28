@@ -55,10 +55,13 @@ public class BootstrapPage extends WebPage {
 	private List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="footerJavaScriptSources")
 	private List<JavaScriptSource> footerJavaScriptSources;
-	@PaxWicketBean(name="sidebarBlocks")
-	private List<ComponentFactory<?>> sidebarBlocks;
 	@PaxWicketBean(name="beforeFooterJsBlocks")
 	private List<ComponentFactory<?>> beforeFooterJsBlocks;
+	
+	@PaxWicketBean(name="sidebarBlocks")
+	private List<ComponentFactory<?>> sidebarBlocks;
+	@PaxWicketBean(name="navbarChild")
+	private ComponentFactory<?> navbarChildFactory;
 	
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
@@ -132,7 +135,7 @@ public class BootstrapPage extends WebPage {
 		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
 		
-		// HEADER
+		// NAVBAR
 		Navbar navbar = new Navbar("navbar");
 		add(navbar);
 //		add(new Label("logoText", site.getLogoText()).setRenderBodyOnly(true));
@@ -147,7 +150,16 @@ public class BootstrapPage extends WebPage {
 				tag.getAttributes().put("title", site.getLogoAlt());
 			}
 		});
-		navbar.add(new Header());
+		
+		try {
+			Component navbarChild = navbarChildFactory.create("navbarChild");
+			navbar.replace(navbarChild);
+		} catch (Exception e) {
+			log.debug("Ignoring navbarChildFactory due to error", e);
+		}
+		
+		// HEADER
+		add(new Header());
 		
 		// SIDEBAR
 		

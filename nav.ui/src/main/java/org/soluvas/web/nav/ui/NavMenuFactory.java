@@ -9,11 +9,11 @@ import org.soluvas.web.nav.Menu;
 import org.soluvas.web.nav.MenuRepository;
 import org.soluvas.web.site.ComponentFactory;
 
-public class NavBarFactory implements ComponentFactory {
+public class NavMenuFactory implements ComponentFactory {
 	
 	private MenuRepository menuRepository;
 	
-	public NavBarFactory(MenuRepository menuRepository) {
+	public NavMenuFactory(MenuRepository menuRepository) {
 		super();
 		this.menuRepository = menuRepository;
 	}
@@ -28,7 +28,7 @@ public class NavBarFactory implements ComponentFactory {
 				menu.set(data);
 			}
 		});
-		return new NavBar(id, new LoadableDetachableModel<Menu>() {
+		return new NavMenu(id, new LoadableDetachableModel<Menu>() {
 			@Override
 			protected Menu load() {
 				return menu.get();

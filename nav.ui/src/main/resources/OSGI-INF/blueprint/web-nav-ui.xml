@@ -22,11 +22,11 @@
 		</bean>
 	</service>
 	
-	<service id="navBar" auto-export="interfaces">
+	<service id="navMenu" auto-export="interfaces">
 		<service-properties>
 			<entry key="region" value="navbar"/>
 		</service-properties>
-		<bean class="org.soluvas.web.nav.ui.NavBarFactory">
+		<bean class="org.soluvas.web.nav.ui.NavMenuFactory">
 			<argument ref="menuRepo"/>
 		</bean>
 	</service>
