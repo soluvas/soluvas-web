@@ -1,0 +1,32 @@
+h1. Soluvas Web Nav
+
+(should it be just Soluvas Nav?)
+
+Nav items come from: (planned)
+
+1. "Statically", through @.nav.xmi@ files. These files are loaded and unloaded dynamically via Extender through OSGi.
+2. Dynamically via a database like MongoDB or JCR. This is similar to Drupal menu items in a CMS.
+3. Dynamically via @MenuRepository@ implementation. Nav itself implements @MenuRepository@,
+   so is the static XMI and database-backed menus, so it what it does is actually federating.
+
+h2. Cross-references
+
+We use RDF-style of cross-referencing, mixed with CSS-style override mechanism.
+
+Each nav item is treated similar to an RDF triplet. It is a "statement".
+
+It can refer to a parent (can be non-existing). It can assert simple statements about a parent.
+And the statement can be ranked.
+
+So statements with higher rank will override.
+
+This makes it possible to have a "Home" item bundled by default by Soluvas Nav, and have an app (e.g. Berbatik)
+override its title, etc.
+
+h2. Multitenant Support
+
+i.e. /berbatik_dev/
+
+h2. Multiple sign-in support
+
+i.e. /u/1
