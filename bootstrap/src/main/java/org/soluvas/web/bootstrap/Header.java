@@ -11,8 +11,6 @@ import org.soluvas.web.site.ComponentFactory;
 @SuppressWarnings("serial")
 public class Header extends Panel {
 	
-	@PaxWicketBean(name="navbarBlock") private ComponentFactory navbarBlock;
-
 	/**
 	 * @todo Should accept an Either<Throwable, List<Categories>> for example
 	 * if TimeoutException.
@@ -21,7 +19,6 @@ public class Header extends Panel {
 	public Header() {
 		super("header");
 		setRenderBodyOnly(true);
-		add(navbarBlock.create("navbar"));
 	}
 
 }

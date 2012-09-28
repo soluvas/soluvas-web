@@ -25,17 +25,17 @@ import org.soluvas.web.nav.PageMenuItem;
 import org.soluvas.web.nav.ProcessMenuItem;
 
 /**
+ * Menu item links inside the navbar (Navbar contains brand, menu item links, Login link, Search, etc.)
  * @author ceefour
- *
  */
 @SuppressWarnings("serial")
-public class NavBar extends Panel {
+public class NavMenu extends Panel {
 
-	private transient Logger log = LoggerFactory.getLogger(NavBar.class);
+	private transient Logger log = LoggerFactory.getLogger(NavMenu.class);
 	@PaxWicketBean(name="processLinkFactory")
 	private ProcessLinkFactory processLinkFactory; 
 	
-	public NavBar(String id, final IModel<Menu> model) {
+	public NavMenu(String id, final IModel<Menu> model) {
 		super(id, model);
 		setRenderBodyOnly(true);
 		LoadableDetachableModel<List<MenuItem>> menuItemsModel = new LoadableDetachableModel<List<MenuItem>>() {

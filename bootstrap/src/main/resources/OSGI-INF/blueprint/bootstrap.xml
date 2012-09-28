@@ -21,7 +21,7 @@
 	
 	<reference-list id="sidebarBlocks" interface="org.soluvas.web.site.ComponentFactory" availability="optional"
 		filter="(region=sidebar)"/>
-	<reference id="navbarBlock" interface="org.soluvas.web.site.ComponentFactory"
+	<reference id="navbarChild" interface="org.soluvas.web.site.ComponentFactory" availability="optional"
 		filter="(region=navbar)"/>
 
 	<reference-list id="cssLinks" interface="org.soluvas.web.site.CssLink" availability="optional"/>
