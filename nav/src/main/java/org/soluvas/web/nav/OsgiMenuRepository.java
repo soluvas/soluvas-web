@@ -174,6 +174,8 @@ public class OsgiMenuRepository implements MenuRepository {
 
 	@Override
 	public void delete(final String id) {
+		if (id == null)
+			return;
 		log.debug("Deleting menu {}", id);
 		Menu menu = Iterables.find(current.getMenus(), new Predicate<Menu>() {
 			@Override
@@ -187,6 +189,8 @@ public class OsgiMenuRepository implements MenuRepository {
 
 	@Override
 	public void remove(final Menu menu) {
+		if (menu == null)
+			return;
 		log.debug("Deleting menu {}", menu.getId());
 		Menu found = Iterables.find(current.getMenus(), new Predicate<Menu>() {
 			@Override
@@ -203,6 +207,8 @@ public class OsgiMenuRepository implements MenuRepository {
 
 	@Override
 	public void remove(MenuItem menuItem) {
+		if (menuItem == null)
+			return;
 		log.debug("Deleting menu item {}", menuItem.getId());
 		menuItems.remove(menuItem.getId());
 		for (Menu menu : current.getMenus()) {
