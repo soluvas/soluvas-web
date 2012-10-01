@@ -33,7 +33,7 @@
 	</licenses>
 
 	<properties>
-		<wicket.version>1.5.7</wicket.version>
+<!-- 		<wicket.version>1.5.7</wicket.version> -->
 		<emf.version>2.8.0.v20120606-0717</emf.version>
 	</properties>
 
@@ -120,16 +120,16 @@
 				<version>1.1.0</version>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.wicket</groupId>
-				<artifactId>wicket-spring</artifactId>
-				<version>${wicket.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.wicket</groupId>
-				<artifactId>wicket-extensions</artifactId>
-				<version>${wicket.version}</version>
-			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.apache.wicket</groupId> -->
+<!-- 				<artifactId>wicket-spring</artifactId> -->
+<!-- 				<version>${wicket.version}</version> -->
+<!-- 			</dependency> -->
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.apache.wicket</groupId> -->
+<!-- 				<artifactId>wicket-extensions</artifactId> -->
+<!-- 				<version>${wicket.version}</version> -->
+<!-- 			</dependency> -->
 
 			<dependency>
 				<groupId>org.eclipse.emf</groupId>
@@ -207,7 +207,13 @@
 	</build>
 
 	<repositories>
-		<!-- TODO: Bippo/Soluvas repository -->
+		<repository>
+			<id>bippo-nexus-public</id>
+			<url>http://nexus.bippo.co.id/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>JBOSS_NEXUS</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public</url>
