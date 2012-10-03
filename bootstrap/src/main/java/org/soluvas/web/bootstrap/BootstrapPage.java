@@ -92,6 +92,10 @@ public class BootstrapPage extends WebPage {
 		return addJsSource(name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
+	public String addBackboneViewWithoutModel(String name, String className, String elementId) {
+		return addJsSource(name + " = new "+ className + "({id: '"+ elementId +"', el: '#" + elementId + "'});");
+	}
+	
 	public Map<String, String> getDependencies() {
 		return dependencies;
 	}
