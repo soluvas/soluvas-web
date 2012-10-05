@@ -8,10 +8,9 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.annotation.Nullable;
+import jline.internal.Nullable;
 
 import org.eclipse.emf.ecore.EPackage.Registry;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;

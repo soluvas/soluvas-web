@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nullable;
+import jline.internal.Nullable;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.async.Callback;
+import org.soluvas.web.nav.OsgiMenuRepository.MenuItemComparator;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
