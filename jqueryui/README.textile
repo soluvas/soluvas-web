@@ -1,0 +1,10 @@
+h1. jQuery UI
+
+This bundle provides several AMD modules:
+
+1. jquery.dataTables
+2. jquery-selectmenu (TODO: should be jquery.ui.selectmenu)
+3. jquery-ui
+4. jquery-ui/jquery.ui.autocomplete
+
+All requires: jquery

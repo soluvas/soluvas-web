@@ -1,0 +1,5 @@
+/* Fix Bootstrap .modal compatibility with jQuery UI Autocomplete,
+see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-in-bootstrap-modal-dialog */
+.ui-autocomplete {
+	z-index: 1051 !important;
+}
