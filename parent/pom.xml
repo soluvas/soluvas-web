@@ -247,6 +247,9 @@
 			<!-- For rapid development using Karaf, do NOT use when deploying to JBoss 
 				using Eclipse IDE -->
 			<id>osgi</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -281,5 +284,5 @@
 			</distributionManagement>
 		</profile>
 	</profiles>
-
+	
 </project> 
