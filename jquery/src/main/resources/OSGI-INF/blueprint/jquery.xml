@@ -18,8 +18,8 @@
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptModule">
 			<argument value="jquery"/>
-			<argument value="/static/jquery/jquery-1.7.2"/>
-			<argument value="/static/jquery/jquery-1.7.2.min"/>
+			<argument value="/static/jquery/jquery-1.8.2"/>
+			<argument value="/static/jquery/jquery-1.8.2.min"/>
 		</bean>
 	</service>
 
