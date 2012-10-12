@@ -21,7 +21,8 @@ public class SimpleSite implements Site, ManagedService {
 	private String pageTitleSuffix;
 	private String logoText;
 	private String logoAlt;
-	private String footerText;
+	private String footerHtml;
+	private String faviconUri;
 
 	public SimpleSite() {
 		super();
@@ -125,14 +126,20 @@ public class SimpleSite implements Site, ManagedService {
 		}
 	}
 
-	@Override
-	public String getFooterText() {
-		return footerText;
+	public String getFooterHtml() {
+		return footerHtml;
 	}
 
-	@Override
-	public void setFooterText(String footerText) {
-		this.footerText = footerText;
+	public void setFooterHtml(String footerHtml) {
+		this.footerHtml = footerHtml;
 	}
 
+	public String getFaviconUri() {
+		return faviconUri;
+	}
+
+	public void setFaviconUri(String faviconUri) {
+		this.faviconUri = faviconUri;
+	}
+	
 }

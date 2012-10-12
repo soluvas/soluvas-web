@@ -5,10 +5,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -138,6 +141,9 @@ public class BootstrapPage extends WebPage {
 		// HEAD
 		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
+		final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
+		faviconLink.add(new AttributeModifier("href", site.getFaviconUri()));
+		add(faviconLink);
 		
 		// NAVBAR
 		Navbar navbar = new Navbar("navbar");
@@ -180,7 +186,7 @@ public class BootstrapPage extends WebPage {
 		
 		// FOOTER
 		
-		add(new Footer(new Model<String>(site.getFooterText())));
+		add(new Footer(site.getFooterHtml()));
 		
 		// JAVASCRIPT
 

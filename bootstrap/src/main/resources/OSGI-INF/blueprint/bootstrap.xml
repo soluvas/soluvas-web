@@ -38,13 +38,13 @@
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptModule">
 			<argument value="bootstrap"/>
-			<argument value="bootstrap/js/bootstrap"/>
-			<argument value="bootstrap/js/bootstrap.min"/>
+			<argument value="bootstrap/js"/>
 		</bean>
 	</service>
+
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap"/>
+			<argument value="bootstrap/bootstrap-affix"/>
 			<argument>
 				<set>
 					<value>jquery</value>
@@ -53,14 +53,8 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-alert"/>
-			<argument value="bootstrap/js/bootstrap-alert"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-alert"/>
+			<argument value="bootstrap/bootstrap-alert"/>
 			<argument>
 				<set>
 					<value>jquery</value>
@@ -69,14 +63,8 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-button"/>
-			<argument value="bootstrap/js/bootstrap-button"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-button"/>
+			<argument value="bootstrap/bootstrap-button"/>
 			<argument>
 				<set>
 					<value>jquery</value>
@@ -85,14 +73,8 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-carousel"/>
-			<argument value="bootstrap/js/bootstrap-carousel"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-carousel"/>
+			<argument value="bootstrap/bootstrap-carousel"/>
 			<argument>
 				<set>
 					<value>jquery</value>
@@ -101,126 +83,72 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-collapse"/>
-			<argument value="bootstrap/js/bootstrap-collapse"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-collapse"/>
+			<argument value="bootstrap/bootstrap-collapse"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-dropdown"/>
-			<argument value="bootstrap/js/bootstrap-dropdown"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-dropdown"/>
+			<argument value="bootstrap/bootstrap-dropdown"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-modal"/>
-			<argument value="bootstrap/js/bootstrap-modal"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-modal"/>
+			<argument value="bootstrap/bootstrap-modal"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-popover"/>
-			<argument value="bootstrap/js/bootstrap-popover"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-popover"/>
+			<argument value="bootstrap/bootstrap-popover"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-scrollspy"/>
-			<argument value="bootstrap/js/bootstrap-scrollspy"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-scrollspy"/>
+			<argument value="bootstrap/bootstrap-scrollspy"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-tab"/>
-			<argument value="bootstrap/js/bootstrap-tab"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-tab"/>
+			<argument value="bootstrap/bootstrap-tab"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-tooltip"/>
-			<argument value="bootstrap/js/bootstrap-tooltip"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-tooltip"/>
+			<argument value="bootstrap/bootstrap-tooltip"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-transition"/>
-			<argument value="bootstrap/js/bootstrap-transition"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-transition"/>
+			<argument value="bootstrap/bootstrap-transition"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
-			<argument value="bootstrap-typeahead"/>
-			<argument value="bootstrap/js/bootstrap-typeahead"/>
-		</bean>
-	</service>
-	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptShim">
-			<argument value="bootstrap-typeahead"/>
+			<argument value="bootstrap/bootstrap-typeahead"/>
 			<argument>
 				<set><value>jquery</value></set>
 			</argument>

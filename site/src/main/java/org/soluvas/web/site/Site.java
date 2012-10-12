@@ -1,9 +1,6 @@
 package org.soluvas.web.site;
 
 import java.io.Serializable;
-import java.util.Map;
-
-import org.apache.wicket.model.IModel;
 
 public interface Site extends Serializable {
 
@@ -29,8 +26,11 @@ public interface Site extends Serializable {
 
 	String toString();
 
-	String getFooterText();
-	void setFooterText(String footerText);
+	String getFooterHtml();
+	void setFooterHtml(String footerHtml);
+
+	String getFaviconUri();
+	void setFaviconUri(String faviconUri);
 	
 //	void updated(Dictionary configuration);
 

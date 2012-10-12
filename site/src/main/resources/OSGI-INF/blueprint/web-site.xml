@@ -22,9 +22,16 @@
             <cm:property name="pageTitleSuffix"		value="| FashionWow"/>
             <cm:property name="logoText"			value="FashionWow"/>
             <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
-            <cm:property name="footerText"			value="Copyright © 2012 Soluvas"/>
+            <cm:property name="footerHtml"			value="Copyright © 2012 Soluvas"/>
         </cm:default-properties>
     </cm:property-placeholder>
+
+	<service auto-export="interfaces">
+		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/static/org.soluvas.web.site/images"/>
+			<property name="path" value="/images"/>
+		</bean>
+	</service>
 
 	<service auto-export="interfaces" ranking="-100">
 		<bean class="org.soluvas.web.site.SimpleSite">
@@ -33,8 +40,27 @@
 			<property name="pageTitleSuffix"	value="${pageTitleSuffix}"/>
 			<property name="logoText"			value="${logoText}"/>		
 			<property name="logoAlt"			value="${logoAlt}"/>
-			<property name="footerText"			value="${footerText}"/>		
+			<property name="footerHtml"			value="${footerHtml}"/>		
+			<property name="faviconUri"			value="/static/org.soluvas.web.site/images/soluvas-favicon.ico"/>
 		</bean>
 	</service>
+	
+	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule"
+		availability="optional" member-type="service-reference" />
+	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional" />
+	
+	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
+		<command name="js/ls">
+			<action class="org.soluvas.web.site.shell.JsLsCommand">
+				<argument ref="blueprintBundleContext" />
+				<argument ref="jsModules" />
+			</action>
+		</command>
+		<command name="js/lsshim">
+			<action class="org.soluvas.web.site.shell.JsLsShimCommand">
+				<argument ref="jsShims" />
+			</action>
+		</command>
+	</command-bundle>
 	
 </blueprint>
