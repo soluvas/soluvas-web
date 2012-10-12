@@ -16,6 +16,16 @@
 	<description>Core Site API and Services.</description>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>stringtemplate</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>compiler</artifactId>
+			<version>0.8.7</version>
+		</dependency>
 		<!-- Pax Wicket Core -->
 		<dependency>
 			<groupId>org.ops4j.pax.wicket</groupId>

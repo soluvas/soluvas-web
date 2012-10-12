@@ -46,6 +46,25 @@
 			<argument value="Backbone"/>
 		</bean>
 	</service>
+	
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="handlebars.runtime"/>
+			<argument value="backbone/handlebars.runtime-1.0.rc.1"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="handlebars.runtime"/>
+			<argument>
+				<set>
+					<value>handlebars.runtime</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+	
+	<!-- TODO: Mustache is deprecated, please use Handlebars precompilation -->
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptModule">
 			<argument value="mustache"/>
@@ -62,6 +81,7 @@
 			<argument value="Mustache"/>
 		</bean>
 	</service>
+	
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptModule">
 			<argument value="sugar"/>

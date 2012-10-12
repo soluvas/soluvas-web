@@ -1,0 +1,25 @@
+backbone_view(modelPath, backboneViewName, tagName, backboneModelClassName, templatePath, templateModule, templateName) ::= <<
+require(['~modelPath~Product', '~templatePath~~templateModule~Templates'],
+	function(~backboneModelClassName~, ~templateModule~Templates) {
+
+var ~backboneViewName~ = Backbone.View.extend({
+	model: ~backboneModelClassName~,
+	tagName: '~tagName~',
+	//className: 'product',
+	template: Handlebars.templates['~templateName~'],
+	events: {
+	},
+	initialize: function() {
+		_.bindAll(this);
+	},
+	render: function() {
+		var viewModel = this.model.toJSON();
+		var html = Mustache.render(this.template, viewModel);
+		this.$el.html(html);
+	},
+});
+
+return ~backboneViewName~;
+
+});
+>>
