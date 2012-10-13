@@ -47,6 +47,10 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>soluvas-json</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>

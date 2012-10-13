@@ -1,0 +1,27 @@
+<!-- To generate:
+ceefour@annafi:~/git/bippo-commerce5/app/src/main/resources$ handlebars templates_web/*.mustache --amd --output js/templates.js
+-->
+	<div class="control-group">
+		<label class="control-label" for="username">Username</label>
+		<div class="controls"><input type="text" id="username" value="{{username}}" placeholder="Username"/></div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="password">Password</label>
+		<div class="controls"><input type="password" id="password" value="{{password}}" placeholder="Password"/></div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<input type="checkbox" id="rememberMe"/><label for="rememberMe"> Remember me</label>
+		</div>
+		<div class="controls">
+			<input type="submit" value="Login" class="btn btn-primary" />
+		</div>
+	</div>
+	
+	
+	<button class="btn">Login with Facebook</button>
+	<button class="btn">Login with Twitter</button>
+	<button class="btn">Login with Google</button>
+	
+	<a href="#">Forgot password</a>
+	<a href="#">Register</a>

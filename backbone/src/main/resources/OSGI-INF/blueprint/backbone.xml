@@ -49,6 +49,21 @@
 	
 	<service auto-export="all-classes">
 		<bean class="org.soluvas.web.site.JavaScriptModule">
+			<argument value="handlebars"/>
+			<argument value="backbone/handlebars.runtime-1.0.rc.1"/>
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptShim">
+			<argument value="handlebars"/>
+			<argument>
+				<set />
+			</argument>
+			<argument value="Handlebars" />
+		</bean>
+	</service>
+	<service auto-export="all-classes">
+		<bean class="org.soluvas.web.site.JavaScriptModule">
 			<argument value="handlebars.runtime"/>
 			<argument value="backbone/handlebars.runtime-1.0.rc.1"/>
 		</bean>
@@ -57,10 +72,9 @@
 		<bean class="org.soluvas.web.site.JavaScriptShim">
 			<argument value="handlebars.runtime"/>
 			<argument>
-				<set>
-					<value>handlebars.runtime</value>
-				</set>
+				<set />
 			</argument>
+			<argument value="Handlebars" />
 		</bean>
 	</service>
 	

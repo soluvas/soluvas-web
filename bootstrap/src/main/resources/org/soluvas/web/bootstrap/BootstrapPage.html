@@ -46,6 +46,10 @@
 	//var apiUri = baseUri + 'api/';
 	</script>
 
+	<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
+	<script src="/cxf/require"></script>
+	<script src="/static/bootstrap/js/require-2.0.5.js"></script>
+
 </head>
 
 <body>
@@ -79,9 +83,6 @@
 		<hr />
 		<footer wicket:id="footer"><small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small></footer>
 	</div><!--/.fluid-container-->
-
-	<script src="/cxf/require"></script>
-	<script src="/static/bootstrap/js/require-2.0.5.js"></script>
 
 	<div wicket:id="beforeFooterJsBlocks">
 		<div wicket:id="block">[beforeFooterJsBlocks]</div>

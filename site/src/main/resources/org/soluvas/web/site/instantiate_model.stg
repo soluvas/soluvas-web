@@ -1,0 +1,60 @@
+defineModel(modelClassName) ::= <<
+<script type="text/javascript">
+define('~modelClassName~', ['backbone'], function(Backbone) {
+
+~modelClassName~ = Backbone.Model.extend({
+});
+return ~modelClassName~;
+
+});
+</script>
+>>
+
+defineView(viewClassName, modelClassName) ::= <<
+<script type="text/javascript">
+define('~viewClassName~', ['backbone', '~modelClassName~'], function(Backbone, ~modelClassName~) {
+
+~viewClassName~ = Backbone.View.extend({
+	model: ~modelClassName~,
+	initialize: function() {
+		_.bindAll(this);
+		this.model.on('change', this.render);
+	},
+	render: function() {
+		var html = this.options.templateFunc(this.model.toJSON());
+		this.$el.html(html);
+		return this;
+	},
+});
+return ~viewClassName~;
+
+});
+</script>
+>>
+
+instantiateModel(modelName, modelClassName, modelData) ::= <<
+<script type="text/javascript">
+require(['~modelClassName~'], function(~modelClassName~) { 
+	~modelName~ = new ~modelClassName~(~modelData~);
+});
+</script>
+>>
+
+instantiateViewPrecompiled(viewName, viewClassName, viewId, modelName, templatePath, templateName) ::= <<
+<script type="text/javascript">
+require(['~templatePath~templates', '~viewClassName~'], function(templates, ~viewClassName~) { 
+	~viewName~ = new ~viewClassName~({id: '~viewId~', el: '#~viewId~',
+		templateFunc: Handlebars.templates['~templateName~.mustache'],
+		model: ~modelName~});
+});
+</script>
+>>
+
+instantiateViewRuntime(viewName, viewClassName, viewId, modelName, templateJson) ::= <<
+<script type="text/javascript">
+require('handlebars', new function(Handlebars) {
+	var template = ~templateJson~;
+	~viewName~ = new ~viewClassName~({id: viewId, mode: ~modelData~, templateFunc: Handlebars.compile(template) );
+});
+</script>
+>>

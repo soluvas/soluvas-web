@@ -11,6 +11,7 @@
 	</parent>
 	<artifactId>org.soluvas.web.build</artifactId>
 	<packaging>pom</packaging>
+	<name>Soluvas Web Build</name>
 
 	<modules>
 		<module>parent</module>
@@ -27,6 +28,8 @@
 		<module>nav</module>
 		<module>nav.shell</module>
 		<module>nav.ui</module>
+		<!-- Functionality -->
+		<module>login</module>
 	</modules>
 
 </project>
