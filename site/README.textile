@@ -15,3 +15,137 @@ footerText = Copyright © 2012 Wikindonesia.com
 
 Note: In future versions (after ARIES-584 bug is fixed), we'll use Managed Service Factory, so the configuration file
 will be named @org.soluvas.web.site-default.cfg@.
+
+h2. Wicket @TenantService Annotation for Page
+
+h3. Setting up Application
+
+The Wicket Application key must be in the form {tenantId}_{tenantEnv}, e.g.
+
+bc. 	<wicket:application id="berbatik_dev"
+			class="id.co.bippo.app.web.CommerceApplication"
+			applicationName="berbatik_dev" mountPoint="commerce5">
+		<wicket:context-param>
+			<wicket:param-name>configuration</wicket:param-name>
+    		<wicket:param-value>development</wicket:param-value>
+<!--     		<wicket:param-value>deployment</wicket:param-value> -->
+		</wicket:context-param>
+	</wicket:application>
+
+h3. Setting up Services
+
+Each published service must have the OSGi service properties: clientId, tenantId, tenantEnv, namespace.
+
+bc. 	<bean id="mongoProductRawRepo" class="id.co.bippo.product.hand.MongoProductRawRepository"
+		init-method="init" destroy-method="destroy">
+		<argument value="id.co.bippo.product.hand.BerbatikProduct"/>
+		<argument value="mongodb://127.0.0.1:27017/berbatik_dev"/>
+		<argument value=""/>
+	</bean>
+	<service ref="mongoProductRawRepo" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="berbatik"/>
+			<entry key="tenantEnv" value="dev"/>
+			<entry key="tenantId" value="berbatik"/>
+			<entry key="namespace" value=""/>
+			<entry key="repositoryMode" value="raw"/>
+		</service-properties>
+	</service>
+
+h3. Consuming Services from Wicket Pages
+
+Usage: replace @PaxWicketBean annotation with :
+
+bc. @TenantService(filter="(repositoryMode=normal)")
+private ProductRepository productRepo;
+@TenantService("product")
+private ImageRepository productImageRepo;
+ 
+
+h2. Wicket Tenant Spring Scope (Deprecated)
+
+h3. Setting up Application
+
+The Wicket Application key must be in the form {tenantId}_{tenantEnv}, e.g.
+
+bc. 	<wicket:application id="berbatik_dev"
+			class="id.co.bippo.app.web.CommerceApplication"
+			applicationName="commerce5" mountPoint="commerce5">
+		<wicket:context-param>
+			<wicket:param-name>configuration</wicket:param-name>
+    		<wicket:param-value>development</wicket:param-value>
+<!--     		<wicket:param-value>deployment</wicket:param-value> -->
+		</wicket:context-param>
+	</wicket:application>
+
+h3. Setting up Services
+
+Each published service must have the OSGi service properties: clientId, tenantId, tenantEnv, namespace.
+
+bc. 	<bean id="mongoProductRawRepo" class="id.co.bippo.product.hand.MongoProductRawRepository"
+		init-method="init" destroy-method="destroy">
+		<argument value="id.co.bippo.product.hand.BerbatikProduct"/>
+		<argument value="mongodb://127.0.0.1:27017/berbatik_dev"/>
+		<argument value=""/>
+	</bean>
+	<service ref="mongoProductRawRepo" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="berbatik"/>
+			<entry key="tenantEnv" value="dev"/>
+			<entry key="tenantId" value="berbatik"/>
+			<entry key="namespace" value=""/>
+			<entry key="repositoryMode" value="raw"/>
+		</service-properties>
+	</service>
+
+h3. Consuming Services from Wicket Pages
+
+No Blueprint support is provided for now, only Spring support.
+
+In the Maven POM maven-bundle-plugin *Instructions* configuration, you need to add:
+
+bc. <Import-Package>
+	org.springframework.aop.scope,org.springframework.aop.framework,org.springframework.aop,org.aopalliance.aop,
+	*
+</Import-Package>
+
+Create a file @src/main/resources/META-INF/spring/{your-bundle}.xml@ e.g.:
+
+bc.. 
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="wickettenant">
+					<bean class="org.soluvas.web.stomp.WicketScope">
+						<constructor-arg ref="bundleContext" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="id.co.bippo.product.hand.ProductRepository"
+		class="id.co.bippo.product.hand.ProductRepository" scope="wickettenant">
+		<aop:scoped-proxy />
+	</bean>
+
+</beans>
+
+p. The bean ID must be in this format:
+
+1. {objectClass}
+2. {objectClass}/{namespace}
+3. {objectClass}?repositoryMode=raw&type=jaxrs
+4. {objectClass}/{namespace}?repositoryMode=raw&type=jaxrs
+ 
+which will be prepended the scheme internally to form a URI:
+
+service://{objectClass}/{namespace}?filter=a&filter=b&...
+
+The Wicket app's {@link Application#getApplicationKey()} must be {tenantId}_{tenantEnv}. 

@@ -29,6 +29,7 @@ import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
+import org.soluvas.web.site.MultitenantPage;
 import org.soluvas.web.site.Site;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +43,7 @@ import com.google.common.collect.Ordering;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class BootstrapPage extends WebPage {
+public class BootstrapPage extends MultitenantPage {
 
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	
