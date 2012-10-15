@@ -26,6 +26,11 @@
 			<artifactId>compiler</artifactId>
 			<version>0.8.7</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-core</artifactId>
+			<version>1.14</version>
+		</dependency>
 		<!-- Pax Wicket Core -->
 		<dependency>
 			<groupId>org.ops4j.pax.wicket</groupId>
@@ -37,6 +42,11 @@
 			<artifactId>org.ops4j.pax.wicket.test</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.karaf.shell</groupId>
 			<artifactId>org.apache.karaf.shell.console</artifactId>

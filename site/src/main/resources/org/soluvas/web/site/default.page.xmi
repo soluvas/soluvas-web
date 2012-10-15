@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<site:Page xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:site="http://www.soluvas.com/schema/site/1.0" xsi:schemaLocation="http://www.soluvas.com/schema/site/1.0 site.ecore" languageCode="en">
+  <meta description="" charset="utf-8" title="Soluvas Web" keywords="" viewport="width=device-width, initial-scale=1.0"/>
+  <icon faviconUri="/static/org.soluvas.web.site/images/soluvas-favicon.ico"/>
+  <openGraph title="Soluvas Web" type="website" locale="en_US" siteName="Soluvas Web"/>
+</site:Page>

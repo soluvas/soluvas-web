@@ -2,6 +2,13 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+/**
+ * This is for branding only, not for web page rendering.
+ * 
+ * For web page rendering metadata, please use {@link Page} and {@link PageRule} suppliers.
+ * 
+ * @author ceefour
+ */
 public interface Site extends Serializable {
 
 	String getSiteTitle();

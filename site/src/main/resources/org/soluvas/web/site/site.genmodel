@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.site/src/main/java" modelPluginID="org.soluvas.web.site"
+    modelName="Site" generateSchema="true" importerID="org.eclipse.emf.importer.ecore"
+    bundleManifest="false" complianceLevel="6.0" suppressGenModelAnnotations="false"
+    copyrightFields="false">
+  <foreignModel>site.ecore</foreignModel>
+  <genPackages prefix="Site" basePackage="org.soluvas.web" disposableProviderFactory="true"
+      ecorePackage="site.ecore#/">
+    <genClasses ecoreClass="site.ecore#//Page">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/meta"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/icon"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//Page/languageCode"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraph"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraphImage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraphVideo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraphAudio"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//PageMeta">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/charset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/keywords"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/viewport"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/author"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//PageIcon">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageIcon/faviconUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageIcon/icon57Uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageIcon/icon72Uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageIcon/icon114Uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageIcon/icon144Uri"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//OpenGraphMeta">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/image"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/audio"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/determiner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/locale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/localeAlternates"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/siteName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphMeta/video"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//OpenGraphImage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphImage/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphImage/secureUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphImage/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphImage/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphImage/height"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//OpenGraphVideo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphVideo/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphVideo/secureUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphVideo/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphVideo/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphVideo/height"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//OpenGraphAudio">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphAudio/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphAudio/secureUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphAudio/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

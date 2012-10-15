@@ -8,11 +8,10 @@ import java.util.Map;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -20,6 +19,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.Response;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +30,9 @@ import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
 import org.soluvas.web.site.MultitenantPage;
+import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageSupplier;
+import org.soluvas.web.site.PageSupplierFactory;
 import org.soluvas.web.site.Site;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,7 +52,10 @@ public class BootstrapPage extends MultitenantPage {
 	
 	@PaxWicketBean(name="jacksonMapperFactory")
 	private Supplier<ObjectMapper> jacksonMapperFactory;
-	@PaxWicketBean(name="site")
+	/**
+	 * Should not use {@link Site} directly!
+	 */
+	@PaxWicketBean(name="site") @Deprecated
 	private Site site;
 	@PaxWicketBean(name="cssLinks")
 	private List<CssLink> cssLinks;
@@ -66,6 +72,11 @@ public class BootstrapPage extends MultitenantPage {
 	private List<ComponentFactory<?>> sidebarBlocks;
 	@PaxWicketBean(name="navbarChild")
 	private ComponentFactory<?> navbarChildFactory;
+
+//	@PaxWicketBean(name="pageRulesSupplier")
+//	private Supplier<List<PageRule>> pageRulesSupplier;
+	@PaxWicketBean(name="pageSupplierFactory")
+	private PageSupplierFactory<PageSupplier> pageSupplierFactory;
 	
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
@@ -135,15 +146,35 @@ public class BootstrapPage extends MultitenantPage {
 		}
 	}
 	
+	protected org.soluvas.web.site.Page getPageInfo() {
+		PageRuleContext context = new PageRuleContext();
+		context.setUri(getRequest().getUrl().toString());
+//		List<PageRule> pageRules = pageRulesSupplier.get();
+//		PageSupplier pageSupplier = new RulesPageSupplier(pageRules, context);
+		PageSupplier pageSupplier = pageSupplierFactory.create(context);
+		org.soluvas.web.site.Page page = pageSupplier.get();
+		return page;
+	}
+	
+	@Override
+	protected void renderPlaceholderTag(ComponentTag tag, Response response) {
+		super.renderPlaceholderTag(tag, response);
+	}
+	
 	public BootstrapPage() {
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-
+		org.soluvas.web.site.Page page = getPageInfo();
+		
+		// HTML
+		add(new TransparentWebMarkupContainer("html").add(new AttributeModifier("lang", page.getLanguageCode())));
+		
 		// HEAD
-		add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+		//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+		add(new Label("pageTitle", page.getMeta().getTitle()).setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
 		final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
-		faviconLink.add(new AttributeModifier("href", site.getFaviconUri()));
+		faviconLink.add(new AttributeModifier("href", page.getIcon().getFaviconUri()));
 		add(faviconLink);
 		
 		// NAVBAR
