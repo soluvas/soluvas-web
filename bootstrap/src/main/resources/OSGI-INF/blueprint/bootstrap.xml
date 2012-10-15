@@ -15,7 +15,7 @@
 		</bean>
 	</service>
 
-	<reference id="site" interface="org.soluvas.web.site.Site"/>
+	<reference id="site" interface="org.soluvas.web.site.Site" />
 	<reference id="jacksonMapperFactory" interface="com.google.common.base.Supplier"
 		filter="(className=com.fasterxml.jackson.databind.ObjectMapper)"/>
 	
