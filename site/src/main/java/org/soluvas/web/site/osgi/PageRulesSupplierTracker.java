@@ -12,6 +12,39 @@ import com.google.common.base.Supplier;
 
 /**
  * Monitors {@link PageRulesSupplier} instances in a {@link FederatingPageRulesSupplier}.
+ * 
+ * Usage:
+ *
+ * <pre>
+ *     <bean id="federatingPageRulesSupplier" class="org.soluvas.web.site.FederatingPageRulesSupplier">
+ *     	<argument>
+ *     		<list>
+ *     			<ref component-id="defaultPageRulesSupplier" />
+ *     		</list>
+ *     	</argument>
+ *     </bean>
+ *     <bean class="org.osgi.util.tracker.ServiceTracker" init-method="open" destroy-method="close">
+ *     	<argument ref="blueprintBundleContext" />
+ *     	<argument value="org.soluvas.web.site.PageRulesSupplier" />
+ *     	<argument>
+ *     		<bean class="org.soluvas.web.site.osgi.PageRulesSupplierTracker">
+ *     			<argument ref="federatingPageRulesSupplier" />
+ *     		</bean>
+ *     	</argument>
+ *     </bean>
+ * </pre>
+ *   
+ * Registering a page rules supplier:
+ * 
+ * <pre>
+ * 	<service auto-export="interfaces">
+ * 	    <bean class="org.soluvas.web.site.XmiPageRulesSupplier">
+ * 	    	<argument value="id.co.bippo.app.AppSessionUtils" />
+ * 	    	<argument value="/id/co/bippo/app/berbatik.pagerules.xmi" />
+ * 	    </bean>
+ *     </service>
+ * </pre>
+ * 
  * @author ceefour
  */
 public class PageRulesSupplierTracker implements ServiceTrackerCustomizer {
