@@ -33,8 +33,13 @@ public class NavMenu extends Panel {
 
 	private transient Logger log = LoggerFactory.getLogger(NavMenu.class);
 	@PaxWicketBean(name="processLinkFactory")
-	private ProcessLinkFactory processLinkFactory; 
+	private transient ProcessLinkFactory processLinkFactory; 
 	
+	/**
+	 * @param id
+	 * @param model Do not pass directly a {@link NavMenuFactory} here, but rather a {@link LoadableDetachableModel}
+	 * of {@link Menu}.
+	 */
 	public NavMenu(String id, final IModel<Menu> model) {
 		super(id, model);
 		setRenderBodyOnly(true);

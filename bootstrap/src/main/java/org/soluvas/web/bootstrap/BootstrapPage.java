@@ -51,32 +51,32 @@ public class BootstrapPage extends MultitenantPage {
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	
 	@PaxWicketBean(name="jacksonMapperFactory")
-	private Supplier<ObjectMapper> jacksonMapperFactory;
+	private transient Supplier<ObjectMapper> jacksonMapperFactory;
 	/**
 	 * Should not use {@link Site} directly!
 	 */
 	@PaxWicketBean(name="site") @Deprecated
-	private Site site;
+	private transient Site site;
 	@PaxWicketBean(name="cssLinks")
-	private List<CssLink> cssLinks;
+	private transient List<CssLink> cssLinks;
 	@PaxWicketBean(name="headJavaScripts")
-	private List<JavaScriptLink> headJavaScripts;
+	private transient List<JavaScriptLink> headJavaScripts;
 	@PaxWicketBean(name="footerJavaScripts")
-	private List<JavaScriptLink> footerJavaScripts;
+	private transient List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="footerJavaScriptSources")
-	private List<JavaScriptSource> footerJavaScriptSources;
+	private transient List<JavaScriptSource> footerJavaScriptSources;
 	@PaxWicketBean(name="beforeFooterJsBlocks")
-	private List<ComponentFactory<?>> beforeFooterJsBlocks;
+	private transient List<ComponentFactory<?>> beforeFooterJsBlocks;
 	
 	@PaxWicketBean(name="sidebarBlocks")
-	private List<ComponentFactory<?>> sidebarBlocks;
+	private transient List<ComponentFactory<?>> sidebarBlocks;
 	@PaxWicketBean(name="navbarChild")
-	private ComponentFactory<?> navbarChildFactory;
+	private transient ComponentFactory<?> navbarChildFactory;
 
 //	@PaxWicketBean(name="pageRulesSupplier")
 //	private Supplier<List<PageRule>> pageRulesSupplier;
 	@PaxWicketBean(name="pageSupplierFactory")
-	private PageSupplierFactory<PageSupplier> pageSupplierFactory;
+	private transient PageSupplierFactory<PageSupplier> pageSupplierFactory;
 	
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
