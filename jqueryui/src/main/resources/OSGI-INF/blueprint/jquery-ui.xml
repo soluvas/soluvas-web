@@ -15,14 +15,14 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui"/>
 			<argument value="jquery-ui/development-bundle/ui/jquery-ui.custom"/>
 			<argument value="jquery-ui/js/jquery-ui-1.9.0.custom.min"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="jquery-ui"/>
 			<argument>
@@ -32,14 +32,14 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
 			<argument value="jquery-ui/development-bundle/ui/jquery-ui.custom"/>
 			<argument value="jquery-ui/js/jquery-ui-1.9.0.custom.min"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
 			<argument>
@@ -50,14 +50,14 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-selectmenu"/>
 			<argument value="jquery-ui/js/jquery.ui.selectmenu"/>
 			<argument value="jquery-ui/js/jquery.ui.selectmenu"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="jquery-selectmenu"/>
 			<argument>
@@ -68,14 +68,14 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery.dataTables"/>
 			<argument value="jquery-ui/datatables/js/jquery.dataTables"/>
 			<argument value="jquery-ui/datatables/js/jquery.dataTables.min"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="jquery.dataTables"/>
 			<argument>

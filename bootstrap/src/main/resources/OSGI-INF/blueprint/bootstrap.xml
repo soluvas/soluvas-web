@@ -63,14 +63,14 @@
 	<reference-list id="footerJavaScriptSources" interface="org.soluvas.web.site.JavaScriptSource" availability="optional"
 		filter="(region=footer)"/>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="bootstrap"/>
 			<argument value="bootstrap/js"/>
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-affix"/>
 			<argument>
@@ -80,7 +80,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-alert"/>
 			<argument>
@@ -90,7 +90,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-button"/>
 			<argument>
@@ -100,7 +100,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-carousel"/>
 			<argument>
@@ -110,7 +110,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-collapse"/>
 			<argument>
@@ -118,7 +118,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-dropdown"/>
 			<argument>
@@ -126,7 +126,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-modal"/>
 			<argument>
@@ -134,7 +134,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-popover"/>
 			<argument>
@@ -142,7 +142,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-scrollspy"/>
 			<argument>
@@ -150,7 +150,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-tab"/>
 			<argument>
@@ -158,7 +158,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-tooltip"/>
 			<argument>
@@ -166,7 +166,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-transition"/>
 			<argument>
@@ -174,7 +174,7 @@
 			</argument>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-typeahead"/>
 			<argument>

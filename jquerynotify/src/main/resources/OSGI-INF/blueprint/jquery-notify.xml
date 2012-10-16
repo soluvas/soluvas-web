@@ -15,13 +15,13 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery.notify"/>
 			<argument value="jquery-notify/jquery.notify"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="jquery.notify"/>
 			<argument>

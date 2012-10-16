@@ -10,7 +10,7 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="org/soluvas/web/login"/>
 			<argument value="js/org/soluvas/web/login"/>

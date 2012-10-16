@@ -15,14 +15,14 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="sockjs"/>
 			<argument value="stomp/sockjs-0.3.2"/>
 			<argument value="stomp/sockjs-0.3.2.min"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="sockjs"/>
 			<argument><set/></argument>
@@ -30,13 +30,13 @@
 		</bean>
 	</service>
 
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="stomp"/>
 			<argument value="/static/stomp/stomp"/>
 		</bean>
 	</service>
-	<service auto-export="all-classes">
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="stomp"/>
 			<argument><set/></argument>
