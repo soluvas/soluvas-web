@@ -78,7 +78,7 @@ public class PageRulesSupplierTracker implements ServiceTrackerCustomizer {
 	 */
 	@Override
 	public void removedService(ServiceReference reference, Object service) {
-		federator.remove((Supplier<List<PageRule>>) service);
+		federator.remove((PageRulesSupplier) service);
 		reference.getBundle().getBundleContext().ungetService(reference);
 	}
 

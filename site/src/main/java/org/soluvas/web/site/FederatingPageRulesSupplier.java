@@ -22,16 +22,17 @@ public class FederatingPageRulesSupplier implements PageRulesSupplier {
 
 	private transient Logger log = LoggerFactory
 			.getLogger(FederatingPageRulesSupplier.class);
-	List<Supplier<List<PageRule>>> suppliers = new CopyOnWriteArrayList<Supplier<List<PageRule>>>();
+	List<PageRulesSupplier> suppliers = new CopyOnWriteArrayList<PageRulesSupplier>();
 	
 	public FederatingPageRulesSupplier() {
 		super();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public FederatingPageRulesSupplier(List<Supplier> initialSuppliers) {
+	public FederatingPageRulesSupplier(Collection<PageRulesSupplier> initialSuppliers) {
 		super();
-		this.suppliers.addAll( (List<? extends Supplier<List<PageRule>>>) initialSuppliers );
+		log.info("Initializing federating page rules supplier with {} suppliers", suppliers.size());
+		this.suppliers.addAll( initialSuppliers );
 	}
 
 	@Override
@@ -48,12 +49,12 @@ public class FederatingPageRulesSupplier implements PageRulesSupplier {
 		return concatedRules;
 	}
 	
-	public void add(Supplier<List<PageRule>> supplier) {
+	public void add(PageRulesSupplier supplier) {
 		log.info("Adding page rule supplier {}", supplier);
 		suppliers.add(supplier);
 	}
 	
-	public void remove(Supplier<List<PageRule>> supplier) {
+	public void remove(PageRulesSupplier supplier) {
 		log.info("Removing page rule supplier {}", supplier);
 		suppliers.remove(supplier);
 	}
