@@ -7,30 +7,31 @@ import javax.annotation.Nullable;
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.soluvas.web.site.JavaScriptShim;
+import org.soluvas.web.site.JavaScriptShimImpl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
 /**
- * List {@link JavaScriptShim}s.
+ * List {@link JavaScriptShimImpl}s.
  * @author ceefour
  */
 @Command(scope="js", name="lsshim", description="List JavaScript RequireJS shims.")
 public class JsLsShimCommand extends OsgiCommandSupport {
 	
-	private List<JavaScriptShim> shims;
+	private List<JavaScriptShimImpl> shims;
 	
-	public static class NameOrdering extends Ordering<JavaScriptShim> {
+	public static class NameOrdering extends Ordering<JavaScriptShimImpl> {
 
 		@Override
-		public int compare(@Nullable JavaScriptShim left,
-				@Nullable JavaScriptShim right) {
+		public int compare(@Nullable JavaScriptShimImpl left,
+				@Nullable JavaScriptShimImpl right) {
 			return left != null && right != null ? left.getName().compareToIgnoreCase(right.getName()) : 0;
 		}
 		
 	}
 	
-	public JsLsShimCommand(List<JavaScriptShim> shims) {
+	public JsLsShimCommand(List<JavaScriptShimImpl> shims) {
 		super();
 		this.shims = shims;
 	}
@@ -43,7 +44,7 @@ public class JsLsShimCommand extends OsgiCommandSupport {
 		System.out.format("%3s | %-20s | %-30s | %s\n",
 				"#", "Name", "Dependencies", "Exports" );
 		
-		List<JavaScriptShim> sortedShims = ImmutableList.copyOf(new NameOrdering().immutableSortedCopy(shims));
+		List<JavaScriptShimImpl> sortedShims = ImmutableList.copyOf(new NameOrdering().immutableSortedCopy(shims));
 		
 		int i = 0;
 		for (JavaScriptShim it : sortedShims) {

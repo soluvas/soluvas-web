@@ -64,14 +64,14 @@
 		filter="(region=footer)"/>
 
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="bootstrap"/>
 			<argument value="bootstrap/js"/>
 		</bean>
 	</service>
 
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-affix"/>
 			<argument>
 				<set>
@@ -81,7 +81,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-alert"/>
 			<argument>
 				<set>
@@ -91,7 +91,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-button"/>
 			<argument>
 				<set>
@@ -101,7 +101,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-carousel"/>
 			<argument>
 				<set>
@@ -111,7 +111,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-collapse"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -119,7 +119,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-dropdown"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -127,7 +127,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-modal"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -135,7 +135,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-popover"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -143,7 +143,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-scrollspy"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -151,7 +151,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-tab"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -159,7 +159,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-tooltip"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -167,7 +167,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-transition"/>
 			<argument>
 				<set><value>jquery</value></set>
@@ -175,7 +175,7 @@
 		</bean>
 	</service>
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptShim">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
 			<argument value="bootstrap/bootstrap-typeahead"/>
 			<argument>
 				<set><value>jquery</value></set>

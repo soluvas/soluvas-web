@@ -3,70 +3,22 @@ package org.soluvas.web.site;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.google.common.base.Optional;
+public interface JavaScriptShim extends Serializable, Comparable<JavaScriptShim> {
 
-/**
- * AMD Shim config, for those libraries who aren't AMD-ready.
- * @author ceefour
- */
-@SuppressWarnings("serial")
-public class JavaScriptShim implements Serializable, Comparable<JavaScriptShim> {
+	public abstract String getName();
 
-	private String name;
-	private Set<String> dependencies;
-	private String exports;
-	
-	public JavaScriptShim() {
-		super();
-	}
+	public abstract void setName(String name);
 
-	public JavaScriptShim(String name, Set<String> dependencies) {
-		super();
-		this.name = name;
-		this.dependencies = dependencies;
-	}
+	public abstract Set<String> getDependencies();
 
-	public JavaScriptShim(String name, Set<String> dependencies, String exports) {
-		super();
-		this.name = name;
-		this.dependencies = dependencies;
-		this.exports = exports;
-	}
+	public abstract void setDependencies(Set<String> dependencies);
 
-	public String getName() {
-		return name;
-	}
+	public abstract String getExports();
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	public abstract void setExports(String exports);
 
-	public Set<String> getDependencies() {
-		return dependencies;
-	}
+	public abstract String toString();
 
-	public void setDependencies(Set<String> dependencies) {
-		this.dependencies = dependencies;
-	}
+	public abstract int compareTo(JavaScriptShim o);
 
-	public String getExports() {
-		return exports;
-	}
-
-	public void setExports(String exports) {
-		this.exports = exports;
-	}
-
-	@Override
-	public String toString() {
-		return String.format(
-				"JavaScriptShim [name=%s, dependencies=%s, exports=%s]", name,
-				dependencies, exports);
-	}
-
-	@Override
-	public int compareTo(JavaScriptShim o) {
-		return Optional.fromNullable(getName()).or("").compareToIgnoreCase(o.getName());
-	}
-	
 }

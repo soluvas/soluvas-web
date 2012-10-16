@@ -12,12 +12,13 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.soluvas.web.site.JavaScriptModule;
+import org.soluvas.web.site.JavaScriptModuleImpl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
 /**
- * List {@link JavaScriptModule}s.
+ * List {@link JavaScriptModuleImpl}s.
  * @author ceefour
  */
 @Command(scope="js", name="ls", description="List JavaScript RequireJS modules.")
@@ -25,13 +26,13 @@ public class JsLsCommand extends OsgiCommandSupport {
 	
 	private BundleContext bundleContext;
 	private List<ServiceReference> modules;
-	private Map<JavaScriptModule, ServiceReference> moduleMap = new HashMap<JavaScriptModule, ServiceReference>();
+	private Map<JavaScriptModuleImpl, ServiceReference> moduleMap = new HashMap<JavaScriptModuleImpl, ServiceReference>();
 	
-	public static class NameOrdering extends Ordering<JavaScriptModule> {
+	public static class NameOrdering extends Ordering<JavaScriptModuleImpl> {
 
 		@Override
-		public int compare(@Nullable JavaScriptModule left,
-				@Nullable JavaScriptModule right) {
+		public int compare(@Nullable JavaScriptModuleImpl left,
+				@Nullable JavaScriptModuleImpl right) {
 			return left != null && right != null ? left.getName().compareToIgnoreCase(right.getName()) : 0;
 		}
 		
@@ -49,7 +50,7 @@ public class JsLsCommand extends OsgiCommandSupport {
 	@Override
 	protected Object doExecute() throws Exception {
 		for (ServiceReference module : modules) {
-			JavaScriptModule jsModule = (JavaScriptModule) bundleContext.getService(module);
+			JavaScriptModuleImpl jsModule = (JavaScriptModuleImpl) bundleContext.getService(module);
 			moduleMap.put(jsModule, module);
 		}
 		
@@ -57,7 +58,7 @@ public class JsLsCommand extends OsgiCommandSupport {
 			System.out.format("%3s | %-20s | %-30s [  ID] | %-30s | %s\n",
 					"#", "Name", "Bundle", "Path", "Minified" );
 			
-			List<JavaScriptModule> sortedModules = ImmutableList.copyOf(new NameOrdering().immutableSortedCopy(moduleMap.keySet()));
+			List<JavaScriptModuleImpl> sortedModules = ImmutableList.copyOf(new NameOrdering().immutableSortedCopy(moduleMap.keySet()));
 			
 			int i = 0;
 			for (JavaScriptModule it : sortedModules) {
