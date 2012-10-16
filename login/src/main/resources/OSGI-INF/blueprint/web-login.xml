@@ -11,7 +11,7 @@
 	</service>
 
 	<service auto-export="all-classes">
-		<bean class="org.soluvas.web.site.JavaScriptModule">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="org/soluvas/web/login"/>
 			<argument value="js/org/soluvas/web/login"/>
 			<argument value="js/org/soluvas/web/login"/>
