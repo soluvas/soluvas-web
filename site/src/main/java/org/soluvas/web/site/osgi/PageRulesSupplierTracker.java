@@ -61,7 +61,7 @@ public class PageRulesSupplierTracker implements ServiceTrackerCustomizer {
 	 */
 	@Override
 	public Object addingService(ServiceReference reference) {
-		PageRulesSupplier supplier = reference.getBundle().getBundleContext().getService(reference);
+		PageRulesSupplier supplier = (PageRulesSupplier) reference.getBundle().getBundleContext().getService(reference);
 		federator.add(supplier);
 		return supplier;
 	}
