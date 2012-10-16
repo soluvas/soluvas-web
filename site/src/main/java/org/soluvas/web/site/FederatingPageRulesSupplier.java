@@ -28,9 +28,10 @@ public class FederatingPageRulesSupplier implements PageRulesSupplier {
 		super();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public FederatingPageRulesSupplier(List<Supplier> initialSuppliers) {
 		super();
-		this.suppliers.addAll( (Collection<? extends Supplier<List<PageRule>>>) initialSuppliers );
+		this.suppliers.addAll( (List<? extends Supplier<List<PageRule>>>) initialSuppliers );
 	}
 
 	@Override
