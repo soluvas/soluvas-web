@@ -34,9 +34,15 @@ public class LoginPage extends BootstrapPage {
 		loginForm.add(new AjaxButton("login") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				super.onSubmit(target, form);
 				log.info("Processing {}", loginFormModel);
-				target.add(LoginPage.this);
+				target.add(LoginPage.this, feedbackPanel);
+				super.onSubmit(target, form);
+			}
+			
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+				target.add(feedbackPanel);
+				super.onError(target, form);
 			}
 		});
 	}

@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -81,6 +82,8 @@ public class BootstrapPage extends MultitenantPage {
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	private List<String> pageJavaScriptSources = new ArrayList<String>();
+
+	protected Component feedbackPanel;
 
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
@@ -216,6 +219,9 @@ public class BootstrapPage extends MultitenantPage {
 				item.add(block);
 			}
 		});
+		
+		feedbackPanel = new FeedbackPanel("feedback").setOutputMarkupId(true);
+		add(feedbackPanel);
 		
 		// FOOTER
 		
