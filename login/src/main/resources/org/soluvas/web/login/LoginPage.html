@@ -9,7 +9,29 @@
 	<h1>Welcome to {{siteName}}</h1>
 
 	<form wicket:id="loginForm">
-		Login Form
+		<div class="control-group">
+			<label class="control-label" for="username">Username</label>
+			<div class="controls"><input wicket:id="username" type="text" id="username" value="{{username}}" placeholder="Username"/></div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="password">Password</label>
+			<div class="controls"><input wicket:id="password" type="password" id="password" value="{{password}}" placeholder="Password"/></div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input wicket:id="rememberMe" type="checkbox" id="rememberMe"/><label for="rememberMe"> Remember me</label>
+			</div>
+			<div class="controls">
+				<button wicket:id="login" class="btn btn-primary"><i class="icon-chevron-right icon-white"></i> Login</button>
+			</div>
+		</div>
+		
+		<button class="btn">Login with Facebook</button>
+		<button class="btn">Login with Twitter</button>
+		<button class="btn">Login with Google</button>
+		
+		<a href="#">Forgot password</a>
+		<a href="#">Register</a>
 	</form>
 
 </wicket:extend>
