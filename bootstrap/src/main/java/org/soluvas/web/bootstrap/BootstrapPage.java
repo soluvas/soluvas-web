@@ -230,7 +230,10 @@ public class BootstrapPage extends MultitenantPage {
 		// JAVASCRIPT
 
 		log.info("Page {} has {} before-footer-js blocks", getClass().getName(), beforeFooterJsBlocks.size());
-		add(new ListView<ComponentFactory<?>>("beforeFooterJsBlocks", beforeFooterJsBlocks) {
+		final WebMarkupContainer beforeFooterJs = new WebMarkupContainer("beforeFooterJs");
+		beforeFooterJs.setOutputMarkupId(true);
+		add(beforeFooterJs);
+		beforeFooterJs.add(new ListView<ComponentFactory<?>>("beforeFooterJsBlocks", beforeFooterJsBlocks) {
 			@Override
 			protected void populateItem(ListItem<ComponentFactory<?>> item) {
 				item.setRenderBodyOnly(true);

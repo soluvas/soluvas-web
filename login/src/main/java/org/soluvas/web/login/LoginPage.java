@@ -35,7 +35,7 @@ public class LoginPage extends BootstrapPage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				log.info("Processing {}", loginFormModel);
-				target.add(LoginPage.this, feedbackPanel);
+				target.add(feedbackPanel);
 				super.onSubmit(target, form);
 			}
 			
