@@ -195,6 +195,7 @@ public class BootstrapPage extends MultitenantPage {
 		
 		try {
 			Component navbarChild = navbarChildFactory.create("navbarChild");
+			log.trace("Replacing navbar's child with {}", navbarChild);
 			navbar.replace(navbarChild);
 		} catch (Exception e) {
 			log.debug("Ignoring navbarChildFactory due to error", e);

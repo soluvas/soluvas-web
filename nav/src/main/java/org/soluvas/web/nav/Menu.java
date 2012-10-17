@@ -2,6 +2,8 @@
  */
 package org.soluvas.web.nav;
 
+import java.io.Serializable;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -17,9 +19,9 @@ package org.soluvas.web.nav;
  *
  * @see org.soluvas.web.nav.NavPackage#getMenu()
  * @model
- * @generated
+ * @generated NOT
  */
-public interface Menu extends MenuItemContainer {
+public interface Menu extends MenuItemContainer, Serializable {
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

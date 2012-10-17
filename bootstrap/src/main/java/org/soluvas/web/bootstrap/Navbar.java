@@ -6,9 +6,10 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 /**
+ * Bootstrap's Navbar with fixed position on top of the page.
  * @author rudi
- *
  */
+@SuppressWarnings("serial")
 public class Navbar extends Panel {
 
 	public Navbar(String id, IModel<?> model) {
