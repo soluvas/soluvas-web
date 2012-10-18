@@ -181,6 +181,9 @@ public class BootstrapPage extends MultitenantPage {
 		faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
 		add(faviconLink);
 		
+		//Carousel
+		add(new WebMarkupContainer("carouselImages"));
+		
 		// NAVBAR
 		Navbar navbar = new Navbar("navbar");
 		add(navbar);

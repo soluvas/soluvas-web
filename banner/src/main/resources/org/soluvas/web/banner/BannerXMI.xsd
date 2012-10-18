@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:banner="http://www.soluvas.com/schema/web/banner/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.com/schema/web/banner/1.0">
+  <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
+  <xsd:complexType name="Banner">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="imageUri" type="xsd:string" use="required"/>
+    <xsd:attribute name="title" type="xsd:string"/>
+    <xsd:attribute name="linkUri" type="xsd:string"/>
+    <xsd:attribute name="width" type="xsd:int"/>
+    <xsd:attribute name="height" type="xsd:int"/>
+  </xsd:complexType>
+  <xsd:element name="Banner" type="banner:Banner"/>
+  <xsd:complexType name="BannerCatalog">
+    <xsd:complexContent>
+      <xsd:extension base="banner:BannerCollection"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="BannerCatalog" type="banner:BannerCatalog"/>
+  <xsd:complexType abstract="true" name="BannerCollection">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="banners" type="banner:Banner"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+  </xsd:complexType>
+  <xsd:element name="BannerCollection" type="banner:BannerCollection"/>
+</xsd:schema>
