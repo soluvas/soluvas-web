@@ -29,8 +29,8 @@
     		</bean>
     	</argument>
     </bean>
-
-    <bean id="pageSupplierFactory" class="org.soluvas.web.site.RulesPageSupplierFactory" scope="prototype">
+    <!-- pageMetaSupplierFactory's scope is prototype so that the (dynamic) rules are reprocessed on every request -->
+    <bean id="pageMetaSupplierFactory" class="org.soluvas.web.site.RulesPageMetaSupplierFactory" scope="prototype">
     	<argument>
     		<bean factory-ref="federatingPageRulesSupplier" factory-method="get" />
     	</argument>

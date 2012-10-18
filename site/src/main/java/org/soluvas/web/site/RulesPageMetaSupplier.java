@@ -15,15 +15,15 @@ import org.slf4j.LoggerFactory;
  * will override the information set by the previous rules.
  * @author ceefour
  */
-public class RulesPageSupplier implements PageMetaSupplier {
+public class RulesPageMetaSupplier implements PageMetaSupplier {
 	
 	private transient Logger log = LoggerFactory
-			.getLogger(RulesPageSupplier.class);
+			.getLogger(RulesPageMetaSupplier.class);
 	
 	private List<PageRule> rules;
 	private PageRuleContext context;
 	
-	public RulesPageSupplier(List<PageRule> rules, PageRuleContext context) {
+	public RulesPageMetaSupplier(List<PageRule> rules, PageRuleContext context) {
 		super();
 		this.rules = rules;
 		this.context = context;

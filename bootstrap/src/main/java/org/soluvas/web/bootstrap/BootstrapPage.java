@@ -154,7 +154,7 @@ public class BootstrapPage extends MultitenantPage {
 		PageRuleContext context = new PageRuleContext();
 		context.setUri(getRequest().getUrl().toString());
 //		List<PageRule> pageRules = pageRulesSupplier.get();
-//		PageMetaSupplier pageSupplier = new RulesPageSupplier(pageRules, context);
+//		PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
 		PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
 		PageMeta pageMeta = pageMetaSupplier.get();
 		return pageMeta;
