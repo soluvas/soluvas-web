@@ -58,7 +58,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="handlebars"/>
-			<argument value="backbone/handlebars.runtime-1.0.rc.1"/>
+			<argument value="backbone/handlebars-1.0.rc.1"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -73,7 +73,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="handlebars.runtime"/>
-			<argument value="backbone/handlebars.runtime-1.0.rc.1"/>
+			<argument value="backbone/handlebars-1.0.rc.1"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
