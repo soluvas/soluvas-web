@@ -6,7 +6,7 @@ import java.util.List;
  * @author ceefour
  *
  */
-public class RulesPageSupplierFactory implements PageSupplierFactory<RulesPageSupplier> {
+public class RulesPageSupplierFactory implements PageMetaSupplierFactory<RulesPageSupplier> {
 
 	private List<PageRule> rules;
 	

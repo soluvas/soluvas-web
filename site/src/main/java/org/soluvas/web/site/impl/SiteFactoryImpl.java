@@ -56,7 +56,6 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case SitePackage.PAGE: return createPage();
 			case SitePackage.PAGE_META: return createPageMeta();
 			case SitePackage.PAGE_ICON: return createPageIcon();
 			case SitePackage.OPEN_GRAPH_META: return createOpenGraphMeta();
@@ -70,19 +69,11 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 			case SitePackage.RESOURCE_PAGE_DECLARATION: return createResourcePageDeclaration();
 			case SitePackage.REPOSITORY_PAGE_DECLARATION: return createRepositoryPageDeclaration();
 			case SitePackage.PAGE_RULE_CATALOG: return createPageRuleCatalog();
+			case SitePackage.SECTION: return createSection();
+			case SitePackage.SITE_CATALOG: return createSiteCatalog();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Page createPage() {
-		PageImpl page = new PageImpl();
-		return page;
 	}
 
 	/**
@@ -213,6 +204,26 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	public PageRuleCatalog createPageRuleCatalog() {
 		PageRuleCatalogImpl pageRuleCatalog = new PageRuleCatalogImpl();
 		return pageRuleCatalog;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Section createSection() {
+		SectionImpl section = new SectionImpl();
+		return section;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SiteCatalog createSiteCatalog() {
+		SiteCatalogImpl siteCatalog = new SiteCatalogImpl();
+		return siteCatalog;
 	}
 
 	/**

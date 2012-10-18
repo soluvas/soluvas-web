@@ -11,11 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Provides a {@link Page} using an ordered list of rules. The later rules
+ * Provides a {@link PageMeta} using an ordered list of rules. The later rules
  * will override the information set by the previous rules.
  * @author ceefour
  */
-public class RulesPageSupplier implements PageSupplier {
+public class RulesPageSupplier implements PageMetaSupplier {
 	
 	private transient Logger log = LoggerFactory
 			.getLogger(RulesPageSupplier.class);
@@ -33,21 +33,20 @@ public class RulesPageSupplier implements PageSupplier {
 	 * @see com.google.common.base.Supplier#get()
 	 */
 	@Override
-	public Page get() {
+	public PageMeta get() {
 		// create blank (should be from somewhere)
-		Page page = SiteFactory.eINSTANCE.createPage();
-		page.setMeta(SiteFactory.eINSTANCE.createPageMeta());
-		page.setIcon(SiteFactory.eINSTANCE.createPageIcon());
-		page.setOpenGraph(SiteFactory.eINSTANCE.createOpenGraphMeta());
+		PageMeta pageMeta = SiteFactory.eINSTANCE.createPageMeta();
+		pageMeta.setIcon(SiteFactory.eINSTANCE.createPageIcon());
+		pageMeta.setOpenGraph(SiteFactory.eINSTANCE.createOpenGraphMeta());
 		
-		log.debug("Considering {} page rules with context: {}", rules.size(), context);
+		log.debug("Considering {} pageMeta rules with context: {}", rules.size(), context);
 		for (PageRule rule : rules) {
 			if (!selectorMatches(rule.getSelector(), context)) {
 				continue;
 			}
-			processDeclaration(rule.getDeclaration(), page);
+			processDeclaration(rule.getDeclaration(), pageMeta);
 		}
-		return page;
+		return pageMeta;
 	}
 	
 	protected boolean selectorMatches(PageSelector selector, PageRuleContext context) {
@@ -57,34 +56,34 @@ public class RulesPageSupplier implements PageSupplier {
 			Pattern regexPattern = Pattern.compile(uriSelector.getPattern());
 			log.debug("Regex pattern for URI pattern {} is {}", uriSelector.getPattern(), regexPattern);
 			if (regexPattern.matcher(context.getUri()).matches()) {
-				log.debug("URI {} matches page selector {}", context.getUri(), selector);
+				log.debug("URI {} matches pageMeta selector {}", context.getUri(), selector);
 				return true;
 			}
 			return false;
 		} else {
-			log.error("Unknown page selector: " + selector);
-			throw new RuntimeException("Unknown page selector: " + selector);
+			log.error("Unknown pageMeta selector: " + selector);
+			throw new RuntimeException("Unknown pageMeta selector: " + selector);
 		}
 	}
 	
-	protected void processDeclaration(PageDeclaration declaration, Page page) {
-		log.debug("Applying page declaration {} to {}", declaration, page);
+	protected void processDeclaration(PageDeclaration declaration, PageMeta pageMeta) {
+		log.debug("Applying pageMeta declaration {} to {}", declaration, pageMeta);
 		if (declaration instanceof SourcePageDeclaration) {
 			SourcePageDeclaration sourcePageDeclaration = (SourcePageDeclaration) declaration;
-			Page source = sourcePageDeclaration.getSource();
-			combinePage(page, source);
+			PageMeta source = sourcePageDeclaration.getSource();
+			combinePage(pageMeta, source);
 		} else {
-			log.error("Unknown page declaration: " + declaration);
-			throw new RuntimeException("Unknown page declaration: " + declaration);
+			log.error("Unknown pageMeta declaration: " + declaration);
+			throw new RuntimeException("Unknown pageMeta declaration: " + declaration);
 		}
 	}
 	
 	/**
-	 * Overlays a page on top of current page.
+	 * Overlays a pageMeta on top of current pageMeta.
 	 * @param current
 	 * @param overlay
 	 */
-	protected void combinePage(Page current, Page overlay) {
+	protected void combinePage(PageMeta current, PageMeta overlay) {
 		log.info("Combining {} with {}", current, overlay);
 		combineEObject(current, overlay);
 	}

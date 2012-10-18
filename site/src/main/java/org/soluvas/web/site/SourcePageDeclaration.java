@@ -35,12 +35,12 @@ public interface SourcePageDeclaration extends PageDeclaration {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(Page)
+	 * @see #setSource(PageMeta)
 	 * @see org.soluvas.web.site.SitePackage#getSourcePageDeclaration_Source()
 	 * @model
 	 * @generated
 	 */
-	Page getSource();
+	PageMeta getSource();
 
 	/**
 	 * Sets the value of the '{@link org.soluvas.web.site.SourcePageDeclaration#getSource <em>Source</em>}' reference.
@@ -50,6 +50,6 @@ public interface SourcePageDeclaration extends PageDeclaration {
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(Page value);
+	void setSource(PageMeta value);
 
 } // SourcePageDeclaration

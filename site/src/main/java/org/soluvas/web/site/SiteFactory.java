@@ -22,15 +22,6 @@ public interface SiteFactory extends EFactory {
 	SiteFactory eINSTANCE = org.soluvas.web.site.impl.SiteFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Page</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page</em>'.
-	 * @generated
-	 */
-	Page createPage();
-
-	/**
 	 * Returns a new object of class '<em>Page Meta</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -146,6 +137,24 @@ public interface SiteFactory extends EFactory {
 	 * @generated
 	 */
 	PageRuleCatalog createPageRuleCatalog();
+
+	/**
+	 * Returns a new object of class '<em>Section</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Section</em>'.
+	 * @generated
+	 */
+	Section createSection();
+
+	/**
+	 * Returns a new object of class '<em>Catalog</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Catalog</em>'.
+	 * @generated
+	 */
+	SiteCatalog createSiteCatalog();
 
 	/**
 	 * Returns the package supported by this factory.

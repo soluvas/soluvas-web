@@ -56,23 +56,14 @@ public interface SitePackage extends EPackage {
 	SitePackage eINSTANCE = org.soluvas.web.site.impl.SitePackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageImpl <em>Page</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageMetaImpl <em>Page Meta</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.impl.PageImpl
-	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPage()
+	 * @see org.soluvas.web.site.impl.PageMetaImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageMeta()
 	 * @generated
 	 */
-	int PAGE = 0;
-
-	/**
-	 * The feature id for the '<em><b>Meta</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE__META = 0;
+	int PAGE_META = 0;
 
 	/**
 	 * The feature id for the '<em><b>Icon</b></em>' containment reference.
@@ -81,7 +72,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE__ICON = 1;
+	int PAGE_META__ICON = 0;
 
 	/**
 	 * The feature id for the '<em><b>Language Code</b></em>' attribute.
@@ -90,7 +81,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE__LANGUAGE_CODE = 2;
+	int PAGE_META__LANGUAGE_CODE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Open Graph</b></em>' containment reference.
@@ -99,7 +90,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE__OPEN_GRAPH = 3;
+	int PAGE_META__OPEN_GRAPH = 2;
 
 	/**
 	 * The feature id for the '<em><b>Open Graph Image</b></em>' containment reference.
@@ -108,7 +99,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE__OPEN_GRAPH_IMAGE = 4;
+	int PAGE_META__OPEN_GRAPH_IMAGE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Open Graph Video</b></em>' containment reference.
@@ -117,7 +108,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE__OPEN_GRAPH_VIDEO = 5;
+	int PAGE_META__OPEN_GRAPH_VIDEO = 4;
 
 	/**
 	 * The feature id for the '<em><b>Open Graph Audio</b></em>' containment reference.
@@ -126,35 +117,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE__OPEN_GRAPH_AUDIO = 6;
-
-	/**
-	 * The number of structural features of the '<em>Page</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_FEATURE_COUNT = 7;
-
-	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageMetaImpl <em>Page Meta</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.impl.PageMetaImpl
-	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageMeta()
-	 * @generated
-	 */
-	int PAGE_META = 1;
-
-	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META__DESCRIPTION = 0;
+	int PAGE_META__OPEN_GRAPH_AUDIO = 5;
 
 	/**
 	 * The feature id for the '<em><b>Charset</b></em>' attribute.
@@ -163,7 +126,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META__CHARSET = 1;
+	int PAGE_META__CHARSET = 6;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -172,7 +135,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META__TITLE = 2;
+	int PAGE_META__TITLE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Keywords</b></em>' attribute.
@@ -181,7 +144,16 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META__KEYWORDS = 3;
+	int PAGE_META__KEYWORDS = 8;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META__DESCRIPTION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Viewport</b></em>' attribute.
@@ -190,7 +162,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META__VIEWPORT = 4;
+	int PAGE_META__VIEWPORT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Author</b></em>' attribute.
@@ -199,7 +171,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META__AUTHOR = 5;
+	int PAGE_META__AUTHOR = 11;
 
 	/**
 	 * The number of structural features of the '<em>Page Meta</em>' class.
@@ -208,7 +180,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META_FEATURE_COUNT = 6;
+	int PAGE_META_FEATURE_COUNT = 12;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageIconImpl <em>Page Icon</em>}' class.
@@ -218,7 +190,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageIcon()
 	 * @generated
 	 */
-	int PAGE_ICON = 2;
+	int PAGE_ICON = 1;
 
 	/**
 	 * The feature id for the '<em><b>Favicon Uri</b></em>' attribute.
@@ -282,7 +254,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getOpenGraphMeta()
 	 * @generated
 	 */
-	int OPEN_GRAPH_META = 3;
+	int OPEN_GRAPH_META = 2;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -400,7 +372,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getOpenGraphImage()
 	 * @generated
 	 */
-	int OPEN_GRAPH_IMAGE = 4;
+	int OPEN_GRAPH_IMAGE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -464,7 +436,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getOpenGraphVideo()
 	 * @generated
 	 */
-	int OPEN_GRAPH_VIDEO = 5;
+	int OPEN_GRAPH_VIDEO = 4;
 
 	/**
 	 * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -528,7 +500,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getOpenGraphAudio()
 	 * @generated
 	 */
-	int OPEN_GRAPH_AUDIO = 6;
+	int OPEN_GRAPH_AUDIO = 5;
 
 	/**
 	 * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -575,7 +547,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageSelector()
 	 * @generated
 	 */
-	int PAGE_SELECTOR = 7;
+	int PAGE_SELECTOR = 6;
 
 	/**
 	 * The number of structural features of the '<em>Page Selector</em>' class.
@@ -594,7 +566,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getUriPatternPageSelector()
 	 * @generated
 	 */
-	int URI_PATTERN_PAGE_SELECTOR = 8;
+	int URI_PATTERN_PAGE_SELECTOR = 7;
 
 	/**
 	 * The feature id for the '<em><b>Pattern</b></em>' attribute.
@@ -622,7 +594,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRule()
 	 * @generated
 	 */
-	int PAGE_RULE = 9;
+	int PAGE_RULE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
@@ -668,7 +640,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageDeclaration()
 	 * @generated
 	 */
-	int PAGE_DECLARATION = 10;
+	int PAGE_DECLARATION = 9;
 
 	/**
 	 * The number of structural features of the '<em>Page Declaration</em>' class.
@@ -687,7 +659,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSourcePageDeclaration()
 	 * @generated
 	 */
-	int SOURCE_PAGE_DECLARATION = 11;
+	int SOURCE_PAGE_DECLARATION = 10;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -715,7 +687,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getProcessorPageDeclaration()
 	 * @generated
 	 */
-	int PROCESSOR_PAGE_DECLARATION = 12;
+	int PROCESSOR_PAGE_DECLARATION = 11;
 
 	/**
 	 * The feature id for the '<em><b>Filter</b></em>' attribute.
@@ -743,7 +715,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getResourcePageDeclaration()
 	 * @generated
 	 */
-	int RESOURCE_PAGE_DECLARATION = 13;
+	int RESOURCE_PAGE_DECLARATION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
@@ -780,7 +752,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getRepositoryPageDeclaration()
 	 * @generated
 	 */
-	int REPOSITORY_PAGE_DECLARATION = 14;
+	int REPOSITORY_PAGE_DECLARATION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Filter</b></em>' attribute.
@@ -818,7 +790,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCatalog()
 	 * @generated
 	 */
-	int PAGE_RULE_CATALOG = 15;
+	int PAGE_RULE_CATALOG = 14;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -840,91 +812,172 @@ public interface SitePackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.site.Page <em>Page</em>}'.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.SectionImpl <em>Section</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Page</em>'.
-	 * @see org.soluvas.web.site.Page
+	 * @see org.soluvas.web.site.impl.SectionImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSection()
 	 * @generated
 	 */
-	EClass getPage();
+	int SECTION = 15;
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.Page#getMeta <em>Meta</em>}'.
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Meta</em>'.
-	 * @see org.soluvas.web.site.Page#getMeta()
-	 * @see #getPage()
 	 * @generated
+	 * @ordered
 	 */
-	EReference getPage_Meta();
+	int SECTION__ID = 0;
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.Page#getIcon <em>Icon</em>}'.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Icon</em>'.
-	 * @see org.soluvas.web.site.Page#getIcon()
-	 * @see #getPage()
 	 * @generated
+	 * @ordered
 	 */
-	EReference getPage_Icon();
+	int SECTION__NAME = 1;
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Page#getLanguageCode <em>Language Code</em>}'.
+	 * The number of structural features of the '<em>Section</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Language Code</em>'.
-	 * @see org.soluvas.web.site.Page#getLanguageCode()
-	 * @see #getPage()
 	 * @generated
+	 * @ordered
 	 */
-	EAttribute getPage_LanguageCode();
+	int SECTION_FEATURE_COUNT = 2;
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.Page#getOpenGraph <em>Open Graph</em>}'.
+	 * The meta object id for the '{@link org.soluvas.web.site.SectionCollection <em>Section Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Open Graph</em>'.
-	 * @see org.soluvas.web.site.Page#getOpenGraph()
-	 * @see #getPage()
+	 * @see org.soluvas.web.site.SectionCollection
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSectionCollection()
 	 * @generated
 	 */
-	EReference getPage_OpenGraph();
+	int SECTION_COLLECTION = 17;
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.Page#getOpenGraphImage <em>Open Graph Image</em>}'.
+	 * The feature id for the '<em><b>Sections</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Open Graph Image</em>'.
-	 * @see org.soluvas.web.site.Page#getOpenGraphImage()
-	 * @see #getPage()
 	 * @generated
+	 * @ordered
 	 */
-	EReference getPage_OpenGraphImage();
+	int SECTION_COLLECTION__SECTIONS = 0;
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.Page#getOpenGraphVideo <em>Open Graph Video</em>}'.
+	 * The number of structural features of the '<em>Section Collection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Open Graph Video</em>'.
-	 * @see org.soluvas.web.site.Page#getOpenGraphVideo()
-	 * @see #getPage()
 	 * @generated
+	 * @ordered
 	 */
-	EReference getPage_OpenGraphVideo();
+	int SECTION_COLLECTION_FEATURE_COUNT = 1;
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.Page#getOpenGraphAudio <em>Open Graph Audio</em>}'.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.SiteCatalogImpl <em>Catalog</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Open Graph Audio</em>'.
-	 * @see org.soluvas.web.site.Page#getOpenGraphAudio()
-	 * @see #getPage()
+	 * @see org.soluvas.web.site.impl.SiteCatalogImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSiteCatalog()
 	 * @generated
 	 */
-	EReference getPage_OpenGraphAudio();
+	int SITE_CATALOG = 16;
+
+	/**
+	 * The feature id for the '<em><b>Sections</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SITE_CATALOG__SECTIONS = SECTION_COLLECTION__SECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Page Metas</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SITE_CATALOG__PAGE_METAS = SECTION_COLLECTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Page Rules</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SITE_CATALOG__PAGE_RULES = SECTION_COLLECTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Catalog</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SITE_CATALOG_FEATURE_COUNT = SECTION_COLLECTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.PageMetaCollection
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageMetaCollection()
+	 * @generated
+	 */
+	int PAGE_META_COLLECTION = 18;
+
+	/**
+	 * The feature id for the '<em><b>Page Metas</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_COLLECTION__PAGE_METAS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Page Meta Collection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_COLLECTION_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.PageRuleCollection
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCollection()
+	 * @generated
+	 */
+	int PAGE_RULE_COLLECTION = 19;
+
+	/**
+	 * The feature id for the '<em><b>Page Rules</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE_COLLECTION__PAGE_RULES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Page Rule Collection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE_COLLECTION_FEATURE_COUNT = 1;
+
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.PageMeta <em>Page Meta</em>}'.
@@ -935,6 +988,72 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getPageMeta();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.PageMeta#getIcon <em>Icon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Icon</em>'.
+	 * @see org.soluvas.web.site.PageMeta#getIcon()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EReference getPageMeta_Icon();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PageMeta#getLanguageCode <em>Language Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language Code</em>'.
+	 * @see org.soluvas.web.site.PageMeta#getLanguageCode()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EAttribute getPageMeta_LanguageCode();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.PageMeta#getOpenGraph <em>Open Graph</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Open Graph</em>'.
+	 * @see org.soluvas.web.site.PageMeta#getOpenGraph()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EReference getPageMeta_OpenGraph();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.PageMeta#getOpenGraphImage <em>Open Graph Image</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Open Graph Image</em>'.
+	 * @see org.soluvas.web.site.PageMeta#getOpenGraphImage()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EReference getPageMeta_OpenGraphImage();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.PageMeta#getOpenGraphVideo <em>Open Graph Video</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Open Graph Video</em>'.
+	 * @see org.soluvas.web.site.PageMeta#getOpenGraphVideo()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EReference getPageMeta_OpenGraphVideo();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.PageMeta#getOpenGraphAudio <em>Open Graph Audio</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Open Graph Audio</em>'.
+	 * @see org.soluvas.web.site.PageMeta#getOpenGraphAudio()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EReference getPageMeta_OpenGraphAudio();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PageMeta#getDescription <em>Description</em>}'.
@@ -1583,6 +1702,111 @@ public interface SitePackage extends EPackage {
 	EReference getPageRuleCatalog_Rules();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Section</em>'.
+	 * @see org.soluvas.web.site.Section
+	 * @generated
+	 */
+	EClass getSection();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Section#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.soluvas.web.site.Section#getId()
+	 * @see #getSection()
+	 * @generated
+	 */
+	EAttribute getSection_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Section#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.soluvas.web.site.Section#getName()
+	 * @see #getSection()
+	 * @generated
+	 */
+	EAttribute getSection_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.SiteCatalog <em>Catalog</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Catalog</em>'.
+	 * @see org.soluvas.web.site.SiteCatalog
+	 * @generated
+	 */
+	EClass getSiteCatalog();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.SectionCollection <em>Section Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Section Collection</em>'.
+	 * @see org.soluvas.web.site.SectionCollection
+	 * @generated
+	 */
+	EClass getSectionCollection();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.SectionCollection#getSections <em>Sections</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Sections</em>'.
+	 * @see org.soluvas.web.site.SectionCollection#getSections()
+	 * @see #getSectionCollection()
+	 * @generated
+	 */
+	EReference getSectionCollection_Sections();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Page Meta Collection</em>'.
+	 * @see org.soluvas.web.site.PageMetaCollection
+	 * @generated
+	 */
+	EClass getPageMetaCollection();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.PageMetaCollection#getPageMetas <em>Page Metas</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Page Metas</em>'.
+	 * @see org.soluvas.web.site.PageMetaCollection#getPageMetas()
+	 * @see #getPageMetaCollection()
+	 * @generated
+	 */
+	EReference getPageMetaCollection_PageMetas();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Page Rule Collection</em>'.
+	 * @see org.soluvas.web.site.PageRuleCollection
+	 * @generated
+	 */
+	EClass getPageRuleCollection();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.PageRuleCollection#getPageRules <em>Page Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Page Rules</em>'.
+	 * @see org.soluvas.web.site.PageRuleCollection#getPageRules()
+	 * @see #getPageRuleCollection()
+	 * @generated
+	 */
+	EReference getPageRuleCollection_PageRules();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1605,72 +1829,6 @@ public interface SitePackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageImpl <em>Page</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.impl.PageImpl
-		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPage()
-		 * @generated
-		 */
-		EClass PAGE = eINSTANCE.getPage();
-
-		/**
-		 * The meta object literal for the '<em><b>Meta</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE__META = eINSTANCE.getPage_Meta();
-
-		/**
-		 * The meta object literal for the '<em><b>Icon</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE__ICON = eINSTANCE.getPage_Icon();
-
-		/**
-		 * The meta object literal for the '<em><b>Language Code</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PAGE__LANGUAGE_CODE = eINSTANCE.getPage_LanguageCode();
-
-		/**
-		 * The meta object literal for the '<em><b>Open Graph</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE__OPEN_GRAPH = eINSTANCE.getPage_OpenGraph();
-
-		/**
-		 * The meta object literal for the '<em><b>Open Graph Image</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE__OPEN_GRAPH_IMAGE = eINSTANCE.getPage_OpenGraphImage();
-
-		/**
-		 * The meta object literal for the '<em><b>Open Graph Video</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE__OPEN_GRAPH_VIDEO = eINSTANCE.getPage_OpenGraphVideo();
-
-		/**
-		 * The meta object literal for the '<em><b>Open Graph Audio</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE__OPEN_GRAPH_AUDIO = eINSTANCE.getPage_OpenGraphAudio();
-
-		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageMetaImpl <em>Page Meta</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1679,6 +1837,54 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EClass PAGE_META = eINSTANCE.getPageMeta();
+
+		/**
+		 * The meta object literal for the '<em><b>Icon</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_META__ICON = eINSTANCE.getPageMeta_Icon();
+
+		/**
+		 * The meta object literal for the '<em><b>Language Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_META__LANGUAGE_CODE = eINSTANCE.getPageMeta_LanguageCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Open Graph</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_META__OPEN_GRAPH = eINSTANCE.getPageMeta_OpenGraph();
+
+		/**
+		 * The meta object literal for the '<em><b>Open Graph Image</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_META__OPEN_GRAPH_IMAGE = eINSTANCE.getPageMeta_OpenGraphImage();
+
+		/**
+		 * The meta object literal for the '<em><b>Open Graph Video</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_META__OPEN_GRAPH_VIDEO = eINSTANCE.getPageMeta_OpenGraphVideo();
+
+		/**
+		 * The meta object literal for the '<em><b>Open Graph Audio</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_META__OPEN_GRAPH_AUDIO = eINSTANCE.getPageMeta_OpenGraphAudio();
 
 		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -2187,6 +2393,96 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EReference PAGE_RULE_CATALOG__RULES = eINSTANCE.getPageRuleCatalog_Rules();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.SectionImpl <em>Section</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.SectionImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getSection()
+		 * @generated
+		 */
+		EClass SECTION = eINSTANCE.getSection();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECTION__ID = eINSTANCE.getSection_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECTION__NAME = eINSTANCE.getSection_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.SiteCatalogImpl <em>Catalog</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.SiteCatalogImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getSiteCatalog()
+		 * @generated
+		 */
+		EClass SITE_CATALOG = eINSTANCE.getSiteCatalog();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.SectionCollection <em>Section Collection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.SectionCollection
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getSectionCollection()
+		 * @generated
+		 */
+		EClass SECTION_COLLECTION = eINSTANCE.getSectionCollection();
+
+		/**
+		 * The meta object literal for the '<em><b>Sections</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECTION_COLLECTION__SECTIONS = eINSTANCE.getSectionCollection_Sections();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.PageMetaCollection
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageMetaCollection()
+		 * @generated
+		 */
+		EClass PAGE_META_COLLECTION = eINSTANCE.getPageMetaCollection();
+
+		/**
+		 * The meta object literal for the '<em><b>Page Metas</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_META_COLLECTION__PAGE_METAS = eINSTANCE.getPageMetaCollection_PageMetas();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.PageRuleCollection
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCollection()
+		 * @generated
+		 */
+		EClass PAGE_RULE_COLLECTION = eINSTANCE.getPageRuleCollection();
+
+		/**
+		 * The meta object literal for the '<em><b>Page Rules</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE_RULE_COLLECTION__PAGE_RULES = eINSTANCE.getPageRuleCollection_PageRules();
 
 	}
 

@@ -3,7 +3,7 @@ package org.soluvas.web.site;
 /**
  * @author ceefour
  */
-public interface PageSupplierFactory<T extends PageSupplier> {
+public interface PageMetaSupplierFactory<T extends PageMetaSupplier> {
 	
 	T create(PageRuleContext context);
 

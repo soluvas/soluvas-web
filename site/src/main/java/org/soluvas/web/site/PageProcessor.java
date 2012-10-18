@@ -10,6 +10,6 @@ public interface PageProcessor {
 	 * Manipulates a page.
 	 * @param page
 	 */
-	void processPage(Page page);
+	void processPage(PageMeta pageMeta);
 
 }

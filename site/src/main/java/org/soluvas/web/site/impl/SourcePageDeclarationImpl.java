@@ -3,14 +3,11 @@
 package org.soluvas.web.site.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.soluvas.web.site.Page;
+import org.soluvas.web.site.PageMeta;
 import org.soluvas.web.site.SitePackage;
 import org.soluvas.web.site.SourcePageDeclaration;
 
@@ -36,7 +33,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * @generated
 	 * @ordered
 	 */
-	protected Page source;
+	protected PageMeta source;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,10 +59,10 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Page getSource() {
+	public PageMeta getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
-			source = (Page)eResolveProxy(oldSource);
+			source = (PageMeta)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SitePackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
@@ -79,7 +76,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Page basicGetSource() {
+	public PageMeta basicGetSource() {
 		return source;
 	}
 
@@ -88,8 +85,8 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(Page newSource) {
-		Page oldSource = source;
+	public void setSource(PageMeta newSource) {
+		PageMeta oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
@@ -119,7 +116,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case SitePackage.SOURCE_PAGE_DECLARATION__SOURCE:
-				setSource((Page)newValue);
+				setSource((PageMeta)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -134,7 +131,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case SitePackage.SOURCE_PAGE_DECLARATION__SOURCE:
-				setSource((Page)null);
+				setSource((PageMeta)null);
 				return;
 		}
 		super.eUnset(featureID);

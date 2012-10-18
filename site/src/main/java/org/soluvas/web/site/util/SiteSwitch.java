@@ -66,12 +66,6 @@ public class SiteSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case SitePackage.PAGE: {
-				Page page = (Page)theEObject;
-				T result = casePage(page);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case SitePackage.PAGE_META: {
 				PageMeta pageMeta = (PageMeta)theEObject;
 				T result = casePageMeta(pageMeta);
@@ -167,23 +161,41 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SitePackage.SECTION: {
+				Section section = (Section)theEObject;
+				T result = caseSection(section);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.SITE_CATALOG: {
+				SiteCatalog siteCatalog = (SiteCatalog)theEObject;
+				T result = caseSiteCatalog(siteCatalog);
+				if (result == null) result = caseSectionCollection(siteCatalog);
+				if (result == null) result = casePageMetaCollection(siteCatalog);
+				if (result == null) result = casePageRuleCollection(siteCatalog);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.SECTION_COLLECTION: {
+				SectionCollection sectionCollection = (SectionCollection)theEObject;
+				T result = caseSectionCollection(sectionCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.PAGE_META_COLLECTION: {
+				PageMetaCollection pageMetaCollection = (PageMetaCollection)theEObject;
+				T result = casePageMetaCollection(pageMetaCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.PAGE_RULE_COLLECTION: {
+				PageRuleCollection pageRuleCollection = (PageRuleCollection)theEObject;
+				T result = casePageRuleCollection(pageRuleCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Page</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Page</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePage(Page object) {
-		return null;
 	}
 
 	/**
@@ -408,6 +420,81 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePageRuleCatalog(PageRuleCatalog object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Section</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Section</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSection(Section object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Catalog</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Catalog</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSiteCatalog(SiteCatalog object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Section Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Section Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSectionCollection(SectionCollection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Page Meta Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Page Meta Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePageMetaCollection(PageMetaCollection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Page Rule Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Page Rule Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePageRuleCollection(PageRuleCollection object) {
 		return null;
 	}
 

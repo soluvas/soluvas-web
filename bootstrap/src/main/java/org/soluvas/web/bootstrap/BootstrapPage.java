@@ -31,9 +31,10 @@ import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
 import org.soluvas.web.site.MultitenantPage;
+import org.soluvas.web.site.PageMeta;
+import org.soluvas.web.site.PageMetaSupplier;
+import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
-import org.soluvas.web.site.PageSupplier;
-import org.soluvas.web.site.PageSupplierFactory;
 import org.soluvas.web.site.Site;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,8 +77,8 @@ public class BootstrapPage extends MultitenantPage {
 
 //	@PaxWicketBean(name="pageRulesSupplier")
 //	private Supplier<List<PageRule>> pageRulesSupplier;
-	@PaxWicketBean(name="pageSupplierFactory")
-	private transient PageSupplierFactory<PageSupplier> pageSupplierFactory;
+	@PaxWicketBean(name="pageMetaSupplierFactory")
+	private transient PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
@@ -149,14 +150,14 @@ public class BootstrapPage extends MultitenantPage {
 		}
 	}
 	
-	protected org.soluvas.web.site.Page getPageInfo() {
+	protected PageMeta getPageMeta() {
 		PageRuleContext context = new PageRuleContext();
 		context.setUri(getRequest().getUrl().toString());
 //		List<PageRule> pageRules = pageRulesSupplier.get();
-//		PageSupplier pageSupplier = new RulesPageSupplier(pageRules, context);
-		PageSupplier pageSupplier = pageSupplierFactory.create(context);
-		org.soluvas.web.site.Page page = pageSupplier.get();
-		return page;
+//		PageMetaSupplier pageSupplier = new RulesPageSupplier(pageRules, context);
+		PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
+		PageMeta pageMeta = pageMetaSupplier.get();
+		return pageMeta;
 	}
 	
 	@Override
@@ -167,17 +168,17 @@ public class BootstrapPage extends MultitenantPage {
 	public BootstrapPage() {
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-		org.soluvas.web.site.Page page = getPageInfo();
+		PageMeta pageMeta = getPageMeta();
 		
 		// HTML
-		add(new TransparentWebMarkupContainer("html").add(new AttributeModifier("lang", page.getLanguageCode())));
+		add(new TransparentWebMarkupContainer("html").add(new AttributeModifier("lang", pageMeta.getLanguageCode())));
 		
 		// HEAD
 		//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-		add(new Label("pageTitle", page.getMeta().getTitle()).setRenderBodyOnly(true));
+		add(new Label("pageTitle", pageMeta.getTitle()).setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
 		final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
-		faviconLink.add(new AttributeModifier("href", page.getIcon().getFaviconUri()));
+		faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
 		add(faviconLink);
 		
 		// NAVBAR

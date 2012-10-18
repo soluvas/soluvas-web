@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xsd:schema xmlns:site="http://www.soluvas.com/schema/site/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.com/schema/site/1.0">
   <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
-  <xsd:complexType name="Page">
+  <xsd:complexType name="PageMeta">
+    <xsd:annotation>
+      <xsd:documentation>Low-level meta-information about a HTML page.
+
+For practical purposes, these are usually provided dynamically. However, some information, like favicon URIs and OpenGraph siteName are usually provided statically from application's site catalog XMI e.g. berbatik.SiteCatalog.xmi.
+
+Note that PageMeta uses low-level HTML title, not a "CMS title" (which needs to be reformatted i.e. with prefix &amp; suffix).
+It also distinguishes between meta description and og:description.
+So it doesn't fit well to be provided statically.</xsd:documentation>
+    </xsd:annotation>
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
-      <xsd:element name="meta" type="site:PageMeta"/>
       <xsd:element name="icon" type="site:PageIcon"/>
       <xsd:element name="openGraph" type="site:OpenGraphMeta"/>
       <xsd:element name="openGraphImage" type="site:OpenGraphImage"/>
@@ -18,15 +26,6 @@
         <xsd:documentation>Used in "html" tag, recommended is "en".</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
-  </xsd:complexType>
-  <xsd:element name="Page" type="site:Page"/>
-  <xsd:complexType name="PageMeta">
-    <xsd:choice maxOccurs="unbounded" minOccurs="0">
-      <xsd:element ref="xmi:Extension"/>
-    </xsd:choice>
-    <xsd:attribute ref="xmi:id"/>
-    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
-    <xsd:attribute name="description" type="xsd:string"/>
     <xsd:attribute name="charset" type="xsd:string">
       <xsd:annotation>
         <xsd:documentation>Recommended: utf-8.</xsd:documentation>
@@ -34,6 +33,7 @@
     </xsd:attribute>
     <xsd:attribute name="title" type="xsd:string"/>
     <xsd:attribute name="keywords" type="xsd:string"/>
+    <xsd:attribute name="description" type="xsd:string"/>
     <xsd:attribute name="viewport" type="xsd:string">
       <xsd:annotation>
         <xsd:documentation>Recommended: width=device-width, initial-scale=1.0</xsd:documentation>
@@ -41,7 +41,17 @@
     </xsd:attribute>
     <xsd:attribute name="author" type="xsd:string"/>
   </xsd:complexType>
-  <xsd:element name="PageMeta" type="site:PageMeta"/>
+  <xsd:element name="PageMeta" type="site:PageMeta">
+    <xsd:annotation>
+      <xsd:documentation>Low-level meta-information about a HTML page.
+
+For practical purposes, these are usually provided dynamically. However, some information, like favicon URIs and OpenGraph siteName are usually provided statically from application's site catalog XMI e.g. berbatik.SiteCatalog.xmi.
+
+Note that PageMeta uses low-level HTML title, not a "CMS title" (which needs to be reformatted i.e. with prefix &amp; suffix).
+It also distinguishes between meta description and og:description.
+So it doesn't fit well to be provided statically.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:complexType name="PageIcon">
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element ref="xmi:Extension"/>
@@ -779,7 +789,7 @@ The Page instance must be linked via EMF, which is sometimes handy but not very 
     <xsd:complexContent>
       <xsd:extension base="site:PageDeclaration">
         <xsd:choice maxOccurs="unbounded" minOccurs="0">
-          <xsd:element name="source" type="site:Page"/>
+          <xsd:element name="source" type="site:PageMeta"/>
         </xsd:choice>
         <xsd:attribute name="source" type="xsd:string"/>
       </xsd:extension>
@@ -876,4 +886,63 @@ This is handy to load from classpath in OSGi environments, but cannot handle ove
       <xsd:documentation>Contains a list of rules.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:complexType name="Section">
+    <xsd:annotation>
+      <xsd:documentation>A large division of web application.
+
+For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="id" type="xsd:string" use="required"/>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:element name="Section" type="site:Section">
+    <xsd:annotation>
+      <xsd:documentation>A large division of web application.
+
+For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="SiteCatalog">
+    <xsd:complexContent>
+      <xsd:extension base="site:SectionCollection">
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+          <xsd:element name="pageMetas" type="site:PageMeta"/>
+          <xsd:element name="pageRules" type="site:PageRule"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="SiteCatalog" type="site:SiteCatalog"/>
+  <xsd:complexType abstract="true" name="SectionCollection">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="sections" type="site:Section"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+  </xsd:complexType>
+  <xsd:element name="SectionCollection" type="site:SectionCollection"/>
+  <xsd:complexType abstract="true" name="PageMetaCollection">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="pageMetas" type="site:PageMeta"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+  </xsd:complexType>
+  <xsd:element name="PageMetaCollection" type="site:PageMetaCollection"/>
+  <xsd:complexType abstract="true" name="PageRuleCollection">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="pageRules" type="site:PageRule"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+  </xsd:complexType>
+  <xsd:element name="PageRuleCollection" type="site:PageRuleCollection"/>
 </xsd:schema>

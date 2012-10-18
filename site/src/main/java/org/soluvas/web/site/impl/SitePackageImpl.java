@@ -6,23 +6,25 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.soluvas.web.site.OpenGraphAudio;
 import org.soluvas.web.site.OpenGraphImage;
 import org.soluvas.web.site.OpenGraphMeta;
 import org.soluvas.web.site.OpenGraphVideo;
-import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageDeclaration;
 import org.soluvas.web.site.PageIcon;
 import org.soluvas.web.site.PageMeta;
+import org.soluvas.web.site.PageMetaCollection;
 import org.soluvas.web.site.PageRule;
 import org.soluvas.web.site.PageRuleCatalog;
+import org.soluvas.web.site.PageRuleCollection;
 import org.soluvas.web.site.PageSelector;
 import org.soluvas.web.site.ProcessorPageDeclaration;
 import org.soluvas.web.site.RepositoryPageDeclaration;
 import org.soluvas.web.site.ResourcePageDeclaration;
+import org.soluvas.web.site.Section;
+import org.soluvas.web.site.SectionCollection;
+import org.soluvas.web.site.SiteCatalog;
 import org.soluvas.web.site.SiteFactory;
 import org.soluvas.web.site.SitePackage;
 import org.soluvas.web.site.SourcePageDeclaration;
@@ -35,13 +37,6 @@ import org.soluvas.web.site.UriPatternPageSelector;
  * @generated
  */
 public class SitePackageImpl extends EPackageImpl implements SitePackage {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass pageEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -148,6 +143,41 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	private EClass pageRuleCatalogEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass siteCatalogEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sectionCollectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pageMetaCollectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pageRuleCollectionEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -213,78 +243,6 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPage() {
-		return pageEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPage_Meta() {
-		return (EReference)pageEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPage_Icon() {
-		return (EReference)pageEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPage_LanguageCode() {
-		return (EAttribute)pageEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPage_OpenGraph() {
-		return (EReference)pageEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPage_OpenGraphImage() {
-		return (EReference)pageEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPage_OpenGraphVideo() {
-		return (EReference)pageEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPage_OpenGraphAudio() {
-		return (EReference)pageEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getPageMeta() {
 		return pageMetaEClass;
 	}
@@ -294,8 +252,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPageMeta_Description() {
-		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(0);
+	public EReference getPageMeta_Icon() {
+		return (EReference)pageMetaEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -303,7 +261,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPageMeta_Charset() {
+	public EAttribute getPageMeta_LanguageCode() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -312,8 +270,62 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPageMeta_OpenGraph() {
+		return (EReference)pageMetaEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPageMeta_OpenGraphImage() {
+		return (EReference)pageMetaEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPageMeta_OpenGraphVideo() {
+		return (EReference)pageMetaEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPageMeta_OpenGraphAudio() {
+		return (EReference)pageMetaEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageMeta_Description() {
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageMeta_Charset() {
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getPageMeta_Title() {
-		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -322,7 +334,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	public EAttribute getPageMeta_Keywords() {
-		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -331,7 +343,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	public EAttribute getPageMeta_Viewport() {
-		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -340,7 +352,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	public EAttribute getPageMeta_Author() {
-		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -834,6 +846,96 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSection() {
+		return sectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSection_Id() {
+		return (EAttribute)sectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSection_Name() {
+		return (EAttribute)sectionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSiteCatalog() {
+		return siteCatalogEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSectionCollection() {
+		return sectionCollectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSectionCollection_Sections() {
+		return (EReference)sectionCollectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPageMetaCollection() {
+		return pageMetaCollectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPageMetaCollection_PageMetas() {
+		return (EReference)pageMetaCollectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPageRuleCollection() {
+		return pageRuleCollectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPageRuleCollection_PageRules() {
+		return (EReference)pageRuleCollectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -857,20 +959,17 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		isCreated = true;
 
 		// Create classes and their features
-		pageEClass = createEClass(PAGE);
-		createEReference(pageEClass, PAGE__META);
-		createEReference(pageEClass, PAGE__ICON);
-		createEAttribute(pageEClass, PAGE__LANGUAGE_CODE);
-		createEReference(pageEClass, PAGE__OPEN_GRAPH);
-		createEReference(pageEClass, PAGE__OPEN_GRAPH_IMAGE);
-		createEReference(pageEClass, PAGE__OPEN_GRAPH_VIDEO);
-		createEReference(pageEClass, PAGE__OPEN_GRAPH_AUDIO);
-
 		pageMetaEClass = createEClass(PAGE_META);
-		createEAttribute(pageMetaEClass, PAGE_META__DESCRIPTION);
+		createEReference(pageMetaEClass, PAGE_META__ICON);
+		createEAttribute(pageMetaEClass, PAGE_META__LANGUAGE_CODE);
+		createEReference(pageMetaEClass, PAGE_META__OPEN_GRAPH);
+		createEReference(pageMetaEClass, PAGE_META__OPEN_GRAPH_IMAGE);
+		createEReference(pageMetaEClass, PAGE_META__OPEN_GRAPH_VIDEO);
+		createEReference(pageMetaEClass, PAGE_META__OPEN_GRAPH_AUDIO);
 		createEAttribute(pageMetaEClass, PAGE_META__CHARSET);
 		createEAttribute(pageMetaEClass, PAGE_META__TITLE);
 		createEAttribute(pageMetaEClass, PAGE_META__KEYWORDS);
+		createEAttribute(pageMetaEClass, PAGE_META__DESCRIPTION);
 		createEAttribute(pageMetaEClass, PAGE_META__VIEWPORT);
 		createEAttribute(pageMetaEClass, PAGE_META__AUTHOR);
 
@@ -941,6 +1040,21 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		pageRuleCatalogEClass = createEClass(PAGE_RULE_CATALOG);
 		createEReference(pageRuleCatalogEClass, PAGE_RULE_CATALOG__RULES);
+
+		sectionEClass = createEClass(SECTION);
+		createEAttribute(sectionEClass, SECTION__ID);
+		createEAttribute(sectionEClass, SECTION__NAME);
+
+		siteCatalogEClass = createEClass(SITE_CATALOG);
+
+		sectionCollectionEClass = createEClass(SECTION_COLLECTION);
+		createEReference(sectionCollectionEClass, SECTION_COLLECTION__SECTIONS);
+
+		pageMetaCollectionEClass = createEClass(PAGE_META_COLLECTION);
+		createEReference(pageMetaCollectionEClass, PAGE_META_COLLECTION__PAGE_METAS);
+
+		pageRuleCollectionEClass = createEClass(PAGE_RULE_COLLECTION);
+		createEReference(pageRuleCollectionEClass, PAGE_RULE_COLLECTION__PAGE_RULES);
 	}
 
 	/**
@@ -976,22 +1090,22 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		processorPageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		resourcePageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		repositoryPageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
+		siteCatalogEClass.getESuperTypes().add(this.getSectionCollection());
+		siteCatalogEClass.getESuperTypes().add(this.getPageMetaCollection());
+		siteCatalogEClass.getESuperTypes().add(this.getPageRuleCollection());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(pageEClass, Page.class, "Page", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPage_Meta(), this.getPageMeta(), null, "meta", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPage_Icon(), this.getPageIcon(), null, "icon", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPage_LanguageCode(), ecorePackage.getEString(), "languageCode", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPage_OpenGraph(), this.getOpenGraphMeta(), null, "openGraph", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPage_OpenGraphImage(), this.getOpenGraphImage(), null, "openGraphImage", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPage_OpenGraphVideo(), this.getOpenGraphVideo(), null, "openGraphVideo", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPage_OpenGraphAudio(), this.getOpenGraphAudio(), null, "openGraphAudio", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(pageMetaEClass, PageMeta.class, "PageMeta", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPageMeta_Description(), ecorePackage.getEString(), "description", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPageMeta_Icon(), this.getPageIcon(), null, "icon", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageMeta_LanguageCode(), ecorePackage.getEString(), "languageCode", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPageMeta_OpenGraph(), this.getOpenGraphMeta(), null, "openGraph", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPageMeta_OpenGraphImage(), this.getOpenGraphImage(), null, "openGraphImage", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPageMeta_OpenGraphVideo(), this.getOpenGraphVideo(), null, "openGraphVideo", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPageMeta_OpenGraphAudio(), this.getOpenGraphAudio(), null, "openGraphAudio", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Charset(), ecorePackage.getEString(), "charset", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Title(), ecorePackage.getEString(), "title", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Keywords(), ecorePackage.getEString(), "keywords", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageMeta_Description(), ecorePackage.getEString(), "description", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Viewport(), ecorePackage.getEString(), "viewport", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Author(), ecorePackage.getEString(), "author", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1047,7 +1161,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEClass(pageDeclarationEClass, PageDeclaration.class, "PageDeclaration", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(sourcePageDeclarationEClass, SourcePageDeclaration.class, "SourcePageDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSourcePageDeclaration_Source(), this.getPage(), null, "source", null, 0, 1, SourcePageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSourcePageDeclaration_Source(), this.getPageMeta(), null, "source", null, 0, 1, SourcePageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(processorPageDeclarationEClass, ProcessorPageDeclaration.class, "ProcessorPageDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getProcessorPageDeclaration_Filter(), ecorePackage.getEString(), "filter", null, 0, 1, ProcessorPageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1062,6 +1176,21 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		initEClass(pageRuleCatalogEClass, PageRuleCatalog.class, "PageRuleCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageRuleCatalog_Rules(), this.getPageRule(), null, "rules", null, 0, -1, PageRuleCatalog.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sectionEClass, Section.class, "Section", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSection_Id(), ecorePackage.getEString(), "id", null, 1, 1, Section.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSection_Name(), ecorePackage.getEString(), "name", null, 1, 1, Section.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(siteCatalogEClass, SiteCatalog.class, "SiteCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(sectionCollectionEClass, SectionCollection.class, "SectionCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSectionCollection_Sections(), this.getSection(), null, "sections", null, 0, -1, SectionCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pageMetaCollectionEClass, PageMetaCollection.class, "PageMetaCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPageMetaCollection_PageMetas(), this.getPageMeta(), null, "pageMetas", null, 0, -1, PageMetaCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pageRuleCollectionEClass, PageRuleCollection.class, "PageRuleCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPageRuleCollection_PageRules(), this.getPageRule(), null, "pageRules", null, 0, -1, PageRuleCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1080,7 +1209,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	protected void createGenModelAnnotations() {
 		String source = "http://www.eclipse.org/emf/2002/GenModel";		
 		addAnnotation
-		  (getPage_LanguageCode(), 
+		  (pageMetaEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Low-level meta-information about a HTML page.\n\nFor practical purposes, these are usually provided dynamically. However, some information, like favicon URIs and OpenGraph siteName are usually provided statically from application\'s site catalog XMI e.g. berbatik.SiteCatalog.xmi.\n\nNote that PageMeta uses low-level HTML title, not a \"CMS title\" (which needs to be reformatted i.e. with prefix & suffix).\nIt also distinguishes between meta description and og:description.\nSo it doesn\'t fit well to be provided statically."
+		   });		
+		addAnnotation
+		  (getPageMeta_LanguageCode(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Used in \"html\" tag, recommended is \"en\"."
@@ -1336,6 +1471,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Contains a list of rules."
+		   });		
+		addAnnotation
+		  (sectionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A large division of web application.\n\nFor example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub."
 		   });
 	}
 

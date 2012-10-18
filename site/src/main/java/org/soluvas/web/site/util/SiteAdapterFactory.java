@@ -68,10 +68,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	protected SiteSwitch<Adapter> modelSwitch =
 		new SiteSwitch<Adapter>() {
 			@Override
-			public Adapter casePage(Page object) {
-				return createPageAdapter();
-			}
-			@Override
 			public Adapter casePageMeta(PageMeta object) {
 				return createPageMetaAdapter();
 			}
@@ -132,6 +128,26 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createPageRuleCatalogAdapter();
 			}
 			@Override
+			public Adapter caseSection(Section object) {
+				return createSectionAdapter();
+			}
+			@Override
+			public Adapter caseSiteCatalog(SiteCatalog object) {
+				return createSiteCatalogAdapter();
+			}
+			@Override
+			public Adapter caseSectionCollection(SectionCollection object) {
+				return createSectionCollectionAdapter();
+			}
+			@Override
+			public Adapter casePageMetaCollection(PageMetaCollection object) {
+				return createPageMetaCollectionAdapter();
+			}
+			@Override
+			public Adapter casePageRuleCollection(PageRuleCollection object) {
+				return createPageRuleCollectionAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -150,20 +166,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.Page <em>Page</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.Page
-	 * @generated
-	 */
-	public Adapter createPageAdapter() {
-		return null;
-	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageMeta <em>Page Meta</em>}'.
@@ -372,6 +374,76 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPageRuleCatalogAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.Section
+	 * @generated
+	 */
+	public Adapter createSectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.SiteCatalog <em>Catalog</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.SiteCatalog
+	 * @generated
+	 */
+	public Adapter createSiteCatalogAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.SectionCollection <em>Section Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.SectionCollection
+	 * @generated
+	 */
+	public Adapter createSectionCollectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.PageMetaCollection
+	 * @generated
+	 */
+	public Adapter createPageMetaCollectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.PageRuleCollection
+	 * @generated
+	 */
+	public Adapter createPageRuleCollectionAdapter() {
 		return null;
 	}
 
