@@ -208,7 +208,6 @@ public class BootstrapPage extends MultitenantPage {
 		add(new Header());
 		
 		// SIDEBAR
-		
 		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());
 		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
 			@Override
@@ -219,7 +218,9 @@ public class BootstrapPage extends MultitenantPage {
 				item.add(block);
 			}
 		});
+		add(new WebMarkupContainer("sidebarAdditional"));
 		
+		// CONTENT
 		feedbackPanel = new FeedbackPanel("feedback").setOutputMarkupId(true);
 		add(feedbackPanel);
 		
