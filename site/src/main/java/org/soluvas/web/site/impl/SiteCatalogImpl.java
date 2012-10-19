@@ -75,7 +75,7 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SiteCatalogImpl() {
+	public SiteCatalogImpl() {
 		super();
 	}
 

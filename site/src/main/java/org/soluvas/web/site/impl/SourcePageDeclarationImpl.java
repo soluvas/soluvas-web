@@ -40,7 +40,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SourcePageDeclarationImpl() {
+	public SourcePageDeclarationImpl() {
 		super();
 	}
 

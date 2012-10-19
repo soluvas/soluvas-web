@@ -135,7 +135,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageIconImpl() {
+	public PageIconImpl() {
 		super();
 	}
 

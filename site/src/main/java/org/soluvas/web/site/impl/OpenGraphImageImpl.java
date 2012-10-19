@@ -135,7 +135,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OpenGraphImageImpl() {
+	public OpenGraphImageImpl() {
 		super();
 	}
 

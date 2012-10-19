@@ -980,6 +980,71 @@ public interface SitePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageTitleImpl <em>Page Title</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.PageTitleImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageTitle()
+	 * @generated
+	 */
+	int PAGE_TITLE = 20;
+
+	/**
+	 * The feature id for the '<em><b>Main</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_TITLE__MAIN = 0;
+
+	/**
+	 * The feature id for the '<em><b>Prefixes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_TITLE__PREFIXES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Suffixes</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_TITLE__SUFFIXES = 2;
+
+	/**
+	 * The feature id for the '<em><b>Prefix Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_TITLE__PREFIX_SEPARATOR = 3;
+
+	/**
+	 * The feature id for the '<em><b>Suffix Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_TITLE__SUFFIX_SEPARATOR = 4;
+
+	/**
+	 * The number of structural features of the '<em>Page Title</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_TITLE_FEATURE_COUNT = 5;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.PageMeta <em>Page Meta</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1807,6 +1872,71 @@ public interface SitePackage extends EPackage {
 	EReference getPageRuleCollection_PageRules();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PageTitle <em>Page Title</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Page Title</em>'.
+	 * @see org.soluvas.web.site.PageTitle
+	 * @generated
+	 */
+	EClass getPageTitle();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PageTitle#getMain <em>Main</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Main</em>'.
+	 * @see org.soluvas.web.site.PageTitle#getMain()
+	 * @see #getPageTitle()
+	 * @generated
+	 */
+	EAttribute getPageTitle_Main();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.soluvas.web.site.PageTitle#getPrefixes <em>Prefixes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Prefixes</em>'.
+	 * @see org.soluvas.web.site.PageTitle#getPrefixes()
+	 * @see #getPageTitle()
+	 * @generated
+	 */
+	EAttribute getPageTitle_Prefixes();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.soluvas.web.site.PageTitle#getSuffixes <em>Suffixes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Suffixes</em>'.
+	 * @see org.soluvas.web.site.PageTitle#getSuffixes()
+	 * @see #getPageTitle()
+	 * @generated
+	 */
+	EAttribute getPageTitle_Suffixes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PageTitle#getPrefixSeparator <em>Prefix Separator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Prefix Separator</em>'.
+	 * @see org.soluvas.web.site.PageTitle#getPrefixSeparator()
+	 * @see #getPageTitle()
+	 * @generated
+	 */
+	EAttribute getPageTitle_PrefixSeparator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PageTitle#getSuffixSeparator <em>Suffix Separator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Suffix Separator</em>'.
+	 * @see org.soluvas.web.site.PageTitle#getSuffixSeparator()
+	 * @see #getPageTitle()
+	 * @generated
+	 */
+	EAttribute getPageTitle_SuffixSeparator();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2483,6 +2613,56 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EReference PAGE_RULE_COLLECTION__PAGE_RULES = eINSTANCE.getPageRuleCollection_PageRules();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageTitleImpl <em>Page Title</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.PageTitleImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageTitle()
+		 * @generated
+		 */
+		EClass PAGE_TITLE = eINSTANCE.getPageTitle();
+
+		/**
+		 * The meta object literal for the '<em><b>Main</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_TITLE__MAIN = eINSTANCE.getPageTitle_Main();
+
+		/**
+		 * The meta object literal for the '<em><b>Prefixes</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_TITLE__PREFIXES = eINSTANCE.getPageTitle_Prefixes();
+
+		/**
+		 * The meta object literal for the '<em><b>Suffixes</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_TITLE__SUFFIXES = eINSTANCE.getPageTitle_Suffixes();
+
+		/**
+		 * The meta object literal for the '<em><b>Prefix Separator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_TITLE__PREFIX_SEPARATOR = eINSTANCE.getPageTitle_PrefixSeparator();
+
+		/**
+		 * The meta object literal for the '<em><b>Suffix Separator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_TITLE__SUFFIX_SEPARATOR = eINSTANCE.getPageTitle_SuffixSeparator();
 
 	}
 

@@ -93,7 +93,7 @@ public class OpenGraphAudioImpl extends EObjectImpl implements OpenGraphAudio {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OpenGraphAudioImpl() {
+	public OpenGraphAudioImpl() {
 		super();
 	}
 

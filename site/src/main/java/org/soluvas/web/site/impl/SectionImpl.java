@@ -72,7 +72,7 @@ public class SectionImpl extends EObjectImpl implements Section {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SectionImpl() {
+	public SectionImpl() {
 		super();
 	}
 

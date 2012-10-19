@@ -72,7 +72,7 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ResourcePageDeclarationImpl() {
+	public ResourcePageDeclarationImpl() {
 		super();
 	}
 

@@ -157,6 +157,15 @@ public interface SiteFactory extends EFactory {
 	SiteCatalog createSiteCatalog();
 
 	/**
+	 * Returns a new object of class '<em>Page Title</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Page Title</em>'.
+	 * @generated
+	 */
+	PageTitle createPageTitle();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
