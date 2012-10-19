@@ -3,12 +3,9 @@ package org.soluvas.web.site;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.EmfUtils;
 
 /**
  * Provides a {@link PageMeta} using an ordered list of rules. The later rules
@@ -85,35 +82,7 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	 */
 	protected void combinePage(PageMeta current, PageMeta overlay) {
 		log.info("Combining {} with {}", current, overlay);
-		combineEObject(current, overlay);
-	}
-
-	/**
-	 * Overlays another EObject on top of an EObject.
-	 * @param current
-	 * @param overlay
-	 */
-	protected void combineEObject(EObject current, EObject overlay) {
-		for (EAttribute attr : overlay.eClass().getEAllAttributes()) {
-			Object attrValue = overlay.eGet(attr);
-			if (overlay.eIsSet(attr) && attrValue != null) {
-				log.debug("Override {}.{} to {}", new Object[] { current.eClass().getName(), attr.getName(), attrValue });
-				current.eSet(attr, attrValue);
-			}
-		}
-		for (EReference containment : overlay.eClass().getEAllContainments()) {
-			EObject currentContainment = (EObject) current.eGet(containment);
-			EObject overlayContainment = (EObject) overlay.eGet(containment);
-			if (overlay.eIsSet(containment) && overlayContainment != null) {
-				if (currentContainment != null) {
-					combineEObject(currentContainment, overlayContainment);
-				} else {
-					// current doesn't have this containment, so directly set using a copied instance
-					log.debug("Setting {}.{} to {}", new Object[] { current.eClass().getName(), containment.getName(), overlayContainment });
-					current.eSet(containment, EcoreUtil.copy(overlayContainment));
-				}
-			}
-		}
+		EmfUtils.combineEObject(current, overlay);
 	}
 
 }
