@@ -182,7 +182,7 @@ public class BootstrapPage extends MultitenantPage {
 		add(faviconLink);
 		
 		//Carousel
-		add(new WebMarkupContainer("carouselImages"));
+		add(new WebMarkupContainer("afterHeader"));
 		
 		// NAVBAR
 		Navbar navbar = new Navbar("navbar");
