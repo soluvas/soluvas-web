@@ -239,7 +239,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageMetaImpl() {
+	public PageMetaImpl() {
 		super();
 	}
 

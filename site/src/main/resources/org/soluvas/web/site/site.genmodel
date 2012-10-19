@@ -3,24 +3,21 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.site/src/main/java" modelPluginID="org.soluvas.web.site"
     modelName="Site" generateSchema="true" importerID="org.eclipse.emf.importer.ecore"
     bundleManifest="false" complianceLevel="6.0" suppressGenModelAnnotations="false"
-    copyrightFields="false">
+    copyrightFields="false" publicConstructors="true">
   <foreignModel>site.ecore</foreignModel>
   <genPackages prefix="Site" basePackage="org.soluvas.web" disposableProviderFactory="true"
       ecorePackage="site.ecore#/">
-    <genClasses ecoreClass="site.ecore#//Page">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/meta"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/icon"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//Page/languageCode"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraph"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraphImage"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraphVideo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//Page/openGraphAudio"/>
-    </genClasses>
     <genClasses ecoreClass="site.ecore#//PageMeta">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageMeta/icon"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/languageCode"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageMeta/openGraph"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageMeta/openGraphImage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageMeta/openGraphVideo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageMeta/openGraphAudio"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/charset"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/keywords"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/viewport"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageMeta/author"/>
     </genClasses>
@@ -62,6 +59,54 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphAudio/url"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphAudio/secureUrl"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//OpenGraphAudio/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="site.ecore#//PageSelector"/>
+    <genClasses ecoreClass="site.ecore#//UriPatternPageSelector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//UriPatternPageSelector/pattern"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//PageRule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageRule/selector"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageRule/weight"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageRule/declaration"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="site.ecore#//PageDeclaration"/>
+    <genClasses ecoreClass="site.ecore#//SourcePageDeclaration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference site.ecore#//SourcePageDeclaration/source"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//ProcessorPageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ProcessorPageDeclaration/filter"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//ResourcePageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ResourcePageDeclaration/bundle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ResourcePageDeclaration/path"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//RepositoryPageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//RepositoryPageDeclaration/filter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//RepositoryPageDeclaration/path"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//PageRuleCatalog">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageRuleCatalog/rules"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//Section">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//Section/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//Section/name"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//SiteCatalog"/>
+    <genClasses image="false" ecoreClass="site.ecore#//SectionCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//SectionCollection/sections"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="site.ecore#//PageMetaCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageMetaCollection/pageMetas"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="site.ecore#//PageRuleCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference site.ecore#//PageRuleCollection/pageRules"/>
+    </genClasses>
+    <genClasses ecoreClass="site.ecore#//PageTitle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageTitle/main"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageTitle/prefixes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageTitle/suffixes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageTitle/prefixSeparator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//PageTitle/suffixSeparator"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

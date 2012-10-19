@@ -19,6 +19,7 @@ import org.soluvas.web.site.PageRule;
 import org.soluvas.web.site.PageRuleCatalog;
 import org.soluvas.web.site.PageRuleCollection;
 import org.soluvas.web.site.PageSelector;
+import org.soluvas.web.site.PageTitle;
 import org.soluvas.web.site.ProcessorPageDeclaration;
 import org.soluvas.web.site.RepositoryPageDeclaration;
 import org.soluvas.web.site.ResourcePageDeclaration;
@@ -176,6 +177,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass pageRuleCollectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pageTitleEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -936,6 +944,60 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPageTitle() {
+		return pageTitleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageTitle_Main() {
+		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageTitle_Prefixes() {
+		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageTitle_Suffixes() {
+		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageTitle_PrefixSeparator() {
+		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageTitle_SuffixSeparator() {
+		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -1055,6 +1117,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		pageRuleCollectionEClass = createEClass(PAGE_RULE_COLLECTION);
 		createEReference(pageRuleCollectionEClass, PAGE_RULE_COLLECTION__PAGE_RULES);
+
+		pageTitleEClass = createEClass(PAGE_TITLE);
+		createEAttribute(pageTitleEClass, PAGE_TITLE__MAIN);
+		createEAttribute(pageTitleEClass, PAGE_TITLE__PREFIXES);
+		createEAttribute(pageTitleEClass, PAGE_TITLE__SUFFIXES);
+		createEAttribute(pageTitleEClass, PAGE_TITLE__PREFIX_SEPARATOR);
+		createEAttribute(pageTitleEClass, PAGE_TITLE__SUFFIX_SEPARATOR);
 	}
 
 	/**
@@ -1191,6 +1260,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		initEClass(pageRuleCollectionEClass, PageRuleCollection.class, "PageRuleCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageRuleCollection_PageRules(), this.getPageRule(), null, "pageRules", null, 0, -1, PageRuleCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pageTitleEClass, PageTitle.class, "PageTitle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPageTitle_Main(), ecorePackage.getEString(), "main", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageTitle_Prefixes(), ecorePackage.getEString(), "prefixes", null, 0, -1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageTitle_Suffixes(), ecorePackage.getEString(), "suffixes", null, 0, -1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageTitle_PrefixSeparator(), ecorePackage.getEString(), "prefixSeparator", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageTitle_SuffixSeparator(), ecorePackage.getEString(), "suffixSeparator", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1477,6 +1553,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "A large division of web application.\n\nFor example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub."
+		   });		
+		addAnnotation
+		  (pageTitleEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Used to compose a title string.\n\nThis will set the :\n- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)\n- open graph meta : title <= main (TODO: needs to be more configurable), e.g. we want to display \"Zalova Bag - Bags\" or \"Zalova Bag - O Batiks\" or even \"Zalova Bag - Bags - O Batiks\""
 		   });
 	}
 

@@ -186,7 +186,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_F3PwMRbXEeK-u5Qj8_PKYg" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="site.ecore#//OpenGraphImage"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F3PwMhbXEeK-u5Qj8_PKYg" x="121" y="492"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F3PwMhbXEeK-u5Qj8_PKYg" x="72" y="492"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_hb8bUBbXEeK-u5Qj8_PKYg" type="Note" fontName="Ubuntu" description="2 ways to manipulate Page meta:&#xA;1. register a Behavior/Visitor (like Wicket),&#xA;it will be called sequentially and allowed to&#xA;modify the Page before rendered&#xA;2. register a Provider, provided values will be merged" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
     <children xmi:type="notation:BasicDecorationNode" xmi:id="_hb-QgBbXEeK-u5Qj8_PKYg" type="DiagramName">
@@ -460,6 +460,42 @@
     <element xmi:type="ecore:EClass" href="site.ecore#//PageRuleCollection"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cRwMYhleEeKZi_5YjoJxfA" x="792" y="84"/>
   </children>
+  <children xmi:type="notation:Node" xmi:id="_H9nUcRnEEeKvjpefkCoHYQ" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_H9oikBnEEeKvjpefkCoHYQ" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_H9pJoBnEEeKvjpefkCoHYQ" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_JHuXIBnEEeKvjpefkCoHYQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//PageTitle/main"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JHuXIRnEEeKvjpefkCoHYQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_JnbK4BnEEeKvjpefkCoHYQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//PageTitle/prefixes"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JnbK4RnEEeKvjpefkCoHYQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Kk_mYBnEEeKvjpefkCoHYQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//PageTitle/suffixes"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Kk_mYRnEEeKvjpefkCoHYQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_egfrgBnEEeKvjpefkCoHYQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//PageTitle/prefixSeparator"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_egfrgRnEEeKvjpefkCoHYQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_f56VgBnEEeKvjpefkCoHYQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//PageTitle/suffixSeparator"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_f56VgRnEEeKvjpefkCoHYQ"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_H9pJoRnEEeKvjpefkCoHYQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_H9pJohnEEeKvjpefkCoHYQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_H9pJoxnEEeKvjpefkCoHYQ"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_H9pwsBnEEeKvjpefkCoHYQ" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_H9pwsRnEEeKvjpefkCoHYQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_H9pwshnEEeKvjpefkCoHYQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_H9pwsxnEEeKvjpefkCoHYQ"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_H9nUchnEEeKvjpefkCoHYQ" fontColor="4210752" fontName="Nimbus Sans L" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//PageTitle"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H9nUcxnEEeKvjpefkCoHYQ" x="84" y="624"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Wj8eYRbUEeK-u5Qj8_PKYg"/>
   <element xmi:type="ecore:EPackage" href="site.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_KSvWABbVEeK-u5Qj8_PKYg" type="3002" source="_bSZKgBbUEeK-u5Qj8_PKYg" target="_GWLZ0BbVEeK-u5Qj8_PKYg">
@@ -482,7 +518,7 @@
     <children xmi:type="notation:Node" xmi:id="__Kj1wBbWEeK-u5Qj8_PKYg" type="4012">
       <layoutConstraint xmi:type="notation:Location" xmi:id="__Kj1wRbWEeK-u5Qj8_PKYg" x="10" y="10"/>
     </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="__KinoRbWEeK-u5Qj8_PKYg" lineColor="4210752"/>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="__KinoRbWEeK-u5Qj8_PKYg" routing="Rectilinear" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="__KinohbWEeK-u5Qj8_PKYg" fontColor="4210752" fontName="Ubuntu" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="site.ecore#//PageMeta/openGraph"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__KinoxbWEeK-u5Qj8_PKYg" points="[8, 14, -224, -401]$[233, 457, 1, 42]"/>

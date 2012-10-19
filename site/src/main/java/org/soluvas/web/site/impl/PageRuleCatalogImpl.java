@@ -48,7 +48,7 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageRuleCatalogImpl() {
+	public PageRuleCatalogImpl() {
 		super();
 	}
 

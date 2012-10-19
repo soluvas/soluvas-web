@@ -135,7 +135,7 @@ public class OpenGraphVideoImpl extends EObjectImpl implements OpenGraphVideo {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OpenGraphVideoImpl() {
+	public OpenGraphVideoImpl() {
 		super();
 	}
 

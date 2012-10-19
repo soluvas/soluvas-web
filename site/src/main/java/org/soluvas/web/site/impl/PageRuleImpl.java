@@ -77,7 +77,7 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageRuleImpl() {
+	public PageRuleImpl() {
 		super();
 	}
 

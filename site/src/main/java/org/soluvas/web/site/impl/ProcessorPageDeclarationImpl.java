@@ -51,7 +51,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProcessorPageDeclarationImpl() {
+	public ProcessorPageDeclarationImpl() {
 		super();
 	}
 

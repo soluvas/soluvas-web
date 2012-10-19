@@ -72,7 +72,7 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RepositoryPageDeclarationImpl() {
+	public RepositoryPageDeclarationImpl() {
 		super();
 	}
 

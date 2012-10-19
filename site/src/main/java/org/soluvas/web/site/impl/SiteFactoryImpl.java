@@ -71,6 +71,7 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 			case SitePackage.PAGE_RULE_CATALOG: return createPageRuleCatalog();
 			case SitePackage.SECTION: return createSection();
 			case SitePackage.SITE_CATALOG: return createSiteCatalog();
+			case SitePackage.PAGE_TITLE: return createPageTitle();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -224,6 +225,16 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	public SiteCatalog createSiteCatalog() {
 		SiteCatalogImpl siteCatalog = new SiteCatalogImpl();
 		return siteCatalog;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PageTitle createPageTitle() {
+		PageTitleImpl pageTitle = new PageTitleImpl();
+		return pageTitle;
 	}
 
 	/**

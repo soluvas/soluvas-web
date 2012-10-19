@@ -278,4 +278,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="pageRules" upperBound="-1"
         eType="#//PageRule" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PageTitle">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Used to compose a title string.&#xA;&#xA;This will set the :&#xA;- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)&#xA;- open graph meta : title &lt;= main (TODO: needs to be more configurable), e.g. we want to display &quot;Zalova Bag - Bags&quot; or &quot;Zalova Bag - O Batiks&quot; or even &quot;Zalova Bag - Bags - O Batiks&quot;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="main" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefixes" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffixes" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefixSeparator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffixSeparator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

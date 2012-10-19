@@ -721,10 +721,9 @@ A full image example:
     <xsd:annotation>
       <xsd:documentation>The og:audio tag only has the first 3 properties available (since size doesn't make sense for sound):
 
-<meta content="http://example.com/sound.mp3" property="og:audio"/>
-<meta content="https://secure.example.com/sound.mp3" property="og:audio:secure_url"/>
-<meta content="audio/mpeg" property="og:audio:type"/>
-      </xsd:documentation>
+&lt;meta property="og:audio" content="http://example.com/sound.mp3" /&gt;
+&lt;meta property="og:audio:secure_url" content="https://secure.example.com/sound.mp3" /&gt;
+&lt;meta property="og:audio:type" content="audio/mpeg" /&gt;</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType abstract="true" name="PageSelector">
@@ -945,4 +944,32 @@ For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</x
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
   </xsd:complexType>
   <xsd:element name="PageRuleCollection" type="site:PageRuleCollection"/>
+  <xsd:complexType name="PageTitle">
+    <xsd:annotation>
+      <xsd:documentation>Used to compose a title string.
+
+This will set the :
+- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)
+- open graph meta : title &lt;= main (TODO: needs to be more configurable), e.g. we want to display "Zalova Bag - Bags" or "Zalova Bag - O Batiks" or even "Zalova Bag - Bags - O Batiks"</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="prefixes" nillable="true" type="xsd:string"/>
+      <xsd:element name="suffixes" nillable="true" type="xsd:string"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="main" type="xsd:string"/>
+    <xsd:attribute name="prefixSeparator" type="xsd:string"/>
+    <xsd:attribute name="suffixSeparator" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="PageTitle" type="site:PageTitle">
+    <xsd:annotation>
+      <xsd:documentation>Used to compose a title string.
+
+This will set the :
+- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)
+- open graph meta : title &lt;= main (TODO: needs to be more configurable), e.g. we want to display "Zalova Bag - Bags" or "Zalova Bag - O Batiks" or even "Zalova Bag - Bags - O Batiks"</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
 </xsd:schema>

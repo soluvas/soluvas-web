@@ -257,7 +257,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OpenGraphMetaImpl() {
+	public OpenGraphMetaImpl() {
 		super();
 	}
 

@@ -51,7 +51,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected UriPatternPageSelectorImpl() {
+	public UriPatternPageSelectorImpl() {
 		super();
 	}
 
