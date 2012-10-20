@@ -93,7 +93,7 @@ public class MultitenantPage extends WebPage {
 			ServiceReference serviceRef = null;
 			try {
 				ServiceReference[] foundRefs = bundleContext.getServiceReferences(className, filter);
-				if (foundRefs.length == 0)
+				if (foundRefs == null || foundRefs.length == 0)
 					throw new RuntimeException("Cannot find " + className + " service with filter " + filter);
 				serviceRef = foundRefs[0];
 			} catch (InvalidSyntaxException e) {
