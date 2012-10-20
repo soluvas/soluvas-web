@@ -1,7 +1,9 @@
 package org.soluvas.web.site;
 
+import org.soluvas.web.site.pagemeta.PageMeta;
+
 /**
- * Manipulates {@link Page} meta information.
+ * Manipulates {@link PageMeta} information.
  * @author ceefour
  */
 public interface PageProcessor {

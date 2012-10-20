@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.soluvas.web.site.EntityEditPage;
+import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.PageParam;
 import org.soluvas.web.site.Section;
 import org.soluvas.web.site.SitePackage;
@@ -35,6 +36,7 @@ import org.soluvas.web.site.SitePackage;
  *   <li>{@link org.soluvas.web.site.impl.EntityEditPageImpl#getMountPoint <em>Mount Point</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.EntityEditPageImpl#getParams <em>Params</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.EntityEditPageImpl#getSection <em>Section</em>}</li>
+ *   <li>{@link org.soluvas.web.site.impl.EntityEditPageImpl#getEntityClass <em>Entity Class</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +92,26 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 	 * @ordered
 	 */
 	protected EList<PageParam> params;
+
+	/**
+	 * The default value of the '{@link #getEntityClass() <em>Entity Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEntityClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ENTITY_CLASS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEntityClass() <em>Entity Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEntityClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected String entityClass = ENTITY_CLASS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,6 +232,27 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEntityClass() {
+		return entityClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEntityClass(String newEntityClass) {
+		String oldEntityClass = entityClass;
+		entityClass = newEntityClass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS, oldEntityClass, entityClass));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getClassSimpleName() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -278,6 +321,8 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 				return getParams();
 			case SitePackage.ENTITY_EDIT_PAGE__SECTION:
 				return getSection();
+			case SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS:
+				return getEntityClass();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -304,6 +349,9 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 			case SitePackage.ENTITY_EDIT_PAGE__SECTION:
 				setSection((Section)newValue);
 				return;
+			case SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS:
+				setEntityClass((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -328,6 +376,9 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 			case SitePackage.ENTITY_EDIT_PAGE__SECTION:
 				setSection((Section)null);
 				return;
+			case SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS:
+				setEntityClass(ENTITY_CLASS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,8 +399,42 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 				return params != null && !params.isEmpty();
 			case SitePackage.ENTITY_EDIT_PAGE__SECTION:
 				return getSection() != null;
+			case SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS:
+				return ENTITY_CLASS_EDEFAULT == null ? entityClass != null : !ENTITY_CLASS_EDEFAULT.equals(entityClass);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == EntityPage.class) {
+			switch (derivedFeatureID) {
+				case SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS: return SitePackage.ENTITY_PAGE__ENTITY_CLASS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == EntityPage.class) {
+			switch (baseFeatureID) {
+				case SitePackage.ENTITY_PAGE__ENTITY_CLASS: return SitePackage.ENTITY_EDIT_PAGE__ENTITY_CLASS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**
@@ -366,6 +451,8 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 		result.append(name);
 		result.append(", mountPoint: ");
 		result.append(mountPoint);
+		result.append(", entityClass: ");
+		result.append(entityClass);
 		result.append(')');
 		return result.toString();
 	}

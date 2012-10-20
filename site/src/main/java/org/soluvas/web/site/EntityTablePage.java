@@ -40,5 +40,5 @@ package org.soluvas.web.site;
  * @model
  * @generated
  */
-public interface EntityTablePage extends Page {
+public interface EntityTablePage extends Page, EntityPage {
 } // EntityTablePage

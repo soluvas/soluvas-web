@@ -3,6 +3,8 @@
 package org.soluvas.web.site;
 
 import org.eclipse.emf.ecore.EFactory;
+import org.soluvas.web.site.pagemeta.OpenGraphAudio;
+import org.soluvas.web.site.pagemeta.OpenGraphVideo;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,114 +22,6 @@ public interface SiteFactory extends EFactory {
 	 * @generated
 	 */
 	SiteFactory eINSTANCE = org.soluvas.web.site.impl.SiteFactoryImpl.init();
-
-	/**
-	 * Returns a new object of class '<em>Page Meta</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Meta</em>'.
-	 * @generated
-	 */
-	PageMeta createPageMeta();
-
-	/**
-	 * Returns a new object of class '<em>Page Icon</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Icon</em>'.
-	 * @generated
-	 */
-	PageIcon createPageIcon();
-
-	/**
-	 * Returns a new object of class '<em>Open Graph Meta</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Open Graph Meta</em>'.
-	 * @generated
-	 */
-	OpenGraphMeta createOpenGraphMeta();
-
-	/**
-	 * Returns a new object of class '<em>Open Graph Image</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Open Graph Image</em>'.
-	 * @generated
-	 */
-	OpenGraphImage createOpenGraphImage();
-
-	/**
-	 * Returns a new object of class '<em>Open Graph Video</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Open Graph Video</em>'.
-	 * @generated
-	 */
-	OpenGraphVideo createOpenGraphVideo();
-
-	/**
-	 * Returns a new object of class '<em>Open Graph Audio</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Open Graph Audio</em>'.
-	 * @generated
-	 */
-	OpenGraphAudio createOpenGraphAudio();
-
-	/**
-	 * Returns a new object of class '<em>Uri Pattern Page Selector</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Uri Pattern Page Selector</em>'.
-	 * @generated
-	 */
-	UriPatternPageSelector createUriPatternPageSelector();
-
-	/**
-	 * Returns a new object of class '<em>Page Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Rule</em>'.
-	 * @generated
-	 */
-	PageRule createPageRule();
-
-	/**
-	 * Returns a new object of class '<em>Source Page Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Source Page Declaration</em>'.
-	 * @generated
-	 */
-	SourcePageDeclaration createSourcePageDeclaration();
-
-	/**
-	 * Returns a new object of class '<em>Processor Page Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Page Declaration</em>'.
-	 * @generated
-	 */
-	ProcessorPageDeclaration createProcessorPageDeclaration();
-
-	/**
-	 * Returns a new object of class '<em>Resource Page Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Resource Page Declaration</em>'.
-	 * @generated
-	 */
-	ResourcePageDeclaration createResourcePageDeclaration();
-
-	/**
-	 * Returns a new object of class '<em>Repository Page Declaration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Repository Page Declaration</em>'.
-	 * @generated
-	 */
-	RepositoryPageDeclaration createRepositoryPageDeclaration();
 
 	/**
 	 * Returns a new object of class '<em>Section</em>'.
@@ -155,33 +49,6 @@ public interface SiteFactory extends EFactory {
 	 * @generated
 	 */
 	SectionCollection createSectionCollection();
-
-	/**
-	 * Returns a new object of class '<em>Page Meta Collection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Meta Collection</em>'.
-	 * @generated
-	 */
-	PageMetaCollection createPageMetaCollection();
-
-	/**
-	 * Returns a new object of class '<em>Page Rule Collection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Rule Collection</em>'.
-	 * @generated
-	 */
-	PageRuleCollection createPageRuleCollection();
-
-	/**
-	 * Returns a new object of class '<em>Page Title</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Title</em>'.
-	 * @generated
-	 */
-	PageTitle createPageTitle();
 
 	/**
 	 * Returns a new object of class '<em>Generic Page</em>'.

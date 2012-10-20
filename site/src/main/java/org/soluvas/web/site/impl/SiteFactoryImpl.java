@@ -27,7 +27,7 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	 */
 	public static SiteFactory init() {
 		try {
-			SiteFactory theSiteFactory = (SiteFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.com/schema/site/1.0"); 
+			SiteFactory theSiteFactory = (SiteFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.site/1.0"); 
 			if (theSiteFactory != null) {
 				return theSiteFactory;
 			}
@@ -56,24 +56,9 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case SitePackage.PAGE_META: return createPageMeta();
-			case SitePackage.PAGE_ICON: return createPageIcon();
-			case SitePackage.OPEN_GRAPH_META: return createOpenGraphMeta();
-			case SitePackage.OPEN_GRAPH_IMAGE: return createOpenGraphImage();
-			case SitePackage.OPEN_GRAPH_VIDEO: return createOpenGraphVideo();
-			case SitePackage.OPEN_GRAPH_AUDIO: return createOpenGraphAudio();
-			case SitePackage.URI_PATTERN_PAGE_SELECTOR: return createUriPatternPageSelector();
-			case SitePackage.PAGE_RULE: return createPageRule();
-			case SitePackage.SOURCE_PAGE_DECLARATION: return createSourcePageDeclaration();
-			case SitePackage.PROCESSOR_PAGE_DECLARATION: return createProcessorPageDeclaration();
-			case SitePackage.RESOURCE_PAGE_DECLARATION: return createResourcePageDeclaration();
-			case SitePackage.REPOSITORY_PAGE_DECLARATION: return createRepositoryPageDeclaration();
 			case SitePackage.SECTION: return createSection();
 			case SitePackage.SITE_CATALOG: return createSiteCatalog();
 			case SitePackage.SECTION_COLLECTION: return createSectionCollection();
-			case SitePackage.PAGE_META_COLLECTION: return createPageMetaCollection();
-			case SitePackage.PAGE_RULE_COLLECTION: return createPageRuleCollection();
-			case SitePackage.PAGE_TITLE: return createPageTitle();
 			case SitePackage.GENERIC_PAGE: return createGenericPage();
 			case SitePackage.RAW_ENTITY_TABLE_PAGE: return createRawEntityTablePage();
 			case SitePackage.ENTITY_TABLE_PAGE: return createEntityTablePage();
@@ -90,126 +75,6 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PageMeta createPageMeta() {
-		PageMetaImpl pageMeta = new PageMetaImpl();
-		return pageMeta;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PageIcon createPageIcon() {
-		PageIconImpl pageIcon = new PageIconImpl();
-		return pageIcon;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OpenGraphMeta createOpenGraphMeta() {
-		OpenGraphMetaImpl openGraphMeta = new OpenGraphMetaImpl();
-		return openGraphMeta;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OpenGraphImage createOpenGraphImage() {
-		OpenGraphImageImpl openGraphImage = new OpenGraphImageImpl();
-		return openGraphImage;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OpenGraphVideo createOpenGraphVideo() {
-		OpenGraphVideoImpl openGraphVideo = new OpenGraphVideoImpl();
-		return openGraphVideo;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OpenGraphAudio createOpenGraphAudio() {
-		OpenGraphAudioImpl openGraphAudio = new OpenGraphAudioImpl();
-		return openGraphAudio;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UriPatternPageSelector createUriPatternPageSelector() {
-		UriPatternPageSelectorImpl uriPatternPageSelector = new UriPatternPageSelectorImpl();
-		return uriPatternPageSelector;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PageRule createPageRule() {
-		PageRuleImpl pageRule = new PageRuleImpl();
-		return pageRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SourcePageDeclaration createSourcePageDeclaration() {
-		SourcePageDeclarationImpl sourcePageDeclaration = new SourcePageDeclarationImpl();
-		return sourcePageDeclaration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProcessorPageDeclaration createProcessorPageDeclaration() {
-		ProcessorPageDeclarationImpl processorPageDeclaration = new ProcessorPageDeclarationImpl();
-		return processorPageDeclaration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ResourcePageDeclaration createResourcePageDeclaration() {
-		ResourcePageDeclarationImpl resourcePageDeclaration = new ResourcePageDeclarationImpl();
-		return resourcePageDeclaration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RepositoryPageDeclaration createRepositoryPageDeclaration() {
-		RepositoryPageDeclarationImpl repositoryPageDeclaration = new RepositoryPageDeclarationImpl();
-		return repositoryPageDeclaration;
 	}
 
 	/**
@@ -240,36 +105,6 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	public SectionCollection createSectionCollection() {
 		SectionCollectionImpl sectionCollection = new SectionCollectionImpl();
 		return sectionCollection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PageMetaCollection createPageMetaCollection() {
-		PageMetaCollectionImpl pageMetaCollection = new PageMetaCollectionImpl();
-		return pageMetaCollection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PageRuleCollection createPageRuleCollection() {
-		PageRuleCollectionImpl pageRuleCollection = new PageRuleCollectionImpl();
-		return pageRuleCollection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PageTitle createPageTitle() {
-		PageTitleImpl pageTitle = new PageTitleImpl();
-		return pageTitle;
 	}
 
 	/**

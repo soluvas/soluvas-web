@@ -3,6 +3,9 @@ package org.soluvas.web.site;
 import java.util.List;
 
 import org.soluvas.commons.XmiObjectLoader;
+import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PageRule;
+import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
 import com.google.common.collect.ImmutableList;
 
@@ -26,9 +29,10 @@ public class XmiPageRulesSupplier implements PageRulesSupplier {
 
 	@Override
 	public List<PageRule> get() {
-		XmiObjectLoader<PageRuleCollection> pageRuleCollectionLoader = new XmiObjectLoader<PageRuleCollection>(SitePackage.class, loaderClass, path);
+		XmiObjectLoader<PageRuleCollection> pageRuleCollectionLoader = new XmiObjectLoader<PageRuleCollection>(
+				PageMetaPackage.class, loaderClass, path);
 		PageRuleCollection pageRuleCollection = pageRuleCollectionLoader.get();
-		return ImmutableList.copyOf( pageRuleCollection.getPageRules() );
+		return ImmutableList.copyOf( pageRuleCollection.getRules() );
 	}
 
 }

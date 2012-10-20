@@ -1,6 +1,7 @@
 package org.soluvas.web.site;
 
 import org.apache.wicket.Page;
+import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.google.common.base.Supplier;
 

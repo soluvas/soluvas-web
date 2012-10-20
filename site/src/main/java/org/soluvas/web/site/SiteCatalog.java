@@ -23,5 +23,5 @@ package org.soluvas.web.site;
  * @model
  * @generated
  */
-public interface SiteCatalog extends SectionCollection, PageMetaCollection, PageRuleCollection {
+public interface SiteCatalog extends SectionCollection {
 } // SiteCatalog

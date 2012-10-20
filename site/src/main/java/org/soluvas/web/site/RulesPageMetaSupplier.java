@@ -6,6 +6,13 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.EmfUtils;
+import org.soluvas.web.site.pagemeta.PageDeclaration;
+import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaFactory;
+import org.soluvas.web.site.pagemeta.PageRule;
+import org.soluvas.web.site.pagemeta.PageSelector;
+import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
+import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
 /**
  * Provides a {@link PageMeta} using an ordered list of rules. The later rules
@@ -32,9 +39,9 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	@Override
 	public PageMeta get() {
 		// create blank (should be from somewhere)
-		PageMeta pageMeta = SiteFactory.eINSTANCE.createPageMeta();
-		pageMeta.setIcon(SiteFactory.eINSTANCE.createPageIcon());
-		pageMeta.setOpenGraph(SiteFactory.eINSTANCE.createOpenGraphMeta());
+		PageMeta pageMeta = PageMetaFactory.eINSTANCE.createPageMeta();
+		pageMeta.setIcon(PageMetaFactory.eINSTANCE.createPageIcon());
+		pageMeta.setOpenGraph(PageMetaFactory.eINSTANCE.createOpenGraphMeta());
 		
 		log.debug("Considering {} pageMeta rules with context: {}", rules.size(), context);
 		for (PageRule rule : rules) {

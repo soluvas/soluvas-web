@@ -68,62 +68,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	protected SiteSwitch<Adapter> modelSwitch =
 		new SiteSwitch<Adapter>() {
 			@Override
-			public Adapter casePageMeta(PageMeta object) {
-				return createPageMetaAdapter();
-			}
-			@Override
-			public Adapter casePageIcon(PageIcon object) {
-				return createPageIconAdapter();
-			}
-			@Override
-			public Adapter caseOpenGraphMeta(OpenGraphMeta object) {
-				return createOpenGraphMetaAdapter();
-			}
-			@Override
-			public Adapter caseOpenGraphImage(OpenGraphImage object) {
-				return createOpenGraphImageAdapter();
-			}
-			@Override
-			public Adapter caseOpenGraphVideo(OpenGraphVideo object) {
-				return createOpenGraphVideoAdapter();
-			}
-			@Override
-			public Adapter caseOpenGraphAudio(OpenGraphAudio object) {
-				return createOpenGraphAudioAdapter();
-			}
-			@Override
-			public Adapter casePageSelector(PageSelector object) {
-				return createPageSelectorAdapter();
-			}
-			@Override
-			public Adapter caseUriPatternPageSelector(UriPatternPageSelector object) {
-				return createUriPatternPageSelectorAdapter();
-			}
-			@Override
-			public Adapter casePageRule(PageRule object) {
-				return createPageRuleAdapter();
-			}
-			@Override
-			public Adapter casePageDeclaration(PageDeclaration object) {
-				return createPageDeclarationAdapter();
-			}
-			@Override
-			public Adapter caseSourcePageDeclaration(SourcePageDeclaration object) {
-				return createSourcePageDeclarationAdapter();
-			}
-			@Override
-			public Adapter caseProcessorPageDeclaration(ProcessorPageDeclaration object) {
-				return createProcessorPageDeclarationAdapter();
-			}
-			@Override
-			public Adapter caseResourcePageDeclaration(ResourcePageDeclaration object) {
-				return createResourcePageDeclarationAdapter();
-			}
-			@Override
-			public Adapter caseRepositoryPageDeclaration(RepositoryPageDeclaration object) {
-				return createRepositoryPageDeclarationAdapter();
-			}
-			@Override
 			public Adapter caseSection(Section object) {
 				return createSectionAdapter();
 			}
@@ -134,18 +78,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseSectionCollection(SectionCollection object) {
 				return createSectionCollectionAdapter();
-			}
-			@Override
-			public Adapter casePageMetaCollection(PageMetaCollection object) {
-				return createPageMetaCollectionAdapter();
-			}
-			@Override
-			public Adapter casePageRuleCollection(PageRuleCollection object) {
-				return createPageRuleCollectionAdapter();
-			}
-			@Override
-			public Adapter casePageTitle(PageTitle object) {
-				return createPageTitleAdapter();
 			}
 			@Override
 			public Adapter casePage(Page object) {
@@ -204,6 +136,10 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createResetPasswordPageAdapter();
 			}
 			@Override
+			public Adapter caseEntityPage(EntityPage object) {
+				return createEntityPageAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -222,202 +158,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageMeta <em>Page Meta</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageMeta
-	 * @generated
-	 */
-	public Adapter createPageMetaAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageIcon <em>Page Icon</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageIcon
-	 * @generated
-	 */
-	public Adapter createPageIconAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.OpenGraphMeta <em>Open Graph Meta</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.OpenGraphMeta
-	 * @generated
-	 */
-	public Adapter createOpenGraphMetaAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.OpenGraphImage <em>Open Graph Image</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.OpenGraphImage
-	 * @generated
-	 */
-	public Adapter createOpenGraphImageAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.OpenGraphVideo <em>Open Graph Video</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.OpenGraphVideo
-	 * @generated
-	 */
-	public Adapter createOpenGraphVideoAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.OpenGraphAudio <em>Open Graph Audio</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.OpenGraphAudio
-	 * @generated
-	 */
-	public Adapter createOpenGraphAudioAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageSelector <em>Page Selector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageSelector
-	 * @generated
-	 */
-	public Adapter createPageSelectorAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.UriPatternPageSelector <em>Uri Pattern Page Selector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.UriPatternPageSelector
-	 * @generated
-	 */
-	public Adapter createUriPatternPageSelectorAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageRule <em>Page Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageRule
-	 * @generated
-	 */
-	public Adapter createPageRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageDeclaration <em>Page Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageDeclaration
-	 * @generated
-	 */
-	public Adapter createPageDeclarationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.SourcePageDeclaration <em>Source Page Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.SourcePageDeclaration
-	 * @generated
-	 */
-	public Adapter createSourcePageDeclarationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.ProcessorPageDeclaration <em>Processor Page Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.ProcessorPageDeclaration
-	 * @generated
-	 */
-	public Adapter createProcessorPageDeclarationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.ResourcePageDeclaration <em>Resource Page Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.ResourcePageDeclaration
-	 * @generated
-	 */
-	public Adapter createResourcePageDeclarationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.RepositoryPageDeclaration <em>Repository Page Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.RepositoryPageDeclaration
-	 * @generated
-	 */
-	public Adapter createRepositoryPageDeclarationAdapter() {
-		return null;
-	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
@@ -458,48 +198,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSectionCollectionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageMetaCollection
-	 * @generated
-	 */
-	public Adapter createPageMetaCollectionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageRuleCollection
-	 * @generated
-	 */
-	public Adapter createPageRuleCollectionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageTitle <em>Page Title</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageTitle
-	 * @generated
-	 */
-	public Adapter createPageTitleAdapter() {
 		return null;
 	}
 
@@ -696,6 +394,20 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createResetPasswordPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.EntityPage <em>Entity Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.EntityPage
+	 * @generated
+	 */
+	public Adapter createEntityPageAdapter() {
 		return null;
 	}
 

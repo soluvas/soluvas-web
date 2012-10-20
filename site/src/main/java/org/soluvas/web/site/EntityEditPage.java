@@ -17,5 +17,5 @@ package org.soluvas.web.site;
  * @model
  * @generated
  */
-public interface EntityEditPage extends Page {
+public interface EntityEditPage extends Page, EntityPage {
 } // EntityEditPage

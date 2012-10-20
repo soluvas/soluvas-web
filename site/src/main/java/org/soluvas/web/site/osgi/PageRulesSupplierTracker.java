@@ -1,14 +1,9 @@
 package org.soluvas.web.site.osgi;
 
-import java.util.List;
-
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 import org.soluvas.web.site.FederatingPageRulesSupplier;
-import org.soluvas.web.site.PageRule;
 import org.soluvas.web.site.PageRulesSupplier;
-
-import com.google.common.base.Supplier;
 
 /**
  * Monitors {@link PageRulesSupplier} instances in a {@link FederatingPageRulesSupplier}.

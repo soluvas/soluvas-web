@@ -6,11 +6,11 @@
         
     <bean id="defaultPageRulesSupplier" class="org.soluvas.web.site.XmiPageRulesSupplier">
     	<argument value="org.soluvas.web.site.XmiPageRulesSupplier" />
-    	<argument value="/org/soluvas/web/site/default.pagerules.xmi" />
+    	<argument value="/org/soluvas/web/site/default.PageMetaCatalog.xmi" />
     </bean>
 <!--     <bean id="berbatikPageRulesSupplier" class="org.soluvas.web.site.XmiPageRulesSupplier"> -->
 <!--     	<argument value="org.soluvas.web.site.XmiPageRulesSupplier" /> -->
-<!--     	<argument value="/org/soluvas/web/site/berbatik.pagerules.xmi" /> -->
+<!--     	<argument value="/org/soluvas/web/site/berbatik.PageMetaCatalog.xmi" /> -->
 <!--     </bean> -->
     <bean id="federatingPageRulesSupplier" class="org.soluvas.web.site.FederatingPageRulesSupplier">
     	<argument>

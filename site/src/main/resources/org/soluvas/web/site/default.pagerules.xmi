@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<site:PageRuleCatalog xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:site="http://www.soluvas.com/schema/site/1.0" xsi:schemaLocation="http://www.soluvas.com/schema/site/1.0 site.ecore">
-  <rules>
-    <selector xsi:type="site:UriPatternPageSelector" pattern=".*"/>
-    <declaration xsi:type="site:SourcePageDeclaration">
-      <source href="default.page.xmi#/"/>
-    </declaration>
-  </rules>
-</site:PageRuleCatalog>
