@@ -1913,6 +1913,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 			 "documentation", "A large division of web application.\n\nFor example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub."
 		   });		
 		addAnnotation
+		  (siteCatalogEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "The site catalog is used to define all *logical* sections and pages in a site.\n\nIt is used in 2 ways:\n1. at generation time, to generate concrete page classes, Wicket HTML markup, and JS files.\n2. at runtime, to inspect *logical* sections and pages in the site.\n\nNote that information about actual concrete page classes etc. are not visible here, and if needed, then it should be described using another schema."
+		   });		
+		addAnnotation
 		  (pageRuleCollectionEClass, 
 		   source, 
 		   new String[] {
