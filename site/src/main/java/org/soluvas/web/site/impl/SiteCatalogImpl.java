@@ -31,7 +31,6 @@ import org.soluvas.web.site.SitePackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.soluvas.web.site.impl.SiteCatalogImpl#getSections <em>Sections</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.SiteCatalogImpl#getPageMetas <em>Page Metas</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.SiteCatalogImpl#getPageRules <em>Page Rules</em>}</li>
  * </ul>
@@ -39,17 +38,7 @@ import org.soluvas.web.site.SitePackage;
  *
  * @generated
  */
-public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
-	/**
-	 * The cached value of the '{@link #getSections() <em>Sections</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSections()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Section> sections;
-
+public class SiteCatalogImpl extends SectionCollectionImpl implements SiteCatalog {
 	/**
 	 * The cached value of the '{@link #getPageMetas() <em>Page Metas</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -94,18 +83,6 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Section> getSections() {
-		if (sections == null) {
-			sections = new EObjectContainmentEList<Section>(Section.class, this, SitePackage.SITE_CATALOG__SECTIONS);
-		}
-		return sections;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<PageMeta> getPageMetas() {
 		if (pageMetas == null) {
 			pageMetas = new EObjectContainmentEList<PageMeta>(PageMeta.class, this, SitePackage.SITE_CATALOG__PAGE_METAS);
@@ -133,8 +110,6 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SitePackage.SITE_CATALOG__SECTIONS:
-				return ((InternalEList<?>)getSections()).basicRemove(otherEnd, msgs);
 			case SitePackage.SITE_CATALOG__PAGE_METAS:
 				return ((InternalEList<?>)getPageMetas()).basicRemove(otherEnd, msgs);
 			case SitePackage.SITE_CATALOG__PAGE_RULES:
@@ -151,8 +126,6 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SitePackage.SITE_CATALOG__SECTIONS:
-				return getSections();
 			case SitePackage.SITE_CATALOG__PAGE_METAS:
 				return getPageMetas();
 			case SitePackage.SITE_CATALOG__PAGE_RULES:
@@ -170,10 +143,6 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SitePackage.SITE_CATALOG__SECTIONS:
-				getSections().clear();
-				getSections().addAll((Collection<? extends Section>)newValue);
-				return;
 			case SitePackage.SITE_CATALOG__PAGE_METAS:
 				getPageMetas().clear();
 				getPageMetas().addAll((Collection<? extends PageMeta>)newValue);
@@ -194,9 +163,6 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SitePackage.SITE_CATALOG__SECTIONS:
-				getSections().clear();
-				return;
 			case SitePackage.SITE_CATALOG__PAGE_METAS:
 				getPageMetas().clear();
 				return;
@@ -215,8 +181,6 @@ public class SiteCatalogImpl extends EObjectImpl implements SiteCatalog {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SitePackage.SITE_CATALOG__SECTIONS:
-				return sections != null && !sections.isEmpty();
 			case SitePackage.SITE_CATALOG__PAGE_METAS:
 				return pageMetas != null && !pageMetas.isEmpty();
 			case SitePackage.SITE_CATALOG__PAGE_RULES:

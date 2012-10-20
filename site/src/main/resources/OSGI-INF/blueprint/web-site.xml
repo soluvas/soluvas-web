@@ -51,7 +51,11 @@
 		availability="optional" member-type="service-reference" />
 	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional" />
 	
+	<reference id="siteCatalogSupplier" interface="com.google.common.base.Supplier" availability="optional"
+		filter="(suppliedClass=org.soluvas.web.site.SiteCatalog)" />
+	
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
+		<!-- JavaScript -->
 		<command name="js/ls">
 			<action class="org.soluvas.web.site.shell.JsLsCommand">
 				<argument ref="blueprintBundleContext" />
@@ -61,6 +65,12 @@
 		<command name="js/lsshim">
 			<action class="org.soluvas.web.site.shell.JsLsShimCommand">
 				<argument ref="jsShims" />
+			</action>
+		</command>
+		<!-- Site -->
+		<command name="site/pagels">
+			<action class="org.soluvas.web.site.shell.SitePageLsCommand">
+				<argument ref="siteCatalogSupplier" />
 			</action>
 		</command>
 	</command-bundle>

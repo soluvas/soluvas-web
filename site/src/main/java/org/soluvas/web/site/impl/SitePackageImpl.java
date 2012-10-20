@@ -7,21 +7,34 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.soluvas.web.site.ContentPage;
+import org.soluvas.web.site.DashboardPage;
+import org.soluvas.web.site.EntityEditPage;
+import org.soluvas.web.site.EntityNewPage;
+import org.soluvas.web.site.EntityTablePage;
+import org.soluvas.web.site.GenericPage;
+import org.soluvas.web.site.LoginPage;
 import org.soluvas.web.site.OpenGraphAudio;
 import org.soluvas.web.site.OpenGraphImage;
 import org.soluvas.web.site.OpenGraphMeta;
 import org.soluvas.web.site.OpenGraphVideo;
+import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageDeclaration;
 import org.soluvas.web.site.PageIcon;
 import org.soluvas.web.site.PageMeta;
 import org.soluvas.web.site.PageMetaCollection;
+import org.soluvas.web.site.PageParam;
 import org.soluvas.web.site.PageRule;
-import org.soluvas.web.site.PageRuleCatalog;
 import org.soluvas.web.site.PageRuleCollection;
 import org.soluvas.web.site.PageSelector;
 import org.soluvas.web.site.PageTitle;
 import org.soluvas.web.site.ProcessorPageDeclaration;
+import org.soluvas.web.site.RawEntityEditPage;
+import org.soluvas.web.site.RawEntityNewPage;
+import org.soluvas.web.site.RawEntityTablePage;
+import org.soluvas.web.site.RegisterPage;
 import org.soluvas.web.site.RepositoryPageDeclaration;
+import org.soluvas.web.site.ResetPasswordPage;
 import org.soluvas.web.site.ResourcePageDeclaration;
 import org.soluvas.web.site.Section;
 import org.soluvas.web.site.SectionCollection;
@@ -141,13 +154,6 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass pageRuleCatalogEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass sectionEClass = null;
 
 	/**
@@ -184,6 +190,104 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass pageTitleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genericPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rawEntityTablePageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass entityTablePageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass entityEditPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rawEntityEditPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rawEntityNewPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass entityNewPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass contentPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dashboardPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pageParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass loginPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass registerPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass resetPasswordPageEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -836,24 +940,6 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPageRuleCatalog() {
-		return pageRuleCatalogEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPageRuleCatalog_Rules() {
-		return (EReference)pageRuleCatalogEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getSection() {
 		return sectionEClass;
 	}
@@ -874,6 +960,15 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 */
 	public EAttribute getSection_Name() {
 		return (EAttribute)sectionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSection_Pages() {
+		return (EReference)sectionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -998,6 +1093,195 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPage() {
+		return pageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPage_Name() {
+		return (EAttribute)pageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPage_MountPoint() {
+		return (EAttribute)pageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPage_Params() {
+		return (EReference)pageEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPage_Section() {
+		return (EReference)pageEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenericPage() {
+		return genericPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRawEntityTablePage() {
+		return rawEntityTablePageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEntityTablePage() {
+		return entityTablePageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEntityEditPage() {
+		return entityEditPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRawEntityEditPage() {
+		return rawEntityEditPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRawEntityNewPage() {
+		return rawEntityNewPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEntityNewPage() {
+		return entityNewPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getContentPage() {
+		return contentPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDashboardPage() {
+		return dashboardPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPageParam() {
+		return pageParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageParam_Name() {
+		return (EAttribute)pageParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLoginPage() {
+		return loginPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLoginPage_RegisterPage() {
+		return (EReference)loginPageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLoginPage_ResetPasswordPage() {
+		return (EReference)loginPageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRegisterPage() {
+		return registerPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getResetPasswordPage() {
+		return resetPasswordPageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -1100,12 +1384,10 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(repositoryPageDeclarationEClass, REPOSITORY_PAGE_DECLARATION__FILTER);
 		createEAttribute(repositoryPageDeclarationEClass, REPOSITORY_PAGE_DECLARATION__PATH);
 
-		pageRuleCatalogEClass = createEClass(PAGE_RULE_CATALOG);
-		createEReference(pageRuleCatalogEClass, PAGE_RULE_CATALOG__RULES);
-
 		sectionEClass = createEClass(SECTION);
 		createEAttribute(sectionEClass, SECTION__ID);
 		createEAttribute(sectionEClass, SECTION__NAME);
+		createEReference(sectionEClass, SECTION__PAGES);
 
 		siteCatalogEClass = createEClass(SITE_CATALOG);
 
@@ -1124,6 +1406,41 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(pageTitleEClass, PAGE_TITLE__SUFFIXES);
 		createEAttribute(pageTitleEClass, PAGE_TITLE__PREFIX_SEPARATOR);
 		createEAttribute(pageTitleEClass, PAGE_TITLE__SUFFIX_SEPARATOR);
+
+		pageEClass = createEClass(PAGE);
+		createEAttribute(pageEClass, PAGE__NAME);
+		createEAttribute(pageEClass, PAGE__MOUNT_POINT);
+		createEReference(pageEClass, PAGE__PARAMS);
+		createEReference(pageEClass, PAGE__SECTION);
+
+		genericPageEClass = createEClass(GENERIC_PAGE);
+
+		rawEntityTablePageEClass = createEClass(RAW_ENTITY_TABLE_PAGE);
+
+		entityTablePageEClass = createEClass(ENTITY_TABLE_PAGE);
+
+		entityEditPageEClass = createEClass(ENTITY_EDIT_PAGE);
+
+		rawEntityEditPageEClass = createEClass(RAW_ENTITY_EDIT_PAGE);
+
+		rawEntityNewPageEClass = createEClass(RAW_ENTITY_NEW_PAGE);
+
+		entityNewPageEClass = createEClass(ENTITY_NEW_PAGE);
+
+		contentPageEClass = createEClass(CONTENT_PAGE);
+
+		dashboardPageEClass = createEClass(DASHBOARD_PAGE);
+
+		pageParamEClass = createEClass(PAGE_PARAM);
+		createEAttribute(pageParamEClass, PAGE_PARAM__NAME);
+
+		loginPageEClass = createEClass(LOGIN_PAGE);
+		createEReference(loginPageEClass, LOGIN_PAGE__REGISTER_PAGE);
+		createEReference(loginPageEClass, LOGIN_PAGE__RESET_PASSWORD_PAGE);
+
+		registerPageEClass = createEClass(REGISTER_PAGE);
+
+		resetPasswordPageEClass = createEClass(RESET_PASSWORD_PAGE);
 	}
 
 	/**
@@ -1162,6 +1479,18 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		siteCatalogEClass.getESuperTypes().add(this.getSectionCollection());
 		siteCatalogEClass.getESuperTypes().add(this.getPageMetaCollection());
 		siteCatalogEClass.getESuperTypes().add(this.getPageRuleCollection());
+		genericPageEClass.getESuperTypes().add(this.getPage());
+		rawEntityTablePageEClass.getESuperTypes().add(this.getPage());
+		entityTablePageEClass.getESuperTypes().add(this.getPage());
+		entityEditPageEClass.getESuperTypes().add(this.getPage());
+		rawEntityEditPageEClass.getESuperTypes().add(this.getPage());
+		rawEntityNewPageEClass.getESuperTypes().add(this.getPage());
+		entityNewPageEClass.getESuperTypes().add(this.getPage());
+		contentPageEClass.getESuperTypes().add(this.getPage());
+		dashboardPageEClass.getESuperTypes().add(this.getPage());
+		loginPageEClass.getESuperTypes().add(this.getPage());
+		registerPageEClass.getESuperTypes().add(this.getPage());
+		resetPasswordPageEClass.getESuperTypes().add(this.getPage());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(pageMetaEClass, PageMeta.class, "PageMeta", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1243,22 +1572,20 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getRepositoryPageDeclaration_Filter(), ecorePackage.getEString(), "filter", null, 0, 1, RepositoryPageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRepositoryPageDeclaration_Path(), ecorePackage.getEString(), "path", null, 0, 1, RepositoryPageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(pageRuleCatalogEClass, PageRuleCatalog.class, "PageRuleCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPageRuleCatalog_Rules(), this.getPageRule(), null, "rules", null, 0, -1, PageRuleCatalog.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(sectionEClass, Section.class, "Section", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSection_Id(), ecorePackage.getEString(), "id", null, 1, 1, Section.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSection_Name(), ecorePackage.getEString(), "name", null, 1, 1, Section.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSection_Pages(), this.getPage(), this.getPage_Section(), "pages", null, 0, -1, Section.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(siteCatalogEClass, SiteCatalog.class, "SiteCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(sectionCollectionEClass, SectionCollection.class, "SectionCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(sectionCollectionEClass, SectionCollection.class, "SectionCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSectionCollection_Sections(), this.getSection(), null, "sections", null, 0, -1, SectionCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(pageMetaCollectionEClass, PageMetaCollection.class, "PageMetaCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(pageMetaCollectionEClass, PageMetaCollection.class, "PageMetaCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageMetaCollection_PageMetas(), this.getPageMeta(), null, "pageMetas", null, 0, -1, PageMetaCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(pageRuleCollectionEClass, PageRuleCollection.class, "PageRuleCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(pageRuleCollectionEClass, PageRuleCollection.class, "PageRuleCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageRuleCollection_PageRules(), this.getPageRule(), null, "pageRules", null, 0, -1, PageRuleCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pageTitleEClass, PageTitle.class, "PageTitle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1267,6 +1594,43 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getPageTitle_Suffixes(), ecorePackage.getEString(), "suffixes", null, 0, -1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageTitle_PrefixSeparator(), ecorePackage.getEString(), "prefixSeparator", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageTitle_SuffixSeparator(), ecorePackage.getEString(), "suffixSeparator", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pageEClass, Page.class, "Page", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPage_Name(), ecorePackage.getEString(), "name", null, 1, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPage_MountPoint(), ecorePackage.getEString(), "mountPoint", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPage_Params(), this.getPageParam(), null, "params", null, 0, -1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPage_Section(), this.getSection(), this.getSection_Pages(), "section", null, 0, 1, Page.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(pageEClass, ecorePackage.getEString(), "getClassSimpleName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(genericPageEClass, GenericPage.class, "GenericPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(rawEntityTablePageEClass, RawEntityTablePage.class, "RawEntityTablePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(entityTablePageEClass, EntityTablePage.class, "EntityTablePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(entityEditPageEClass, EntityEditPage.class, "EntityEditPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(rawEntityEditPageEClass, RawEntityEditPage.class, "RawEntityEditPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(rawEntityNewPageEClass, RawEntityNewPage.class, "RawEntityNewPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(entityNewPageEClass, EntityNewPage.class, "EntityNewPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(contentPageEClass, ContentPage.class, "ContentPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(dashboardPageEClass, DashboardPage.class, "DashboardPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(pageParamEClass, PageParam.class, "PageParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPageParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, PageParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(loginPageEClass, LoginPage.class, "LoginPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLoginPage_RegisterPage(), this.getRegisterPage(), null, "registerPage", null, 0, 1, LoginPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLoginPage_ResetPasswordPage(), this.getResetPasswordPage(), null, "resetPasswordPage", null, 0, 1, LoginPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(registerPageEClass, RegisterPage.class, "RegisterPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(resetPasswordPageEClass, ResetPasswordPage.class, "ResetPasswordPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1543,22 +1907,118 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 			 "documentation", "Path to the page in the repository."
 		   });		
 		addAnnotation
-		  (pageRuleCatalogEClass, 
-		   source, 
-		   new String[] {
-			 "documentation", "Contains a list of rules."
-		   });		
-		addAnnotation
 		  (sectionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A large division of web application.\n\nFor example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub."
 		   });		
 		addAnnotation
+		  (pageRuleCollectionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Contains a list of rules."
+		   });		
+		addAnnotation
 		  (pageTitleEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Used to compose a title string.\n\nThis will set the :\n- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)\n- open graph meta : title <= main (TODO: needs to be more configurable), e.g. we want to display \"Zalova Bag - Bags\" or \"Zalova Bag - O Batiks\" or even \"Zalova Bag - Bags - O Batiks\""
+		   });		
+		addAnnotation
+		  (pageEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Returns the class simple name, which is simply the name + \"Page\" suffix."
+		   });		
+		addAnnotation
+		  (getPage_Name(), 
+		   source, 
+		   new String[] {
+			 "documentation", "The resulting simple name of the Wicket Page subclass, e.g. \"ProductSysTable\", without the \"Page\" suffix."
+		   });		
+		addAnnotation
+		  (getPage_MountPoint(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Where the page is mounted, relative to application root, e.g. /product/sys, or a URI template with parameters: /product/sys/show/${productId}\n\nmountPoint is highly recommended for SEO and easy URI typing, but not mandatory."
+		   });		
+		addAnnotation
+		  (genericPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A page that that specifies the literal Wicket page class name"
+		   });		
+		addAnnotation
+		  (rawEntityTablePageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Lists raw entities in a page using Backbone and jQuery DataTables.\n\nFor normal entities see EntityTablePage.\n\nEntities can be added, shown, and deleted.\n\nFeatures:\n* client-side paging support\n* client-side quick search\n* client-side table column sorting\n\nTODO: support push for dynamic add/remove and show status."
+		   });		
+		addAnnotation
+		  (entityTablePageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Lists normal entities in a page using Backbone and jQuery DataTables.\n\nFor raw entities see RawEntity TablePage.\n\nSupported folders:\n1. Published (virtual; published only)\n2. All Items (virtual; except deleted)\n3. Drafts (virtual)\n4. Trash (virtual)\n\nActions on entities:\n1. add\n2. show\n3. delete\n4. undelete\n5. publish (draft->published)\n6. unpublish (published->draft; some entities may not support this)\n\nFeatures:\n* client-side paging support\n* client-side quick search\n* client-side table column sorting\n\nTODO: support push for dynamic add/remove and show status."
+		   });		
+		addAnnotation
+		  (entityEditPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Edit page for normal entities"
+		   });		
+		addAnnotation
+		  (rawEntityEditPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Edit page for raw entities"
+		   });		
+		addAnnotation
+		  (rawEntityNewPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "New normal entity page"
+		   });		
+		addAnnotation
+		  (entityNewPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "New raw entity page"
+		   });		
+		addAnnotation
+		  (contentPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Contains static but editable HTML content."
+		   });		
+		addAnnotation
+		  (dashboardPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A page that can be customized by admin.\n\nTypically used for homepage.\n\nThe layout is a bit different than other pages because it has a header and a slider/carousel after the header.\nThe sidebar is below the header and the carousel."
+		   });		
+		addAnnotation
+		  (getPageParam_Name(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Parameter name for the page, e.g. \"productId\"."
+		   });		
+		addAnnotation
+		  (loginPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Login page, that also serves as a SSO register page for Facebook, Twitter, Google, etc."
+		   });		
+		addAnnotation
+		  (registerPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Register as user via email."
+		   });		
+		addAnnotation
+		  (resetPasswordPageEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Used to reset password if user forgets the password."
 		   });
 	}
 

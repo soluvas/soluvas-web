@@ -249,32 +249,28 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PageRuleCatalog">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Contains a list of rules."/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
-        eType="#//PageRule" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Section">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A large division of web application.&#xA;&#xA;For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pages" upperBound="-1"
+        eType="#//Page" containment="true" eOpposite="#//Page/section"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SiteCatalog" eSuperTypes="#//SectionCollection #//PageMetaCollection #//PageRuleCollection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SectionCollection" abstract="true" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="SectionCollection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sections" upperBound="-1"
         eType="#//Section" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PageMetaCollection" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="PageMetaCollection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pageMetas" upperBound="-1"
         eType="#//PageMeta" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PageRuleCollection" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="PageRuleCollection">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Contains a list of rules."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pageRules" upperBound="-1"
         eType="#//PageRule" containment="true"/>
   </eClassifiers>
@@ -289,5 +285,95 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefixSeparator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffixSeparator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Page" abstract="true" interface="true">
+    <eOperations name="getClassSimpleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Returns the class simple name, which is simply the name + &quot;Page&quot; suffix."/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The resulting simple name of the Wicket Page subclass, e.g. &quot;ProductSysTable&quot;, without the &quot;Page&quot; suffix."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mountPoint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Where the page is mounted, relative to application root, e.g. /product/sys, or a URI template with parameters: /product/sys/show/${productId}&#xA;&#xA;mountPoint is highly recommended for SEO and easy URI typing, but not mandatory."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//PageParam" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="section" eType="#//Section"
+        eOpposite="#//Section/pages"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A page that that specifies the literal Wicket page class name"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RawEntityTablePage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Lists raw entities in a page using Backbone and jQuery DataTables.&#xA;&#xA;For normal entities see EntityTablePage.&#xA;&#xA;Entities can be added, shown, and deleted.&#xA;&#xA;Features:&#xA;* client-side paging support&#xA;* client-side quick search&#xA;* client-side table column sorting&#xA;&#xA;TODO: support push for dynamic add/remove and show status."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EntityTablePage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Lists normal entities in a page using Backbone and jQuery DataTables.&#xA;&#xA;For raw entities see RawEntity TablePage.&#xA;&#xA;Supported folders:&#xA;1. Published (virtual; published only)&#xA;2. All Items (virtual; except deleted)&#xA;3. Drafts (virtual)&#xA;4. Trash (virtual)&#xA;&#xA;Actions on entities:&#xA;1. add&#xA;2. show&#xA;3. delete&#xA;4. undelete&#xA;5. publish (draft->published)&#xA;6. unpublish (published->draft; some entities may not support this)&#xA;&#xA;Features:&#xA;* client-side paging support&#xA;* client-side quick search&#xA;* client-side table column sorting&#xA;&#xA;TODO: support push for dynamic add/remove and show status."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EntityEditPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Edit page for normal entities"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RawEntityEditPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Edit page for raw entities"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RawEntityNewPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="New normal entity page"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EntityNewPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="New raw entity page"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Contains static but editable HTML content."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DashboardPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A page that can be customized by admin.&#xA;&#xA;Typically used for homepage.&#xA;&#xA;The layout is a bit different than other pages because it has a header and a slider/carousel after the header.&#xA;The sidebar is below the header and the carousel."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PageParam">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Parameter name for the page, e.g. &quot;productId&quot;."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LoginPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Login page, that also serves as a SSO register page for Facebook, Twitter, Google, etc."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="registerPage" eType="#//RegisterPage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resetPasswordPage" eType="#//ResetPasswordPage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegisterPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Register as user via email."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResetPasswordPage" eSuperTypes="#//Page">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Used to reset password if user forgets the password."/>
+    </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

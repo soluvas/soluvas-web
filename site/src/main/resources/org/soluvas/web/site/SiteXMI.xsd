@@ -679,11 +679,12 @@ A full image example:
     <xsd:annotation>
       <xsd:documentation>The og:video tag has the identical tags as og:image. Here is an example:
 
-&lt;meta property="og:video" content="http://example.com/movie.swf" /&gt;
-&lt;meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" /&gt;
-&lt;meta property="og:video:type" content="application/x-shockwave-flash" /&gt;
-&lt;meta property="og:video:width" content="400" /&gt;
-&lt;meta property="og:video:height" content="300" /&gt;</xsd:documentation>
+<meta content="http://example.com/movie.swf" property="og:video"/>
+<meta content="https://secure.example.com/movie.swf" property="og:video:secure_url"/>
+<meta content="application/x-shockwave-flash" property="og:video:type"/>
+<meta content="400" property="og:video:width"/>
+<meta content="300" property="og:video:height"/>
+      </xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="OpenGraphAudio">
@@ -869,22 +870,6 @@ This is handy to load from classpath in OSGi environments, but cannot handle ove
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="RepositoryPageDeclaration" type="site:RepositoryPageDeclaration"/>
-  <xsd:complexType name="PageRuleCatalog">
-    <xsd:annotation>
-      <xsd:documentation>Contains a list of rules.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:choice maxOccurs="unbounded" minOccurs="0">
-      <xsd:element name="rules" type="site:PageRule"/>
-      <xsd:element ref="xmi:Extension"/>
-    </xsd:choice>
-    <xsd:attribute ref="xmi:id"/>
-    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
-  </xsd:complexType>
-  <xsd:element name="PageRuleCatalog" type="site:PageRuleCatalog">
-    <xsd:annotation>
-      <xsd:documentation>Contains a list of rules.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
   <xsd:complexType name="Section">
     <xsd:annotation>
       <xsd:documentation>A large division of web application.
@@ -892,6 +877,7 @@ This is handy to load from classpath in OSGi environments, but cannot handle ove
 For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="pages" type="site:Page"/>
       <xsd:element ref="xmi:Extension"/>
     </xsd:choice>
     <xsd:attribute ref="xmi:id"/>
@@ -917,7 +903,7 @@ For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</x
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="SiteCatalog" type="site:SiteCatalog"/>
-  <xsd:complexType abstract="true" name="SectionCollection">
+  <xsd:complexType name="SectionCollection">
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element name="sections" type="site:Section"/>
       <xsd:element ref="xmi:Extension"/>
@@ -926,7 +912,7 @@ For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</x
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
   </xsd:complexType>
   <xsd:element name="SectionCollection" type="site:SectionCollection"/>
-  <xsd:complexType abstract="true" name="PageMetaCollection">
+  <xsd:complexType name="PageMetaCollection">
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element name="pageMetas" type="site:PageMeta"/>
       <xsd:element ref="xmi:Extension"/>
@@ -935,7 +921,10 @@ For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</x
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
   </xsd:complexType>
   <xsd:element name="PageMetaCollection" type="site:PageMetaCollection"/>
-  <xsd:complexType abstract="true" name="PageRuleCollection">
+  <xsd:complexType name="PageRuleCollection">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of rules.</xsd:documentation>
+    </xsd:annotation>
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element name="pageRules" type="site:PageRule"/>
       <xsd:element ref="xmi:Extension"/>
@@ -943,7 +932,11 @@ For example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub.</x
     <xsd:attribute ref="xmi:id"/>
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
   </xsd:complexType>
-  <xsd:element name="PageRuleCollection" type="site:PageRuleCollection"/>
+  <xsd:element name="PageRuleCollection" type="site:PageRuleCollection">
+    <xsd:annotation>
+      <xsd:documentation>Contains a list of rules.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:complexType name="PageTitle">
     <xsd:annotation>
       <xsd:documentation>Used to compose a title string.
@@ -970,6 +963,283 @@ This will set the :
 This will set the :
 - page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)
 - open graph meta : title &lt;= main (TODO: needs to be more configurable), e.g. we want to display "Zalova Bag - Bags" or "Zalova Bag - O Batiks" or even "Zalova Bag - Bags - O Batiks"</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="true" name="Page">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="params" type="site:PageParam"/>
+      <xsd:element name="section" type="site:Section"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The resulting simple name of the Wicket Page subclass, e.g. "ProductSysTable", without the "Page" suffix.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="mountPoint" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Where the page is mounted, relative to application root, e.g. /product/sys, or a URI template with parameters: /product/sys/show/${productId}
+
+mountPoint is highly recommended for SEO and easy URI typing, but not mandatory.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="section" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Page" type="site:Page"/>
+  <xsd:complexType name="GenericPage">
+    <xsd:annotation>
+      <xsd:documentation>A page that that specifies the literal Wicket page class name</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="GenericPage" type="site:GenericPage">
+    <xsd:annotation>
+      <xsd:documentation>A page that that specifies the literal Wicket page class name</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RawEntityTablePage">
+    <xsd:annotation>
+      <xsd:documentation>Lists raw entities in a page using Backbone and jQuery DataTables.
+
+For normal entities see EntityTablePage.
+
+Entities can be added, shown, and deleted.
+
+Features:
+* client-side paging support
+* client-side quick search
+* client-side table column sorting
+
+TODO: support push for dynamic add/remove and show status.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="RawEntityTablePage" type="site:RawEntityTablePage">
+    <xsd:annotation>
+      <xsd:documentation>Lists raw entities in a page using Backbone and jQuery DataTables.
+
+For normal entities see EntityTablePage.
+
+Entities can be added, shown, and deleted.
+
+Features:
+* client-side paging support
+* client-side quick search
+* client-side table column sorting
+
+TODO: support push for dynamic add/remove and show status.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="EntityTablePage">
+    <xsd:annotation>
+      <xsd:documentation>Lists normal entities in a page using Backbone and jQuery DataTables.
+
+For raw entities see RawEntity TablePage.
+
+Supported folders:
+1. Published (virtual; published only)
+2. All Items (virtual; except deleted)
+3. Drafts (virtual)
+4. Trash (virtual)
+
+Actions on entities:
+1. add
+2. show
+3. delete
+4. undelete
+5. publish (draft-&gt;published)
+6. unpublish (published-&gt;draft; some entities may not support this)
+
+Features:
+* client-side paging support
+* client-side quick search
+* client-side table column sorting
+
+TODO: support push for dynamic add/remove and show status.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="EntityTablePage" type="site:EntityTablePage">
+    <xsd:annotation>
+      <xsd:documentation>Lists normal entities in a page using Backbone and jQuery DataTables.
+
+For raw entities see RawEntity TablePage.
+
+Supported folders:
+1. Published (virtual; published only)
+2. All Items (virtual; except deleted)
+3. Drafts (virtual)
+4. Trash (virtual)
+
+Actions on entities:
+1. add
+2. show
+3. delete
+4. undelete
+5. publish (draft-&gt;published)
+6. unpublish (published-&gt;draft; some entities may not support this)
+
+Features:
+* client-side paging support
+* client-side quick search
+* client-side table column sorting
+
+TODO: support push for dynamic add/remove and show status.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="EntityEditPage">
+    <xsd:annotation>
+      <xsd:documentation>Edit page for normal entities</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="EntityEditPage" type="site:EntityEditPage">
+    <xsd:annotation>
+      <xsd:documentation>Edit page for normal entities</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RawEntityEditPage">
+    <xsd:annotation>
+      <xsd:documentation>Edit page for raw entities</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="RawEntityEditPage" type="site:RawEntityEditPage">
+    <xsd:annotation>
+      <xsd:documentation>Edit page for raw entities</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RawEntityNewPage">
+    <xsd:annotation>
+      <xsd:documentation>New normal entity page</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="RawEntityNewPage" type="site:RawEntityNewPage">
+    <xsd:annotation>
+      <xsd:documentation>New normal entity page</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="EntityNewPage">
+    <xsd:annotation>
+      <xsd:documentation>New raw entity page</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="EntityNewPage" type="site:EntityNewPage">
+    <xsd:annotation>
+      <xsd:documentation>New raw entity page</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ContentPage">
+    <xsd:annotation>
+      <xsd:documentation>Contains static but editable HTML content.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ContentPage" type="site:ContentPage">
+    <xsd:annotation>
+      <xsd:documentation>Contains static but editable HTML content.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="DashboardPage">
+    <xsd:annotation>
+      <xsd:documentation>A page that can be customized by admin.
+
+Typically used for homepage.
+
+The layout is a bit different than other pages because it has a header and a slider/carousel after the header.
+The sidebar is below the header and the carousel.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="DashboardPage" type="site:DashboardPage">
+    <xsd:annotation>
+      <xsd:documentation>A page that can be customized by admin.
+
+Typically used for homepage.
+
+The layout is a bit different than other pages because it has a header and a slider/carousel after the header.
+The sidebar is below the header and the carousel.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="PageParam">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Parameter name for the page, e.g. "productId".</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="PageParam" type="site:PageParam"/>
+  <xsd:complexType name="LoginPage">
+    <xsd:annotation>
+      <xsd:documentation>Login page, that also serves as a SSO register page for Facebook, Twitter, Google, etc.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page">
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+          <xsd:element name="registerPage" type="site:RegisterPage"/>
+          <xsd:element name="resetPasswordPage" type="site:ResetPasswordPage"/>
+        </xsd:choice>
+        <xsd:attribute name="registerPage" type="xsd:string"/>
+        <xsd:attribute name="resetPasswordPage" type="xsd:string"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="LoginPage" type="site:LoginPage">
+    <xsd:annotation>
+      <xsd:documentation>Login page, that also serves as a SSO register page for Facebook, Twitter, Google, etc.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RegisterPage">
+    <xsd:annotation>
+      <xsd:documentation>Register as user via email.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="RegisterPage" type="site:RegisterPage">
+    <xsd:annotation>
+      <xsd:documentation>Register as user via email.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ResetPasswordPage">
+    <xsd:annotation>
+      <xsd:documentation>Used to reset password if user forgets the password.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="site:Page"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ResetPasswordPage" type="site:ResetPasswordPage">
+    <xsd:annotation>
+      <xsd:documentation>Used to reset password if user forgets the password.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>

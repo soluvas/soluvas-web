@@ -11,6 +11,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Page Rule Collection</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Contains a list of rules.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -19,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getPageRuleCollection()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
 public interface PageRuleCollection extends EObject {

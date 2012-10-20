@@ -3,52 +3,53 @@
 package org.soluvas.web.site.impl;
 
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.soluvas.web.site.PageRule;
-import org.soluvas.web.site.PageRuleCatalog;
+
+import org.soluvas.web.site.PageMeta;
+import org.soluvas.web.site.PageMetaCollection;
 import org.soluvas.web.site.SitePackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Page Rule Catalog</b></em>'.
+ * An implementation of the model object '<em><b>Page Meta Collection</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.soluvas.web.site.impl.PageRuleCatalogImpl#getRules <em>Rules</em>}</li>
+ *   <li>{@link org.soluvas.web.site.impl.PageMetaCollectionImpl#getPageMetas <em>Page Metas</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog {
+public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaCollection {
 	/**
-	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
+	 * The cached value of the '{@link #getPageMetas() <em>Page Metas</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRules()
+	 * @see #getPageMetas()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PageRule> rules;
+	protected EList<PageMeta> pageMetas;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageRuleCatalogImpl() {
+	public PageMetaCollectionImpl() {
 		super();
 	}
 
@@ -59,7 +60,7 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return SitePackage.Literals.PAGE_RULE_CATALOG;
+		return SitePackage.Literals.PAGE_META_COLLECTION;
 	}
 
 	/**
@@ -67,11 +68,11 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PageRule> getRules() {
-		if (rules == null) {
-			rules = new EObjectContainmentEList<PageRule>(PageRule.class, this, SitePackage.PAGE_RULE_CATALOG__RULES);
+	public EList<PageMeta> getPageMetas() {
+		if (pageMetas == null) {
+			pageMetas = new EObjectContainmentEList<PageMeta>(PageMeta.class, this, SitePackage.PAGE_META_COLLECTION__PAGE_METAS);
 		}
-		return rules;
+		return pageMetas;
 	}
 
 	/**
@@ -82,8 +83,8 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SitePackage.PAGE_RULE_CATALOG__RULES:
-				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
+			case SitePackage.PAGE_META_COLLECTION__PAGE_METAS:
+				return ((InternalEList<?>)getPageMetas()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +97,8 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SitePackage.PAGE_RULE_CATALOG__RULES:
-				return getRules();
+			case SitePackage.PAGE_META_COLLECTION__PAGE_METAS:
+				return getPageMetas();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,9 +112,9 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SitePackage.PAGE_RULE_CATALOG__RULES:
-				getRules().clear();
-				getRules().addAll((Collection<? extends PageRule>)newValue);
+			case SitePackage.PAGE_META_COLLECTION__PAGE_METAS:
+				getPageMetas().clear();
+				getPageMetas().addAll((Collection<? extends PageMeta>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,8 +128,8 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SitePackage.PAGE_RULE_CATALOG__RULES:
-				getRules().clear();
+			case SitePackage.PAGE_META_COLLECTION__PAGE_METAS:
+				getPageMetas().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -142,10 +143,10 @@ public class PageRuleCatalogImpl extends EObjectImpl implements PageRuleCatalog 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SitePackage.PAGE_RULE_CATALOG__RULES:
-				return rules != null && !rules.isEmpty();
+			case SitePackage.PAGE_META_COLLECTION__PAGE_METAS:
+				return pageMetas != null && !pageMetas.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //PageRuleCatalogImpl
+} //PageMetaCollectionImpl

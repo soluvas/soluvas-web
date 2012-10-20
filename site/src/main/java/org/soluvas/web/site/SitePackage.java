@@ -783,35 +783,6 @@ public interface SitePackage extends EPackage {
 
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageRuleCatalogImpl <em>Page Rule Catalog</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.impl.PageRuleCatalogImpl
-	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCatalog()
-	 * @generated
-	 */
-	int PAGE_RULE_CATALOG = 14;
-
-	/**
-	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_RULE_CATALOG__RULES = 0;
-
-	/**
-	 * The number of structural features of the '<em>Page Rule Catalog</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_RULE_CATALOG_FEATURE_COUNT = 1;
-
-
-	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.impl.SectionImpl <em>Section</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -819,7 +790,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSection()
 	 * @generated
 	 */
-	int SECTION = 15;
+	int SECTION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -840,23 +811,32 @@ public interface SitePackage extends EPackage {
 	int SECTION__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Pages</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECTION__PAGES = 2;
+
+	/**
 	 * The number of structural features of the '<em>Section</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECTION_FEATURE_COUNT = 2;
+	int SECTION_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.SectionCollection <em>Section Collection</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.SectionCollectionImpl <em>Section Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.SectionCollection
+	 * @see org.soluvas.web.site.impl.SectionCollectionImpl
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSectionCollection()
 	 * @generated
 	 */
-	int SECTION_COLLECTION = 17;
+	int SECTION_COLLECTION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Sections</b></em>' containment reference list.
@@ -884,7 +864,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getSiteCatalog()
 	 * @generated
 	 */
-	int SITE_CATALOG = 16;
+	int SITE_CATALOG = 15;
 
 	/**
 	 * The feature id for the '<em><b>Sections</b></em>' containment reference list.
@@ -923,14 +903,14 @@ public interface SitePackage extends EPackage {
 	int SITE_CATALOG_FEATURE_COUNT = SECTION_COLLECTION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageMetaCollectionImpl <em>Page Meta Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.PageMetaCollection
+	 * @see org.soluvas.web.site.impl.PageMetaCollectionImpl
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageMetaCollection()
 	 * @generated
 	 */
-	int PAGE_META_COLLECTION = 18;
+	int PAGE_META_COLLECTION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Page Metas</b></em>' containment reference list.
@@ -951,14 +931,14 @@ public interface SitePackage extends EPackage {
 	int PAGE_META_COLLECTION_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageRuleCollectionImpl <em>Page Rule Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.PageRuleCollection
+	 * @see org.soluvas.web.site.impl.PageRuleCollectionImpl
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCollection()
 	 * @generated
 	 */
-	int PAGE_RULE_COLLECTION = 19;
+	int PAGE_RULE_COLLECTION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Page Rules</b></em>' containment reference list.
@@ -987,7 +967,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageTitle()
 	 * @generated
 	 */
-	int PAGE_TITLE = 20;
+	int PAGE_TITLE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Main</b></em>' attribute.
@@ -1042,6 +1022,768 @@ public interface SitePackage extends EPackage {
 	 * @ordered
 	 */
 	int PAGE_TITLE_FEATURE_COUNT = 5;
+
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.Page <em>Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.Page
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPage()
+	 * @generated
+	 */
+	int PAGE = 20;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE__MOUNT_POINT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE__PARAMS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE__SECTION = 3;
+
+	/**
+	 * The number of structural features of the '<em>Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_FEATURE_COUNT = 4;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.GenericPageImpl <em>Generic Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.GenericPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGenericPage()
+	 * @generated
+	 */
+	int GENERIC_PAGE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Generic Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.RawEntityTablePageImpl <em>Raw Entity Table Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.RawEntityTablePageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getRawEntityTablePage()
+	 * @generated
+	 */
+	int RAW_ENTITY_TABLE_PAGE = 22;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_TABLE_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_TABLE_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_TABLE_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_TABLE_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Raw Entity Table Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_TABLE_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.EntityTablePageImpl <em>Entity Table Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.EntityTablePageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getEntityTablePage()
+	 * @generated
+	 */
+	int ENTITY_TABLE_PAGE = 23;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_TABLE_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_TABLE_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_TABLE_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_TABLE_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Entity Table Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_TABLE_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.EntityEditPageImpl <em>Entity Edit Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.EntityEditPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getEntityEditPage()
+	 * @generated
+	 */
+	int ENTITY_EDIT_PAGE = 24;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_EDIT_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_EDIT_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_EDIT_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_EDIT_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Entity Edit Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_EDIT_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.RawEntityEditPageImpl <em>Raw Entity Edit Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.RawEntityEditPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getRawEntityEditPage()
+	 * @generated
+	 */
+	int RAW_ENTITY_EDIT_PAGE = 25;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_EDIT_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_EDIT_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_EDIT_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_EDIT_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Raw Entity Edit Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_EDIT_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.RawEntityNewPageImpl <em>Raw Entity New Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.RawEntityNewPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getRawEntityNewPage()
+	 * @generated
+	 */
+	int RAW_ENTITY_NEW_PAGE = 26;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_NEW_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_NEW_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_NEW_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_NEW_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Raw Entity New Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RAW_ENTITY_NEW_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.EntityNewPageImpl <em>Entity New Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.EntityNewPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getEntityNewPage()
+	 * @generated
+	 */
+	int ENTITY_NEW_PAGE = 27;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_NEW_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_NEW_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_NEW_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_NEW_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Entity New Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_NEW_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.ContentPageImpl <em>Content Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.ContentPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getContentPage()
+	 * @generated
+	 */
+	int CONTENT_PAGE = 28;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Content Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.DashboardPageImpl <em>Dashboard Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.DashboardPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getDashboardPage()
+	 * @generated
+	 */
+	int DASHBOARD_PAGE = 29;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DASHBOARD_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DASHBOARD_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DASHBOARD_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DASHBOARD_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Dashboard Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DASHBOARD_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PageParamImpl <em>Page Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.PageParamImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageParam()
+	 * @generated
+	 */
+	int PAGE_PARAM = 30;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_PARAM__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Page Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_PARAM_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.LoginPageImpl <em>Login Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.LoginPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLoginPage()
+	 * @generated
+	 */
+	int LOGIN_PAGE = 31;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The feature id for the '<em><b>Register Page</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE__REGISTER_PAGE = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Reset Password Page</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE__RESET_PASSWORD_PAGE = PAGE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Login Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.RegisterPageImpl <em>Register Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.RegisterPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getRegisterPage()
+	 * @generated
+	 */
+	int REGISTER_PAGE = 32;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGISTER_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGISTER_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGISTER_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGISTER_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Register Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGISTER_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.ResetPasswordPageImpl <em>Reset Password Page</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.ResetPasswordPageImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getResetPasswordPage()
+	 * @generated
+	 */
+	int RESET_PASSWORD_PAGE = 33;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_PASSWORD_PAGE__NAME = PAGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mount Point</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_PASSWORD_PAGE__MOUNT_POINT = PAGE__MOUNT_POINT;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_PASSWORD_PAGE__PARAMS = PAGE__PARAMS;
+
+	/**
+	 * The feature id for the '<em><b>Section</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_PASSWORD_PAGE__SECTION = PAGE__SECTION;
+
+	/**
+	 * The number of structural features of the '<em>Reset Password Page</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_PASSWORD_PAGE_FEATURE_COUNT = PAGE_FEATURE_COUNT + 0;
 
 
 	/**
@@ -1746,27 +2488,6 @@ public interface SitePackage extends EPackage {
 	EAttribute getRepositoryPageDeclaration_Path();
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.site.PageRuleCatalog <em>Page Rule Catalog</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Page Rule Catalog</em>'.
-	 * @see org.soluvas.web.site.PageRuleCatalog
-	 * @generated
-	 */
-	EClass getPageRuleCatalog();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.PageRuleCatalog#getRules <em>Rules</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Rules</em>'.
-	 * @see org.soluvas.web.site.PageRuleCatalog#getRules()
-	 * @see #getPageRuleCatalog()
-	 * @generated
-	 */
-	EReference getPageRuleCatalog_Rules();
-
-	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1797,6 +2518,17 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSection_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.Section#getPages <em>Pages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Pages</em>'.
+	 * @see org.soluvas.web.site.Section#getPages()
+	 * @see #getSection()
+	 * @generated
+	 */
+	EReference getSection_Pages();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.SiteCatalog <em>Catalog</em>}'.
@@ -1935,6 +2667,223 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPageTitle_SuffixSeparator();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.Page <em>Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Page</em>'.
+	 * @see org.soluvas.web.site.Page
+	 * @generated
+	 */
+	EClass getPage();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Page#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.soluvas.web.site.Page#getName()
+	 * @see #getPage()
+	 * @generated
+	 */
+	EAttribute getPage_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Page#getMountPoint <em>Mount Point</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mount Point</em>'.
+	 * @see org.soluvas.web.site.Page#getMountPoint()
+	 * @see #getPage()
+	 * @generated
+	 */
+	EAttribute getPage_MountPoint();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.Page#getParams <em>Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Params</em>'.
+	 * @see org.soluvas.web.site.Page#getParams()
+	 * @see #getPage()
+	 * @generated
+	 */
+	EReference getPage_Params();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.soluvas.web.site.Page#getSection <em>Section</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Section</em>'.
+	 * @see org.soluvas.web.site.Page#getSection()
+	 * @see #getPage()
+	 * @generated
+	 */
+	EReference getPage_Section();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.GenericPage <em>Generic Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Generic Page</em>'.
+	 * @see org.soluvas.web.site.GenericPage
+	 * @generated
+	 */
+	EClass getGenericPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.RawEntityTablePage <em>Raw Entity Table Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Raw Entity Table Page</em>'.
+	 * @see org.soluvas.web.site.RawEntityTablePage
+	 * @generated
+	 */
+	EClass getRawEntityTablePage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.EntityTablePage <em>Entity Table Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Entity Table Page</em>'.
+	 * @see org.soluvas.web.site.EntityTablePage
+	 * @generated
+	 */
+	EClass getEntityTablePage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.EntityEditPage <em>Entity Edit Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Entity Edit Page</em>'.
+	 * @see org.soluvas.web.site.EntityEditPage
+	 * @generated
+	 */
+	EClass getEntityEditPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.RawEntityEditPage <em>Raw Entity Edit Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Raw Entity Edit Page</em>'.
+	 * @see org.soluvas.web.site.RawEntityEditPage
+	 * @generated
+	 */
+	EClass getRawEntityEditPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.RawEntityNewPage <em>Raw Entity New Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Raw Entity New Page</em>'.
+	 * @see org.soluvas.web.site.RawEntityNewPage
+	 * @generated
+	 */
+	EClass getRawEntityNewPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.EntityNewPage <em>Entity New Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Entity New Page</em>'.
+	 * @see org.soluvas.web.site.EntityNewPage
+	 * @generated
+	 */
+	EClass getEntityNewPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.ContentPage <em>Content Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Content Page</em>'.
+	 * @see org.soluvas.web.site.ContentPage
+	 * @generated
+	 */
+	EClass getContentPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.DashboardPage <em>Dashboard Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Dashboard Page</em>'.
+	 * @see org.soluvas.web.site.DashboardPage
+	 * @generated
+	 */
+	EClass getDashboardPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PageParam <em>Page Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Page Param</em>'.
+	 * @see org.soluvas.web.site.PageParam
+	 * @generated
+	 */
+	EClass getPageParam();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PageParam#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.soluvas.web.site.PageParam#getName()
+	 * @see #getPageParam()
+	 * @generated
+	 */
+	EAttribute getPageParam_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.LoginPage <em>Login Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Login Page</em>'.
+	 * @see org.soluvas.web.site.LoginPage
+	 * @generated
+	 */
+	EClass getLoginPage();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.soluvas.web.site.LoginPage#getRegisterPage <em>Register Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Register Page</em>'.
+	 * @see org.soluvas.web.site.LoginPage#getRegisterPage()
+	 * @see #getLoginPage()
+	 * @generated
+	 */
+	EReference getLoginPage_RegisterPage();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.soluvas.web.site.LoginPage#getResetPasswordPage <em>Reset Password Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Reset Password Page</em>'.
+	 * @see org.soluvas.web.site.LoginPage#getResetPasswordPage()
+	 * @see #getLoginPage()
+	 * @generated
+	 */
+	EReference getLoginPage_ResetPasswordPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.RegisterPage <em>Register Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Register Page</em>'.
+	 * @see org.soluvas.web.site.RegisterPage
+	 * @generated
+	 */
+	EClass getRegisterPage();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.ResetPasswordPage <em>Reset Password Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Reset Password Page</em>'.
+	 * @see org.soluvas.web.site.ResetPasswordPage
+	 * @generated
+	 */
+	EClass getResetPasswordPage();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2507,24 +3456,6 @@ public interface SitePackage extends EPackage {
 		EAttribute REPOSITORY_PAGE_DECLARATION__PATH = eINSTANCE.getRepositoryPageDeclaration_Path();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageRuleCatalogImpl <em>Page Rule Catalog</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.impl.PageRuleCatalogImpl
-		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCatalog()
-		 * @generated
-		 */
-		EClass PAGE_RULE_CATALOG = eINSTANCE.getPageRuleCatalog();
-
-		/**
-		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PAGE_RULE_CATALOG__RULES = eINSTANCE.getPageRuleCatalog_Rules();
-
-		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.impl.SectionImpl <em>Section</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2551,6 +3482,14 @@ public interface SitePackage extends EPackage {
 		EAttribute SECTION__NAME = eINSTANCE.getSection_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Pages</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECTION__PAGES = eINSTANCE.getSection_Pages();
+
+		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.impl.SiteCatalogImpl <em>Catalog</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2561,10 +3500,10 @@ public interface SitePackage extends EPackage {
 		EClass SITE_CATALOG = eINSTANCE.getSiteCatalog();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.SectionCollection <em>Section Collection</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.SectionCollectionImpl <em>Section Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.SectionCollection
+		 * @see org.soluvas.web.site.impl.SectionCollectionImpl
 		 * @see org.soluvas.web.site.impl.SitePackageImpl#getSectionCollection()
 		 * @generated
 		 */
@@ -2579,10 +3518,10 @@ public interface SitePackage extends EPackage {
 		EReference SECTION_COLLECTION__SECTIONS = eINSTANCE.getSectionCollection_Sections();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.PageMetaCollection <em>Page Meta Collection</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageMetaCollectionImpl <em>Page Meta Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.PageMetaCollection
+		 * @see org.soluvas.web.site.impl.PageMetaCollectionImpl
 		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageMetaCollection()
 		 * @generated
 		 */
@@ -2597,10 +3536,10 @@ public interface SitePackage extends EPackage {
 		EReference PAGE_META_COLLECTION__PAGE_METAS = eINSTANCE.getPageMetaCollection_PageMetas();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.PageRuleCollection <em>Page Rule Collection</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageRuleCollectionImpl <em>Page Rule Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.PageRuleCollection
+		 * @see org.soluvas.web.site.impl.PageRuleCollectionImpl
 		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageRuleCollection()
 		 * @generated
 		 */
@@ -2663,6 +3602,202 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PAGE_TITLE__SUFFIX_SEPARATOR = eINSTANCE.getPageTitle_SuffixSeparator();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.Page <em>Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.Page
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPage()
+		 * @generated
+		 */
+		EClass PAGE = eINSTANCE.getPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE__NAME = eINSTANCE.getPage_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Mount Point</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE__MOUNT_POINT = eINSTANCE.getPage_MountPoint();
+
+		/**
+		 * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE__PARAMS = eINSTANCE.getPage_Params();
+
+		/**
+		 * The meta object literal for the '<em><b>Section</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PAGE__SECTION = eINSTANCE.getPage_Section();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.GenericPageImpl <em>Generic Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.GenericPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGenericPage()
+		 * @generated
+		 */
+		EClass GENERIC_PAGE = eINSTANCE.getGenericPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.RawEntityTablePageImpl <em>Raw Entity Table Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.RawEntityTablePageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getRawEntityTablePage()
+		 * @generated
+		 */
+		EClass RAW_ENTITY_TABLE_PAGE = eINSTANCE.getRawEntityTablePage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.EntityTablePageImpl <em>Entity Table Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.EntityTablePageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getEntityTablePage()
+		 * @generated
+		 */
+		EClass ENTITY_TABLE_PAGE = eINSTANCE.getEntityTablePage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.EntityEditPageImpl <em>Entity Edit Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.EntityEditPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getEntityEditPage()
+		 * @generated
+		 */
+		EClass ENTITY_EDIT_PAGE = eINSTANCE.getEntityEditPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.RawEntityEditPageImpl <em>Raw Entity Edit Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.RawEntityEditPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getRawEntityEditPage()
+		 * @generated
+		 */
+		EClass RAW_ENTITY_EDIT_PAGE = eINSTANCE.getRawEntityEditPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.RawEntityNewPageImpl <em>Raw Entity New Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.RawEntityNewPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getRawEntityNewPage()
+		 * @generated
+		 */
+		EClass RAW_ENTITY_NEW_PAGE = eINSTANCE.getRawEntityNewPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.EntityNewPageImpl <em>Entity New Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.EntityNewPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getEntityNewPage()
+		 * @generated
+		 */
+		EClass ENTITY_NEW_PAGE = eINSTANCE.getEntityNewPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.ContentPageImpl <em>Content Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.ContentPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getContentPage()
+		 * @generated
+		 */
+		EClass CONTENT_PAGE = eINSTANCE.getContentPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.DashboardPageImpl <em>Dashboard Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.DashboardPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getDashboardPage()
+		 * @generated
+		 */
+		EClass DASHBOARD_PAGE = eINSTANCE.getDashboardPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PageParamImpl <em>Page Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.PageParamImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPageParam()
+		 * @generated
+		 */
+		EClass PAGE_PARAM = eINSTANCE.getPageParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_PARAM__NAME = eINSTANCE.getPageParam_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.LoginPageImpl <em>Login Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.LoginPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getLoginPage()
+		 * @generated
+		 */
+		EClass LOGIN_PAGE = eINSTANCE.getLoginPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Register Page</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOGIN_PAGE__REGISTER_PAGE = eINSTANCE.getLoginPage_RegisterPage();
+
+		/**
+		 * The meta object literal for the '<em><b>Reset Password Page</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOGIN_PAGE__RESET_PASSWORD_PAGE = eINSTANCE.getLoginPage_ResetPasswordPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.RegisterPageImpl <em>Register Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.RegisterPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getRegisterPage()
+		 * @generated
+		 */
+		EClass REGISTER_PAGE = eINSTANCE.getRegisterPage();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.ResetPasswordPageImpl <em>Reset Password Page</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.ResetPasswordPageImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getResetPasswordPage()
+		 * @generated
+		 */
+		EClass RESET_PASSWORD_PAGE = eINSTANCE.getResetPasswordPage();
 
 	}
 

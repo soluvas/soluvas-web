@@ -124,10 +124,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createRepositoryPageDeclarationAdapter();
 			}
 			@Override
-			public Adapter casePageRuleCatalog(PageRuleCatalog object) {
-				return createPageRuleCatalogAdapter();
-			}
-			@Override
 			public Adapter caseSection(Section object) {
 				return createSectionAdapter();
 			}
@@ -150,6 +146,62 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePageTitle(PageTitle object) {
 				return createPageTitleAdapter();
+			}
+			@Override
+			public Adapter casePage(Page object) {
+				return createPageAdapter();
+			}
+			@Override
+			public Adapter caseGenericPage(GenericPage object) {
+				return createGenericPageAdapter();
+			}
+			@Override
+			public Adapter caseRawEntityTablePage(RawEntityTablePage object) {
+				return createRawEntityTablePageAdapter();
+			}
+			@Override
+			public Adapter caseEntityTablePage(EntityTablePage object) {
+				return createEntityTablePageAdapter();
+			}
+			@Override
+			public Adapter caseEntityEditPage(EntityEditPage object) {
+				return createEntityEditPageAdapter();
+			}
+			@Override
+			public Adapter caseRawEntityEditPage(RawEntityEditPage object) {
+				return createRawEntityEditPageAdapter();
+			}
+			@Override
+			public Adapter caseRawEntityNewPage(RawEntityNewPage object) {
+				return createRawEntityNewPageAdapter();
+			}
+			@Override
+			public Adapter caseEntityNewPage(EntityNewPage object) {
+				return createEntityNewPageAdapter();
+			}
+			@Override
+			public Adapter caseContentPage(ContentPage object) {
+				return createContentPageAdapter();
+			}
+			@Override
+			public Adapter caseDashboardPage(DashboardPage object) {
+				return createDashboardPageAdapter();
+			}
+			@Override
+			public Adapter casePageParam(PageParam object) {
+				return createPageParamAdapter();
+			}
+			@Override
+			public Adapter caseLoginPage(LoginPage object) {
+				return createLoginPageAdapter();
+			}
+			@Override
+			public Adapter caseRegisterPage(RegisterPage object) {
+				return createRegisterPageAdapter();
+			}
+			@Override
+			public Adapter caseResetPasswordPage(ResetPasswordPage object) {
+				return createResetPasswordPageAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -368,20 +420,6 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageRuleCatalog <em>Page Rule Catalog</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.soluvas.web.site.PageRuleCatalog
-	 * @generated
-	 */
-	public Adapter createPageRuleCatalogAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -462,6 +500,202 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPageTitleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.Page <em>Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.Page
+	 * @generated
+	 */
+	public Adapter createPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.GenericPage <em>Generic Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.GenericPage
+	 * @generated
+	 */
+	public Adapter createGenericPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.RawEntityTablePage <em>Raw Entity Table Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.RawEntityTablePage
+	 * @generated
+	 */
+	public Adapter createRawEntityTablePageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.EntityTablePage <em>Entity Table Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.EntityTablePage
+	 * @generated
+	 */
+	public Adapter createEntityTablePageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.EntityEditPage <em>Entity Edit Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.EntityEditPage
+	 * @generated
+	 */
+	public Adapter createEntityEditPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.RawEntityEditPage <em>Raw Entity Edit Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.RawEntityEditPage
+	 * @generated
+	 */
+	public Adapter createRawEntityEditPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.RawEntityNewPage <em>Raw Entity New Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.RawEntityNewPage
+	 * @generated
+	 */
+	public Adapter createRawEntityNewPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.EntityNewPage <em>Entity New Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.EntityNewPage
+	 * @generated
+	 */
+	public Adapter createEntityNewPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.ContentPage <em>Content Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.ContentPage
+	 * @generated
+	 */
+	public Adapter createContentPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.DashboardPage <em>Dashboard Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.DashboardPage
+	 * @generated
+	 */
+	public Adapter createDashboardPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PageParam <em>Page Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.PageParam
+	 * @generated
+	 */
+	public Adapter createPageParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.LoginPage <em>Login Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.LoginPage
+	 * @generated
+	 */
+	public Adapter createLoginPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.RegisterPage <em>Register Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.RegisterPage
+	 * @generated
+	 */
+	public Adapter createRegisterPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.ResetPasswordPage <em>Reset Password Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.ResetPasswordPage
+	 * @generated
+	 */
+	public Adapter createResetPasswordPageAdapter() {
 		return null;
 	}
 

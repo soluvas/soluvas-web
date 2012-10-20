@@ -149,3 +149,28 @@ which will be prepended the scheme internally to form a URI:
 service://{objectClass}/{namespace}?filter=a&filter=b&...
 
 The Wicket app's {@link Application#getApplicationKey()} must be {tenantId}_{tenantEnv}. 
+
+h2. Site Catalog Supplier
+
+To use @site:pagels@ command, create a @.SiteCatalog.xmi@ file and publish to OSGi using _Supplier pattern_:
+
+bc. 	<bean id="xmiSiteCatalogSupplier" class="org.soluvas.commons.XmiObjectLoader">
+	<argument value="org.soluvas.web.site.SitePackage" />
+	<argument value="id.co.bippo.common.PersonRef" />
+	<argument value="bippo.SiteCatalog.xmi" />
+</bean>
+<service ref="xmiSiteCatalogSupplier" auto-export="interfaces">
+	<service-properties>
+		<entry key="suppliedClass" value="org.soluvas.web.site.SiteCatalog" />
+	</service-properties>
+</service>
+
+
+h3. Restriction with SiteCatalog
+
+The scope of Wicket pages is _global_ (an OSGi framework instance), however the scope of a @SiteCatalog@ should be...
+global too.
+
+This means @SiteCatalog@ should *not* contain @tenantId@ or @tenantEnv@-specific information.
+i.e. (@berbatik_dev@, @berbatik_stg@, @tuneeca_dev@, @tuneeca_stg@, all use the same @SiteCatalog@ 
+when hosted in the same Karaf instance.)

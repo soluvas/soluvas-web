@@ -155,12 +155,6 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case SitePackage.PAGE_RULE_CATALOG: {
-				PageRuleCatalog pageRuleCatalog = (PageRuleCatalog)theEObject;
-				T result = casePageRuleCatalog(pageRuleCatalog);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case SitePackage.SECTION: {
 				Section section = (Section)theEObject;
 				T result = caseSection(section);
@@ -197,6 +191,102 @@ public class SiteSwitch<T> extends Switch<T> {
 			case SitePackage.PAGE_TITLE: {
 				PageTitle pageTitle = (PageTitle)theEObject;
 				T result = casePageTitle(pageTitle);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.PAGE: {
+				Page page = (Page)theEObject;
+				T result = casePage(page);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.GENERIC_PAGE: {
+				GenericPage genericPage = (GenericPage)theEObject;
+				T result = caseGenericPage(genericPage);
+				if (result == null) result = casePage(genericPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.RAW_ENTITY_TABLE_PAGE: {
+				RawEntityTablePage rawEntityTablePage = (RawEntityTablePage)theEObject;
+				T result = caseRawEntityTablePage(rawEntityTablePage);
+				if (result == null) result = casePage(rawEntityTablePage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.ENTITY_TABLE_PAGE: {
+				EntityTablePage entityTablePage = (EntityTablePage)theEObject;
+				T result = caseEntityTablePage(entityTablePage);
+				if (result == null) result = casePage(entityTablePage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.ENTITY_EDIT_PAGE: {
+				EntityEditPage entityEditPage = (EntityEditPage)theEObject;
+				T result = caseEntityEditPage(entityEditPage);
+				if (result == null) result = casePage(entityEditPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.RAW_ENTITY_EDIT_PAGE: {
+				RawEntityEditPage rawEntityEditPage = (RawEntityEditPage)theEObject;
+				T result = caseRawEntityEditPage(rawEntityEditPage);
+				if (result == null) result = casePage(rawEntityEditPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.RAW_ENTITY_NEW_PAGE: {
+				RawEntityNewPage rawEntityNewPage = (RawEntityNewPage)theEObject;
+				T result = caseRawEntityNewPage(rawEntityNewPage);
+				if (result == null) result = casePage(rawEntityNewPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.ENTITY_NEW_PAGE: {
+				EntityNewPage entityNewPage = (EntityNewPage)theEObject;
+				T result = caseEntityNewPage(entityNewPage);
+				if (result == null) result = casePage(entityNewPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.CONTENT_PAGE: {
+				ContentPage contentPage = (ContentPage)theEObject;
+				T result = caseContentPage(contentPage);
+				if (result == null) result = casePage(contentPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.DASHBOARD_PAGE: {
+				DashboardPage dashboardPage = (DashboardPage)theEObject;
+				T result = caseDashboardPage(dashboardPage);
+				if (result == null) result = casePage(dashboardPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.PAGE_PARAM: {
+				PageParam pageParam = (PageParam)theEObject;
+				T result = casePageParam(pageParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.LOGIN_PAGE: {
+				LoginPage loginPage = (LoginPage)theEObject;
+				T result = caseLoginPage(loginPage);
+				if (result == null) result = casePage(loginPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.REGISTER_PAGE: {
+				RegisterPage registerPage = (RegisterPage)theEObject;
+				T result = caseRegisterPage(registerPage);
+				if (result == null) result = casePage(registerPage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.RESET_PASSWORD_PAGE: {
+				ResetPasswordPage resetPasswordPage = (ResetPasswordPage)theEObject;
+				T result = caseResetPasswordPage(resetPasswordPage);
+				if (result == null) result = casePage(resetPasswordPage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -415,21 +505,6 @@ public class SiteSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Page Rule Catalog</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Page Rule Catalog</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePageRuleCatalog(PageRuleCatalog object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Section</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -516,6 +591,216 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePageTitle(PageTitle object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePage(Page object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Generic Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Generic Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenericPage(GenericPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Raw Entity Table Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Raw Entity Table Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRawEntityTablePage(RawEntityTablePage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Entity Table Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Entity Table Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEntityTablePage(EntityTablePage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Entity Edit Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Entity Edit Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEntityEditPage(EntityEditPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Raw Entity Edit Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Raw Entity Edit Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRawEntityEditPage(RawEntityEditPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Raw Entity New Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Raw Entity New Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRawEntityNewPage(RawEntityNewPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Entity New Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Entity New Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEntityNewPage(EntityNewPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Content Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Content Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseContentPage(ContentPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Dashboard Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Dashboard Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDashboardPage(DashboardPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Page Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Page Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePageParam(PageParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Login Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Login Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLoginPage(LoginPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Register Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Register Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRegisterPage(RegisterPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Reset Password Page</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Reset Password Page</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResetPasswordPage(ResetPasswordPage object) {
 		return null;
 	}
 

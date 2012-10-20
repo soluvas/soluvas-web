@@ -2,13 +2,21 @@
  */
 package org.soluvas.web.site.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.soluvas.web.site.Page;
 import org.soluvas.web.site.Section;
 import org.soluvas.web.site.SitePackage;
 
@@ -21,6 +29,7 @@ import org.soluvas.web.site.SitePackage;
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.SectionImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.SectionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.soluvas.web.site.impl.SectionImpl#getPages <em>Pages</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +75,16 @@ public class SectionImpl extends EObjectImpl implements Section {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPages() <em>Pages</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPages()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Page> pages;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,6 +152,47 @@ public class SectionImpl extends EObjectImpl implements Section {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Page> getPages() {
+		if (pages == null) {
+			pages = new EObjectContainmentWithInverseEList<Page>(Page.class, this, SitePackage.SECTION__PAGES, SitePackage.PAGE__SECTION);
+		}
+		return pages;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SitePackage.SECTION__PAGES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getPages()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SitePackage.SECTION__PAGES:
+				return ((InternalEList<?>)getPages()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -140,6 +200,8 @@ public class SectionImpl extends EObjectImpl implements Section {
 				return getId();
 			case SitePackage.SECTION__NAME:
 				return getName();
+			case SitePackage.SECTION__PAGES:
+				return getPages();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -149,6 +211,7 @@ public class SectionImpl extends EObjectImpl implements Section {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -157,6 +220,10 @@ public class SectionImpl extends EObjectImpl implements Section {
 				return;
 			case SitePackage.SECTION__NAME:
 				setName((String)newValue);
+				return;
+			case SitePackage.SECTION__PAGES:
+				getPages().clear();
+				getPages().addAll((Collection<? extends Page>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -176,6 +243,9 @@ public class SectionImpl extends EObjectImpl implements Section {
 			case SitePackage.SECTION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case SitePackage.SECTION__PAGES:
+				getPages().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -192,6 +262,8 @@ public class SectionImpl extends EObjectImpl implements Section {
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case SitePackage.SECTION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case SitePackage.SECTION__PAGES:
+				return pages != null && !pages.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

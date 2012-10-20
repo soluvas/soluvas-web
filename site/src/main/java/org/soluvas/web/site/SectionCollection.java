@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getSectionCollection()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
 public interface SectionCollection extends EObject {
