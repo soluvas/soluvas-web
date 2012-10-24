@@ -59,21 +59,20 @@
 	</div>
 	
 	<header wicket:id="header"></header>
-	<div class="container">
+	<div class="container container-margin-top">
 	
 	<div wicket:id="afterHeader" class="afterHeader">
 <!-- 		Carousel Images is loading.. -->
 	</div>
 		<div class="row">
-			<div class="span3">
-				
+			<div class="span3" wicket:id="sidebarColumn">
 				<div wicket:id="sidebarAdditional"></div>
 				<div wicket:id="sidebarBlocks">
 					<div wicket:id="block">[sidebarBlocks]</div>
 				</div>
 			</div><!--/span-->
 			
-			<div class="span9">
+			<div class="span9" wicket:id="contentColumn">
 				<div wicket:id="feedback" class="feedback"></div>
 				<wicket:child>
 					<ol class="featured-products">

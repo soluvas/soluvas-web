@@ -86,6 +86,10 @@ public class BootstrapPage extends MultitenantPage {
 
 	protected Component feedbackPanel;
 
+	protected TransparentWebMarkupContainer contentColumn;
+
+	protected TransparentWebMarkupContainer sidebarColumn;
+
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
 		pageJavaScriptLinks.add(js);
@@ -213,6 +217,8 @@ public class BootstrapPage extends MultitenantPage {
 		
 		// SIDEBAR
 		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());
+		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
+		add(sidebarColumn);
 		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
 			@Override
 			protected void populateItem(ListItem<ComponentFactory<?>> item) {
@@ -224,7 +230,8 @@ public class BootstrapPage extends MultitenantPage {
 		});
 		add(new WebMarkupContainer("sidebarAdditional"));
 		
-		// CONTENT
+		contentColumn = new TransparentWebMarkupContainer("contentColumn");
+		add(contentColumn);
 		feedbackPanel = new FeedbackPanel("feedback").setOutputMarkupId(true);
 		add(feedbackPanel);
 		
@@ -306,5 +313,13 @@ public class BootstrapPage extends MultitenantPage {
 		};
 		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel).setEscapeModelStrings(false));
 	}
-
+	
+	public BootstrapPage(boolean sidebarVisible) {
+		this();
+		if (!sidebarVisible) {
+			sidebarColumn.setVisible(false);
+			contentColumn.add(new AttributeModifier("class", "span12"));
+		}
+	}
+	
 }
