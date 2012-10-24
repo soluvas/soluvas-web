@@ -33,7 +33,7 @@
 	</licenses>
 
 	<properties>
-<!-- 		<wicket.version>1.5.7</wicket.version> -->
+		<wicket.version>1.5.8</wicket.version><!-- workaround for ... -->
 		<emf.version>2.8.0.v20120911-0500</emf.version><!-- Note: ecore has different version -->
 	</properties>
 
@@ -128,6 +128,12 @@
 						<groupId>org.ops4j.base</groupId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<!-- Workaround for ... -->
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-extensions</artifactId>
+				<version>${wicket.version}</version>
 			</dependency>
 			<!-- Pax Wicket Test Utilities -->
 			<dependency>
