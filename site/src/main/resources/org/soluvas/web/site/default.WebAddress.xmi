@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<webaddress:WebAddress
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:webaddress="http://www.soluvas.org/schema/web.site.webaddress/1.0"
+    xsi:schemaLocation="http://www.soluvas.org/schema/web.site.webaddress/1.0 webaddress.ecore"
+    baseUri="http://localhost:8181/commerce5/"
+    basePath="/"
+    apiPath="/cxf/api/berbatik_dev/"
+    imagesUri="http://localhost:8181/static/images/"
+    cssUri="http://localhost:8181/static/css/"
+    jsUri="http://localhost:8181/static/js/"/>

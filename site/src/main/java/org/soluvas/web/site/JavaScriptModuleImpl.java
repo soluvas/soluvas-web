@@ -1,7 +1,5 @@
 package org.soluvas.web.site;
 
-import java.io.Serializable;
-
 import com.google.common.base.Optional;
 
 /**
@@ -13,6 +11,7 @@ public class JavaScriptModuleImpl implements JavaScriptModule {
 	private String name;
 	private String path;
 	private String minifiedPath;
+	private Base base = Base.STATIC;
 	
 	public JavaScriptModuleImpl() {
 		super();
@@ -31,6 +30,14 @@ public class JavaScriptModuleImpl implements JavaScriptModule {
 		this.minifiedPath = minifiedPath;
 	}
 	
+	public JavaScriptModuleImpl(String name, String path, String minifiedPath, Base base) {
+		super();
+		this.name = name;
+		this.path = path;
+		this.minifiedPath = minifiedPath;
+		this.base = base;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptModule#getName()
 	 */
@@ -42,7 +49,6 @@ public class JavaScriptModuleImpl implements JavaScriptModule {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptModule#setName(java.lang.String)
 	 */
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -58,7 +64,6 @@ public class JavaScriptModuleImpl implements JavaScriptModule {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptModule#setPath(java.lang.String)
 	 */
-	@Override
 	public void setPath(String path) {
 		this.path = path;
 	}
@@ -74,19 +79,18 @@ public class JavaScriptModuleImpl implements JavaScriptModule {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptModule#setMinifiedPath(java.lang.String)
 	 */
-	@Override
 	public void setMinifiedPath(String minifiedPath) {
 		this.minifiedPath = minifiedPath;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptModule#toString()
-	 */
+	public Base getBase() {
+		return base;
+	}
+	
 	@Override
 	public String toString() {
-		return String.format(
-				"JavaScriptModuleImpl [name=%s, path=%s, minifiedPath=%s]", name,
-				path, minifiedPath);
+		return "JavaScriptModuleImpl [name=" + name + ", path=" + path
+				+ ", minifiedPath=" + minifiedPath + ", base=" + base + "]";
 	}
 
 	/* (non-Javadoc)

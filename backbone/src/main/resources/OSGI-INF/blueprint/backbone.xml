@@ -213,13 +213,16 @@
 <!-- 		</bean> -->
 <!-- 	</service> -->
 
+	<reference id="webAddressSupplier" interface="com.google.common.base.Supplier"
+		filter="(&amp;(tenantId=berbatik)(tenantEnv=dev)(suppliedClass=org.soluvas.web.site.webaddress.WebAddress))" />
 	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule" availability="optional"/>
 	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional"/>
 	<jaxrs:server id="requireServer" address="/require">
 		<jaxrs:serviceBeans>
 			<bean class="org.soluvas.web.backbone.RequireResource">
-				<argument ref="jsModules"/>
-				<argument ref="jsShims"/>
+				<argument ref="webAddressSupplier" />
+				<argument ref="jsModules" />
+				<argument ref="jsShims" />
 			</bean>
 		</jaxrs:serviceBeans>
 	</jaxrs:server>

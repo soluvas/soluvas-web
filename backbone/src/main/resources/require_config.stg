@@ -1,4 +1,4 @@
-require(modules, shims) ::= <<
+require(webAddress, modules, shims) ::= <<
 var require = {
     //By default load any module IDs from
     baseUrl: '/static',

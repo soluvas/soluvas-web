@@ -3,18 +3,35 @@ package org.soluvas.web.site;
 import java.io.Serializable;
 
 public interface JavaScriptModule extends Serializable, Comparable<JavaScriptModule> {
+	
+	/**
+	 * Base JavaScript URI.
+	 * @author ceefour
+	 */
+	public static enum Base {
+		/**
+		 * Use the base URI for static JavaScript files, e.g. <tt>/static/js/</tt> or <tt>http://js.berbatik.com/</tt>.
+		 * This has the same effect as no base, because the base URI is provided in RequireJS configuration.
+		 */
+		STATIC,
+		/**
+		 * Use the base URI for dynamic JavaScript files, implemented using JAX-RS Resources,
+		 * e.g. <tt>/cxf/api/</tt> or <tt>http://www.berbatik.com/api/</tt>
+		 */
+		DYNAMIC
+	};
 
 	public abstract String getName();
 
-	public abstract void setName(String name);
-
 	public abstract String getPath();
 
-	public abstract void setPath(String path);
-
 	public abstract String getMinifiedPath();
-
-	public abstract void setMinifiedPath(String minifiedPath);
+	
+	/**
+	 * Base URI.
+	 * @return
+	 */
+	public abstract Base getBase();
 
 	public abstract String toString();
 

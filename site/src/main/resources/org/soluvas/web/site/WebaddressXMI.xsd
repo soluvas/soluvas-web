@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:webaddress="http://www.soluvas.org/schema/web.site.webaddress/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.org/schema/web.site.webaddress/1.0">
+  <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
+  <xsd:complexType name="WebAddress">
+    <xsd:annotation>
+      <xsd:documentation>Tenant-wide website URI configuration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="baseUri" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI of the website. Used by email notifications, external servers, etc.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="basePath" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Absolute path to website, e.g. /</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="apiPath" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Absolute path to API, e.g. /api/
+</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="imagesUri" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI to image files, e.g. http://images.berbatik.com/</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="cssUri" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI to CSS files, e.g. http://css.berbatik.com/</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="jsUri" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI to JavaScript files, e.g. http://js.berbatik.com/</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="secureBaseUri" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI to website, e.g. https://www.berbatik.com/</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="secureImagesUri" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI to secure image files, e.g. https://images.berbatik.com/</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="secureCssUri" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Absolute URI to secure CSS files, e.g. https://css.berbatik.com/</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="secureJsUri" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="WebAddress" type="webaddress:WebAddress">
+    <xsd:annotation>
+      <xsd:documentation>Tenant-wide website URI configuration.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

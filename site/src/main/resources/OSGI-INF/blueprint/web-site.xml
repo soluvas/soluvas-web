@@ -75,4 +75,49 @@
 		</command>
 	</command-bundle>
 	
+	<bean id="xmiWebAddressSupplier" class="org.soluvas.commons.XmiObjectLoader">
+		<argument value="org.soluvas.web.site.webaddress.WebaddressPackage" />
+		<argument value="org.soluvas.web.site.TenantService" />
+		<argument value="default.WebAddress.xmi" />
+	</bean>
+	<service ref="xmiWebAddressSupplier" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="berbatik"/>
+			<entry key="tenantId" value="berbatik"/>
+			<entry key="tenantEnv" value="dev"/>
+			<entry key="suppliedClass" value="org.soluvas.web.site.webaddress.WebAddress" />
+		</service-properties>
+	</service>
+
+	<reference-list id="webAddressSupplier" interface="com.google.common.base.Supplier" availability="optional"
+		filter="(&amp;(tenantId=berbatik)(tenantEnv=dev)(suppliedClass=org.soluvas.web.site.webaddress.WebAddress))" />
+
+	<bean id="siteRs" class="org.soluvas.web.site.rs.SiteResource">
+		<argument ref="xmiWebAddressSupplier" />
+	</bean>
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="berbatik"/>
+			<entry key="tenantId" value="berbatik"/>
+			<entry key="tenantEnv" value="dev"/>
+			<entry key="type" value="jaxrs"/>
+			<entry key="address" value="api"/>
+		</service-properties>
+		<bean class="java.util.ArrayList">
+			<argument>
+				<list>
+					<ref component-id="siteRs" />
+				</list>
+			</argument>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="org.soluvas.web.site/webAddress" />
+			<argument value="org.soluvas.web.site/webAddress" />
+			<argument value="org.soluvas.web.site/webAddress" />
+			<argument value="DYNAMIC" />
+		</bean>
+	</service>
+
 </blueprint>

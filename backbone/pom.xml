@@ -51,6 +51,11 @@
 <!-- 			<groupId>org.ops4j.pax.wicket</groupId> -->
 <!-- 			<artifactId>org.ops4j.pax.wicket.test</artifactId> -->
 <!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

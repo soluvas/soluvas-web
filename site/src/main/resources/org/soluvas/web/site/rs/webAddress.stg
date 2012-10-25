@@ -1,0 +1,11 @@
+webAddress(webAddress) ::= <<
+/**
+ * WebAddress configuration for JavaScript clients.
+ */
+define([], function() {
+
+var webAddress = ~webAddress~;
+
+return webAddress;
+});
+>>
