@@ -35,7 +35,9 @@ import org.soluvas.web.site.PageMetaSupplier;
 import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.Site;
+import org.soluvas.web.site.TenantService;
 import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
@@ -79,6 +81,8 @@ public class BootstrapPage extends MultitenantPage {
 //	private Supplier<List<PageRule>> pageRulesSupplier;
 	@PaxWicketBean(name="pageMetaSupplierFactory")
 	private transient PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
+	@TenantService(filter="(suppliedClass=org.soluvas.web.site.webaddress.WebAddress)")
+	private transient Supplier<WebAddress> webAddressSupplier;
 	
 	private Map<String, String> dependencies = ImmutableMap.of();
 	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
@@ -213,7 +217,10 @@ public class BootstrapPage extends MultitenantPage {
 		}
 		
 		// HEADER
+		WebAddress webAddress = webAddressSupplier.get();
 		add(new Header());
+		final String requireConfigPath = webAddress.getApiPath() + "org.soluvas.web.backbone/requireConfig.js";
+		add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
 		
 		// SIDEBAR
 		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());

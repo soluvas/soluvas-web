@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -14,7 +15,6 @@ import javax.ws.rs.core.UriInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.JavaScriptModule;
-import org.soluvas.web.site.JavaScriptModule.Base;
 import org.soluvas.web.site.JavaScriptShim;
 import org.soluvas.web.site.webaddress.WebAddress;
 import org.stringtemplate.v4.ST;
@@ -30,6 +30,7 @@ import com.google.common.collect.Ordering;
  * @author ceefour
  *
  */
+@Path("org.soluvas.web.backbone")
 public class RequireResource {
 	
 	private List<JavaScriptModule> jsModules;
@@ -47,8 +48,10 @@ public class RequireResource {
 
 	private transient Logger log = LoggerFactory
 			.getLogger(RequireResource.class);
-	// http://localhost:8181/cxf/require/
-	@GET @Produces("text/javascript")
+	
+	// http://localhost:8181/cxf/api/berbatik_dev/org.soluvas.web.backbone/requireConfig.js
+	@GET @Path("requireConfig.js")
+	@Produces("text/javascript")
 	public String getRequireConfig(@Context HttpServletRequest httpReq) throws IOException {
 //		TenantRef tenantInfo = JaxrsUtils.getTenantInfo(uriInfo);
 //		log.debug("Get RequireJS config for {} {} tenant={}:{}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath(),

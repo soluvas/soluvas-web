@@ -89,7 +89,8 @@ public class MultitenantPage extends WebPage {
 			final String additionalFilter = Optional.fromNullable(tenantService.filter()).or("");
 			log.trace("Lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
 					className, tenantId, tenantEnv, namespace, additionalFilter });
-			String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")(namespace=" + namespace + ")" + additionalFilter + ")";
+			final String namespaceFilter = !Strings.isNullOrEmpty(namespace) ? "(namespace=" + namespace + ")" : ""; 
+			String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + additionalFilter + ")";
 			
 			ServiceReference serviceRef = null;
 			try {
