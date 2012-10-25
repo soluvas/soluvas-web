@@ -63,7 +63,8 @@ public class MultitenantPage extends WebPage {
 	protected void getTenantServices() {
 		Application app = Application.get();
 		final String appKey = app.getApplicationKey();
-		log.info("Get Wicket tenant services for page {}, app key={} name={}", new Object[] { getPageClass().getName(), appKey, app.getName() });
+		log.debug("Getting Wicket tenant services for page {}, app key={} name={}", 
+				getPageClass().getName(), appKey, app.getName() );
 		
 		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
 		if (!matcher.matches()) {
@@ -73,7 +74,7 @@ public class MultitenantPage extends WebPage {
 		final String tenantId = matcher.group(1);
 		final String tenantEnv = matcher.group(2);
 		
-		Class clazz = getClass();
+		Class<?> clazz = getClass();
 		List<Field> fields = new ArrayList<Field>();
 		while (clazz != null) {
 			fields.addAll(ImmutableList.copyOf(clazz.getDeclaredFields()));
@@ -86,7 +87,7 @@ public class MultitenantPage extends WebPage {
 			final String className = Strings.isNullOrEmpty(tenantService.objectClass()) ? field.getType().getName() : tenantService.objectClass();
 			final String namespace = tenantService.value();
 			final String additionalFilter = Optional.fromNullable(tenantService.filter()).or("");
-			log.debug("Lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
+			log.trace("Lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
 					className, tenantId, tenantEnv, namespace, additionalFilter });
 			String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")(namespace=" + namespace + ")" + additionalFilter + ")";
 			
@@ -101,7 +102,7 @@ public class MultitenantPage extends WebPage {
 			}
 			Object bean = bundleContext.getService(serviceRef);
 			serviceRefs.put(field, serviceRef);
-			log.debug("Injecting {}#{} as {}", new Object[] { getPageClass().getName(), field.getName(), bean });
+			log.trace("Injecting {}#{} as {}", new Object[] { getPageClass().getName(), field.getName(), bean });
 			final boolean wasAccessible = field.isAccessible();
 			field.setAccessible(true);
 			try {
@@ -118,7 +119,7 @@ public class MultitenantPage extends WebPage {
 	protected void ungetTenantServices() {
 		for (Entry<Field, ServiceReference> entry : serviceRefs.entrySet()) {
 			final Field field = entry.getKey();
-			log.debug("Unsetting {}#{}", new Object[] { getPageClass().getName(), field.getName() });
+			log.trace("Unsetting {}#{}", new Object[] { getPageClass().getName(), field.getName() });
 			final boolean wasAccessible = field.isAccessible();
 			field.setAccessible(true);
 			try {
