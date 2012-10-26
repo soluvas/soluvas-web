@@ -10,16 +10,16 @@
 
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/stomp"/>
-			<property name="path" value="/webresources"/>
+			<property name="alias" value="/static/js/org.soluvas.web.stomp"/>
+			<property name="path" value="/js"/>
 		</bean>
 	</service>
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="sockjs"/>
-			<argument value="stomp/sockjs-0.3.2"/>
-			<argument value="stomp/sockjs-0.3.2.min"/>
+			<argument value="js/org.soluvas.web.stomp/sockjs-0.3.2"/>
+			<argument value="js/org.soluvas.web.stomp/sockjs-0.3.2.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -33,7 +33,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="stomp"/>
-			<argument value="/static/stomp/stomp"/>
+			<argument value="js/org.soluvas.web.stomp/stomp"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
