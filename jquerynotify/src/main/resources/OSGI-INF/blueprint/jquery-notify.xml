@@ -50,7 +50,7 @@
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/skin/org.soluvas.web.jquerynotify/ui.notify.css"/>
+			<argument value="org.soluvas.web.jquerynotify/ui.notify.css"/>
 			<argument value="0"/>
 		</bean>
 	</service>

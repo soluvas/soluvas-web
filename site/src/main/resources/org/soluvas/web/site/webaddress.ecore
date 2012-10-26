@@ -30,10 +30,10 @@
         <details key="documentation" value="Absolute URI to image files, e.g. http://images.berbatik.com/"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cssUri" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="skinUri" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Absolute URI to CSS files, e.g. http://css.berbatik.com/"/>
+        <details key="documentation" value="Absolute URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jsUri" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -51,9 +51,9 @@
         <details key="documentation" value="Absolute URI to secure image files, e.g. https://images.berbatik.com/"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secureCssUri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secureSkinUri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Absolute URI to secure CSS files, e.g. https://css.berbatik.com/"/>
+        <details key="documentation" value="Absolute secure URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="secureJsUri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

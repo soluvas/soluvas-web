@@ -137,7 +137,7 @@ public class WebaddressPackageImpl extends EPackageImpl implements WebaddressPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWebAddress_CssUri() {
+	public EAttribute getWebAddress_SkinUri() {
 		return (EAttribute)webAddressEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -173,7 +173,7 @@ public class WebaddressPackageImpl extends EPackageImpl implements WebaddressPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWebAddress_SecureCssUri() {
+	public EAttribute getWebAddress_SecureSkinUri() {
 		return (EAttribute)webAddressEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -219,11 +219,11 @@ public class WebaddressPackageImpl extends EPackageImpl implements WebaddressPac
 		createEAttribute(webAddressEClass, WEB_ADDRESS__BASE_PATH);
 		createEAttribute(webAddressEClass, WEB_ADDRESS__API_PATH);
 		createEAttribute(webAddressEClass, WEB_ADDRESS__IMAGES_URI);
-		createEAttribute(webAddressEClass, WEB_ADDRESS__CSS_URI);
+		createEAttribute(webAddressEClass, WEB_ADDRESS__SKIN_URI);
 		createEAttribute(webAddressEClass, WEB_ADDRESS__JS_URI);
 		createEAttribute(webAddressEClass, WEB_ADDRESS__SECURE_BASE_URI);
 		createEAttribute(webAddressEClass, WEB_ADDRESS__SECURE_IMAGES_URI);
-		createEAttribute(webAddressEClass, WEB_ADDRESS__SECURE_CSS_URI);
+		createEAttribute(webAddressEClass, WEB_ADDRESS__SECURE_SKIN_URI);
 		createEAttribute(webAddressEClass, WEB_ADDRESS__SECURE_JS_URI);
 	}
 
@@ -262,11 +262,11 @@ public class WebaddressPackageImpl extends EPackageImpl implements WebaddressPac
 		initEAttribute(getWebAddress_BasePath(), ecorePackage.getEString(), "basePath", null, 1, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWebAddress_ApiPath(), ecorePackage.getEString(), "apiPath", null, 1, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWebAddress_ImagesUri(), ecorePackage.getEString(), "imagesUri", null, 1, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getWebAddress_CssUri(), ecorePackage.getEString(), "cssUri", null, 1, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWebAddress_SkinUri(), ecorePackage.getEString(), "skinUri", null, 1, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWebAddress_JsUri(), ecorePackage.getEString(), "jsUri", null, 1, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWebAddress_SecureBaseUri(), ecorePackage.getEString(), "secureBaseUri", null, 0, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWebAddress_SecureImagesUri(), ecorePackage.getEString(), "secureImagesUri", null, 0, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getWebAddress_SecureCssUri(), ecorePackage.getEString(), "secureCssUri", null, 0, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWebAddress_SecureSkinUri(), ecorePackage.getEString(), "secureSkinUri", null, 0, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWebAddress_SecureJsUri(), ecorePackage.getEString(), "secureJsUri", null, 0, 1, WebAddress.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
@@ -316,10 +316,10 @@ public class WebaddressPackageImpl extends EPackageImpl implements WebaddressPac
 			 "documentation", "Absolute URI to image files, e.g. http://images.berbatik.com/"
 		   });		
 		addAnnotation
-		  (getWebAddress_CssUri(), 
+		  (getWebAddress_SkinUri(), 
 		   source, 
 		   new String[] {
-			 "documentation", "Absolute URI to CSS files, e.g. http://css.berbatik.com/"
+			 "documentation", "Absolute URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/"
 		   });		
 		addAnnotation
 		  (getWebAddress_JsUri(), 
@@ -340,10 +340,10 @@ public class WebaddressPackageImpl extends EPackageImpl implements WebaddressPac
 			 "documentation", "Absolute URI to secure image files, e.g. https://images.berbatik.com/"
 		   });		
 		addAnnotation
-		  (getWebAddress_SecureCssUri(), 
+		  (getWebAddress_SecureSkinUri(), 
 		   source, 
 		   new String[] {
-			 "documentation", "Absolute URI to secure CSS files, e.g. https://css.berbatik.com/"
+			 "documentation", "Absolute secure URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/"
 		   });
 	}
 

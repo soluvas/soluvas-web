@@ -20,7 +20,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_s36e0B5rEeKKvO0XMc65Ew"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_ttyW4B5rEeKKvO0XMc65Ew" type="2001">
-        <element xmi:type="ecore:EAttribute" href="webaddress.ecore#//WebAddress/cssUri"/>
+        <element xmi:type="ecore:EAttribute" href="webaddress.ecore#//WebAddress/skinUri"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_tty98B5rEeKKvO0XMc65Ew"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_uLUAYB5rEeKKvO0XMc65Ew" type="2001">
@@ -36,7 +36,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_yOoE0R5rEeKKvO0XMc65Ew"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_zCVZsB5rEeKKvO0XMc65Ew" type="2001">
-        <element xmi:type="ecore:EAttribute" href="webaddress.ecore#//WebAddress/secureCssUri"/>
+        <element xmi:type="ecore:EAttribute" href="webaddress.ecore#//WebAddress/secureSkinUri"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_zCVZsR5rEeKKvO0XMc65Ew"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_ztFm4B5rEeKKvO0XMc65Ew" type="2001">

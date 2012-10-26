@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getBasePath <em>Base Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getApiPath <em>Api Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getImagesUri <em>Images Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getCssUri <em>Css Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSkinUri <em>Skin Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getJsUri <em>Js Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureBaseUri <em>Secure Base Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureImagesUri <em>Secure Images Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureCssUri <em>Secure Css Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureSkinUri <em>Secure Skin Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureJsUri <em>Secure Js Uri</em>}</li>
  * </ul>
  * </p>
@@ -136,29 +136,29 @@ public interface WebAddress extends EObject {
 	void setImagesUri(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Css Uri</b></em>' attribute.
+	 * Returns the value of the '<em><b>Skin Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Absolute URI to CSS files, e.g. http://css.berbatik.com/
+	 * Absolute URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Css Uri</em>' attribute.
-	 * @see #setCssUri(String)
-	 * @see org.soluvas.web.site.webaddress.WebaddressPackage#getWebAddress_CssUri()
+	 * @return the value of the '<em>Skin Uri</em>' attribute.
+	 * @see #setSkinUri(String)
+	 * @see org.soluvas.web.site.webaddress.WebaddressPackage#getWebAddress_SkinUri()
 	 * @model required="true"
 	 * @generated
 	 */
-	String getCssUri();
+	String getSkinUri();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.webaddress.WebAddress#getCssUri <em>Css Uri</em>}' attribute.
+	 * Sets the value of the '{@link org.soluvas.web.site.webaddress.WebAddress#getSkinUri <em>Skin Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Css Uri</em>' attribute.
-	 * @see #getCssUri()
+	 * @param value the new value of the '<em>Skin Uri</em>' attribute.
+	 * @see #getSkinUri()
 	 * @generated
 	 */
-	void setCssUri(String value);
+	void setSkinUri(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Js Uri</b></em>' attribute.
@@ -236,29 +236,29 @@ public interface WebAddress extends EObject {
 	void setSecureImagesUri(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Secure Css Uri</b></em>' attribute.
+	 * Returns the value of the '<em><b>Secure Skin Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Absolute URI to secure CSS files, e.g. https://css.berbatik.com/
+	 * Absolute secure URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Secure Css Uri</em>' attribute.
-	 * @see #setSecureCssUri(String)
-	 * @see org.soluvas.web.site.webaddress.WebaddressPackage#getWebAddress_SecureCssUri()
+	 * @return the value of the '<em>Secure Skin Uri</em>' attribute.
+	 * @see #setSecureSkinUri(String)
+	 * @see org.soluvas.web.site.webaddress.WebaddressPackage#getWebAddress_SecureSkinUri()
 	 * @model
 	 * @generated
 	 */
-	String getSecureCssUri();
+	String getSecureSkinUri();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.webaddress.WebAddress#getSecureCssUri <em>Secure Css Uri</em>}' attribute.
+	 * Sets the value of the '{@link org.soluvas.web.site.webaddress.WebAddress#getSecureSkinUri <em>Secure Skin Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Secure Css Uri</em>' attribute.
-	 * @see #getSecureCssUri()
+	 * @param value the new value of the '<em>Secure Skin Uri</em>' attribute.
+	 * @see #getSecureSkinUri()
 	 * @generated
 	 */
-	void setSecureCssUri(String value);
+	void setSecureSkinUri(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Secure Js Uri</b></em>' attribute.

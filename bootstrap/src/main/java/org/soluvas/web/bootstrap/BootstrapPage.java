@@ -85,14 +85,16 @@ public class BootstrapPage extends MultitenantPage {
 	private transient Supplier<WebAddress> webAddressSupplier;
 	
 	private Map<String, String> dependencies = ImmutableMap.of();
-	private List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
-	private List<String> pageJavaScriptSources = new ArrayList<String>();
+	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
+	private final List<String> pageJavaScriptSources = new ArrayList<String>();
 
 	protected Component feedbackPanel;
 
 	protected TransparentWebMarkupContainer contentColumn;
 
 	protected TransparentWebMarkupContainer sidebarColumn;
+
+	private WebAddress webAddress;
 
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
@@ -137,17 +139,19 @@ public class BootstrapPage extends MultitenantPage {
 		
 		log.debug("Page {} has {} CSS links", getClass().getName(), cssLinks.size());
 		Ordering<CssLink> cssOrdering = Ordering.from(new Comparator<CssLink>() {
+			@Override
 			public int compare(CssLink o1, CssLink o2) {
 				return o1.getWeight() - o2.getWeight();
 			};
 		});
 		List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(cssLinks);
 		for (CssLink css : sortedCsses) {
-			response.renderCSSReference(css.getHref());
+			response.renderCSSReference(webAddress.getSkinUri() + css.getPath());
 		}
 		
 		log.debug("Page {} has {} head JavaScript links", getClass().getName(), headJavaScripts.size());
 		Ordering<JavaScriptLink> jsOrdering = Ordering.from(new Comparator<JavaScriptLink>() {
+			@Override
 			public int compare(JavaScriptLink o1, JavaScriptLink o2) {
 				return o1.getWeight() - o2.getWeight();
 			};
@@ -174,6 +178,8 @@ public class BootstrapPage extends MultitenantPage {
 	}
 	
 	public BootstrapPage() {
+		webAddress = webAddressSupplier.get();
+
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
 		PageMeta pageMeta = getPageMeta();
@@ -216,8 +222,6 @@ public class BootstrapPage extends MultitenantPage {
 			log.debug("Ignoring navbarChildFactory due to error", e);
 		}
 		
-		// HEADER
-		WebAddress webAddress = webAddressSupplier.get();
 		add(new Header());
 		final String requireConfigPath = webAddress.getApiPath() + "org.soluvas.web.backbone/requireConfig.js";
 		add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
@@ -230,7 +234,7 @@ public class BootstrapPage extends MultitenantPage {
 			@Override
 			protected void populateItem(ListItem<ComponentFactory<?>> item) {
 				item.setRenderBodyOnly(true);
-				final ComponentFactory<?> compFactory = (ComponentFactory<?>) item.getModelObject();
+				final ComponentFactory<?> compFactory = item.getModelObject();
 				Component block = compFactory.create("block");
 				item.add(block);
 			}
@@ -256,7 +260,7 @@ public class BootstrapPage extends MultitenantPage {
 			@Override
 			protected void populateItem(ListItem<ComponentFactory<?>> item) {
 				item.setRenderBodyOnly(true);
-				final ComponentFactory<?> compFactory = (ComponentFactory<?>) item.getModelObject();
+				final ComponentFactory<?> compFactory = item.getModelObject();
 				Component block = compFactory.create("block");
 				item.add(block);
 			}
@@ -270,6 +274,7 @@ public class BootstrapPage extends MultitenantPage {
 				item.setRenderBodyOnly(true);
 				final JavaScriptLink js = item.getModelObject();
 				item.add(new Label("js") {
+					@Override
 					protected void onComponentTag(ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.getAttributes().put("src", js.getSrc());
@@ -290,6 +295,7 @@ public class BootstrapPage extends MultitenantPage {
 		});
 		
 		IModel<List<JavaScriptLink>> pageJavaScriptLinksModel = new LoadableDetachableModel<List<JavaScriptLink>>() {
+			@Override
 			protected List<JavaScriptLink> load() {
 				log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
 				List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
@@ -302,6 +308,7 @@ public class BootstrapPage extends MultitenantPage {
 				item.setRenderBodyOnly(true);
 				final JavaScriptLink js = item.getModelObject();
 				item.add(new Label("js") {
+					@Override
 					protected void onComponentTag(ComponentTag tag) {
 						super.onComponentTag(tag);
 						tag.getAttributes().put("src", js.getSrc());
@@ -311,6 +318,7 @@ public class BootstrapPage extends MultitenantPage {
 		});
 		
 		IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
+			@Override
 			protected String load() {
 				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
 				String merged = Joiner.on('\n').join(pageJavaScriptSources);

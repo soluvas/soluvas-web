@@ -23,11 +23,11 @@ import org.soluvas.web.site.webaddress.WebaddressPackage;
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getBasePath <em>Base Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getApiPath <em>Api Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getImagesUri <em>Images Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getCssUri <em>Css Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getSkinUri <em>Skin Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getJsUri <em>Js Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getSecureBaseUri <em>Secure Base Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getSecureImagesUri <em>Secure Images Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getSecureCssUri <em>Secure Css Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getSecureSkinUri <em>Secure Skin Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.webaddress.impl.WebAddressImpl#getSecureJsUri <em>Secure Js Uri</em>}</li>
  * </ul>
  * </p>
@@ -116,24 +116,24 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	protected String imagesUri = IMAGES_URI_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getCssUri() <em>Css Uri</em>}' attribute.
+	 * The default value of the '{@link #getSkinUri() <em>Skin Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCssUri()
+	 * @see #getSkinUri()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String CSS_URI_EDEFAULT = null;
+	protected static final String SKIN_URI_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getCssUri() <em>Css Uri</em>}' attribute.
+	 * The cached value of the '{@link #getSkinUri() <em>Skin Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCssUri()
+	 * @see #getSkinUri()
 	 * @generated
 	 * @ordered
 	 */
-	protected String cssUri = CSS_URI_EDEFAULT;
+	protected String skinUri = SKIN_URI_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getJsUri() <em>Js Uri</em>}' attribute.
@@ -196,24 +196,24 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	protected String secureImagesUri = SECURE_IMAGES_URI_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSecureCssUri() <em>Secure Css Uri</em>}' attribute.
+	 * The default value of the '{@link #getSecureSkinUri() <em>Secure Skin Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSecureCssUri()
+	 * @see #getSecureSkinUri()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String SECURE_CSS_URI_EDEFAULT = null;
+	protected static final String SECURE_SKIN_URI_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getSecureCssUri() <em>Secure Css Uri</em>}' attribute.
+	 * The cached value of the '{@link #getSecureSkinUri() <em>Secure Skin Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSecureCssUri()
+	 * @see #getSecureSkinUri()
 	 * @generated
 	 * @ordered
 	 */
-	protected String secureCssUri = SECURE_CSS_URI_EDEFAULT;
+	protected String secureSkinUri = SECURE_SKIN_URI_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getSecureJsUri() <em>Secure Js Uri</em>}' attribute.
@@ -343,8 +343,8 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCssUri() {
-		return cssUri;
+	public String getSkinUri() {
+		return skinUri;
 	}
 
 	/**
@@ -352,11 +352,11 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCssUri(String newCssUri) {
-		String oldCssUri = cssUri;
-		cssUri = newCssUri;
+	public void setSkinUri(String newSkinUri) {
+		String oldSkinUri = skinUri;
+		skinUri = newSkinUri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, WebaddressPackage.WEB_ADDRESS__CSS_URI, oldCssUri, cssUri));
+			eNotify(new ENotificationImpl(this, Notification.SET, WebaddressPackage.WEB_ADDRESS__SKIN_URI, oldSkinUri, skinUri));
 	}
 
 	/**
@@ -427,8 +427,8 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getSecureCssUri() {
-		return secureCssUri;
+	public String getSecureSkinUri() {
+		return secureSkinUri;
 	}
 
 	/**
@@ -436,11 +436,11 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSecureCssUri(String newSecureCssUri) {
-		String oldSecureCssUri = secureCssUri;
-		secureCssUri = newSecureCssUri;
+	public void setSecureSkinUri(String newSecureSkinUri) {
+		String oldSecureSkinUri = secureSkinUri;
+		secureSkinUri = newSecureSkinUri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, WebaddressPackage.WEB_ADDRESS__SECURE_CSS_URI, oldSecureCssUri, secureCssUri));
+			eNotify(new ENotificationImpl(this, Notification.SET, WebaddressPackage.WEB_ADDRESS__SECURE_SKIN_URI, oldSecureSkinUri, secureSkinUri));
 	}
 
 	/**
@@ -480,16 +480,16 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 				return getApiPath();
 			case WebaddressPackage.WEB_ADDRESS__IMAGES_URI:
 				return getImagesUri();
-			case WebaddressPackage.WEB_ADDRESS__CSS_URI:
-				return getCssUri();
+			case WebaddressPackage.WEB_ADDRESS__SKIN_URI:
+				return getSkinUri();
 			case WebaddressPackage.WEB_ADDRESS__JS_URI:
 				return getJsUri();
 			case WebaddressPackage.WEB_ADDRESS__SECURE_BASE_URI:
 				return getSecureBaseUri();
 			case WebaddressPackage.WEB_ADDRESS__SECURE_IMAGES_URI:
 				return getSecureImagesUri();
-			case WebaddressPackage.WEB_ADDRESS__SECURE_CSS_URI:
-				return getSecureCssUri();
+			case WebaddressPackage.WEB_ADDRESS__SECURE_SKIN_URI:
+				return getSecureSkinUri();
 			case WebaddressPackage.WEB_ADDRESS__SECURE_JS_URI:
 				return getSecureJsUri();
 		}
@@ -516,8 +516,8 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 			case WebaddressPackage.WEB_ADDRESS__IMAGES_URI:
 				setImagesUri((String)newValue);
 				return;
-			case WebaddressPackage.WEB_ADDRESS__CSS_URI:
-				setCssUri((String)newValue);
+			case WebaddressPackage.WEB_ADDRESS__SKIN_URI:
+				setSkinUri((String)newValue);
 				return;
 			case WebaddressPackage.WEB_ADDRESS__JS_URI:
 				setJsUri((String)newValue);
@@ -528,8 +528,8 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 			case WebaddressPackage.WEB_ADDRESS__SECURE_IMAGES_URI:
 				setSecureImagesUri((String)newValue);
 				return;
-			case WebaddressPackage.WEB_ADDRESS__SECURE_CSS_URI:
-				setSecureCssUri((String)newValue);
+			case WebaddressPackage.WEB_ADDRESS__SECURE_SKIN_URI:
+				setSecureSkinUri((String)newValue);
 				return;
 			case WebaddressPackage.WEB_ADDRESS__SECURE_JS_URI:
 				setSecureJsUri((String)newValue);
@@ -558,8 +558,8 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 			case WebaddressPackage.WEB_ADDRESS__IMAGES_URI:
 				setImagesUri(IMAGES_URI_EDEFAULT);
 				return;
-			case WebaddressPackage.WEB_ADDRESS__CSS_URI:
-				setCssUri(CSS_URI_EDEFAULT);
+			case WebaddressPackage.WEB_ADDRESS__SKIN_URI:
+				setSkinUri(SKIN_URI_EDEFAULT);
 				return;
 			case WebaddressPackage.WEB_ADDRESS__JS_URI:
 				setJsUri(JS_URI_EDEFAULT);
@@ -570,8 +570,8 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 			case WebaddressPackage.WEB_ADDRESS__SECURE_IMAGES_URI:
 				setSecureImagesUri(SECURE_IMAGES_URI_EDEFAULT);
 				return;
-			case WebaddressPackage.WEB_ADDRESS__SECURE_CSS_URI:
-				setSecureCssUri(SECURE_CSS_URI_EDEFAULT);
+			case WebaddressPackage.WEB_ADDRESS__SECURE_SKIN_URI:
+				setSecureSkinUri(SECURE_SKIN_URI_EDEFAULT);
 				return;
 			case WebaddressPackage.WEB_ADDRESS__SECURE_JS_URI:
 				setSecureJsUri(SECURE_JS_URI_EDEFAULT);
@@ -596,16 +596,16 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 				return API_PATH_EDEFAULT == null ? apiPath != null : !API_PATH_EDEFAULT.equals(apiPath);
 			case WebaddressPackage.WEB_ADDRESS__IMAGES_URI:
 				return IMAGES_URI_EDEFAULT == null ? imagesUri != null : !IMAGES_URI_EDEFAULT.equals(imagesUri);
-			case WebaddressPackage.WEB_ADDRESS__CSS_URI:
-				return CSS_URI_EDEFAULT == null ? cssUri != null : !CSS_URI_EDEFAULT.equals(cssUri);
+			case WebaddressPackage.WEB_ADDRESS__SKIN_URI:
+				return SKIN_URI_EDEFAULT == null ? skinUri != null : !SKIN_URI_EDEFAULT.equals(skinUri);
 			case WebaddressPackage.WEB_ADDRESS__JS_URI:
 				return JS_URI_EDEFAULT == null ? jsUri != null : !JS_URI_EDEFAULT.equals(jsUri);
 			case WebaddressPackage.WEB_ADDRESS__SECURE_BASE_URI:
 				return SECURE_BASE_URI_EDEFAULT == null ? secureBaseUri != null : !SECURE_BASE_URI_EDEFAULT.equals(secureBaseUri);
 			case WebaddressPackage.WEB_ADDRESS__SECURE_IMAGES_URI:
 				return SECURE_IMAGES_URI_EDEFAULT == null ? secureImagesUri != null : !SECURE_IMAGES_URI_EDEFAULT.equals(secureImagesUri);
-			case WebaddressPackage.WEB_ADDRESS__SECURE_CSS_URI:
-				return SECURE_CSS_URI_EDEFAULT == null ? secureCssUri != null : !SECURE_CSS_URI_EDEFAULT.equals(secureCssUri);
+			case WebaddressPackage.WEB_ADDRESS__SECURE_SKIN_URI:
+				return SECURE_SKIN_URI_EDEFAULT == null ? secureSkinUri != null : !SECURE_SKIN_URI_EDEFAULT.equals(secureSkinUri);
 			case WebaddressPackage.WEB_ADDRESS__SECURE_JS_URI:
 				return SECURE_JS_URI_EDEFAULT == null ? secureJsUri != null : !SECURE_JS_URI_EDEFAULT.equals(secureJsUri);
 		}
@@ -630,16 +630,16 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 		result.append(apiPath);
 		result.append(", imagesUri: ");
 		result.append(imagesUri);
-		result.append(", cssUri: ");
-		result.append(cssUri);
+		result.append(", skinUri: ");
+		result.append(skinUri);
 		result.append(", jsUri: ");
 		result.append(jsUri);
 		result.append(", secureBaseUri: ");
 		result.append(secureBaseUri);
 		result.append(", secureImagesUri: ");
 		result.append(secureImagesUri);
-		result.append(", secureCssUri: ");
-		result.append(secureCssUri);
+		result.append(", secureSkinUri: ");
+		result.append(secureSkinUri);
 		result.append(", secureJsUri: ");
 		result.append(secureJsUri);
 		result.append(')');

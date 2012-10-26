@@ -123,13 +123,13 @@
 <!-- 	</service> -->
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/skin/org.soluvas.web.jqueryui/css/ui-lightness/jquery-ui-1.9.0.custom.css"/>
+			<argument value="org.soluvas.web.jqueryui/css/ui-lightness/jquery-ui-1.9.0.custom.css"/>
 			<argument value="-1"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/skin/org.soluvas.web.jqueryui/css/jquery.ui.selectmenu.css"/>
+			<argument value="org.soluvas.web.jqueryui/css/jquery.ui.selectmenu.css"/>
 		</bean>
 	</service>
 	
@@ -150,7 +150,7 @@
 <!-- 	</service> -->
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/skin/org.soluvas.web.jqueryui/datatables/css/jquery.dataTables_bootstrap2.css"/>
+			<argument value="org.soluvas.web.jqueryui/datatables/css/jquery.dataTables_bootstrap2.css"/>
 			<argument value="-1"/>
 		</bean>
 	</service>

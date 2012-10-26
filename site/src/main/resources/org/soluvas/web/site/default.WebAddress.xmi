@@ -9,5 +9,5 @@
     basePath="/"
     apiPath="/cxf/api/berbatik_dev/"
     imagesUri="http://localhost:8181/static/images/"
-    cssUri="http://localhost:8181/static/css/"
+    skinUri="http://localhost:8181/static/skin/"
     jsUri="http://localhost:8181/static/js/"/>

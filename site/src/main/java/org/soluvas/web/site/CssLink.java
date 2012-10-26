@@ -2,14 +2,39 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+import org.soluvas.web.site.webaddress.WebAddress;
+
+/**
+ * CSS Stylesheet reference information.
+ * 
+ * Usage:
+ * 
+ * <pre>
+ * {@code 
+ * <service auto-export="interfaces"> 
+ * 	<bean class="org.soluvas.web.site.CssLinkImpl"> 
+ * 		<argument value="id.co.bippo.salesorder.web/person.css"/> 
+ * 	</bean> 
+ * </service>
+ * }
+ * </pre>
+ * 
+ * @author ceefour
+ */
 public interface CssLink extends Serializable {
 
-	String getHref();
+	/**
+	 * The path to the CSS file, relative to {@link WebAddress#getSkinUri()}
+	 * (without leading slash).
+	 * 
+	 * @return
+	 */
+	String getPath();
 
-	void setHref(String href);
-
+	/**
+	 * Weight of the CSS file. Larger number will override previous CSS.
+	 * @return
+	 */
 	int getWeight();
-
-	void setWeight(int weight);
 
 }

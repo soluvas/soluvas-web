@@ -101,13 +101,13 @@ public interface WebaddressPackage extends EPackage {
 	int WEB_ADDRESS__IMAGES_URI = 3;
 
 	/**
-	 * The feature id for the '<em><b>Css Uri</b></em>' attribute.
+	 * The feature id for the '<em><b>Skin Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_ADDRESS__CSS_URI = 4;
+	int WEB_ADDRESS__SKIN_URI = 4;
 
 	/**
 	 * The feature id for the '<em><b>Js Uri</b></em>' attribute.
@@ -137,13 +137,13 @@ public interface WebaddressPackage extends EPackage {
 	int WEB_ADDRESS__SECURE_IMAGES_URI = 7;
 
 	/**
-	 * The feature id for the '<em><b>Secure Css Uri</b></em>' attribute.
+	 * The feature id for the '<em><b>Secure Skin Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_ADDRESS__SECURE_CSS_URI = 8;
+	int WEB_ADDRESS__SECURE_SKIN_URI = 8;
 
 	/**
 	 * The feature id for the '<em><b>Secure Js Uri</b></em>' attribute.
@@ -219,15 +219,15 @@ public interface WebaddressPackage extends EPackage {
 	EAttribute getWebAddress_ImagesUri();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.webaddress.WebAddress#getCssUri <em>Css Uri</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.webaddress.WebAddress#getSkinUri <em>Skin Uri</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Css Uri</em>'.
-	 * @see org.soluvas.web.site.webaddress.WebAddress#getCssUri()
+	 * @return the meta object for the attribute '<em>Skin Uri</em>'.
+	 * @see org.soluvas.web.site.webaddress.WebAddress#getSkinUri()
 	 * @see #getWebAddress()
 	 * @generated
 	 */
-	EAttribute getWebAddress_CssUri();
+	EAttribute getWebAddress_SkinUri();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.webaddress.WebAddress#getJsUri <em>Js Uri</em>}'.
@@ -263,15 +263,15 @@ public interface WebaddressPackage extends EPackage {
 	EAttribute getWebAddress_SecureImagesUri();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.webaddress.WebAddress#getSecureCssUri <em>Secure Css Uri</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.webaddress.WebAddress#getSecureSkinUri <em>Secure Skin Uri</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Secure Css Uri</em>'.
-	 * @see org.soluvas.web.site.webaddress.WebAddress#getSecureCssUri()
+	 * @return the meta object for the attribute '<em>Secure Skin Uri</em>'.
+	 * @see org.soluvas.web.site.webaddress.WebAddress#getSecureSkinUri()
 	 * @see #getWebAddress()
 	 * @generated
 	 */
-	EAttribute getWebAddress_SecureCssUri();
+	EAttribute getWebAddress_SecureSkinUri();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.webaddress.WebAddress#getSecureJsUri <em>Secure Js Uri</em>}'.
@@ -349,12 +349,12 @@ public interface WebaddressPackage extends EPackage {
 		EAttribute WEB_ADDRESS__IMAGES_URI = eINSTANCE.getWebAddress_ImagesUri();
 
 		/**
-		 * The meta object literal for the '<em><b>Css Uri</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Skin Uri</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WEB_ADDRESS__CSS_URI = eINSTANCE.getWebAddress_CssUri();
+		EAttribute WEB_ADDRESS__SKIN_URI = eINSTANCE.getWebAddress_SkinUri();
 
 		/**
 		 * The meta object literal for the '<em><b>Js Uri</b></em>' attribute feature.
@@ -381,12 +381,12 @@ public interface WebaddressPackage extends EPackage {
 		EAttribute WEB_ADDRESS__SECURE_IMAGES_URI = eINSTANCE.getWebAddress_SecureImagesUri();
 
 		/**
-		 * The meta object literal for the '<em><b>Secure Css Uri</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Secure Skin Uri</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WEB_ADDRESS__SECURE_CSS_URI = eINSTANCE.getWebAddress_SecureCssUri();
+		EAttribute WEB_ADDRESS__SECURE_SKIN_URI = eINSTANCE.getWebAddress_SecureSkinUri();
 
 		/**
 		 * The meta object literal for the '<em><b>Secure Js Uri</b></em>' attribute feature.

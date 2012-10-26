@@ -31,9 +31,9 @@
         <xsd:documentation>Absolute URI to image files, e.g. http://images.berbatik.com/</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
-    <xsd:attribute name="cssUri" type="xsd:string" use="required">
+    <xsd:attribute name="skinUri" type="xsd:string" use="required">
       <xsd:annotation>
-        <xsd:documentation>Absolute URI to CSS files, e.g. http://css.berbatik.com/</xsd:documentation>
+        <xsd:documentation>Absolute URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
     <xsd:attribute name="jsUri" type="xsd:string" use="required">
@@ -51,9 +51,9 @@
         <xsd:documentation>Absolute URI to secure image files, e.g. https://images.berbatik.com/</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
-    <xsd:attribute name="secureCssUri" type="xsd:string">
+    <xsd:attribute name="secureSkinUri" type="xsd:string">
       <xsd:annotation>
-        <xsd:documentation>Absolute URI to secure CSS files, e.g. https://css.berbatik.com/</xsd:documentation>
+        <xsd:documentation>Absolute secure URI to CSS files and dependencies (sprite images, fonts, etc.), e.g. http://skin.berbatik.com/</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
     <xsd:attribute name="secureJsUri" type="xsd:string"/>

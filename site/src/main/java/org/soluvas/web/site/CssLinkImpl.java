@@ -1,43 +1,54 @@
 package org.soluvas.web.site;
 
+import org.soluvas.web.site.webaddress.WebAddress;
+
 /**
+ * Add a CSS Stylesheet reference.
  * @author ceefour
  */
 @SuppressWarnings("serial")
 public class CssLinkImpl implements CssLink {
 	
-	private String href;
+	private String path;
 	private int weight;
 	
-	public CssLinkImpl() {
+	/**
+	 * 
+	 * @param path
+	 *            The path to the CSS file, relative to
+	 *            {@link WebAddress#getSkinUri()} (without leading slash).
+	 */
+	public CssLinkImpl(String path) {
 		super();
-	}
-	
-	public CssLinkImpl(String href) {
-		super();
-		this.href = href;
+		this.path = path;
 	}
 
-	public CssLinkImpl(String href, int weight) {
+	/**
+	 * 
+	 * @param path
+	 *            The path to the CSS file, relative to
+	 *            {@link WebAddress#getSkinUri()} (without leading slash).
+	 * @param weight
+	 */
+	public CssLinkImpl(String path, int weight) {
 		super();
-		this.href = href;
+		this.path = path;
 		this.weight = weight;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptLink#getHref()
+	 * @see org.soluvas.web.site.JavaScriptLink#getPath()
 	 */
 	@Override
-	public String getHref() {
-		return href;
+	public String getPath() {
+		return path;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptLink#setHref(java.lang.String)
+	 * @see org.soluvas.web.site.JavaScriptLink#setPath(java.lang.String)
 	 */
-	@Override
-	public void setHref(String href) {
-		this.href = href;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	/* (non-Javadoc)
@@ -51,7 +62,6 @@ public class CssLinkImpl implements CssLink {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptLink#setWeight(int)
 	 */
-	@Override
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
@@ -59,8 +69,9 @@ public class CssLinkImpl implements CssLink {
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptLink#toString()
 	 */
+	@Override
 	public String toString() {
-		return String.format("JavaScriptLink [href=%s, weight=%s]", href, weight);
+		return String.format("JavaScriptLink [path=%s, weight=%s]", path, weight);
 	}
 
 }
