@@ -1,7 +1,7 @@
 require(webAddress, modules, shims) ::= <<
 var require = {
     //By default load any module IDs from
-    baseUrl: '/static',
+    baseUrl: '$webAddress.jsUri$',
     //except, if the module ID starts with "app",
     //load it from the js/app directory. paths
     //config is relative to the baseUrl, and

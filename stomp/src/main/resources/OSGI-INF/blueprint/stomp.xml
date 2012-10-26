@@ -18,8 +18,8 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="sockjs"/>
-			<argument value="js/org.soluvas.web.stomp/sockjs-0.3.2"/>
-			<argument value="js/org.soluvas.web.stomp/sockjs-0.3.2.min"/>
+			<argument value="org.soluvas.web.stomp/sockjs-0.3.2"/>
+			<argument value="org.soluvas.web.stomp/sockjs-0.3.2.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -33,7 +33,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="stomp"/>
-			<argument value="js/org.soluvas.web.stomp/stomp"/>
+			<argument value="org.soluvas.web.stomp/stomp"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">

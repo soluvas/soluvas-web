@@ -24,7 +24,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery.notify"/>
-			<argument value="js/org.soluvas.web.jquerynotify/jquery.notify"/>
+			<argument value="org.soluvas.web.jquerynotify/jquery.notify"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
