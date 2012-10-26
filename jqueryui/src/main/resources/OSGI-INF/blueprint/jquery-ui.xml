@@ -79,8 +79,8 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-selectmenu"/>
-			<argument value="jquery-ui/js/jquery.ui.selectmenu"/>
-			<argument value="jquery-ui/js/jquery.ui.selectmenu"/>
+			<argument value="js/org.soluvas.web.jqueryui/jquery.ui.selectmenu"/>
+			<argument value="js/org.soluvas.web.jqueryui/jquery.ui.selectmenu"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
