@@ -4,6 +4,7 @@ package org.soluvas.web.banner;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -111,13 +112,22 @@ public interface BannerPackage extends EPackage {
 	int BANNER__HEIGHT = 4;
 
 	/**
+	 * The feature id for the '<em><b>Image Base</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BANNER__IMAGE_BASE = 5;
+
+	/**
 	 * The number of structural features of the '<em>Banner</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BANNER_FEATURE_COUNT = 5;
+	int BANNER_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.banner.BannerCollection <em>Collection</em>}' class.
@@ -174,6 +184,17 @@ public interface BannerPackage extends EPackage {
 	 * @ordered
 	 */
 	int BANNER_CATALOG_FEATURE_COUNT = BANNER_COLLECTION_FEATURE_COUNT + 0;
+
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.banner.ImageBase <em>Image Base</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.banner.ImageBase
+	 * @see org.soluvas.web.banner.impl.BannerPackageImpl#getImageBase()
+	 * @generated
+	 */
+	int IMAGE_BASE = 3;
 
 
 	/**
@@ -242,6 +263,17 @@ public interface BannerPackage extends EPackage {
 	EAttribute getBanner_Height();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.banner.Banner#getImageBase <em>Image Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Image Base</em>'.
+	 * @see org.soluvas.web.banner.Banner#getImageBase()
+	 * @see #getBanner()
+	 * @generated
+	 */
+	EAttribute getBanner_ImageBase();
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.banner.BannerCatalog <em>Catalog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -271,6 +303,16 @@ public interface BannerPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBannerCollection_Banners();
+
+	/**
+	 * Returns the meta object for enum '{@link org.soluvas.web.banner.ImageBase <em>Image Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Image Base</em>'.
+	 * @see org.soluvas.web.banner.ImageBase
+	 * @generated
+	 */
+	EEnum getImageBase();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -345,6 +387,14 @@ public interface BannerPackage extends EPackage {
 		EAttribute BANNER__HEIGHT = eINSTANCE.getBanner_Height();
 
 		/**
+		 * The meta object literal for the '<em><b>Image Base</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BANNER__IMAGE_BASE = eINSTANCE.getBanner_ImageBase();
+
+		/**
 		 * The meta object literal for the '{@link org.soluvas.web.banner.impl.BannerCatalogImpl <em>Catalog</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -371,6 +421,16 @@ public interface BannerPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BANNER_COLLECTION__BANNERS = eINSTANCE.getBannerCollection_Banners();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.banner.ImageBase <em>Image Base</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.banner.ImageBase
+		 * @see org.soluvas.web.banner.impl.BannerPackageImpl#getImageBase()
+		 * @generated
+		 */
+		EEnum IMAGE_BASE = eINSTANCE.getImageBase();
 
 	}
 

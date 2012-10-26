@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.banner.Banner#getLinkUri <em>Link Uri</em>}</li>
  *   <li>{@link org.soluvas.web.banner.Banner#getWidth <em>Width</em>}</li>
  *   <li>{@link org.soluvas.web.banner.Banner#getHeight <em>Height</em>}</li>
+ *   <li>{@link org.soluvas.web.banner.Banner#getImageBase <em>Image Base</em>}</li>
  * </ul>
  * </p>
  *
@@ -154,5 +155,34 @@ public interface Banner extends EObject {
 	 * @generated
 	 */
 	void setHeight(Integer value);
+
+	/**
+	 * Returns the value of the '<em><b>Image Base</b></em>' attribute.
+	 * The default value is <code>"ABSOLUTE"</code>.
+	 * The literals are from the enumeration {@link org.soluvas.web.banner.ImageBase}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Base of the provided imageUri.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Image Base</em>' attribute.
+	 * @see org.soluvas.web.banner.ImageBase
+	 * @see #setImageBase(ImageBase)
+	 * @see org.soluvas.web.banner.BannerPackage#getBanner_ImageBase()
+	 * @model default="ABSOLUTE"
+	 * @generated
+	 */
+	ImageBase getImageBase();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.banner.Banner#getImageBase <em>Image Base</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Image Base</em>' attribute.
+	 * @see org.soluvas.web.banner.ImageBase
+	 * @see #getImageBase()
+	 * @generated
+	 */
+	void setImageBase(ImageBase value);
 
 } // Banner

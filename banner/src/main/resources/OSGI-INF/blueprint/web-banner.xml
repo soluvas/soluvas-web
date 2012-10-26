@@ -14,4 +14,11 @@
 <!-- 		</command> -->
 	</command-bundle>
 
+	<service auto-export="interfaces">
+		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/static/images/org.soluvas.web.banner"/>
+			<property name="path" value="/images"/>
+		</bean>
+	</service>
+
 </blueprint>

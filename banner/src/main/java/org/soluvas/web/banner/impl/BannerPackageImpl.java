@@ -4,6 +4,7 @@ package org.soluvas.web.banner.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -14,6 +15,7 @@ import org.soluvas.web.banner.BannerCatalog;
 import org.soluvas.web.banner.BannerCollection;
 import org.soluvas.web.banner.BannerFactory;
 import org.soluvas.web.banner.BannerPackage;
+import org.soluvas.web.banner.ImageBase;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,6 +44,13 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * @generated
 	 */
 	private EClass bannerCollectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum imageBaseEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -163,6 +172,15 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getBanner_ImageBase() {
+		return (EAttribute)bannerEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBannerCatalog() {
 		return bannerCatalogEClass;
 	}
@@ -183,6 +201,15 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 */
 	public EReference getBannerCollection_Banners() {
 		return (EReference)bannerCollectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getImageBase() {
+		return imageBaseEEnum;
 	}
 
 	/**
@@ -219,11 +246,15 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 		createEAttribute(bannerEClass, BANNER__LINK_URI);
 		createEAttribute(bannerEClass, BANNER__WIDTH);
 		createEAttribute(bannerEClass, BANNER__HEIGHT);
+		createEAttribute(bannerEClass, BANNER__IMAGE_BASE);
 
 		bannerCatalogEClass = createEClass(BANNER_CATALOG);
 
 		bannerCollectionEClass = createEClass(BANNER_COLLECTION);
 		createEReference(bannerCollectionEClass, BANNER_COLLECTION__BANNERS);
+
+		// Create enums
+		imageBaseEEnum = createEEnum(IMAGE_BASE);
 	}
 
 	/**
@@ -263,14 +294,52 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 		initEAttribute(getBanner_LinkUri(), ecorePackage.getEString(), "linkUri", null, 0, 1, Banner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBanner_Width(), ecorePackage.getEIntegerObject(), "width", null, 0, 1, Banner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBanner_Height(), ecorePackage.getEIntegerObject(), "height", null, 0, 1, Banner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBanner_ImageBase(), this.getImageBase(), "imageBase", "ABSOLUTE", 0, 1, Banner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bannerCatalogEClass, BannerCatalog.class, "BannerCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(bannerCollectionEClass, BannerCollection.class, "BannerCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBannerCollection_Banners(), this.getBanner(), null, "banners", null, 0, -1, BannerCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		// Initialize enums and add enum literals
+		initEEnum(imageBaseEEnum, ImageBase.class, "ImageBase");
+		addEEnumLiteral(imageBaseEEnum, ImageBase.ABSOLUTE);
+		addEEnumLiteral(imageBaseEEnum, ImageBase.IMAGES);
+
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://www.eclipse.org/emf/2002/GenModel
+		createGenModelAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/GenModel</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createGenModelAnnotations() {
+		String source = "http://www.eclipse.org/emf/2002/GenModel";		
+		addAnnotation
+		  (getBanner_ImageBase(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Base of the provided imageUri."
+		   });		
+		addAnnotation
+		  (imageBaseEEnum.getELiterals().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Provided Image URI is an absolute URI."
+		   });		
+		addAnnotation
+		  (imageBaseEEnum.getELiterals().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Provided Image URI is an relative path to site\'s Images URI."
+		   });
 	}
 
 } //BannerPackageImpl

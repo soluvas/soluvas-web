@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.WebPage;
@@ -17,6 +15,8 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.multitenant.TenantRef;
+import org.soluvas.web.site.osgi.WebTenantUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
@@ -41,7 +41,7 @@ public class MultitenantPage extends WebPage {
 	/**
 	 * List of get-ed services (to unget).
 	 */
-	private Map<Field, ServiceReference> serviceRefs = new HashMap<Field, ServiceReference>();
+	private final Map<Field, ServiceReference<?>> serviceRefs = new HashMap<Field, ServiceReference<?>>();
 	
 	public MultitenantPage() {
 		super();
@@ -61,18 +61,9 @@ public class MultitenantPage extends WebPage {
 	}
 	
 	protected void getTenantServices() {
-		Application app = Application.get();
-		final String appKey = app.getApplicationKey();
-		log.debug("Getting Wicket tenant services for page {}, app key={} name={}", 
-				getPageClass().getName(), appKey, app.getName() );
-		
-		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
-		if (!matcher.matches()) {
-			log.error("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
-			throw new RuntimeException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
-		}
-		final String tenantId = matcher.group(1);
-		final String tenantEnv = matcher.group(2);
+		TenantRef tenant = WebTenantUtils.getTenant();
+		final String tenantId = tenant.getTenantId();
+		final String tenantEnv = tenant.getTenantEnv();
 		
 		Class<?> clazz = getClass();
 		List<Field> fields = new ArrayList<Field>();
@@ -92,9 +83,10 @@ public class MultitenantPage extends WebPage {
 			final String namespaceFilter = !Strings.isNullOrEmpty(namespace) ? "(namespace=" + namespace + ")" : ""; 
 			String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + additionalFilter + ")";
 			
-			ServiceReference serviceRef = null;
+			ServiceReference<?> serviceRef = null;
 			try {
-				ServiceReference[] foundRefs = bundleContext.getServiceReferences(className, filter);
+				ServiceReference<?>[] foundRefs = bundleContext
+						.getServiceReferences(className, filter);
 				if (foundRefs == null || foundRefs.length == 0)
 					throw new RuntimeException("Cannot find " + className + " service with filter " + filter);
 				serviceRef = foundRefs[0];
@@ -118,7 +110,7 @@ public class MultitenantPage extends WebPage {
 	}
 
 	protected void ungetTenantServices() {
-		for (Entry<Field, ServiceReference> entry : serviceRefs.entrySet()) {
+		for (Entry<Field, ServiceReference<?>> entry : serviceRefs.entrySet()) {
 			final Field field = entry.getKey();
 			log.trace("Unsetting {}#{}", new Object[] { getPageClass().getName(), field.getName() });
 			final boolean wasAccessible = field.isAccessible();

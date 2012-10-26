@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xsd:schema xmlns:banner="http://www.soluvas.com/schema/web/banner/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.com/schema/web/banner/1.0">
   <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
+  <xsd:simpleType name="ImageBase">
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="absolute">
+        <xsd:annotation>
+          <xsd:documentation>Provided Image URI is an absolute URI.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="images">
+        <xsd:annotation>
+          <xsd:documentation>Provided Image URI is an relative path to site's Images URI.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
   <xsd:complexType name="Banner">
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element ref="xmi:Extension"/>
@@ -12,6 +26,11 @@
     <xsd:attribute name="linkUri" type="xsd:string"/>
     <xsd:attribute name="width" type="xsd:int"/>
     <xsd:attribute name="height" type="xsd:int"/>
+    <xsd:attribute name="imageBase" type="banner:ImageBase">
+      <xsd:annotation>
+        <xsd:documentation>Base of the provided imageUri.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
   </xsd:complexType>
   <xsd:element name="Banner" type="banner:Banner"/>
   <xsd:complexType name="BannerCatalog">

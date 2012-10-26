@@ -7,6 +7,10 @@
         <element xmi:type="ecore:EAttribute" href="banner.ecore#//Banner/imageUri"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_3kb-QRkNEeKrqI1j9oju3Q"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_x2srUB-PEeKXmZ43jpElwQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="banner.ecore#//Banner/imageBase"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_x2tSYB-PEeKXmZ43jpElwQ"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_Bm_BQBkOEeKrqI1j9oju3Q" type="2001">
         <element xmi:type="ecore:EAttribute" href="banner.ecore#//Banner/title"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Bm_BQRkOEeKrqI1j9oju3Q"/>
@@ -67,6 +71,25 @@
     <styles xmi:type="notation:ShapeStyle" xmi:id="_yTQmQRkSEeKrqI1j9oju3Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="banner.ecore#//BannerCollection"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yTRNUBkSEeKrqI1j9oju3Q" x="396" y="60"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_pamowR-PEeKXmZ43jpElwQ" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_paod8B-PEeKXmZ43jpElwQ" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_paod8R-PEeKXmZ43jpElwQ" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_qLU7EB-PEeKXmZ43jpElwQ" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="banner.ecore#//ImageBase/absolute"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_qLU7ER-PEeKXmZ43jpElwQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_rEO5AB-PEeKXmZ43jpElwQ" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="banner.ecore#//ImageBase/images"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_rEO5AR-PEeKXmZ43jpElwQ"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_paod8h-PEeKXmZ43jpElwQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_paod8x-PEeKXmZ43jpElwQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_paod9B-PEeKXmZ43jpElwQ"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_pamowh-PEeKXmZ43jpElwQ" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="banner.ecore#//ImageBase"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pamowx-PEeKXmZ43jpElwQ" x="121" y="200"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_s5LVchkNEeKrqI1j9oju3Q"/>
   <element xmi:type="ecore:EPackage" href="banner.ecore#/"/>

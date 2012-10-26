@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.soluvas.web.banner.Banner;
 import org.soluvas.web.banner.BannerPackage;
+import org.soluvas.web.banner.ImageBase;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +25,7 @@ import org.soluvas.web.banner.BannerPackage;
  *   <li>{@link org.soluvas.web.banner.impl.BannerImpl#getLinkUri <em>Link Uri</em>}</li>
  *   <li>{@link org.soluvas.web.banner.impl.BannerImpl#getWidth <em>Width</em>}</li>
  *   <li>{@link org.soluvas.web.banner.impl.BannerImpl#getHeight <em>Height</em>}</li>
+ *   <li>{@link org.soluvas.web.banner.impl.BannerImpl#getImageBase <em>Image Base</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,6 +131,26 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * @ordered
 	 */
 	protected Integer height = HEIGHT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getImageBase() <em>Image Base</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImageBase()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ImageBase IMAGE_BASE_EDEFAULT = ImageBase.ABSOLUTE;
+
+	/**
+	 * The cached value of the '{@link #getImageBase() <em>Image Base</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImageBase()
+	 * @generated
+	 * @ordered
+	 */
+	protected ImageBase imageBase = IMAGE_BASE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,6 +281,27 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ImageBase getImageBase() {
+		return imageBase;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImageBase(ImageBase newImageBase) {
+		ImageBase oldImageBase = imageBase;
+		imageBase = newImageBase == null ? IMAGE_BASE_EDEFAULT : newImageBase;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BannerPackage.BANNER__IMAGE_BASE, oldImageBase, imageBase));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -272,6 +315,8 @@ public class BannerImpl extends EObjectImpl implements Banner {
 				return getWidth();
 			case BannerPackage.BANNER__HEIGHT:
 				return getHeight();
+			case BannerPackage.BANNER__IMAGE_BASE:
+				return getImageBase();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -298,6 +343,9 @@ public class BannerImpl extends EObjectImpl implements Banner {
 				return;
 			case BannerPackage.BANNER__HEIGHT:
 				setHeight((Integer)newValue);
+				return;
+			case BannerPackage.BANNER__IMAGE_BASE:
+				setImageBase((ImageBase)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -326,6 +374,9 @@ public class BannerImpl extends EObjectImpl implements Banner {
 			case BannerPackage.BANNER__HEIGHT:
 				setHeight(HEIGHT_EDEFAULT);
 				return;
+			case BannerPackage.BANNER__IMAGE_BASE:
+				setImageBase(IMAGE_BASE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,6 +399,8 @@ public class BannerImpl extends EObjectImpl implements Banner {
 				return WIDTH_EDEFAULT == null ? width != null : !WIDTH_EDEFAULT.equals(width);
 			case BannerPackage.BANNER__HEIGHT:
 				return HEIGHT_EDEFAULT == null ? height != null : !HEIGHT_EDEFAULT.equals(height);
+			case BannerPackage.BANNER__IMAGE_BASE:
+				return imageBase != IMAGE_BASE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -372,6 +425,8 @@ public class BannerImpl extends EObjectImpl implements Banner {
 		result.append(width);
 		result.append(", height: ");
 		result.append(height);
+		result.append(", imageBase: ");
+		result.append(imageBase);
 		result.append(')');
 		return result.toString();
 	}
