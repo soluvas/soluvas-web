@@ -10,15 +10,21 @@
 
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/jquery-notify"/>
-			<property name="path" value="/webresources"/>
+			<property name="alias" value="/static/js/org.soluvas.web.jquerynotify"/>
+			<property name="path" value="/js"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/static/skin/org.soluvas.web.jquerynotify"/>
+			<property name="path" value="/skin"/>
 		</bean>
 	</service>
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery.notify"/>
-			<argument value="jquery-notify/jquery.notify"/>
+			<argument value="js/org.soluvas.web.jquerynotify/jquery.notify"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -44,7 +50,7 @@
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
-			<argument value="/static/jquery-notify/ui.notify.css"/>
+			<argument value="/static/skin/org.soluvas.web.jquerynotify/ui.notify.css"/>
 			<argument value="0"/>
 		</bean>
 	</service>
