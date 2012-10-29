@@ -2,38 +2,48 @@
  */
 package org.soluvas.web.site.webaddress;
 
+import java.io.Serializable;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Web Address</b></em>'.
- * <!-- end-user-doc -->
- *
- * <!-- begin-model-doc -->
- * Tenant-wide website URI configuration.
- * <!-- end-model-doc -->
- *
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Web Address</b></em>'. <!-- end-user-doc -->
+ * 
+ * <!-- begin-model-doc --> Tenant-wide website URI configuration. <!--
+ * end-model-doc -->
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getBaseUri <em>Base Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getBasePath <em>Base Path</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getApiPath <em>Api Path</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getImagesUri <em>Images Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSkinUri <em>Skin Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getJsUri <em>Js Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureBaseUri <em>Secure Base Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureImagesUri <em>Secure Images Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureSkinUri <em>Secure Skin Uri</em>}</li>
- *   <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureJsUri <em>Secure Js Uri</em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getBaseUri <em>Base Uri
+ * </em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getBasePath <em>Base
+ * Path</em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getApiPath <em>Api Path
+ * </em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getImagesUri <em>Images
+ * Uri</em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSkinUri <em>Skin Uri
+ * </em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getJsUri <em>Js Uri
+ * </em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureBaseUri <em>
+ * Secure Base Uri</em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureImagesUri <em>
+ * Secure Images Uri</em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureSkinUri <em>
+ * Secure Skin Uri</em>}</li>
+ * <li>{@link org.soluvas.web.site.webaddress.WebAddress#getSecureJsUri <em>
+ * Secure Js Uri</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.soluvas.web.site.webaddress.WebaddressPackage#getWebAddress()
  * @model
- * @generated
+ * @generated NOT
  */
-public interface WebAddress extends EObject {
+public interface WebAddress extends EObject, Serializable {
 	/**
 	 * Returns the value of the '<em><b>Base Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->

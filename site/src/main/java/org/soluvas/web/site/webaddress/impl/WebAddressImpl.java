@@ -3,12 +3,9 @@
 package org.soluvas.web.site.webaddress.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.soluvas.web.site.webaddress.WebAddress;
 import org.soluvas.web.site.webaddress.WebaddressPackage;
 
@@ -259,6 +256,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBaseUri() {
 		return baseUri;
 	}
@@ -268,6 +266,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBaseUri(String newBaseUri) {
 		String oldBaseUri = baseUri;
 		baseUri = newBaseUri;
@@ -280,6 +279,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBasePath() {
 		return basePath;
 	}
@@ -289,6 +289,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBasePath(String newBasePath) {
 		String oldBasePath = basePath;
 		basePath = newBasePath;
@@ -301,6 +302,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getApiPath() {
 		return apiPath;
 	}
@@ -310,6 +312,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setApiPath(String newApiPath) {
 		String oldApiPath = apiPath;
 		apiPath = newApiPath;
@@ -322,6 +325,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getImagesUri() {
 		return imagesUri;
 	}
@@ -331,6 +335,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setImagesUri(String newImagesUri) {
 		String oldImagesUri = imagesUri;
 		imagesUri = newImagesUri;
@@ -343,6 +348,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSkinUri() {
 		return skinUri;
 	}
@@ -352,6 +358,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSkinUri(String newSkinUri) {
 		String oldSkinUri = skinUri;
 		skinUri = newSkinUri;
@@ -364,6 +371,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getJsUri() {
 		return jsUri;
 	}
@@ -373,6 +381,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJsUri(String newJsUri) {
 		String oldJsUri = jsUri;
 		jsUri = newJsUri;
@@ -385,6 +394,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSecureBaseUri() {
 		return secureBaseUri;
 	}
@@ -394,6 +404,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecureBaseUri(String newSecureBaseUri) {
 		String oldSecureBaseUri = secureBaseUri;
 		secureBaseUri = newSecureBaseUri;
@@ -406,6 +417,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSecureImagesUri() {
 		return secureImagesUri;
 	}
@@ -415,6 +427,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecureImagesUri(String newSecureImagesUri) {
 		String oldSecureImagesUri = secureImagesUri;
 		secureImagesUri = newSecureImagesUri;
@@ -427,6 +440,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSecureSkinUri() {
 		return secureSkinUri;
 	}
@@ -436,6 +450,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecureSkinUri(String newSecureSkinUri) {
 		String oldSecureSkinUri = secureSkinUri;
 		secureSkinUri = newSecureSkinUri;
@@ -448,6 +463,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSecureJsUri() {
 		return secureJsUri;
 	}
@@ -457,6 +473,7 @@ public class WebAddressImpl extends EObjectImpl implements WebAddress {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecureJsUri(String newSecureJsUri) {
 		String oldSecureJsUri = secureJsUri;
 		secureJsUri = newSecureJsUri;
