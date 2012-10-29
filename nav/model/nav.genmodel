@@ -2,16 +2,20 @@
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.nav/src/main/java" modelPluginID="org.soluvas.web.nav"
     modelName="Nav" generateSchema="true" importerID="org.eclipse.emf.importer.ecore"
-    bundleManifest="false" complianceLevel="6.0" copyrightFields="false">
+    bundleManifest="false" complianceLevel="6.0" suppressGenModelAnnotations="false"
+    copyrightFields="false" publicConstructors="true">
   <foreignModel>nav.ecore</foreignModel>
   <genPackages prefix="Nav" basePackage="org.soluvas.web" disposableProviderFactory="true"
       contentTypeIdentifier="" ecorePackage="nav.ecore#/">
+    <genDataTypes ecoreDataType="nav.ecore#//Bundle"/>
     <genClasses ecoreClass="nav.ecore#//MenuItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/parentId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/weight"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/bundleName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/bundle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/iconName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//MenuItem/clientPath"/>
     </genClasses>
     <genClasses ecoreClass="nav.ecore#//Menu">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//Menu/id"/>
@@ -22,13 +26,16 @@
     <genClasses ecoreClass="nav.ecore#//MenuCatalog">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference nav.ecore#//MenuCatalog/menus"/>
     </genClasses>
-    <genClasses ecoreClass="nav.ecore#//BookmarkablePageMenuItem">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//BookmarkablePageMenuItem/pageClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference nav.ecore#//BookmarkablePageMenuItem/parameters"/>
+    <genClasses ecoreClass="nav.ecore#//PageMenuItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//PageMenuItem/pageClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference nav.ecore#//PageMenuItem/parameters"/>
     </genClasses>
     <genClasses ecoreClass="nav.ecore#//PageParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//PageParameter/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//PageParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="nav.ecore#//ProcessMenuItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute nav.ecore#//ProcessMenuItem/processId"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

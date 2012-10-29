@@ -5,20 +5,14 @@ package org.soluvas.web.nav.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.soluvas.web.nav.Menu;
 import org.soluvas.web.nav.MenuItem;
 import org.soluvas.web.nav.NavPackage;
@@ -69,11 +63,11 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
 	 */
-	protected MenuImpl() {
+	public MenuImpl() {
 		super();
 	}
 
@@ -92,6 +86,7 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MenuItem> getItems() {
 		if (items == null) {
 			items = new EObjectContainmentEList<MenuItem>(MenuItem.class, this, NavPackage.MENU__ITEMS);
@@ -104,6 +99,7 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -113,6 +109,7 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
