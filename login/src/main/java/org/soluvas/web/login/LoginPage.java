@@ -1,17 +1,28 @@
 package org.soluvas.web.login;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.config.Ini;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.text.IniRealm;
+import org.apache.shiro.subject.Subject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.bootstrap.BootstrapPage;
+
+import com.google.common.base.Supplier;
 
 /**
  * Login form Wicket style no Backbone.
@@ -22,12 +33,34 @@ import org.soluvas.web.bootstrap.BootstrapPage;
 public class LoginPage extends BootstrapPage {
 
 	private transient Logger log = LoggerFactory.getLogger(LoginPage.class);
-	private LoginFormModel loginFormModel = new LoginFormModel();
+	private final LoginFormModel loginFormModel = new LoginFormModel();
+	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
+	private transient SecurityManager securityManager;
+
+	protected void initializeSecurityManager() {
+		Ini ini = new Ini();
+		ini.load(LoginPage.class.getResourceAsStream("default.realm.ini"));
+		IniRealm defaultRealm = new IniRealm(ini);
+
+		securityManager = new DefaultSecurityManager(defaultRealm);
+		SecurityUtils.setSecurityManager(securityManager);
+	}
 
 	public LoginPage() {
 		super();
+
+		initializeSecurityManager();
+
 		final Form<LoginFormModel> loginForm = new Form<LoginFormModel>("loginForm", new Model<LoginFormModel>(loginFormModel));
 		add(loginForm);
+		LoadableDetachableModel<Subject> currentUserModel = new LoadableDetachableModel<Subject>() {
+			@Override
+			protected Subject load() {
+				return subjectSupplier.get();
+			}
+		};
+		loginForm.add(new Label("currentUser", new PropertyModel<String>(
+				currentUserModel, "principal")));
 		loginForm.add(new TextField<String>("username", new PropertyModel<String>(loginFormModel , "username")));
 		loginForm.add(new PasswordTextField("password", new PropertyModel<String>(loginFormModel , "password")));
 		loginForm.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(loginFormModel, "rememberMe")));
@@ -35,7 +68,16 @@ public class LoginPage extends BootstrapPage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				log.info("Processing {}", loginFormModel);
-				target.add(feedbackPanel);
+				target.add(feedbackPanel, loginForm);
+				Subject currentUser = subjectSupplier.get();
+				final UsernamePasswordToken token = new UsernamePasswordToken(
+						loginFormModel.getUsername(), loginFormModel
+								.getPassword().toCharArray());
+				log.debug("Logging in using {}", token);
+				currentUser.login(token);
+				info(String.format("Current user is now %s",
+						currentUser.getPrincipal()));
+				log.debug("Current user is now {}", currentUser.getPrincipal());
 				super.onSubmit(target, form);
 			}
 			

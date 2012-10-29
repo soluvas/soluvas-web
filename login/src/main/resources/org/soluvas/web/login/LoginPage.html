@@ -6,9 +6,11 @@
 
 <wicket:extend>
 
-	<h1>Welcome to {{siteName}}</h1>
-
+	<h1>Login to Bippo Commerce</h1>
+	
 	<form wicket:id="loginForm">
+		<p>You are currently identified as: <span wicket:id="currentUser">[you]</span></p>
+		
 		<div class="control-group">
 			<label class="control-label" for="username">Username</label>
 			<div class="controls"><input wicket:id="username" type="text" id="username" value="{{username}}" placeholder="Username"/></div>
