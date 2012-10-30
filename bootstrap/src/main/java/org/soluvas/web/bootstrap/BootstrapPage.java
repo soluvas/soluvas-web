@@ -107,12 +107,21 @@ public class BootstrapPage extends MultitenantPage {
 		return source;
 	}
 	
-	public String addBackboneModel(String name, String className, Object data) {
+	public <T> String addBackboneModel(String name, String className, T data) {
 		try {
 			ObjectMapper objectMapper = jacksonMapperFactory.get();
 			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
+		}
+	}
+
+	public <T> String addPlainModel(String name, T data) {
+		try {
+			ObjectMapper objectMapper = jacksonMapperFactory.get();
+			return addJsSource(name + " = " + objectMapper.writeValueAsString(data) + ";");
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot serialize model to JSON: " + name + " from " + data, e);
 		}
 	}
 
