@@ -3,7 +3,10 @@ package org.soluvas.web.nav.ui;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -19,6 +22,7 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.service.blueprint.container.ServiceUnavailableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.web.login.LoginPage;
 import org.soluvas.web.nav.Menu;
 import org.soluvas.web.nav.MenuItem;
 import org.soluvas.web.nav.PageMenuItem;
@@ -55,6 +59,7 @@ public class NavMenu extends Panel {
 				final MenuItem menuItem = listItem.getModelObject();
 				listItem.add(new AttributeAppender("id", "navbar-item-" + menuItem.getId()));
 				Label iconComponent = new Label("icon") {
+					@Override
 					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
 						super.onComponentTag(tag);
 						if (menuItem.getIconName() != null)
@@ -103,6 +108,16 @@ public class NavMenu extends Panel {
 				}
 			}
 		} );
+		add(new BookmarkablePageLink<LoginPage>("loginLink", LoginPage.class));
+		add(new AjaxLink<Void>("logoutLink") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				SecurityUtils.getSubject().logout();
+				info("You have been logged out");
+				getRequestCycle().setResponsePage(
+						getApplication().getHomePage());
+			}
+		});
 	}
 
 }

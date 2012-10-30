@@ -1,6 +1,7 @@
 package org.soluvas.web.login;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.Ini;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -49,7 +50,7 @@ public class LoginPage extends BootstrapPage {
 	public LoginPage() {
 		super();
 
-		initializeSecurityManager();
+		// initializeSecurityManager();
 
 		final Form<LoginFormModel> loginForm = new Form<LoginFormModel>("loginForm", new Model<LoginFormModel>(loginFormModel));
 		add(loginForm);
@@ -74,10 +75,18 @@ public class LoginPage extends BootstrapPage {
 						loginFormModel.getUsername(), loginFormModel
 								.getPassword().toCharArray());
 				log.debug("Logging in using {}", token);
-				currentUser.login(token);
-				info(String.format("Current user is now %s",
-						currentUser.getPrincipal()));
-				log.debug("Current user is now {}", currentUser.getPrincipal());
+				try {
+					currentUser.login(token);
+					info(String.format("Current user is now %s",
+							currentUser.getPrincipal()));
+					log.debug("Current user is now {}",
+							currentUser.getPrincipal());
+				} catch (AuthenticationException e) {
+					error(String.format("Invalid credentials for %s",
+							token.getUsername()));
+					log.debug(String.format("Invalid credentials for %s",
+									token.getUsername()), e);
+				}
 				super.onSubmit(target, form);
 			}
 			
