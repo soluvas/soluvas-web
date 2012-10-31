@@ -48,7 +48,7 @@ public class WebTenantUtils {
 		}
 		final String tenantId = matcher.group(1);
 		final String tenantEnv = matcher.group(2);
-		return new TenantRef(tenantId, tenantEnv);
+		return new TenantRef(null, tenantId, tenantEnv);
 	}
 
 	/**

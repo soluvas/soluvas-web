@@ -24,8 +24,14 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.ldap.LdapUtils;
+import org.soluvas.security.Permission;
+import org.soluvas.security.Role;
+import org.soluvas.security.SecurityCatalog;
 
 import com.google.common.base.Function;
+import com.google.common.base.Supplier;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 /**
  * A realm implementation that uses LDAP repository.
@@ -56,6 +62,7 @@ public class SoluvasRealm extends AuthorizingRealm {
 	 * <tt>domainBase</tt>. These will be mapped to Shiro roles.
 	 */
 	private final String groupsRdn = "ou=groups";
+	private final Supplier<SecurityCatalog> securityCatalogSupplier;
 
 	/**
 	 * 
@@ -65,10 +72,12 @@ public class SoluvasRealm extends AuthorizingRealm {
 	 *            LDAP configuration used to perform bind-based authentication.
 	 */
 	public SoluvasRealm(final ObjectPool<LdapConnection> ldapPool,
-			String domainBase, LdapConnectionConfig bindConfig) {
+			String domainBase, LdapConnectionConfig bindConfig,
+			Supplier<SecurityCatalog> securityCatalogSupplier) {
 		super();
 		this.ldapPool = ldapPool;
 		this.domainBase = domainBase;
+		this.securityCatalogSupplier = securityCatalogSupplier;
 		setName(domainBase);
 		CredentialsMatcher cm = new LdapBindCredentialsMatcher(bindConfig,
 				usersRdn + "," + domainBase);
@@ -77,18 +86,22 @@ public class SoluvasRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
-			PrincipalCollection principalCollection) {
+			final PrincipalCollection principalCollection) {
 		final String userName = (String) principalCollection.getPrimaryPrincipal();
-		AuthorizationInfo info = LdapUtils.withConnection(ldapPool, new Function<LdapConnection, AuthorizationInfo>() {
+		Set<String> ldapRoles = LdapUtils.withConnection(ldapPool,
+				new Function<LdapConnection, Set<String>>() {
 			@Override @Nullable
-			public AuthorizationInfo apply(@Nullable LdapConnection ldap) {
+					public Set<String> apply(@Nullable LdapConnection ldap) {
 						try {
 							final Dn userDn = new Dn(new Rdn("uid", userName),
 									new Dn(usersRdn, domainBase));
 							final Dn groupsDn = new Dn(groupsRdn, domainBase);
-							Set<String> roles = LdapUtils.transformSet(
-									ldap.search(groupsDn, "(uniqueMember="
-											+ userDn.getName() + ")",
+							final String memberFilter = "(uniqueMember="
+									+ userDn.getName() + ")";
+							log.debug("Searching for {} in {}", memberFilter,
+									groupsDn.getName());
+							Set<String> roles = LdapUtils.transformSet(ldap
+									.search(groupsDn, memberFilter,
 											SearchScope.ONELEVEL),
 									new Function<Entry, String>() {
 										@Override
@@ -101,25 +114,7 @@ public class SoluvasRealm extends AuthorizingRealm {
 									});
 							log.debug("User {} has {} roles: {}", userName,
 									roles.size(), roles);
-							SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-							info.addRoles(roles);
-
-							// TODO: permissions should be set somewhere else,
-							// using EMF models
-							if (roles.contains("admin")) {
-								info.addStringPermission("mall:*:*");
-								info.addStringPermission("shop:*:*");
-								info.addStringPermission("product:*:*");
-								info.addStringPermission("person:*:*");
-								info.addStringPermission("comment:*:*");
-								info.addStringPermission("story:*:*");
-								info.addStringPermission("like:*:*");
-								info.addStringPermission("salesorder:*:*");
-							}
-
-							// TODO: resource-level roles
-
-							return info;
+							return roles;
 						} catch (Exception e) {
 							log.error("Cannot get authorization info for "
 									+ userName, e);
@@ -129,6 +124,64 @@ public class SoluvasRealm extends AuthorizingRealm {
 				}
 			}
 		});
+
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		info.addRoles(ldapRoles);
+
+		// TODO: permissions should be set somewhere else,
+		// using EMF models
+
+		SecurityCatalog securityCatalog = securityCatalogSupplier.get();
+		log.debug(
+				"Processing security catalog for {} with {} roles, {} domains, {} actions, and {} permissions",
+				userName, securityCatalog.getRoles().size(), securityCatalog
+						.getDomains().size(), securityCatalog.getActions()
+						.size(), securityCatalog.getPermissions().size());
+
+		for (Role role : securityCatalog.getRoles()) {
+			switch (role.getAssignMode()) {
+			case GUEST:
+				log.debug("Assigning role {} to {} because assign mode {}",
+						role.getName(), userName, role.getAssignMode());
+				info.addRole(role.getName());
+				break;
+			case AUTHENTICATED:
+				if (!principalCollection.isEmpty()) {
+					log.debug(
+							"Assigning role {} to {} because assign mode {} and principals={}",
+							role.getName(), userName, role.getAssignMode(),
+							principalCollection);
+					info.addRole(role.getName());
+				}
+				break;
+			case MANUAL:
+				break;
+			}
+		}
+
+		for (Permission perm : securityCatalog.getPermissions()) {
+			Set<String> intersectingRoles = Sets.intersection(info.getRoles(),
+					ImmutableSet.copyOf(perm.getRoles()));
+			if (!intersectingRoles.isEmpty()) {
+				log.debug("Assigning permission {} to {} due to role(s) {}",
+						perm.toStringPermission(), userName, intersectingRoles);
+				info.addStringPermission(perm.toStringPermission());
+			}
+		}
+
+		if (info.getRoles().contains("admin")) {
+			info.addStringPermission("mall:*:*");
+			info.addStringPermission("shop:*:*");
+			info.addStringPermission("product:*:*");
+			info.addStringPermission("person:*:*");
+			info.addStringPermission("comment:*:*");
+			info.addStringPermission("story:*:*");
+			info.addStringPermission("like:*:*");
+			info.addStringPermission("salesorder:*:*");
+		}
+
+		// TODO: resource-level roles
+
 		return info;
 	}
 

@@ -22,9 +22,11 @@
 	</command-bundle>
 
 	<reference id="ldapPool" interface="org.apache.commons.pool.ObjectPool"
-		filter="(&amp;(tenantEnv=dev)(namespace=ldap))"/>
+		filter="(&amp;(tenantId=berbatik)(tenantEnv=dev)(namespace=ldap))"/>
 	<reference id="ldapConfigSupplier" interface="com.google.common.base.Supplier"
 		filter="(suppliedClass=org.apache.directory.ldap.client.api.LdapConnectionConfig)" />
+	<reference id="siteCatalogSupplier" interface="com.google.common.base.Supplier"
+		filter="(&amp;(tenantId=berbatik)(tenantEnv=dev)(suppliedClass=org.soluvas.security.SecurityCatalog))" />
 
 	<bean id="shiroRealm" class="org.soluvas.web.login.SoluvasRealm" init-method="init">
 		<argument ref="ldapPool" />
@@ -32,6 +34,7 @@
 		<argument>
 			<bean factory-ref="ldapConfigSupplier" factory-method="get" />
 		</argument>
+		<argument ref="siteCatalogSupplier" />
 	</bean>
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
@@ -43,7 +46,7 @@
 		<property name="securityManager" ref="securityManager" />
 	</bean>
 
-	<bean id="securityFilter" class="com.hendyirawan.paxwicketshiro.app.filter.DelegatingFilterFactory"
+	<bean id="securityFilter" class="org.soluvas.web.login.DelegatingFilterFactory"
 		init-method="register" activation="eager">
 		<argument ref="blueprintBundleContext" />
 		<argument value="berbatik_dev" />				<!-- Wicket application name -->

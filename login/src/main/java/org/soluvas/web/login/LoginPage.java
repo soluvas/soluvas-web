@@ -81,6 +81,8 @@ public class LoginPage extends BootstrapPage {
 							currentUser.getPrincipal()));
 					log.debug("Current user is now {}",
 							currentUser.getPrincipal());
+					log.info("Permitted to edit person? {}",
+							currentUser.isPermitted("person:edit:*"));
 				} catch (AuthenticationException e) {
 					error(String.format("Invalid credentials for %s",
 							token.getUsername()));
