@@ -17,12 +17,6 @@
 
 	<dependencies>
 		<dependency>
-			<!-- TODO: move this somewhere -->
-			<groupId>com.soluvas</groupId>
-			<artifactId>com.soluvas.cxf</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.site</artifactId>
 		</dependency>

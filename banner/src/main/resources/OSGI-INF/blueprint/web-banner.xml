@@ -6,12 +6,6 @@
 	<bean class="org.soluvas.web.banner.util.EmfUnloader" destroy-method="destroy"/>
 
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
-		<!-- Multitenant -->
-<!-- 		<command name="jaxrs/ls"> -->
-<!-- 			<action class="com.soluvas.cxf.shell.JaxrsLsCommand"> -->
-<!-- 				<argument ref="jaxrsManagers"/> -->
-<!-- 			</action> -->
-<!-- 		</command> -->
 	</command-bundle>
 
 	<service auto-export="interfaces">
