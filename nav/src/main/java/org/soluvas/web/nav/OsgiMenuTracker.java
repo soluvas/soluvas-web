@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
-import jline.internal.Nullable;
+import javax.annotation.Nullable;
 
 import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;

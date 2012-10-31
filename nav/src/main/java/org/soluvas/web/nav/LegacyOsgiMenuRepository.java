@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import jline.internal.Nullable;
+import javax.annotation.Nullable;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;

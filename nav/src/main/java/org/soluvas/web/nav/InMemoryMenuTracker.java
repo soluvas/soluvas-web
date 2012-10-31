@@ -6,7 +6,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
-import jline.internal.Nullable;
+import javax.annotation.Nullable;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
