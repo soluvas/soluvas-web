@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.nav</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -163,6 +162,12 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
+						<Import-Package>
+							org.apache.felix.service.command;resolution:=optional,
+							org.apache.felix.gogo.commands;resolution:=optional,
+							org.apache.karaf.shell.console;resolution:=optional,
+							*
+						</Import-Package> 
 					</instructions>
 				</configuration>
 			</plugin>
