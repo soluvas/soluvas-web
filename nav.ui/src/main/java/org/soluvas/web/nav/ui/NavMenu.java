@@ -54,6 +54,7 @@ public class NavMenu extends Panel {
 			}
 		};
 		add( new ListView<MenuItem>("nav", menuItemsModel) {
+			@SuppressWarnings("unchecked")
 			@Override
 			protected void populateItem(ListItem<MenuItem> listItem) {
 				final MenuItem menuItem = listItem.getModelObject();
@@ -75,12 +76,12 @@ public class NavMenu extends Panel {
 					try {
 						log.debug("Loading Page class {} from bundle {} for menu item {}", new Object[] {
 								pageMi.getPageClass(), menuItem.getBundle(), pageMi.getId() });
-						pageClass = menuItem.getBundle().loadClass(pageMi.getPageClass());
+						pageClass = (Class<Page>) menuItem.getBundle().loadClass(pageMi.getPageClass());
 						PageParameters pagePars = new PageParameters();
 						for (Entry<String, String> param : pageMi.getParameters()) {
 							pagePars.add(param.getKey(), param.getValue());
 						}
-						BookmarkablePageLink link = new BookmarkablePageLink<Page>("link", pageClass, pagePars);
+						BookmarkablePageLink<Page> link = new BookmarkablePageLink<Page>("link", pageClass, pagePars);
 						link.add(iconComponent);
 						link.add(label);
 						listItem.add(link);

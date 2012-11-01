@@ -14,7 +14,6 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.service.blueprint.container.ServiceUnavailableException;
@@ -46,11 +45,13 @@ public class SidebarNav extends Panel {
 		};
 		add( new Label("menuLabel", model.getObject().getId() ));
 		add( new ListView<MenuItem>("menuItems", menuItemsModel) {
+			@SuppressWarnings("unchecked")
 			@Override
 			protected void populateItem(ListItem<MenuItem> listItem) {
 				final MenuItem menuItem = listItem.getModelObject();
 				listItem.add(new AttributeAppender("id", "sidebar-nav-item-" + menuItem.getId()));
 				final Label icon = new Label("icon") {
+					@Override
 					protected void onComponentTag(org.apache.wicket.markup.ComponentTag tag) {
 						super.onComponentTag(tag);
 						if (menuItem.getIconName() != null)
@@ -64,7 +65,7 @@ public class SidebarNav extends Panel {
 					try {
 						log.debug("Loading Page class {} from bundle {} for menu item {}", new Object[] {
 								pageMi.getPageClass(), menuItem.getBundle(), pageMi.getId() });
-						pageClass = menuItem.getBundle().loadClass(pageMi.getPageClass());
+						pageClass = (Class<Page>) menuItem.getBundle().loadClass(pageMi.getPageClass());
 						PageParameters pagePars = new PageParameters();
 						for (Entry<String, String> param : pageMi.getParameters()) {
 							pagePars.add(param.getKey(), param.getValue());
