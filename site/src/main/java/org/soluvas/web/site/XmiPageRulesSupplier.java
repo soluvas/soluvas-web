@@ -18,8 +18,8 @@ import com.google.common.collect.ImmutableList;
 @Deprecated
 public class XmiPageRulesSupplier implements PageRulesSupplier {
 
-	private Class<?> loaderClass;
-	private String path;
+	private final Class<?> loaderClass;
+	private final String path;
 	
 	public XmiPageRulesSupplier(Class<?> loaderClass, String path) {
 		super();
@@ -30,7 +30,7 @@ public class XmiPageRulesSupplier implements PageRulesSupplier {
 	@Override
 	public List<PageRule> get() {
 		XmiObjectLoader<PageRuleCollection> pageRuleCollectionLoader = new XmiObjectLoader<PageRuleCollection>(
-				PageMetaPackage.class, loaderClass, path);
+				PageMetaPackage.eINSTANCE, loaderClass, path);
 		PageRuleCollection pageRuleCollection = pageRuleCollectionLoader.get();
 		return ImmutableList.copyOf( pageRuleCollection.getRules() );
 	}
