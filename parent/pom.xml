@@ -243,6 +243,24 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		
+		<!-- Until these artifacts are published on Maven Central -->
+		<repository>
+			<id>orgosgi-003</id>
+			<name>orgosgi-003</name>
+			<url>https://oss.sonatype.org/content/repositories/orgosgi-003/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>orgosgi-004</id>
+			<name>orgosgi-004</name>
+			<url>https://oss.sonatype.org/content/repositories/orgosgi-004/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<distributionManagement>
