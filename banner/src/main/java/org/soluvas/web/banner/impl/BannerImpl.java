@@ -3,12 +3,9 @@
 package org.soluvas.web.banner.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.soluvas.web.banner.Banner;
 import org.soluvas.web.banner.BannerPackage;
 import org.soluvas.web.banner.ImageBase;
@@ -32,6 +29,9 @@ import org.soluvas.web.banner.ImageBase;
  * @generated
  */
 public class BannerImpl extends EObjectImpl implements Banner {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The default value of the '{@link #getImageUri() <em>Image Uri</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -176,6 +176,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getImageUri() {
 		return imageUri;
 	}
@@ -185,6 +186,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setImageUri(String newImageUri) {
 		String oldImageUri = imageUri;
 		imageUri = newImageUri;
@@ -197,6 +199,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTitle() {
 		return title;
 	}
@@ -206,6 +209,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTitle(String newTitle) {
 		String oldTitle = title;
 		title = newTitle;
@@ -218,6 +222,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLinkUri() {
 		return linkUri;
 	}
@@ -227,6 +232,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLinkUri(String newLinkUri) {
 		String oldLinkUri = linkUri;
 		linkUri = newLinkUri;
@@ -239,6 +245,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Integer getWidth() {
 		return width;
 	}
@@ -248,6 +255,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWidth(Integer newWidth) {
 		Integer oldWidth = width;
 		width = newWidth;
@@ -260,6 +268,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Integer getHeight() {
 		return height;
 	}
@@ -269,6 +278,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeight(Integer newHeight) {
 		Integer oldHeight = height;
 		height = newHeight;
@@ -281,6 +291,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImageBase getImageBase() {
 		return imageBase;
 	}
@@ -290,6 +301,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setImageBase(ImageBase newImageBase) {
 		ImageBase oldImageBase = imageBase;
 		imageBase = newImageBase == null ? IMAGE_BASE_EDEFAULT : newImageBase;

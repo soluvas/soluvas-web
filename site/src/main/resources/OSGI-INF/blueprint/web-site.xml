@@ -9,7 +9,15 @@
         http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
-	<bean class="org.soluvas.web.site.util.EmfUnloader" destroy-method="destroy" />
+	<bean class="org.soluvas.commons.EmfUnloader" destroy-method="destroy">
+		<argument>
+			<array>
+				<value>org.soluvas.web.site.SitePackage</value>
+				<value>org.soluvas.web.site.pagemeta.PageMetaPackage</value>
+				<value>org.soluvas.web.site.webaddress.WebaddressPackage</value>
+			</array>
+		</argument>
+	</bean>
 
 	<!-- TODO: For multitenant installations, replace with ManagedServiceFactory, when Aries Blueprint fixed its ARIES-584 bug -->
 <!-- 	<cm:managed-service-factory factory-pid="org.soluvas.web.site" auto-export="interfaces"> -->

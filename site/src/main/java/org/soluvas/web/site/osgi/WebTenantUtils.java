@@ -19,7 +19,6 @@ import org.soluvas.commons.tenant.TenantRef;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
-
 /**
  * Pax Wicket and OSGi tenant-aware utilities.
  * 
@@ -115,5 +114,5 @@ public class WebTenantUtils {
 			bundleContext.ungetService(supplierRef);
 		}
 	}
-
+	
 }
