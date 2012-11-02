@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-json</artifactId>
+			<artifactId>org.soluvas.json</artifactId>
 		</dependency>
 
 		<dependency>

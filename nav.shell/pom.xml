@@ -23,7 +23,7 @@
 
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-async</artifactId>
+			<artifactId>org.soluvas.async</artifactId>
 		</dependency>
 		
 		<dependency>
@@ -34,7 +34,7 @@
 		<!--
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-image-store</artifactId>
+			<artifactId>org.soluvas.image</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
@@ -45,12 +45,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-cdi</artifactId>
+			<artifactId>org.soluvas.cdi</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-ldap</artifactId>
+			<artifactId>org.soluvas.ldap</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
@@ -62,7 +62,7 @@
 		-->
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-push</artifactId>
+			<artifactId>org.soluvas.push</artifactId>
 		</dependency>
 
 		<!-- 

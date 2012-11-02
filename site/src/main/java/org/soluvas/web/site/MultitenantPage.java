@@ -15,7 +15,7 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.multitenant.TenantRef;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.web.site.osgi.WebTenantUtils;
 
 import com.google.common.base.Optional;

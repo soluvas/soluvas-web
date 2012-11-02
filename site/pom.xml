@@ -18,15 +18,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-multitenant</artifactId>
+			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-commons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-jaxrs</artifactId>
+			<artifactId>org.soluvas.jaxrs</artifactId>
 		</dependency>
 
 		<dependency>
@@ -87,7 +83,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-json</artifactId>
+			<artifactId>org.soluvas.json</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>

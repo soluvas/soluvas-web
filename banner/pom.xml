@@ -21,11 +21,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-commons</artifactId>
+			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>soluvas-json</artifactId>
+			<artifactId>org.soluvas.json</artifactId>
 			<scope>test</scope>
 		</dependency>
 		
