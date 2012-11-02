@@ -161,13 +161,4 @@
 		</plugins>
 	</build>
 	
-	<profiles>
-		<profile>
-			<id>osgi</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
-
 </project>
