@@ -28,12 +28,25 @@
 	<reference id="securityCatalogSupplier" interface="com.google.common.base.Supplier"
 		filter="(&amp;(tenantId=berbatik)(tenantEnv=dev)(suppliedClass=org.soluvas.security.SecurityCatalog))" />
 
+	<bean id="rolePersonAssoc" class="org.soluvas.ldap.LdapRolePersonAssoc">
+		<argument ref="ldapPool" />
+		<argument value="dc=dev,dc=berbatik,dc=com" />
+	</bean>
+	<service ref="rolePersonAssoc" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="berbatik" />
+			<entry key="tenantId" value="berbatik" />
+			<entry key="tenantEnv" value="dev" />
+			<entry key="namespace" value="role-person" />
+		</service-properties>
+	</service>
 	<bean id="securityRepo" class="org.soluvas.security.ldap.LdapSecurityRepository">
 		<argument ref="ldapPool" />
 		<argument value="dc=dev,dc=berbatik,dc=com" />
 		<argument>
 			<bean factory-ref="ldapConfigSupplier" factory-method="get" />
 		</argument>
+		<argument ref="rolePersonAssoc" />
 	</bean>
 	<service ref="securityRepo" auto-export="interfaces">
 		<service-properties>

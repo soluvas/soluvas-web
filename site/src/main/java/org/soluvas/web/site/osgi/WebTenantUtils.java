@@ -19,6 +19,7 @@ import org.soluvas.commons.tenant.TenantRef;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
+
 /**
  * Pax Wicket and OSGi tenant-aware utilities.
  * 
@@ -61,10 +62,10 @@ public class WebTenantUtils {
 	 */
 	public static <T> ServiceReference<T> getService(@Nonnull Class<T> iface,
 			@Nullable String namespace, @Nullable String filter) {
-		BundleContext bundleContext = FrameworkUtil.getBundle(
+		final BundleContext bundleContext = FrameworkUtil.getBundle(
 				WebTenantUtils.class).getBundleContext();
 
-		TenantRef tenant = getTenant();
+		final TenantRef tenant = getTenant();
 		final String tenantId = tenant.getTenantId();
 		final String tenantEnv = tenant.getTenantEnv();
 		
@@ -80,14 +81,13 @@ public class WebTenantUtils {
 		String realFilter = "(&(tenantId=" + tenantId + ")(tenantEnv="
 				+ tenantEnv + ")" + namespaceFilter + additionalFilter + ")";
 
-		ServiceReference<T> serviceRef = null;
 		try {
 			Collection<ServiceReference<T>> foundRefs = bundleContext
 					.getServiceReferences(iface, realFilter);
 			if (foundRefs == null || foundRefs.isEmpty())
 				throw new RuntimeException("Cannot find " + className
 						+ " service with filter " + realFilter);
-			serviceRef = foundRefs.iterator().next();
+			final ServiceReference<T> serviceRef = foundRefs.iterator().next();
 			return serviceRef;
 		} catch (InvalidSyntaxException e) {
 			throw new RuntimeException("Cannot find " + className
@@ -103,11 +103,11 @@ public class WebTenantUtils {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T getSupplied(@Nonnull Class<T> clazz) {
-		ServiceReference<Supplier> supplierRef = getService(
+		final ServiceReference<Supplier> supplierRef = getService(
 				Supplier.class, null, "(suppliedClass=" + clazz.getName() + ")");
-		BundleContext bundleContext = FrameworkUtil.getBundle(
+		final BundleContext bundleContext = FrameworkUtil.getBundle(
 				WebTenantUtils.class).getBundleContext();
-		Supplier<T> supplier = bundleContext.getService(supplierRef);
+		final Supplier<T> supplier = bundleContext.getService(supplierRef);
 		try {
 			return supplier.get();
 		} finally {

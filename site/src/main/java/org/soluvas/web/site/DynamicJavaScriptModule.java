@@ -1,8 +1,5 @@
 package org.soluvas.web.site;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.soluvas.jaxrs.JaxrsUtils;
 import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.google.common.base.Optional;
@@ -19,8 +16,8 @@ import com.google.common.base.Supplier;
 @SuppressWarnings("serial")
 public class DynamicJavaScriptModule implements JavaScriptModule {
 
-	private String name;
-	private String relativePath;
+	private final String name;
+	private final String relativePath;
 	
 	/**
 	 * Creates a dynamic {@link JavaScriptModule}. The path is relative to API path, e.g. from <tt>/cxf/api/</tt>
@@ -47,8 +44,6 @@ public class DynamicJavaScriptModule implements JavaScriptModule {
 	 */
 	@Override
 	public String getPath() {
-		BundleContext bundleContext = FrameworkUtil.getBundle(DynamicJavaScriptModule.class).getBundleContext();
-		// TODO: get tenant info
 		return relativePath;
 	}
 	
