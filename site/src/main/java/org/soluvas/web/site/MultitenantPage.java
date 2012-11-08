@@ -41,7 +41,7 @@ public class MultitenantPage extends WebPage {
 	/**
 	 * List of get-ed services (to unget).
 	 */
-	private final Map<Field, ServiceReference<?>> serviceRefs = new HashMap<Field, ServiceReference<?>>();
+	private transient final Map<Field, ServiceReference<?>> serviceRefs = new HashMap<Field, ServiceReference<?>>();
 	
 	public MultitenantPage() {
 		super();
