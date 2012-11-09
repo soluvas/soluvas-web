@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +85,7 @@ public class BootstrapPage extends MultitenantPage {
 	@TenantService(filter="(suppliedClass=org.soluvas.web.site.webaddress.WebAddress)")
 	private transient Supplier<WebAddress> webAddressSupplier;
 	
-	private Map<String, String> dependencies = ImmutableMap.of();
+	private Map<String, String> dependencies = new HashMap<String, String>();
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	private final List<String> pageJavaScriptSources = new ArrayList<String>();
 
@@ -138,8 +139,8 @@ public class BootstrapPage extends MultitenantPage {
 		return dependencies;
 	}
 
-	public void setDependencies(Map<String, String> dependencies) {
-		this.dependencies = dependencies;
+	public void addDependencies(Map<String, String> dependencies) {
+		this.dependencies.putAll(dependencies);
 	}
 
 	@Override
