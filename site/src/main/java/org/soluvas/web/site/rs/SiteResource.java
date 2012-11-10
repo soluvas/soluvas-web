@@ -9,18 +9,15 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.commons.tenant.TenantUtils;
 import org.soluvas.jaxrs.JaxrsUtils;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.web.site.webaddress.WebAddress;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
-
-import com.google.common.base.Supplier;
 
 /**
  * Provides {@link WebAddress}.
@@ -43,23 +40,9 @@ public class SiteResource {
 	@GET @Path("webAddress.js")
 	@Produces("text/javascript")
 	public String getImageConfigs() {
-		final WebAddress webAddress;
-		
-		TenantRef tenant = JaxrsUtils.getTenant(uriInfo);
-		final String filter = String.format("(&(suppliedClass=%s)(tenantId=%s)(tenantEnv=%s)",
-				WebAddress.class.getName(), tenant.getTenantId(), tenant.getTenantEnv());
-		try {
-			ServiceReference<Supplier> ref = bundleContext.getServiceReferences(Supplier.class, filter).iterator().next();
-			Supplier<WebAddress> webAddressSupplier = bundleContext.getService(ref);
-			try {
-				webAddress = webAddressSupplier.get();
-			} finally {
-				bundleContext.ungetService(ref);
-			}
-		} catch (InvalidSyntaxException e) {
-			throw new RuntimeException("Cannot get Supplier with filter " + filter, e);
-		}
-		
+		final TenantRef tenant = JaxrsUtils.getTenant(uriInfo);
+		final WebAddress webAddress = TenantUtils.getSupplied(bundleContext, tenant, WebAddress.class);
+
 		URL stgUrl = SiteResource.class.getResource("webAddress.stg");
 		STGroupFile stg = new STGroupFile(stgUrl, "UTF-8", '~', '~');
 		ST configsSt = stg.getInstanceOf("webAddress");

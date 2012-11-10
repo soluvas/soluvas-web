@@ -2,6 +2,45 @@ h1. Soluvas Web Site
 
 h2. Creating a Web Site
 
+h3. WebAddress Supplier
+
+Spring-DM as follows:
+
+bc.. <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
+
+	<osgix:cm-properties id="cmProps" persistent-id="berbatik">
+	</osgix:cm-properties>
+	<ctx:property-placeholder properties-ref="cmProps" />
+
+	<bean id="xmiWebAddressSupplier" class="org.soluvas.commons.XmiObjectLoader">
+		<constructor-arg value="org.soluvas.web.site.webaddress.WebaddressPackage" />
+		<constructor-arg value="org.soluvas.web.site.TenantService" />
+		<constructor-arg value="default.WebAddress.xmi" />
+	</bean>
+	<osgi:service ref="xmiWebAddressSupplier" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="${clientId}"/>
+			<entry key="tenantEnv" value="${tenantEnv}"/>
+			<entry key="tenantId" value="${tenantId}"/>
+			<entry key="suppliedClass" value="org.soluvas.web.site.webaddress.WebAddress" />
+			<entry key="layer" value="application" />
+		</service-properties>
+	</osgi:service>
+
+</beans>
+
+
+h3. Site interface (Deprecated)
+
 By default, a dummy website is configured. To change the title etc. create a file @org.soluvas.web.site.cfg@
 and put in @karaf/etc@ folder (deploy folder works too, but I think /etc is "safer", besides
 "Karaf ConfigAdmin tutorial":http://www.liquid-reality.de/display/liquid/2011/09/23/Karaf+Tutorial+Part+2+-+Using+the+Configuration+Admin+Service uses @etc@ folder). Example content:
