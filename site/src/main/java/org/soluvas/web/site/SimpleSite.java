@@ -7,12 +7,15 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
+import org.soluvas.web.site.webaddress.WebAddress;
 
 /**
  * @author ceefour
- *
+ * @deprecated Will be replaced by {@link AppManifest}, {@link WebAddress} and other EMF models.
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class SimpleSite implements Site, ManagedService {
 
 	private transient Logger log = LoggerFactory.getLogger(SimpleSite.class);
@@ -126,18 +129,22 @@ public class SimpleSite implements Site, ManagedService {
 		}
 	}
 
+	@Override
 	public String getFooterHtml() {
 		return footerHtml;
 	}
 
+	@Override
 	public void setFooterHtml(String footerHtml) {
 		this.footerHtml = footerHtml;
 	}
 
+	@Override
 	public String getFaviconUri() {
 		return faviconUri;
 	}
 
+	@Override
 	public void setFaviconUri(String faviconUri) {
 		this.faviconUri = faviconUri;
 	}

@@ -2,13 +2,19 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+import org.soluvas.commons.AppManifest;
+import org.soluvas.web.site.pagemeta.PageRule;
+import org.soluvas.web.site.webaddress.WebAddress;
+
 /**
  * This is for branding only, not for web page rendering.
  * 
  * For web page rendering metadata, please use {@link Page} and {@link PageRule} suppliers.
  * 
  * @author ceefour
+ * @deprecated Will be replaced by {@link AppManifest}, {@link WebAddress} and other EMF models.
  */
+@Deprecated
 public interface Site extends Serializable {
 
 	String getSiteTitle();
@@ -31,6 +37,7 @@ public interface Site extends Serializable {
 
 	void setLogoAlt(String logoAlt);
 
+	@Override
 	String toString();
 
 	String getFooterHtml();
