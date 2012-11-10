@@ -146,7 +146,9 @@
 	<!-- 						net.sf.cglib.proxy;version="[2,3)", -->
 	<!-- 						net.sf.cglib.core;version="[2,3)", -->
 	<!-- 						net.sf.cglib.reflect;version="[2,3)",*</Import-Package> -->
-						<Import-Package>*, javax.servlet,javax.servlet.http,
+						<Import-Package>*,
+							org.apache.wicket,
+							javax.servlet, javax.servlet.http,
 							org.ops4j.pax.wicket.util.proxy,
 							net.sf.cglib.proxy;version="[2,3)",
 							net.sf.cglib.core;version="[2,3)",
@@ -154,8 +156,6 @@
               				org.apache.felix.service.command;resolution:=optional, 
                             org.apache.felix.gogo.commands;resolution:=optional 							
 						</Import-Package>
-<!-- 						<Require-Bundle>org.ops4j.pax.wicket.service, -->
-<!-- 							com.typesafe.config, com.typesafe.akka.actor, org.scala-ide.scala.library</Require-Bundle> -->
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
 					</instructions>
 				</configuration>

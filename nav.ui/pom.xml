@@ -94,6 +94,7 @@
 	<!-- 						net.sf.cglib.core;version="[2,3)", -->
 	<!-- 						net.sf.cglib.reflect;version="[2,3)",*</Import-Package> -->
 						<Import-Package>
+							org.apache.wicket,
 							org.soluvas.web.nav.impl,
 							javax.servlet,javax.servlet.http,
 							org.ops4j.pax.wicket.util.proxy,
@@ -101,8 +102,6 @@
 							net.sf.cglib.core;version="[2,3)",
 							net.sf.cglib.reflect;version="[2,3)",
 							*</Import-Package>
-<!-- 						<Require-Bundle>org.ops4j.pax.wicket.service, -->
-<!-- 							com.typesafe.config, com.typesafe.akka.actor, org.scala-ide.scala.library</Require-Bundle> -->
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
 					</instructions>
 				</configuration>
