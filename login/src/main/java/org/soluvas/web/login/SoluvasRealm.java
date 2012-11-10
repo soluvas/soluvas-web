@@ -39,12 +39,10 @@ public class SoluvasRealm extends AuthorizingRealm {
 
 	/**
 	 * 
-	 * @param ldapPool
-	 * @param domainBase
-	 * @param bindConfig
-	 *            LDAP configuration used to perform bind-based authentication.
+	 * @param securityCatalogSupplier Why not generics? See https://issues.apache.org/jira/browse/ARIES-960
+	 * @param securityRepo
 	 */
-	public SoluvasRealm(Supplier<SecurityCatalog> securityCatalogSupplier,
+	public SoluvasRealm(Supplier securityCatalogSupplier,
 			SecurityRepository securityRepo) {
 		super();
 		this.securityCatalogSupplier = securityCatalogSupplier;
