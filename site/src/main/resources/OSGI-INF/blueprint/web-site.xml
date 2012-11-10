@@ -84,7 +84,7 @@
 	</command-bundle>
 	
 	<bean id="siteRs" class="org.soluvas.web.site.rs.SiteResource">
-		<argument ref="xmiWebAddressSupplier" />
+		<argument ref="blueprintBundleContext" />
 	</bean>
 	<service auto-export="interfaces">
 		<service-properties>
