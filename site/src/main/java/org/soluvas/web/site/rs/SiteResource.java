@@ -36,7 +36,6 @@ public class SiteResource {
 		this.bundleContext = bundleContext;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GET @Path("webAddress.js")
 	@Produces("text/javascript")
 	public String getImageConfigs() {
