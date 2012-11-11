@@ -12,11 +12,11 @@
 	<bean class="org.soluvas.commons.EmfUnloader" init-method="init" destroy-method="destroy">
 		<argument ref="blueprintBundleContext" />
 		<argument>
-			<array>
+			<list value-type="java.lang.Class">
 				<value>org.soluvas.web.site.SitePackage</value>
 				<value>org.soluvas.web.site.pagemeta.PageMetaPackage</value>
 				<value>org.soluvas.web.site.webaddress.WebaddressPackage</value>
-			</array>
+			</list>
 		</argument>
 	</bean>
 
