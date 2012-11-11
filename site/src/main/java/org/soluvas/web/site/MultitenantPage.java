@@ -88,10 +88,12 @@ public class MultitenantPage extends WebPage {
 				ServiceReference<?>[] foundRefs = bundleContext
 						.getServiceReferences(className, filter);
 				if (foundRefs == null || foundRefs.length == 0)
-					throw new RuntimeException("Cannot find " + className + " service with filter " + filter);
+					throw new RuntimeException("Cannot inject " + getPageClass().getName() + "#" + field.getName() + ", " +
+							className + " service with filter " + filter + " not found");
 				serviceRef = foundRefs[0];
 			} catch (InvalidSyntaxException e) {
-				throw new RuntimeException("Cannot find " + className + " service with filter " + filter, e);
+				throw new RuntimeException("Cannot inject " + getPageClass().getName() + "#" + field.getName() + ", invalid " +
+						className + " service with filter " + filter, e);
 			}
 			Object bean = bundleContext.getService(serviceRef);
 			serviceRefs.put(field, serviceRef);
