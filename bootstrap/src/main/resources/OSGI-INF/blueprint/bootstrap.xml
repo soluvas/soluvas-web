@@ -22,7 +22,8 @@
 		</service-properties>
 	</service>
         
-    <bean id="federatingPageRuleCollectionSupplier" class="org.soluvas.web.site.FederatingPageRuleCollectionSupplier">
+    <bean id="federatingPageRuleCollectionSupplier" class="org.soluvas.web.site.FederatingPageRuleCollectionSupplier"
+    	destroy-method="destroy" depends-on="pageMetaPackage">
     	<argument ref="pageMetaPackage" />
     	<argument>
     		<list />
