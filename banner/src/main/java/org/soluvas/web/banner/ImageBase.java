@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.banner;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,9 +16,8 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- end-user-doc -->
  * @see org.soluvas.web.banner.BannerPackage#getImageBase()
  * @model
- * @generated
  */
-public enum ImageBase implements Enumerator {
+public enum ImageBase implements Enumerator, Serializable {
 	/**
 	 * The '<em><b>Absolute</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -170,6 +170,7 @@ public enum ImageBase implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 	  return value;
 	}
@@ -179,6 +180,7 @@ public enum ImageBase implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 	  return name;
 	}
@@ -188,6 +190,7 @@ public enum ImageBase implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 	  return literal;
 	}

@@ -5,7 +5,6 @@ package org.soluvas.web.banner;
 import java.io.Serializable;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.banner.BannerPackage#getBannerCollection()
  * @model interface="true" abstract="true"
- * @generated
  */
 public interface BannerCollection extends EObject, Serializable {
 	/**
