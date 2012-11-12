@@ -9,7 +9,7 @@
         http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
-	<bean class="org.soluvas.commons.EmfUnloader" init-method="init" destroy-method="destroy">
+	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy">
 		<argument ref="blueprintBundleContext" />
 		<argument>
 			<list value-type="java.lang.Class">

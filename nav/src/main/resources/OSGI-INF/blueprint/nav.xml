@@ -10,6 +10,11 @@
 
 <!-- 	<bean id="menuRepo" class="org.soluvas.web.nav.InMemoryMenuRepository"/> -->
 
+	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy">
+		<argument ref="blueprintBundleContext"/>
+		<argument value="org.soluvas.web.nav.NavPackage" />
+	</bean>
+
 	<bean id="amqpFactory" class="com.rabbitmq.client.ConnectionFactory">
 		<property name="uri" value="amqp://guest:guest@localhost/%2F"/>
 	</bean>
@@ -42,6 +47,5 @@
 			</bean>
 		</argument>
 	</bean>
-	<bean class="org.soluvas.web.nav.NavPackageLoader" destroy-method="destroy"/>
 
 </blueprint>
