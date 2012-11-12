@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.WebPage;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
@@ -98,15 +99,11 @@ public class MultitenantPage extends WebPage {
 			Object bean = bundleContext.getService(serviceRef);
 			serviceRefs.put(field, serviceRef);
 			log.trace("Injecting {}#{} as {}", new Object[] { getPageClass().getName(), field.getName(), bean });
-			final boolean wasAccessible = field.isAccessible();
-			field.setAccessible(true);
 			try {
-				field.set(this, bean);
+				FieldUtils.writeField(field, this, bean, true);
 			} catch (Exception e) {
 				log.error("Cannot inject " + getPageClass().getName() + "#" + field.getName() + " as " + bean, e);
 				throw new RuntimeException("Cannot inject " + getPageClass().getName() + "#" + field.getName() + " as " + bean, e);
-			} finally {
-				field.setAccessible(wasAccessible);
 			}
 		}
 	}
@@ -115,14 +112,10 @@ public class MultitenantPage extends WebPage {
 		for (Entry<Field, ServiceReference<?>> entry : serviceRefs.entrySet()) {
 			final Field field = entry.getKey();
 			log.trace("Unsetting {}#{}", new Object[] { getPageClass().getName(), field.getName() });
-			final boolean wasAccessible = field.isAccessible();
-			field.setAccessible(true);
 			try {
-				field.set(this, null);
+				FieldUtils.writeField(field, this, null, true);
 			} catch (Exception e) {
 				log.warn("Cannot unset " + getPageClass().getName() + "." + field.getName(), e);
-			} finally {
-				field.setAccessible(wasAccessible);
 			}
 			bundleContext.ungetService(entry.getValue());
 		}
