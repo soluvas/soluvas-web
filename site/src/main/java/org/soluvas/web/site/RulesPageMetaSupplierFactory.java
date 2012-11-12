@@ -1,8 +1,7 @@
 package org.soluvas.web.site;
 
-import java.util.List;
-
 import org.soluvas.web.site.pagemeta.PageRule;
+import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
 /**
  * Creates {@link RulesPageMetaSupplier} from a {@link PageRuleContext} (which contains tenant information)
@@ -11,16 +10,16 @@ import org.soluvas.web.site.pagemeta.PageRule;
  */
 public class RulesPageMetaSupplierFactory implements PageMetaSupplierFactory<RulesPageMetaSupplier> {
 
-	private List<PageRule> rules;
+	private final PageRuleCollection rules;
 	
-	public RulesPageMetaSupplierFactory(List<PageRule> rules) {
+	public RulesPageMetaSupplierFactory(PageRuleCollection rules) {
 		super();
 		this.rules = rules;
 	}
 
 	@Override
 	public RulesPageMetaSupplier create(PageRuleContext context) {
-		return new RulesPageMetaSupplier(rules, context);
+		return new RulesPageMetaSupplier(rules.getRules(), context);
 	}
 
 }

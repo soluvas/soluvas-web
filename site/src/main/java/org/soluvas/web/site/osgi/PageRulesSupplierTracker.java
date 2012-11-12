@@ -2,6 +2,7 @@ package org.soluvas.web.site.osgi;
 
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
+import org.soluvas.commons.SupplierTracker;
 import org.soluvas.web.site.FederatingPageRulesSupplier;
 import org.soluvas.web.site.PageRulesSupplier;
 
@@ -40,11 +41,13 @@ import org.soluvas.web.site.PageRulesSupplier;
  *     </service>
  * </pre>
  * 
+ * @deprecated Use {@link SupplierTracker}.
  * @author ceefour
  */
+@Deprecated
 public class PageRulesSupplierTracker implements ServiceTrackerCustomizer {
 
-	private FederatingPageRulesSupplier federator;
+	private final FederatingPageRulesSupplier federator;
 	
 	public PageRulesSupplierTracker(FederatingPageRulesSupplier federator) {
 		super();
