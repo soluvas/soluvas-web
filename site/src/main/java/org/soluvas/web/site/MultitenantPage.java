@@ -43,6 +43,7 @@ public class MultitenantPage extends WebPage {
 	 * List of get-ed services (to unget).
 	 */
 	private transient final Map<Field, ServiceReference<?>> serviceRefs = new HashMap<Field, ServiceReference<?>>();
+	private boolean tenantServicesInjected = false;
 	
 	public MultitenantPage() {
 		super();
@@ -50,9 +51,15 @@ public class MultitenantPage extends WebPage {
 	}
 	
 	@Override
-	protected void onAfterRender() {
+	protected void onBeforeRender() {
+		getTenantServices();
+		super.onBeforeRender();
+	}
+	
+	@Override
+	protected void onRemove() {
 		ungetTenantServices();
-		super.onAfterRender();
+		super.onRemove();
 	}
 	
 	@Override
@@ -62,6 +69,9 @@ public class MultitenantPage extends WebPage {
 	}
 	
 	protected void getTenantServices() {
+		if (tenantServicesInjected)
+			return;
+		
 		TenantRef tenant = WebTenantUtils.getTenant();
 		final String tenantId = tenant.getTenantId();
 		final String tenantEnv = tenant.getTenantEnv();
@@ -106,6 +116,8 @@ public class MultitenantPage extends WebPage {
 				throw new RuntimeException("Cannot inject " + getPageClass().getName() + "#" + field.getName() + " as " + bean, e);
 			}
 		}
+		
+		tenantServicesInjected = true;
 	}
 
 	protected void ungetTenantServices() {
@@ -120,6 +132,7 @@ public class MultitenantPage extends WebPage {
 			bundleContext.ungetService(entry.getValue());
 		}
 		serviceRefs.clear();
+		tenantServicesInjected = false;
 	}
 	
 }
