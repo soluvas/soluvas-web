@@ -25,6 +25,6 @@ import org.apache.wicket.Component;
  */
 public interface ComponentFactory<T extends Component> {
 
-	T create(String id);
+	public <S extends T> S create(String id);
 
 }
