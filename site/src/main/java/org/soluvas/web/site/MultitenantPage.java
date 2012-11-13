@@ -51,15 +51,15 @@ public class MultitenantPage extends WebPage {
 	}
 	
 	@Override
-	protected void onConfigure() {
+	protected void onBeforeRender() {
 		getTenantServices();
-		super.onConfigure();
+		super.onBeforeRender();
 	}
 	
 	@Override
-	protected void onAfterRender() {
+	protected void onRemove() {
 		ungetTenantServices();
-		super.onAfterRender();
+		super.onRemove();
 	}
 	
 	@Override
