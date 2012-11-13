@@ -15,9 +15,8 @@ import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -43,7 +42,6 @@ import org.soluvas.web.site.webaddress.WebAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Ordering;
 
 /**
@@ -85,7 +83,7 @@ public class BootstrapPage extends MultitenantPage {
 	@TenantService(filter="(suppliedClass=org.soluvas.web.site.webaddress.WebAddress)")
 	private transient Supplier<WebAddress> webAddressSupplier;
 	
-	private Map<String, String> dependencies = new HashMap<String, String>();
+	private final Map<String, String> dependencies = new HashMap<String, String>();
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	private final List<String> pageJavaScriptSources = new ArrayList<String>();
 
@@ -240,15 +238,12 @@ public class BootstrapPage extends MultitenantPage {
 		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
-		add(new ListView<ComponentFactory<?>>("sidebarBlocks", sidebarBlocks) {
-			@Override
-			protected void populateItem(ListItem<ComponentFactory<?>> item) {
-				item.setRenderBodyOnly(true);
-				final ComponentFactory<?> compFactory = item.getModelObject();
-				Component block = compFactory.create("block");
-				item.add(block);
-			}
-		});
+		final RepeatingView sidebarBlocksView = new RepeatingView("sidebarBlocks");
+		for (ComponentFactory<?> compFactory : sidebarBlocks) {
+			final Component block = compFactory.create(sidebarBlocksView.newChildId());
+			sidebarBlocksView.add(block);
+		}
+		sidebarColumn.add(sidebarBlocksView);
 		add(new WebMarkupContainer("sidebarAdditional"));
 		
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
@@ -263,69 +258,36 @@ public class BootstrapPage extends MultitenantPage {
 		// JAVASCRIPT
 
 		log.info("Page {} has {} before-footer-js blocks", getClass().getName(), beforeFooterJsBlocks.size());
-		final WebMarkupContainer beforeFooterJs = new WebMarkupContainer("beforeFooterJs");
-		beforeFooterJs.setOutputMarkupId(true);
+		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
+		for (ComponentFactory<? extends Component> compFactory : beforeFooterJsBlocks) {
+			final Component child = compFactory.create(beforeFooterJs.newChildId());
+			beforeFooterJs.add(child);
+		}
 		add(beforeFooterJs);
-		beforeFooterJs.add(new ListView<ComponentFactory<?>>("beforeFooterJsBlocks", beforeFooterJsBlocks) {
-			@Override
-			protected void populateItem(ListItem<ComponentFactory<?>> item) {
-				item.setRenderBodyOnly(true);
-				final ComponentFactory<?> compFactory = item.getModelObject();
-				Component block = compFactory.create("block");
-				item.add(block);
-			}
-		});
 		
 		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());
-		List<JavaScriptLink> sortedJses = linkOrdering.immutableSortedCopy(footerJavaScripts);
-		add(new ListView<JavaScriptLink>("footerJavaScripts", sortedJses) {
-			@Override
-			protected void populateItem(ListItem<JavaScriptLink> item) {
-				item.setRenderBodyOnly(true);
-				final JavaScriptLink js = item.getModelObject();
-				item.add(new Label("js") {
-					@Override
-					protected void onComponentTag(ComponentTag tag) {
-						super.onComponentTag(tag);
-						tag.getAttributes().put("src", js.getSrc());
-					};
-				});
-			}
-		});
+		final List<JavaScriptLink> sortedJsLinks = linkOrdering.immutableSortedCopy(footerJavaScripts);
+		final RepeatingView footerJavaScriptLinks = new RepeatingView("footerJavaScriptLinks");
+		for (JavaScriptLink js : sortedJsLinks) {
+			footerJavaScriptLinks.add(new WebMarkupContainer(footerJavaScriptLinks.newChildId()).add(new AttributeModifier("src", js.getSrc())));
+		}
+		add(footerJavaScriptLinks);
 		
 		log.debug("Page {} has {} footer JavaScript sources", getClass().getName(), footerJavaScriptSources.size());
-		List<JavaScriptSource> sortedJsSources = sourceOrdering.immutableSortedCopy(footerJavaScriptSources);
-		add(new ListView<JavaScriptSource>("footerJavaScriptSources", sortedJsSources) {
-			@Override
-			protected void populateItem(ListItem<JavaScriptSource> item) {
-				item.setRenderBodyOnly(true);
-				final JavaScriptSource js = item.getModelObject();
-				item.add(new Label("js", js.getScript()).setEscapeModelStrings(false));
-			}
-		});
+		final List<JavaScriptSource> sortedJsSources = sourceOrdering.immutableSortedCopy(footerJavaScriptSources);
+		final RepeatingView footerJavaScriptSources = new RepeatingView("footerJavaScriptSources");
+		for (JavaScriptSource js : sortedJsSources) {
+			footerJavaScriptSources.add(new Label(footerJavaScriptSources.newChildId(), js.getScript()).setEscapeModelStrings(false));
+		}
+		add(footerJavaScriptSources);
 		
-		IModel<List<JavaScriptLink>> pageJavaScriptLinksModel = new LoadableDetachableModel<List<JavaScriptLink>>() {
-			@Override
-			protected List<JavaScriptLink> load() {
-				log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
-				List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
-				return sortedPageJsLinks;
-			};
-		};
-		add(new ListView<JavaScriptLink>("pageJavaScripts", pageJavaScriptLinksModel) {
-			@Override
-			protected void populateItem(ListItem<JavaScriptLink> item) {
-				item.setRenderBodyOnly(true);
-				final JavaScriptLink js = item.getModelObject();
-				item.add(new Label("js") {
-					@Override
-					protected void onComponentTag(ComponentTag tag) {
-						super.onComponentTag(tag);
-						tag.getAttributes().put("src", js.getSrc());
-					};
-				});
-			}
-		});
+		log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
+		final List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
+		final RepeatingView pageJavaScriptLinksView = new RepeatingView("pageJavaScriptLinks");
+		for (JavaScriptLink js : sortedPageJsLinks) {
+			pageJavaScriptLinksView.add(new WebMarkupContainer(pageJavaScriptLinksView.newChildId()).add(new AttributeModifier("src", js.getSrc())));
+		}
+		add(pageJavaScriptLinksView);
 		
 		IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override

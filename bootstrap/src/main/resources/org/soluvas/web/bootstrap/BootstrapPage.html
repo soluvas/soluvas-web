@@ -41,12 +41,6 @@
 <!-- 		href="/static/images/ico/apple-touch-icon-72-precomposed.png" /> -->
 <!-- 	<link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png" /> -->
 
-	<!-- TODO: Pass server-side variables to client-side script (Backbone) -->
-	<script type="text/javascript">
-	//var baseUri = '/oui/';
-	//var apiUri = baseUri + 'api/';
-	</script>
-
 	<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
 	<script src="requireConfig" wicket:id="requireConfig"></script>
 	<script src="/static/js/org.soluvas.web.bootstrap/require-2.0.5.js"></script>
@@ -54,8 +48,7 @@
 </head>
 
 <body>
-	
-	
+
 	<header wicket:id="header"></header>
 	<div class="container">
 	
@@ -69,9 +62,7 @@
 		<div class="row">
 			<div class="span3" wicket:id="sidebarColumn">
 				<div wicket:id="sidebarAdditional"></div>
-				<div wicket:id="sidebarBlocks">
-					<div wicket:id="block">[sidebarBlocks]</div>
-				</div>
+				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
 			</div><!--/span-->
 			
 			<div class="span9" wicket:id="contentColumn">
@@ -92,27 +83,16 @@
 		</footer>
 	</div><!--/.fluid-container-->
 
-	<div wicket:id="beforeFooterJs">
-		<div wicket:id="beforeFooterJsBlocks">
-			<div wicket:id="block">[beforeFooterJsBlocks]</div>
-		</div>
-	</div>
+	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
  	
 	<!-- Placed at the end of the document so the pages load faster -->
-	<div wicket:id="footerJavaScripts">
-		<script type="text/javascript" src="something.js" wicket:id="js"></script>
-	</div>
-	<div wicket:id="footerJavaScriptSources">
-		<script type="text/javascript" wicket:id="js"></script>
-	</div>
+	<script type="text/javascript" src="something.js" wicket:id="footerJavaScriptLinks"></script>
+	<script type="text/javascript" wicket:id="footerJavaScriptSources">[footerJavaScriptSources]</script>
 	
 	<script>require(['bootstrap/bootstrap-collapse', 'bootstrap/bootstrap-transition']);</script>
 
-	<div wicket:id="pageJavaScripts">
-		<script type="text/javascript" src="something.js" wicket:id="js"></script>
-	</div>
-	<script wicket:id="pageJavaScriptSources" type="text/javascript">
-	</script>
+	<script type="text/javascript" src="something.js" wicket:id="pageJavaScriptLinks"></script>
+	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
 
 </body>
 </html>

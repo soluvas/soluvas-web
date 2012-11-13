@@ -90,6 +90,7 @@
 							net.sf.cglib.reflect;version="[2,3)",
 							*</Import-Package>
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
+						<DynamicImport-Package>*</DynamicImport-Package> <!-- why? http://team.ops4j.org/browse/PAXWICKET-375 -->
 					</instructions>
 				</configuration>
 			</plugin>

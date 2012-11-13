@@ -161,6 +161,7 @@
                             org.apache.felix.gogo.commands;resolution:=optional 							
 						</Import-Package>
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
+						<DynamicImport-Package>*</DynamicImport-Package> <!-- why? http://team.ops4j.org/browse/PAXWICKET-375 -->
 					</instructions>
 				</configuration>
 			</plugin>
