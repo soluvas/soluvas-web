@@ -7,19 +7,21 @@ import org.apache.wicket.Component;
  * 
  * Sample producer (in the kavling side):
  * 
- * <pre><code>
+ * <pre>{@code
  * 	<service auto-export="interfaces">
  *		<service-properties>
  *			<entry key="region" value="sidebar"/>
  *		</service-properties>
  *		<bean class="id.co.bippo.product.web.pub.CategorySidebarFactory"/>
  *	</service>
- * </code></pre>
+ * }</pre>
  * 
  * Sample consumer (in the kavling side):
  * 
+ * <pre>{@code
  * <reference-list id="sidebarBlocks" interface="org.soluvas.web.site.ComponentFactory" availability="optional"
-		filter="(region=sidebar)"/>
+ *		filter="(region=sidebar)"/>
+ * }</pre>
  * 
  * @author ceefour
  */
