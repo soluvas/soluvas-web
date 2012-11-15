@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compose:ComposeCatalog xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:compose="http://www.soluvas.org/schema/web.compose/1.0" xsi:schemaLocation="http://www.soluvas.org/schema/web.compose/1.0 ../../../../../../../../../org.soluvas.web.site/src/main/resources/org/soluvas/web/site/compose.ecore">
+  <contributors xsi:type="compose:ChildContributor" pageClassName="org.soluvas.web.bootstrap.BootstrapPage" targetPath="sidebarColumn:sidebarBlocks" className="org.soluvas.web.nav.ui.SidebarNav" factoryBean="sidebarNavFactory"/>
+</compose:ComposeCatalog>

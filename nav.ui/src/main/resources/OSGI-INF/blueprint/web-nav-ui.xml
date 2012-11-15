@@ -15,22 +15,24 @@
 	<reference id="processLinkFactory" interface="org.soluvas.web.nav.ui.ProcessLinkFactory"
 		availability="optional"/>
 
-	<service auto-export="interfaces">
+	<bean id="sidebarNavFactory" class="org.soluvas.web.nav.ui.SidebarNavFactory">
+		<argument ref="menuRepo"/>
+	</bean>
+	<service ref="sidebarNavFactory" auto-export="interfaces">
+		<!-- FIXME: DEPRECATED -->
 		<service-properties>
 			<entry key="region" value="sidebar"/>
 		</service-properties>
-		<bean class="org.soluvas.web.nav.ui.SidebarNavFactory">
-			<argument ref="menuRepo"/>
-		</bean>
 	</service>
 	
-	<service id="navMenu" auto-export="interfaces">
+	<bean id="navMenuFactory" class="org.soluvas.web.nav.ui.NavMenuFactory">
+		<argument ref="menuRepo"/>
+	</bean>
+	<service ref="navMenuFactory" auto-export="interfaces">
+		<!-- FIXME: DEPRECATED -->
 		<service-properties>
 			<entry key="region" value="navbar"/>
 		</service-properties>
-		<bean class="org.soluvas.web.nav.ui.NavMenuFactory">
-			<argument ref="menuRepo"/>
-		</bean>
 	</service>
 	
 </blueprint>

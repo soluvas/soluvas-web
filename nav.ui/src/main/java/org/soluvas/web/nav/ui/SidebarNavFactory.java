@@ -1,6 +1,8 @@
 package org.soluvas.web.nav.ui;
 
-import org.apache.wicket.Component;
+import java.io.Serializable;
+
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.async.AsyncUtils;
 import org.soluvas.async.FailingCallback;
@@ -10,10 +12,9 @@ import org.soluvas.web.site.ComponentFactory;
 
 import com.google.common.base.Function;
 
-@SuppressWarnings("rawtypes")
-public class SidebarNavFactory implements ComponentFactory {
+public class SidebarNavFactory implements ComponentFactory<SidebarNav, Serializable> {
 	
-	private MenuRepository menuRepository;
+	private final MenuRepository menuRepository;
 	
 	public SidebarNavFactory(MenuRepository menuRepository) {
 		super();
@@ -21,8 +22,9 @@ public class SidebarNavFactory implements ComponentFactory {
 	}
 
 	@Override
-	public Component create(String id) {
+	public SidebarNav create(String id, IModel<Serializable> model) {
 		final Menu menu = AsyncUtils.wrap(new Function<FailingCallback<Menu>, Void>() {
+			@Override
 			public Void apply(FailingCallback<Menu> callback) {
 				menuRepository.findOne("main", callback);
 				return null;

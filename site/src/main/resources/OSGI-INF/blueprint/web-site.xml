@@ -16,8 +16,29 @@
 				<value>org.soluvas.web.site.SitePackage</value>
 				<value>org.soluvas.web.site.pagemeta.PageMetaPackage</value>
 				<value>org.soluvas.web.site.webaddress.WebaddressPackage</value>
+				<value>org.soluvas.web.site.compose.ComposePackage</value>
 			</list>
 		</argument>
+	</bean>
+	
+	<bean id="placeholderRepository" class="org.soluvas.web.site.compose.EmfGenericRepository" />
+	<bean id="slaveRepository" class="org.soluvas.web.site.compose.EmfGenericRepository" />
+	<bean id="contributorRepository" class="org.soluvas.web.site.compose.EmfGenericRepository" />
+	<service ref="contributorRepository" auto-export="interfaces">
+		<service-properties>
+			<entry key="suppliedClass" value="org.soluvas.web.compose.LiveContributor" />
+		</service-properties>
+	</service>
+	
+	<bean id="composeCatalogXmiTracker" class="org.soluvas.web.site.compose.ComposeCatalogXmiTracker">
+		<argument ref="placeholderRepository" />
+		<argument ref="slaveRepository" />
+		<argument ref="contributorRepository" />
+	</bean>
+	<bean class="org.osgi.util.tracker.BundleTracker" init-method="open" destroy-method="close">
+		<argument ref="blueprintBundleContext" />
+		<argument value="32" />
+		<argument ref="composeCatalogXmiTracker" />
 	</bean>
 
 	<!-- TODO: For multitenant installations, replace with ManagedServiceFactory, when Aries Blueprint fixed its ARIES-584 bug -->
@@ -87,6 +108,22 @@
 		<command name="site/pagels">
 			<action class="org.soluvas.web.site.shell.SitePageLsCommand">
 				<argument ref="siteCatalogSupplier" />
+			</action>
+		</command>
+		<!-- Compose -->
+		<command name="compose/placels">
+			<action class="org.soluvas.web.site.shell.ComposePlaceLsCommand">
+				<argument ref="placeholderRepository" />
+			</action>
+		</command>
+		<command name="compose/slavels">
+			<action class="org.soluvas.web.site.shell.ComposeSlaveLsCommand">
+				<argument ref="slaveRepository" />
+			</action>
+		</command>
+		<command name="compose/contribls">
+			<action class="org.soluvas.web.site.shell.ComposeContribLsCommand">
+				<argument ref="contributorRepository" />
 			</action>
 		</command>
 	</command-bundle>

@@ -213,3 +213,30 @@ global too.
 This means @SiteCatalog@ should *not* contain @tenantId@ or @tenantEnv@-specific information.
 i.e. (@berbatik_dev@, @berbatik_stg@, @tuneeca_dev@, @tuneeca_stg@, all use the same @SiteCatalog@ 
 when hosted in the same Karaf instance.)
+
+h2. Compose Schema
+
+The Compose schema enables extensible UI composition.
+
+Three operations are possible:
+
+1. *replace*: replace a Component via its path.
+2. *child*: add a child to the referenced Component. The referenced component must be a @RepeatingView@.
+3. *hide*: hide a Component by setting its visibilty to false.
+
+The *replace* and *addChild* operation is special, because the target component must declare itself and provide information
+about the type of its @IModel@. This is so that the parent can provide the contributing child with the proper
+@IModel@ instance, and the child knows what type is the IModel. 
+
+A composition point provides *Parent* and *Context*.
+
+*Parent* is the parent component, uniquely identified by *Page* className and component *path*.
+
+*Context* is provided to be child so that the child knows what it is about, directly, and not getting it from other places.
+For example, a Tweet button needs to know what is the product name, SKU, price, description, and also the bookmarkable product URI. 
+
+You'll love these Shell commands:
+
+1. @compose:placels@
+2. @compose:slavels@
+3. @compose:contribls@

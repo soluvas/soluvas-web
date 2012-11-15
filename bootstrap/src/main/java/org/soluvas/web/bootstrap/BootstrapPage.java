@@ -24,6 +24,7 @@ import org.apache.wicket.request.Response;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.CssLink;
@@ -36,6 +37,8 @@ import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.TenantService;
+import org.soluvas.web.site.compose.ComposeUtils;
+import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.webaddress.WebAddress;
 
@@ -54,34 +57,37 @@ public class BootstrapPage extends MultitenantPage {
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	
 	@PaxWicketBean(name="jacksonMapperFactory")
-	private transient Supplier<ObjectMapper> jacksonMapperFactory;
+	private Supplier<ObjectMapper> jacksonMapperFactory;
 	/**
 	 * Should not use {@link Site} directly!
 	 */
 	@PaxWicketBean(name="site") @Deprecated
-	private transient Site site;
+	private Site site;
 	@PaxWicketBean(name="cssLinks")
-	private transient List<CssLink> cssLinks;
+	private List<CssLink> cssLinks;
 	@PaxWicketBean(name="headJavaScripts")
-	private transient List<JavaScriptLink> headJavaScripts;
+	private List<JavaScriptLink> headJavaScripts;
 	@PaxWicketBean(name="footerJavaScripts")
-	private transient List<JavaScriptLink> footerJavaScripts;
+	private List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="footerJavaScriptSources")
-	private transient List<JavaScriptSource> footerJavaScriptSources;
+	private List<JavaScriptSource> footerJavaScriptSources;
 	@PaxWicketBean(name="beforeFooterJsBlocks")
-	private transient List<ComponentFactory<?>> beforeFooterJsBlocks;
+	private List<ComponentFactory<?, ?>> beforeFooterJsBlocks;
 	
+	protected final RepeatingView sidebarBlocks;
 	@PaxWicketBean(name="sidebarBlocks")
-	private transient List<ComponentFactory<?>> sidebarBlocks;
+	private List<ComponentFactory<?, ?>> sidebarBlockFactories;
 	@PaxWicketBean(name="navbarChild")
-	private transient ComponentFactory<?> navbarChildFactory;
+	private ComponentFactory<?, ?> navbarChildFactory;
 
 //	@PaxWicketBean(name="pageRulesSupplier")
 //	private Supplier<List<PageRule>> pageRulesSupplier;
 	@PaxWicketBean(name="pageMetaSupplierFactory")
-	private transient PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
+	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@TenantService(filter="(suppliedClass=org.soluvas.web.site.webaddress.WebAddress)")
 	private transient Supplier<WebAddress> webAddressSupplier;
+	@PaxWicketBean(name="contributors")
+	private CrudRepository<LiveContributor, Integer> contributors;
 	
 	private final Map<String, String> dependencies = new HashMap<String, String>();
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
@@ -223,7 +229,7 @@ public class BootstrapPage extends MultitenantPage {
 		});
 		
 		try {
-			Component navbarChild = navbarChildFactory.create("navbarChild");
+			Component navbarChild = navbarChildFactory.create("navbarChild", null);
 			log.trace("Replacing navbar's child with {}", navbarChild);
 			navbar.replace(navbarChild);
 		} catch (Exception e) {
@@ -235,16 +241,15 @@ public class BootstrapPage extends MultitenantPage {
 		add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
 		
 		// SIDEBAR
-		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlocks.size());
+		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlockFactories.size());
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
-		final RepeatingView sidebarBlocksView = new RepeatingView("sidebarBlocks");
-		for (ComponentFactory<?> compFactory : sidebarBlocks) {
-			final Component block = compFactory.create(sidebarBlocksView.newChildId());
-			sidebarBlocksView.add(block);
-		}
-		sidebarColumn.add(sidebarBlocksView);
-		add(new WebMarkupContainer("sidebarAdditional"));
+		sidebarBlocks = new RepeatingView("sidebarBlocks");
+//		for (ComponentFactory<?, ?> compFactory : sidebarBlockFactories) {
+//			final Component block = compFactory.create(sidebarBlocksView.newChildId(), null);
+//			sidebarBlocksView.add(block);
+//		}
+		sidebarColumn.add(sidebarBlocks);
 		
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
 		add(contentColumn);
@@ -259,10 +264,10 @@ public class BootstrapPage extends MultitenantPage {
 
 		log.info("Page {} has {} before-footer-js blocks", getClass().getName(), beforeFooterJsBlocks.size());
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
-		for (ComponentFactory<? extends Component> compFactory : beforeFooterJsBlocks) {
-			final Component child = compFactory.create(beforeFooterJs.newChildId());
-			beforeFooterJs.add(child);
-		}
+//		for (ComponentFactory<?, ?> compFactory : beforeFooterJsBlocks) {
+//			final Component child = compFactory.create(beforeFooterJs.newChildId(), null);
+//			beforeFooterJs.add(child);
+//		}
 		add(beforeFooterJs);
 		
 		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());
@@ -299,6 +304,9 @@ public class BootstrapPage extends MultitenantPage {
 			};
 		};
 		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel).setEscapeModelStrings(false));
+		
+		// compose other components
+		ComposeUtils.compose(this, contributors.findAll());
 	}
 	
 	public BootstrapPage(boolean sidebarVisible) {

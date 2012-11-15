@@ -83,6 +83,9 @@
 	<reference-list id="footerJavaScriptSources" interface="org.soluvas.web.site.JavaScriptSource" availability="optional"
 		filter="(region=footer)"/>
 
+	<reference id="contributors" interface="org.soluvas.data.repository.CrudRepository"
+		filter="(suppliedClass=org.soluvas.web.compose.LiveContributor)" />
+
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="bootstrap"/>
