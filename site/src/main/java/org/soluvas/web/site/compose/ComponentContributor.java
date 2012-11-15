@@ -13,6 +13,7 @@ package org.soluvas.web.site.compose;
  * <ul>
  *   <li>{@link org.soluvas.web.site.compose.ComponentContributor#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.ComponentContributor#getFactoryBean <em>Factory Bean</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.ComponentContributor#getCreationMode <em>Creation Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,5 +73,35 @@ public interface ComponentContributor extends Contributor {
 	 * @generated
 	 */
 	void setFactoryBean(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Mode</b></em>' attribute.
+	 * The default value is <code>"constructor"</code>.
+	 * The literals are from the enumeration {@link org.soluvas.web.site.compose.CreationMode}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Creation Mode</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Creation Mode</em>' attribute.
+	 * @see org.soluvas.web.site.compose.CreationMode
+	 * @see #setCreationMode(CreationMode)
+	 * @see org.soluvas.web.site.compose.ComposePackage#getComponentContributor_CreationMode()
+	 * @model default="constructor"
+	 * @generated
+	 */
+	CreationMode getCreationMode();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.compose.ComponentContributor#getCreationMode <em>Creation Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Mode</em>' attribute.
+	 * @see org.soluvas.web.site.compose.CreationMode
+	 * @see #getCreationMode()
+	 * @generated
+	 */
+	void setCreationMode(CreationMode value);
 
 } // ComponentContributor

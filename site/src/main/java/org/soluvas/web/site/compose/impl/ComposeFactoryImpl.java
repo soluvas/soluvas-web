@@ -94,6 +94,8 @@ public class ComposeFactoryImpl extends EFactoryImpl implements ComposeFactory {
 		switch (eDataType.getClassifierID()) {
 			case ComposePackage.CONTRIBUTOR_STATE:
 				return createContributorStateFromString(eDataType, initialValue);
+			case ComposePackage.CREATION_MODE:
+				return createCreationModeFromString(eDataType, initialValue);
 			case ComposePackage.PAGE:
 				return createPageFromString(eDataType, initialValue);
 			case ComposePackage.COLLECTION:
@@ -113,6 +115,8 @@ public class ComposeFactoryImpl extends EFactoryImpl implements ComposeFactory {
 		switch (eDataType.getClassifierID()) {
 			case ComposePackage.CONTRIBUTOR_STATE:
 				return convertContributorStateToString(eDataType, instanceValue);
+			case ComposePackage.CREATION_MODE:
+				return convertCreationModeToString(eDataType, instanceValue);
 			case ComposePackage.PAGE:
 				return convertPageToString(eDataType, instanceValue);
 			case ComposePackage.COLLECTION:
@@ -319,6 +323,26 @@ public class ComposeFactoryImpl extends EFactoryImpl implements ComposeFactory {
 	 * @generated
 	 */
 	public String convertContributorStateToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CreationMode createCreationModeFromString(EDataType eDataType, String initialValue) {
+		CreationMode result = CreationMode.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCreationModeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

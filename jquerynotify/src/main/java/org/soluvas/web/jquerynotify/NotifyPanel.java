@@ -6,6 +6,7 @@ import org.apache.wicket.event.IEvent;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessages;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.JavaScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +29,18 @@ public class NotifyPanel extends Panel {
 	private transient Logger log = LoggerFactory.getLogger(NotifyPanel.class);
 	
 	public NotifyPanel(String id) {
-		super(id);
-		setRenderBodyOnly(true);
+		this(id, null);
 	}
 	
+	/**
+	 * @param id
+	 * @param model
+	 */
+	public NotifyPanel(String id, IModel<?> model) {
+		super(id, model);
+		setRenderBodyOnly(true);
+	}
+
 	@Override
 	public void onEvent(IEvent<?> event) {
 		super.onEvent(event);

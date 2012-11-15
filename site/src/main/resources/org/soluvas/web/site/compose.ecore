@@ -74,6 +74,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="factoryBean" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationMode" eType="#//CreationMode"
+        defaultValueLiteral="constructor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChildContributor" eSuperTypes="#//ComponentContributor"/>
   <eClassifiers xsi:type="ecore:EClass" name="LiveChildContributor" eSuperTypes="#//ChildContributor #//LiveComponentContributor">
@@ -148,5 +150,13 @@
   <eClassifiers xsi:type="ecore:EDataType" name="Page" instanceClassName="org.apache.wicket.Page"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Collection" instanceClassName="java.util.Collection">
     <eTypeParameters name="T"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CreationMode">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="How to create ComponentContributor."/>
+    </eAnnotations>
+    <eLiterals name="constructor"/>
+    <eLiterals name="factory_class" value="1"/>
+    <eLiterals name="factory_bean" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

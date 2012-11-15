@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.osgi.framework.Bundle;
 import org.soluvas.web.site.compose.ComposePackage;
+import org.soluvas.web.site.compose.CreationMode;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.compose.ReplaceContributor;
 
@@ -25,6 +26,7 @@ import org.soluvas.web.site.compose.ReplaceContributor;
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getFactoryBean <em>Factory Bean</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getCreationMode <em>Creation Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,6 +112,26 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * @ordered
 	 */
 	protected String factoryBean = FACTORY_BEAN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCreationMode() <em>Creation Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationMode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final CreationMode CREATION_MODE_EDEFAULT = CreationMode.CONSTRUCTOR;
+
+	/**
+	 * The cached value of the '{@link #getCreationMode() <em>Creation Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationMode()
+	 * @generated
+	 * @ordered
+	 */
+	protected CreationMode creationMode = CREATION_MODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -219,6 +241,27 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CreationMode getCreationMode() {
+		return creationMode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreationMode(CreationMode newCreationMode) {
+		CreationMode oldCreationMode = creationMode;
+		creationMode = newCreationMode == null ? CREATION_MODE_EDEFAULT : newCreationMode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.REPLACE_CONTRIBUTOR__CREATION_MODE, oldCreationMode, creationMode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LiveContributor createLive(Bundle bundle) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -241,6 +284,8 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				return getClassName();
 			case ComposePackage.REPLACE_CONTRIBUTOR__FACTORY_BEAN:
 				return getFactoryBean();
+			case ComposePackage.REPLACE_CONTRIBUTOR__CREATION_MODE:
+				return getCreationMode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -264,6 +309,9 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				return;
 			case ComposePackage.REPLACE_CONTRIBUTOR__FACTORY_BEAN:
 				setFactoryBean((String)newValue);
+				return;
+			case ComposePackage.REPLACE_CONTRIBUTOR__CREATION_MODE:
+				setCreationMode((CreationMode)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -289,6 +337,9 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 			case ComposePackage.REPLACE_CONTRIBUTOR__FACTORY_BEAN:
 				setFactoryBean(FACTORY_BEAN_EDEFAULT);
 				return;
+			case ComposePackage.REPLACE_CONTRIBUTOR__CREATION_MODE:
+				setCreationMode(CREATION_MODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -309,6 +360,8 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case ComposePackage.REPLACE_CONTRIBUTOR__FACTORY_BEAN:
 				return FACTORY_BEAN_EDEFAULT == null ? factoryBean != null : !FACTORY_BEAN_EDEFAULT.equals(factoryBean);
+			case ComposePackage.REPLACE_CONTRIBUTOR__CREATION_MODE:
+				return creationMode != CREATION_MODE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -331,6 +384,8 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 		result.append(className);
 		result.append(", factoryBean: ");
 		result.append(factoryBean);
+		result.append(", creationMode: ");
+		result.append(creationMode);
 		result.append(')');
 		return result.toString();
 	}

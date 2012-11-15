@@ -71,8 +71,6 @@ public class BootstrapPage extends MultitenantPage {
 	private List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="footerJavaScriptSources")
 	private List<JavaScriptSource> footerJavaScriptSources;
-	@PaxWicketBean(name="beforeFooterJsBlocks")
-	private List<ComponentFactory<?, ?>> beforeFooterJsBlocks;
 	
 	protected final RepeatingView sidebarBlocks;
 	@PaxWicketBean(name="sidebarBlocks")
@@ -262,12 +260,7 @@ public class BootstrapPage extends MultitenantPage {
 		
 		// JAVASCRIPT
 
-		log.info("Page {} has {} before-footer-js blocks", getClass().getName(), beforeFooterJsBlocks.size());
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
-//		for (ComponentFactory<?, ?> compFactory : beforeFooterJsBlocks) {
-//			final Component child = compFactory.create(beforeFooterJs.newChildId(), null);
-//			beforeFooterJs.add(child);
-//		}
 		add(beforeFooterJs);
 		
 		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());

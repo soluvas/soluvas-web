@@ -55,13 +55,6 @@
 		</bean>
 	</service>
 
-	<service auto-export="interfaces">
-		<service-properties>
-			<entry key="region" value="before-footer-js"/>
-		</service-properties>
-		<bean class="org.soluvas.web.jquerynotify.NotifyPanelFactory"/>
-	</service>
-
 <!-- 	<service auto-export="interfaces"> -->
 <!-- 		<service-properties> -->
 <!-- 			<entry key="region" value="footer"/> -->

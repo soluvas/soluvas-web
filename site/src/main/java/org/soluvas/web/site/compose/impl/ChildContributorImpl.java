@@ -11,6 +11,7 @@ import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.ComposeFactory;
 import org.soluvas.web.site.compose.ComposePackage;
 import org.soluvas.web.site.compose.ContributorState;
+import org.soluvas.web.site.compose.CreationMode;
 import org.soluvas.web.site.compose.LiveChildContributor;
 import org.soluvas.web.site.compose.LiveContributor;
 
@@ -25,6 +26,7 @@ import org.soluvas.web.site.compose.LiveContributor;
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getFactoryBean <em>Factory Bean</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getCreationMode <em>Creation Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,6 +113,26 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	 * @ordered
 	 */
 	protected String factoryBean = FACTORY_BEAN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCreationMode() <em>Creation Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationMode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final CreationMode CREATION_MODE_EDEFAULT = CreationMode.CONSTRUCTOR;
+
+	/**
+	 * The cached value of the '{@link #getCreationMode() <em>Creation Mode</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationMode()
+	 * @generated
+	 * @ordered
+	 */
+	protected CreationMode creationMode = CREATION_MODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -226,12 +248,36 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public CreationMode getCreationMode() {
+		return creationMode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCreationMode(CreationMode newCreationMode) {
+		CreationMode oldCreationMode = creationMode;
+		creationMode = newCreationMode == null ? CREATION_MODE_EDEFAULT : newCreationMode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE, oldCreationMode, creationMode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 */
 	@Override
 	public LiveContributor createLive(Bundle bundle) {
 		final LiveChildContributor liveContributor = ComposeFactory.eINSTANCE.createLiveChildContributor();
 		liveContributor.setPageClassName(getPageClassName());
 		liveContributor.setClassName(getClassName());
+		liveContributor.setCreationMode(getCreationMode());
 		liveContributor.setTargetPath(getTargetPath());
 		liveContributor.setFactoryBean(getFactoryBean());
 		liveContributor.setState(ContributorState.UNRESOLVED);
@@ -254,6 +300,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return getClassName();
 			case ComposePackage.CHILD_CONTRIBUTOR__FACTORY_BEAN:
 				return getFactoryBean();
+			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
+				return getCreationMode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -277,6 +325,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__FACTORY_BEAN:
 				setFactoryBean((String)newValue);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
+				setCreationMode((CreationMode)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -302,6 +353,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 			case ComposePackage.CHILD_CONTRIBUTOR__FACTORY_BEAN:
 				setFactoryBean(FACTORY_BEAN_EDEFAULT);
 				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
+				setCreationMode(CREATION_MODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -322,6 +376,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case ComposePackage.CHILD_CONTRIBUTOR__FACTORY_BEAN:
 				return FACTORY_BEAN_EDEFAULT == null ? factoryBean != null : !FACTORY_BEAN_EDEFAULT.equals(factoryBean);
+			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
+				return creationMode != CREATION_MODE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -344,6 +400,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		result.append(className);
 		result.append(", factoryBean: ");
 		result.append(factoryBean);
+		result.append(", creationMode: ");
+		result.append(creationMode);
 		result.append(')');
 		return result.toString();
 	}

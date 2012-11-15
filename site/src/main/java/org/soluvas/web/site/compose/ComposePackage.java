@@ -389,13 +389,22 @@ public interface ComposePackage extends EPackage {
 	int COMPONENT_CONTRIBUTOR__FACTORY_BEAN = CONTRIBUTOR_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Creation Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CONTRIBUTOR__CREATION_MODE = CONTRIBUTOR_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Component Contributor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_CONTRIBUTOR_FEATURE_COUNT = CONTRIBUTOR_FEATURE_COUNT + 2;
+	int COMPONENT_CONTRIBUTOR_FEATURE_COUNT = CONTRIBUTOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.ChildContributorImpl <em>Child Contributor</em>}' class.
@@ -442,6 +451,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int CHILD_CONTRIBUTOR__FACTORY_BEAN = COMPONENT_CONTRIBUTOR__FACTORY_BEAN;
+
+	/**
+	 * The feature id for the '<em><b>Creation Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__CREATION_MODE = COMPONENT_CONTRIBUTOR__CREATION_MODE;
 
 	/**
 	 * The number of structural features of the '<em>Child Contributor</em>' class.
@@ -497,6 +515,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int LIVE_CHILD_CONTRIBUTOR__FACTORY_BEAN = CHILD_CONTRIBUTOR__FACTORY_BEAN;
+
+	/**
+	 * The feature id for the '<em><b>Creation Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__CREATION_MODE = CHILD_CONTRIBUTOR__CREATION_MODE;
 
 	/**
 	 * The feature id for the '<em><b>State</b></em>' attribute.
@@ -581,6 +608,15 @@ public interface ComposePackage extends EPackage {
 	int REPLACE_CONTRIBUTOR__FACTORY_BEAN = COMPONENT_CONTRIBUTOR__FACTORY_BEAN;
 
 	/**
+	 * The feature id for the '<em><b>Creation Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPLACE_CONTRIBUTOR__CREATION_MODE = COMPONENT_CONTRIBUTOR__CREATION_MODE;
+
+	/**
 	 * The number of structural features of the '<em>Replace Contributor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -634,6 +670,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int LIVE_REPLACE_CONTRIBUTOR__FACTORY_BEAN = REPLACE_CONTRIBUTOR__FACTORY_BEAN;
+
+	/**
+	 * The feature id for the '<em><b>Creation Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_REPLACE_CONTRIBUTOR__CREATION_MODE = REPLACE_CONTRIBUTOR__CREATION_MODE;
 
 	/**
 	 * The feature id for the '<em><b>State</b></em>' attribute.
@@ -1133,6 +1178,16 @@ public interface ComposePackage extends EPackage {
 	int CONTRIBUTOR_STATE = 21;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.compose.CreationMode <em>Creation Mode</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.compose.CreationMode
+	 * @see org.soluvas.web.site.compose.impl.ComposePackageImpl#getCreationMode()
+	 * @generated
+	 */
+	int CREATION_MODE = 22;
+
+	/**
 	 * The meta object id for the '<em>Component Factory</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1140,7 +1195,7 @@ public interface ComposePackage extends EPackage {
 	 * @see org.soluvas.web.site.compose.impl.ComposePackageImpl#getComponentFactory()
 	 * @generated
 	 */
-	int COMPONENT_FACTORY = 22;
+	int COMPONENT_FACTORY = 23;
 
 	/**
 	 * The meta object id for the '<em>Bundle</em>' data type.
@@ -1150,7 +1205,7 @@ public interface ComposePackage extends EPackage {
 	 * @see org.soluvas.web.site.compose.impl.ComposePackageImpl#getBundle()
 	 * @generated
 	 */
-	int BUNDLE = 23;
+	int BUNDLE = 24;
 
 	/**
 	 * The meta object id for the '<em>Page</em>' data type.
@@ -1160,7 +1215,7 @@ public interface ComposePackage extends EPackage {
 	 * @see org.soluvas.web.site.compose.impl.ComposePackageImpl#getPage()
 	 * @generated
 	 */
-	int PAGE = 24;
+	int PAGE = 25;
 
 
 	/**
@@ -1171,7 +1226,7 @@ public interface ComposePackage extends EPackage {
 	 * @see org.soluvas.web.site.compose.impl.ComposePackageImpl#getCollection()
 	 * @generated
 	 */
-	int COLLECTION = 25;
+	int COLLECTION = 26;
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.compose.Placeholder <em>Placeholder</em>}'.
@@ -1320,6 +1375,17 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getComponentContributor_FactoryBean();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.compose.ComponentContributor#getCreationMode <em>Creation Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Creation Mode</em>'.
+	 * @see org.soluvas.web.site.compose.ComponentContributor#getCreationMode()
+	 * @see #getComponentContributor()
+	 * @generated
+	 */
+	EAttribute getComponentContributor_CreationMode();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.compose.ChildContributor <em>Child Contributor</em>}'.
@@ -1592,6 +1658,16 @@ public interface ComposePackage extends EPackage {
 	EEnum getContributorState();
 
 	/**
+	 * Returns the meta object for enum '{@link org.soluvas.web.site.compose.CreationMode <em>Creation Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Creation Mode</em>'.
+	 * @see org.soluvas.web.site.compose.CreationMode
+	 * @generated
+	 */
+	EEnum getCreationMode();
+
+	/**
 	 * Returns the meta object for data type '{@link org.soluvas.web.site.ComponentFactory <em>Component Factory</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1780,6 +1856,14 @@ public interface ComposePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMPONENT_CONTRIBUTOR__FACTORY_BEAN = eINSTANCE.getComponentContributor_FactoryBean();
+
+		/**
+		 * The meta object literal for the '<em><b>Creation Mode</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPONENT_CONTRIBUTOR__CREATION_MODE = eINSTANCE.getComponentContributor_CreationMode();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.compose.impl.ChildContributorImpl <em>Child Contributor</em>}' class.
@@ -2020,6 +2104,16 @@ public interface ComposePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum CONTRIBUTOR_STATE = eINSTANCE.getContributorState();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.compose.CreationMode <em>Creation Mode</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.compose.CreationMode
+		 * @see org.soluvas.web.site.compose.impl.ComposePackageImpl#getCreationMode()
+		 * @generated
+		 */
+		EEnum CREATION_MODE = eINSTANCE.getCreationMode();
 
 		/**
 		 * The meta object literal for the '<em>Component Factory</em>' data type.

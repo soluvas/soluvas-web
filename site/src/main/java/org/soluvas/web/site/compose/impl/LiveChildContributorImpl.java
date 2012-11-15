@@ -2,8 +2,12 @@
  */
 package org.soluvas.web.site.compose.impl;
 
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.util.Collection;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IModel;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +28,8 @@ import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.compose.LivePlaceholder;
 import org.soluvas.web.site.compose.LiveSlave;
 import org.soluvas.web.site.compose.LiveTarget;
+
+import com.google.common.base.Preconditions;
 
 /**
  * <!-- begin-user-doc -->
@@ -166,8 +172,42 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 	 */
 	@Override
 	public ComponentFactory getFactory() {
-		final ComponentFactory factory;
-		if (factoryBean != null) {
+		switch (getCreationMode()) {
+		case CONSTRUCTOR:
+			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s [%d] must not be null",
+					getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+			try {
+				final Class<?> componentClass = bundle.loadClass(getClassName());
+				final Constructor<?> constructor = componentClass.getConstructor(String.class, IModel.class);
+				return new ComponentFactory<Component, Serializable>() {
+					@Override
+					public Component create(String id,
+							IModel<Serializable> model) {
+						try {
+							return (Component) constructor.newInstance(id, model);
+						} catch (Exception e) {
+							throw new RuntimeException("Cannot create component " + getClassName() + " for contributor " +
+									getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+						}
+					}
+				};
+			} catch (Exception e) {
+				throw new RuntimeException("Cannot create component " + getClassName() + " for contributor " +
+						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+			}
+		case FACTORY_CLASS:
+			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s [%d] must not be null",
+					getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+			final String factoryClassName = getClassName() + "Factory";
+			try {
+				log.debug("Creating {} as factory for contributor {}/{} from {} [{}]", factoryClassName,
+						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+				return (ComponentFactory) bundle.loadClass(factoryClassName).newInstance();
+			} catch (Exception e) {
+				throw new RuntimeException("Cannot create " + factoryClassName + " as a factory for contributor " +
+						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+			}
+		case FACTORY_BEAN:
 			try {
 				log.debug("Getting bean {} as factory for contributor {}/{} from {} [{}]", factoryBean,
 						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
@@ -176,27 +216,17 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 				final ServiceReference<BlueprintContainer> bpRef = refs.iterator().next();
 				final BlueprintContainer bp = bundleContext.getService(bpRef);
 				try {
-					factory = (ComponentFactory) bp.getComponentInstance(factoryBean);
+					return (ComponentFactory) bp.getComponentInstance(factoryBean);
 				} finally {
 					bundleContext.ungetService(bpRef);
 				}
 			} catch (Exception e) {
 				throw new RuntimeException("Cannot get bean " + factoryBean + " as a factory for contributor " +
 						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
-
 			}
-		} else {
-			final String factoryClassName = getClassName() + "Factory";
-			try {
-				log.debug("Creating {} as factory for contributor {}/{} from {} [{}]", factoryClassName,
-						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
-				factory = (ComponentFactory) bundle.loadClass(factoryClassName).newInstance();
-			} catch (Exception e) {
-				throw new RuntimeException("Cannot create " + factoryClassName + " as a factory for contributor " +
-						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
-			}
+		default:
+			throw new RuntimeException("Unknown CreationMode " + getCreationMode());
 		}
-		return factory;
 	}
 
 	/**

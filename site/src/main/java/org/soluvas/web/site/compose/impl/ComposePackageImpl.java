@@ -29,6 +29,7 @@ import org.soluvas.web.site.compose.ComposePackage;
 import org.soluvas.web.site.compose.Contributor;
 import org.soluvas.web.site.compose.ContributorCollection;
 import org.soluvas.web.site.compose.ContributorState;
+import org.soluvas.web.site.compose.CreationMode;
 import org.soluvas.web.site.compose.HideContributor;
 import org.soluvas.web.site.compose.LiveChildContributor;
 import org.soluvas.web.site.compose.LiveComponentContributor;
@@ -206,6 +207,13 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * @generated
 	 */
 	private EEnum contributorStateEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum creationModeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -420,6 +428,15 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 */
 	public EAttribute getComponentContributor_FactoryBean() {
 		return (EAttribute)componentContributorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponentContributor_CreationMode() {
+		return (EAttribute)componentContributorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -661,6 +678,15 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getCreationMode() {
+		return creationModeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getComponentFactory() {
 		return componentFactoryEDataType;
 	}
@@ -739,6 +765,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		componentContributorEClass = createEClass(COMPONENT_CONTRIBUTOR);
 		createEAttribute(componentContributorEClass, COMPONENT_CONTRIBUTOR__CLASS_NAME);
 		createEAttribute(componentContributorEClass, COMPONENT_CONTRIBUTOR__FACTORY_BEAN);
+		createEAttribute(componentContributorEClass, COMPONENT_CONTRIBUTOR__CREATION_MODE);
 
 		childContributorEClass = createEClass(CHILD_CONTRIBUTOR);
 
@@ -782,6 +809,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 
 		// Create enums
 		contributorStateEEnum = createEEnum(CONTRIBUTOR_STATE);
+		creationModeEEnum = createEEnum(CREATION_MODE);
 
 		// Create data types
 		componentFactoryEDataType = createEDataType(COMPONENT_FACTORY);
@@ -887,6 +915,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		initEClass(componentContributorEClass, ComponentContributor.class, "ComponentContributor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComponentContributor_ClassName(), ecorePackage.getEString(), "className", "", 0, 1, ComponentContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponentContributor_FactoryBean(), ecorePackage.getEString(), "factoryBean", null, 0, 1, ComponentContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComponentContributor_CreationMode(), this.getCreationMode(), "creationMode", "constructor", 0, 1, ComponentContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childContributorEClass, ChildContributor.class, "ChildContributor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -935,6 +964,11 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		addEEnumLiteral(contributorStateEEnum, ContributorState.UNRESOLVED);
 		addEEnumLiteral(contributorStateEEnum, ContributorState.FAILED);
 		addEEnumLiteral(contributorStateEEnum, ContributorState.RESOLVED);
+
+		initEEnum(creationModeEEnum, CreationMode.class, "CreationMode");
+		addEEnumLiteral(creationModeEEnum, CreationMode.CONSTRUCTOR);
+		addEEnumLiteral(creationModeEEnum, CreationMode.FACTORY_CLASS);
+		addEEnumLiteral(creationModeEEnum, CreationMode.FACTORY_BEAN);
 
 		// Initialize data types
 		initEDataType(componentFactoryEDataType, ComponentFactory.class, "ComponentFactory", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1023,6 +1057,12 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Used to inspect the live state of contributors."
+		   });		
+		addAnnotation
+		  (creationModeEEnum, 
+		   source, 
+		   new String[] {
+			 "documentation", "How to create ComponentContributor."
 		   });
 	}
 

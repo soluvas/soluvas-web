@@ -19,10 +19,6 @@
   <children xmi:type="notation:Node" xmi:id="_ZsguQC7wEeKEOZyrfiAgqw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_ZshVUC7wEeKEOZyrfiAgqw" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_ZshVUS7wEeKEOZyrfiAgqw" type="5001">
-      <children xmi:type="notation:Node" xmi:id="_LZCPUC71EeKEOZyrfiAgqw" type="2001">
-        <element xmi:type="ecore:EAttribute" href="compose.ecore#//Contributor/pageBundle"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_LZCPUS71EeKEOZyrfiAgqw"/>
-      </children>
       <children xmi:type="notation:Node" xmi:id="_U5UPkC7xEeKEOZyrfiAgqw" type="2001">
         <element xmi:type="ecore:EAttribute" href="compose.ecore#//Contributor/pageClassName"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_U5UPkS7xEeKEOZyrfiAgqw"/>
@@ -134,6 +130,14 @@
         <element xmi:type="ecore:EAttribute" href="compose.ecore#//ComponentContributor/className"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_FifPgC7xEeKEOZyrfiAgqw"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_4gspAC9EEeKEOZyrfiAgqw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="compose.ecore#//ComponentContributor/factoryBean"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4gspAS9EEeKEOZyrfiAgqw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_LNe4QC9FEeKEOZyrfiAgqw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="compose.ecore#//ComponentContributor/creationMode"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_LNe4QS9FEeKEOZyrfiAgqw"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_DC7Vci70EeKEOZyrfiAgqw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_DC7Vcy70EeKEOZyrfiAgqw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_DC7VdC70EeKEOZyrfiAgqw"/>
@@ -214,10 +218,6 @@
   <children xmi:type="notation:Node" xmi:id="_iKUrQC70EeKEOZyrfiAgqw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_iKVSUC70EeKEOZyrfiAgqw" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_iKVSUS70EeKEOZyrfiAgqw" type="5001">
-      <children xmi:type="notation:Node" xmi:id="_Cj3FwC7yEeKEOZyrfiAgqw" type="2001">
-        <element xmi:type="ecore:EAttribute" href="compose.ecore#//LiveComponentContributor/factory"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_Cj3FwS7yEeKEOZyrfiAgqw"/>
-      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_iKVSUi70EeKEOZyrfiAgqw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_iKVSUy70EeKEOZyrfiAgqw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_iKVSVC70EeKEOZyrfiAgqw"/>
@@ -432,6 +432,29 @@
     <styles xmi:type="notation:ShapeStyle" xmi:id="_-4MdkS73EeKEOZyrfiAgqw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="compose.ecore#//ContributorCollection"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-4Mdki73EeKEOZyrfiAgqw" x="948" y="180"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_BuRy4C9FEeKEOZyrfiAgqw" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_BuTBAC9FEeKEOZyrfiAgqw" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_BuToEC9FEeKEOZyrfiAgqw" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_DdIhYC9FEeKEOZyrfiAgqw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="compose.ecore#//CreationMode/constructor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DdIhYS9FEeKEOZyrfiAgqw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_HXEAUC9FEeKEOZyrfiAgqw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="compose.ecore#//CreationMode/factory_class"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_HXEAUS9FEeKEOZyrfiAgqw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_IY530C9FEeKEOZyrfiAgqw" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="compose.ecore#//CreationMode/factory_bean"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_IY6e4C9FEeKEOZyrfiAgqw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_BuToES9FEeKEOZyrfiAgqw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_BuToEi9FEeKEOZyrfiAgqw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_BuToEy9FEeKEOZyrfiAgqw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_BuRy4S9FEeKEOZyrfiAgqw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="compose.ecore#//CreationMode"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BuRy4i9FEeKEOZyrfiAgqw" x="432" y="36"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_VbwDsS7wEeKEOZyrfiAgqw"/>
   <element xmi:type="ecore:EPackage" href="compose.ecore#/"/>

@@ -16,6 +16,16 @@
       <xsd:enumeration value="resolved"/>
     </xsd:restriction>
   </xsd:simpleType>
+  <xsd:simpleType name="CreationMode">
+    <xsd:annotation>
+      <xsd:documentation>How to create ComponentContributor.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="constructor"/>
+      <xsd:enumeration value="factory_class"/>
+      <xsd:enumeration value="factory_bean"/>
+    </xsd:restriction>
+  </xsd:simpleType>
   <xsd:complexType name="Placeholder">
     <xsd:annotation>
       <xsd:documentation>Declares a parent component that can be contributed with children.</xsd:documentation>
@@ -87,6 +97,7 @@ Otherwise it may be unresolved or partially resolved.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="factoryBean" type="xsd:string"/>
+        <xsd:attribute name="creationMode" type="compose:CreationMode"/>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
