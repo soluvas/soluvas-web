@@ -7,12 +7,15 @@ import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.web.site.MultitenantPage;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 
 /**
@@ -52,7 +55,17 @@ public class ComposeUtils {
 					if (!validPath)
 						continue;;
 					final RepeatingView repeatingViewParent = (RepeatingView) parent;
-					final Component componentToAdd = childContrib.getFactory().create(repeatingViewParent.newChildId(), new Model<Serializable>(null)); // TODO: need model!
+					final IModel<?> model;
+					if (!Strings.isNullOrEmpty(placeholder.getModelClassName())) {
+						if (page instanceof MultitenantPage) {
+							model = ((MultitenantPage) page).getModelForChild(contrib.getTargetPath());
+						} else
+							throw new RuntimeException("Page " + page.getClass().getName() + " must be an instance of MultitenantPage to provide a model of " +
+									placeholder.getModelClassName() + " for " + placeholder);
+					} else {
+						model = null;
+					}
+					final Component componentToAdd = childContrib.getFactory().create(repeatingViewParent.newChildId(), model);
 					log.debug("Adding {} to {} in {}", componentToAdd, repeatingViewParent, page);
 					repeatingViewParent.add(componentToAdd);
 				}

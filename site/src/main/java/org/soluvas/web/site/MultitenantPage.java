@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.IModel;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
@@ -17,11 +18,13 @@ import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.osgi.WebTenantUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
 
 /**
  * Page supporting multi-tenant injection.
@@ -133,6 +136,24 @@ public class MultitenantPage extends WebPage {
 		}
 		serviceRefs.clear();
 		tenantServicesInjected = false;
+	}
+	
+	private final Map<String, IModel<?>> modelsForChild = Maps.newConcurrentMap();
+	
+	/**
+	 * Together with Compose {@code child} contribution, this allows {@link ChildContributor}s
+	 * to get a model.
+	 * @param path
+	 * @param model
+	 * @todo Find a better name / mechanism.
+	 */
+	protected void addModelForChild(String path, IModel<?> model) {
+		log.trace("Adding model for child {} in {}", path, getPageClass().getName());
+		modelsForChild.put(path, model);
+	}
+	
+	public <T extends IModel<?>> T getModelForChild(String path) {
+		return (T) modelsForChild.get(path);
 	}
 	
 }
