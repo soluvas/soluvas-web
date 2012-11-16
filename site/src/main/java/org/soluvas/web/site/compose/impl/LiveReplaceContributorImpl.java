@@ -214,7 +214,12 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 				log.debug("Getting bean {} as factory for contributor {}/{} from {} [{}]", factoryBean,
 						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
 				final BundleContext bundleContext = bundle.getBundleContext();
-				final Collection<ServiceReference<BlueprintContainer>> refs = bundleContext.getServiceReferences(BlueprintContainer.class, "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")");
+				final String filter = "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")";
+				final Collection<ServiceReference<BlueprintContainer>> refs = bundleContext.getServiceReferences(BlueprintContainer.class,
+						filter);
+				if (refs.isEmpty()) {
+					throw new RuntimeException("Cannot find service " + BlueprintContainer.class.getName() + " with filter " + filter);
+				}
 				final ServiceReference<BlueprintContainer> bpRef = refs.iterator().next();
 				final BlueprintContainer bp = bundleContext.getService(bpRef);
 				try {
