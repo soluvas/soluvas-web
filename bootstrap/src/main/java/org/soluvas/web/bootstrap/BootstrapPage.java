@@ -2,9 +2,9 @@ package org.soluvas.web.bootstrap;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -25,6 +25,7 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.site.AmdDependency;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
@@ -44,6 +45,8 @@ import org.soluvas.web.site.webaddress.WebAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Ordering;
 
 /**
@@ -82,7 +85,6 @@ public class BootstrapPage extends MultitenantPage {
 	@PaxWicketBean(name="contributors")
 	private CrudRepository<LiveContributor, Integer> contributors;
 	
-	private final Map<String, String> dependencies = new HashMap<String, String>();
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	private final List<String> pageJavaScriptSources = new ArrayList<String>();
 
@@ -106,6 +108,7 @@ public class BootstrapPage extends MultitenantPage {
 	}
 	
 	public <T> String addBackboneModel(String name, String className, T data) {
+		// TODO: should use BackboneModel behavior
 		try {
 			ObjectMapper objectMapper = jacksonMapperFactory.get();
 			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
@@ -132,18 +135,16 @@ public class BootstrapPage extends MultitenantPage {
 		return addJsSource(name + " = new "+ className + "({id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
-	public Map<String, String> getDependencies() {
-		return dependencies;
-	}
-
 	public void addDependencies(Map<String, String> dependencies) {
-		this.dependencies.putAll(dependencies);
+		for (Entry<String, String> dep : dependencies.entrySet()) {
+			add(new AmdDependency(dep.getKey(), dep.getValue()));
+		}
 	}
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		
+
 		log.debug("Page {} has {} CSS links", getClass().getName(), cssLinks.size());
 		Ordering<CssLink> cssOrdering = Ordering.from(new Comparator<CssLink>() {
 			@Override
@@ -274,7 +275,12 @@ public class BootstrapPage extends MultitenantPage {
 			protected String load() {
 				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
 				String merged = Joiner.on('\n').join(pageJavaScriptSources);
-				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencies);
+				List<AmdDependency> amdDeps = getBehaviors(AmdDependency.class);
+				Builder<String, String> dependencies = ImmutableMap.builder();
+				for (AmdDependency dep : amdDeps) {
+					dependencies.put(dep.getPath(), dep.getName());
+				}
+				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencies.build());
 				return js.getScript();
 			};
 		};
