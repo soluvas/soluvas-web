@@ -15,6 +15,7 @@ import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
@@ -96,7 +97,8 @@ public class WebTenantUtils {
 	}
 
 	/**
-	 * Returns a tenant-scoped supplied object from {@link Supplier} service.
+	 * Returns a tenant-scoped supplied object from {@link Supplier} service,
+	 * on {@code application} layer.
 	 * 
 	 * @param clazz
 	 * @return
@@ -104,7 +106,7 @@ public class WebTenantUtils {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T getSupplied(@Nonnull Class<T> clazz) {
 		final ServiceReference<Supplier> supplierRef = getService(
-				Supplier.class, null, "(suppliedClass=" + clazz.getName() + ")");
+				Supplier.class, null, "(&(suppliedClass=" + clazz.getName() + ")(layer=application))");
 		final BundleContext bundleContext = FrameworkUtil.getBundle(
 				WebTenantUtils.class).getBundleContext();
 		final Supplier<T> supplier = bundleContext.getService(supplierRef);
@@ -113,6 +115,27 @@ public class WebTenantUtils {
 		} finally {
 			bundleContext.ungetService(supplierRef);
 		}
+	}
+	
+	/**
+	 * Returns the {@link WebAddress} for current tenant application.
+	 * @return
+	 */
+	public static WebAddress getWebAddress() {
+		return getSupplied(WebAddress.class);
+	}
+	
+	/**
+	 * Return the absolute URI of a properly scoped image, also uses SSL if required.
+	 *  
+	 * @param bundleClazz The class that has the same bundle as the image path.
+	 * @param path id.co.bippo.web.pub/logo_diweb.gif
+	 * @return e.g. {@code /static/images/id.co.bippo.web.pub/logo_diweb.gif} or {@code http://images.berbatik.com/id.co.bippo.web.pub/logo_diweb.gif}
+	 * 		or {@code https://images.berbatik.com/id.co.bippo.web.pub/logo_diweb.gif}
+	 */
+	public static String getImageUri(Class bundleClazz, String path) {
+		final WebAddress webAddress = WebTenantUtils.getWebAddress();
+		return webAddress.getImagesUri() + FrameworkUtil.getBundle(bundleClazz).getSymbolicName() + "/" + path;
 	}
 	
 }

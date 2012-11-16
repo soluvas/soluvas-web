@@ -1,13 +1,13 @@
 package org.soluvas.web.site.compose;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.eclipse.emf.common.notify.impl.NotifyingListImpl;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.soluvas.data.repository.CrudRepositoryBase;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 /**
  * Manages available {@link EObject}s in memory.
@@ -15,7 +15,8 @@ import com.google.common.collect.ImmutableList;
  */
 public class EmfGenericRepository<T extends EObject> extends CrudRepositoryBase<T, Integer> {
 	
-	private final EList<T> coll = new NotifyingListImpl<T>();
+	// I've been there: NPE, NotifyingListImpl is NOT thread-safe
+	private final List<T> coll = Lists.newCopyOnWriteArrayList();//;java.util.concurrent. new NotifyingListImpl<T>();
 
 	@Override
 	public boolean exists(Integer id) {
@@ -55,7 +56,7 @@ public class EmfGenericRepository<T extends EObject> extends CrudRepositoryBase<
 	}
 
 	@Override
-	protected <S extends T> S modify(Integer id, S entity) {
+	protected synchronized <S extends T> S modify(Integer id, S entity) {
 		coll.remove(id);
 		coll.add(id, entity);
 		return entity;

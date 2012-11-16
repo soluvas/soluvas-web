@@ -184,9 +184,11 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 					public Component create(String id,
 							IModel<Serializable> model) {
 						try {
+							log.debug("Creating {} using {} for contributor {}/{} from {} [{}]", getClassName(), constructor,
+									getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
 							return (Component) constructor.newInstance(id, model);
 						} catch (Exception e) {
-							throw new RuntimeException("Cannot create component " + getClassName() + " for contributor " +
+							throw new RuntimeException("Cannot create component " + getClassName() + " using " + constructor + " for contributor " +
 									getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
 						}
 					}

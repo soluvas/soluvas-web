@@ -11,6 +11,7 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 
@@ -37,14 +38,19 @@ public class ComposeUtils {
 				if (placeholder.getPageClass().isAssignableFrom(page.getClass())) {
 					final Iterable<String> pathSegments = Splitter.on(':').split(contrib.getTargetPath());
 					Component parent = page;
+					boolean validPath = true;
 					for (String segment : pathSegments) {
 						Component child = parent.get(segment);
 						if (child == null) {
-							log.warn("Cannot find component " + segment + " from parent " + parent + " requested by " + contrib +
+							validPath = false;
+							log.warn("Skipping non-existing component " + segment + " from parent " + parent + " requested by " + contrib +
 									", probably the component hierarchy is incompatible due to other contributors. Try using the weight attribute to reorder.");
+							break;
 						}
 						parent = child;
 					}
+					if (!validPath)
+						continue;;
 					final RepeatingView repeatingViewParent = (RepeatingView) parent;
 					final Component componentToAdd = childContrib.getFactory().create(repeatingViewParent.newChildId(), new Model<Serializable>(null)); // TODO: need model!
 					log.debug("Adding {} to {} in {}", componentToAdd, repeatingViewParent, page);
@@ -56,16 +62,24 @@ public class ComposeUtils {
 				if (slave.getPageClass().isAssignableFrom(page.getClass())) {
 					final Iterable<String> pathSegments = Splitter.on(':').split(contrib.getTargetPath());
 					Component target = page;
-					final String compId = Iterables.getLast(pathSegments);
+					MarkupContainer parent = null;
+					boolean validPath = true;
 					for (String segment : pathSegments) {
+						parent = (MarkupContainer) target;
 						Component child = target.get(segment);
 						if (child == null) {
-							log.warn("Cannot find component " + segment + " from parent " + target + " requested by " + contrib +
+							validPath = false;
+							log.warn("Skipping non-existing component " + segment + " from parent " + target + " requested by " + contrib +
 									", probably the component hierarchy is incompatible due to other contributors. Try using the weight attribute to reorder.");
+							continue;
 						}
 						target = child;
 					}
-					final MarkupContainer parent = target.getParent();
+					if (!validPath)
+						continue;;
+					final String compId = Iterables.getLast(pathSegments);
+					Preconditions.checkNotNull(parent, "parent must not be null. Probably path %s is invalid for page %s.",
+							contrib.getTargetPath(), page.getClass());
 					final Component componentToAdd = replaceContrib.getFactory().create(compId, new Model<Serializable>(null)); // TODO: need model!
 					log.debug("Replacing {} with {} to {} in {}", contrib.getTargetPath(), componentToAdd, parent, page);
 					parent.replace(componentToAdd);

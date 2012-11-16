@@ -279,9 +279,6 @@ public class BootstrapPage extends MultitenantPage {
 			};
 		};
 		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel).setEscapeModelStrings(false));
-		
-		// compose other components
-		ComposeUtils.compose(this, contributors.findAll());
 	}
 	
 	public BootstrapPage(boolean sidebarVisible) {
@@ -290,6 +287,13 @@ public class BootstrapPage extends MultitenantPage {
 			sidebarColumn.setVisible(false);
 			contentColumn.add(new AttributeModifier("class", "span12"));
 		}
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		// compose other components
+		ComposeUtils.compose(this, contributors.findAll());
 	}
 	
 }
