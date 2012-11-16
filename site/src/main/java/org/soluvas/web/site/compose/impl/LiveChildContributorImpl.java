@@ -288,13 +288,9 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
 	@Override
-	public void bundleAdded(Bundle bundle) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public synchronized void bundleAdded(Bundle bundle) {
 	}
 
 	/**
@@ -306,7 +302,7 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 		if (state == ContributorState.RESOLVED) {
 			if (target == getPlaceholder()) {
 				setState(ContributorState.UNRESOLVED);
-				setPlaceholder(placeholder);
+				setPlaceholder(null);
 			}
 		}
 	}

@@ -2,19 +2,24 @@
  */
 package org.soluvas.web.site.compose.impl;
 
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.util.Collection;
-import java.util.List;
-import org.eclipse.emf.common.notify.Notification;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IModel;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.blueprint.container.BlueprintContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ComponentFactory;
-
 import org.soluvas.web.site.compose.ComposePackage;
 import org.soluvas.web.site.compose.ContributorState;
 import org.soluvas.web.site.compose.LiveComponentContributor;
@@ -23,8 +28,8 @@ import org.soluvas.web.site.compose.LivePlaceholder;
 import org.soluvas.web.site.compose.LiveReplaceContributor;
 import org.soluvas.web.site.compose.LiveSlave;
 import org.soluvas.web.site.compose.LiveTarget;
-import org.soluvas.web.site.compose.PlaceholderCollection;
-import org.soluvas.web.site.compose.SlaveCollection;
+
+import com.google.common.base.Preconditions;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,6 +47,10 @@ import org.soluvas.web.site.compose.SlaveCollection;
  * @generated
  */
 public class LiveReplaceContributorImpl extends ReplaceContributorImpl implements LiveReplaceContributor {
+	
+	private static Logger log = LoggerFactory
+			.getLogger(LiveReplaceContributorImpl.class);
+	
 	/**
 	 * The default value of the '{@link #getState() <em>State</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -116,6 +125,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContributorState getState() {
 		return state;
 	}
@@ -125,6 +135,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setState(ContributorState newState) {
 		ContributorState oldState = state;
 		state = newState == null ? STATE_EDEFAULT : newState;
@@ -137,6 +148,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Bundle getBundle() {
 		return bundle;
 	}
@@ -146,6 +158,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBundle(Bundle newBundle) {
 		Bundle oldBundle = bundle;
 		bundle = newBundle;
@@ -156,12 +169,64 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
+	@Override
 	public ComponentFactory getFactory() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		switch (getCreationMode()) {
+		case CONSTRUCTOR:
+			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s [%d] must not be null",
+					getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+			try {
+				final Class<?> componentClass = bundle.loadClass(getClassName());
+				final Constructor<?> constructor = componentClass.getConstructor(String.class, IModel.class);
+				return new ComponentFactory<Component, Serializable>() {
+					@Override
+					public Component create(String id,
+							IModel<Serializable> model) {
+						try {
+							return (Component) constructor.newInstance(id, model);
+						} catch (Exception e) {
+							throw new RuntimeException("Cannot create component " + getClassName() + " for contributor " +
+									getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+						}
+					}
+				};
+			} catch (Exception e) {
+				throw new RuntimeException("Cannot create component " + getClassName() + " for contributor " +
+						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+			}
+		case FACTORY_CLASS:
+			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s [%d] must not be null",
+					getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+			final String factoryClassName = getClassName() + "Factory";
+			try {
+				log.debug("Creating {} as factory for contributor {}/{} from {} [{}]", factoryClassName,
+						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+				return (ComponentFactory) bundle.loadClass(factoryClassName).newInstance();
+			} catch (Exception e) {
+				throw new RuntimeException("Cannot create " + factoryClassName + " as a factory for contributor " +
+						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+			}
+		case FACTORY_BEAN:
+			try {
+				log.debug("Getting bean {} as factory for contributor {}/{} from {} [{}]", factoryBean,
+						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+				final BundleContext bundleContext = bundle.getBundleContext();
+				final Collection<ServiceReference<BlueprintContainer>> refs = bundleContext.getServiceReferences(BlueprintContainer.class, "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")");
+				final ServiceReference<BlueprintContainer> bpRef = refs.iterator().next();
+				final BlueprintContainer bp = bundleContext.getService(bpRef);
+				try {
+					return (ComponentFactory) bp.getComponentInstance(factoryBean);
+				} finally {
+					bundleContext.ungetService(bpRef);
+				}
+			} catch (Exception e) {
+				throw new RuntimeException("Cannot get bean " + factoryBean + " as a factory for contributor " +
+						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+			}
+		default:
+			throw new RuntimeException("Unknown CreationMode " + getCreationMode());
+		}
 	}
 
 	/**
@@ -169,6 +234,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiveSlave getSlave() {
 		if (slave != null && ((EObject)slave).eIsProxy()) {
 			InternalEObject oldSlave = (InternalEObject)slave;
@@ -195,6 +261,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSlave(LiveSlave newSlave) {
 		LiveSlave oldSlave = slave;
 		slave = newSlave;
@@ -205,45 +272,47 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
-	public void resolve(Collection<LivePlaceholder> placeholders, Collection<LiveSlave> slaves) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	@Override
+	public synchronized void resolve(Collection<LivePlaceholder> placeholders, Collection<LiveSlave> slaves) {
+		if (state == ContributorState.UNRESOLVED) {
+			for (LiveSlave slave : slaves) {
+				if (slave.getPageClassName().equals(getPageClassName())) {
+					setSlave(slave);
+					setState(ContributorState.RESOLVED);
+				}
+			}
+		}
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
-	public void bundleAdded(Bundle bundle) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	@Override
+	public synchronized void bundleAdded(Bundle bundle) {
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
-	public void targetRemoved(LiveTarget target) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	@Override
+	public synchronized void targetRemoved(LiveTarget target) {
+		if (state == ContributorState.RESOLVED) {
+			if (target == getSlave()) {
+				setState(ContributorState.UNRESOLVED);
+				setSlave(null);
+			}
+		}
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
-	public void bundleRemoved(Bundle bundle) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	@Override
+	public synchronized void bundleRemoved(Bundle bundle) {
 	}
 
 	/**

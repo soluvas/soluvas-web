@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.Model;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 
 /**
  * @author ceefour
@@ -31,14 +33,15 @@ public class ComposeUtils {
 				continue;
 			if (contrib instanceof LiveChildContributor) {
 				final LiveChildContributor childContrib = (LiveChildContributor) contrib;
-				LivePlaceholder placeholder = childContrib.getPlaceholder();
+				final LivePlaceholder placeholder = childContrib.getPlaceholder();
 				if (placeholder.getPageClass().isAssignableFrom(page.getClass())) {
 					final Iterable<String> pathSegments = Splitter.on(':').split(contrib.getTargetPath());
 					Component parent = page;
 					for (String segment : pathSegments) {
 						Component child = parent.get(segment);
 						if (child == null) {
-							throw new RuntimeException("Cannot find component " + segment + " from parent " + parent + " requested by " + contrib);
+							log.warn("Cannot find component " + segment + " from parent " + parent + " requested by " + contrib +
+									", probably the component hierarchy is incompatible due to other contributors. Try using the weight attribute to reorder.");
 						}
 						parent = child;
 					}
@@ -47,6 +50,28 @@ public class ComposeUtils {
 					log.debug("Adding {} to {} in {}", componentToAdd, repeatingViewParent, page);
 					repeatingViewParent.add(componentToAdd);
 				}
+			} else if (contrib instanceof LiveReplaceContributor) {
+				final LiveReplaceContributor replaceContrib = (LiveReplaceContributor) contrib;
+				final LiveSlave slave = ((LiveReplaceContributor) contrib).getSlave();
+				if (slave.getPageClass().isAssignableFrom(page.getClass())) {
+					final Iterable<String> pathSegments = Splitter.on(':').split(contrib.getTargetPath());
+					Component target = page;
+					final String compId = Iterables.getLast(pathSegments);
+					for (String segment : pathSegments) {
+						Component child = target.get(segment);
+						if (child == null) {
+							log.warn("Cannot find component " + segment + " from parent " + target + " requested by " + contrib +
+									", probably the component hierarchy is incompatible due to other contributors. Try using the weight attribute to reorder.");
+						}
+						target = child;
+					}
+					final MarkupContainer parent = target.getParent();
+					final Component componentToAdd = replaceContrib.getFactory().create(compId, new Model<Serializable>(null)); // TODO: need model!
+					log.debug("Replacing {} with {} to {} in {}", contrib.getTargetPath(), componentToAdd, parent, page);
+					parent.replace(componentToAdd);
+				}
+			} else {
+				throw new RuntimeException("Unknown contributor " + contrib.getClass().getName() + " requested by " + contrib);
 			}
 		}
 	}

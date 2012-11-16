@@ -1,6 +1,8 @@
 package org.soluvas.web.bootstrap;
 
-import org.apache.wicket.markup.html.basic.Label;
+import java.io.Serializable;
+
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -14,11 +16,11 @@ public class Navbar extends Panel {
 
 	public Navbar(String id, IModel<?> model) {
 		super(id, model);
-		add(new Label("navbarChild"));
+		add(new WebMarkupContainer("navbarChild"));
 	}
 
 	public Navbar(String id) {
-		this(id, new Model());
+		this(id, new Model<Serializable>());
 	}
 
 }

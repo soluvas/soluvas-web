@@ -18,21 +18,9 @@
 	<bean id="sidebarNavFactory" class="org.soluvas.web.nav.ui.SidebarNavFactory">
 		<argument ref="menuRepo"/>
 	</bean>
-	<service ref="sidebarNavFactory" auto-export="interfaces">
-		<!-- FIXME: DEPRECATED -->
-		<service-properties>
-			<entry key="region" value="sidebar"/>
-		</service-properties>
-	</service>
 	
 	<bean id="navMenuFactory" class="org.soluvas.web.nav.ui.NavMenuFactory">
 		<argument ref="menuRepo"/>
 	</bean>
-	<service ref="navMenuFactory" auto-export="interfaces">
-		<!-- FIXME: DEPRECATED -->
-		<service-properties>
-			<entry key="region" value="navbar"/>
-		</service-properties>
-	</service>
 	
 </blueprint>

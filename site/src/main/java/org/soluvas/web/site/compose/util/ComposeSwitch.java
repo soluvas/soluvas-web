@@ -149,6 +149,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				LiveComponentContributor liveComponentContributor = (LiveComponentContributor)theEObject;
 				T result = caseLiveComponentContributor(liveComponentContributor);
 				if (result == null) result = caseLiveContributor(liveComponentContributor);
+				if (result == null) result = caseComponentContributor(liveComponentContributor);
 				if (result == null) result = caseContributor(liveComponentContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

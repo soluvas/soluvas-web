@@ -763,13 +763,40 @@ public interface ComposePackage extends EPackage {
 	int LIVE_COMPONENT_CONTRIBUTOR__BUNDLE = LIVE_CONTRIBUTOR__BUNDLE;
 
 	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME = LIVE_CONTRIBUTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Factory Bean</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__FACTORY_BEAN = LIVE_CONTRIBUTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Creation Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__CREATION_MODE = LIVE_CONTRIBUTOR_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Live Component Contributor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_COMPONENT_CONTRIBUTOR_FEATURE_COUNT = LIVE_CONTRIBUTOR_FEATURE_COUNT + 0;
+	int LIVE_COMPONENT_CONTRIBUTOR_FEATURE_COUNT = LIVE_CONTRIBUTOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl <em>Live Hide Contributor</em>}' class.

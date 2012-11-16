@@ -140,7 +140,15 @@ Otherwise it may be unresolved or partially resolved.</xsd:documentation>
   <xsd:element name="ReplaceContributor" type="compose:ReplaceContributor"/>
   <xsd:complexType name="LiveComponentContributor">
     <xsd:complexContent>
-      <xsd:extension base="compose:LiveContributor"/>
+      <xsd:extension base="compose:LiveContributor">
+        <xsd:attribute name="className" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>The factory will be instantiated to create the component will be named {className}Factory in the same package.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="factoryBean" type="xsd:string"/>
+        <xsd:attribute name="creationMode" type="compose:CreationMode"/>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="LiveComponentContributor" type="compose:LiveComponentContributor"/>

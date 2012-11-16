@@ -3,16 +3,16 @@
 package org.soluvas.web.site.compose.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.osgi.framework.Bundle;
+import org.soluvas.web.site.compose.ComposeFactory;
 import org.soluvas.web.site.compose.ComposePackage;
+import org.soluvas.web.site.compose.ContributorState;
 import org.soluvas.web.site.compose.CreationMode;
 import org.soluvas.web.site.compose.LiveContributor;
+import org.soluvas.web.site.compose.LiveReplaceContributor;
 import org.soluvas.web.site.compose.ReplaceContributor;
 
 /**
@@ -157,6 +157,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPageClassName() {
 		return pageClassName;
 	}
@@ -166,6 +167,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPageClassName(String newPageClassName) {
 		String oldPageClassName = pageClassName;
 		pageClassName = newPageClassName;
@@ -178,6 +180,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetPath() {
 		return targetPath;
 	}
@@ -187,6 +190,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetPath(String newTargetPath) {
 		String oldTargetPath = targetPath;
 		targetPath = newTargetPath;
@@ -199,6 +203,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
@@ -208,6 +213,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -220,6 +226,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFactoryBean() {
 		return factoryBean;
 	}
@@ -229,6 +236,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFactoryBean(String newFactoryBean) {
 		String oldFactoryBean = factoryBean;
 		factoryBean = newFactoryBean;
@@ -241,6 +249,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CreationMode getCreationMode() {
 		return creationMode;
 	}
@@ -250,6 +259,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCreationMode(CreationMode newCreationMode) {
 		CreationMode oldCreationMode = creationMode;
 		creationMode = newCreationMode == null ? CREATION_MODE_EDEFAULT : newCreationMode;
@@ -260,12 +270,17 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
 	 */
+	@Override
 	public LiveContributor createLive(Bundle bundle) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		final LiveReplaceContributor liveContributor = ComposeFactory.eINSTANCE.createLiveReplaceContributor();
+		liveContributor.setPageClassName(getPageClassName());
+		liveContributor.setClassName(getClassName());
+		liveContributor.setCreationMode(getCreationMode());
+		liveContributor.setTargetPath(getTargetPath());
+		liveContributor.setFactoryBean(getFactoryBean());
+		liveContributor.setState(ContributorState.UNRESOLVED);
+		return liveContributor;
 	}
 
 	/**

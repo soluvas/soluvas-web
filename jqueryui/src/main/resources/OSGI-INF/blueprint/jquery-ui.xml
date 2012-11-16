@@ -112,15 +112,6 @@
 		</bean>
 	</service>
 
-<!-- 	<service auto-export="interfaces"> -->
-<!-- 		<service-properties> -->
-<!-- 			<entry key="region" value="footer"/> -->
-<!-- 		</service-properties> -->
-<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
-<!-- 			<argument value="/static/js/org.soluvas.web.jqueryui/development-bundle/ui/jquery-ui-1.8.22.custom.js"/> -->
-<!-- 			<argument value="-1"/> -->
-<!-- 		</bean> -->
-<!-- 	</service> -->
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
 			<argument value="org.soluvas.web.jqueryui/css/ui-lightness/jquery-ui-1.9.0.custom.css"/>
@@ -133,21 +124,6 @@
 		</bean>
 	</service>
 	
-<!-- 	<service auto-export="interfaces"> -->
-<!-- 		<service-properties> -->
-<!-- 			<entry key="region" value="footer"/> -->
-<!-- 		</service-properties> -->
-<!-- 		<bean class="org.soluvas.web.site.JavaScriptLinkImpl"> -->
-<!-- 			<argument value="/static/jquery-ui/datatables/js/jquery.dataTables.min.js"/> -->
-<!-- 			<argument value="-1"/> -->
-<!-- 		</bean> -->
-<!-- 	</service> -->
-<!-- 	<service auto-export="interfaces"> -->
-<!-- 		<bean class="org.soluvas.web.site.CssLinkImpl"> -->
-<!-- 			<argument value="/static/jquery-ui/datatables/css/jquery.dataTables.css"/> -->
-<!-- 			<argument value="-2"/> -->
-<!-- 		</bean> -->
-<!-- 	</service> -->
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
 			<argument value="org.soluvas.web.jqueryui/datatables/css/jquery.dataTables_bootstrap2.css"/>

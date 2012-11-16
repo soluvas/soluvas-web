@@ -14,7 +14,7 @@ import org.soluvas.web.site.ComponentFactory;
  * @model
  * @generated
  */
-public interface LiveComponentContributor extends LiveContributor {
+public interface LiveComponentContributor extends LiveContributor, ComponentContributor {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <p>

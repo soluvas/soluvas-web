@@ -85,7 +85,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="slave" eType="#//LiveSlave"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReplaceContributor" eSuperTypes="#//ComponentContributor"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LiveComponentContributor" eSuperTypes="#//LiveContributor">
+  <eClassifiers xsi:type="ecore:EClass" name="LiveComponentContributor" eSuperTypes="#//LiveContributor #//ComponentContributor">
     <eOperations name="getFactory" eType="#//ComponentFactory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LiveHideContributor" eSuperTypes="#//LiveContributor #//HideContributor">

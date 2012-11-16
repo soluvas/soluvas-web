@@ -859,6 +859,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		liveReplaceContributorEClass.getESuperTypes().add(this.getLiveComponentContributor());
 		replaceContributorEClass.getESuperTypes().add(this.getComponentContributor());
 		liveComponentContributorEClass.getESuperTypes().add(this.getLiveContributor());
+		liveComponentContributorEClass.getESuperTypes().add(this.getComponentContributor());
 		liveHideContributorEClass.getESuperTypes().add(this.getLiveContributor());
 		liveHideContributorEClass.getESuperTypes().add(this.getHideContributor());
 		composeCatalogEClass.getESuperTypes().add(this.getSlaveCollection());

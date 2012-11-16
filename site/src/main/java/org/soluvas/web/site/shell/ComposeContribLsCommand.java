@@ -8,8 +8,11 @@ import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.Contributor;
+import org.soluvas.web.site.compose.HideContributor;
 import org.soluvas.web.site.compose.LiveContributor;
+import org.soluvas.web.site.compose.ReplaceContributor;
 
 /**
  * List registered {@link Contributor}s.
@@ -31,14 +34,22 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-40s|%-40s|%-10s|%-34s|@",
-				"№", "Page", "Path", "State", "Bundle"));
+		System.out.println(ansi().render("@|negative_on %3s|%-40s|%-40s|%-20s|%-10s|%-34s|@",
+				"№", "Page", "Path", "Type", "State", "Bundle"));
 		int i = 0;
 		final Collection<LiveContributor> origContributors = contributorRepo.findAll();
 		final Collection<LiveContributor> sortedContributors = origContributors;
 		for (LiveContributor contributor : sortedContributors) {
+			final String contribSymbol;
+			if (contributor instanceof ChildContributor) {
+				contribSymbol = "@|bold,blue ✚|@"; 
+			} else if (contributor instanceof ReplaceContributor) {
+				contribSymbol = "@|bold,yellow ☛|@";
+			} else if (contributor instanceof HideContributor) {
+				contribSymbol = "@|bold,red ✖|@";
+			} else throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
 			Bundle bundle = contributor.getBundle();
-			System.out.println(ansi().render("@|bold,black %3d||@%-40s@|bold,black ||@%-40s@|bold,black ||@%-10s@|bold,black ||@%-30s@|bold,yellow %4d|@",
+			System.out.println(ansi().render("@|bold,black %3d||@%-40s@|bold,black ||@" + contribSymbol + "%-39s@|bold,black ||@%-10s@|bold,black ||@%-30s@|bold,yellow %4d|@",
 				++i, contributor.getPageClassName(), contributor.getTargetPath(), contributor.getState(),
 				bundle.getSymbolicName(), bundle.getBundleId() ));
 		}

@@ -732,4 +732,12 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_By-MoC74EeKEOZyrfiAgqw" id="(0.25,0.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_By-MoS74EeKEOZyrfiAgqw" id="(0.4968152866242038,1.0)"/>
   </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_pfJRwS-6EeKL8f_4E_6wNg" type="3003" source="_iKUrQC70EeKEOZyrfiAgqw" target="_DC6uYC70EeKEOZyrfiAgqw">
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_pfJRwi-6EeKL8f_4E_6wNg" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_pfJRwy-6EeKL8f_4E_6wNg" fontName="Ubuntu"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pfJRxC-6EeKL8f_4E_6wNg" points="[28, -6, -319, 75]$[348, -66, 1, 15]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pfM8IC-6EeKL8f_4E_6wNg" id="(0.8526315789473684,0.6428571428571429)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pfM8IS-6EeKL8f_4E_6wNg" id="(0.24299065420560748,0.8148148148148148)"/>
+  </edges>
 </notation:Diagram>

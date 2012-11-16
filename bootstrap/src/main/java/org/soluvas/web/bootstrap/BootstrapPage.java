@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
-import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
@@ -73,10 +72,6 @@ public class BootstrapPage extends MultitenantPage {
 	private List<JavaScriptSource> footerJavaScriptSources;
 	
 	protected final RepeatingView sidebarBlocks;
-	@PaxWicketBean(name="sidebarBlocks")
-	private List<ComponentFactory<?, ?>> sidebarBlockFactories;
-	@PaxWicketBean(name="navbarChild")
-	private ComponentFactory<?, ?> navbarChildFactory;
 
 //	@PaxWicketBean(name="pageRulesSupplier")
 //	private Supplier<List<PageRule>> pageRulesSupplier;
@@ -226,27 +221,14 @@ public class BootstrapPage extends MultitenantPage {
 			}
 		});
 		
-		try {
-			Component navbarChild = navbarChildFactory.create("navbarChild", null);
-			log.trace("Replacing navbar's child with {}", navbarChild);
-			navbar.replace(navbarChild);
-		} catch (Exception e) {
-			log.debug("Ignoring navbarChildFactory due to error", e);
-		}
-		
 		add(new Header());
 		final String requireConfigPath = webAddress.getApiPath() + "org.soluvas.web.backbone/requireConfig.js";
 		add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
 		
 		// SIDEBAR
-		log.info("Page {} has {} sidebar blocks", getClass().getName(), sidebarBlockFactories.size());
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
-//		for (ComponentFactory<?, ?> compFactory : sidebarBlockFactories) {
-//			final Component block = compFactory.create(sidebarBlocksView.newChildId(), null);
-//			sidebarBlocksView.add(block);
-//		}
 		sidebarColumn.add(sidebarBlocks);
 		
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
