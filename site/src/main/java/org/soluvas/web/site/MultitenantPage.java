@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.framework.BundleContext;
@@ -147,7 +151,7 @@ public class MultitenantPage extends WebPage {
 	 * @param model
 	 * @todo Find a better name / mechanism.
 	 */
-	protected void addModelForChild(String path, IModel<?> model) {
+	private void addModelForChild(String path, IModel<?> model) {
 		log.trace("Adding model for child {} in {}", path, getPageClass().getName());
 		modelsForChild.put(path, model);
 	}
@@ -156,4 +160,16 @@ public class MultitenantPage extends WebPage {
 		return (T) modelsForChild.get(path);
 	}
 	
+	/**
+	 * Create a {@link RepeatingView} region and associate it with an {@link IModel}.
+	 * @param regionId The component name for the region.
+	 * @param model Model that will be given to all of its children.
+	 * @return
+	 */
+	protected RepeatingView addRegion(@Nonnull final String regionId, @Nullable final IModel<?> model) {
+		final RepeatingView region;
+		add(region = new RepeatingView(regionId));
+		addModelForChild(regionId, model);
+		return region;
+	}
 }
