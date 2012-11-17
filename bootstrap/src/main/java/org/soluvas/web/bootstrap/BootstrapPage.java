@@ -40,11 +40,9 @@ import org.soluvas.web.site.Site;
 import org.soluvas.web.site.TenantService;
 import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.BackboneModel;
-import org.soluvas.web.site.client.BackboneView;
 import org.soluvas.web.site.client.BackboneViewWithoutModel;
 import org.soluvas.web.site.client.CustomJsSource;
 import org.soluvas.web.site.client.JsSource;
-import org.soluvas.web.site.client.PlainModel;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.pagemeta.PageMeta;
@@ -182,7 +180,7 @@ public class BootstrapPage extends MultitenantPage {
 	@Deprecated
 	public <T> void addBackboneModel(String name, String className, T data) {
 		// TODO: should use BackboneModel behavior
-		add(new BackboneModel(name, className, data));
+		add(new BackboneModel<T>(name, className, data));
 //		try {
 //			ObjectMapper objectMapper = jacksonMapperFactory.get();
 //			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
@@ -191,37 +189,6 @@ public class BootstrapPage extends MultitenantPage {
 //		}
 	}
 
-	/**
-	 * @deprecated Use {@link PlainModel}
-	 * @param name
-	 * @param data
-	 * @return
-	 */
-	@Deprecated
-	public <T> void addPlainModel(String name, T data) {
-		add(new PlainModel(name, data));
-//		try {
-//			ObjectMapper objectMapper = jacksonMapperFactory.get();
-//			return addJsSource(name + " = " + objectMapper.writeValueAsString(data) + ";");
-//		} catch (Exception e) {
-//			throw new RuntimeException("Cannot serialize model to JSON: " + name + " from " + data, e);
-//		}
-	}
-
-	/**
-	 * @deprecated Use {@link BackboneView}.
-	 * @param name
-	 * @param className
-	 * @param modelName
-	 * @param elementId
-	 */
-	@Deprecated
-	public void addBackboneView(String name, String className, String modelName,
-			String elementId) {
-		add(new BackboneView(name, className, modelName, elementId));
-//		return addJsSource(name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
-	}
-	
 	/**
 	 * @deprecated Use {@link BackboneViewWithoutModel}.
 	 * @param name
