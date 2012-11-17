@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -154,17 +153,6 @@ public class BootstrapPage extends MultitenantPage {
 		return js;
 	}
 	
-	/**
-	 * @param dependencies
-	 * @deprecated Replaced with {@link Component#add(org.apache.wicket.behavior.Behavior...)} with {@link AmdDependency}.
-	 */
-	@Deprecated
-	public void addDependencies(Map<String, String> dependencies) {
-		for (Entry<String, String> dep : dependencies.entrySet()) {
-			add(new AmdDependency(dep.getKey(), dep.getValue()));
-		}
-	}
-
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
@@ -297,16 +285,6 @@ public class BootstrapPage extends MultitenantPage {
 		IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
-				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList.builder();
-				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(pageJsSourcesBuilder);
-				jsSourceVisitor.component(BootstrapPage.this, null);
-				visitChildren(jsSourceVisitor);
-//				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
-//				String merged = Joiner.on('\n').join(pageJavaScriptSources);
-				List<String> pageJsSources = pageJsSourcesBuilder.build();
-				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJsSources.size());
-				String merged = Joiner.on('\n').join(pageJsSources);
-				
 				final Builder<String, String> dependencies = ImmutableMap.builder();
 				final AmdDependencyVisitor amdDependencyVisitor = new AmdDependencyVisitor(dependencies);
 				amdDependencyVisitor.component(BootstrapPage.this, null);
@@ -314,6 +292,14 @@ public class BootstrapPage extends MultitenantPage {
 				final Map<String, String> dependencyMap = dependencies.build();
 				log.debug("Page {} has {} AMD dependencies: {}", getClass().getName(), dependencyMap.size(),
 						dependencyMap.keySet());
+				
+				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList.builder();
+				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(pageJsSourcesBuilder);
+				jsSourceVisitor.component(BootstrapPage.this, null);
+				visitChildren(jsSourceVisitor);
+				List<String> pageJsSources = pageJsSourcesBuilder.build();
+				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJsSources.size());
+				String merged = Joiner.on('\n').join(pageJsSources);
 
 				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencyMap);
 				return js.getScript();
