@@ -4,6 +4,7 @@ package org.soluvas.web.site.client;
  * Instantiates a Backbone View.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class BackboneView extends JsSource {
 
 	private final String name;
