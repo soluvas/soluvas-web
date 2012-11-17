@@ -202,7 +202,7 @@ public class BootstrapPage extends MultitenantPage {
 
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-		PageMeta pageMeta = getPageMeta();
+		final PageMeta pageMeta = getPageMeta();
 		
 		// HTML
 		add(new TransparentWebMarkupContainer("html").add(new AttributeModifier("lang", pageMeta.getLanguageCode())));
@@ -219,7 +219,7 @@ public class BootstrapPage extends MultitenantPage {
 		add(new WebMarkupContainer("afterHeader"));
 		
 		// NAVBAR
-		Navbar navbar = new Navbar("navbar");
+		final Navbar navbar = new Navbar("navbar");
 		add(navbar);
 //		add(new Label("logoText", site.getLogoText()).setRenderBodyOnly(true));
 //		add(new Label("logoAlt", site.getLogoAlt()).setRenderBodyOnly(true));
@@ -282,7 +282,7 @@ public class BootstrapPage extends MultitenantPage {
 		}
 		add(pageJavaScriptLinksView);
 		
-		IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
+		final IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
 				final Builder<String, String> dependencies = ImmutableMap.builder();
@@ -297,9 +297,9 @@ public class BootstrapPage extends MultitenantPage {
 				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(pageJsSourcesBuilder);
 				jsSourceVisitor.component(BootstrapPage.this, null);
 				visitChildren(jsSourceVisitor);
-				List<String> pageJsSources = pageJsSourcesBuilder.build();
+				final List<String> pageJsSources = pageJsSourcesBuilder.build();
 				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJsSources.size());
-				String merged = Joiner.on('\n').join(pageJsSources);
+				final String merged = Joiner.on('\n').join(pageJsSources);
 
 				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencyMap);
 				return js.getScript();
