@@ -34,8 +34,8 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-40s|%-40s|%-20s|%-10s|%-34s|@",
-				"№", "Page", "Path", "Type", "State", "Bundle"));
+		System.out.println(ansi().render("@|negative_on %3s|%-45s|%-40s|%-34s|@",
+				"№", "Page", "Path", "Bundle"));
 		int i = 0;
 		final Collection<LiveContributor> origContributors = contributorRepo.findAll();
 		final Collection<LiveContributor> sortedContributors = origContributors;
@@ -48,9 +48,23 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 			} else if (contributor instanceof HideContributor) {
 				contribSymbol = "@|bold,red ✖|@";
 			} else throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
-			Bundle bundle = contributor.getBundle();
-			System.out.println(ansi().render("@|bold,black %3d||@%-40s@|bold,black ||@" + contribSymbol + "%-39s@|bold,black ||@%-10s@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, contributor.getPageClassName(), contributor.getTargetPath(), contributor.getState(),
+			final String stateSymbol;
+			switch (contributor.getState()) {
+			case UNRESOLVED:
+				stateSymbol = "@|bold,yellow ?|@";
+				break;
+			case FAILED:
+				stateSymbol = "@|bold,red ✖|@";
+				break;
+			case RESOLVED:
+				stateSymbol = "@|bold,green ▶|@";
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown contributor state: " + contributor.getState());
+			}
+			final Bundle bundle = contributor.getBundle();
+			System.out.println(ansi().render("@|bold,black %3d||@%-45s@|bold,black ||@" + contribSymbol + stateSymbol + "%-38s@|bold,black ||@%-30s@|bold,yellow %4d|@",
+				++i, contributor.getPageClassName(), contributor.getTargetPath(),
 				bundle.getSymbolicName(), bundle.getBundleId() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ contributors", i));
