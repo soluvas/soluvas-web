@@ -39,9 +39,6 @@ import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.TenantService;
 import org.soluvas.web.site.client.AmdDependency;
-import org.soluvas.web.site.client.BackboneModel;
-import org.soluvas.web.site.client.BackboneViewWithoutModel;
-import org.soluvas.web.site.client.CustomJsSource;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
@@ -155,50 +152,6 @@ public class BootstrapPage extends MultitenantPage {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
 		pageJavaScriptLinks.add(js);
 		return js;
-	}
-	
-	/**
-	 * @deprecated Use {@link CustomJsSource}.
-	 * @param source
-	 * @return
-	 */
-	@Deprecated
-	public void addJsSource(String source) {
-		add(new CustomJsSource(source));
-//		pageJavaScriptSources.add(source);
-//		return source;
-	}
-	
-	/**
-	 * 
-	 * @param name
-	 * @param className
-	 * @param data
-	 * @return
-	 * @deprecated use {@link BackboneModel}
-	 */
-	@Deprecated
-	public <T> void addBackboneModel(String name, String className, T data) {
-		// TODO: should use BackboneModel behavior
-		add(new BackboneModel<T>(name, className, data));
-//		try {
-//			ObjectMapper objectMapper = jacksonMapperFactory.get();
-//			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
-//		} catch (Exception e) {
-//			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
-//		}
-	}
-
-	/**
-	 * @deprecated Use {@link BackboneViewWithoutModel}.
-	 * @param name
-	 * @param className
-	 * @param elementId
-	 */
-	@Deprecated
-	public void addBackboneViewWithoutModel(String name, String className, String elementId) {
-		add(new BackboneViewWithoutModel(name, className, elementId));
-//		return addJsSource(name + " = new "+ className + "({id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
 	/**
