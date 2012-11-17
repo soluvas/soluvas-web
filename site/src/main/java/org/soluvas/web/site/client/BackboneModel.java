@@ -1,10 +1,15 @@
-package org.soluvas.web.site;
-
-import java.io.Serializable;
+package org.soluvas.web.site.client;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.behavior.Behavior;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.soluvas.json.JacksonMapperFactory;
+import org.soluvas.web.site.Page;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Supplier;
 
 /**
  * Adds Backbone model instance with preloaded data.
@@ -13,7 +18,7 @@ import org.apache.wicket.behavior.Behavior;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class BackboneModel<T extends Serializable> extends Behavior {
+public class BackboneModel<T> extends JsSource {
 	
 	private final String name;
 	private final String className;
@@ -60,6 +65,21 @@ public class BackboneModel<T extends Serializable> extends Behavior {
 		return "BackboneModel [" + (name != null ? "name=" + name + ", " : "")
 				+ (className != null ? "className=" + className + ", " : "")
 				+ (data != null ? "data=" + data : "") + "]";
+	}
+	
+	@Override
+	public String getJsSource() {
+		final BundleContext bundleContext = FrameworkUtil.getBundle(BackboneModel.class).getBundleContext();
+		final ServiceReference<JacksonMapperFactory> jacksonMapperFactoryRef = bundleContext.getServiceReference(JacksonMapperFactory.class);
+		final Supplier<ObjectMapper> jacksonMapperFactory = bundleContext.getService(jacksonMapperFactoryRef);
+		try {
+			final ObjectMapper objectMapper = jacksonMapperFactory.get();
+			return name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");";
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
+		} finally {
+			bundleContext.ungetService(jacksonMapperFactoryRef);
+		}
 	}
 	
 }

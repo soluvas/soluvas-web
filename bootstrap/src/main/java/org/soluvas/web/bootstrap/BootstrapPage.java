@@ -21,11 +21,12 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.repository.CrudRepository;
-import org.soluvas.web.site.AmdDependency;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
@@ -37,6 +38,13 @@ import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.TenantService;
+import org.soluvas.web.site.client.AmdDependency;
+import org.soluvas.web.site.client.BackboneModel;
+import org.soluvas.web.site.client.BackboneView;
+import org.soluvas.web.site.client.BackboneViewWithoutModel;
+import org.soluvas.web.site.client.CustomJsSource;
+import org.soluvas.web.site.client.JsSource;
+import org.soluvas.web.site.client.PlainModel;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.pagemeta.PageMeta;
@@ -45,6 +53,7 @@ import org.soluvas.web.site.webaddress.WebAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Ordering;
@@ -56,6 +65,56 @@ import com.google.common.collect.Ordering;
 @SuppressWarnings("serial")
 public class BootstrapPage extends MultitenantPage {
 
+	/**
+	 * Usage:
+	 * 
+	 * <pre>{@code
+	 * final Builder<String, String> dependencies = ImmutableMap.builder();
+	 * new AmdDependencyVisitor(dependencies).component(BootstrapPage.this, null);
+	 * visitChildren(new AmdDependencyVisitor(dependencies));
+	 * final Map<String, String> dependencyMap = dependencies.build();
+	 * log.debug("Page {} has {} AMD dependencies: {}", getClass().getName(), dependencyMap.size(),
+	 * 		dependencyMap.keySet());
+	 * }</pre>
+	 * 
+	 * @author ceefour
+	 */
+	public static final class AmdDependencyVisitor implements
+			IVisitor<Component, Void> {
+		private final Builder<String, String> dependencies;
+
+		public AmdDependencyVisitor(Builder<String, String> dependencies) {
+			this.dependencies = dependencies;
+		}
+
+		@Override
+		public void component(Component component,
+				IVisit<Void> visit) {
+			List<AmdDependency> amdDeps = component.getBehaviors(AmdDependency.class);
+			for (AmdDependency dep : amdDeps) {
+				dependencies.put(dep.getPath(), dep.getName());
+			}
+		}
+	}
+
+	public static final class JsSourceVisitor implements
+		IVisitor<Component, Void> {
+		private final ImmutableList.Builder<String> jsSources;
+		
+		public JsSourceVisitor(ImmutableList.Builder<String> jsSources) {
+			this.jsSources = jsSources;
+		}
+		
+		@Override
+		public void component(Component component,
+				IVisit<Void> visit) {
+			List<JsSource> jsSourceBehaviors = component.getBehaviors(JsSource.class);
+			for (JsSource src : jsSourceBehaviors) {
+				jsSources.add( src.getJsSource() );
+			}
+		}
+	}
+	
 	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	
 	@PaxWicketBean(name="jacksonMapperFactory")
@@ -86,8 +145,6 @@ public class BootstrapPage extends MultitenantPage {
 	private CrudRepository<LiveContributor, Integer> contributors;
 	
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
-	private final List<String> pageJavaScriptSources = new ArrayList<String>();
-
 	protected Component feedbackPanel;
 
 	protected TransparentWebMarkupContainer contentColumn;
@@ -102,39 +159,86 @@ public class BootstrapPage extends MultitenantPage {
 		return js;
 	}
 	
-	public String addJsSource(String source) {
-		pageJavaScriptSources.add(source);
-		return source;
+	/**
+	 * @deprecated Use {@link CustomJsSource}.
+	 * @param source
+	 * @return
+	 */
+	@Deprecated
+	public void addJsSource(String source) {
+		add(new CustomJsSource(source));
+//		pageJavaScriptSources.add(source);
+//		return source;
 	}
 	
-	public <T> String addBackboneModel(String name, String className, T data) {
+	/**
+	 * 
+	 * @param name
+	 * @param className
+	 * @param data
+	 * @return
+	 * @deprecated use {@link BackboneModel}
+	 */
+	@Deprecated
+	public <T> void addBackboneModel(String name, String className, T data) {
 		// TODO: should use BackboneModel behavior
-		try {
-			ObjectMapper objectMapper = jacksonMapperFactory.get();
-			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
-		}
+		add(new BackboneModel(name, className, data));
+//		try {
+//			ObjectMapper objectMapper = jacksonMapperFactory.get();
+//			return addJsSource(name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");");
+//		} catch (Exception e) {
+//			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
+//		}
 	}
 
-	public <T> String addPlainModel(String name, T data) {
-		try {
-			ObjectMapper objectMapper = jacksonMapperFactory.get();
-			return addJsSource(name + " = " + objectMapper.writeValueAsString(data) + ";");
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot serialize model to JSON: " + name + " from " + data, e);
-		}
+	/**
+	 * @deprecated Use {@link PlainModel}
+	 * @param name
+	 * @param data
+	 * @return
+	 */
+	@Deprecated
+	public <T> void addPlainModel(String name, T data) {
+		add(new PlainModel(name, data));
+//		try {
+//			ObjectMapper objectMapper = jacksonMapperFactory.get();
+//			return addJsSource(name + " = " + objectMapper.writeValueAsString(data) + ";");
+//		} catch (Exception e) {
+//			throw new RuntimeException("Cannot serialize model to JSON: " + name + " from " + data, e);
+//		}
 	}
 
-	public String addBackboneView(String name, String className, String modelName,
+	/**
+	 * @deprecated Use {@link BackboneView}.
+	 * @param name
+	 * @param className
+	 * @param modelName
+	 * @param elementId
+	 */
+	@Deprecated
+	public void addBackboneView(String name, String className, String modelName,
 			String elementId) {
-		return addJsSource(name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
+		add(new BackboneView(name, className, modelName, elementId));
+//		return addJsSource(name + " = new "+ className + "({model: " + modelName + ", id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
-	public String addBackboneViewWithoutModel(String name, String className, String elementId) {
-		return addJsSource(name + " = new "+ className + "({id: '"+ elementId +"', el: '#" + elementId + "'});");
+	/**
+	 * @deprecated Use {@link BackboneViewWithoutModel}.
+	 * @param name
+	 * @param className
+	 * @param elementId
+	 */
+	@Deprecated
+	public void addBackboneViewWithoutModel(String name, String className, String elementId) {
+		add(new BackboneViewWithoutModel(name, className, elementId));
+//		return addJsSource(name + " = new "+ className + "({id: '"+ elementId +"', el: '#" + elementId + "'});");
 	}
 	
+	/**
+	 * @param dependencies
+	 * @deprecated Replaced with {@link Component#add(org.apache.wicket.behavior.Behavior...)} with {@link AmdDependency}.
+	 */
+	@Deprecated
 	public void addDependencies(Map<String, String> dependencies) {
 		for (Entry<String, String> dep : dependencies.entrySet()) {
 			add(new AmdDependency(dep.getKey(), dep.getValue()));
@@ -273,14 +377,25 @@ public class BootstrapPage extends MultitenantPage {
 		IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
-				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
-				String merged = Joiner.on('\n').join(pageJavaScriptSources);
-				List<AmdDependency> amdDeps = getBehaviors(AmdDependency.class);
-				Builder<String, String> dependencies = ImmutableMap.builder();
-				for (AmdDependency dep : amdDeps) {
-					dependencies.put(dep.getPath(), dep.getName());
-				}
-				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencies.build());
+				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList.builder();
+				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(pageJsSourcesBuilder);
+				jsSourceVisitor.component(BootstrapPage.this, null);
+				visitChildren(jsSourceVisitor);
+//				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJavaScriptSources.size());
+//				String merged = Joiner.on('\n').join(pageJavaScriptSources);
+				List<String> pageJsSources = pageJsSourcesBuilder.build();
+				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJsSources.size());
+				String merged = Joiner.on('\n').join(pageJsSources);
+				
+				final Builder<String, String> dependencies = ImmutableMap.builder();
+				final AmdDependencyVisitor amdDependencyVisitor = new AmdDependencyVisitor(dependencies);
+				amdDependencyVisitor.component(BootstrapPage.this, null);
+				visitChildren(amdDependencyVisitor);
+				final Map<String, String> dependencyMap = dependencies.build();
+				log.debug("Page {} has {} AMD dependencies: {}", getClass().getName(), dependencyMap.size(),
+						dependencyMap.keySet());
+
+				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencyMap);
 				return js.getScript();
 			};
 		};

@@ -1,8 +1,9 @@
-package org.soluvas.web.site;
+package org.soluvas.web.site.client;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.behavior.Behavior;
+import org.soluvas.web.site.Page;
 
 /**
  * Provides dependency to a JavaScript library.
