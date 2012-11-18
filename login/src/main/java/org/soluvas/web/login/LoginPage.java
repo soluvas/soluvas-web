@@ -1,5 +1,7 @@
 package org.soluvas.web.login;
 
+import javax.inject.Inject;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -22,8 +24,8 @@ import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.inject.Supplied;
 import org.soluvas.web.bootstrap.BootstrapPage;
-import org.soluvas.web.site.TenantService;
 
 import com.google.common.base.Supplier;
 
@@ -39,8 +41,8 @@ public class LoginPage extends BootstrapPage {
 	private final LoginFormModel loginFormModel = new LoginFormModel();
 	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
 	private transient SecurityManager securityManager;
-	@TenantService(filter="(&(suppliedClass=org.soluvas.commons.AppManifest)(layer=application))")
-	private transient Supplier<AppManifest> appManifestSupplier;
+	@Inject @Supplied
+	private AppManifest appManifest;
 
 	protected void initializeSecurityManager() {
 		Ini ini = new Ini();
@@ -56,7 +58,6 @@ public class LoginPage extends BootstrapPage {
 
 		// initializeSecurityManager();
 		
-		AppManifest appManifest = appManifestSupplier.get();
 		add(new Label("appName", new PropertyModel<String>(appManifest, "title")));
 
 		final Form<LoginFormModel> loginForm = new Form<LoginFormModel>("loginForm", new Model<LoginFormModel>(loginFormModel));

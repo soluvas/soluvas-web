@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -25,6 +27,7 @@ import org.apache.wicket.util.visit.IVisitor;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.inject.Supplied;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
@@ -36,7 +39,6 @@ import org.soluvas.web.site.PageMetaSupplier;
 import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.Site;
-import org.soluvas.web.site.TenantService;
 import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
@@ -133,8 +135,8 @@ public class BootstrapPage extends MultitenantPage {
 //	private Supplier<List<PageRule>> pageRulesSupplier;
 	@PaxWicketBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@TenantService(filter="(suppliedClass=org.soluvas.web.site.webaddress.WebAddress)")
-	private transient Supplier<WebAddress> webAddressSupplier;
+	@Inject @Supplied
+	private WebAddress webAddress;
 	@PaxWicketBean(name="contributors")
 	private CrudRepository<LiveContributor, Integer> contributors;
 	
@@ -144,8 +146,6 @@ public class BootstrapPage extends MultitenantPage {
 	protected TransparentWebMarkupContainer contentColumn;
 
 	protected TransparentWebMarkupContainer sidebarColumn;
-
-	private WebAddress webAddress;
 
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
@@ -198,8 +198,6 @@ public class BootstrapPage extends MultitenantPage {
 	}
 	
 	public BootstrapPage() {
-		webAddress = webAddressSupplier.get();
-
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
 		final PageMeta pageMeta = getPageMeta();
