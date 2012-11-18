@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * Injects {@link Inject} tenant services before render, and uninjects after render.
+ * Created by {@link BehaviorTenantInjector}.
  * @author ceefour
  */
 @SuppressWarnings("serial")
@@ -68,6 +69,7 @@ public class TenantInjectionBehavior extends Behavior {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void inject(Component component) {
+		
 		Class<?> clazz = component.getClass();
 		final ImmutableList.Builder<Field> fieldsBuilder = ImmutableList.builder();
 		while (clazz != null) {
@@ -102,8 +104,9 @@ public class TenantInjectionBehavior extends Behavior {
 			
 			final Class serviceClass = field.getType();
 			
+			final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 			log.trace("Field {}#{} looking up {} for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
-					component.getId(), field.getName(), serviceClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
+					componentId, field.getName(), serviceClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
 			final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
 			final String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + suppliedClassFilter + additionalFilter + ")";
 			
@@ -111,23 +114,23 @@ public class TenantInjectionBehavior extends Behavior {
 			try {
 				final Collection<ServiceReference<?>> foundRefs = bundleContext.getServiceReferences(serviceClass, filter);
 				if (foundRefs == null || foundRefs.isEmpty()) {
-					throw new RuntimeException("Cannot inject " + component.getId() + "#" + field.getName() + ", " +
+					throw new RuntimeException("Cannot inject " + componentId + "#" + field.getName() + ", " +
 							serviceClass.getName() + " service with " + filter + " not found");
 				}
 				serviceRef = foundRefs.iterator().next();
 			} catch (InvalidSyntaxException e) {
-				throw new RuntimeException("Cannot inject " + component.getId() + "#" + field.getName() + ", invalid " +
+				throw new RuntimeException("Cannot inject " + componentId + "#" + field.getName() + ", invalid " +
 						serviceClass.getName() + " service with " + filter);
 			}
 			final Object bean = bundleContext.getService(serviceRef);
 			try {
-				log.trace("Injecting {}#{} as {}", component.getId(), field.getName(), bean);
+				log.trace("Injecting {}#{} as {}", componentId, field.getName(), bean);
 				FieldUtils.writeField(field, component, bean, true);
 				serviceRefs.put(field, serviceRef);
 			} catch (Exception e) {
 				bundleContext.ungetService(serviceRef);
 				serviceRefs.remove(field);
-				throw new RuntimeException("Cannot set field " + component.getId() + "#" + field.getName() + " using " +
+				throw new RuntimeException("Cannot set field " + componentId + "#" + field.getName() + " using " +
 						serviceClass.getName() + " service with " + filter, e);
 			}
 		}

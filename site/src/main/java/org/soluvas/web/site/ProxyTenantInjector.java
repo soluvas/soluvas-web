@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.osgi.framework.BundleContext;
@@ -30,6 +31,8 @@ import com.google.common.collect.ImmutableList;
  * Injects Wicket {@link Component}s using {@link TenantServiceProxy}.
  * 
  * Supported annotations are: {@link Inject}, {@link Namespace}, {@link Filter}, {@link Supplied}.
+ * 
+ * The Wicket app's {@link Application#getApplicationKey()} must be {tenantId}_{tenantEnv}.
  * 
  * {@link BehaviorTenantInjector} is superior: it works with all objects (not just interfaces), and more performant
  * because it doesn't use proxies, and in some ways easier to debug (but harder in other ways, because it does a long-running

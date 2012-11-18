@@ -11,7 +11,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.web.site.MultitenantPage;
+import org.soluvas.web.site.ExtensiblePage;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
@@ -57,10 +57,10 @@ public class ComposeUtils {
 					final RepeatingView repeatingViewParent = (RepeatingView) parent;
 					final IModel<?> model;
 					if (!Strings.isNullOrEmpty(placeholder.getModelClassName())) {
-						if (page instanceof MultitenantPage) {
-							model = ((MultitenantPage) page).getModelForChild(contrib.getTargetPath());
+						if (page instanceof ExtensiblePage) {
+							model = ((ExtensiblePage) page).getModelForChild(contrib.getTargetPath());
 						} else
-							throw new RuntimeException("Page " + page.getClass().getName() + " must be an instance of MultitenantPage to provide a model of " +
+							throw new RuntimeException("Page " + page.getClass().getName() + " must be an instance of ExtensiblePage to provide a model of " +
 									placeholder.getModelClassName() + " for " + placeholder);
 					} else {
 						model = null;

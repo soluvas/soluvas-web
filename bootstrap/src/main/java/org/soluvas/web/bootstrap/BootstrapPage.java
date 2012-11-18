@@ -34,7 +34,7 @@ import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
-import org.soluvas.web.site.MultitenantPage;
+import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.PageMetaSupplier;
 import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
@@ -59,7 +59,7 @@ import com.google.common.collect.Ordering;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class BootstrapPage extends MultitenantPage {
+public class BootstrapPage extends ExtensiblePage {
 
 	/**
 	 * Usage:

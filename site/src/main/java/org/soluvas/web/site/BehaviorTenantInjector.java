@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.application.IComponentInstantiationListener;
 import org.osgi.framework.BundleContext;
@@ -28,6 +29,8 @@ import com.google.common.collect.ImmutableList;
  * Injects Wicket {@link Component}s using {@link TenantInjectionBehavior}.
  * 
  * Supported annotations are: {@link Inject}, {@link Namespace}, {@link Filter}, {@link Supplied}.
+ * 
+ * The Wicket app's {@link Application#getApplicationKey()} must be {tenantId}_{tenantEnv}.
  * 
  * @author ceefour
  */
@@ -70,8 +73,9 @@ public class BehaviorTenantInjector implements IComponentInstantiationListener {
 
 				final Class<?> suppliedClass = field.getType();
 				
+				final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 				log.trace("Field {}#{} needs Supplier<{}> for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
-						component.getId(), field.getName(), suppliedClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
+						componentId, field.getName(), suppliedClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
 				final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
 				final String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + suppliedClassFilter + additionalFilter + ")";
 				
@@ -79,22 +83,22 @@ public class BehaviorTenantInjector implements IComponentInstantiationListener {
 				try {
 					serviceRefs = bundleContext.getServiceReferences(Supplier.class, filter);
 				} catch (InvalidSyntaxException e) {
-					throw new RuntimeException("Cannot inject " + component.getId() + "#" + field.getName() + ", invalid " +
+					throw new RuntimeException("Cannot inject " + componentId + "#" + field.getName() + ", invalid " +
 							suppliedClass.getName() + " Supplier service with filter " + filter, e);
 				}
 				if (serviceRefs == null || serviceRefs.isEmpty()) {
-					throw new RuntimeException("Cannot find " + suppliedClass.getName() + " supplier for " + component.getId() + "#" + field.getName() + ", " +
+					throw new RuntimeException("Cannot find " + suppliedClass.getName() + " supplier for " + componentId + "#" + field.getName() + ", " +
 							"Supplier with " + filter + " not found");
 				}
 				final ServiceReference<Supplier> serviceRef = serviceRefs.iterator().next();
 				final Supplier supplier = bundleContext.getService(serviceRef);
 				try {
 					final Object suppliedObj = supplier.get();
-					log.trace("Injecting {}#{} as {}", component.getId(), field.getName(), suppliedObj);
+					log.trace("Injecting {}#{} as {}", componentId, field.getName(), suppliedObj);
 					FieldUtils.writeField(field, component, suppliedObj, true);
 				} catch (Exception e) {
-					log.error("Cannot inject " + component.getId() + "#" + field.getName() + " from " + supplier, e);
-					throw new RuntimeException("Cannot inject " + component.getId() + "#" + field.getName() + " from " + supplier, e);
+					log.error("Cannot inject " + componentId + "#" + field.getName() + " from " + supplier, e);
+					throw new RuntimeException("Cannot inject " + componentId + "#" + field.getName() + " from " + supplier, e);
 				} finally {
 					bundleContext.ungetService(serviceRef);
 				}

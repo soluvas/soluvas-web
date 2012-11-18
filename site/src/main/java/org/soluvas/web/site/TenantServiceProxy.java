@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
@@ -11,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * JDK Proxy implementation for JSR330 {@link Inject}. Created by {@link ProxyTenantInjector}. 
  * @author ceefour
- *
  */
 public class TenantServiceProxy implements InvocationHandler {
 
