@@ -5,13 +5,21 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.inject.Inject;
+
+import org.soluvas.commons.inject.Filter;
+import org.soluvas.commons.inject.Namespace;
+import org.soluvas.commons.inject.Supplied;
+
 
 /**
  * Injects OSGi service conforming to Soluvas Multitenant conventions.
+ * @deprecated Use {@link Inject} with {@link Namespace}, {@link Filter}, {@link Supplied}.
  * @see MultitenantPage
  * @author ceefour
  */
 @Target(ElementType.FIELD) @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface TenantService {
 
 	/**

@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.wicket.Application;
@@ -37,8 +38,10 @@ import com.google.common.collect.Maps;
  * 
  * @todo We can support Pax Wicket's PaxWicketBean "injectionSource" implementation.
  * @author ceefour
+ * @deprecated Use {@link TenantInjector} with {@link Inject}.
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class MultitenantPage extends WebPage {
 	
 	private transient Logger log = LoggerFactory
@@ -156,6 +159,7 @@ public class MultitenantPage extends WebPage {
 		modelsForChild.put(path, model);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T extends IModel<?>> T getModelForChild(String path) {
 		return (T) modelsForChild.get(path);
 	}

@@ -39,7 +39,7 @@ public class WebTenantUtils {
 	public static TenantRef getTenant() {
 		Application app = Application.get();
 		final String appKey = app.getApplicationKey();
-		log.debug("Getting Wicket tenant for app key={} name={}", appKey,
+		log.trace("Getting Wicket tenant for app key={} name={}", appKey,
 				app.getName());
 		
 		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
