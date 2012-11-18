@@ -27,15 +27,15 @@ import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Injects Wicket {@link Component}s with {@link TenantServiceProxy}.
+ * Injects Wicket {@link Component}s using {@link TenantServiceProxy}.
  * 
  * Supported annotations are: {@link Inject}, {@link Namespace}, {@link Filter}, {@link Supplied}.
  * 
  * @author ceefour
  */
-public class TenantInjector implements IComponentInstantiationListener {
+public class ProxyTenantInjector implements IComponentInstantiationListener {
 
-	private static Logger log = LoggerFactory.getLogger(TenantInjector.class);
+	private static Logger log = LoggerFactory.getLogger(ProxyTenantInjector.class);
 	
 	@SuppressWarnings("rawtypes")
 	@Override

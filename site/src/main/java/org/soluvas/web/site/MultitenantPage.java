@@ -38,7 +38,7 @@ import com.google.common.collect.Maps;
  * 
  * @todo We can support Pax Wicket's PaxWicketBean "injectionSource" implementation.
  * @author ceefour
- * @deprecated Use {@link TenantInjector} with {@link Inject}.
+ * @deprecated Use {@link ProxyTenantInjector} with {@link Inject}.
  */
 @SuppressWarnings("serial")
 @Deprecated
