@@ -1,12 +1,13 @@
 package org.soluvas.web.site;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.inject.Inject;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -26,14 +27,14 @@ import org.springframework.context.support.SimpleThreadScope;
  * @author ceefour
  * @deprecated Quasi-failed experiment. The service "URI" needs to be put as bean ID, which Spring XML dislikes,
  * 		and... the ID needs to be re-specified in the @{@link PaxWicketBean}, which is pointless.
- * 		Please use {@link MultitenantPage} and {@link TenantService} annotation.
+ * 		Please use {@link Inject}.
  */
 @Deprecated
 public class WicketTenantScope implements Scope {
 
 	public static class ServiceBean {
-		private ServiceReference serviceRef;
-		private Object bean;
+		private final ServiceReference serviceRef;
+		private final Object bean;
 		
 		public ServiceBean(ServiceReference serviceRef, Object bean) {
 			super();
@@ -43,11 +44,11 @@ public class WicketTenantScope implements Scope {
 	}
 	
 	private transient Logger log = LoggerFactory.getLogger(WicketTenantScope.class);
-	private BundleContext bundleContext;
+	private final BundleContext bundleContext;
 	/**
 	 * Map of applicationKey -> scopedTarget name -> ServiceReference. 
 	 */
-	private Map<String, Map<String, ServiceBean>> beanMap = new ConcurrentHashMap<String, Map<String,ServiceBean>>();
+	private final Map<String, Map<String, ServiceBean>> beanMap = new ConcurrentHashMap<String, Map<String,ServiceBean>>();
 	
 	public WicketTenantScope(BundleContext bundleContext) {
 		super();
