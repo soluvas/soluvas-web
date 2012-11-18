@@ -31,6 +31,10 @@ import com.google.common.collect.ImmutableList;
  * 
  * Supported annotations are: {@link Inject}, {@link Namespace}, {@link Filter}, {@link Supplied}.
  * 
+ * {@link BehaviorTenantInjector} is superior: it works with all objects (not just interfaces), and more performant
+ * because it doesn't use proxies, and in some ways easier to debug (but harder in other ways, because it does a long-running
+ * {@link BundleContext#getService(ServiceReference)}).
+ * 
  * @author ceefour
  */
 public class ProxyTenantInjector implements IComponentInstantiationListener {
