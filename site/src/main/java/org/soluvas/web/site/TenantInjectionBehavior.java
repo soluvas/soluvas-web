@@ -69,7 +69,6 @@ public class TenantInjectionBehavior extends Behavior {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void inject(Component component) {
-		
 		Class<?> clazz = component.getClass();
 		final ImmutableList.Builder<Field> fieldsBuilder = ImmutableList.builder();
 		while (clazz != null) {
@@ -147,15 +146,16 @@ public class TenantInjectionBehavior extends Behavior {
 	 * @param component
 	 */
 	public void uninject(Component component) {
-		Iterator<Entry<Field, ServiceReference<?>>> serviceRefIterator = serviceRefs.entrySet().iterator();
+		final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
+		final Iterator<Entry<Field, ServiceReference<?>>> serviceRefIterator = serviceRefs.entrySet().iterator();
 		while (serviceRefIterator.hasNext()) {
 			final Entry<Field, ServiceReference<?>> entry = serviceRefIterator.next();
 			final Field field = entry.getKey();
-			log.trace("Unsetting {}#{}", new Object[] { component.getId(), field.getName() });
+			log.trace("Unsetting {}#{}", componentId, field.getName() );
 			try {
 				FieldUtils.writeField(field, this, null, true);
 			} catch (Exception e) {
-				log.warn("Cannot unset " + component.getId() + "." + field.getName(), e);
+				log.warn("Cannot unset " + componentId + "#" + field.getName(), e);
 			}
 			bundleContext.ungetService(entry.getValue());
 			serviceRefIterator.remove();
