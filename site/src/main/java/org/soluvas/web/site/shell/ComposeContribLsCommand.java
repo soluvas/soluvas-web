@@ -34,19 +34,23 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-45s|%-40s|%-34s|@",
-				"№", "Page", "Path", "Bundle"));
+		System.out.println(ansi().render("@|negative_on %3s|%-45s|%-45s|%-40s|%-34s|@",
+				"№", "Name", "Page", "Path", "Bundle"));
 		int i = 0;
 		final Collection<LiveContributor> origContributors = contributorRepo.findAll();
 		final Collection<LiveContributor> sortedContributors = origContributors;
 		for (LiveContributor contributor : sortedContributors) {
 			final String contribSymbol;
+			final String contribName;
 			if (contributor instanceof ChildContributor) {
-				contribSymbol = "@|bold,blue ✚|@"; 
+				contribSymbol = "@|bold,blue ✚|@";
+				contribName = ((ChildContributor) contributor).getClassName();
 			} else if (contributor instanceof ReplaceContributor) {
 				contribSymbol = "@|bold,yellow ☛|@";
+				contribName = ((ReplaceContributor) contributor).getClassName();
 			} else if (contributor instanceof HideContributor) {
 				contribSymbol = "@|bold,red ✖|@";
+				contribName = contributor.getTargetPath();
 			} else throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
 			final String stateSymbol;
 			switch (contributor.getState()) {
@@ -63,8 +67,8 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 				throw new IllegalArgumentException("Unknown contributor state: " + contributor.getState());
 			}
 			final Bundle bundle = contributor.getBundle();
-			System.out.println(ansi().render("@|bold,black %3d||@%-45s@|bold,black ||@" + contribSymbol + stateSymbol + "%-38s@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, contributor.getPageClassName(), contributor.getTargetPath(),
+			System.out.println(ansi().render("@|bold,black %3d||@" + contribSymbol + stateSymbol + "%-43s@|bold,black ||@%-45s@|bold,black ||@%-40s@|bold,black ||@%-30s@|bold,yellow %4d|@",
+				++i, contribName, contributor.getPageClassName(), contributor.getTargetPath(),
 				bundle.getSymbolicName(), bundle.getBundleId() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ contributors", i));
