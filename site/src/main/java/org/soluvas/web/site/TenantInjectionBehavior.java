@@ -34,7 +34,7 @@ import com.google.common.collect.ImmutableList;
 public class TenantInjectionBehavior extends Behavior {
 	
 	private static Logger log = LoggerFactory
-			.getLogger(TenantServiceProxy.class);
+			.getLogger(TenantInjectionBehavior.class);
 	private final BundleContext bundleContext;
 	private final String tenantId;
 	private final String tenantEnv;
@@ -55,20 +55,15 @@ public class TenantInjectionBehavior extends Behavior {
 		this.tenantId = tenantId;
 		this.tenantEnv = tenantEnv;
 	}
-
-	@Override
-	public void beforeRender(Component component) {
-		inject(component);
-		
-		super.beforeRender(component);
-	}
-
+	
 	/**
 	 * Perform injection.
 	 * @param component
+	 * @param phase 
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void inject(Component component) {
+	public void inject(Component component, String phase) {
+		final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 		Class<?> clazz = component.getClass();
 		final ImmutableList.Builder<Field> fieldsBuilder = ImmutableList.builder();
 		while (clazz != null) {
@@ -103,7 +98,6 @@ public class TenantInjectionBehavior extends Behavior {
 			
 			final Class serviceClass = field.getType();
 			
-			final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 			log.trace("Field {}#{} looking up {} for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
 					componentId, field.getName(), serviceClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
 			final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
@@ -133,32 +127,39 @@ public class TenantInjectionBehavior extends Behavior {
 						serviceClass.getName() + " service with " + filter, e);
 			}
 		}
+		if (!serviceRefs.isEmpty()) {
+			log.debug("Injected {} services to {} in {}", serviceRefs.size(), componentId, phase);
+		}
 	}
 	
 	@Override
 	public void afterRender(Component component) {
+		uninject(component, "afterRender");
 		super.afterRender(component);
-		uninject(component);
 	}
-
+	
 	/**
 	 * Uninjects injected fields.
 	 * @param component
+	 * @param phase 
 	 */
-	public void uninject(Component component) {
-		final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
-		final Iterator<Entry<Field, ServiceReference<?>>> serviceRefIterator = serviceRefs.entrySet().iterator();
-		while (serviceRefIterator.hasNext()) {
-			final Entry<Field, ServiceReference<?>> entry = serviceRefIterator.next();
-			final Field field = entry.getKey();
-			log.trace("Unsetting {}#{}", componentId, field.getName() );
-			try {
-				FieldUtils.writeField(field, this, null, true);
-			} catch (Exception e) {
-				log.warn("Cannot unset " + componentId + "#" + field.getName(), e);
+	public void uninject(Component component, String phase) {
+		if (!serviceRefs.isEmpty()) {
+			final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
+			log.debug("Uninjecting {} services from {} due to {}", serviceRefs.size(), componentId, phase);
+			final Iterator<Entry<Field, ServiceReference<?>>> serviceRefIterator = serviceRefs.entrySet().iterator();
+			while (serviceRefIterator.hasNext()) {
+				final Entry<Field, ServiceReference<?>> entry = serviceRefIterator.next();
+				final Field field = entry.getKey();
+				log.trace("Unsetting {}#{}", componentId, field.getName() );
+				try {
+					FieldUtils.writeField(field, component, null, true);
+				} catch (Exception e) {
+					log.warn("Cannot unset " + componentId + "#" + field.getName(), e);
+				}
+				bundleContext.ungetService(entry.getValue());
+				serviceRefIterator.remove();
 			}
-			bundleContext.ungetService(entry.getValue());
-			serviceRefIterator.remove();
 		}
 	}
 

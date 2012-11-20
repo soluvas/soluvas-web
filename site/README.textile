@@ -55,6 +55,21 @@ footerText = Copyright © 2012 Wikindonesia.com
 Note: In future versions (after ARIES-584 bug is fixed), we'll use Managed Service Factory, so the configuration file
 will be named @org.soluvas.web.site-default.cfg@.
 
+
+h2. Injection Behavior
+
+
+To enable @@Inject@ @@Namespace@ @@Filter@ @@Supplied@ annotations support, in your @Application@ subclass:
+
+bc. @Override
+protected void init() {
+	super.init();
+	final BehaviorTenantInjector behaviorTenantInjector = new BehaviorTenantInjector();
+	getComponentInstantiationListeners().add(behaviorTenantInjector);
+	getRequestCycleListeners().add(behaviorTenantInjector);
+}
+
+
 h2. Wicket @TenantService Annotation for Page
 
 h3. Setting up Application

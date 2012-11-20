@@ -9,7 +9,14 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.application.IComponentInstantiationListener;
+import org.apache.wicket.request.IRequestHandler;
+import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
@@ -24,6 +31,7 @@ import org.soluvas.web.site.osgi.WebTenantUtils;
 
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 /**
  * Injects Wicket {@link Component}s using {@link TenantInjectionBehavior}.
@@ -34,7 +42,7 @@ import com.google.common.collect.ImmutableList;
  * 
  * @author ceefour
  */
-public class BehaviorTenantInjector implements IComponentInstantiationListener {
+public class BehaviorTenantInjector extends AbstractRequestCycleListener implements IComponentInstantiationListener {
 
 	private static Logger log = LoggerFactory.getLogger(BehaviorTenantInjector.class);
 	
@@ -106,9 +114,28 @@ public class BehaviorTenantInjector implements IComponentInstantiationListener {
 		}
 		if (needBehavior) {
 			final TenantInjectionBehavior behavior = new TenantInjectionBehavior(bundleContext, tenantId, tenantEnv);
-			behavior.inject(component);	// perform first injection
+			behavior.inject(component, "onInstantiation");	// perform first injection
 			component.add( behavior );
 		}
 	}
-
+	
+	@Override
+	public void onRequestHandlerScheduled(RequestCycle reqCycle,
+			IRequestHandler reqHandler) {
+		log.trace("oNRequestHandlerScheduled {} {}", reqHandler.getClass(), reqHandler);
+		if (reqHandler instanceof AjaxRequestTarget) {
+			Page page = ((AjaxRequestTarget) reqHandler).getPage();
+			page.visitChildren(new IVisitor<Component, Void>() {
+				@Override
+				public void component(Component component, IVisit<Void> visit) {
+					TenantInjectionBehavior injectionBehavior = Iterables.getFirst(
+							component.getBehaviors(TenantInjectionBehavior.class), null);
+					if (injectionBehavior != null) {
+						injectionBehavior.inject(component, "ajaxRequestTarget");
+					}
+				}
+			});
+		}
+	}
+	
 }

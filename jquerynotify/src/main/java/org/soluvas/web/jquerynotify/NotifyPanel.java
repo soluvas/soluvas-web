@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class NotifyPanel extends Panel {
 
-	private transient Logger log = LoggerFactory.getLogger(NotifyPanel.class);
+	private static Logger log = LoggerFactory.getLogger(NotifyPanel.class);
 	
 	public NotifyPanel(String id) {
 		this(id, null);
