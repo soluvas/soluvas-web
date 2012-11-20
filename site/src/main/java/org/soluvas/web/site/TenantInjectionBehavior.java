@@ -133,6 +133,12 @@ public class TenantInjectionBehavior extends Behavior {
 	}
 	
 	@Override
+	public void detach(Component component) {
+		uninject(component, "detach");
+		super.detach(component);
+	}
+	
+	@Override
 	public void afterRender(Component component) {
 		uninject(component, "afterRender");
 		super.afterRender(component);

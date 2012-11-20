@@ -44,6 +44,18 @@ import com.google.common.collect.Iterables;
  */
 public class BehaviorTenantInjector extends AbstractRequestCycleListener implements IComponentInstantiationListener {
 
+	public static final class InjectVisitor implements
+			IVisitor<Component, Void> {
+		@Override
+		public void component(Component component, IVisit<Void> visit) {
+			TenantInjectionBehavior injectionBehavior = Iterables.getFirst(
+					component.getBehaviors(TenantInjectionBehavior.class), null);
+			if (injectionBehavior != null) {
+				injectionBehavior.inject(component, "ajaxRequestTarget");
+			}
+		}
+	}
+
 	private static Logger log = LoggerFactory.getLogger(BehaviorTenantInjector.class);
 	
 	@SuppressWarnings("rawtypes")
@@ -122,19 +134,12 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 	@Override
 	public void onRequestHandlerScheduled(RequestCycle reqCycle,
 			IRequestHandler reqHandler) {
-		log.trace("oNRequestHandlerScheduled {} {}", reqHandler.getClass(), reqHandler);
+		log.trace("onRequestHandlerScheduled {} {}", reqHandler.getClass(), reqHandler);
 		if (reqHandler instanceof AjaxRequestTarget) {
-			Page page = ((AjaxRequestTarget) reqHandler).getPage();
-			page.visitChildren(new IVisitor<Component, Void>() {
-				@Override
-				public void component(Component component, IVisit<Void> visit) {
-					TenantInjectionBehavior injectionBehavior = Iterables.getFirst(
-							component.getBehaviors(TenantInjectionBehavior.class), null);
-					if (injectionBehavior != null) {
-						injectionBehavior.inject(component, "ajaxRequestTarget");
-					}
-				}
-			});
+			final Page page = ((AjaxRequestTarget) reqHandler).getPage();
+			final InjectVisitor injectVisitor = new InjectVisitor();
+			injectVisitor.component(page, null);
+			page.visitChildren(injectVisitor);
 		}
 	}
 	
