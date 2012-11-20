@@ -15,6 +15,7 @@ import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.osgi.framework.BundleContext;
@@ -132,15 +133,35 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 	}
 	
 	@Override
+	public void onRequestHandlerResolved(RequestCycle cycle,
+			IRequestHandler handler) {
+		log.trace("onRequestHandlerResolved {} {}", handler.getClass(), handler);
+		if (handler instanceof RenderPageRequestHandler) {
+			final RenderPageRequestHandler renderPageHandler = (RenderPageRequestHandler) handler;
+			if (renderPageHandler.isPageInstanceCreated()) {
+				final Page page = (Page) renderPageHandler.getPage();
+				injectPage(page);
+			}
+		}
+	}
+	
+	@Override
 	public void onRequestHandlerScheduled(RequestCycle reqCycle,
 			IRequestHandler reqHandler) {
 		log.trace("onRequestHandlerScheduled {} {}", reqHandler.getClass(), reqHandler);
 		if (reqHandler instanceof AjaxRequestTarget) {
 			final Page page = ((AjaxRequestTarget) reqHandler).getPage();
-			final InjectVisitor injectVisitor = new InjectVisitor();
-			injectVisitor.component(page, null);
-			page.visitChildren(injectVisitor);
+			injectPage(page);
 		}
+	}
+
+	/**
+	 * @param page
+	 */
+	protected void injectPage(final Page page) {
+		final InjectVisitor injectVisitor = new InjectVisitor();
+		injectVisitor.component(page, null);
+		page.visitChildren(injectVisitor);
 	}
 	
 }

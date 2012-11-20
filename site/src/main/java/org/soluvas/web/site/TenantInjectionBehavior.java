@@ -132,6 +132,12 @@ public class TenantInjectionBehavior extends Behavior {
 		}
 	}
 	
+//	@Override
+//	public void beforeRender(Component component) {
+//		inject(component, "beforeRender");
+//		super.beforeRender(component);
+//	}
+	
 	@Override
 	public void detach(Component component) {
 		uninject(component, "detach");
