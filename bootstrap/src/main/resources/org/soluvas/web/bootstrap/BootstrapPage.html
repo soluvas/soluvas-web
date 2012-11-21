@@ -51,35 +51,33 @@
 
 	<header wicket:id="header"></header>
 	<div class="container">
-	
-	<div class="navbar" wicket:id="navbar">
-		Navbar... (see Navbar.html)
-	</div>
-	
-	<div wicket:id="afterHeader" class="afterHeader">
-<!-- 		Carousel Images is loading.. -->
-	</div>
-		<div class="row">
-			<div class="span3" wicket:id="sidebarColumn">
-				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-			</div><!--/span-->
-			
-			<div class="span9" wicket:id="contentColumn">
-				<div wicket:id="feedback" class="feedback"></div>
-				<wicket:child>
-					<ol class="featured-products">
-						<div id="featuredProducts">
-							<li><a href="#">Product name</a></li>
-						</div>
-					</ol>
-				</wicket:child>
-			</div>
-			<!--/row-->
+		<div class="navbar" wicket:id="navbar">
+			Navbar... (see Navbar.html)
 		</div>
-		<hr />
-		<footer wicket:id="footer">
-			<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small>
-		</footer>
+		
+		<div wicket:id="afterHeader" class="afterHeader">
+	<!-- 		Carousel Images is loading.. -->
+		</div>
+			<div class="row">
+				<div class="span2 well sidebar-categories" wicket:id="sidebarColumn">
+					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+				</div><!--/span-->
+				
+				<div class="span9" wicket:id="contentColumn">
+					<div wicket:id="feedback" class="feedback"></div>
+					<wicket:child>
+						<ol class="featured-products">
+							<div id="featuredProducts">
+								<li><a href="#">Product name</a></li>
+							</div>
+						</ol>
+					</wicket:child>
+				</div>
+			</div><!--/row-->
+			<hr />
+			<footer wicket:id="footer">
+				<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small>
+			</footer>
 	</div><!--/.fluid-container-->
 
 	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>

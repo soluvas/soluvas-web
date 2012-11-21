@@ -3,3 +3,59 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 .ui-autocomplete {
 	z-index: 1051 !important;
 }
+
+@media (max-width: 480px) {
+	.tophead {
+    	margin: 14px 0;
+	}
+	.carousel {
+    	margin:-7px 0 14px 0;
+	}
+	.navbar {
+    	margin-bottom: 14px;
+	}
+	.navbar .btn, .navbar .btn-group {
+    	margin: 5px;
+	}
+	.pricehomepage {
+	    color: #78C042;
+	    margin-top: -20px;
+	    text-align: right;
+	    width: 94px;
+	}
+	.wrapp-productThumbListContent {
+		list-style-type: none;	
+	}
+	.like-product-box ul, li {
+    	list-style-type: none;
+	}
+	.wrapper-item-newproducts {
+	    background-color: #FFFFFF;
+	    border: 1px solid #ECECEC;
+	    padding: 8px;
+	}
+	.productThumbListContent li {
+    	float: left;
+    	margin: 0 0 14px 10px;
+	}
+	.shop-name {
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    width: 96px;
+	}
+	.head-product-info h5 {
+    	margin-top: 0;
+	}
+	.sidebar-categories ul{
+		margin:0;
+	}
+	.headingpanel {
+	    font-size: 14px;
+	    font-weight: bold;
+	    margin-bottom: 10px;
+	    margin-right: 10px;
+	    display: block;
+	}
+
+}
