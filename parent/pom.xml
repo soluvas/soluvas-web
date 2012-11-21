@@ -331,11 +331,11 @@
 			<distributionManagement>
 				<snapshotRepository>
 					<id>bippo-gk-snapshots</id>
-					<url>http://192.168.66.17:8080/nexus/content/repositories/snapshots/</url>
+					<url>http://192.168.44.17:8080/nexus/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
 					<id>bippo-gk-releases</id>
-					<url>http://192.168.66.17:8080/nexus/content/repositories/releases/</url>
+					<url>http://192.168.44.17:8080/nexus/content/repositories/releases/</url>
 				</repository>
 			</distributionManagement>
 		</profile>
