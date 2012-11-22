@@ -193,4 +193,21 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 			float:left;
 			margin-right: 20px;
 		}
+		.img-list-group li {
+		    border: 1px solid #EEEEEE;
+		    margin-right: 10px;
+		    float:left;
+		    padding: 8px;
+		    margin-bottom:10px
+		}
+		.info-file {
+		    float: left;
+		    font-size: 11px;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    width: 190px;
+		}
+		.muted {
+		    color: #999999;
+		}
 }
