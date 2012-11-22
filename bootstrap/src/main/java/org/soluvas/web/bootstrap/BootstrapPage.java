@@ -31,10 +31,10 @@ import org.soluvas.commons.inject.Supplied;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
+import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptSource;
-import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.PageMetaSupplier;
 import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
@@ -212,6 +212,10 @@ public class BootstrapPage extends ExtensiblePage {
 		final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
 		faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
 		add(faviconLink);
+		add(new WebMarkupContainer("bootstrapCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
+		add(new WebMarkupContainer("bootstrapResponsiveCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
+		add(new WebMarkupContainer("bootstrapPatchesCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+		add(new WebMarkupContainer("requireJs").add(new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.0.5.js")));
 		
 		//Carousel
 		add(new WebMarkupContainer("afterHeader"));

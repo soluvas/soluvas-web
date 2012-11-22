@@ -9,8 +9,8 @@
 	<bean id="defaultPageRuleCollectionSupplier" class="org.soluvas.commons.XmiObjectLoader"
 		destroy-method="destroy" depends-on="pageMetaPackage">
 		<argument ref="pageMetaPackage" />
-    	<argument value="org.soluvas.web.site.SiteFactory" />
-    	<argument value="/org/soluvas/web/site/default.PageMetaCatalog.xmi" />
+    	<argument type="java.lang.Class" value="org.soluvas.web.site.SiteFactory" />
+    	<argument type="java.lang.String" value="/org/soluvas/web/site/default.PageMetaCatalog.xmi" />
 	</bean>
 	<service ref="defaultPageRuleCollectionSupplier" auto-export="interfaces">
 		<service-properties>
