@@ -51,6 +51,7 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 		margin:0;
 	}
 	.headingpanel {
+		float:left;
 	    font-size: 14px;
 	    font-weight: bold;
 	    margin-bottom: 10px;
@@ -109,5 +110,87 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 		}
 		.Count {
    			 font-size: 24px;
+		}
+		.wrap-count {
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			float: left;
+			padding: 4px;
+			width: 75px;
+			height: 75px;
+		}
+		.bg-count {
+			background: #F6F6F6; /* Old browsers */
+			background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #eaeaea 100%);
+			/* FF3.6+ */
+			background: -webkit-gradient(radial, center center, 0px, center center, 100%,
+				color-stop(0%, #ffffff), color-stop(100%, #eaeaea) );
+			/* Chrome,Safari4+ */
+			background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #eaeaea 100%);
+			/* Chrome10+,Safari5.1+ */
+			background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #eaeaea 100%);
+			/* Opera 12+ */
+			background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #eaeaea 100%);
+			/* IE10+ */
+			background: radial-gradient(ellipse at center, #ffffff 0%, #eaeaea 100%);
+			/* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#ffffff',
+				endColorstr='#eaeaea', GradientType=1 );
+			/* IE6-9 fallback on horizontal gradient */
+			padding: 16px;
+			text-align: center;
+			display: block;
+		}
+		.product-liked li {
+			    float: left;
+			    margin: 0 5px 5px 0;
+		}
+		.product-liked ul {
+  				  margin: 0;
+			}
+		.clear {
+			clear: both;
+		}
+		.shop-liked ul {
+   			 margin: 0;
+		}
+		.shop-liked li {
+			float: left;
+			margin: 0 5px 5px 0;
+		}
+		.following-person ul {
+			margin: 0;
+		}
+
+		.following-person li {
+			float: left;
+			margin: 0 5px 5px 0;
+		}
+
+		.people-follower ul {
+			margin: 0;
+		}
+
+		.people-follower li {
+			float: left;
+			margin: 0 5px 5px 0;
+		}
+
+		.shop-followers ul {
+			margin: 0;
+		}
+
+		.shop-followers li {
+			float: left;
+			margin: 0 5px 5px 0;
+		}
+		.prof-pic{
+			width: 87px;
+			float:left;
+			margin-right: 20px;
 		}
 }
