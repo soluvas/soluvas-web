@@ -51,6 +51,7 @@ import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -200,6 +201,14 @@ public class BootstrapPage extends ExtensiblePage {
 		super.renderPlaceholderTag(tag, response);
 	}
 	
+	/**
+	 * Please override this.
+	 * @return
+	 */
+	protected String getTitle() {
+		return null;
+	}
+	
 	public BootstrapPage() {
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
@@ -215,7 +224,13 @@ public class BootstrapPage extends ExtensiblePage {
 			
 			// HEAD
 			//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-			add(new Label("pageTitle", pageMeta.getTitle()).setRenderBodyOnly(true));
+			final IModel<String> titleModel = new LoadableDetachableModel<String>() {
+				@Override
+				protected String load() {
+					return Optional.fromNullable(getTitle()).or( Optional.fromNullable(pageMeta.getTitle()) ).orNull();
+				}
+			};
+			add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
 			add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
 			final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
 			faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
