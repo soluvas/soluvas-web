@@ -9,17 +9,17 @@ import org.eclipse.emf.ecore.EFactory;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage
  * @generated
  */
-public interface PageMetaFactory extends EFactory {
+public interface PagemetaFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	PageMetaFactory eINSTANCE = org.soluvas.web.site.pagemeta.impl.PageMetaFactoryImpl.init();
+	PagemetaFactory eINSTANCE = org.soluvas.web.site.pagemeta.impl.PagemetaFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Page Meta</em>'.
@@ -130,19 +130,19 @@ public interface PageMetaFactory extends EFactory {
 	RepositoryPageDeclaration createRepositoryPageDeclaration();
 
 	/**
-	 * Returns a new object of class '<em>Catalog</em>'.
+	 * Returns a new object of class '<em>Page Meta Catalog</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Catalog</em>'.
+	 * @return a new object of class '<em>Page Meta Catalog</em>'.
 	 * @generated
 	 */
 	PageMetaCatalog createPageMetaCatalog();
 
 	/**
-	 * Returns a new object of class '<em>Collection</em>'.
+	 * Returns a new object of class '<em>Page Meta Collection</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Collection</em>'.
+	 * @return a new object of class '<em>Page Meta Collection</em>'.
 	 * @generated
 	 */
 	PageMetaCollection createPageMetaCollection();
@@ -172,6 +172,6 @@ public interface PageMetaFactory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	PageMetaPackage getPageMetaPackage();
+	PagemetaPackage getPagemetaPackage();
 
-} //PageMetaFactory
+} //PagemetaFactory

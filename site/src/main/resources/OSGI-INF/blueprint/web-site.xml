@@ -9,12 +9,14 @@
         http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
-	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy">
+	<reference id="commonsPackage" interface="org.soluvas.commons.CommonsPackage" />
+	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy"
+		depends-on="commonsPackage">
 		<argument ref="blueprintBundleContext" />
 		<argument>
 			<list value-type="java.lang.Class">
 				<value>org.soluvas.web.site.SitePackage</value>
-				<value>org.soluvas.web.site.pagemeta.PageMetaPackage</value>
+				<value>org.soluvas.web.site.pagemeta.PagemetaPackage</value>
 				<value>org.soluvas.web.site.webaddress.WebaddressPackage</value>
 				<value>org.soluvas.web.site.compose.ComposePackage</value>
 			</list>

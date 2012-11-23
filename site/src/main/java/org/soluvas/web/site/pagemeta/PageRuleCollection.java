@@ -4,6 +4,7 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,11 +23,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageRuleCollection()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRuleCollection()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageRuleCollection extends EObject {
+public interface PageRuleCollection extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Rules</b></em>' containment reference list.
 	 * The list contents are of type {@link org.soluvas.web.site.pagemeta.PageRule}.
@@ -37,7 +39,7 @@ public interface PageRuleCollection extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Rules</em>' containment reference list.
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageRuleCollection_Rules()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRuleCollection_Rules()
 	 * @model containment="true"
 	 * @generated
 	 */

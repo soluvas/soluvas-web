@@ -6,9 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
@@ -18,12 +16,12 @@ import org.soluvas.web.site.pagemeta.PageIcon;
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.pagemeta.PageMetaCatalog;
 import org.soluvas.web.site.pagemeta.PageMetaCollection;
-import org.soluvas.web.site.pagemeta.PageMetaFactory;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
 import org.soluvas.web.site.pagemeta.PageSelector;
 import org.soluvas.web.site.pagemeta.PageTitle;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.ProcessorPageDeclaration;
 import org.soluvas.web.site.pagemeta.RepositoryPageDeclaration;
 import org.soluvas.web.site.pagemeta.ResourcePageDeclaration;
@@ -36,7 +34,7 @@ import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage {
+public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,12 +172,12 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#eNS_URI
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
-	private PageMetaPackageImpl() {
-		super(eNS_URI, PageMetaFactory.eINSTANCE);
+	private PagemetaPackageImpl() {
+		super(eNS_URI, PagemetaFactory.eINSTANCE);
 	}
 
 	/**
@@ -192,7 +190,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
 	 * 
-	 * <p>This method is used to initialize {@link PageMetaPackage#eINSTANCE} when that field is accessed.
+	 * <p>This method is used to initialize {@link PagemetaPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -201,27 +199,27 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static PageMetaPackage init() {
-		if (isInited) return (PageMetaPackage)EPackage.Registry.INSTANCE.getEPackage(PageMetaPackage.eNS_URI);
+	public static PagemetaPackage init() {
+		if (isInited) return (PagemetaPackage)EPackage.Registry.INSTANCE.getEPackage(PagemetaPackage.eNS_URI);
 
 		// Obtain or create and register package
-		PageMetaPackageImpl thePageMetaPackage = (PageMetaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof PageMetaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new PageMetaPackageImpl());
+		PagemetaPackageImpl thePagemetaPackage = (PagemetaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof PagemetaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new PagemetaPackageImpl());
 
 		isInited = true;
 
 		// Create package meta-data objects
-		thePageMetaPackage.createPackageContents();
+		thePagemetaPackage.createPackageContents();
 
 		// Initialize created meta-data
-		thePageMetaPackage.initializePackageContents();
+		thePagemetaPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
-		thePageMetaPackage.freeze();
+		thePagemetaPackage.freeze();
 
   
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(PageMetaPackage.eNS_URI, thePageMetaPackage);
-		return thePageMetaPackage;
+		EPackage.Registry.INSTANCE.put(PagemetaPackage.eNS_URI, thePagemetaPackage);
+		return thePagemetaPackage;
 	}
 
 	/**
@@ -229,6 +227,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageMeta() {
 		return pageMetaEClass;
 	}
@@ -238,6 +237,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageMeta_Icon() {
 		return (EReference)pageMetaEClass.getEStructuralFeatures().get(0);
 	}
@@ -247,6 +247,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_LanguageCode() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(1);
 	}
@@ -256,6 +257,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageMeta_OpenGraph() {
 		return (EReference)pageMetaEClass.getEStructuralFeatures().get(2);
 	}
@@ -265,6 +267,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageMeta_OpenGraphImage() {
 		return (EReference)pageMetaEClass.getEStructuralFeatures().get(3);
 	}
@@ -274,6 +277,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageMeta_OpenGraphVideo() {
 		return (EReference)pageMetaEClass.getEStructuralFeatures().get(4);
 	}
@@ -283,6 +287,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageMeta_OpenGraphAudio() {
 		return (EReference)pageMetaEClass.getEStructuralFeatures().get(5);
 	}
@@ -292,6 +297,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Charset() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(6);
 	}
@@ -301,6 +307,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Title() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(7);
 	}
@@ -310,6 +317,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Keywords() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(8);
 	}
@@ -319,6 +327,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Description() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(9);
 	}
@@ -328,6 +337,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Viewport() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(10);
 	}
@@ -337,6 +347,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Author() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(11);
 	}
@@ -346,6 +357,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageIcon() {
 		return pageIconEClass;
 	}
@@ -355,6 +367,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_FaviconUri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(0);
 	}
@@ -364,6 +377,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon57Uri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(1);
 	}
@@ -373,6 +387,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon72Uri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(2);
 	}
@@ -382,6 +397,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon114Uri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(3);
 	}
@@ -391,6 +407,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon144Uri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(4);
 	}
@@ -400,6 +417,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOpenGraphMeta() {
 		return openGraphMetaEClass;
 	}
@@ -409,6 +427,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Title() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(0);
 	}
@@ -418,6 +437,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Type() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(1);
 	}
@@ -427,6 +447,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Image() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(2);
 	}
@@ -436,6 +457,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Url() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(3);
 	}
@@ -445,6 +467,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Audio() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(4);
 	}
@@ -454,6 +477,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Description() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(5);
 	}
@@ -463,6 +487,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Determiner() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(6);
 	}
@@ -472,6 +497,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Locale() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(7);
 	}
@@ -481,6 +507,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_LocaleAlternates() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(8);
 	}
@@ -490,6 +517,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_SiteName() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(9);
 	}
@@ -499,6 +527,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphMeta_Video() {
 		return (EAttribute)openGraphMetaEClass.getEStructuralFeatures().get(10);
 	}
@@ -508,6 +537,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOpenGraphImage() {
 		return openGraphImageEClass;
 	}
@@ -517,6 +547,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphImage_Url() {
 		return (EAttribute)openGraphImageEClass.getEStructuralFeatures().get(0);
 	}
@@ -526,6 +557,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphImage_SecureUrl() {
 		return (EAttribute)openGraphImageEClass.getEStructuralFeatures().get(1);
 	}
@@ -535,6 +567,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphImage_Type() {
 		return (EAttribute)openGraphImageEClass.getEStructuralFeatures().get(2);
 	}
@@ -544,6 +577,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphImage_Width() {
 		return (EAttribute)openGraphImageEClass.getEStructuralFeatures().get(3);
 	}
@@ -553,6 +587,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphImage_Height() {
 		return (EAttribute)openGraphImageEClass.getEStructuralFeatures().get(4);
 	}
@@ -562,6 +597,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOpenGraphVideo() {
 		return openGraphVideoEClass;
 	}
@@ -571,6 +607,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphVideo_Url() {
 		return (EAttribute)openGraphVideoEClass.getEStructuralFeatures().get(0);
 	}
@@ -580,6 +617,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphVideo_SecureUrl() {
 		return (EAttribute)openGraphVideoEClass.getEStructuralFeatures().get(1);
 	}
@@ -589,6 +627,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphVideo_Type() {
 		return (EAttribute)openGraphVideoEClass.getEStructuralFeatures().get(2);
 	}
@@ -598,6 +637,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphVideo_Width() {
 		return (EAttribute)openGraphVideoEClass.getEStructuralFeatures().get(3);
 	}
@@ -607,6 +647,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphVideo_Height() {
 		return (EAttribute)openGraphVideoEClass.getEStructuralFeatures().get(4);
 	}
@@ -616,6 +657,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOpenGraphAudio() {
 		return openGraphAudioEClass;
 	}
@@ -625,6 +667,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphAudio_Url() {
 		return (EAttribute)openGraphAudioEClass.getEStructuralFeatures().get(0);
 	}
@@ -634,6 +677,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphAudio_SecureUrl() {
 		return (EAttribute)openGraphAudioEClass.getEStructuralFeatures().get(1);
 	}
@@ -643,6 +687,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOpenGraphAudio_Type() {
 		return (EAttribute)openGraphAudioEClass.getEStructuralFeatures().get(2);
 	}
@@ -652,6 +697,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageSelector() {
 		return pageSelectorEClass;
 	}
@@ -661,6 +707,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getUriPatternPageSelector() {
 		return uriPatternPageSelectorEClass;
 	}
@@ -670,6 +717,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getUriPatternPageSelector_Pattern() {
 		return (EAttribute)uriPatternPageSelectorEClass.getEStructuralFeatures().get(0);
 	}
@@ -679,6 +727,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageRule() {
 		return pageRuleEClass;
 	}
@@ -688,6 +737,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageRule_Selector() {
 		return (EReference)pageRuleEClass.getEStructuralFeatures().get(0);
 	}
@@ -697,6 +747,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageRule_Weight() {
 		return (EAttribute)pageRuleEClass.getEStructuralFeatures().get(1);
 	}
@@ -706,6 +757,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageRule_Declaration() {
 		return (EReference)pageRuleEClass.getEStructuralFeatures().get(2);
 	}
@@ -715,6 +767,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageDeclaration() {
 		return pageDeclarationEClass;
 	}
@@ -724,6 +777,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSourcePageDeclaration() {
 		return sourcePageDeclarationEClass;
 	}
@@ -733,6 +787,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSourcePageDeclaration_Source() {
 		return (EReference)sourcePageDeclarationEClass.getEStructuralFeatures().get(0);
 	}
@@ -742,6 +797,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getProcessorPageDeclaration() {
 		return processorPageDeclarationEClass;
 	}
@@ -751,6 +807,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getProcessorPageDeclaration_Filter() {
 		return (EAttribute)processorPageDeclarationEClass.getEStructuralFeatures().get(0);
 	}
@@ -760,6 +817,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getResourcePageDeclaration() {
 		return resourcePageDeclarationEClass;
 	}
@@ -769,6 +827,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourcePageDeclaration_Bundle() {
 		return (EAttribute)resourcePageDeclarationEClass.getEStructuralFeatures().get(0);
 	}
@@ -778,6 +837,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourcePageDeclaration_Path() {
 		return (EAttribute)resourcePageDeclarationEClass.getEStructuralFeatures().get(1);
 	}
@@ -787,6 +847,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRepositoryPageDeclaration() {
 		return repositoryPageDeclarationEClass;
 	}
@@ -796,6 +857,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRepositoryPageDeclaration_Filter() {
 		return (EAttribute)repositoryPageDeclarationEClass.getEStructuralFeatures().get(0);
 	}
@@ -805,6 +867,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRepositoryPageDeclaration_Path() {
 		return (EAttribute)repositoryPageDeclarationEClass.getEStructuralFeatures().get(1);
 	}
@@ -814,6 +877,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageMetaCatalog() {
 		return pageMetaCatalogEClass;
 	}
@@ -823,6 +887,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageMetaCollection() {
 		return pageMetaCollectionEClass;
 	}
@@ -832,6 +897,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageMetaCollection_PageMetas() {
 		return (EReference)pageMetaCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -841,6 +907,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageRuleCollection() {
 		return pageRuleCollectionEClass;
 	}
@@ -850,6 +917,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPageRuleCollection_Rules() {
 		return (EReference)pageRuleCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -859,6 +927,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageTitle() {
 		return pageTitleEClass;
 	}
@@ -868,6 +937,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageTitle_Main() {
 		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(0);
 	}
@@ -877,6 +947,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageTitle_Prefixes() {
 		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(1);
 	}
@@ -886,6 +957,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageTitle_Suffixes() {
 		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(2);
 	}
@@ -895,6 +967,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageTitle_PrefixSeparator() {
 		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(3);
 	}
@@ -904,6 +977,7 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageTitle_SuffixSeparator() {
 		return (EAttribute)pageTitleEClass.getEStructuralFeatures().get(4);
 	}
@@ -913,8 +987,9 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaFactory getPageMetaFactory() {
-		return (PageMetaFactory)getEFactoryInstance();
+	@Override
+	public PagemetaFactory getPagemetaFactory() {
+		return (PagemetaFactory)getEFactoryInstance();
 	}
 
 	/**
@@ -1456,4 +1531,4 @@ public class PageMetaPackageImpl extends EPackageImpl implements PageMetaPackage
 		   });
 	}
 
-} //PageMetaPackageImpl
+} //PagemetaPackageImpl

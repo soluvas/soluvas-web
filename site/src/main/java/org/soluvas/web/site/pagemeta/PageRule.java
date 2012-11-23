@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,11 +19,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageRule()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageRule extends EObject {
+public interface PageRule extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Selector</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -33,7 +35,7 @@ public interface PageRule extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Selector</em>' containment reference.
 	 * @see #setSelector(PageSelector)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageRule_Selector()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule_Selector()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -59,7 +61,7 @@ public interface PageRule extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Weight</em>' attribute.
 	 * @see #setWeight(Integer)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageRule_Weight()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule_Weight()
 	 * @model
 	 * @generated
 	 */
@@ -84,7 +86,7 @@ public interface PageRule extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Declaration</em>' containment reference.
 	 * @see #setDeclaration(PageDeclaration)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageRule_Declaration()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule_Declaration()
 	 * @model containment="true"
 	 * @generated
 	 */

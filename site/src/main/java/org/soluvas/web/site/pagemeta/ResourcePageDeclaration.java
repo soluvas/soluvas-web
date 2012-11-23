@@ -22,7 +22,7 @@ package org.soluvas.web.site.pagemeta;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getResourcePageDeclaration()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getResourcePageDeclaration()
  * @model
  * @generated
  */
@@ -36,7 +36,7 @@ public interface ResourcePageDeclaration extends PageDeclaration {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bundle</em>' attribute.
 	 * @see #setBundle(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getResourcePageDeclaration_Bundle()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getResourcePageDeclaration_Bundle()
 	 * @model
 	 * @generated
 	 */
@@ -61,7 +61,7 @@ public interface ResourcePageDeclaration extends PageDeclaration {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getResourcePageDeclaration_Path()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getResourcePageDeclaration_Path()
 	 * @model
 	 * @generated
 	 */

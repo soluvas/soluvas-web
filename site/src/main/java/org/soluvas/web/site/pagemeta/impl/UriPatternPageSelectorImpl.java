@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
 /**
@@ -62,7 +62,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.URI_PATTERN_PAGE_SELECTOR;
+		return PagemetaPackage.Literals.URI_PATTERN_PAGE_SELECTOR;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 		String oldPattern = pattern;
 		pattern = newPattern;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN, oldPattern, pattern));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN, oldPattern, pattern));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
 				return getPattern();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -108,7 +108,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
 				setPattern((String)newValue);
 				return;
 		}
@@ -123,7 +123,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
 				setPattern(PATTERN_EDEFAULT);
 				return;
 		}
@@ -138,7 +138,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN:
 				return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
 		}
 		return super.eIsSet(featureID);

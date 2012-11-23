@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.ProcessorPageDeclaration;
 
 /**
@@ -62,7 +62,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PROCESSOR_PAGE_DECLARATION;
+		return PagemetaPackage.Literals.PROCESSOR_PAGE_DECLARATION;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 		String oldFilter = filter;
 		filter = newFilter;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER, oldFilter, filter));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER, oldFilter, filter));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
 				return getFilter();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -108,7 +108,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
 				setFilter((String)newValue);
 				return;
 		}
@@ -123,7 +123,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
 				setFilter(FILTER_EDEFAULT);
 				return;
 		}
@@ -138,7 +138,7 @@ public class ProcessorPageDeclarationImpl extends EObjectImpl implements Process
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION__FILTER:
 				return FILTER_EDEFAULT == null ? filter != null : !FILTER_EDEFAULT.equals(filter);
 		}
 		return super.eIsSet(featureID);

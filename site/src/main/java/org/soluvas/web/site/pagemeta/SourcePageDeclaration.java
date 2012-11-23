@@ -21,7 +21,7 @@ package org.soluvas.web.site.pagemeta;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getSourcePageDeclaration()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getSourcePageDeclaration()
  * @model
  * @generated
  */
@@ -36,7 +36,7 @@ public interface SourcePageDeclaration extends PageDeclaration {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(PageMeta)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getSourcePageDeclaration_Source()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getSourcePageDeclaration_Source()
 	 * @model
 	 * @generated
 	 */

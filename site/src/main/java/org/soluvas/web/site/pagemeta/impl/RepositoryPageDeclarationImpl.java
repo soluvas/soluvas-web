@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.RepositoryPageDeclaration;
 
 /**
@@ -83,7 +83,7 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.REPOSITORY_PAGE_DECLARATION;
+		return PagemetaPackage.Literals.REPOSITORY_PAGE_DECLARATION;
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 		String oldFilter = filter;
 		filter = newFilter;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER, oldFilter, filter));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER, oldFilter, filter));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 		String oldPath = path;
 		path = newPath;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.REPOSITORY_PAGE_DECLARATION__PATH, oldPath, path));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.REPOSITORY_PAGE_DECLARATION__PATH, oldPath, path));
 	}
 
 	/**
@@ -136,9 +136,9 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
 				return getFilter();
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
 				return getPath();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -152,10 +152,10 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
 				setFilter((String)newValue);
 				return;
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
 				setPath((String)newValue);
 				return;
 		}
@@ -170,10 +170,10 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
 				setFilter(FILTER_EDEFAULT);
 				return;
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
 				setPath(PATH_EDEFAULT);
 				return;
 		}
@@ -188,9 +188,9 @@ public class RepositoryPageDeclarationImpl extends EObjectImpl implements Reposi
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__FILTER:
 				return FILTER_EDEFAULT == null ? filter != null : !FILTER_EDEFAULT.equals(filter);
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION__PATH:
 				return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
 		}
 		return super.eIsSet(featureID);

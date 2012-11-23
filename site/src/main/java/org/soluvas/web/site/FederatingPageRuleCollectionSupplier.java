@@ -11,8 +11,8 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.DelegatingSupplier;
-import org.soluvas.web.site.pagemeta.PageMetaFactory;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
@@ -34,11 +34,11 @@ public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCo
 	List<Supplier<PageRuleCollection>> suppliers = new CopyOnWriteArrayList<Supplier<PageRuleCollection>>();
 	private PageRuleCollection federatedPageRules;
 	
-	public FederatingPageRuleCollectionSupplier(@Nonnull final PageMetaPackage pageMetaPackage, Collection<Supplier<PageRuleCollection>> initialSuppliers) {
+	public FederatingPageRuleCollectionSupplier(@Nonnull final PagemetaPackage pageMetaPackage, Collection<Supplier<PageRuleCollection>> initialSuppliers) {
 		super();
 		log.info("Initializing federating page rules supplier with {} suppliers", suppliers.size());
 		this.suppliers.addAll( initialSuppliers );
-		federatedPageRules = ((PageMetaFactory)pageMetaPackage.getEFactoryInstance()).createPageRuleCollection();
+		federatedPageRules = ((PagemetaFactory)pageMetaPackage.getEFactoryInstance()).createPageRuleCollection();
 	}
 
 	@Override

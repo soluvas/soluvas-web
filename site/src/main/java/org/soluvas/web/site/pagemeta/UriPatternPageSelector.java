@@ -19,7 +19,7 @@ package org.soluvas.web.site.pagemeta;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getUriPatternPageSelector()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getUriPatternPageSelector()
  * @model
  * @generated
  */
@@ -34,7 +34,7 @@ public interface UriPatternPageSelector extends PageSelector {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Pattern</em>' attribute.
 	 * @see #setPattern(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getUriPatternPageSelector_Pattern()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getUriPatternPageSelector_Pattern()
 	 * @model
 	 * @generated
 	 */

@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -37,11 +38,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageMeta extends EObject {
+public interface PageMeta extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Icon</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -52,7 +54,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon</em>' containment reference.
 	 * @see #setIcon(PageIcon)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Icon()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Icon()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -77,7 +79,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Language Code</em>' attribute.
 	 * @see #setLanguageCode(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_LanguageCode()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_LanguageCode()
 	 * @model
 	 * @generated
 	 */
@@ -103,7 +105,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Open Graph</em>' containment reference.
 	 * @see #setOpenGraph(OpenGraphMeta)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_OpenGraph()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_OpenGraph()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -129,7 +131,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Open Graph Image</em>' containment reference.
 	 * @see #setOpenGraphImage(OpenGraphImage)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_OpenGraphImage()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_OpenGraphImage()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -155,7 +157,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Open Graph Video</em>' containment reference.
 	 * @see #setOpenGraphVideo(OpenGraphVideo)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_OpenGraphVideo()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_OpenGraphVideo()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -181,7 +183,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Open Graph Audio</em>' containment reference.
 	 * @see #setOpenGraphAudio(OpenGraphAudio)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_OpenGraphAudio()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_OpenGraphAudio()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -206,7 +208,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Charset</em>' attribute.
 	 * @see #setCharset(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Charset()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Charset()
 	 * @model
 	 * @generated
 	 */
@@ -232,7 +234,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Title</em>' attribute.
 	 * @see #setTitle(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Title()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Title()
 	 * @model
 	 * @generated
 	 */
@@ -258,7 +260,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Keywords</em>' attribute.
 	 * @see #setKeywords(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Keywords()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Keywords()
 	 * @model
 	 * @generated
 	 */
@@ -284,7 +286,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Description()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Description()
 	 * @model
 	 * @generated
 	 */
@@ -309,7 +311,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Viewport</em>' attribute.
 	 * @see #setViewport(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Viewport()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Viewport()
 	 * @model
 	 * @generated
 	 */
@@ -335,7 +337,7 @@ public interface PageMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Author</em>' attribute.
 	 * @see #setAuthor(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMeta_Author()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Author()
 	 * @model
 	 * @generated
 	 */

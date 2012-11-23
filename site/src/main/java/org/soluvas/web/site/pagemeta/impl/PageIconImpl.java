@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.soluvas.web.site.pagemeta.PageIcon;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -146,7 +146,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PAGE_ICON;
+		return PagemetaPackage.Literals.PAGE_ICON;
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 		String oldFaviconUri = faviconUri;
 		faviconUri = newFaviconUri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_ICON__FAVICON_URI, oldFaviconUri, faviconUri));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_ICON__FAVICON_URI, oldFaviconUri, faviconUri));
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 		String oldIcon57Uri = icon57Uri;
 		icon57Uri = newIcon57Uri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_ICON__ICON57_URI, oldIcon57Uri, icon57Uri));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_ICON__ICON57_URI, oldIcon57Uri, icon57Uri));
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 		String oldIcon72Uri = icon72Uri;
 		icon72Uri = newIcon72Uri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_ICON__ICON72_URI, oldIcon72Uri, icon72Uri));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_ICON__ICON72_URI, oldIcon72Uri, icon72Uri));
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 		String oldIcon114Uri = icon114Uri;
 		icon114Uri = newIcon114Uri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_ICON__ICON114_URI, oldIcon114Uri, icon114Uri));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_ICON__ICON114_URI, oldIcon114Uri, icon114Uri));
 	}
 
 	/**
@@ -251,7 +251,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 		String oldIcon144Uri = icon144Uri;
 		icon144Uri = newIcon144Uri;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_ICON__ICON144_URI, oldIcon144Uri, icon144Uri));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_ICON__ICON144_URI, oldIcon144Uri, icon144Uri));
 	}
 
 	/**
@@ -262,15 +262,15 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_ICON__FAVICON_URI:
+			case PagemetaPackage.PAGE_ICON__FAVICON_URI:
 				return getFaviconUri();
-			case PageMetaPackage.PAGE_ICON__ICON57_URI:
+			case PagemetaPackage.PAGE_ICON__ICON57_URI:
 				return getIcon57Uri();
-			case PageMetaPackage.PAGE_ICON__ICON72_URI:
+			case PagemetaPackage.PAGE_ICON__ICON72_URI:
 				return getIcon72Uri();
-			case PageMetaPackage.PAGE_ICON__ICON114_URI:
+			case PagemetaPackage.PAGE_ICON__ICON114_URI:
 				return getIcon114Uri();
-			case PageMetaPackage.PAGE_ICON__ICON144_URI:
+			case PagemetaPackage.PAGE_ICON__ICON144_URI:
 				return getIcon144Uri();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -284,19 +284,19 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_ICON__FAVICON_URI:
+			case PagemetaPackage.PAGE_ICON__FAVICON_URI:
 				setFaviconUri((String)newValue);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON57_URI:
+			case PagemetaPackage.PAGE_ICON__ICON57_URI:
 				setIcon57Uri((String)newValue);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON72_URI:
+			case PagemetaPackage.PAGE_ICON__ICON72_URI:
 				setIcon72Uri((String)newValue);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON114_URI:
+			case PagemetaPackage.PAGE_ICON__ICON114_URI:
 				setIcon114Uri((String)newValue);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON144_URI:
+			case PagemetaPackage.PAGE_ICON__ICON144_URI:
 				setIcon144Uri((String)newValue);
 				return;
 		}
@@ -311,19 +311,19 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_ICON__FAVICON_URI:
+			case PagemetaPackage.PAGE_ICON__FAVICON_URI:
 				setFaviconUri(FAVICON_URI_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON57_URI:
+			case PagemetaPackage.PAGE_ICON__ICON57_URI:
 				setIcon57Uri(ICON57_URI_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON72_URI:
+			case PagemetaPackage.PAGE_ICON__ICON72_URI:
 				setIcon72Uri(ICON72_URI_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON114_URI:
+			case PagemetaPackage.PAGE_ICON__ICON114_URI:
 				setIcon114Uri(ICON114_URI_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_ICON__ICON144_URI:
+			case PagemetaPackage.PAGE_ICON__ICON144_URI:
 				setIcon144Uri(ICON144_URI_EDEFAULT);
 				return;
 		}
@@ -338,15 +338,15 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_ICON__FAVICON_URI:
+			case PagemetaPackage.PAGE_ICON__FAVICON_URI:
 				return FAVICON_URI_EDEFAULT == null ? faviconUri != null : !FAVICON_URI_EDEFAULT.equals(faviconUri);
-			case PageMetaPackage.PAGE_ICON__ICON57_URI:
+			case PagemetaPackage.PAGE_ICON__ICON57_URI:
 				return ICON57_URI_EDEFAULT == null ? icon57Uri != null : !ICON57_URI_EDEFAULT.equals(icon57Uri);
-			case PageMetaPackage.PAGE_ICON__ICON72_URI:
+			case PagemetaPackage.PAGE_ICON__ICON72_URI:
 				return ICON72_URI_EDEFAULT == null ? icon72Uri != null : !ICON72_URI_EDEFAULT.equals(icon72Uri);
-			case PageMetaPackage.PAGE_ICON__ICON114_URI:
+			case PagemetaPackage.PAGE_ICON__ICON114_URI:
 				return ICON114_URI_EDEFAULT == null ? icon114Uri != null : !ICON114_URI_EDEFAULT.equals(icon114Uri);
-			case PageMetaPackage.PAGE_ICON__ICON144_URI:
+			case PagemetaPackage.PAGE_ICON__ICON144_URI:
 				return ICON144_URI_EDEFAULT == null ? icon144Uri != null : !ICON144_URI_EDEFAULT.equals(icon144Uri);
 		}
 		return super.eIsSet(featureID);

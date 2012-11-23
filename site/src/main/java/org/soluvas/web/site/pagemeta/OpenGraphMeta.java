@@ -4,6 +4,7 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -243,11 +244,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface OpenGraphMeta extends EObject {
+public interface OpenGraphMeta extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -257,7 +259,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Title</em>' attribute.
 	 * @see #setTitle(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Title()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Title()
 	 * @model
 	 * @generated
 	 */
@@ -282,7 +284,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Type()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Type()
 	 * @model
 	 * @generated
 	 */
@@ -308,7 +310,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Image</em>' attribute.
 	 * @see #setImage(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Image()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Image()
 	 * @model
 	 * @generated
 	 */
@@ -333,7 +335,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Url</em>' attribute.
 	 * @see #setUrl(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Url()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Url()
 	 * @model
 	 * @generated
 	 */
@@ -358,7 +360,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Audio</em>' attribute.
 	 * @see #setAudio(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Audio()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Audio()
 	 * @model
 	 * @generated
 	 */
@@ -383,7 +385,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Description()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Description()
 	 * @model
 	 * @generated
 	 */
@@ -408,7 +410,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Determiner</em>' attribute.
 	 * @see #setDeterminer(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Determiner()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Determiner()
 	 * @model
 	 * @generated
 	 */
@@ -433,7 +435,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Locale</em>' attribute.
 	 * @see #setLocale(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Locale()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Locale()
 	 * @model
 	 * @generated
 	 */
@@ -459,7 +461,7 @@ public interface OpenGraphMeta extends EObject {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Locale Alternates</em>' attribute list.
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_LocaleAlternates()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_LocaleAlternates()
 	 * @model
 	 * @generated
 	 */
@@ -474,7 +476,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Site Name</em>' attribute.
 	 * @see #setSiteName(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_SiteName()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_SiteName()
 	 * @model
 	 * @generated
 	 */
@@ -500,7 +502,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Video</em>' attribute.
 	 * @see #setVideo(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphMeta_Video()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta_Video()
 	 * @model
 	 * @generated
 	 */

@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -26,11 +27,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphAudio()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphAudio()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface OpenGraphAudio extends EObject {
+public interface OpenGraphAudio extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Url</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -40,7 +42,7 @@ public interface OpenGraphAudio extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Url</em>' attribute.
 	 * @see #setUrl(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphAudio_Url()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphAudio_Url()
 	 * @model
 	 * @generated
 	 */
@@ -66,7 +68,7 @@ public interface OpenGraphAudio extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Secure Url</em>' attribute.
 	 * @see #setSecureUrl(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphAudio_SecureUrl()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphAudio_SecureUrl()
 	 * @model
 	 * @generated
 	 */
@@ -92,7 +94,7 @@ public interface OpenGraphAudio extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphAudio_Type()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphAudio_Type()
 	 * @model
 	 * @generated
 	 */

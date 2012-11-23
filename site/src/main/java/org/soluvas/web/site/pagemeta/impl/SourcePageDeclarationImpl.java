@@ -5,13 +5,14 @@ package org.soluvas.web.site.pagemeta.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.soluvas.web.site.pagemeta.PageMeta;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
 
 /**
@@ -54,7 +55,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.SOURCE_PAGE_DECLARATION;
+		return PagemetaPackage.Literals.SOURCE_PAGE_DECLARATION;
 	}
 
 	/**
@@ -63,12 +64,12 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * @generated
 	 */
 	public PageMeta getSource() {
-		if (source != null && source.eIsProxy()) {
+		if (source != null && ((EObject)source).eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
 			source = (PageMeta)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PageMetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
 			}
 		}
 		return source;
@@ -92,7 +93,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 		PageMeta oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
 				if (resolve) return getSource();
 				return basicGetSource();
 		}
@@ -118,7 +119,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
 				setSource((PageMeta)newValue);
 				return;
 		}
@@ -133,7 +134,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
 				setSource((PageMeta)null);
 				return;
 		}
@@ -148,7 +149,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
 				return source != null;
 		}
 		return super.eIsSet(featureID);

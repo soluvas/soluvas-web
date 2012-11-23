@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.ResourcePageDeclaration;
 
 /**
@@ -83,7 +83,7 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.RESOURCE_PAGE_DECLARATION;
+		return PagemetaPackage.Literals.RESOURCE_PAGE_DECLARATION;
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 		String oldBundle = bundle;
 		bundle = newBundle;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE, oldBundle, bundle));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE, oldBundle, bundle));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 		String oldPath = path;
 		path = newPath;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.RESOURCE_PAGE_DECLARATION__PATH, oldPath, path));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.RESOURCE_PAGE_DECLARATION__PATH, oldPath, path));
 	}
 
 	/**
@@ -136,9 +136,9 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
 				return getBundle();
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
 				return getPath();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -152,10 +152,10 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
 				setBundle((String)newValue);
 				return;
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
 				setPath((String)newValue);
 				return;
 		}
@@ -170,10 +170,10 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
 				setBundle(BUNDLE_EDEFAULT);
 				return;
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
 				setPath(PATH_EDEFAULT);
 				return;
 		}
@@ -188,9 +188,9 @@ public class ResourcePageDeclarationImpl extends EObjectImpl implements Resource
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__BUNDLE:
 				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION__PATH:
 				return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
 		}
 		return super.eIsSet(featureID);

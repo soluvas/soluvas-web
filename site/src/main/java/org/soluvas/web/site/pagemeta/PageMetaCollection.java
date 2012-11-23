@@ -4,6 +4,7 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,11 +19,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMetaCollection()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMetaCollection()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageMetaCollection extends EObject {
+public interface PageMetaCollection extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Page Metas</b></em>' containment reference list.
 	 * The list contents are of type {@link org.soluvas.web.site.pagemeta.PageMeta}.
@@ -33,7 +35,7 @@ public interface PageMetaCollection extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Page Metas</em>' containment reference list.
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMetaCollection_PageMetas()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMetaCollection_PageMetas()
 	 * @model containment="true"
 	 * @generated
 	 */

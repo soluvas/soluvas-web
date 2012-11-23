@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.soluvas.web.site.pagemeta.PageMetaCatalog;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
@@ -58,7 +58,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PAGE_META_CATALOG;
+		return PagemetaPackage.Literals.PAGE_META_CATALOG;
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	 */
 	public EList<PageRule> getRules() {
 		if (rules == null) {
-			rules = new EObjectContainmentEList<PageRule>(PageRule.class, this, PageMetaPackage.PAGE_META_CATALOG__RULES);
+			rules = new EObjectContainmentEList<PageRule>(PageRule.class, this, PagemetaPackage.PAGE_META_CATALOG__RULES);
 		}
 		return rules;
 	}
@@ -81,7 +81,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_CATALOG__RULES:
+			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -95,7 +95,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_CATALOG__RULES:
+			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				return getRules();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -110,7 +110,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_CATALOG__RULES:
+			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				getRules().clear();
 				getRules().addAll((Collection<? extends PageRule>)newValue);
 				return;
@@ -126,7 +126,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_CATALOG__RULES:
+			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				getRules().clear();
 				return;
 		}
@@ -141,7 +141,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_CATALOG__RULES:
+			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				return rules != null && !rules.isEmpty();
 		}
 		return super.eIsSet(featureID);
@@ -156,7 +156,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == PageRuleCollection.class) {
 			switch (derivedFeatureID) {
-				case PageMetaPackage.PAGE_META_CATALOG__RULES: return PageMetaPackage.PAGE_RULE_COLLECTION__RULES;
+				case PagemetaPackage.PAGE_META_CATALOG__RULES: return PagemetaPackage.PAGE_RULE_COLLECTION__RULES;
 				default: return -1;
 			}
 		}
@@ -172,7 +172,7 @@ public class PageMetaCatalogImpl extends PageMetaCollectionImpl implements PageM
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == PageRuleCollection.class) {
 			switch (baseFeatureID) {
-				case PageMetaPackage.PAGE_RULE_COLLECTION__RULES: return PageMetaPackage.PAGE_META_CATALOG__RULES;
+				case PagemetaPackage.PAGE_RULE_COLLECTION__RULES: return PagemetaPackage.PAGE_META_CATALOG__RULES;
 				default: return -1;
 			}
 		}

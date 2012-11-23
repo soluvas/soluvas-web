@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -146,7 +146,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.OPEN_GRAPH_IMAGE;
+		return PagemetaPackage.Literals.OPEN_GRAPH_IMAGE;
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 		String oldUrl = url;
 		url = newUrl;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_IMAGE__URL, oldUrl, url));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_IMAGE__URL, oldUrl, url));
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 		String oldSecureUrl = secureUrl;
 		secureUrl = newSecureUrl;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL, oldSecureUrl, secureUrl));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL, oldSecureUrl, secureUrl));
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_IMAGE__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_IMAGE__TYPE, oldType, type));
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 		Integer oldWidth = width;
 		width = newWidth;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_IMAGE__WIDTH, oldWidth, width));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_IMAGE__WIDTH, oldWidth, width));
 	}
 
 	/**
@@ -251,7 +251,7 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 		Integer oldHeight = height;
 		height = newHeight;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_IMAGE__HEIGHT, oldHeight, height));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_IMAGE__HEIGHT, oldHeight, height));
 	}
 
 	/**
@@ -262,15 +262,15 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__URL:
 				return getUrl();
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
 				return getSecureUrl();
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__TYPE:
 				return getType();
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
 				return getWidth();
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
 				return getHeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -284,19 +284,19 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__URL:
 				setUrl((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
 				setSecureUrl((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__TYPE:
 				setType((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
 				setWidth((Integer)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
 				setHeight((Integer)newValue);
 				return;
 		}
@@ -311,19 +311,19 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__URL:
 				setUrl(URL_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
 				setSecureUrl(SECURE_URL_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
 				setWidth(WIDTH_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
 				setHeight(HEIGHT_EDEFAULT);
 				return;
 		}
@@ -338,15 +338,15 @@ public class OpenGraphImageImpl extends EObjectImpl implements OpenGraphImage {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__URL:
 				return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__SECURE_URL:
 				return SECURE_URL_EDEFAULT == null ? secureUrl != null : !SECURE_URL_EDEFAULT.equals(secureUrl);
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__WIDTH:
 				return WIDTH_EDEFAULT == null ? width != null : !WIDTH_EDEFAULT.equals(width);
-			case PageMetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
+			case PagemetaPackage.OPEN_GRAPH_IMAGE__HEIGHT:
 				return HEIGHT_EDEFAULT == null ? height != null : !HEIGHT_EDEFAULT.equals(height);
 		}
 		return super.eIsSet(featureID);

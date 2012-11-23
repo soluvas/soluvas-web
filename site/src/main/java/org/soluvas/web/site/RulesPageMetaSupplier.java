@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.EmfUtils;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
 import org.soluvas.web.site.pagemeta.PageMeta;
-import org.soluvas.web.site.pagemeta.PageMetaFactory;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageSelector;
 import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
@@ -39,9 +39,9 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	@Override
 	public PageMeta get() {
 		// create blank (should be from somewhere)
-		PageMeta pageMeta = PageMetaFactory.eINSTANCE.createPageMeta();
-		pageMeta.setIcon(PageMetaFactory.eINSTANCE.createPageIcon());
-		pageMeta.setOpenGraph(PageMetaFactory.eINSTANCE.createOpenGraphMeta());
+		PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
+		pageMeta.setIcon(PagemetaFactory.eINSTANCE.createPageIcon());
+		pageMeta.setOpenGraph(PagemetaFactory.eINSTANCE.createOpenGraphMeta());
 		
 		log.debug("Considering {} pageMeta rules with context: {}", rules.size(), context);
 		for (PageRule rule : rules) {

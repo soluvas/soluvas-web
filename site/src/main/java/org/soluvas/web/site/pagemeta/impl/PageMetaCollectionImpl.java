@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.pagemeta.PageMetaCollection;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PAGE_META_COLLECTION;
+		return PagemetaPackage.Literals.PAGE_META_COLLECTION;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	 */
 	public EList<PageMeta> getPageMetas() {
 		if (pageMetas == null) {
-			pageMetas = new EObjectContainmentEList<PageMeta>(PageMeta.class, this, PageMetaPackage.PAGE_META_COLLECTION__PAGE_METAS);
+			pageMetas = new EObjectContainmentEList<PageMeta>(PageMeta.class, this, PagemetaPackage.PAGE_META_COLLECTION__PAGE_METAS);
 		}
 		return pageMetas;
 	}
@@ -83,7 +83,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
+			case PagemetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
 				return ((InternalEList<?>)getPageMetas()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -97,7 +97,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
+			case PagemetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
 				return getPageMetas();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -112,7 +112,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
+			case PagemetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
 				getPageMetas().clear();
 				getPageMetas().addAll((Collection<? extends PageMeta>)newValue);
 				return;
@@ -128,7 +128,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
+			case PagemetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
 				getPageMetas().clear();
 				return;
 		}
@@ -143,7 +143,7 @@ public class PageMetaCollectionImpl extends EObjectImpl implements PageMetaColle
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
+			case PagemetaPackage.PAGE_META_COLLECTION__PAGE_METAS:
 				return pageMetas != null && !pageMetas.isEmpty();
 		}
 		return super.eIsSet(featureID);

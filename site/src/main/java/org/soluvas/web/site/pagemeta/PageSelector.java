@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,9 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-model-doc -->
  *
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageSelector()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageSelector()
  * @model interface="true" abstract="true"
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageSelector extends EObject {
+public interface PageSelector extends SerializableEObject {
 } // PageSelector

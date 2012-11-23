@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -268,7 +268,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.OPEN_GRAPH_META;
+		return PagemetaPackage.Literals.OPEN_GRAPH_META;
 	}
 
 	/**
@@ -289,7 +289,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldTitle = title;
 		title = newTitle;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__TITLE, oldTitle, title));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__TITLE, oldTitle, title));
 	}
 
 	/**
@@ -310,7 +310,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__TYPE, oldType, type));
 	}
 
 	/**
@@ -331,7 +331,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldImage = image;
 		image = newImage;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__IMAGE, oldImage, image));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__IMAGE, oldImage, image));
 	}
 
 	/**
@@ -352,7 +352,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldUrl = url;
 		url = newUrl;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__URL, oldUrl, url));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__URL, oldUrl, url));
 	}
 
 	/**
@@ -373,7 +373,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldAudio = audio;
 		audio = newAudio;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__AUDIO, oldAudio, audio));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__AUDIO, oldAudio, audio));
 	}
 
 	/**
@@ -394,7 +394,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldDescription = description;
 		description = newDescription;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__DESCRIPTION, oldDescription, description));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
@@ -415,7 +415,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldDeterminer = determiner;
 		determiner = newDeterminer;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__DETERMINER, oldDeterminer, determiner));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__DETERMINER, oldDeterminer, determiner));
 	}
 
 	/**
@@ -436,7 +436,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldLocale = locale;
 		locale = newLocale;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__LOCALE, oldLocale, locale));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__LOCALE, oldLocale, locale));
 	}
 
 	/**
@@ -446,7 +446,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	 */
 	public EList<String> getLocaleAlternates() {
 		if (localeAlternates == null) {
-			localeAlternates = new EDataTypeUniqueEList<String>(String.class, this, PageMetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES);
+			localeAlternates = new EDataTypeUniqueEList<String>(String.class, this, PagemetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES);
 		}
 		return localeAlternates;
 	}
@@ -469,7 +469,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldSiteName = siteName;
 		siteName = newSiteName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__SITE_NAME, oldSiteName, siteName));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__SITE_NAME, oldSiteName, siteName));
 	}
 
 	/**
@@ -490,7 +490,7 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 		String oldVideo = video;
 		video = newVideo;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.OPEN_GRAPH_META__VIDEO, oldVideo, video));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.OPEN_GRAPH_META__VIDEO, oldVideo, video));
 	}
 
 	/**
@@ -501,27 +501,27 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_META__TITLE:
+			case PagemetaPackage.OPEN_GRAPH_META__TITLE:
 				return getTitle();
-			case PageMetaPackage.OPEN_GRAPH_META__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_META__TYPE:
 				return getType();
-			case PageMetaPackage.OPEN_GRAPH_META__IMAGE:
+			case PagemetaPackage.OPEN_GRAPH_META__IMAGE:
 				return getImage();
-			case PageMetaPackage.OPEN_GRAPH_META__URL:
+			case PagemetaPackage.OPEN_GRAPH_META__URL:
 				return getUrl();
-			case PageMetaPackage.OPEN_GRAPH_META__AUDIO:
+			case PagemetaPackage.OPEN_GRAPH_META__AUDIO:
 				return getAudio();
-			case PageMetaPackage.OPEN_GRAPH_META__DESCRIPTION:
+			case PagemetaPackage.OPEN_GRAPH_META__DESCRIPTION:
 				return getDescription();
-			case PageMetaPackage.OPEN_GRAPH_META__DETERMINER:
+			case PagemetaPackage.OPEN_GRAPH_META__DETERMINER:
 				return getDeterminer();
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE:
 				return getLocale();
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
 				return getLocaleAlternates();
-			case PageMetaPackage.OPEN_GRAPH_META__SITE_NAME:
+			case PagemetaPackage.OPEN_GRAPH_META__SITE_NAME:
 				return getSiteName();
-			case PageMetaPackage.OPEN_GRAPH_META__VIDEO:
+			case PagemetaPackage.OPEN_GRAPH_META__VIDEO:
 				return getVideo();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -536,38 +536,38 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_META__TITLE:
+			case PagemetaPackage.OPEN_GRAPH_META__TITLE:
 				setTitle((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_META__TYPE:
 				setType((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__IMAGE:
+			case PagemetaPackage.OPEN_GRAPH_META__IMAGE:
 				setImage((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__URL:
+			case PagemetaPackage.OPEN_GRAPH_META__URL:
 				setUrl((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__AUDIO:
+			case PagemetaPackage.OPEN_GRAPH_META__AUDIO:
 				setAudio((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__DESCRIPTION:
+			case PagemetaPackage.OPEN_GRAPH_META__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__DETERMINER:
+			case PagemetaPackage.OPEN_GRAPH_META__DETERMINER:
 				setDeterminer((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE:
 				setLocale((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
 				getLocaleAlternates().clear();
 				getLocaleAlternates().addAll((Collection<? extends String>)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__SITE_NAME:
+			case PagemetaPackage.OPEN_GRAPH_META__SITE_NAME:
 				setSiteName((String)newValue);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__VIDEO:
+			case PagemetaPackage.OPEN_GRAPH_META__VIDEO:
 				setVideo((String)newValue);
 				return;
 		}
@@ -582,37 +582,37 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_META__TITLE:
+			case PagemetaPackage.OPEN_GRAPH_META__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_META__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__IMAGE:
+			case PagemetaPackage.OPEN_GRAPH_META__IMAGE:
 				setImage(IMAGE_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__URL:
+			case PagemetaPackage.OPEN_GRAPH_META__URL:
 				setUrl(URL_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__AUDIO:
+			case PagemetaPackage.OPEN_GRAPH_META__AUDIO:
 				setAudio(AUDIO_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__DESCRIPTION:
+			case PagemetaPackage.OPEN_GRAPH_META__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__DETERMINER:
+			case PagemetaPackage.OPEN_GRAPH_META__DETERMINER:
 				setDeterminer(DETERMINER_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE:
 				setLocale(LOCALE_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
 				getLocaleAlternates().clear();
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__SITE_NAME:
+			case PagemetaPackage.OPEN_GRAPH_META__SITE_NAME:
 				setSiteName(SITE_NAME_EDEFAULT);
 				return;
-			case PageMetaPackage.OPEN_GRAPH_META__VIDEO:
+			case PagemetaPackage.OPEN_GRAPH_META__VIDEO:
 				setVideo(VIDEO_EDEFAULT);
 				return;
 		}
@@ -627,27 +627,27 @@ public class OpenGraphMetaImpl extends EObjectImpl implements OpenGraphMeta {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.OPEN_GRAPH_META__TITLE:
+			case PagemetaPackage.OPEN_GRAPH_META__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-			case PageMetaPackage.OPEN_GRAPH_META__TYPE:
+			case PagemetaPackage.OPEN_GRAPH_META__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-			case PageMetaPackage.OPEN_GRAPH_META__IMAGE:
+			case PagemetaPackage.OPEN_GRAPH_META__IMAGE:
 				return IMAGE_EDEFAULT == null ? image != null : !IMAGE_EDEFAULT.equals(image);
-			case PageMetaPackage.OPEN_GRAPH_META__URL:
+			case PagemetaPackage.OPEN_GRAPH_META__URL:
 				return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
-			case PageMetaPackage.OPEN_GRAPH_META__AUDIO:
+			case PagemetaPackage.OPEN_GRAPH_META__AUDIO:
 				return AUDIO_EDEFAULT == null ? audio != null : !AUDIO_EDEFAULT.equals(audio);
-			case PageMetaPackage.OPEN_GRAPH_META__DESCRIPTION:
+			case PagemetaPackage.OPEN_GRAPH_META__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case PageMetaPackage.OPEN_GRAPH_META__DETERMINER:
+			case PagemetaPackage.OPEN_GRAPH_META__DETERMINER:
 				return DETERMINER_EDEFAULT == null ? determiner != null : !DETERMINER_EDEFAULT.equals(determiner);
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE:
 				return LOCALE_EDEFAULT == null ? locale != null : !LOCALE_EDEFAULT.equals(locale);
-			case PageMetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
+			case PagemetaPackage.OPEN_GRAPH_META__LOCALE_ALTERNATES:
 				return localeAlternates != null && !localeAlternates.isEmpty();
-			case PageMetaPackage.OPEN_GRAPH_META__SITE_NAME:
+			case PagemetaPackage.OPEN_GRAPH_META__SITE_NAME:
 				return SITE_NAME_EDEFAULT == null ? siteName != null : !SITE_NAME_EDEFAULT.equals(siteName);
-			case PageMetaPackage.OPEN_GRAPH_META__VIDEO:
+			case PagemetaPackage.OPEN_GRAPH_META__VIDEO:
 				return VIDEO_EDEFAULT == null ? video != null : !VIDEO_EDEFAULT.equals(video);
 		}
 		return super.eIsSet(featureID);

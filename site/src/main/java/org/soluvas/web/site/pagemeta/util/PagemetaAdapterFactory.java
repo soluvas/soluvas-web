@@ -19,7 +19,7 @@ import org.soluvas.web.site.pagemeta.*;
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage
  * @generated
  */
-public class PageMetaAdapterFactory extends AdapterFactoryImpl {
+public class PagemetaAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
@@ -34,7 +34,7 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaAdapterFactory() {
+	public PagemetaAdapterFactory() {
 		if (modelPackage == null) {
 			modelPackage = PagemetaPackage.eINSTANCE;
 		}
@@ -65,8 +65,8 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageMetaSwitch<Adapter> modelSwitch =
-		new PageMetaSwitch<Adapter>() {
+	protected PagemetaSwitch<Adapter> modelSwitch =
+		new PagemetaSwitch<Adapter>() {
 			@Override
 			public Adapter casePageMeta(PageMeta object) {
 				return createPageMetaAdapter();
@@ -356,7 +356,7 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCatalog <em>Catalog</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCatalog <em>Page Meta Catalog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -370,7 +370,7 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Collection</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Page Meta Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -423,4 +423,4 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //PageMetaAdapterFactory
+} //PagemetaAdapterFactory

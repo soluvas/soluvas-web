@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.PageTitle;
 
 /**
@@ -132,7 +132,7 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PAGE_TITLE;
+		return PagemetaPackage.Literals.PAGE_TITLE;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 		String oldMain = main;
 		main = newMain;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_TITLE__MAIN, oldMain, main));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_TITLE__MAIN, oldMain, main));
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	 */
 	public EList<String> getPrefixes() {
 		if (prefixes == null) {
-			prefixes = new EDataTypeUniqueEList<String>(String.class, this, PageMetaPackage.PAGE_TITLE__PREFIXES);
+			prefixes = new EDataTypeUniqueEList<String>(String.class, this, PagemetaPackage.PAGE_TITLE__PREFIXES);
 		}
 		return prefixes;
 	}
@@ -175,7 +175,7 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	 */
 	public EList<String> getSuffixes() {
 		if (suffixes == null) {
-			suffixes = new EDataTypeUniqueEList<String>(String.class, this, PageMetaPackage.PAGE_TITLE__SUFFIXES);
+			suffixes = new EDataTypeUniqueEList<String>(String.class, this, PagemetaPackage.PAGE_TITLE__SUFFIXES);
 		}
 		return suffixes;
 	}
@@ -198,7 +198,7 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 		String oldPrefixSeparator = prefixSeparator;
 		prefixSeparator = newPrefixSeparator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_TITLE__PREFIX_SEPARATOR, oldPrefixSeparator, prefixSeparator));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_TITLE__PREFIX_SEPARATOR, oldPrefixSeparator, prefixSeparator));
 	}
 
 	/**
@@ -219,7 +219,7 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 		String oldSuffixSeparator = suffixSeparator;
 		suffixSeparator = newSuffixSeparator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR, oldSuffixSeparator, suffixSeparator));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR, oldSuffixSeparator, suffixSeparator));
 	}
 
 	/**
@@ -230,15 +230,15 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_TITLE__MAIN:
+			case PagemetaPackage.PAGE_TITLE__MAIN:
 				return getMain();
-			case PageMetaPackage.PAGE_TITLE__PREFIXES:
+			case PagemetaPackage.PAGE_TITLE__PREFIXES:
 				return getPrefixes();
-			case PageMetaPackage.PAGE_TITLE__SUFFIXES:
+			case PagemetaPackage.PAGE_TITLE__SUFFIXES:
 				return getSuffixes();
-			case PageMetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
 				return getPrefixSeparator();
-			case PageMetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
 				return getSuffixSeparator();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -253,21 +253,21 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_TITLE__MAIN:
+			case PagemetaPackage.PAGE_TITLE__MAIN:
 				setMain((String)newValue);
 				return;
-			case PageMetaPackage.PAGE_TITLE__PREFIXES:
+			case PagemetaPackage.PAGE_TITLE__PREFIXES:
 				getPrefixes().clear();
 				getPrefixes().addAll((Collection<? extends String>)newValue);
 				return;
-			case PageMetaPackage.PAGE_TITLE__SUFFIXES:
+			case PagemetaPackage.PAGE_TITLE__SUFFIXES:
 				getSuffixes().clear();
 				getSuffixes().addAll((Collection<? extends String>)newValue);
 				return;
-			case PageMetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
 				setPrefixSeparator((String)newValue);
 				return;
-			case PageMetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
 				setSuffixSeparator((String)newValue);
 				return;
 		}
@@ -282,19 +282,19 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_TITLE__MAIN:
+			case PagemetaPackage.PAGE_TITLE__MAIN:
 				setMain(MAIN_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_TITLE__PREFIXES:
+			case PagemetaPackage.PAGE_TITLE__PREFIXES:
 				getPrefixes().clear();
 				return;
-			case PageMetaPackage.PAGE_TITLE__SUFFIXES:
+			case PagemetaPackage.PAGE_TITLE__SUFFIXES:
 				getSuffixes().clear();
 				return;
-			case PageMetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
 				setPrefixSeparator(PREFIX_SEPARATOR_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
 				setSuffixSeparator(SUFFIX_SEPARATOR_EDEFAULT);
 				return;
 		}
@@ -309,15 +309,15 @@ public class PageTitleImpl extends EObjectImpl implements PageTitle {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_TITLE__MAIN:
+			case PagemetaPackage.PAGE_TITLE__MAIN:
 				return MAIN_EDEFAULT == null ? main != null : !MAIN_EDEFAULT.equals(main);
-			case PageMetaPackage.PAGE_TITLE__PREFIXES:
+			case PagemetaPackage.PAGE_TITLE__PREFIXES:
 				return prefixes != null && !prefixes.isEmpty();
-			case PageMetaPackage.PAGE_TITLE__SUFFIXES:
+			case PagemetaPackage.PAGE_TITLE__SUFFIXES:
 				return suffixes != null && !suffixes.isEmpty();
-			case PageMetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__PREFIX_SEPARATOR:
 				return PREFIX_SEPARATOR_EDEFAULT == null ? prefixSeparator != null : !PREFIX_SEPARATOR_EDEFAULT.equals(prefixSeparator);
-			case PageMetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
+			case PagemetaPackage.PAGE_TITLE__SUFFIX_SEPARATOR:
 				return SUFFIX_SEPARATOR_EDEFAULT == null ? suffixSeparator != null : !SUFFIX_SEPARATOR_EDEFAULT.equals(suffixSeparator);
 		}
 		return super.eIsSet(featureID);

@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -20,11 +21,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageIcon()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageIcon extends EObject {
+public interface PageIcon extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Favicon Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -35,7 +37,7 @@ public interface PageIcon extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Favicon Uri</em>' attribute.
 	 * @see #setFaviconUri(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageIcon_FaviconUri()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon_FaviconUri()
 	 * @model
 	 * @generated
 	 */
@@ -61,7 +63,7 @@ public interface PageIcon extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon57 Uri</em>' attribute.
 	 * @see #setIcon57Uri(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageIcon_Icon57Uri()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon_Icon57Uri()
 	 * @model
 	 * @generated
 	 */
@@ -87,7 +89,7 @@ public interface PageIcon extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon72 Uri</em>' attribute.
 	 * @see #setIcon72Uri(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageIcon_Icon72Uri()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon_Icon72Uri()
 	 * @model
 	 * @generated
 	 */
@@ -113,7 +115,7 @@ public interface PageIcon extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon114 Uri</em>' attribute.
 	 * @see #setIcon114Uri(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageIcon_Icon114Uri()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon_Icon114Uri()
 	 * @model
 	 * @generated
 	 */
@@ -139,7 +141,7 @@ public interface PageIcon extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon144 Uri</em>' attribute.
 	 * @see #setIcon144Uri(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageIcon_Icon144Uri()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon_Icon144Uri()
 	 * @model
 	 * @generated
 	 */

@@ -5,12 +5,26 @@ package org.soluvas.web.site.pagemeta.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.soluvas.web.site.pagemeta.*;
+import org.soluvas.web.site.pagemeta.OpenGraphAudio;
+import org.soluvas.web.site.pagemeta.OpenGraphImage;
+import org.soluvas.web.site.pagemeta.OpenGraphMeta;
+import org.soluvas.web.site.pagemeta.OpenGraphVideo;
+import org.soluvas.web.site.pagemeta.PageIcon;
+import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaCatalog;
+import org.soluvas.web.site.pagemeta.PageMetaCollection;
+import org.soluvas.web.site.pagemeta.PageRule;
+import org.soluvas.web.site.pagemeta.PageRuleCollection;
+import org.soluvas.web.site.pagemeta.PageTitle;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
+import org.soluvas.web.site.pagemeta.ProcessorPageDeclaration;
+import org.soluvas.web.site.pagemeta.RepositoryPageDeclaration;
+import org.soluvas.web.site.pagemeta.ResourcePageDeclaration;
+import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
+import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,24 +32,24 @@ import org.soluvas.web.site.pagemeta.*;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory {
+public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static PageMetaFactory init() {
+	public static PagemetaFactory init() {
 		try {
-			PageMetaFactory thePageMetaFactory = (PageMetaFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.site.pagemeta/1.0"); 
-			if (thePageMetaFactory != null) {
-				return thePageMetaFactory;
+			PagemetaFactory thePagemetaFactory = (PagemetaFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.site.pagemeta/1.0"); 
+			if (thePagemetaFactory != null) {
+				return thePagemetaFactory;
 			}
 		}
 		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
-		return new PageMetaFactoryImpl();
+		return new PagemetaFactoryImpl();
 	}
 
 	/**
@@ -44,7 +58,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaFactoryImpl() {
+	public PagemetaFactoryImpl() {
 		super();
 	}
 
@@ -56,22 +70,22 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case PageMetaPackage.PAGE_META: return createPageMeta();
-			case PageMetaPackage.PAGE_ICON: return createPageIcon();
-			case PageMetaPackage.OPEN_GRAPH_META: return createOpenGraphMeta();
-			case PageMetaPackage.OPEN_GRAPH_IMAGE: return createOpenGraphImage();
-			case PageMetaPackage.OPEN_GRAPH_VIDEO: return createOpenGraphVideo();
-			case PageMetaPackage.OPEN_GRAPH_AUDIO: return createOpenGraphAudio();
-			case PageMetaPackage.URI_PATTERN_PAGE_SELECTOR: return createUriPatternPageSelector();
-			case PageMetaPackage.PAGE_RULE: return createPageRule();
-			case PageMetaPackage.SOURCE_PAGE_DECLARATION: return createSourcePageDeclaration();
-			case PageMetaPackage.PROCESSOR_PAGE_DECLARATION: return createProcessorPageDeclaration();
-			case PageMetaPackage.RESOURCE_PAGE_DECLARATION: return createResourcePageDeclaration();
-			case PageMetaPackage.REPOSITORY_PAGE_DECLARATION: return createRepositoryPageDeclaration();
-			case PageMetaPackage.PAGE_META_CATALOG: return createPageMetaCatalog();
-			case PageMetaPackage.PAGE_META_COLLECTION: return createPageMetaCollection();
-			case PageMetaPackage.PAGE_RULE_COLLECTION: return createPageRuleCollection();
-			case PageMetaPackage.PAGE_TITLE: return createPageTitle();
+			case PagemetaPackage.PAGE_META: return createPageMeta();
+			case PagemetaPackage.PAGE_ICON: return createPageIcon();
+			case PagemetaPackage.OPEN_GRAPH_META: return createOpenGraphMeta();
+			case PagemetaPackage.OPEN_GRAPH_IMAGE: return createOpenGraphImage();
+			case PagemetaPackage.OPEN_GRAPH_VIDEO: return createOpenGraphVideo();
+			case PagemetaPackage.OPEN_GRAPH_AUDIO: return createOpenGraphAudio();
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR: return createUriPatternPageSelector();
+			case PagemetaPackage.PAGE_RULE: return createPageRule();
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION: return createSourcePageDeclaration();
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION: return createProcessorPageDeclaration();
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: return createResourcePageDeclaration();
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: return createRepositoryPageDeclaration();
+			case PagemetaPackage.PAGE_META_CATALOG: return createPageMetaCatalog();
+			case PagemetaPackage.PAGE_META_COLLECTION: return createPageMetaCollection();
+			case PagemetaPackage.PAGE_RULE_COLLECTION: return createPageRuleCollection();
+			case PagemetaPackage.PAGE_TITLE: return createPageTitle();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -82,6 +96,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageMeta createPageMeta() {
 		PageMetaImpl pageMeta = new PageMetaImpl();
 		return pageMeta;
@@ -92,6 +107,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageIcon createPageIcon() {
 		PageIconImpl pageIcon = new PageIconImpl();
 		return pageIcon;
@@ -102,6 +118,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphMeta createOpenGraphMeta() {
 		OpenGraphMetaImpl openGraphMeta = new OpenGraphMetaImpl();
 		return openGraphMeta;
@@ -112,6 +129,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphImage createOpenGraphImage() {
 		OpenGraphImageImpl openGraphImage = new OpenGraphImageImpl();
 		return openGraphImage;
@@ -122,6 +140,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphVideo createOpenGraphVideo() {
 		OpenGraphVideoImpl openGraphVideo = new OpenGraphVideoImpl();
 		return openGraphVideo;
@@ -132,6 +151,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphAudio createOpenGraphAudio() {
 		OpenGraphAudioImpl openGraphAudio = new OpenGraphAudioImpl();
 		return openGraphAudio;
@@ -142,6 +162,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UriPatternPageSelector createUriPatternPageSelector() {
 		UriPatternPageSelectorImpl uriPatternPageSelector = new UriPatternPageSelectorImpl();
 		return uriPatternPageSelector;
@@ -152,6 +173,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageRule createPageRule() {
 		PageRuleImpl pageRule = new PageRuleImpl();
 		return pageRule;
@@ -162,6 +184,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SourcePageDeclaration createSourcePageDeclaration() {
 		SourcePageDeclarationImpl sourcePageDeclaration = new SourcePageDeclarationImpl();
 		return sourcePageDeclaration;
@@ -172,6 +195,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ProcessorPageDeclaration createProcessorPageDeclaration() {
 		ProcessorPageDeclarationImpl processorPageDeclaration = new ProcessorPageDeclarationImpl();
 		return processorPageDeclaration;
@@ -182,6 +206,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourcePageDeclaration createResourcePageDeclaration() {
 		ResourcePageDeclarationImpl resourcePageDeclaration = new ResourcePageDeclarationImpl();
 		return resourcePageDeclaration;
@@ -192,6 +217,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RepositoryPageDeclaration createRepositoryPageDeclaration() {
 		RepositoryPageDeclarationImpl repositoryPageDeclaration = new RepositoryPageDeclarationImpl();
 		return repositoryPageDeclaration;
@@ -202,6 +228,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageMetaCatalog createPageMetaCatalog() {
 		PageMetaCatalogImpl pageMetaCatalog = new PageMetaCatalogImpl();
 		return pageMetaCatalog;
@@ -212,6 +239,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageMetaCollection createPageMetaCollection() {
 		PageMetaCollectionImpl pageMetaCollection = new PageMetaCollectionImpl();
 		return pageMetaCollection;
@@ -222,6 +250,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageRuleCollection createPageRuleCollection() {
 		PageRuleCollectionImpl pageRuleCollection = new PageRuleCollectionImpl();
 		return pageRuleCollection;
@@ -232,6 +261,7 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageTitle createPageTitle() {
 		PageTitleImpl pageTitle = new PageTitleImpl();
 		return pageTitle;
@@ -242,8 +272,9 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaPackage getPageMetaPackage() {
-		return (PageMetaPackage)getEPackage();
+	@Override
+	public PagemetaPackage getPagemetaPackage() {
+		return (PagemetaPackage)getEPackage();
 	}
 
 	/**
@@ -253,8 +284,8 @@ public class PageMetaFactoryImpl extends EFactoryImpl implements PageMetaFactory
 	 * @generated
 	 */
 	@Deprecated
-	public static PageMetaPackage getPackage() {
-		return PageMetaPackage.eINSTANCE;
+	public static PagemetaPackage getPackage() {
+		return PagemetaPackage.eINSTANCE;
 	}
 
-} //PageMetaFactoryImpl
+} //PagemetaFactoryImpl

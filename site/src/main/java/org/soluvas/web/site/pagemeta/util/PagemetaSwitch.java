@@ -22,7 +22,7 @@ import org.soluvas.web.site.pagemeta.*;
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage
  * @generated
  */
-public class PageMetaSwitch<T> extends Switch<T> {
+public class PagemetaSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -37,7 +37,7 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaSwitch() {
+	public PagemetaSwitch() {
 		if (modelPackage == null) {
 			modelPackage = PagemetaPackage.eINSTANCE;
 		}
@@ -396,13 +396,13 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Catalog</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Page Meta Catalog</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Catalog</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Page Meta Catalog</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -411,13 +411,13 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Collection</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Page Meta Collection</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Collection</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Page Meta Collection</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -471,4 +471,4 @@ public class PageMetaSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //PageMetaSwitch
+} //PagemetaSwitch

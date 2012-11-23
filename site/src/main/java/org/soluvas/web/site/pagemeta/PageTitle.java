@@ -4,6 +4,7 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -30,11 +31,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageTitle()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageTitle extends EObject {
+public interface PageTitle extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Main</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -45,7 +47,7 @@ public interface PageTitle extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Main</em>' attribute.
 	 * @see #setMain(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageTitle_Main()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle_Main()
 	 * @model
 	 * @generated
 	 */
@@ -71,7 +73,7 @@ public interface PageTitle extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Prefixes</em>' attribute list.
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageTitle_Prefixes()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle_Prefixes()
 	 * @model
 	 * @generated
 	 */
@@ -87,7 +89,7 @@ public interface PageTitle extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Suffixes</em>' attribute list.
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageTitle_Suffixes()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle_Suffixes()
 	 * @model
 	 * @generated
 	 */
@@ -103,7 +105,7 @@ public interface PageTitle extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Prefix Separator</em>' attribute.
 	 * @see #setPrefixSeparator(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageTitle_PrefixSeparator()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle_PrefixSeparator()
 	 * @model
 	 * @generated
 	 */
@@ -129,7 +131,7 @@ public interface PageTitle extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Suffix Separator</em>' attribute.
 	 * @see #setSuffixSeparator(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageTitle_SuffixSeparator()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle_SuffixSeparator()
 	 * @model
 	 * @generated
 	 */

@@ -19,7 +19,7 @@ package org.soluvas.web.site.pagemeta;
  * <!-- end-model-doc -->
  *
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getPageMetaCatalog()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMetaCatalog()
  * @model
  * @generated
  */

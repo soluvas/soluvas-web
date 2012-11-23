@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.soluvas.web.site.pagemeta.PageDeclaration;
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageSelector;
 
@@ -88,7 +88,7 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PAGE_RULE;
+		return PagemetaPackage.Literals.PAGE_RULE;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		PageSelector oldSelector = selector;
 		selector = newSelector;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_RULE__SELECTOR, oldSelector, newSelector);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__SELECTOR, oldSelector, newSelector);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -124,14 +124,14 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		if (newSelector != selector) {
 			NotificationChain msgs = null;
 			if (selector != null)
-				msgs = ((InternalEObject)selector).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PageMetaPackage.PAGE_RULE__SELECTOR, null, msgs);
+				msgs = ((InternalEObject)selector).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PagemetaPackage.PAGE_RULE__SELECTOR, null, msgs);
 			if (newSelector != null)
-				msgs = ((InternalEObject)newSelector).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PageMetaPackage.PAGE_RULE__SELECTOR, null, msgs);
+				msgs = ((InternalEObject)newSelector).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PagemetaPackage.PAGE_RULE__SELECTOR, null, msgs);
 			msgs = basicSetSelector(newSelector, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_RULE__SELECTOR, newSelector, newSelector));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__SELECTOR, newSelector, newSelector));
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		Integer oldWeight = weight;
 		weight = newWeight;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_RULE__WEIGHT, oldWeight, weight));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__WEIGHT, oldWeight, weight));
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		PageDeclaration oldDeclaration = declaration;
 		declaration = newDeclaration;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_RULE__DECLARATION, oldDeclaration, newDeclaration);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__DECLARATION, oldDeclaration, newDeclaration);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -188,14 +188,14 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		if (newDeclaration != declaration) {
 			NotificationChain msgs = null;
 			if (declaration != null)
-				msgs = ((InternalEObject)declaration).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PageMetaPackage.PAGE_RULE__DECLARATION, null, msgs);
+				msgs = ((InternalEObject)declaration).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PagemetaPackage.PAGE_RULE__DECLARATION, null, msgs);
 			if (newDeclaration != null)
-				msgs = ((InternalEObject)newDeclaration).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PageMetaPackage.PAGE_RULE__DECLARATION, null, msgs);
+				msgs = ((InternalEObject)newDeclaration).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PagemetaPackage.PAGE_RULE__DECLARATION, null, msgs);
 			msgs = basicSetDeclaration(newDeclaration, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PageMetaPackage.PAGE_RULE__DECLARATION, newDeclaration, newDeclaration));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__DECLARATION, newDeclaration, newDeclaration));
 	}
 
 	/**
@@ -206,9 +206,9 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE__SELECTOR:
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				return basicSetSelector(null, msgs);
-			case PageMetaPackage.PAGE_RULE__DECLARATION:
+			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return basicSetDeclaration(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -222,11 +222,11 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE__SELECTOR:
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				return getSelector();
-			case PageMetaPackage.PAGE_RULE__WEIGHT:
+			case PagemetaPackage.PAGE_RULE__WEIGHT:
 				return getWeight();
-			case PageMetaPackage.PAGE_RULE__DECLARATION:
+			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return getDeclaration();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -240,13 +240,13 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE__SELECTOR:
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				setSelector((PageSelector)newValue);
 				return;
-			case PageMetaPackage.PAGE_RULE__WEIGHT:
+			case PagemetaPackage.PAGE_RULE__WEIGHT:
 				setWeight((Integer)newValue);
 				return;
-			case PageMetaPackage.PAGE_RULE__DECLARATION:
+			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				setDeclaration((PageDeclaration)newValue);
 				return;
 		}
@@ -261,13 +261,13 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE__SELECTOR:
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				setSelector((PageSelector)null);
 				return;
-			case PageMetaPackage.PAGE_RULE__WEIGHT:
+			case PagemetaPackage.PAGE_RULE__WEIGHT:
 				setWeight(WEIGHT_EDEFAULT);
 				return;
-			case PageMetaPackage.PAGE_RULE__DECLARATION:
+			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				setDeclaration((PageDeclaration)null);
 				return;
 		}
@@ -282,11 +282,11 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE__SELECTOR:
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				return selector != null;
-			case PageMetaPackage.PAGE_RULE__WEIGHT:
+			case PagemetaPackage.PAGE_RULE__WEIGHT:
 				return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
-			case PageMetaPackage.PAGE_RULE__DECLARATION:
+			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return declaration != null;
 		}
 		return super.eIsSet(featureID);

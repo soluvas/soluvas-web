@@ -16,7 +16,7 @@ package org.soluvas.web.site.pagemeta;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getRepositoryPageDeclaration()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getRepositoryPageDeclaration()
  * @model
  * @generated
  */
@@ -30,7 +30,7 @@ public interface RepositoryPageDeclaration extends PageDeclaration {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Filter</em>' attribute.
 	 * @see #setFilter(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getRepositoryPageDeclaration_Filter()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getRepositoryPageDeclaration_Filter()
 	 * @model
 	 * @generated
 	 */
@@ -55,7 +55,7 @@ public interface RepositoryPageDeclaration extends PageDeclaration {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getRepositoryPageDeclaration_Path()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getRepositoryPageDeclaration_Path()
 	 * @model
 	 * @generated
 	 */

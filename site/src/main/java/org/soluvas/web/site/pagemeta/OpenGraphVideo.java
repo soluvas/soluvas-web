@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -30,11 +31,12 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphVideo()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface OpenGraphVideo extends EObject {
+public interface OpenGraphVideo extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Url</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -44,7 +46,7 @@ public interface OpenGraphVideo extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Url</em>' attribute.
 	 * @see #setUrl(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphVideo_Url()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo_Url()
 	 * @model
 	 * @generated
 	 */
@@ -70,7 +72,7 @@ public interface OpenGraphVideo extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Secure Url</em>' attribute.
 	 * @see #setSecureUrl(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphVideo_SecureUrl()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo_SecureUrl()
 	 * @model
 	 * @generated
 	 */
@@ -96,7 +98,7 @@ public interface OpenGraphVideo extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphVideo_Type()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo_Type()
 	 * @model
 	 * @generated
 	 */
@@ -122,7 +124,7 @@ public interface OpenGraphVideo extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Width</em>' attribute.
 	 * @see #setWidth(Integer)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphVideo_Width()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo_Width()
 	 * @model
 	 * @generated
 	 */
@@ -148,7 +150,7 @@ public interface OpenGraphVideo extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Height</em>' attribute.
 	 * @see #setHeight(Integer)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getOpenGraphVideo_Height()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo_Height()
 	 * @model
 	 * @generated
 	 */

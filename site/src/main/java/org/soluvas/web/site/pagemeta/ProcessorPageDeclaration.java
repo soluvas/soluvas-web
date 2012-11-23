@@ -21,7 +21,7 @@ package org.soluvas.web.site.pagemeta;
  * </ul>
  * </p>
  *
- * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getProcessorPageDeclaration()
+ * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getProcessorPageDeclaration()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface ProcessorPageDeclaration extends PageDeclaration {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Filter</em>' attribute.
 	 * @see #setFilter(String)
-	 * @see org.soluvas.web.site.pagemeta.PageMetaPackage#getProcessorPageDeclaration_Filter()
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getProcessorPageDeclaration_Filter()
 	 * @model
 	 * @generated
 	 */

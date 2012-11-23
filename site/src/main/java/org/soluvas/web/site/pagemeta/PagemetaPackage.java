@@ -18,11 +18,11 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.soluvas.web.site.pagemeta.PageMetaFactory
+ * @see org.soluvas.web.site.pagemeta.PagemetaFactory
  * @model kind="package"
  * @generated
  */
-public interface PageMetaPackage extends EPackage {
+public interface PagemetaPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -53,14 +53,14 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	PageMetaPackage eINSTANCE = org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl.init();
+	PagemetaPackage eINSTANCE = org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl <em>Page Meta</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageMeta()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMeta()
 	 * @generated
 	 */
 	int PAGE_META = 0;
@@ -187,7 +187,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageIconImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageIcon()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageIcon()
 	 * @generated
 	 */
 	int PAGE_ICON = 1;
@@ -251,7 +251,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphMetaImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphMeta()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphMeta()
 	 * @generated
 	 */
 	int OPEN_GRAPH_META = 2;
@@ -369,7 +369,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphImageImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphImage()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphImage()
 	 * @generated
 	 */
 	int OPEN_GRAPH_IMAGE = 3;
@@ -433,7 +433,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphVideoImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphVideo()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphVideo()
 	 * @generated
 	 */
 	int OPEN_GRAPH_VIDEO = 4;
@@ -497,7 +497,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphAudioImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphAudio()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphAudio()
 	 * @generated
 	 */
 	int OPEN_GRAPH_AUDIO = 5;
@@ -543,7 +543,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.PageSelector
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageSelector()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageSelector()
 	 * @generated
 	 */
 	int PAGE_SELECTOR = 6;
@@ -562,7 +562,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.UriPatternPageSelectorImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getUriPatternPageSelector()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getUriPatternPageSelector()
 	 * @generated
 	 */
 	int URI_PATTERN_PAGE_SELECTOR = 7;
@@ -590,7 +590,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageRuleImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageRule()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRule()
 	 * @generated
 	 */
 	int PAGE_RULE = 8;
@@ -636,7 +636,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.PageDeclaration
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageDeclaration()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageDeclaration()
 	 * @generated
 	 */
 	int PAGE_DECLARATION = 9;
@@ -655,7 +655,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.SourcePageDeclarationImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getSourcePageDeclaration()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getSourcePageDeclaration()
 	 * @generated
 	 */
 	int SOURCE_PAGE_DECLARATION = 10;
@@ -683,7 +683,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.ProcessorPageDeclarationImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getProcessorPageDeclaration()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getProcessorPageDeclaration()
 	 * @generated
 	 */
 	int PROCESSOR_PAGE_DECLARATION = 11;
@@ -711,7 +711,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.ResourcePageDeclarationImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getResourcePageDeclaration()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getResourcePageDeclaration()
 	 * @generated
 	 */
 	int RESOURCE_PAGE_DECLARATION = 12;
@@ -748,7 +748,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.RepositoryPageDeclarationImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getRepositoryPageDeclaration()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getRepositoryPageDeclaration()
 	 * @generated
 	 */
 	int REPOSITORY_PAGE_DECLARATION = 13;
@@ -781,11 +781,11 @@ public interface PageMetaPackage extends EPackage {
 	int REPOSITORY_PAGE_DECLARATION_FEATURE_COUNT = PAGE_DECLARATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl <em>Collection</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl <em>Page Meta Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageMetaCollection()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaCollection()
 	 * @generated
 	 */
 	int PAGE_META_COLLECTION = 15;
@@ -800,7 +800,7 @@ public interface PageMetaPackage extends EPackage {
 	int PAGE_META_COLLECTION__PAGE_METAS = 0;
 
 	/**
-	 * The number of structural features of the '<em>Collection</em>' class.
+	 * The number of structural features of the '<em>Page Meta Collection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -809,11 +809,11 @@ public interface PageMetaPackage extends EPackage {
 	int PAGE_META_COLLECTION_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl <em>Catalog</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl <em>Page Meta Catalog</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageMetaCatalog()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaCatalog()
 	 * @generated
 	 */
 	int PAGE_META_CATALOG = 14;
@@ -837,7 +837,7 @@ public interface PageMetaPackage extends EPackage {
 	int PAGE_META_CATALOG__RULES = PAGE_META_COLLECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Catalog</em>' class.
+	 * The number of structural features of the '<em>Page Meta Catalog</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -850,7 +850,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageRuleCollectionImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageRuleCollection()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleCollection()
 	 * @generated
 	 */
 	int PAGE_RULE_COLLECTION = 16;
@@ -878,7 +878,7 @@ public interface PageMetaPackage extends EPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.soluvas.web.site.pagemeta.impl.PageTitleImpl
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageTitle()
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageTitle()
 	 * @generated
 	 */
 	int PAGE_TITLE = 17;
@@ -1640,20 +1640,20 @@ public interface PageMetaPackage extends EPackage {
 	EAttribute getRepositoryPageDeclaration_Path();
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.PageMetaCatalog <em>Catalog</em>}'.
+	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.PageMetaCatalog <em>Page Meta Catalog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Catalog</em>'.
+	 * @return the meta object for class '<em>Page Meta Catalog</em>'.
 	 * @see org.soluvas.web.site.pagemeta.PageMetaCatalog
 	 * @generated
 	 */
 	EClass getPageMetaCatalog();
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Collection</em>}'.
+	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Page Meta Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Collection</em>'.
+	 * @return the meta object for class '<em>Page Meta Collection</em>'.
 	 * @see org.soluvas.web.site.pagemeta.PageMetaCollection
 	 * @generated
 	 */
@@ -1763,7 +1763,7 @@ public interface PageMetaPackage extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	PageMetaFactory getPageMetaFactory();
+	PagemetaFactory getPagemetaFactory();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1783,7 +1783,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageMeta()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMeta()
 		 * @generated
 		 */
 		EClass PAGE_META = eINSTANCE.getPageMeta();
@@ -1889,7 +1889,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageIconImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageIcon()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageIcon()
 		 * @generated
 		 */
 		EClass PAGE_ICON = eINSTANCE.getPageIcon();
@@ -1939,7 +1939,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphMetaImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphMeta()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphMeta()
 		 * @generated
 		 */
 		EClass OPEN_GRAPH_META = eINSTANCE.getOpenGraphMeta();
@@ -2037,7 +2037,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphImageImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphImage()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphImage()
 		 * @generated
 		 */
 		EClass OPEN_GRAPH_IMAGE = eINSTANCE.getOpenGraphImage();
@@ -2087,7 +2087,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphVideoImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphVideo()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphVideo()
 		 * @generated
 		 */
 		EClass OPEN_GRAPH_VIDEO = eINSTANCE.getOpenGraphVideo();
@@ -2137,7 +2137,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.OpenGraphAudioImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getOpenGraphAudio()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getOpenGraphAudio()
 		 * @generated
 		 */
 		EClass OPEN_GRAPH_AUDIO = eINSTANCE.getOpenGraphAudio();
@@ -2171,7 +2171,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.PageSelector
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageSelector()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageSelector()
 		 * @generated
 		 */
 		EClass PAGE_SELECTOR = eINSTANCE.getPageSelector();
@@ -2181,7 +2181,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.UriPatternPageSelectorImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getUriPatternPageSelector()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getUriPatternPageSelector()
 		 * @generated
 		 */
 		EClass URI_PATTERN_PAGE_SELECTOR = eINSTANCE.getUriPatternPageSelector();
@@ -2199,7 +2199,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageRuleImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageRule()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRule()
 		 * @generated
 		 */
 		EClass PAGE_RULE = eINSTANCE.getPageRule();
@@ -2233,7 +2233,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.PageDeclaration
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageDeclaration()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageDeclaration()
 		 * @generated
 		 */
 		EClass PAGE_DECLARATION = eINSTANCE.getPageDeclaration();
@@ -2243,7 +2243,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.SourcePageDeclarationImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getSourcePageDeclaration()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getSourcePageDeclaration()
 		 * @generated
 		 */
 		EClass SOURCE_PAGE_DECLARATION = eINSTANCE.getSourcePageDeclaration();
@@ -2261,7 +2261,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.ProcessorPageDeclarationImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getProcessorPageDeclaration()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getProcessorPageDeclaration()
 		 * @generated
 		 */
 		EClass PROCESSOR_PAGE_DECLARATION = eINSTANCE.getProcessorPageDeclaration();
@@ -2279,7 +2279,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.ResourcePageDeclarationImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getResourcePageDeclaration()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getResourcePageDeclaration()
 		 * @generated
 		 */
 		EClass RESOURCE_PAGE_DECLARATION = eINSTANCE.getResourcePageDeclaration();
@@ -2305,7 +2305,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.RepositoryPageDeclarationImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getRepositoryPageDeclaration()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getRepositoryPageDeclaration()
 		 * @generated
 		 */
 		EClass REPOSITORY_PAGE_DECLARATION = eINSTANCE.getRepositoryPageDeclaration();
@@ -2327,21 +2327,21 @@ public interface PageMetaPackage extends EPackage {
 		EAttribute REPOSITORY_PAGE_DECLARATION__PATH = eINSTANCE.getRepositoryPageDeclaration_Path();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl <em>Catalog</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl <em>Page Meta Catalog</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageMetaCatalog()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaCatalog()
 		 * @generated
 		 */
 		EClass PAGE_META_CATALOG = eINSTANCE.getPageMetaCatalog();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl <em>Collection</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl <em>Page Meta Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageMetaCollection()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaCollection()
 		 * @generated
 		 */
 		EClass PAGE_META_COLLECTION = eINSTANCE.getPageMetaCollection();
@@ -2359,7 +2359,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageRuleCollectionImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageRuleCollection()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleCollection()
 		 * @generated
 		 */
 		EClass PAGE_RULE_COLLECTION = eINSTANCE.getPageRuleCollection();
@@ -2377,7 +2377,7 @@ public interface PageMetaPackage extends EPackage {
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.soluvas.web.site.pagemeta.impl.PageTitleImpl
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaPackageImpl#getPageTitle()
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageTitle()
 		 * @generated
 		 */
 		EClass PAGE_TITLE = eINSTANCE.getPageTitle();
@@ -2424,4 +2424,4 @@ public interface PageMetaPackage extends EPackage {
 
 	}
 
-} //PageMetaPackage
+} //PagemetaPackage

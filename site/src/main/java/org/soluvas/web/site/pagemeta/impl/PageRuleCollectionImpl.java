@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.soluvas.web.site.pagemeta.PageMetaPackage;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
@@ -59,7 +59,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PageMetaPackage.Literals.PAGE_RULE_COLLECTION;
+		return PagemetaPackage.Literals.PAGE_RULE_COLLECTION;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	 */
 	public EList<PageRule> getRules() {
 		if (rules == null) {
-			rules = new EObjectContainmentEList<PageRule>(PageRule.class, this, PageMetaPackage.PAGE_RULE_COLLECTION__RULES);
+			rules = new EObjectContainmentEList<PageRule>(PageRule.class, this, PagemetaPackage.PAGE_RULE_COLLECTION__RULES);
 		}
 		return rules;
 	}
@@ -82,7 +82,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE_COLLECTION__RULES:
+			case PagemetaPackage.PAGE_RULE_COLLECTION__RULES:
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -96,7 +96,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE_COLLECTION__RULES:
+			case PagemetaPackage.PAGE_RULE_COLLECTION__RULES:
 				return getRules();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -111,7 +111,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE_COLLECTION__RULES:
+			case PagemetaPackage.PAGE_RULE_COLLECTION__RULES:
 				getRules().clear();
 				getRules().addAll((Collection<? extends PageRule>)newValue);
 				return;
@@ -127,7 +127,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE_COLLECTION__RULES:
+			case PagemetaPackage.PAGE_RULE_COLLECTION__RULES:
 				getRules().clear();
 				return;
 		}
@@ -142,7 +142,7 @@ public class PageRuleCollectionImpl extends EObjectImpl implements PageRuleColle
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PageMetaPackage.PAGE_RULE_COLLECTION__RULES:
+			case PagemetaPackage.PAGE_RULE_COLLECTION__RULES:
 				return rules != null && !rules.isEmpty();
 		}
 		return super.eIsSet(featureID);
