@@ -61,7 +61,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
 			<property name="alias" value="/static/org.soluvas.web.site/images"/>
-			<property name="path" value="/images"/>
+			<property name="path" value="/img"/>
 		</bean>
 	</service>
 
