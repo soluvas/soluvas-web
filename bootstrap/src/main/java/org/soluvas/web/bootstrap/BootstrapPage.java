@@ -25,6 +25,9 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.inject.Supplied;
@@ -118,8 +121,8 @@ public class BootstrapPage extends ExtensiblePage {
 	/**
 	 * Should not use {@link Site} directly!
 	 */
-	@PaxWicketBean(name="site") @Deprecated
-	private Site site;
+//	@PaxWicketBean(name="site") @Deprecated
+//	private Site site;
 	@PaxWicketBean(name="cssLinks")
 	private List<CssLink> cssLinks;
 	@PaxWicketBean(name="headJavaScripts")
@@ -204,57 +207,65 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		// HTML
 		add(new TransparentWebMarkupContainer("html").add(new AttributeModifier("lang", pageMeta.getLanguageCode())));
-		
-		// HEAD
-		//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-		add(new Label("pageTitle", pageMeta.getTitle()).setRenderBodyOnly(true));
-		add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
-		final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
-		faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
-		add(faviconLink);
-		add(new WebMarkupContainer("bootstrapCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
-		add(new WebMarkupContainer("bootstrapResponsiveCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
-		add(new WebMarkupContainer("bootstrapPatchesCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
-		add(new WebMarkupContainer("requireJs").add(new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.0.5.js")));
-		
-		//Carousel
-		add(new WebMarkupContainer("afterHeader"));
-		
-		// NAVBAR
-		final Navbar navbar = new Navbar("navbar");
-		add(navbar);
+
+		final BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
+		final ServiceReference<Site> siteRef = bundleContext.getServiceReference(Site.class);
+		try {
+			final Site site = bundleContext.getService(siteRef);
+			
+			// HEAD
+			//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+			add(new Label("pageTitle", pageMeta.getTitle()).setRenderBodyOnly(true));
+			add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
+			final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
+			faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
+			add(faviconLink);
+			add(new WebMarkupContainer("bootstrapCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
+			add(new WebMarkupContainer("bootstrapResponsiveCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
+			add(new WebMarkupContainer("bootstrapPatchesCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+			add(new WebMarkupContainer("requireJs").add(new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.0.5.js")));
+			
+			//Carousel
+			add(new WebMarkupContainer("afterHeader"));
+			
+			// NAVBAR
+			final Navbar navbar = new Navbar("navbar");
+			add(navbar);
 //		add(new Label("logoText", site.getLogoText()).setRenderBodyOnly(true));
 //		add(new Label("logoAlt", site.getLogoAlt()).setRenderBodyOnly(true));
-		navbar.add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()) {
-			{
-				this.setBody(new Model<String>(site.getLogoText()));
-			}
-			@Override
-			protected void onComponentTag(ComponentTag tag) {
-				super.onComponentTag(tag);
-				tag.getAttributes().put("title", site.getLogoAlt());
-			}
-		});
-		
-		add(new Header());
-		final String requireConfigPath = webAddress.getApiPath() + "org.soluvas.web.backbone/requireConfig.js";
-		add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
-		
-		// SIDEBAR
-		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
-		add(sidebarColumn);
-		sidebarBlocks = new RepeatingView("sidebarBlocks");
-		sidebarColumn.add(sidebarBlocks);
-		
-		contentColumn = new TransparentWebMarkupContainer("contentColumn");
-		add(contentColumn);
-		feedbackPanel = new FeedbackPanel("feedback").setOutputMarkupId(true);
-		add(feedbackPanel);
-		
-		// FOOTER
-		
-		add(new Footer(site.getFooterHtml()));
-		
+			navbar.add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()) {
+				{
+					this.setBody(new Model<String>(site.getLogoText()));
+				}
+				@Override
+				protected void onComponentTag(ComponentTag tag) {
+					super.onComponentTag(tag);
+					tag.getAttributes().put("title", site.getLogoAlt());
+				}
+			});
+			
+			add(new Header());
+			final String requireConfigPath = webAddress.getApiPath() + "org.soluvas.web.backbone/requireConfig.js";
+			add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
+			
+			// SIDEBAR
+			sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
+			add(sidebarColumn);
+			sidebarBlocks = new RepeatingView("sidebarBlocks");
+			sidebarColumn.add(sidebarBlocks);
+			
+			contentColumn = new TransparentWebMarkupContainer("contentColumn");
+			add(contentColumn);
+			feedbackPanel = new FeedbackPanel("feedback").setOutputMarkupId(true);
+			add(feedbackPanel);
+			
+			// FOOTER
+			add(new Footer(site.getFooterHtml()));
+			
+		} finally {
+			bundleContext.ungetService(siteRef);
+		}
+
 		// JAVASCRIPT
 
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
