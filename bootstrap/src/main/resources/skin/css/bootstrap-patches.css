@@ -210,4 +210,102 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 		.muted {
 		    color: #999999;
 		}
+		.selleroftheday-box{
+			margin-bottom:10px;
+		}
+		.productThumbListContent ul {
+    		margin: 0;
+		}
+		.seller-profile {
+		    background-color: #F7F7F3;
+		    border: 1px solid #ECECEC;
+		    margin-right: 5px;
+		    padding: 14px;
+		}
+		
+		.seller-profile-list-prod {
+		    background-color: #F7F7F3;
+		    border: 1px solid #ECECEC;
+		    list-style-type: none;
+		    padding: 8px;
+		    margin-bottom:10px;
+		}
+		.selleroftheday-listprod{
+			margin-bottom: 5px;
+		}
+		.selleroftheday-img{
+			width: 180px;
+			height: 180px;
+		}
+		.selleroftheday-img-box{
+			width: 188px;
+			margin-bottom:10px;	
+			margin-right:10px;
+		}
+		.selleroftheday-article{
+			width: 200px;
+			height: 175px;
+			overflow: hidden;
+		}
+		.selleroftheday-listprod ul{
+			margin:0;
+		}
+}
+
+@media (max-width: 767px) {
+/* 	.selleroftheday-box{ */
+/* 		width: 400px; */
+/* 	} */
+/* 	.selleroftheday-listprod{ */
+/* 		margin-left: 6px; */
+/* 	    width: 428px; */
+/* 	} */
+	.selleroftheday-img{
+		width: 180px;
+		height: 180px;
+	}
+	.selleroftheday-img-box{
+		width: 188px;	
+		float:left;
+	}
+	.selleroftheday-article{
+		width: 200px;
+		height: 175px;
+		overflow: hidden;
+	}
+	.selleroftheday-listprod ul{
+		margin:0;
+	}
+/* 	.selleroftheday-box { */
+/*    		 width: 400px; */
+/* 	} */
+	.seller-profile {
+	    background-color: #F7F7F3;
+	    border: 1px solid #ECECEC;
+	    margin-right: 5px;
+	    padding: 14px;
+	}
+/* 	.seller-profile-list-prod { */
+/* 	    background-color: #F7F7F3; */
+/* 	    border: 1px solid #ECECEC; */
+/* 	    float: left; */
+/* 	    list-style-type: none; */
+/* 	    margin: 0 10px 0 0; */
+/* 	    padding: 8px; */
+/* 	    width: 186px; */
+/* 	} */
+	.selleroftheday-listprod ul {
+   	 	margin: 0;
+	}
+	.selleroftheday-article {
+	    height: 175px;
+	    overflow: hidden;
+	    width: 200px;
+	}
+	.selleroftheday-img-box {
+   	 width: 188px;
+   	 float:left;
+   	 margin-right:10px;	
+	}
+	
 }
