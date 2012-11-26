@@ -86,6 +86,7 @@
 					<instructions>
 						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
 						<Import-Package>
+							org.apache.wicket,
 							org.soluvas.web.site,
 							org.slf4j,
 							javax.servlet,javax.servlet.http,
