@@ -1,21 +1,20 @@
 package org.soluvas.web.site;
 
 import java.util.List;
-import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.EmfUtils;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
 import org.soluvas.web.site.pagemeta.PageMeta;
-import org.soluvas.web.site.pagemeta.PagemetaFactory;
 import org.soluvas.web.site.pagemeta.PageRule;
-import org.soluvas.web.site.pagemeta.PageSelector;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
 import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
-import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
 /**
- * Provides a {@link PageMeta} using an ordered list of rules. The later rules
+ * Provides a {@link PageMeta} using an ordered list of {@link PageRule}s. The later rules
  * will override the information set by the previous rules.
  * @author ceefour
  */
@@ -24,10 +23,10 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	private transient Logger log = LoggerFactory
 			.getLogger(RulesPageMetaSupplier.class);
 	
-	private List<PageRule> rules;
-	private PageRuleContext context;
+	private final List<PageRule> rules;
+	private final PageRuleContext context;
 	
-	public RulesPageMetaSupplier(List<PageRule> rules, PageRuleContext context) {
+	public RulesPageMetaSupplier(final List<PageRule> rules, final PageRuleContext context) {
 		super();
 		this.rules = rules;
 		this.context = context;
@@ -39,13 +38,13 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	@Override
 	public PageMeta get() {
 		// create blank (should be from somewhere)
-		PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
+		final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
 		pageMeta.setIcon(PagemetaFactory.eINSTANCE.createPageIcon());
 		pageMeta.setOpenGraph(PagemetaFactory.eINSTANCE.createOpenGraphMeta());
 		
 		log.debug("Considering {} pageMeta rules with context: {}", rules.size(), context);
-		for (PageRule rule : rules) {
-			if (!selectorMatches(rule.getSelector(), context)) {
+		for (final PageRule rule : rules) {
+			if (!rule.getSelector().matches(context)) {
 				continue;
 			}
 			processDeclaration(rule.getDeclaration(), pageMeta);
@@ -53,28 +52,11 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 		return pageMeta;
 	}
 	
-	protected boolean selectorMatches(PageSelector selector, PageRuleContext context) {
-		if (selector instanceof UriPatternPageSelector) {
-			UriPatternPageSelector uriSelector = (UriPatternPageSelector) selector;
-//			Pattern regexPattern = new UriTemplateParser(uriSelector.getPattern()).getPattern();
-			Pattern regexPattern = Pattern.compile(uriSelector.getPattern());
-			log.debug("Regex pattern for URI pattern {} is {}", uriSelector.getPattern(), regexPattern);
-			if (regexPattern.matcher(context.getUri()).matches()) {
-				log.debug("URI {} matches pageMeta selector {}", context.getUri(), selector);
-				return true;
-			}
-			return false;
-		} else {
-			log.error("Unknown pageMeta selector: " + selector);
-			throw new RuntimeException("Unknown pageMeta selector: " + selector);
-		}
-	}
-	
-	protected void processDeclaration(PageDeclaration declaration, PageMeta pageMeta) {
+	protected void processDeclaration(@Nonnull final PageDeclaration declaration, @Nonnull final PageMeta pageMeta) {
 		log.debug("Applying pageMeta declaration {} to {}", declaration, pageMeta);
 		if (declaration instanceof SourcePageDeclaration) {
 			SourcePageDeclaration sourcePageDeclaration = (SourcePageDeclaration) declaration;
-			PageMeta source = sourcePageDeclaration.getSource();
+			final PageMeta source = sourcePageDeclaration.getSource();
 			combinePage(pageMeta, source);
 		} else {
 			log.error("Unknown pageMeta declaration: " + declaration);

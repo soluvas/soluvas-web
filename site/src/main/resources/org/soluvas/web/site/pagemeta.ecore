@@ -188,17 +188,28 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Matches a web request against a rule and modifies the current Page object."/>
     </eAnnotations>
+    <eOperations name="matches" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Determines if this selector matches the provided page."/>
+      </eAnnotations>
+      <eParameters name="context" eType="#//PageRuleContext"/>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UriPatternPageSelector" eSuperTypes="#//PageSelector">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Matches web requests using http://code.google.com/p/wo-furi/"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PageRule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="selector" eType="#//PageSelector"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="positioner" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Guide:&#xA;&#xA;* -200 : org.soluvas core&#xA;* -100 : coarse-grained&#xA;* -50 : module-level fine-grained (e.g. bippo salesorder)&#xA;* -10 : product-level fine-grained (e.g. bippo )&#xA;* 0 or missing : application-level fine-grained (e.g. berbatik)&#xA;* 10 : customizations&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaration" eType="#//PageDeclaration"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -278,4 +289,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefixSeparator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffixSeparator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassPageSelector" eSuperTypes="#//PageSelector">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Selects pages based on Wicket page class name."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="PageRuleContext" instanceClassName="org.soluvas.web.site.PageRuleContext"/>
 </ecore:EPackage>

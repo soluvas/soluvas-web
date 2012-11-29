@@ -31,6 +31,7 @@ import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.inject.Supplied;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
@@ -46,6 +47,7 @@ import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
+import org.soluvas.web.site.osgi.WebTenantUtils;
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.webaddress.WebAddress;
 
@@ -187,12 +189,13 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 	
 	protected PageMeta getPageMeta() {
-		PageRuleContext context = new PageRuleContext();
-		context.setUri(getRequest().getUrl().toString());
-//		List<PageRule> pageRules = pageRulesSupplier.get();
-//		PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
-		PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
-		PageMeta pageMeta = pageMetaSupplier.get();
+		final TenantRef tenant = WebTenantUtils.getTenant();
+		final PageRuleContext context = new PageRuleContext(tenant.getClientId(), tenant.getTenantId(), tenant.getTenantEnv(),
+				this, getRequest().getUrl().toString());
+//		final List<PageRule> pageRules = pageRulesSupplier.get();
+//		final PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
+		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
+		final PageMeta pageMeta = pageMetaSupplier.get();
 		return pageMeta;
 	}
 	

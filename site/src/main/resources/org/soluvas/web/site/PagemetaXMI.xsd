@@ -623,12 +623,11 @@ og:image:width - The number of pixels wide.
 og:image:height - The number of pixels high.
 A full image example:
 
-<meta content="http://example.com/ogp.jpg" property="og:image"/>
-<meta content="https://secure.example.com/ogp.jpg" property="og:image:secure_url"/>
-<meta content="image/jpeg" property="og:image:type"/>
-<meta content="400" property="og:image:width"/>
-<meta content="300" property="og:image:height"/>
-      </xsd:documentation>
+&lt;meta property="og:image" content="http://example.com/ogp.jpg" /&gt;
+&lt;meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" /&gt;
+&lt;meta property="og:image:type" content="image/jpeg" /&gt;
+&lt;meta property="og:image:width" content="400" /&gt;
+&lt;meta property="og:image:height" content="300" /&gt;</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="OpenGraphVideo">
@@ -748,7 +747,7 @@ A full image example:
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="pagemeta:PageSelector">
-        <xsd:attribute name="pattern" type="xsd:string"/>
+        <xsd:attribute name="pattern" type="xsd:string" use="required"/>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -769,7 +768,18 @@ A full image example:
     </xsd:choice>
     <xsd:attribute ref="xmi:id"/>
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
-    <xsd:attribute name="weight" type="xsd:int"/>
+    <xsd:attribute name="positioner" type="xsd:int">
+      <xsd:annotation>
+        <xsd:documentation>Guide:
+
+* -100 : org.soluvas core
+* -50 : module-level stuff (e.g. bippo salesorder)
+* -10 : product-level stuff (e.g. bippo )
+* 0 or missing : application-level stuff (e.g. berbatik)
+* 10 : customizations
+</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
   </xsd:complexType>
   <xsd:element name="PageRule" type="pagemeta:PageRule"/>
   <xsd:complexType abstract="true" name="PageDeclaration">
@@ -950,6 +960,21 @@ This will set the :
 This will set the :
 - page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)
 - open graph meta : title &lt;= main (TODO: needs to be more configurable), e.g. we want to display "Zalova Bag - Bags" or "Zalova Bag - O Batiks" or even "Zalova Bag - Bags - O Batiks"</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ClassPageSelector">
+    <xsd:annotation>
+      <xsd:documentation>Selects pages based on Wicket page class name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="pagemeta:PageSelector">
+        <xsd:attribute name="className" type="xsd:string" use="required"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ClassPageSelector" type="pagemeta:ClassPageSelector">
+    <xsd:annotation>
+      <xsd:documentation>Selects pages based on Wicket page class name.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>

@@ -24,7 +24,7 @@ import org.soluvas.web.site.pagemeta.PageSelector;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getSelector <em>Selector</em>}</li>
- *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getPositioner <em>Positioner</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getDeclaration <em>Declaration</em>}</li>
  * </ul>
  * </p>
@@ -43,24 +43,24 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	protected PageSelector selector;
 
 	/**
-	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWeight()
+	 * @see #getPositioner()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer WEIGHT_EDEFAULT = null;
+	protected static final Integer POSITIONER_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWeight()
+	 * @see #getPositioner()
 	 * @generated
 	 * @ordered
 	 */
-	protected Integer weight = WEIGHT_EDEFAULT;
+	protected Integer positioner = POSITIONER_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' containment reference.
@@ -139,8 +139,8 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getWeight() {
-		return weight;
+	public Integer getPositioner() {
+		return positioner;
 	}
 
 	/**
@@ -148,11 +148,11 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setWeight(Integer newWeight) {
-		Integer oldWeight = weight;
-		weight = newWeight;
+	public void setPositioner(Integer newPositioner) {
+		Integer oldPositioner = positioner;
+		positioner = newPositioner;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__WEIGHT, oldWeight, weight));
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_RULE__POSITIONER, oldPositioner, positioner));
 	}
 
 	/**
@@ -224,8 +224,8 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		switch (featureID) {
 			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				return getSelector();
-			case PagemetaPackage.PAGE_RULE__WEIGHT:
-				return getWeight();
+			case PagemetaPackage.PAGE_RULE__POSITIONER:
+				return getPositioner();
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return getDeclaration();
 		}
@@ -243,8 +243,8 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				setSelector((PageSelector)newValue);
 				return;
-			case PagemetaPackage.PAGE_RULE__WEIGHT:
-				setWeight((Integer)newValue);
+			case PagemetaPackage.PAGE_RULE__POSITIONER:
+				setPositioner((Integer)newValue);
 				return;
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				setDeclaration((PageDeclaration)newValue);
@@ -264,8 +264,8 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				setSelector((PageSelector)null);
 				return;
-			case PagemetaPackage.PAGE_RULE__WEIGHT:
-				setWeight(WEIGHT_EDEFAULT);
+			case PagemetaPackage.PAGE_RULE__POSITIONER:
+				setPositioner(POSITIONER_EDEFAULT);
 				return;
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				setDeclaration((PageDeclaration)null);
@@ -284,8 +284,8 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		switch (featureID) {
 			case PagemetaPackage.PAGE_RULE__SELECTOR:
 				return selector != null;
-			case PagemetaPackage.PAGE_RULE__WEIGHT:
-				return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
+			case PagemetaPackage.PAGE_RULE__POSITIONER:
+				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return declaration != null;
 		}
@@ -302,8 +302,8 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (weight: ");
-		result.append(weight);
+		result.append(" (positioner: ");
+		result.append(positioner);
 		result.append(')');
 		return result.toString();
 	}

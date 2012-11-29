@@ -35,7 +35,7 @@ public interface UriPatternPageSelector extends PageSelector {
 	 * @return the value of the '<em>Pattern</em>' attribute.
 	 * @see #setPattern(String)
 	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getUriPatternPageSelector_Pattern()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getPattern();

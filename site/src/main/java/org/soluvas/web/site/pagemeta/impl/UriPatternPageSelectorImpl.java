@@ -2,13 +2,15 @@
  */
 package org.soluvas.web.site.pagemeta.impl;
 
+import java.util.regex.Pattern;
+
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
@@ -26,6 +28,10 @@ import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
  * @generated
  */
 public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatternPageSelector {
+	
+	private static Logger log = LoggerFactory
+			.getLogger(UriPatternPageSelectorImpl.class);
+	
 	/**
 	 * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -70,6 +76,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPattern() {
 		return pattern;
 	}
@@ -79,11 +86,28 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPattern(String newPattern) {
 		String oldPattern = pattern;
 		pattern = newPattern;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.URI_PATTERN_PAGE_SELECTOR__PATTERN, oldPattern, pattern));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 */
+	@Override
+	public boolean matches(PageRuleContext context) {
+//		Pattern regexPattern = new UriTemplateParser(uriSelector.getPattern()).getPattern();
+		Pattern regexPattern = Pattern.compile(getPattern());
+		log.debug("Regex pattern for URI pattern {} is {}", getPattern(), regexPattern);
+		if (regexPattern.matcher(context.getUri()).matches()) {
+			log.debug("URI {} matches pageMeta selector {}", context.getUri(), getPattern());
+			return true;
+		}
+		return false;
 	}
 
 	/**

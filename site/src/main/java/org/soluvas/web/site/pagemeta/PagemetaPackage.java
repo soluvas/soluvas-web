@@ -4,6 +4,7 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -605,13 +606,13 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_RULE__SELECTOR = 0;
 
 	/**
-	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_RULE__WEIGHT = 1;
+	int PAGE_RULE__POSITIONER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Declaration</b></em>' containment reference.
@@ -936,6 +937,45 @@ public interface PagemetaPackage extends EPackage {
 	 * @ordered
 	 */
 	int PAGE_TITLE_FEATURE_COUNT = 5;
+
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.ClassPageSelectorImpl <em>Class Page Selector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.pagemeta.impl.ClassPageSelectorImpl
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getClassPageSelector()
+	 * @generated
+	 */
+	int CLASS_PAGE_SELECTOR = 18;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_PAGE_SELECTOR__CLASS_NAME = PAGE_SELECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Class Page Selector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_PAGE_SELECTOR_FEATURE_COUNT = PAGE_SELECTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '<em>Page Rule Context</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.PageRuleContext
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleContext()
+	 * @generated
+	 */
+	int PAGE_RULE_CONTEXT = 19;
 
 
 	/**
@@ -1502,15 +1542,15 @@ public interface PagemetaPackage extends EPackage {
 	EReference getPageRule_Selector();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageRule#getWeight <em>Weight</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageRule#getPositioner <em>Positioner</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Weight</em>'.
-	 * @see org.soluvas.web.site.pagemeta.PageRule#getWeight()
+	 * @return the meta object for the attribute '<em>Positioner</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageRule#getPositioner()
 	 * @see #getPageRule()
 	 * @generated
 	 */
-	EAttribute getPageRule_Weight();
+	EAttribute getPageRule_Positioner();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.pagemeta.PageRule#getDeclaration <em>Declaration</em>}'.
@@ -1755,6 +1795,38 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPageTitle_SuffixSeparator();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.ClassPageSelector <em>Class Page Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Class Page Selector</em>'.
+	 * @see org.soluvas.web.site.pagemeta.ClassPageSelector
+	 * @generated
+	 */
+	EClass getClassPageSelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.ClassPageSelector#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.soluvas.web.site.pagemeta.ClassPageSelector#getClassName()
+	 * @see #getClassPageSelector()
+	 * @generated
+	 */
+	EAttribute getClassPageSelector_ClassName();
+
+	/**
+	 * Returns the meta object for data type '{@link org.soluvas.web.site.PageRuleContext <em>Page Rule Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Page Rule Context</em>'.
+	 * @see org.soluvas.web.site.PageRuleContext
+	 * @model instanceClass="org.soluvas.web.site.PageRuleContext"
+	 * @generated
+	 */
+	EDataType getPageRuleContext();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2213,12 +2285,12 @@ public interface PagemetaPackage extends EPackage {
 		EReference PAGE_RULE__SELECTOR = eINSTANCE.getPageRule_Selector();
 
 		/**
-		 * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Positioner</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PAGE_RULE__WEIGHT = eINSTANCE.getPageRule_Weight();
+		EAttribute PAGE_RULE__POSITIONER = eINSTANCE.getPageRule_Positioner();
 
 		/**
 		 * The meta object literal for the '<em><b>Declaration</b></em>' containment reference feature.
@@ -2421,6 +2493,34 @@ public interface PagemetaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PAGE_TITLE__SUFFIX_SEPARATOR = eINSTANCE.getPageTitle_SuffixSeparator();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.ClassPageSelectorImpl <em>Class Page Selector</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.pagemeta.impl.ClassPageSelectorImpl
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getClassPageSelector()
+		 * @generated
+		 */
+		EClass CLASS_PAGE_SELECTOR = eINSTANCE.getClassPageSelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLASS_PAGE_SELECTOR__CLASS_NAME = eINSTANCE.getClassPageSelector_ClassName();
+
+		/**
+		 * The meta object literal for the '<em>Page Rule Context</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.PageRuleContext
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleContext()
+		 * @generated
+		 */
+		EDataType PAGE_RULE_CONTEXT = eINSTANCE.getPageRuleContext();
 
 	}
 

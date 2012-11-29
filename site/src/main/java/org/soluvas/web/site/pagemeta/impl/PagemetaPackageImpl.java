@@ -4,9 +4,13 @@ package org.soluvas.web.site.pagemeta.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.pagemeta.ClassPageSelector;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
@@ -160,6 +164,20 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * @generated
 	 */
 	private EClass pageTitleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass classPageSelectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType pageRuleContextEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -747,8 +765,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public EAttribute getPageRule_Weight() {
+	public EAttribute getPageRule_Positioner() {
 		return (EAttribute)pageRuleEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -987,6 +1004,33 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getClassPageSelector() {
+		return classPageSelectorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getClassPageSelector_ClassName() {
+		return (EAttribute)classPageSelectorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getPageRuleContext() {
+		return pageRuleContextEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public PagemetaFactory getPagemetaFactory() {
 		return (PagemetaFactory)getEFactoryInstance();
@@ -1071,7 +1115,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		pageRuleEClass = createEClass(PAGE_RULE);
 		createEReference(pageRuleEClass, PAGE_RULE__SELECTOR);
-		createEAttribute(pageRuleEClass, PAGE_RULE__WEIGHT);
+		createEAttribute(pageRuleEClass, PAGE_RULE__POSITIONER);
 		createEReference(pageRuleEClass, PAGE_RULE__DECLARATION);
 
 		pageDeclarationEClass = createEClass(PAGE_DECLARATION);
@@ -1104,6 +1148,12 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		createEAttribute(pageTitleEClass, PAGE_TITLE__SUFFIXES);
 		createEAttribute(pageTitleEClass, PAGE_TITLE__PREFIX_SEPARATOR);
 		createEAttribute(pageTitleEClass, PAGE_TITLE__SUFFIX_SEPARATOR);
+
+		classPageSelectorEClass = createEClass(CLASS_PAGE_SELECTOR);
+		createEAttribute(classPageSelectorEClass, CLASS_PAGE_SELECTOR__CLASS_NAME);
+
+		// Create data types
+		pageRuleContextEDataType = createEDataType(PAGE_RULE_CONTEXT);
 	}
 
 	/**
@@ -1141,6 +1191,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		repositoryPageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		pageMetaCatalogEClass.getESuperTypes().add(this.getPageMetaCollection());
 		pageMetaCatalogEClass.getESuperTypes().add(this.getPageRuleCollection());
+		classPageSelectorEClass.getESuperTypes().add(this.getPageSelector());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(pageMetaEClass, PageMeta.class, "PageMeta", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1198,12 +1249,15 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		initEClass(pageSelectorEClass, PageSelector.class, "PageSelector", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		EOperation op = addEOperation(pageSelectorEClass, ecorePackage.getEBoolean(), "matches", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getPageRuleContext(), "context", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(uriPatternPageSelectorEClass, UriPatternPageSelector.class, "UriPatternPageSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUriPatternPageSelector_Pattern(), ecorePackage.getEString(), "pattern", null, 0, 1, UriPatternPageSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUriPatternPageSelector_Pattern(), ecorePackage.getEString(), "pattern", null, 1, 1, UriPatternPageSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pageRuleEClass, PageRule.class, "PageRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageRule_Selector(), this.getPageSelector(), null, "selector", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPageRule_Weight(), ecorePackage.getEIntegerObject(), "weight", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageRule_Positioner(), ecorePackage.getEIntegerObject(), "positioner", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPageRule_Declaration(), this.getPageDeclaration(), null, "declaration", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pageDeclarationEClass, PageDeclaration.class, "PageDeclaration", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1236,6 +1290,12 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		initEAttribute(getPageTitle_Suffixes(), ecorePackage.getEString(), "suffixes", null, 0, -1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageTitle_PrefixSeparator(), ecorePackage.getEString(), "prefixSeparator", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageTitle_SuffixSeparator(), ecorePackage.getEString(), "suffixSeparator", null, 0, 1, PageTitle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(classPageSelectorEClass, ClassPageSelector.class, "ClassPageSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getClassPageSelector_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, ClassPageSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize data types
+		initEDataType(pageRuleContextEDataType, PageRuleContext.class, "PageRuleContext", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1452,10 +1512,22 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 			 "documentation", "Matches a web request against a rule and modifies the current Page object."
 		   });		
 		addAnnotation
+		  (pageSelectorEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Determines if this selector matches the provided page."
+		   });		
+		addAnnotation
 		  (uriPatternPageSelectorEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Matches web requests using http://code.google.com/p/wo-furi/"
+		   });		
+		addAnnotation
+		  (getPageRule_Positioner(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Guide:\n\n* -100 : org.soluvas core\n* -50 : module-level stuff (e.g. bippo salesorder)\n* -10 : product-level stuff (e.g. bippo )\n* 0 or missing : application-level stuff (e.g. berbatik)\n* 10 : customizations\n"
 		   });		
 		addAnnotation
 		  (getPageRule_Declaration(), 
@@ -1528,6 +1600,12 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		   source, 
 		   new String[] {
 			 "documentation", "Used to compose a title string.\n\nThis will set the :\n- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)\n- open graph meta : title <= main (TODO: needs to be more configurable), e.g. we want to display \"Zalova Bag - Bags\" or \"Zalova Bag - O Batiks\" or even \"Zalova Bag - Bags - O Batiks\""
+		   });		
+		addAnnotation
+		  (classPageSelectorEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Selects pages based on Wicket page class name."
 		   });
 	}
 

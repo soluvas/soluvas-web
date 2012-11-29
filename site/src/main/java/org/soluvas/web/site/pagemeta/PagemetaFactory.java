@@ -166,6 +166,15 @@ public interface PagemetaFactory extends EFactory {
 	PageTitle createPageTitle();
 
 	/**
+	 * Returns a new object of class '<em>Class Page Selector</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Class Page Selector</em>'.
+	 * @generated
+	 */
+	ClassPageSelector createClassPageSelector();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

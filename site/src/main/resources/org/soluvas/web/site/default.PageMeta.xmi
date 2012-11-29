@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pagemeta:PageMeta xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0" xsi:schemaLocation="http://www.soluvas.org/schema/web.site.pagemeta/1.0 pagemeta.ecore" languageCode="en" description="" charset="utf-8" title="Soluvas Web" keywords="" viewport="width=device-width, initial-scale=1.0">
+<pagemeta:PageMeta xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0" xsi:schemaLocation="http://www.soluvas.org/schema/web.site.pagemeta/1.0 pagemeta.ecore" languageCode="en" charset="utf-8" title="Soluvas Web" keywords="" description="" viewport="width=device-width, initial-scale=1.0">
   <icon faviconUri="/static/org.soluvas.web.site/images/soluvas-favicon.ico"/>
   <openGraph title="Soluvas Web" type="website" locale="en_US" siteName="Soluvas Web"/>
 </pagemeta:PageMeta>

@@ -3,14 +3,11 @@
 package org.soluvas.web.site.pagemeta.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
@@ -63,6 +60,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageMeta getSource() {
 		if (source != null && ((EObject)source).eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
@@ -89,6 +87,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSource(PageMeta newSource) {
 		PageMeta oldSource = source;
 		source = newSource;
@@ -154,5 +153,5 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 		}
 		return super.eIsSet(featureID);
 	}
-
-} //SourcePageDeclarationImpl
+	
+}

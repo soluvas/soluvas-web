@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.soluvas.web.site.pagemeta.PageRule#getSelector <em>Selector</em>}</li>
- *   <li>{@link org.soluvas.web.site.pagemeta.PageRule#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.PageRule#getPositioner <em>Positioner</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.PageRule#getDeclaration <em>Declaration</em>}</li>
  * </ul>
  * </p>
@@ -52,30 +52,36 @@ public interface PageRule extends SerializableEObject {
 	void setSelector(PageSelector value);
 
 	/**
-	 * Returns the value of the '<em><b>Weight</b></em>' attribute.
+	 * Returns the value of the '<em><b>Positioner</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Weight</em>' attribute.
-	 * @see #setWeight(Integer)
-	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule_Weight()
+	 * <!-- begin-model-doc -->
+	 * Guide:
+	 * 
+	 * * -100 : org.soluvas core
+	 * * -50 : module-level stuff (e.g. bippo salesorder)
+	 * * -10 : product-level stuff (e.g. bippo )
+	 * * 0 or missing : application-level stuff (e.g. berbatik)
+	 * * 10 : customizations
+	 * 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Positioner</em>' attribute.
+	 * @see #setPositioner(Integer)
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule_Positioner()
 	 * @model
 	 * @generated
 	 */
-	Integer getWeight();
+	Integer getPositioner();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.pagemeta.PageRule#getWeight <em>Weight</em>}' attribute.
+	 * Sets the value of the '{@link org.soluvas.web.site.pagemeta.PageRule#getPositioner <em>Positioner</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Weight</em>' attribute.
-	 * @see #getWeight()
+	 * @param value the new value of the '<em>Positioner</em>' attribute.
+	 * @see #getPositioner()
 	 * @generated
 	 */
-	void setWeight(Integer value);
+	void setPositioner(Integer value);
 
 	/**
 	 * Returns the value of the '<em><b>Declaration</b></em>' containment reference.

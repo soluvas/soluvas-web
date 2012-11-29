@@ -4,13 +4,10 @@ package org.soluvas.web.site.pagemeta.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
@@ -258,6 +255,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PageIcon getIcon() {
 		return icon;
 	}
@@ -282,6 +280,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIcon(PageIcon newIcon) {
 		if (newIcon != icon) {
 			NotificationChain msgs = null;
@@ -301,6 +300,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLanguageCode() {
 		return languageCode;
 	}
@@ -310,6 +310,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLanguageCode(String newLanguageCode) {
 		String oldLanguageCode = languageCode;
 		languageCode = newLanguageCode;
@@ -322,6 +323,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphMeta getOpenGraph() {
 		return openGraph;
 	}
@@ -346,6 +348,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOpenGraph(OpenGraphMeta newOpenGraph) {
 		if (newOpenGraph != openGraph) {
 			NotificationChain msgs = null;
@@ -365,6 +368,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphImage getOpenGraphImage() {
 		return openGraphImage;
 	}
@@ -389,6 +393,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOpenGraphImage(OpenGraphImage newOpenGraphImage) {
 		if (newOpenGraphImage != openGraphImage) {
 			NotificationChain msgs = null;
@@ -408,6 +413,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphVideo getOpenGraphVideo() {
 		return openGraphVideo;
 	}
@@ -432,6 +438,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOpenGraphVideo(OpenGraphVideo newOpenGraphVideo) {
 		if (newOpenGraphVideo != openGraphVideo) {
 			NotificationChain msgs = null;
@@ -451,6 +458,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OpenGraphAudio getOpenGraphAudio() {
 		return openGraphAudio;
 	}
@@ -475,6 +483,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOpenGraphAudio(OpenGraphAudio newOpenGraphAudio) {
 		if (newOpenGraphAudio != openGraphAudio) {
 			NotificationChain msgs = null;
@@ -494,6 +503,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCharset() {
 		return charset;
 	}
@@ -503,6 +513,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCharset(String newCharset) {
 		String oldCharset = charset;
 		charset = newCharset;
@@ -515,6 +526,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTitle() {
 		return title;
 	}
@@ -524,6 +536,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTitle(String newTitle) {
 		String oldTitle = title;
 		title = newTitle;
@@ -536,6 +549,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getKeywords() {
 		return keywords;
 	}
@@ -545,6 +559,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKeywords(String newKeywords) {
 		String oldKeywords = keywords;
 		keywords = newKeywords;
@@ -557,6 +572,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -566,6 +582,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -578,6 +595,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getViewport() {
 		return viewport;
 	}
@@ -587,6 +605,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setViewport(String newViewport) {
 		String oldViewport = viewport;
 		viewport = newViewport;
@@ -599,6 +618,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAuthor() {
 		return author;
 	}
@@ -608,6 +628,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuthor(String newAuthor) {
 		String oldAuthor = author;
 		author = newAuthor;
@@ -804,33 +825,30 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 		}
 		return super.eIsSet(featureID);
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (languageCode: ");
-		result.append(languageCode);
-		result.append(", charset: ");
-		result.append(charset);
-		result.append(", title: ");
-		result.append(title);
-		result.append(", keywords: ");
-		result.append(keywords);
-		result.append(", description: ");
-		result.append(description);
-		result.append(", viewport: ");
-		result.append(viewport);
-		result.append(", author: ");
-		result.append(author);
-		result.append(')');
-		return result.toString();
+		return "PageMetaImpl ["
+				+ (icon != null ? "icon=" + icon + ", " : "")
+				+ (languageCode != null ? "languageCode=" + languageCode + ", "
+						: "")
+				+ (openGraph != null ? "openGraph=" + openGraph + ", " : "")
+				+ (openGraphImage != null ? "openGraphImage=" + openGraphImage
+						+ ", " : "")
+				+ (openGraphVideo != null ? "openGraphVideo=" + openGraphVideo
+						+ ", " : "")
+				+ (openGraphAudio != null ? "openGraphAudio=" + openGraphAudio
+						+ ", " : "")
+				+ (charset != null ? "charset=" + charset + ", " : "")
+				+ (title != null ? "title=" + title + ", " : "")
+				+ (keywords != null ? "keywords=" + keywords + ", " : "")
+				+ (description != null ? "description=" + description + ", "
+						: "")
+				+ (viewport != null ? "viewport=" + viewport + ", " : "")
+				+ (author != null ? "author=" + author : "") + "]";
 	}
 
 } //PageMetaImpl

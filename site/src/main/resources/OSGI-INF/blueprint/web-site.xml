@@ -112,6 +112,13 @@
 				<argument ref="siteCatalogSupplier" />
 			</action>
 		</command>
+		<!-- PageMeta -->
+		<command name="pagemeta/catalogls">
+			<action class="org.soluvas.web.site.shell.PagemetaCatalogLsCommand" />
+		</command>
+		<command name="pagemeta/ls">
+			<action class="org.soluvas.web.site.shell.PagemetaLsCommand" />
+		</command>
 		<!-- Compose -->
 		<command name="compose/placels">
 			<action class="org.soluvas.web.site.shell.ComposePlaceLsCommand">

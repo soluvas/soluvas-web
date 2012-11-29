@@ -8,20 +8,23 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PreDestroy;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.DelegatingSupplier;
-import org.soluvas.web.site.pagemeta.PagemetaFactory;
-import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 
 /**
  * @author ceefour
@@ -29,10 +32,19 @@ import com.google.common.collect.Lists;
 public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCollection>,
 	DelegatingSupplier<PageRuleCollection> {
 
-	private transient Logger log = LoggerFactory
+	public static class PageRuleOrdering extends Ordering<PageRule> {
+		
+		@Override
+		public int compare(@Nullable PageRule left, @Nullable PageRule right) {
+			return Optional.fromNullable(left.getPositioner()).or(0) - Optional.fromNullable(right.getPositioner()).or(0);
+		}
+		
+	}
+	
+	private static Logger log = LoggerFactory
 			.getLogger(FederatingPageRuleCollectionSupplier.class);
-	List<Supplier<PageRuleCollection>> suppliers = new CopyOnWriteArrayList<Supplier<PageRuleCollection>>();
-	private PageRuleCollection federatedPageRules;
+	private final List<Supplier<PageRuleCollection>> suppliers = new CopyOnWriteArrayList<Supplier<PageRuleCollection>>();
+	private final PageRuleCollection federatedPageRules;
 	
 	public FederatingPageRuleCollectionSupplier(@Nonnull final PagemetaPackage pageMetaPackage, Collection<Supplier<PageRuleCollection>> initialSuppliers) {
 		super();
@@ -45,16 +57,18 @@ public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCo
 	public synchronized PageRuleCollection get() {
 		Preconditions.checkNotNull(federatedPageRules, "federatedPageRules is null, probably already destroyed");
 		log.debug("Federating page rules from {} suppliers", suppliers.size());
-		List<List<PageRule>> pageRulesNested = Lists.transform(suppliers, new Function<Supplier<PageRuleCollection>, List<PageRule>>() {
+		final List<List<PageRule>> pageRulesNested = Lists.transform(suppliers, new Function<Supplier<PageRuleCollection>, List<PageRule>>() {
 			@Override @Nullable
 			public List<PageRule> apply(@Nullable Supplier<PageRuleCollection> input) {
 				return input.get().getRules();
 			}
 		});
-		List<PageRule> concatedRules = ImmutableList.copyOf(Iterables.concat(pageRulesNested));
+		final List<PageRule> concatedRules = ImmutableList.copyOf(Iterables.concat(pageRulesNested));
 		log.debug("{} page rule suppliers returned {} rules", suppliers.size(), concatedRules.size());
+		final List<PageRule> sortedRules = new PageRuleOrdering().immutableSortedCopy(concatedRules);
 		federatedPageRules.getRules().clear();
-		federatedPageRules.getRules().addAll(concatedRules);
+		// must copy, otherwise it can be gone from the original supplier
+		federatedPageRules.getRules().addAll(EcoreUtil.copyAll(sortedRules));
 		return federatedPageRules;
 	}
 	
@@ -74,10 +88,10 @@ public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCo
 	@PreDestroy
 	public void destroy() {
 		log.info("Destroying FederatingPageRuleCollectionSupplier with {} suppliers", suppliers.size());
-		for (Supplier<PageRuleCollection> supplier : ImmutableList.copyOf(suppliers)) {
+		for (final Supplier<PageRuleCollection> supplier : ImmutableList.copyOf(suppliers)) {
 			removeSupplier(supplier);
 		}
-		federatedPageRules = null;
+		federatedPageRules.getRules().clear();
 	}
 
 }

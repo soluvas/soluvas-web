@@ -3,10 +3,13 @@
 package org.soluvas.web.site.pagemeta.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.pagemeta.*;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
@@ -70,24 +73,55 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case PagemetaPackage.PAGE_META: return createPageMeta();
-			case PagemetaPackage.PAGE_ICON: return createPageIcon();
-			case PagemetaPackage.OPEN_GRAPH_META: return createOpenGraphMeta();
-			case PagemetaPackage.OPEN_GRAPH_IMAGE: return createOpenGraphImage();
-			case PagemetaPackage.OPEN_GRAPH_VIDEO: return createOpenGraphVideo();
-			case PagemetaPackage.OPEN_GRAPH_AUDIO: return createOpenGraphAudio();
-			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR: return createUriPatternPageSelector();
-			case PagemetaPackage.PAGE_RULE: return createPageRule();
-			case PagemetaPackage.SOURCE_PAGE_DECLARATION: return createSourcePageDeclaration();
-			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION: return createProcessorPageDeclaration();
-			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: return createResourcePageDeclaration();
-			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: return createRepositoryPageDeclaration();
-			case PagemetaPackage.PAGE_META_CATALOG: return createPageMetaCatalog();
-			case PagemetaPackage.PAGE_META_COLLECTION: return createPageMetaCollection();
-			case PagemetaPackage.PAGE_RULE_COLLECTION: return createPageRuleCollection();
-			case PagemetaPackage.PAGE_TITLE: return createPageTitle();
+			case PagemetaPackage.PAGE_META: return (EObject)createPageMeta();
+			case PagemetaPackage.PAGE_ICON: return (EObject)createPageIcon();
+			case PagemetaPackage.OPEN_GRAPH_META: return (EObject)createOpenGraphMeta();
+			case PagemetaPackage.OPEN_GRAPH_IMAGE: return (EObject)createOpenGraphImage();
+			case PagemetaPackage.OPEN_GRAPH_VIDEO: return (EObject)createOpenGraphVideo();
+			case PagemetaPackage.OPEN_GRAPH_AUDIO: return (EObject)createOpenGraphAudio();
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR: return (EObject)createUriPatternPageSelector();
+			case PagemetaPackage.PAGE_RULE: return (EObject)createPageRule();
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION: return (EObject)createSourcePageDeclaration();
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION: return (EObject)createProcessorPageDeclaration();
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: return (EObject)createResourcePageDeclaration();
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: return (EObject)createRepositoryPageDeclaration();
+			case PagemetaPackage.PAGE_META_CATALOG: return (EObject)createPageMetaCatalog();
+			case PagemetaPackage.PAGE_META_COLLECTION: return (EObject)createPageMetaCollection();
+			case PagemetaPackage.PAGE_RULE_COLLECTION: return (EObject)createPageRuleCollection();
+			case PagemetaPackage.PAGE_TITLE: return (EObject)createPageTitle();
+			case PagemetaPackage.CLASS_PAGE_SELECTOR: return (EObject)createClassPageSelector();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case PagemetaPackage.PAGE_RULE_CONTEXT:
+				return createPageRuleContextFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case PagemetaPackage.PAGE_RULE_CONTEXT:
+				return convertPageRuleContextToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -265,6 +299,34 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	public PageTitle createPageTitle() {
 		PageTitleImpl pageTitle = new PageTitleImpl();
 		return pageTitle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ClassPageSelector createClassPageSelector() {
+		ClassPageSelectorImpl classPageSelector = new ClassPageSelectorImpl();
+		return classPageSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PageRuleContext createPageRuleContextFromString(EDataType eDataType, String initialValue) {
+		return (PageRuleContext)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPageRuleContextToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**
