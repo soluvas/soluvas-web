@@ -5,6 +5,7 @@ package org.soluvas.web.site.pagemeta;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -175,13 +176,22 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_META__AUTHOR = 11;
 
 	/**
+	 * The feature id for the '<em><b>Phase</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META__PHASE = 12;
+
+	/**
 	 * The number of structural features of the '<em>Page Meta</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META_FEATURE_COUNT = 12;
+	int PAGE_META_FEATURE_COUNT = 13;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageIconImpl <em>Page Icon</em>}' class.
@@ -968,6 +978,16 @@ public interface PagemetaPackage extends EPackage {
 	int CLASS_PAGE_SELECTOR_FEATURE_COUNT = PAGE_SELECTOR_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.PageMetaPhase <em>Page Meta Phase</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.pagemeta.PageMetaPhase
+	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaPhase()
+	 * @generated
+	 */
+	int PAGE_META_PHASE = 19;
+
+	/**
 	 * The meta object id for the '<em>Page Rule Context</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -975,7 +995,7 @@ public interface PagemetaPackage extends EPackage {
 	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleContext()
 	 * @generated
 	 */
-	int PAGE_RULE_CONTEXT = 19;
+	int PAGE_RULE_CONTEXT = 20;
 
 
 	/**
@@ -1119,6 +1139,17 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPageMeta_Author();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageMeta#getPhase <em>Phase</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Phase</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageMeta#getPhase()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EAttribute getPageMeta_Phase();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.PageIcon <em>Page Icon</em>}'.
@@ -1818,6 +1849,16 @@ public interface PagemetaPackage extends EPackage {
 	EAttribute getClassPageSelector_ClassName();
 
 	/**
+	 * Returns the meta object for enum '{@link org.soluvas.web.site.pagemeta.PageMetaPhase <em>Page Meta Phase</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Page Meta Phase</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageMetaPhase
+	 * @generated
+	 */
+	EEnum getPageMetaPhase();
+
+	/**
 	 * Returns the meta object for data type '{@link org.soluvas.web.site.PageRuleContext <em>Page Rule Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1955,6 +1996,14 @@ public interface PagemetaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PAGE_META__AUTHOR = eINSTANCE.getPageMeta_Author();
+
+		/**
+		 * The meta object literal for the '<em><b>Phase</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_META__PHASE = eINSTANCE.getPageMeta_Phase();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageIconImpl <em>Page Icon</em>}' class.
@@ -2511,6 +2560,16 @@ public interface PagemetaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CLASS_PAGE_SELECTOR__CLASS_NAME = eINSTANCE.getClassPageSelector_ClassName();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.PageMetaPhase <em>Page Meta Phase</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.pagemeta.PageMetaPhase
+		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaPhase()
+		 * @generated
+		 */
+		EEnum PAGE_META_PHASE = eINSTANCE.getPageMetaPhase();
 
 		/**
 		 * The meta object literal for the '<em>Page Rule Context</em>' data type.

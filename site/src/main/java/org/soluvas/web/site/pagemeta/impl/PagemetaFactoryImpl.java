@@ -103,6 +103,8 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case PagemetaPackage.PAGE_META_PHASE:
+				return createPageMetaPhaseFromString(eDataType, initialValue);
 			case PagemetaPackage.PAGE_RULE_CONTEXT:
 				return createPageRuleContextFromString(eDataType, initialValue);
 			default:
@@ -118,6 +120,8 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case PagemetaPackage.PAGE_META_PHASE:
+				return convertPageMetaPhaseToString(eDataType, instanceValue);
 			case PagemetaPackage.PAGE_RULE_CONTEXT:
 				return convertPageRuleContextToString(eDataType, instanceValue);
 			default:
@@ -309,6 +313,26 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	public ClassPageSelector createClassPageSelector() {
 		ClassPageSelectorImpl classPageSelector = new ClassPageSelectorImpl();
 		return classPageSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PageMetaPhase createPageMetaPhaseFromString(EDataType eDataType, String initialValue) {
+		PageMetaPhase result = PageMetaPhase.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPageMetaPhaseToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

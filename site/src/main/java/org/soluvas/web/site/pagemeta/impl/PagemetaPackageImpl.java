@@ -5,6 +5,7 @@ package org.soluvas.web.site.pagemeta.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -20,6 +21,7 @@ import org.soluvas.web.site.pagemeta.PageIcon;
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.pagemeta.PageMetaCatalog;
 import org.soluvas.web.site.pagemeta.PageMetaCollection;
+import org.soluvas.web.site.pagemeta.PageMetaPhase;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
 import org.soluvas.web.site.pagemeta.PageSelector;
@@ -171,6 +173,13 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * @generated
 	 */
 	private EClass classPageSelectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum pageMetaPhaseEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -368,6 +377,15 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	@Override
 	public EAttribute getPageMeta_Author() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageMeta_Phase() {
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1022,6 +1040,15 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getPageMetaPhase() {
+		return pageMetaPhaseEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getPageRuleContext() {
 		return pageRuleContextEDataType;
 	}
@@ -1068,6 +1095,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		createEAttribute(pageMetaEClass, PAGE_META__DESCRIPTION);
 		createEAttribute(pageMetaEClass, PAGE_META__VIEWPORT);
 		createEAttribute(pageMetaEClass, PAGE_META__AUTHOR);
+		createEAttribute(pageMetaEClass, PAGE_META__PHASE);
 
 		pageIconEClass = createEClass(PAGE_ICON);
 		createEAttribute(pageIconEClass, PAGE_ICON__FAVICON_URI);
@@ -1152,6 +1180,9 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		classPageSelectorEClass = createEClass(CLASS_PAGE_SELECTOR);
 		createEAttribute(classPageSelectorEClass, CLASS_PAGE_SELECTOR__CLASS_NAME);
 
+		// Create enums
+		pageMetaPhaseEEnum = createEEnum(PAGE_META_PHASE);
+
 		// Create data types
 		pageRuleContextEDataType = createEDataType(PAGE_RULE_CONTEXT);
 	}
@@ -1207,6 +1238,12 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		initEAttribute(getPageMeta_Description(), ecorePackage.getEString(), "description", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Viewport(), ecorePackage.getEString(), "viewport", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Author(), ecorePackage.getEString(), "author", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageMeta_Phase(), this.getPageMetaPhase(), "phase", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		EOperation op = addEOperation(pageMetaEClass, this.getPageMeta(), "toText", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "context", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(pageMetaEClass, this.getPageMeta(), "toFinal", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(pageIconEClass, PageIcon.class, "PageIcon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPageIcon_FaviconUri(), ecorePackage.getEString(), "faviconUri", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1249,7 +1286,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		initEClass(pageSelectorEClass, PageSelector.class, "PageSelector", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		EOperation op = addEOperation(pageSelectorEClass, ecorePackage.getEBoolean(), "matches", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(pageSelectorEClass, ecorePackage.getEBoolean(), "matches", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getPageRuleContext(), "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(uriPatternPageSelectorEClass, UriPatternPageSelector.class, "UriPatternPageSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1294,6 +1331,12 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		initEClass(classPageSelectorEClass, ClassPageSelector.class, "ClassPageSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getClassPageSelector_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, ClassPageSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		// Initialize enums and add enum literals
+		initEEnum(pageMetaPhaseEEnum, PageMetaPhase.class, "PageMetaPhase");
+		addEEnumLiteral(pageMetaPhaseEEnum, PageMetaPhase.TEMPLATE);
+		addEEnumLiteral(pageMetaPhaseEEnum, PageMetaPhase.TEXT);
+		addEEnumLiteral(pageMetaPhaseEEnum, PageMetaPhase.FINAL);
+
 		// Initialize data types
 		initEDataType(pageRuleContextEDataType, PageRuleContext.class, "PageRuleContext", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
@@ -1318,6 +1361,18 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		   source, 
 		   new String[] {
 			 "documentation", "Low-level meta-information about a HTML page.\n\nFor practical purposes, these are usually provided dynamically. However, some information, like favicon URIs and OpenGraph siteName are usually provided statically from application\'s site catalog XMI e.g. berbatik.SiteCatalog.xmi.\n\nNote that PageMeta uses low-level HTML title, not a \"CMS title\" (which needs to be reformatted i.e. with prefix & suffix).\nIt also distinguishes between meta description and og:description.\nSo it doesn\'t fit well to be provided statically."
+		   });		
+		addAnnotation
+		  (pageMetaEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Creates a new PageMeta with phase=text using the input context.\n\nThrows IllegalStateException if phase is after text (i.e. final)."
+		   });		
+		addAnnotation
+		  (pageMetaEClass.getEOperations().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Returns a new PageMeta with titles merged.\n\nThrows IllegalStateException if phase is not text."
 		   });		
 		addAnnotation
 		  (getPageMeta_LanguageCode(), 
@@ -1527,7 +1582,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		  (getPageRule_Positioner(), 
 		   source, 
 		   new String[] {
-			 "documentation", "Guide:\n\n* -100 : org.soluvas core\n* -50 : module-level stuff (e.g. bippo salesorder)\n* -10 : product-level stuff (e.g. bippo )\n* 0 or missing : application-level stuff (e.g. berbatik)\n* 10 : customizations\n"
+			 "documentation", "Guide:\n\n* -200 : org.soluvas core\n* -100 : coarse-grained\n* -50 : module-level fine-grained (e.g. bippo salesorder)\n* -10 : product-level fine-grained (e.g. bippo )\n* 0 or missing : application-level fine-grained (e.g. berbatik)\n* 10 : customizations\n"
 		   });		
 		addAnnotation
 		  (getPageRule_Declaration(), 
@@ -1606,6 +1661,30 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		   source, 
 		   new String[] {
 			 "documentation", "Selects pages based on Wicket page class name."
+		   });		
+		addAnnotation
+		  (pageMetaPhaseEEnum, 
+		   source, 
+		   new String[] {
+			 "documentation", "PageMeta need to have at least 3 states : \n\n1. `template`. Contains Mustache templates.\n2. `text`. Will not be parsed for template but titles not yet merged.\n3. `final`. Titles already merged."
+		   });		
+		addAnnotation
+		  (pageMetaPhaseEEnum.getELiterals().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Contains Mustache templates."
+		   });		
+		addAnnotation
+		  (pageMetaPhaseEEnum.getELiterals().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Will not be parsed for template but titles not yet merged."
+		   });		
+		addAnnotation
+		  (pageMetaPhaseEEnum.getELiterals().get(2), 
+		   source, 
+		   new String[] {
+			 "documentation", "Titles already merged."
 		   });
 	}
 

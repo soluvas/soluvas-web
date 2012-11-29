@@ -2,19 +2,32 @@
  */
 package org.soluvas.web.site.pagemeta.impl;
 
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.annotation.Nonnull;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
 import org.soluvas.web.site.pagemeta.OpenGraphVideo;
 import org.soluvas.web.site.pagemeta.PageIcon;
 import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaPhase;
 import org.soluvas.web.site.pagemeta.PagemetaPackage;
+
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,12 +48,16 @@ import org.soluvas.web.site.pagemeta.PagemetaPackage;
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getViewport <em>Viewport</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getPhase <em>Phase</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class PageMetaImpl extends EObjectImpl implements PageMeta {
+	
+	private static Logger log = LoggerFactory.getLogger(PageMetaImpl.class);
+	
 	/**
 	 * The cached value of the '{@link #getIcon() <em>Icon</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -230,6 +247,26 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * @ordered
 	 */
 	protected String author = AUTHOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPhase() <em>Phase</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPhase()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final PageMetaPhase PHASE_EDEFAULT = PageMetaPhase.TEMPLATE;
+
+	/**
+	 * The cached value of the '{@link #getPhase() <em>Phase</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPhase()
+	 * @generated
+	 * @ordered
+	 */
+	protected PageMetaPhase phase = PHASE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -642,6 +679,78 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * @generated
 	 */
 	@Override
+	public PageMetaPhase getPhase() {
+		return phase;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPhase(PageMetaPhase newPhase) {
+		PageMetaPhase oldPhase = phase;
+		phase = newPhase == null ? PHASE_EDEFAULT : newPhase;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_META__PHASE, oldPhase, phase));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 */
+	@Override
+	public PageMeta toText(@Nonnull final Object context) {
+		if (phase == PageMetaPhase.TEMPLATE) {
+			final PageMetaImpl result = EcoreUtil.copy(this);
+			final DefaultMustacheFactory mf = new DefaultMustacheFactory();
+			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Title(), result, context);
+			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Description(), result, context);
+			return result;
+		} else if (phase == PageMetaPhase.TEXT) {
+			return EcoreUtil.copy(this);
+		} else
+			throw new IllegalStateException("Invalid phase " + phase + " to call toText()");
+	}
+
+	/**
+	 * @param context
+	 * @param mf
+	 */
+	protected void renderMustache(@Nonnull final DefaultMustacheFactory mf, @Nonnull final EAttribute attr,
+			@Nonnull final PageMeta target, @Nonnull final Object scope) {
+		final String template = (String) eGet(attr);
+		final Mustache tpl = mf.compile(new StringReader(template), attr.getName());
+		final StringWriter writer = new StringWriter();
+		tpl.execute(writer, scope);
+		final String rendered = writer.toString();
+		log.trace("Setting {}='{}' from template: {}", attr.getName(), rendered, template);
+		target.eSet(attr, rendered);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 */
+	@Override
+	public PageMeta toFinal() {
+		if (phase == PageMetaPhase.TEXT) {
+			final PageMetaImpl result = EcoreUtil.copy(this);
+			// TODO: merge
+			return result;
+		} else if (phase == PageMetaPhase.FINAL) {
+			return EcoreUtil.copy(this);
+		} else
+			throw new IllegalStateException("Invalid phase " + phase + " to call toFinal()");
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case PagemetaPackage.PAGE_META__ICON:
@@ -690,6 +799,8 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				return getViewport();
 			case PagemetaPackage.PAGE_META__AUTHOR:
 				return getAuthor();
+			case PagemetaPackage.PAGE_META__PHASE:
+				return getPhase();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -737,6 +848,9 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				return;
 			case PagemetaPackage.PAGE_META__AUTHOR:
 				setAuthor((String)newValue);
+				return;
+			case PagemetaPackage.PAGE_META__PHASE:
+				setPhase((PageMetaPhase)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -786,6 +900,9 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 			case PagemetaPackage.PAGE_META__AUTHOR:
 				setAuthor(AUTHOR_EDEFAULT);
 				return;
+			case PagemetaPackage.PAGE_META__PHASE:
+				setPhase(PHASE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -822,6 +939,8 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				return VIEWPORT_EDEFAULT == null ? viewport != null : !VIEWPORT_EDEFAULT.equals(viewport);
 			case PagemetaPackage.PAGE_META__AUTHOR:
 				return AUTHOR_EDEFAULT == null ? author != null : !AUTHOR_EDEFAULT.equals(author);
+			case PagemetaPackage.PAGE_META__PHASE:
+				return phase != PHASE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

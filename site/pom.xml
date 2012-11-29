@@ -28,6 +28,11 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.jaxrs</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>compiler</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>

@@ -12,6 +12,7 @@ import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.compose.ChildContributor;
+import org.soluvas.web.site.pagemeta.impl.PageMetaImpl;
 
 import com.google.common.collect.Maps;
 
@@ -26,6 +27,7 @@ public class ExtensiblePage extends WebPage {
 	private static Logger log = LoggerFactory
 			.getLogger(ExtensiblePage.class);
 	private final Map<String, IModel<?>> modelsForChild = Maps.newConcurrentMap();
+	private final Map<String, IModel<?>> modelsForPageMeta = Maps.newHashMap();
 	
 	/**
 	 * Together with Compose {@code child} contribution, this allows {@link ChildContributor}s
@@ -37,6 +39,18 @@ public class ExtensiblePage extends WebPage {
 	private void addModelForChild(String path, IModel<?> model) {
 		log.trace("Adding model for child {} in {}", path, getPageClass().getName());
 		modelsForChild.put(path, model);
+	}
+	
+	/**
+	 * Together with {@link RulesPageMetaSupplier}, this allows {@link PageMetaImpl#toText(Object)}
+	 * to get the {@literal scope}.
+	 * @param name
+	 * @param model
+	 * @todo Find a better name / mechanism.
+	 */
+	protected void addModelForPageMeta(@Nonnull final String name, @Nonnull final IModel<?> model) {
+		log.trace("Adding model for PageMeta {} in {}", name, getPageClass().getName());
+		modelsForPageMeta.put(name, model);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -56,4 +70,12 @@ public class ExtensiblePage extends WebPage {
 		addModelForChild(regionId, model);
 		return region;
 	}
+
+	/**
+	 * @return the modelsForPageMeta
+	 */
+	public Map<String, IModel<?>> getModelsForPageMeta() {
+		return modelsForPageMeta;
+	}
+
 }

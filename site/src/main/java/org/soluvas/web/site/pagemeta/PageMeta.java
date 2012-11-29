@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getDescription <em>Description</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getViewport <em>Viewport</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getPhase <em>Phase</em>}</li>
  * </ul>
  * </p>
  *
@@ -352,5 +353,60 @@ public interface PageMeta extends SerializableEObject {
 	 * @generated
 	 */
 	void setAuthor(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Phase</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.soluvas.web.site.pagemeta.PageMetaPhase}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Phase</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Phase</em>' attribute.
+	 * @see org.soluvas.web.site.pagemeta.PageMetaPhase
+	 * @see #setPhase(PageMetaPhase)
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Phase()
+	 * @model
+	 * @generated
+	 */
+	PageMetaPhase getPhase();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.pagemeta.PageMeta#getPhase <em>Phase</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Phase</em>' attribute.
+	 * @see org.soluvas.web.site.pagemeta.PageMetaPhase
+	 * @see #getPhase()
+	 * @generated
+	 */
+	void setPhase(PageMetaPhase value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Creates a new PageMeta with phase=text using the input context.
+	 * 
+	 * Throws IllegalStateException if phase is after text (i.e. final).
+	 * <!-- end-model-doc -->
+	 * @model
+	 * @generated
+	 */
+	PageMeta toText(Object context);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns a new PageMeta with titles merged.
+	 * 
+	 * Throws IllegalStateException if phase is not text.
+	 * <!-- end-model-doc -->
+	 * @model
+	 * @generated
+	 */
+	PageMeta toFinal();
 
 } // PageMeta

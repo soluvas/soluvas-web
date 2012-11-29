@@ -6,6 +6,17 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Low-level meta-information about a HTML page.&#xA;&#xA;For practical purposes, these are usually provided dynamically. However, some information, like favicon URIs and OpenGraph siteName are usually provided statically from application's site catalog XMI e.g. berbatik.SiteCatalog.xmi.&#xA;&#xA;Note that PageMeta uses low-level HTML title, not a &quot;CMS title&quot; (which needs to be reformatted i.e. with prefix &amp; suffix).&#xA;It also distinguishes between meta description and og:description.&#xA;So it doesn't fit well to be provided statically."/>
     </eAnnotations>
+    <eOperations name="toText" eType="#//PageMeta">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Creates a new PageMeta with phase=text using the input context.&#xA;&#xA;Throws IllegalStateException if phase is after text (i.e. final)."/>
+      </eAnnotations>
+      <eParameters name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+    <eOperations name="toFinal" eType="#//PageMeta">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Returns a new PageMeta with titles merged.&#xA;&#xA;Throws IllegalStateException if phase is not text."/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="icon" eType="#//PageIcon"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="languageCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -35,6 +46,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="author" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phase" eType="#//PageMetaPhase"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PageIcon">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="faviconUri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -297,4 +309,24 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="PageRuleContext" instanceClassName="org.soluvas.web.site.PageRuleContext"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="PageMetaPhase">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="PageMeta need to have at least 3 states : &#xA;&#xA;1. `template`. Contains Mustache templates.&#xA;2. `text`. Will not be parsed for template but titles not yet merged.&#xA;3. `final`. Titles already merged."/>
+    </eAnnotations>
+    <eLiterals name="template">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Contains Mustache templates."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="text" value="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Will not be parsed for template but titles not yet merged."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="final" value="2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Titles already merged."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
 </ecore:EPackage>

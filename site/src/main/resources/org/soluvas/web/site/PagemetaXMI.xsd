@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xsd:schema xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.org/schema/web.site.pagemeta/1.0">
   <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
+  <xsd:simpleType name="PageMetaPhase">
+    <xsd:annotation>
+      <xsd:documentation>PageMeta need to have at least 3 states : 
+
+1. `template`. Contains Mustache templates.
+2. `text`. Will not be parsed for template but titles not yet merged.
+3. `final`. Titles already merged.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="template">
+        <xsd:annotation>
+          <xsd:documentation>Contains Mustache templates.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="text">
+        <xsd:annotation>
+          <xsd:documentation>Will not be parsed for template but titles not yet merged.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="final">
+        <xsd:annotation>
+          <xsd:documentation>Titles already merged.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
   <xsd:complexType name="PageMeta">
     <xsd:annotation>
       <xsd:documentation>Low-level meta-information about a HTML page.
@@ -40,6 +66,7 @@ So it doesn't fit well to be provided statically.</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
     <xsd:attribute name="author" type="xsd:string"/>
+    <xsd:attribute name="phase" type="pagemeta:PageMetaPhase"/>
   </xsd:complexType>
   <xsd:element name="PageMeta" type="pagemeta:PageMeta">
     <xsd:annotation>
@@ -772,10 +799,11 @@ A full image example:
       <xsd:annotation>
         <xsd:documentation>Guide:
 
-* -100 : org.soluvas core
-* -50 : module-level stuff (e.g. bippo salesorder)
-* -10 : product-level stuff (e.g. bippo )
-* 0 or missing : application-level stuff (e.g. berbatik)
+* -200 : org.soluvas core
+* -100 : coarse-grained
+* -50 : module-level fine-grained (e.g. bippo salesorder)
+* -10 : product-level fine-grained (e.g. bippo )
+* 0 or missing : application-level fine-grained (e.g. berbatik)
 * 10 : customizations
 </xsd:documentation>
       </xsd:annotation>

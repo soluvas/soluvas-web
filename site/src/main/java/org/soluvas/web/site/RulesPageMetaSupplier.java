@@ -1,17 +1,24 @@
 package org.soluvas.web.site;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.EmfUtils;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
 import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaPhase;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PagemetaFactory;
 import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 
 /**
  * Provides a {@link PageMeta} using an ordered list of {@link PageRule}s. The later rules
@@ -49,7 +56,20 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 			}
 			processDeclaration(rule.getDeclaration(), pageMeta);
 		}
-		return pageMeta;
+		
+		// turn to text
+		final Map<String, IModel<?>> modelsScope = context.getPage().getModelsForPageMeta();
+		final Map<String, Object> scope = Maps.transformValues(modelsScope, new Function<IModel<?>, Object>() {
+			@Override
+			@Nullable
+			public Object apply(@Nullable IModel<?> input) {
+				return input.getObject();
+			}
+		});
+		final PageMeta textPageMeta = pageMeta.getPhase() == PageMetaPhase.TEMPLATE ? pageMeta.toText(scope) : pageMeta;
+		final PageMeta finalPageMeta = pageMeta.getPhase() == PageMetaPhase.TEXT ? pageMeta.toFinal() : textPageMeta;
+		
+		return finalPageMeta;
 	}
 	
 	protected void processDeclaration(@Nonnull final PageDeclaration declaration, @Nonnull final PageMeta pageMeta) {

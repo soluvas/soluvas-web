@@ -4,7 +4,7 @@ public class PageRuleContext {
 	private final String clientId;
 	private final String tenantId;
 	private final String tenantEnv;
-	private final org.apache.wicket.Page page;
+	private final ExtensiblePage page;
 	private final String uri;
 	
 	/**
@@ -15,7 +15,7 @@ public class PageRuleContext {
 	 * @param uri
 	 */
 	public PageRuleContext(String clientId, String tenantId, String tenantEnv,
-			org.apache.wicket.Page page, String uri) {
+			ExtensiblePage page, String uri) {
 		super();
 		this.clientId = clientId;
 		this.tenantId = tenantId;
@@ -39,7 +39,7 @@ public class PageRuleContext {
 	/**
 	 * @return the page
 	 */
-	public org.apache.wicket.Page getPage() {
+	public ExtensiblePage getPage() {
 		return page;
 	}
 	

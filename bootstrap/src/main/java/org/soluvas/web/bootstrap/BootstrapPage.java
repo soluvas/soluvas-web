@@ -21,6 +21,7 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
@@ -215,10 +216,16 @@ public class BootstrapPage extends ExtensiblePage {
 	public BootstrapPage() {
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-		final PageMeta pageMeta = getPageMeta();
+		final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
+			@Override
+			protected PageMeta load() {
+				return getPageMeta();
+			}
+		};
 		
 		// HTML
-		add(new TransparentWebMarkupContainer("html").add(new AttributeModifier("lang", pageMeta.getLanguageCode())));
+		add(new TransparentWebMarkupContainer("html").add(
+				new AttributeModifier("lang", new PropertyModel<String>(pageMetaModel, "languageCode"))));
 
 		final BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
 		final ServiceReference<Site> siteRef = bundleContext.getServiceReference(Site.class);
@@ -230,13 +237,14 @@ public class BootstrapPage extends ExtensiblePage {
 			final IModel<String> titleModel = new LoadableDetachableModel<String>() {
 				@Override
 				protected String load() {
-					return Optional.fromNullable(getTitle()).or( Optional.fromNullable(pageMeta.getTitle()) ).orNull();
+					return Optional.fromNullable(getTitle()).or( Optional.fromNullable(pageMetaModel.getObject().getTitle()) ).orNull();
 				}
 			};
 			add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
 			add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
 			final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
-			faviconLink.add(new AttributeModifier("href", pageMeta.getIcon().getFaviconUri()));
+			faviconLink.add(new AttributeModifier("href", 
+					new PropertyModel<String>(pageMetaModel, "icon.faviconUri")));
 			add(faviconLink);
 			add(new WebMarkupContainer("bootstrapCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
 			add(new WebMarkupContainer("bootstrapResponsiveCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));

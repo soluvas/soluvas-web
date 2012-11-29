@@ -58,10 +58,11 @@ public interface PageRule extends SerializableEObject {
 	 * <!-- begin-model-doc -->
 	 * Guide:
 	 * 
-	 * * -100 : org.soluvas core
-	 * * -50 : module-level stuff (e.g. bippo salesorder)
-	 * * -10 : product-level stuff (e.g. bippo )
-	 * * 0 or missing : application-level stuff (e.g. berbatik)
+	 * * -200 : org.soluvas core
+	 * * -100 : coarse-grained
+	 * * -50 : module-level fine-grained (e.g. bippo salesorder)
+	 * * -10 : product-level fine-grained (e.g. bippo )
+	 * * 0 or missing : application-level fine-grained (e.g. berbatik)
 	 * * 10 : customizations
 	 * 
 	 * <!-- end-model-doc -->
