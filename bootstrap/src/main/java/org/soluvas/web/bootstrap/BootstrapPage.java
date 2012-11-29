@@ -246,10 +246,16 @@ public class BootstrapPage extends ExtensiblePage {
 			faviconLink.add(new AttributeModifier("href", 
 					new PropertyModel<String>(pageMetaModel, "icon.faviconUri")));
 			add(faviconLink);
-			add(new WebMarkupContainer("bootstrapCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
-			add(new WebMarkupContainer("bootstrapResponsiveCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
-			add(new WebMarkupContainer("bootstrapPatchesCss").add(new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
-			add(new WebMarkupContainer("requireJs").add(new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.0.5.js")));
+			add(new WebMarkupContainer("metaDescription").add(
+					new AttributeModifier("content", new PropertyModel<String>(pageMetaModel, "description"))));
+			add(new WebMarkupContainer("bootstrapCss").add(
+					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
+			add(new WebMarkupContainer("bootstrapResponsiveCss").add(
+					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
+			add(new WebMarkupContainer("bootstrapPatchesCss").add(
+					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+			add(new WebMarkupContainer("requireJs").add(
+					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.0.5.js")));
 			
 			//Carousel
 			add(new WebMarkupContainer("afterHeader"));
