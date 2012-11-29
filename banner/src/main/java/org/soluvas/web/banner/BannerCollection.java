@@ -5,6 +5,7 @@ package org.soluvas.web.banner;
 import java.io.Serializable;
 
 import org.eclipse.emf.common.util.EList;
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.soluvas.web.banner.BannerPackage#getBannerCollection()
  * @model interface="true" abstract="true"
  */
-public interface BannerCollection extends EObject, Serializable {
+public interface BannerCollection extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Banners</b></em>' containment reference list.
 	 * The list contents are of type {@link org.soluvas.web.banner.Banner}.

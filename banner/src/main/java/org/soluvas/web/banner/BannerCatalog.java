@@ -13,6 +13,6 @@ import java.io.Serializable;
  * @see org.soluvas.web.banner.BannerPackage#getBannerCatalog()
  * @model
  */
-public interface BannerCatalog extends BannerCollection, Serializable {
+public interface BannerCatalog extends BannerCollection {
 
 } // BannerCatalog

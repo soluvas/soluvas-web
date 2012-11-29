@@ -56,22 +56,22 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case SitePackage.SECTION: return createSection();
-			case SitePackage.SITE_CATALOG: return createSiteCatalog();
-			case SitePackage.SECTION_COLLECTION: return createSectionCollection();
-			case SitePackage.GENERIC_PAGE: return createGenericPage();
-			case SitePackage.RAW_ENTITY_TABLE_PAGE: return createRawEntityTablePage();
-			case SitePackage.ENTITY_TABLE_PAGE: return createEntityTablePage();
-			case SitePackage.ENTITY_EDIT_PAGE: return createEntityEditPage();
-			case SitePackage.RAW_ENTITY_EDIT_PAGE: return createRawEntityEditPage();
-			case SitePackage.RAW_ENTITY_NEW_PAGE: return createRawEntityNewPage();
-			case SitePackage.ENTITY_NEW_PAGE: return createEntityNewPage();
-			case SitePackage.CONTENT_PAGE: return createContentPage();
-			case SitePackage.DASHBOARD_PAGE: return createDashboardPage();
-			case SitePackage.PAGE_PARAM: return createPageParam();
-			case SitePackage.LOGIN_PAGE: return createLoginPage();
-			case SitePackage.REGISTER_PAGE: return createRegisterPage();
-			case SitePackage.RESET_PASSWORD_PAGE: return createResetPasswordPage();
+			case SitePackage.SECTION: return (EObject)createSection();
+			case SitePackage.SITE_CATALOG: return (EObject)createSiteCatalog();
+			case SitePackage.SECTION_COLLECTION: return (EObject)createSectionCollection();
+			case SitePackage.GENERIC_PAGE: return (EObject)createGenericPage();
+			case SitePackage.RAW_ENTITY_TABLE_PAGE: return (EObject)createRawEntityTablePage();
+			case SitePackage.ENTITY_TABLE_PAGE: return (EObject)createEntityTablePage();
+			case SitePackage.ENTITY_EDIT_PAGE: return (EObject)createEntityEditPage();
+			case SitePackage.RAW_ENTITY_EDIT_PAGE: return (EObject)createRawEntityEditPage();
+			case SitePackage.RAW_ENTITY_NEW_PAGE: return (EObject)createRawEntityNewPage();
+			case SitePackage.ENTITY_NEW_PAGE: return (EObject)createEntityNewPage();
+			case SitePackage.CONTENT_PAGE: return (EObject)createContentPage();
+			case SitePackage.DASHBOARD_PAGE: return (EObject)createDashboardPage();
+			case SitePackage.PAGE_PARAM: return (EObject)createPageParam();
+			case SitePackage.LOGIN_PAGE: return (EObject)createLoginPage();
+			case SitePackage.REGISTER_PAGE: return (EObject)createRegisterPage();
+			case SitePackage.RESET_PASSWORD_PAGE: return (EObject)createResetPasswordPage();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

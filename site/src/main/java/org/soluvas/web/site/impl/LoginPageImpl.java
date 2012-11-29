@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -215,7 +216,7 @@ public class LoginPageImpl extends EObjectImpl implements LoginPage {
 	 */
 	public void setSection(Section newSection) {
 		if (newSection != eInternalContainer() || (eContainerFeatureID() != SitePackage.LOGIN_PAGE__SECTION && newSection != null)) {
-			if (EcoreUtil.isAncestor(this, newSection))
+			if (EcoreUtil.isAncestor(this, (EObject)newSection))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
@@ -235,7 +236,7 @@ public class LoginPageImpl extends EObjectImpl implements LoginPage {
 	 * @generated
 	 */
 	public RegisterPage getRegisterPage() {
-		if (registerPage != null && registerPage.eIsProxy()) {
+		if (registerPage != null && ((EObject)registerPage).eIsProxy()) {
 			InternalEObject oldRegisterPage = (InternalEObject)registerPage;
 			registerPage = (RegisterPage)eResolveProxy(oldRegisterPage);
 			if (registerPage != oldRegisterPage) {
@@ -273,7 +274,7 @@ public class LoginPageImpl extends EObjectImpl implements LoginPage {
 	 * @generated
 	 */
 	public ResetPasswordPage getResetPasswordPage() {
-		if (resetPasswordPage != null && resetPasswordPage.eIsProxy()) {
+		if (resetPasswordPage != null && ((EObject)resetPasswordPage).eIsProxy()) {
 			InternalEObject oldResetPasswordPage = (InternalEObject)resetPasswordPage;
 			resetPasswordPage = (ResetPasswordPage)eResolveProxy(oldResetPasswordPage);
 			if (resetPasswordPage != oldResetPasswordPage) {

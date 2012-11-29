@@ -157,7 +157,7 @@ public class BannerImpl extends EObjectImpl implements Banner {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BannerImpl() {
+	public BannerImpl() {
 		super();
 	}
 

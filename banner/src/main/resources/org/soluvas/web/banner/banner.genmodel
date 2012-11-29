@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.banner/src/main/java" modelPluginID="org.soluvas.web.banner"
-    modelName="Banner" generateSchema="true" importerID="org.eclipse.emf.importer.ecore"
-    bundleManifest="false" complianceLevel="6.0" suppressGenModelAnnotations="false"
-    copyrightFields="false">
+    modelName="Banner" generateSchema="true" rootExtendsInterface="org.soluvas.commons.SerializableEObject"
+    importerID="org.eclipse.emf.importer.ecore" bundleManifest="false" complianceLevel="6.0"
+    suppressGenModelAnnotations="false" copyrightFields="false" publicConstructors="true">
   <foreignModel>banner.ecore</foreignModel>
   <genPackages prefix="Banner" basePackage="org.soluvas.web" disposableProviderFactory="true"
       ecorePackage="banner.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="banner.ecore#//ImageBase">
+      <genEnumLiterals ecoreEnumLiteral="banner.ecore#//ImageBase/absolute"/>
+      <genEnumLiterals ecoreEnumLiteral="banner.ecore#//ImageBase/images"/>
+    </genEnums>
     <genClasses ecoreClass="banner.ecore#//Banner">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute banner.ecore#//Banner/imageUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute banner.ecore#//Banner/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute banner.ecore#//Banner/linkUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute banner.ecore#//Banner/width"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute banner.ecore#//Banner/height"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute banner.ecore#//Banner/imageBase"/>
     </genClasses>
-    <genClasses ecoreClass="banner.ecore#//BannerCatalog">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference banner.ecore#//BannerCatalog/banners"/>
+    <genClasses ecoreClass="banner.ecore#//BannerCatalog"/>
+    <genClasses image="false" ecoreClass="banner.ecore#//BannerCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference banner.ecore#//BannerCollection/banners"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

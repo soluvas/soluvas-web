@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.banner;
 
+import org.soluvas.commons.SerializableEObject;
 import java.io.Serializable;
 
 import org.eclipse.emf.ecore.EObject;
@@ -26,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.soluvas.web.banner.BannerPackage#getBanner()
  * @model
  */
-public interface Banner extends EObject, Serializable {
+public interface Banner extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Image Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->

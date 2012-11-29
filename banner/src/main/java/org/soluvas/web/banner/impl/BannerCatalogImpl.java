@@ -49,7 +49,7 @@ public class BannerCatalogImpl extends EObjectImpl implements BannerCatalog {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BannerCatalogImpl() {
+	public BannerCatalogImpl() {
 		super();
 	}
 

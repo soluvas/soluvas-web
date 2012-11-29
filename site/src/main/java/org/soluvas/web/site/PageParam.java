@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,9 +19,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.SitePackage#getPageParam()
  * @model
+ * @extends SerializableEObject
  * @generated
  */
-public interface PageParam extends EObject {
+public interface PageParam extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

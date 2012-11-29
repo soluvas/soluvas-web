@@ -2,6 +2,7 @@
  */
 package org.soluvas.web.site;
 
+import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,9 +19,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.SitePackage#getEntityPage()
  * @model interface="true" abstract="true"
+ * @extends SerializableEObject
  * @generated
  */
-public interface EntityPage extends EObject {
+public interface EntityPage extends SerializableEObject {
 	/**
 	 * Returns the value of the '<em><b>Entity Class</b></em>' attribute.
 	 * <!-- begin-user-doc -->

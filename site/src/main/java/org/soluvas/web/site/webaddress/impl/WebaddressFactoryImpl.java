@@ -56,7 +56,7 @@ public class WebaddressFactoryImpl extends EFactoryImpl implements WebaddressFac
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case WebaddressPackage.WEB_ADDRESS: return createWebAddress();
+			case WebaddressPackage.WEB_ADDRESS: return (EObject)createWebAddress();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

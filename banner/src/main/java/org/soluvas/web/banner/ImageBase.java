@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * @see org.soluvas.web.banner.BannerPackage#getImageBase()
  * @model
  */
-public enum ImageBase implements Enumerator, Serializable {
+public enum ImageBase implements Enumerator {
 	/**
 	 * The '<em><b>Absolute</b></em>' literal object.
 	 * <!-- begin-user-doc -->

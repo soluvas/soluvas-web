@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.site/src/main/java" modelPluginID="org.soluvas.web.site"
-    modelName="Webaddress" generateSchema="true" importerID="org.eclipse.emf.importer.ecore"
-    bundleManifest="false" complianceLevel="6.0" suppressGenModelAnnotations="false"
-    copyrightFields="false" publicConstructors="true">
+    modelName="Webaddress" generateSchema="true" rootExtendsInterface="org.soluvas.commons.SerializableEObject"
+    importerID="org.eclipse.emf.importer.ecore" bundleManifest="false" complianceLevel="6.0"
+    suppressGenModelAnnotations="false" copyrightFields="false" publicConstructors="true">
   <foreignModel>webaddress.ecore</foreignModel>
   <genPackages prefix="Webaddress" basePackage="org.soluvas.web.site" disposableProviderFactory="true"
       ecorePackage="webaddress.ecore#/">
@@ -12,11 +12,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/basePath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/apiPath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/imagesUri"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/cssUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/skinUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/jsUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/secureBaseUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/secureImagesUri"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/secureCssUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/secureSkinUri"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute webaddress.ecore#//WebAddress/secureJsUri"/>
     </genClasses>
   </genPackages>
