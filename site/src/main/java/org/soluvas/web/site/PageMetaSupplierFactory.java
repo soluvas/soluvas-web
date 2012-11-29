@@ -1,5 +1,9 @@
 package org.soluvas.web.site;
 
+import javax.annotation.Nonnull;
+
+import org.soluvas.web.site.pagemeta.PageMeta;
+
 /**
  * The name is unfortunate, but I think necessary: To get a {@link PageMeta} instance,
  * first we need to pass the {@link PageRuleContext} which contains tenant information,
@@ -11,6 +15,6 @@ package org.soluvas.web.site;
  */
 public interface PageMetaSupplierFactory<T extends PageMetaSupplier> {
 	
-	T create(PageRuleContext context);
+	T create(@Nonnull PageRuleContext context);
 
 }

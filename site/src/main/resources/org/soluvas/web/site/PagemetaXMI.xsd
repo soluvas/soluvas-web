@@ -85,10 +85,22 @@ So it doesn't fit well to be provided statically.</xsd:documentation>
     </xsd:choice>
     <xsd:attribute ref="xmi:id"/>
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="brandingBundleName" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>Used to calculate the absolute URI of icons, relative to Image URI and bundle name.
+
+This will be used only if any of *Uri is not set.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="faviconPath" type="xsd:string"/>
     <xsd:attribute name="faviconUri" type="xsd:string"/>
+    <xsd:attribute name="icon57Path" type="xsd:string"/>
     <xsd:attribute name="icon57Uri" type="xsd:string"/>
+    <xsd:attribute name="icon72Path" type="xsd:string"/>
     <xsd:attribute name="icon72Uri" type="xsd:string"/>
+    <xsd:attribute name="icon114Path" type="xsd:string"/>
     <xsd:attribute name="icon114Uri" type="xsd:string"/>
+    <xsd:attribute name="icon144Path" type="xsd:string"/>
     <xsd:attribute name="icon144Uri" type="xsd:string"/>
   </xsd:complexType>
   <xsd:element name="PageIcon" type="pagemeta:PageIcon"/>
@@ -650,11 +662,12 @@ og:image:width - The number of pixels wide.
 og:image:height - The number of pixels high.
 A full image example:
 
-&lt;meta property="og:image" content="http://example.com/ogp.jpg" /&gt;
-&lt;meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" /&gt;
-&lt;meta property="og:image:type" content="image/jpeg" /&gt;
-&lt;meta property="og:image:width" content="400" /&gt;
-&lt;meta property="og:image:height" content="300" /&gt;</xsd:documentation>
+<meta content="http://example.com/ogp.jpg" property="og:image"/>
+<meta content="https://secure.example.com/ogp.jpg" property="og:image:secure_url"/>
+<meta content="image/jpeg" property="og:image:type"/>
+<meta content="400" property="og:image:width"/>
+<meta content="300" property="og:image:height"/>
+      </xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="OpenGraphVideo">
@@ -706,20 +719,22 @@ A full image example:
     <xsd:annotation>
       <xsd:documentation>The og:video tag has the identical tags as og:image. Here is an example:
 
-&lt;meta property="og:video" content="http://example.com/movie.swf" /&gt;
-&lt;meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" /&gt;
-&lt;meta property="og:video:type" content="application/x-shockwave-flash" /&gt;
-&lt;meta property="og:video:width" content="400" /&gt;
-&lt;meta property="og:video:height" content="300" /&gt;</xsd:documentation>
+<meta content="http://example.com/movie.swf" property="og:video"/>
+<meta content="https://secure.example.com/movie.swf" property="og:video:secure_url"/>
+<meta content="application/x-shockwave-flash" property="og:video:type"/>
+<meta content="400" property="og:video:width"/>
+<meta content="300" property="og:video:height"/>
+      </xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="OpenGraphAudio">
     <xsd:annotation>
       <xsd:documentation>The og:audio tag only has the first 3 properties available (since size doesn't make sense for sound):
 
-&lt;meta property="og:audio" content="http://example.com/sound.mp3" /&gt;
-&lt;meta property="og:audio:secure_url" content="https://secure.example.com/sound.mp3" /&gt;
-&lt;meta property="og:audio:type" content="audio/mpeg" /&gt;</xsd:documentation>
+<meta content="http://example.com/sound.mp3" property="og:audio"/>
+<meta content="https://secure.example.com/sound.mp3" property="og:audio:secure_url"/>
+<meta content="audio/mpeg" property="og:audio:type"/>
+      </xsd:documentation>
     </xsd:annotation>
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element ref="xmi:Extension"/>

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.EmfUtils;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
+import org.soluvas.web.site.pagemeta.PageIcon;
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.pagemeta.PageMetaPhase;
 import org.soluvas.web.site.pagemeta.PageRule;
@@ -68,6 +69,12 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 		});
 		final PageMeta textPageMeta = pageMeta.getPhase() == PageMetaPhase.TEMPLATE ? pageMeta.toText(scope) : pageMeta;
 		final PageMeta finalPageMeta = pageMeta.getPhase() == PageMetaPhase.TEXT ? pageMeta.toFinal() : textPageMeta;
+		
+		// process Icon
+		final PageIcon relativeIcon = finalPageMeta.getIcon();
+		final String imagesUri = context.getWebAddress().getImagesUri(); // TODO: determine if secure or not
+		final PageIcon absoluteIcon = relativeIcon.toAbsolute(imagesUri);
+		finalPageMeta.setIcon(absoluteIcon);
 		
 		return finalPageMeta;
 	}

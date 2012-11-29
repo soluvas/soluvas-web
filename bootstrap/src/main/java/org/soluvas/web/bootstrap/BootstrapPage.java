@@ -140,7 +140,7 @@ public class BootstrapPage extends ExtensiblePage {
 
 //	@PaxWicketBean(name="pageRulesSupplier")
 //	private Supplier<List<PageRule>> pageRulesSupplier;
-	@PaxWicketBean(name="pageMetaSupplierFactory")
+	@Inject
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@Inject @Supplied
 	private WebAddress webAddress;
@@ -192,7 +192,7 @@ public class BootstrapPage extends ExtensiblePage {
 	protected PageMeta getPageMeta() {
 		final TenantRef tenant = WebTenantUtils.getTenant();
 		final PageRuleContext context = new PageRuleContext(tenant.getClientId(), tenant.getTenantId(), tenant.getTenantEnv(),
-				this, getRequest().getUrl().toString());
+				this, getRequest().getUrl().toString(), webAddress);
 //		final List<PageRule> pageRules = pageRulesSupplier.get();
 //		final PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
 		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);

@@ -98,7 +98,8 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 				log.trace("Field {}#{} needs Supplier<{}> for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
 						componentId, field.getName(), suppliedClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
 				final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
-				final String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + suppliedClassFilter + additionalFilter + ")";
+				final String filter = "(&" + String.format("(|(tenantId=%s)(tenantId=\\*))(|(tenantEnv=%s)(tenantEnv=\\*))", tenantId, tenantEnv)
+						+ namespaceFilter + suppliedClassFilter + additionalFilter + ")";
 				
 				final Collection<ServiceReference<Supplier>> serviceRefs;
 				try {

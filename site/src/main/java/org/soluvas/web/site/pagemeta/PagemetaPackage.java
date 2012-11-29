@@ -204,13 +204,40 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_ICON = 1;
 
 	/**
+	 * The feature id for the '<em><b>Branding Bundle Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_ICON__BRANDING_BUNDLE_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Favicon Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_ICON__FAVICON_PATH = 1;
+
+	/**
 	 * The feature id for the '<em><b>Favicon Uri</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_ICON__FAVICON_URI = 0;
+	int PAGE_ICON__FAVICON_URI = 2;
+
+	/**
+	 * The feature id for the '<em><b>Icon57 Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_ICON__ICON57_PATH = 3;
 
 	/**
 	 * The feature id for the '<em><b>Icon57 Uri</b></em>' attribute.
@@ -219,7 +246,16 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_ICON__ICON57_URI = 1;
+	int PAGE_ICON__ICON57_URI = 4;
+
+	/**
+	 * The feature id for the '<em><b>Icon72 Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_ICON__ICON72_PATH = 5;
 
 	/**
 	 * The feature id for the '<em><b>Icon72 Uri</b></em>' attribute.
@@ -228,7 +264,16 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_ICON__ICON72_URI = 2;
+	int PAGE_ICON__ICON72_URI = 6;
+
+	/**
+	 * The feature id for the '<em><b>Icon114 Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_ICON__ICON114_PATH = 7;
 
 	/**
 	 * The feature id for the '<em><b>Icon114 Uri</b></em>' attribute.
@@ -237,7 +282,16 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_ICON__ICON114_URI = 3;
+	int PAGE_ICON__ICON114_URI = 8;
+
+	/**
+	 * The feature id for the '<em><b>Icon144 Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_ICON__ICON144_PATH = 9;
 
 	/**
 	 * The feature id for the '<em><b>Icon144 Uri</b></em>' attribute.
@@ -246,7 +300,7 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_ICON__ICON144_URI = 4;
+	int PAGE_ICON__ICON144_URI = 10;
 
 	/**
 	 * The number of structural features of the '<em>Page Icon</em>' class.
@@ -255,7 +309,7 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_ICON_FEATURE_COUNT = 5;
+	int PAGE_ICON_FEATURE_COUNT = 11;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.OpenGraphMetaImpl <em>Open Graph Meta</em>}' class.
@@ -1162,6 +1216,28 @@ public interface PagemetaPackage extends EPackage {
 	EClass getPageIcon();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getBrandingBundleName <em>Branding Bundle Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Branding Bundle Name</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageIcon#getBrandingBundleName()
+	 * @see #getPageIcon()
+	 * @generated
+	 */
+	EAttribute getPageIcon_BrandingBundleName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getFaviconPath <em>Favicon Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Favicon Path</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageIcon#getFaviconPath()
+	 * @see #getPageIcon()
+	 * @generated
+	 */
+	EAttribute getPageIcon_FaviconPath();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getFaviconUri <em>Favicon Uri</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1171,6 +1247,17 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPageIcon_FaviconUri();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon57Path <em>Icon57 Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon57 Path</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageIcon#getIcon57Path()
+	 * @see #getPageIcon()
+	 * @generated
+	 */
+	EAttribute getPageIcon_Icon57Path();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon57Uri <em>Icon57 Uri</em>}'.
@@ -1184,6 +1271,17 @@ public interface PagemetaPackage extends EPackage {
 	EAttribute getPageIcon_Icon57Uri();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon72Path <em>Icon72 Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon72 Path</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageIcon#getIcon72Path()
+	 * @see #getPageIcon()
+	 * @generated
+	 */
+	EAttribute getPageIcon_Icon72Path();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon72Uri <em>Icon72 Uri</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1195,6 +1293,17 @@ public interface PagemetaPackage extends EPackage {
 	EAttribute getPageIcon_Icon72Uri();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon114Path <em>Icon114 Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon114 Path</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageIcon#getIcon114Path()
+	 * @see #getPageIcon()
+	 * @generated
+	 */
+	EAttribute getPageIcon_Icon114Path();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon114Uri <em>Icon114 Uri</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1204,6 +1313,17 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPageIcon_Icon114Uri();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon144Path <em>Icon144 Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon144 Path</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageIcon#getIcon144Path()
+	 * @see #getPageIcon()
+	 * @generated
+	 */
+	EAttribute getPageIcon_Icon144Path();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageIcon#getIcon144Uri <em>Icon144 Uri</em>}'.
@@ -2016,12 +2136,36 @@ public interface PagemetaPackage extends EPackage {
 		EClass PAGE_ICON = eINSTANCE.getPageIcon();
 
 		/**
+		 * The meta object literal for the '<em><b>Branding Bundle Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_ICON__BRANDING_BUNDLE_NAME = eINSTANCE.getPageIcon_BrandingBundleName();
+
+		/**
+		 * The meta object literal for the '<em><b>Favicon Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_ICON__FAVICON_PATH = eINSTANCE.getPageIcon_FaviconPath();
+
+		/**
 		 * The meta object literal for the '<em><b>Favicon Uri</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute PAGE_ICON__FAVICON_URI = eINSTANCE.getPageIcon_FaviconUri();
+
+		/**
+		 * The meta object literal for the '<em><b>Icon57 Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_ICON__ICON57_PATH = eINSTANCE.getPageIcon_Icon57Path();
 
 		/**
 		 * The meta object literal for the '<em><b>Icon57 Uri</b></em>' attribute feature.
@@ -2032,6 +2176,14 @@ public interface PagemetaPackage extends EPackage {
 		EAttribute PAGE_ICON__ICON57_URI = eINSTANCE.getPageIcon_Icon57Uri();
 
 		/**
+		 * The meta object literal for the '<em><b>Icon72 Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_ICON__ICON72_PATH = eINSTANCE.getPageIcon_Icon72Path();
+
+		/**
 		 * The meta object literal for the '<em><b>Icon72 Uri</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2040,12 +2192,28 @@ public interface PagemetaPackage extends EPackage {
 		EAttribute PAGE_ICON__ICON72_URI = eINSTANCE.getPageIcon_Icon72Uri();
 
 		/**
+		 * The meta object literal for the '<em><b>Icon114 Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_ICON__ICON114_PATH = eINSTANCE.getPageIcon_Icon114Path();
+
+		/**
 		 * The meta object literal for the '<em><b>Icon114 Uri</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute PAGE_ICON__ICON114_URI = eINSTANCE.getPageIcon_Icon114Uri();
+
+		/**
+		 * The meta object literal for the '<em><b>Icon144 Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_ICON__ICON144_PATH = eINSTANCE.getPageIcon_Icon144Path();
 
 		/**
 		 * The meta object literal for the '<em><b>Icon144 Uri</b></em>' attribute feature.

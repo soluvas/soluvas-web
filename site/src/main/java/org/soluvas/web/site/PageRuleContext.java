@@ -1,11 +1,16 @@
 package org.soluvas.web.site;
 
+import javax.annotation.Nonnull;
+
+import org.soluvas.web.site.webaddress.WebAddress;
+
 public class PageRuleContext {
 	private final String clientId;
 	private final String tenantId;
 	private final String tenantEnv;
 	private final ExtensiblePage page;
 	private final String uri;
+	private final WebAddress webAddress;
 	
 	/**
 	 * @param clientId
@@ -14,14 +19,15 @@ public class PageRuleContext {
 	 * @param page
 	 * @param uri
 	 */
-	public PageRuleContext(String clientId, String tenantId, String tenantEnv,
-			ExtensiblePage page, String uri) {
+	public PageRuleContext(@Nonnull final String clientId, @Nonnull final String tenantId, @Nonnull final String tenantEnv,
+			@Nonnull final ExtensiblePage page, String uri, @Nonnull final WebAddress webAddress) {
 		super();
 		this.clientId = clientId;
 		this.tenantId = tenantId;
 		this.tenantEnv = tenantEnv;
 		this.page = page;
 		this.uri = uri;
+		this.webAddress = webAddress;
 	}
 
 	public String getClientId() {
@@ -45,6 +51,13 @@ public class PageRuleContext {
 	
 	public String getUri() {
 		return uri;
+	}
+	
+	/**
+	 * @return the webAddress
+	 */
+	public WebAddress getWebAddress() {
+		return webAddress;
 	}
 
 	/* (non-Javadoc)

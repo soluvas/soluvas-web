@@ -403,8 +403,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public EAttribute getPageIcon_FaviconUri() {
+	public EAttribute getPageIcon_BrandingBundleName() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -413,8 +412,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public EAttribute getPageIcon_Icon57Uri() {
+	public EAttribute getPageIcon_FaviconPath() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -424,7 +422,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getPageIcon_Icon72Uri() {
+	public EAttribute getPageIcon_FaviconUri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -433,8 +431,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public EAttribute getPageIcon_Icon114Uri() {
+	public EAttribute getPageIcon_Icon57Path() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -444,8 +441,65 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getPageIcon_Icon144Uri() {
+	public EAttribute getPageIcon_Icon57Uri() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageIcon_Icon72Path() {
+		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getPageIcon_Icon72Uri() {
+		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageIcon_Icon114Path() {
+		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getPageIcon_Icon114Uri() {
+		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPageIcon_Icon144Path() {
+		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getPageIcon_Icon144Uri() {
+		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -1098,10 +1152,16 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		createEAttribute(pageMetaEClass, PAGE_META__PHASE);
 
 		pageIconEClass = createEClass(PAGE_ICON);
+		createEAttribute(pageIconEClass, PAGE_ICON__BRANDING_BUNDLE_NAME);
+		createEAttribute(pageIconEClass, PAGE_ICON__FAVICON_PATH);
 		createEAttribute(pageIconEClass, PAGE_ICON__FAVICON_URI);
+		createEAttribute(pageIconEClass, PAGE_ICON__ICON57_PATH);
 		createEAttribute(pageIconEClass, PAGE_ICON__ICON57_URI);
+		createEAttribute(pageIconEClass, PAGE_ICON__ICON72_PATH);
 		createEAttribute(pageIconEClass, PAGE_ICON__ICON72_URI);
+		createEAttribute(pageIconEClass, PAGE_ICON__ICON114_PATH);
 		createEAttribute(pageIconEClass, PAGE_ICON__ICON114_URI);
+		createEAttribute(pageIconEClass, PAGE_ICON__ICON144_PATH);
 		createEAttribute(pageIconEClass, PAGE_ICON__ICON144_URI);
 
 		openGraphMetaEClass = createEClass(OPEN_GRAPH_META);
@@ -1246,11 +1306,20 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		addEOperation(pageMetaEClass, this.getPageMeta(), "toFinal", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(pageIconEClass, PageIcon.class, "PageIcon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPageIcon_BrandingBundleName(), ecorePackage.getEString(), "brandingBundleName", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageIcon_FaviconPath(), ecorePackage.getEString(), "faviconPath", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageIcon_FaviconUri(), ecorePackage.getEString(), "faviconUri", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageIcon_Icon57Path(), ecorePackage.getEString(), "icon57Path", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageIcon_Icon57Uri(), ecorePackage.getEString(), "icon57Uri", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageIcon_Icon72Path(), ecorePackage.getEString(), "icon72Path", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageIcon_Icon72Uri(), ecorePackage.getEString(), "icon72Uri", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageIcon_Icon114Path(), ecorePackage.getEString(), "icon114Path", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageIcon_Icon114Uri(), ecorePackage.getEString(), "icon114Uri", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageIcon_Icon144Path(), ecorePackage.getEString(), "icon144Path", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageIcon_Icon144Uri(), ecorePackage.getEString(), "icon144Uri", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(pageIconEClass, this.getPageIcon(), "toAbsolute", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "imagesUri", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(openGraphMetaEClass, OpenGraphMeta.class, "OpenGraphMeta", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOpenGraphMeta_Title(), ecorePackage.getEString(), "title", null, 0, 1, OpenGraphMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1391,6 +1460,18 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		   source, 
 		   new String[] {
 			 "documentation", "Recommended: width=device-width, initial-scale=1.0"
+		   });		
+		addAnnotation
+		  (pageIconEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Create a PageIcon containing absolute URIs."
+		   });		
+		addAnnotation
+		  (getPageIcon_BrandingBundleName(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Used to calculate the absolute URI of icons, relative to Image URI and bundle name.\n\nThis will be used only if any of *Uri is not set."
 		   });		
 		addAnnotation
 		  (openGraphMetaEClass, 
