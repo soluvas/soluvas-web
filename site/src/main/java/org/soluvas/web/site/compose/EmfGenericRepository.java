@@ -56,14 +56,14 @@ public class EmfGenericRepository<T extends EObject> extends CrudRepositoryBase<
 	}
 
 	@Override
-	protected synchronized <S extends T> S modify(Integer id, S entity) {
+	public synchronized <S extends T> S modify(Integer id, S entity) {
 		coll.remove(id);
 		coll.add(id, entity);
 		return entity;
 	}
 
 	@Override
-	protected <S extends T> S add(S entity) {
+	public <S extends T> S add(S entity) {
 		coll.add(entity);
 		return entity;
 	}

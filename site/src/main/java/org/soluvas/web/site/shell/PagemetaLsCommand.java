@@ -36,8 +36,8 @@ public class PagemetaLsCommand extends TenantCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-30s|%-45s|%-40s|%-34s|@",
-				"№", "Name", "Page", "Path", "Bundle"));
+		System.out.println(ansi().render("@|negative_on %3s|%-30s|%-45s|%-40s|%-34s|%-4s|@",
+				"№", "Name", "Page", "Path", "Bundle", "Posi"));
 		int i = 0;
 		final EList<PageRule> pageRules = pageRuleCollection.getRules();
 		for (final PageRule pageRule : pageRules) {
@@ -88,9 +88,9 @@ public class PagemetaLsCommand extends TenantCommandSupport {
 //			}
 			final Bundle bundle = FrameworkUtil.getBundle(PagemetaLsCommand.class); // FIXME: Bundle!
 			// FIXME: Resource aware!
-			System.out.println(ansi().render("@|bold,black %3d||@" + selectorSymbol + selectorNameAnsi + "@|bold,black ||@" + declarationSymbol + "%-44s@|bold,black ||@%-30s@|bold,yellow %4d|@",
+			System.out.println(ansi().render("@|bold,black %3d||@" + selectorSymbol + selectorNameAnsi + "@|bold,black ||@" + declarationSymbol + "%-44s@|bold,black ||@%-30s@|bold,yellow %4d|%4d|@",
 				++i, declarationName,
-				bundle.getSymbolicName(), bundle.getBundleId() ));
+				bundle.getSymbolicName(), bundle.getBundleId(), pageRule.getPositioner() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ contributors", i));
 		return null;
