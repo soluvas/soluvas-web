@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
+import org.soluvas.commons.NameUtils;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.Contributor;
@@ -21,7 +22,7 @@ import org.soluvas.web.site.compose.ReplaceContributor;
 @Command(scope="compose", name="placels", description="List registered Contributors.")
 public class ComposeContribLsCommand extends OsgiCommandSupport {
 	
-	private final transient CrudRepository<LiveContributor, Integer> contributorRepo;
+	private final CrudRepository<LiveContributor, Integer> contributorRepo;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ComposeContribLsCommand(CrudRepository contributorRepo) {
@@ -34,24 +35,29 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-45s|%-45s|%-40s|%-34s|@",
+		System.out.println(ansi().render("@|negative_on %3s|%-27s|%-25s|%-40s|%-34s|@",
 				"№", "Name", "Page", "Path", "Bundle"));
 		int i = 0;
 		final Collection<LiveContributor> origContributors = contributorRepo.findAll();
 		final Collection<LiveContributor> sortedContributors = origContributors;
-		for (LiveContributor contributor : sortedContributors) {
+		for (final LiveContributor contributor : sortedContributors) {
 			final String contribSymbol;
 			final String contribName;
+			final String contribNameAnsi;
 			if (contributor instanceof ChildContributor) {
 				contribSymbol = "@|bold,blue ✚|@";
 				contribName = ((ChildContributor) contributor).getClassName();
+				contribNameAnsi = NameUtils.shortenClassAnsi(contribName, 25);
 			} else if (contributor instanceof ReplaceContributor) {
 				contribSymbol = "@|bold,yellow ☛|@";
 				contribName = ((ReplaceContributor) contributor).getClassName();
+				contribNameAnsi = NameUtils.shortenClassAnsi(contribName, 25);
 			} else if (contributor instanceof HideContributor) {
 				contribSymbol = "@|bold,red ✖|@";
 				contribName = contributor.getTargetPath();
-			} else throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
+				contribNameAnsi = contribName.substring(0, 25);
+			} else
+				throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
 			final String stateSymbol;
 			switch (contributor.getState()) {
 			case UNRESOLVED:
@@ -67,8 +73,11 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 				throw new IllegalArgumentException("Unknown contributor state: " + contributor.getState());
 			}
 			final Bundle bundle = contributor.getBundle();
-			System.out.println(ansi().render("@|bold,black %3d||@" + contribSymbol + stateSymbol + "%-43s@|bold,black ||@%-45s@|bold,black ||@%-40s@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, contribName, contributor.getPageClassName(), contributor.getTargetPath(),
+			final String pageName = contributor.getPageClassName();
+			final String pageNameAnsi = NameUtils.shortenClassAnsi(pageName, 25);
+			System.out.println(ansi().render(
+					"@|bold,black %3d||@" + contribSymbol + stateSymbol + contribNameAnsi + "@|bold,black ||@" + pageNameAnsi + "@|bold,black ||@%-40s@|bold,black ||@%-30s@|bold,yellow %4d|@",
+				++i, contributor.getTargetPath(),
 				bundle.getSymbolicName(), bundle.getBundleId() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ contributors", i));
