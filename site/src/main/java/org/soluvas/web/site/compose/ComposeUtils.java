@@ -24,7 +24,7 @@ import com.google.common.collect.Iterables;
  */
 public class ComposeUtils {
 
-	private static Logger log = LoggerFactory.getLogger(ComposeUtils.class);
+	private static final Logger log = LoggerFactory.getLogger(ComposeUtils.class);
 	
 	/**
 	 * Composes the relevant contributors.

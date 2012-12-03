@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
+import org.soluvas.commons.NameUtils;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.compose.LivePlaceholder;
 import org.soluvas.web.site.compose.Placeholder;
@@ -31,15 +32,19 @@ public class ComposePlaceLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-40s|%-40s|%-40s|%-34s|@",
+		System.out.println(ansi().render("@|negative_on %3s|%-25s|%-40s|%-25s|%-34s|@",
 				"№", "Page", "Path", "IModel", "Bundle"));
 		int i = 0;
 		final Collection<LivePlaceholder> origPlaceholders = placeholderRepo.findAll();
 		final Collection<LivePlaceholder> sortedPlaceholders = origPlaceholders;
 		for (LivePlaceholder placeholder : sortedPlaceholders) {
 			Bundle bundle = placeholder.getBundle();
-			System.out.println(ansi().render("@|bold,black %3d||@%-40s@|bold,black ||@%-40s@|bold,black ||@%-40s@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, placeholder.getPageClassName(), placeholder.getPath(), placeholder.getModelClassName(),
+			final String pageName = placeholder.getPageClassName();
+			final String pageNameAnsi = NameUtils.shortenClassAnsi(pageName, 25);
+			final String modelName = placeholder.getModelClassName();
+			final String modelNameAnsi = NameUtils.shortenClassAnsi(modelName, 25);
+			System.out.println(ansi().render("@|bold,black %3d||@" + pageNameAnsi + "@|bold,black ||@%-40s@|bold,black ||@" + modelNameAnsi + "@|bold,black ||@%-30s@|bold,yellow %4d|@",
+				++i, placeholder.getPath(),
 				bundle.getSymbolicName(), bundle.getBundleId() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ placeholders", i));
