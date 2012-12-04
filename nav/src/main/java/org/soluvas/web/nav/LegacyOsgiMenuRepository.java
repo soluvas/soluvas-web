@@ -22,7 +22,7 @@ import com.google.common.collect.Ordering;
  */
 public class LegacyOsgiMenuRepository implements MenuRepository {
 
-	private transient Logger log = LoggerFactory.getLogger(LegacyOsgiMenuRepository.class);
+	private static final Logger log = LoggerFactory.getLogger(LegacyOsgiMenuRepository.class);
 	/**
 	 * Source menus.
 	 */

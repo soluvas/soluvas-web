@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class LogoutLink extends AjaxLink<Void> {
 
-	private transient Logger log = LoggerFactory.getLogger(LogoutLink.class);
+	private static final Logger log = LoggerFactory.getLogger(LogoutLink.class);
 	private final Component[] ajaxTargets;
 	
 	public LogoutLink(String id, Component... ajaxTargets) {

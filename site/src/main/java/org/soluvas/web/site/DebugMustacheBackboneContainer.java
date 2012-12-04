@@ -46,7 +46,7 @@ import com.google.common.base.Preconditions;
 @SuppressWarnings("serial")
 public class DebugMustacheBackboneContainer extends WebComponent {
 
-	private transient Logger log = LoggerFactory.getLogger(DebugMustacheBackboneContainer.class);
+	private static final Logger log = LoggerFactory.getLogger(DebugMustacheBackboneContainer.class);
 	private Mustache mainMustache;
 	private String modelPath = "bippo/product/";
 	private String backboneModelClassName = "Product";

@@ -31,7 +31,7 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("rawtypes")
 public class OsgiMenuTracker implements BundleTrackerCustomizer {
 
-	private transient Logger log = LoggerFactory.getLogger(OsgiMenuTracker.class);
+	private static final Logger log = LoggerFactory.getLogger(OsgiMenuTracker.class);
 	private BundleContext bundleContext;
 	
 	public OsgiMenuTracker(BundleContext bundleContext) {

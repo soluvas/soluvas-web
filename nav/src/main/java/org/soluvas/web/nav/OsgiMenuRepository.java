@@ -33,7 +33,7 @@ public class OsgiMenuRepository implements MenuRepository {
 		}
 	}
 
-	private transient Logger log = LoggerFactory.getLogger(OsgiMenuRepository.class);
+	private static final Logger log = LoggerFactory.getLogger(OsgiMenuRepository.class);
 	/**
 	 * Source menu items.
 	 */

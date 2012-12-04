@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableList;
 @Deprecated
 public class InMemoryMenuRepository implements MenuRepository {
 
-	private transient Logger log = LoggerFactory.getLogger(InMemoryMenuRepository.class);
+	private static final Logger log = LoggerFactory.getLogger(InMemoryMenuRepository.class);
 	private Map<String, Menu> menus = new ConcurrentHashMap<String, Menu>();
 	
 	public void add(Menu menu) {

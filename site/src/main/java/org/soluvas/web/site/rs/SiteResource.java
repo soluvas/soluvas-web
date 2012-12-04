@@ -26,7 +26,7 @@ import org.stringtemplate.v4.STGroupFile;
 @Path("org.soluvas.web.site")
 public class SiteResource {
 	
-	private transient Logger log = LoggerFactory.getLogger(SiteResource.class);
+	private static final Logger log = LoggerFactory.getLogger(SiteResource.class);
 	private transient BundleContext bundleContext;
 	@Context 
 	private transient UriInfo uriInfo;

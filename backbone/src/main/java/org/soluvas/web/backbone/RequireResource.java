@@ -46,7 +46,7 @@ public class RequireResource {
 		this.jsShims = jsShims;
 	}
 
-	private transient Logger log = LoggerFactory
+	private static final Logger log = LoggerFactory
 			.getLogger(RequireResource.class);
 	
 	// http://localhost:8181/cxf/api/berbatik_dev/org.soluvas.web.backbone/requireConfig.js

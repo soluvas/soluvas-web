@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LdapBindCredentialsMatcher implements CredentialsMatcher {
 
-	private transient Logger log = LoggerFactory
+	private static final Logger log = LoggerFactory
 			.getLogger(LdapBindCredentialsMatcher.class);
 	private final LdapConnectionConfig ldapConfig;
 	private final String usersDn;

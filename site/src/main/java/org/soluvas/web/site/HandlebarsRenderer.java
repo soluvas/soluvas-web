@@ -33,7 +33,7 @@ import com.google.common.base.Preconditions;
 @SuppressWarnings("serial")
 public class HandlebarsRenderer extends WebComponent {
 
-	private transient Logger log = LoggerFactory.getLogger(HandlebarsRenderer.class);
+	private static final Logger log = LoggerFactory.getLogger(HandlebarsRenderer.class);
 	private Class<? extends Component> templateComponent;
 	private Mustache mainMustache;
 	private String tagName;

@@ -43,7 +43,7 @@ public class WicketTenantScope implements Scope {
 		}
 	}
 	
-	private transient Logger log = LoggerFactory.getLogger(WicketTenantScope.class);
+	private static final Logger log = LoggerFactory.getLogger(WicketTenantScope.class);
 	private final BundleContext bundleContext;
 	/**
 	 * Map of applicationKey -> scopedTarget name -> ServiceReference. 

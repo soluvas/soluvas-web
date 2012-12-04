@@ -35,7 +35,7 @@ import org.soluvas.web.nav.ProcessMenuItem;
 @SuppressWarnings("serial")
 public class NavMenu extends Panel {
 
-	private transient Logger log = LoggerFactory.getLogger(NavMenu.class);
+	private static final Logger log = LoggerFactory.getLogger(NavMenu.class);
 	@PaxWicketBean(name="processLinkFactory")
 	private transient ProcessLinkFactory processLinkFactory; 
 	

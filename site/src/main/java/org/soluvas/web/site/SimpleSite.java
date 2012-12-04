@@ -18,7 +18,7 @@ import org.soluvas.web.site.webaddress.WebAddress;
 @Deprecated
 public class SimpleSite implements Site, ManagedService {
 
-	private transient Logger log = LoggerFactory.getLogger(SimpleSite.class);
+	private static final Logger log = LoggerFactory.getLogger(SimpleSite.class);
 	private String siteTitle;
 	private String homeTitle;
 	private String pageTitleSuffix;

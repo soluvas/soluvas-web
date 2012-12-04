@@ -21,7 +21,7 @@ import com.github.mustachejava.Mustache;
 @SuppressWarnings("serial")
 public class MustacheMarkupContainer extends WebComponent {
 
-	private transient Logger log = LoggerFactory.getLogger(MustacheMarkupContainer.class);
+	private static final Logger log = LoggerFactory.getLogger(MustacheMarkupContainer.class);
 	private Mustache mainMustache;
 	
 	public MustacheMarkupContainer(String id, IModel<?> model) {

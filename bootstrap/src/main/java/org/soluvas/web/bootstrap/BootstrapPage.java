@@ -118,7 +118,7 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 	}
 	
-	private transient Logger log = LoggerFactory.getLogger(BootstrapPage.class);
+	private static final Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	
 	@PaxWicketBean(name="jacksonMapperFactory")
 	private Supplier<ObjectMapper> jacksonMapperFactory;

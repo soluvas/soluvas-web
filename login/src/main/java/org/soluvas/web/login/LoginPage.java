@@ -37,7 +37,7 @@ import com.google.common.base.Supplier;
 @PaxWicketMountPoint(mountPoint="login")
 public class LoginPage extends BootstrapPage {
 
-	private transient Logger log = LoggerFactory.getLogger(LoginPage.class);
+	private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
 	private final LoginFormModel loginFormModel = new LoginFormModel();
 	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
 	private transient SecurityManager securityManager;

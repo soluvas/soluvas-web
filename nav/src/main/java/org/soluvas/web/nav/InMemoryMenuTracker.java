@@ -31,7 +31,7 @@ import com.google.common.collect.Lists;
 @Deprecated
 public class InMemoryMenuTracker implements BundleTrackerCustomizer {
 
-	private transient Logger log = LoggerFactory.getLogger(InMemoryMenuTracker.class);
+	private static final Logger log = LoggerFactory.getLogger(InMemoryMenuTracker.class);
 	private MenuRepository menuRepository;
 	
 	public InMemoryMenuTracker(MenuRepository menuRepository) {

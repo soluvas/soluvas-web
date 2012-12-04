@@ -28,7 +28,7 @@ import com.google.common.collect.Maps;
  */
 public class RulesPageMetaSupplier implements PageMetaSupplier {
 	
-	private transient Logger log = LoggerFactory
+	private static final Logger log = LoggerFactory
 			.getLogger(RulesPageMetaSupplier.class);
 	
 	private final List<PageRule> rules;
