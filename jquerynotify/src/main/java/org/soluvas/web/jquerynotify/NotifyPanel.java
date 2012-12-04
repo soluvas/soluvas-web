@@ -50,11 +50,15 @@ public class NotifyPanel extends Panel {
 	}
 
 	protected void createNotify(AjaxRequestTarget target) {
-		FeedbackMessages feedbackMessages = Session.get().getFeedbackMessages();
+		final FeedbackMessages feedbackMessages = Session.get().getFeedbackMessages();
 		if (!feedbackMessages.isEmpty()) {
 			log.debug("{} got {} feedback messages", Session.get(), feedbackMessages.size());
-			for (FeedbackMessage msg : feedbackMessages) {
-				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: \"" + JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"});");
+			for (final FeedbackMessage msg : feedbackMessages) {
+//				target.appendJavaScript("require('jquery', new function(jQuery) {\n" +
+//						"  jQuery('#notify-container').notify('create', {text: \"" +
+//						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
+				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: \"" +
+						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"});");
 			}
 		}
 	}
