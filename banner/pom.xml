@@ -89,6 +89,7 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
+						<Export-Package>org.soluvas.web.banner.*</Export-Package>
 <!-- 						<Import-Package> -->
 <!-- 							org.apache.felix.gogo.commands;version="0.6.0", -->
 <!-- 							org.apache.karaf.shell.console,org.osgi.framework;version="1.3.0", -->
