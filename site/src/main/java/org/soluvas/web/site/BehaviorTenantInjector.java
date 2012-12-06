@@ -24,6 +24,7 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.ReflectionUtils;
 import org.soluvas.commons.inject.Filter;
 import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
@@ -31,7 +32,6 @@ import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.web.site.osgi.WebTenantUtils;
 
 import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 /**
@@ -66,13 +66,7 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 		final String tenantId = tenant.getTenantId();
 		final String tenantEnv = tenant.getTenantEnv();
 		
-		Class<?> clazz = component.getClass();
-		final ImmutableList.Builder<Field> fieldsBuilder = ImmutableList.builder();
-		while (clazz != null) {
-			fieldsBuilder.addAll(ImmutableList.copyOf(clazz.getDeclaredFields()));
-			clazz = clazz.getSuperclass();
-		}
-		final List<Field> fields = fieldsBuilder.build();
+		final List<Field> fields = ReflectionUtils.getAllFields(component.getClass());
 		
 		final BundleContext bundleContext = FrameworkUtil.getBundle(component.getClass()).getBundleContext();
 		boolean needBehavior = false;
