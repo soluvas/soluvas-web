@@ -38,7 +38,7 @@ public class ComposePlaceLsCommand extends OsgiCommandSupport {
 		final Collection<LivePlaceholder> origPlaceholders = placeholderRepo.findAll();
 		final Collection<LivePlaceholder> sortedPlaceholders = origPlaceholders;
 		for (LivePlaceholder placeholder : sortedPlaceholders) {
-			Bundle bundle = placeholder.getBundle();
+			final Bundle bundle = placeholder.getBundle(); // TODO: Use BundleAware, and either use bridge pattern or merge into one class
 			final String pageName = placeholder.getPageClassName();
 			final String pageNameAnsi = NameUtils.shortenClassAnsi(pageName, 25);
 			final String modelName = placeholder.getModelClassName();

@@ -12,7 +12,6 @@ import org.osgi.framework.BundleEvent;
 import org.osgi.util.tracker.BundleTrackerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.ResourceType;
 import org.soluvas.commons.XmiObjectLoader;
 import org.soluvas.data.repository.CrudRepository;
 
@@ -51,25 +50,25 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EObject> addingBundle(Bundle bundle, BundleEvent event) {
-		String path = bundle.getSymbolicName().replace('.', '/');
-		String filePattern = "*." + suppliedClassSimpleName + ".xmi";
+		final String path = bundle.getSymbolicName().replace('.', '/');
+		final String filePattern = "*." + suppliedClassSimpleName + ".xmi";
 		log.trace("Scanning {} [{}] for {}/{}", bundle.getSymbolicName(), bundle.getBundleId(),
 				path , filePattern);
-		Enumeration<URL> entries = bundle.findEntries(path, filePattern, false);
+		final Enumeration<URL> entries = bundle.findEntries(path, filePattern, false);
 		if (entries == null) {
 			return null;
 		}
 		final Builder<EObject> eobjects = ImmutableList.builder();
 		while (entries.hasMoreElements()) {
-			URL url = entries.nextElement();
+			final URL url = entries.nextElement();
 			log.debug("Getting {} from {}", suppliedClassName, url);
-			XmiObjectLoader<ComposeCatalog> loader = new XmiObjectLoader<ComposeCatalog>(ePackage, url,
-					ResourceType.BUNDLE);
-			ComposeCatalog composeCatalog = loader.get();
+			final XmiObjectLoader<ComposeCatalog> loader = new XmiObjectLoader<ComposeCatalog>(ePackage, url,
+					bundle);
+			final ComposeCatalog composeCatalog = loader.get();
 			
-			for (Placeholder placeholder : ImmutableList.copyOf(composeCatalog.getPlaceholders())) {
+			for (final Placeholder placeholder : ImmutableList.copyOf(composeCatalog.getPlaceholders())) {
 				log.debug("Adding Placeholder {}/{} from {}", placeholder.getPageClassName(), placeholder.getPath(), url);
-				LivePlaceholder livePlaceholder = ComposeFactory.eINSTANCE.createLivePlaceholder();
+				final LivePlaceholder livePlaceholder = ComposeFactory.eINSTANCE.createLivePlaceholder();
 				livePlaceholder.setPageClassName(placeholder.getPageClassName());
 				livePlaceholder.setPath(placeholder.getPath());
 				livePlaceholder.setModelClassName(placeholder.getModelClassName());
@@ -82,13 +81,13 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 							" referenced from " + url, e);
 				}
 				livePlaceholder.setPageClass(pageClass);
-				LivePlaceholder added = placeholderRepo.save(livePlaceholder);
+				final LivePlaceholder added = placeholderRepo.add(livePlaceholder);
 				eobjects.add(added);
 			}
 			
-			for (Slave slave : ImmutableList.copyOf(composeCatalog.getSlaves())) {
+			for (final Slave slave : ImmutableList.copyOf(composeCatalog.getSlaves())) {
 				log.debug("Adding Slave {}/{} from {}", slave.getPageClassName(), slave.getPath(), url);
-				LiveSlave liveSlave = ComposeFactory.eINSTANCE.createLiveSlave();
+				final LiveSlave liveSlave = ComposeFactory.eINSTANCE.createLiveSlave();
 				liveSlave.setPageClassName(slave.getPageClassName());
 				liveSlave.setPath(slave.getPath());
 				liveSlave.setModelClassName(slave.getModelClassName());
@@ -101,26 +100,26 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 							" referenced from " + url, e);
 				}
 				liveSlave.setPageClass(pageClass);
-				LiveSlave added = slaveRepo.save(liveSlave);
+				final LiveSlave added = slaveRepo.add(liveSlave);
 				eobjects.add(added);
 			}
 			
-			for (Contributor contributor : ImmutableList.copyOf(composeCatalog.getContributors())) {
+			for (final Contributor contributor : ImmutableList.copyOf(composeCatalog.getContributors())) {
 				log.debug("Adding Contributor for {}/{} from {}", contributor.getPageClassName(), contributor.getTargetPath(), url);
 				final LiveContributor liveContributor = contributor.createLive(bundle);
 				liveContributor.setBundle(bundle);
-				LiveContributor added = contributorRepo.save(liveContributor);
+				final LiveContributor added = contributorRepo.add(liveContributor);
 				eobjects.add(added);
 			}
 			
 		}
-		List<EObject> eobjectList = eobjects.build();
+		final List<EObject> eobjectList = eobjects.build();
 		if (!eobjectList.isEmpty()) {
 			log.info("Added {} EObjects from {} [{}]",
 					eobjectList.size(), bundle.getSymbolicName(), bundle.getBundleId());
 		}
 		
-		Collection<LiveContributor> contribs = contributorRepo.findAll();
+		final Collection<LiveContributor> contribs = contributorRepo.findAll();
 		for (LiveContributor contrib : contribs) {
 			contrib.resolve(placeholderRepo.findAll(), slaveRepo.findAll());
 		}
@@ -136,10 +135,13 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 	@Override
 	public void removedBundle(Bundle bundle, BundleEvent event,
 			List<EObject> eobjects) {
-		Collection<LiveContributor> contribs = contributorRepo.findAll();
+		if (eobjects.isEmpty())
+			return;
+
+		final Collection<LiveContributor> contribs = contributorRepo.findAll();
 		log.debug("Removing {} EObjects provided by {} [{}]",
 				eobjects.size(), bundle.getSymbolicName(), bundle.getBundleId());
-		for (EObject eobject : eobjects) {
+		for (final EObject eobject : eobjects) {
 			if (eobject instanceof LiveTarget) {
 				for (LiveContributor contrib : contribs) {
 					contrib.targetRemoved((LiveTarget) eobject);
@@ -171,7 +173,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 
 		log.debug("Notifying {} contributors that bundle {} [{}] is removed",
 				contribs.size(), bundle.getSymbolicName(), bundle.getBundleId());
-		for (LiveContributor contrib : contribs) {
+		for (final LiveContributor contrib : contribs) {
 			contrib.bundleRemoved(bundle);
 		}
 	}
