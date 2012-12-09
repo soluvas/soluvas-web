@@ -19,6 +19,7 @@ import org.soluvas.web.site.pagemeta.PagemetaFactory;
 import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
 /**
@@ -31,12 +32,19 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	private static final Logger log = LoggerFactory
 			.getLogger(RulesPageMetaSupplier.class);
 	
-	private final List<PageRule> rules;
+	/**
+	 * Source of {@link PageRule}s, can be mutable.
+	 */
+	private final List<PageRule> ruleSource;
 	private final PageRuleContext context;
 	
-	public RulesPageMetaSupplier(final List<PageRule> rules, final PageRuleContext context) {
+	/**
+	 * @param ruleSource Can be mutable.
+	 * @param context
+	 */
+	public RulesPageMetaSupplier(final List<PageRule> ruleSource, final PageRuleContext context) {
 		super();
-		this.rules = rules;
+		this.ruleSource = ruleSource;
 		this.context = context;
 	}
 
@@ -50,8 +58,9 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 		pageMeta.setIcon(PagemetaFactory.eINSTANCE.createPageIcon());
 		pageMeta.setOpenGraph(PagemetaFactory.eINSTANCE.createOpenGraphMeta());
 		
-		log.debug("Considering {} pageMeta rules with context: {}", rules.size(), context);
-		for (final PageRule rule : rules) {
+		final List<PageRule> immutableRules = ImmutableList.copyOf(ruleSource);
+		log.debug("Considering {} pageMeta rules with context: {}", immutableRules.size(), context);
+		for (final PageRule rule : immutableRules) {
 			if (!rule.getSelector().matches(context)) {
 				continue;
 			}
