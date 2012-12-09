@@ -1,7 +1,14 @@
 package org.soluvas.web.site.client;
 
+import java.io.Serializable;
+
+import javax.annotation.Nonnull;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
@@ -22,18 +29,38 @@ public class BackboneModel<T> extends JsSource {
 	
 	private final String name;
 	private final String className;
-	private final T data;
+	private final IModel<T> model;
 	
 	/**
 	 * @param name
 	 * @param className
 	 * @param data
 	 */
-	public BackboneModel(String name, String className, T data) {
+	@Deprecated
+	public BackboneModel(String name, String className, @Nonnull final T data) {
 		super();
 		this.name = name;
 		this.className = className;
-		this.data = data;
+		this.model = data instanceof Serializable
+				? new Model((Serializable) data)
+				: new LoadableDetachableModel<T>() {
+			@Override
+			protected T load() {
+				return data;
+			}
+		};
+	}
+
+	/**
+	 * @param name
+	 * @param className
+	 * @param data
+	 */
+	public BackboneModel(String name, String className, IModel<T> data) {
+		super();
+		this.name = name;
+		this.className = className;
+		this.model = data;
 	}
 
 	/**
@@ -51,10 +78,10 @@ public class BackboneModel<T> extends JsSource {
 	}
 
 	/**
-	 * @return the data
+	 * @return the model
 	 */
-	public T getData() {
-		return data;
+	public IModel<T> getModel() {
+		return model;
 	}
 
 	/* (non-Javadoc)
@@ -64,7 +91,7 @@ public class BackboneModel<T> extends JsSource {
 	public String toString() {
 		return "BackboneModel [" + (name != null ? "name=" + name + ", " : "")
 				+ (className != null ? "className=" + className + ", " : "")
-				+ (data != null ? "data=" + data : "") + "]";
+				+ (model != null ? "model=" + model : "") + "]";
 	}
 	
 	@Override
@@ -72,11 +99,12 @@ public class BackboneModel<T> extends JsSource {
 		final BundleContext bundleContext = FrameworkUtil.getBundle(BackboneModel.class).getBundleContext();
 		final ServiceReference<JacksonMapperFactory> jacksonMapperFactoryRef = bundleContext.getServiceReference(JacksonMapperFactory.class);
 		final Supplier<ObjectMapper> jacksonMapperFactory = bundleContext.getService(jacksonMapperFactoryRef);
+		final ObjectMapper objectMapper = jacksonMapperFactory.get();
+		final T data = model.getObject();
 		try {
-			final ObjectMapper objectMapper = jacksonMapperFactory.get();
 			return name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");";
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + data, e);
+			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + model, e);
 		} finally {
 			bundleContext.ungetService(jacksonMapperFactoryRef);
 		}

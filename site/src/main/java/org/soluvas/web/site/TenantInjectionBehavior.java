@@ -58,8 +58,10 @@ public class TenantInjectionBehavior extends Behavior {
 	
 	@Override
 	public void afterRender(@Nonnull final Component component) {
-		uninject(component, "afterRender");
+		// Behaviors are "rendered" after 'afterRender', and they can use IModel's
+		// so we must make sure things are still injected when the Behaviors execute
 		super.afterRender(component);
+//		uninject(component, "afterRender");
 	}
 	
 }
