@@ -139,24 +139,6 @@ public interface PagemetaFactory extends EFactory {
 	PageMetaCatalog createPageMetaCatalog();
 
 	/**
-	 * Returns a new object of class '<em>Page Meta Collection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Meta Collection</em>'.
-	 * @generated
-	 */
-	PageMetaCollection createPageMetaCollection();
-
-	/**
-	 * Returns a new object of class '<em>Page Rule Collection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Page Rule Collection</em>'.
-	 * @generated
-	 */
-	PageRuleCollection createPageRuleCollection();
-
-	/**
 	 * Returns a new object of class '<em>Page Title</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

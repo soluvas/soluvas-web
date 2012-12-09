@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.pagemeta.*;
 
 /**
@@ -118,6 +120,8 @@ public class PagemetaSwitch<T> extends Switch<T> {
 			case PagemetaPackage.PAGE_RULE: {
 				PageRule pageRule = (PageRule)theEObject;
 				T result = casePageRule(pageRule);
+				if (result == null) result = caseBundleAware(pageRule);
+				if (result == null) result = caseResourceAware(pageRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -160,6 +164,8 @@ public class PagemetaSwitch<T> extends Switch<T> {
 				T result = casePageMetaCatalog(pageMetaCatalog);
 				if (result == null) result = casePageMetaCollection(pageMetaCatalog);
 				if (result == null) result = casePageRuleCollection(pageMetaCatalog);
+				if (result == null) result = caseBundleAware(pageMetaCatalog);
+				if (result == null) result = caseResourceAware(pageMetaCatalog);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -474,6 +480,36 @@ public class PagemetaSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseClassPageSelector(ClassPageSelector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bundle Aware</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bundle Aware</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBundleAware(BundleAware object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Aware</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Aware</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResourceAware(ResourceAware object) {
 		return null;
 	}
 

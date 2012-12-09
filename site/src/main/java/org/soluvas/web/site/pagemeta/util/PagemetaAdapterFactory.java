@@ -9,6 +9,8 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.pagemeta.*;
 
 /**
@@ -142,6 +144,14 @@ public class PagemetaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseClassPageSelector(ClassPageSelector object) {
 				return createClassPageSelectorAdapter();
+			}
+			@Override
+			public Adapter caseBundleAware(BundleAware object) {
+				return createBundleAwareAdapter();
+			}
+			@Override
+			public Adapter caseResourceAware(ResourceAware object) {
+				return createResourceAwareAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -426,6 +436,34 @@ public class PagemetaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createClassPageSelectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.BundleAware <em>Bundle Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.BundleAware
+	 * @generated
+	 */
+	public Adapter createBundleAwareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.ResourceAware <em>Resource Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.ResourceAware
+	 * @generated
+	 */
+	public Adapter createResourceAwareAdapter() {
 		return null;
 	}
 

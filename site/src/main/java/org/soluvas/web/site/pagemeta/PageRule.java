@@ -2,6 +2,8 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
 import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
@@ -21,10 +23,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRule()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PageRule extends SerializableEObject {
+public interface PageRule extends BundleAware, ResourceAware {
 	/**
 	 * Returns the value of the '<em><b>Selector</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

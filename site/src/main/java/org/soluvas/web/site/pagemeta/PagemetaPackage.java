@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.soluvas.commons.CommonsPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -661,13 +662,49 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_RULE = 8;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE__BUNDLE = CommonsPackage.BUNDLE_AWARE__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE__RESOURCE_TYPE = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE__RESOURCE_URI = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE__RESOURCE_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_RULE__SELECTOR = 0;
+	int PAGE_RULE__SELECTOR = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
@@ -676,7 +713,7 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_RULE__POSITIONER = 1;
+	int PAGE_RULE__POSITIONER = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Declaration</b></em>' containment reference.
@@ -685,7 +722,7 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_RULE__DECLARATION = 2;
+	int PAGE_RULE__DECLARATION = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Page Rule</em>' class.
@@ -694,7 +731,7 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_RULE_FEATURE_COUNT = 3;
+	int PAGE_RULE_FEATURE_COUNT = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.PageDeclaration <em>Page Declaration</em>}' class.
@@ -846,10 +883,10 @@ public interface PagemetaPackage extends EPackage {
 	int REPOSITORY_PAGE_DECLARATION_FEATURE_COUNT = PAGE_DECLARATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl <em>Page Meta Collection</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Page Meta Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl
+	 * @see org.soluvas.web.site.pagemeta.PageMetaCollection
 	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaCollection()
 	 * @generated
 	 */
@@ -902,19 +939,55 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_META_CATALOG__RULES = PAGE_META_COLLECTION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__BUNDLE = PAGE_META_COLLECTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RESOURCE_TYPE = PAGE_META_COLLECTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RESOURCE_URI = PAGE_META_COLLECTION_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RESOURCE_NAME = PAGE_META_COLLECTION_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Page Meta Catalog</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META_CATALOG_FEATURE_COUNT = PAGE_META_COLLECTION_FEATURE_COUNT + 1;
+	int PAGE_META_CATALOG_FEATURE_COUNT = PAGE_META_COLLECTION_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageRuleCollectionImpl <em>Page Rule Collection</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.PageRuleCollection <em>Page Rule Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.pagemeta.impl.PageRuleCollectionImpl
+	 * @see org.soluvas.web.site.pagemeta.PageRuleCollection
 	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleCollection()
 	 * @generated
 	 */
@@ -2626,10 +2699,10 @@ public interface PagemetaPackage extends EPackage {
 		EClass PAGE_META_CATALOG = eINSTANCE.getPageMetaCatalog();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl <em>Page Meta Collection</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Page Meta Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.pagemeta.impl.PageMetaCollectionImpl
+		 * @see org.soluvas.web.site.pagemeta.PageMetaCollection
 		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageMetaCollection()
 		 * @generated
 		 */
@@ -2644,10 +2717,10 @@ public interface PagemetaPackage extends EPackage {
 		EReference PAGE_META_COLLECTION__PAGE_METAS = eINSTANCE.getPageMetaCollection_PageMetas();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageRuleCollectionImpl <em>Page Rule Collection</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.PageRuleCollection <em>Page Rule Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.pagemeta.impl.PageRuleCollectionImpl
+		 * @see org.soluvas.web.site.pagemeta.PageRuleCollection
 		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleCollection()
 		 * @generated
 		 */

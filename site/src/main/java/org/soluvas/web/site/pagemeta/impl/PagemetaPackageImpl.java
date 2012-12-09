@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.soluvas.commons.CommonsPackage;
 import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.pagemeta.ClassPageSelector;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
@@ -233,6 +234,9 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		PagemetaPackageImpl thePagemetaPackage = (PagemetaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof PagemetaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new PagemetaPackageImpl());
 
 		isInited = true;
+
+		// Initialize simple dependencies
+		CommonsPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		thePagemetaPackage.createPackageContents();
@@ -1270,18 +1274,25 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		CommonsPackage theCommonsPackage = (CommonsPackage)EPackage.Registry.INSTANCE.getEPackage(CommonsPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
 		uriPatternPageSelectorEClass.getESuperTypes().add(this.getPageSelector());
+		pageRuleEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
+		pageRuleEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
 		sourcePageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		processorPageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		resourcePageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		repositoryPageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		pageMetaCatalogEClass.getESuperTypes().add(this.getPageMetaCollection());
 		pageMetaCatalogEClass.getESuperTypes().add(this.getPageRuleCollection());
+		pageMetaCatalogEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
+		pageMetaCatalogEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
 		classPageSelectorEClass.getESuperTypes().add(this.getPageSelector());
 
 		// Initialize classes and features; add operations and parameters
@@ -1384,10 +1395,10 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		initEClass(pageMetaCatalogEClass, PageMetaCatalog.class, "PageMetaCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(pageMetaCollectionEClass, PageMetaCollection.class, "PageMetaCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(pageMetaCollectionEClass, PageMetaCollection.class, "PageMetaCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageMetaCollection_PageMetas(), this.getPageMeta(), null, "pageMetas", null, 0, -1, PageMetaCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(pageRuleCollectionEClass, PageRuleCollection.class, "PageRuleCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(pageRuleCollectionEClass, PageRuleCollection.class, "PageRuleCollection", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageRuleCollection_Rules(), this.getPageRule(), null, "rules", null, 0, -1, PageRuleCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pageTitleEClass, PageTitle.class, "PageTitle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

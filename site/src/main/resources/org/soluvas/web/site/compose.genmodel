@@ -12,14 +12,24 @@
       <genEnumLiterals ecoreEnumLiteral="compose.ecore#//ContributorState/failed"/>
       <genEnumLiterals ecoreEnumLiteral="compose.ecore#//ContributorState/resolved"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="compose.ecore#//CreationMode">
+      <genEnumLiterals ecoreEnumLiteral="compose.ecore#//CreationMode/constructor"/>
+      <genEnumLiterals ecoreEnumLiteral="compose.ecore#//CreationMode/factory_class"/>
+      <genEnumLiterals ecoreEnumLiteral="compose.ecore#//CreationMode/factory_bean"/>
+    </genEnums>
     <genDataTypes ecoreDataType="compose.ecore#//ComponentFactory"/>
     <genDataTypes ecoreDataType="compose.ecore#//Bundle"/>
     <genDataTypes ecoreDataType="compose.ecore#//Page"/>
+    <genDataTypes ecoreDataType="compose.ecore#//Collection">
+      <genTypeParameters ecoreTypeParameter="compose.ecore#//Collection/T"/>
+    </genDataTypes>
     <genClasses ecoreClass="compose.ecore#//Placeholder"/>
     <genClasses image="false" ecoreClass="compose.ecore#//Contributor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//Contributor/pageBundle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//Contributor/pageClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//Contributor/targetPath"/>
+      <genOperations ecoreOperation="compose.ecore#//Contributor/createLive">
+        <genParameters ecoreParameter="compose.ecore#//Contributor/createLive/bundle"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="compose.ecore#//LiveTarget">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//LiveTarget/pageClass"/>
@@ -27,10 +37,26 @@
     </genClasses>
     <genClasses image="false" ecoreClass="compose.ecore#//LiveContributor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//LiveContributor/state"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//LiveContributor/bundle"/>
+      <genOperations ecoreOperation="compose.ecore#//LiveContributor/resolve">
+        <genParameters ecoreParameter="compose.ecore#//LiveContributor/resolve/placeholders"/>
+        <genParameters ecoreParameter="compose.ecore#//LiveContributor/resolve/slaves"/>
+      </genOperations>
+      <genOperations ecoreOperation="compose.ecore#//LiveContributor/bundleAdded">
+        <genParameters ecoreParameter="compose.ecore#//LiveContributor/bundleAdded/bundle"/>
+      </genOperations>
+      <genOperations ecoreOperation="compose.ecore#//LiveContributor/bundleRemoved">
+        <genParameters ecoreParameter="compose.ecore#//LiveContributor/bundleRemoved/bundle"/>
+      </genOperations>
+      <genOperations ecoreOperation="compose.ecore#//LiveContributor/targetRemoved">
+        <genParameters ecoreParameter="compose.ecore#//LiveContributor/targetRemoved/target"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="compose.ecore#//HideContributor"/>
     <genClasses image="false" ecoreClass="compose.ecore#//ComponentContributor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//ComponentContributor/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//ComponentContributor/factoryBean"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//ComponentContributor/creationMode"/>
     </genClasses>
     <genClasses ecoreClass="compose.ecore#//ChildContributor"/>
     <genClasses ecoreClass="compose.ecore#//LiveChildContributor">
@@ -41,7 +67,7 @@
     </genClasses>
     <genClasses ecoreClass="compose.ecore#//ReplaceContributor"/>
     <genClasses ecoreClass="compose.ecore#//LiveComponentContributor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compose.ecore#//LiveComponentContributor/factory"/>
+      <genOperations ecoreOperation="compose.ecore#//LiveComponentContributor/getFactory"/>
     </genClasses>
     <genClasses ecoreClass="compose.ecore#//LiveHideContributor">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference compose.ecore#//LiveHideContributor/target"/>

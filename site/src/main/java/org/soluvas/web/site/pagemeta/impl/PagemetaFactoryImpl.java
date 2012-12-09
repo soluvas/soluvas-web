@@ -86,8 +86,6 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: return (EObject)createResourcePageDeclaration();
 			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: return (EObject)createRepositoryPageDeclaration();
 			case PagemetaPackage.PAGE_META_CATALOG: return (EObject)createPageMetaCatalog();
-			case PagemetaPackage.PAGE_META_COLLECTION: return (EObject)createPageMetaCollection();
-			case PagemetaPackage.PAGE_RULE_COLLECTION: return (EObject)createPageRuleCollection();
 			case PagemetaPackage.PAGE_TITLE: return (EObject)createPageTitle();
 			case PagemetaPackage.CLASS_PAGE_SELECTOR: return (EObject)createClassPageSelector();
 			default:
@@ -270,28 +268,6 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	public PageMetaCatalog createPageMetaCatalog() {
 		PageMetaCatalogImpl pageMetaCatalog = new PageMetaCatalogImpl();
 		return pageMetaCatalog;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public PageMetaCollection createPageMetaCollection() {
-		PageMetaCollectionImpl pageMetaCollection = new PageMetaCollectionImpl();
-		return pageMetaCollection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public PageRuleCollection createPageRuleCollection() {
-		PageRuleCollectionImpl pageRuleCollection = new PageRuleCollectionImpl();
-		return pageRuleCollection;
 	}
 
 	/**

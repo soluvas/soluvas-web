@@ -50,7 +50,7 @@ public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCo
 		super();
 		log.info("Initializing federating page rules supplier with {} suppliers", suppliers.size());
 		this.suppliers.addAll( initialSuppliers );
-		federatedPageRules = ((PagemetaFactory)pageMetaPackage.getEFactoryInstance()).createPageRuleCollection();
+		federatedPageRules = PagemetaFactory.eINSTANCE.createPageMetaCatalog();
 	}
 
 	@Override

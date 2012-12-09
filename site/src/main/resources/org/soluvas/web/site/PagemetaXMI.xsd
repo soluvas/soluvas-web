@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xsd:schema xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.org/schema/web.site.pagemeta/1.0">
+<xsd:schema xmlns:commons="http://www.soluvas.org/schema/commons/1.0" xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.org/schema/web.site.pagemeta/1.0">
+  <xsd:import namespace="http://www.soluvas.org/schema/commons/1.0" schemaLocation="commons.xsd"/>
   <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
   <xsd:simpleType name="PageMetaPhase">
     <xsd:annotation>
@@ -662,12 +663,11 @@ og:image:width - The number of pixels wide.
 og:image:height - The number of pixels high.
 A full image example:
 
-<meta content="http://example.com/ogp.jpg" property="og:image"/>
-<meta content="https://secure.example.com/ogp.jpg" property="og:image:secure_url"/>
-<meta content="image/jpeg" property="og:image:type"/>
-<meta content="400" property="og:image:width"/>
-<meta content="300" property="og:image:height"/>
-      </xsd:documentation>
+&lt;meta property="og:image" content="http://example.com/ogp.jpg" /&gt;
+&lt;meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" /&gt;
+&lt;meta property="og:image:type" content="image/jpeg" /&gt;
+&lt;meta property="og:image:width" content="400" /&gt;
+&lt;meta property="og:image:height" content="300" /&gt;</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="OpenGraphVideo">
@@ -719,22 +719,20 @@ A full image example:
     <xsd:annotation>
       <xsd:documentation>The og:video tag has the identical tags as og:image. Here is an example:
 
-<meta content="http://example.com/movie.swf" property="og:video"/>
-<meta content="https://secure.example.com/movie.swf" property="og:video:secure_url"/>
-<meta content="application/x-shockwave-flash" property="og:video:type"/>
-<meta content="400" property="og:video:width"/>
-<meta content="300" property="og:video:height"/>
-      </xsd:documentation>
+&lt;meta property="og:video" content="http://example.com/movie.swf" /&gt;
+&lt;meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" /&gt;
+&lt;meta property="og:video:type" content="application/x-shockwave-flash" /&gt;
+&lt;meta property="og:video:width" content="400" /&gt;
+&lt;meta property="og:video:height" content="300" /&gt;</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="OpenGraphAudio">
     <xsd:annotation>
       <xsd:documentation>The og:audio tag only has the first 3 properties available (since size doesn't make sense for sound):
 
-<meta content="http://example.com/sound.mp3" property="og:audio"/>
-<meta content="https://secure.example.com/sound.mp3" property="og:audio:secure_url"/>
-<meta content="audio/mpeg" property="og:audio:type"/>
-      </xsd:documentation>
+&lt;meta property="og:audio" content="http://example.com/sound.mp3" /&gt;
+&lt;meta property="og:audio:secure_url" content="https://secure.example.com/sound.mp3" /&gt;
+&lt;meta property="og:audio:type" content="audio/mpeg" /&gt;</xsd:documentation>
     </xsd:annotation>
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element ref="xmi:Extension"/>
@@ -799,20 +797,22 @@ A full image example:
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="PageRule">
-    <xsd:choice maxOccurs="unbounded" minOccurs="0">
-      <xsd:element name="selector" type="pagemeta:PageSelector"/>
-      <xsd:element name="declaration" type="pagemeta:PageDeclaration">
-        <xsd:annotation>
-          <xsd:documentation>What to apply when the selector matches.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element ref="xmi:Extension"/>
-    </xsd:choice>
-    <xsd:attribute ref="xmi:id"/>
-    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
-    <xsd:attribute name="positioner" type="xsd:int">
-      <xsd:annotation>
-        <xsd:documentation>Guide:
+    <xsd:complexContent>
+      <xsd:extension base="commons:BundleAware">
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+          <xsd:element name="selector" type="pagemeta:PageSelector"/>
+          <xsd:element name="declaration" type="pagemeta:PageDeclaration">
+            <xsd:annotation>
+              <xsd:documentation>What to apply when the selector matches.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="resourceType" type="commons:ResourceType"/>
+        <xsd:attribute name="resourceUri" type="xsd:string"/>
+        <xsd:attribute name="resourceName" type="xsd:string"/>
+        <xsd:attribute name="positioner" type="xsd:int">
+          <xsd:annotation>
+            <xsd:documentation>Guide:
 
 * -200 : org.soluvas core
 * -100 : coarse-grained
@@ -821,8 +821,10 @@ A full image example:
 * 0 or missing : application-level fine-grained (e.g. berbatik)
 * 10 : customizations
 </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="PageRule" type="pagemeta:PageRule"/>
   <xsd:complexType abstract="true" name="PageDeclaration">
@@ -938,6 +940,9 @@ Note that information about actual concrete page classes etc. are not visible he
         <xsd:choice maxOccurs="unbounded" minOccurs="0">
           <xsd:element name="rules" type="pagemeta:PageRule"/>
         </xsd:choice>
+        <xsd:attribute name="resourceType" type="commons:ResourceType"/>
+        <xsd:attribute name="resourceUri" type="xsd:string"/>
+        <xsd:attribute name="resourceName" type="xsd:string"/>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -952,7 +957,7 @@ It is used in 2 ways:
 Note that information about actual concrete page classes etc. are not visible here, and if needed, then it should be described using another schema.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:complexType name="PageMetaCollection">
+  <xsd:complexType abstract="true" name="PageMetaCollection">
     <xsd:choice maxOccurs="unbounded" minOccurs="0">
       <xsd:element name="pageMetas" type="pagemeta:PageMeta"/>
       <xsd:element ref="xmi:Extension"/>
@@ -961,7 +966,7 @@ Note that information about actual concrete page classes etc. are not visible he
     <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
   </xsd:complexType>
   <xsd:element name="PageMetaCollection" type="pagemeta:PageMetaCollection"/>
-  <xsd:complexType name="PageRuleCollection">
+  <xsd:complexType abstract="true" name="PageRuleCollection">
     <xsd:annotation>
       <xsd:documentation>Contains a list of rules.</xsd:documentation>
     </xsd:annotation>

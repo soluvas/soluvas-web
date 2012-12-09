@@ -2,6 +2,9 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -23,5 +26,5 @@ package org.soluvas.web.site.pagemeta;
  * @model
  * @generated
  */
-public interface PageMetaCatalog extends PageMetaCollection, PageRuleCollection {
+public interface PageMetaCatalog extends PageMetaCollection, PageRuleCollection, BundleAware, ResourceAware {
 } // PageMetaCatalog

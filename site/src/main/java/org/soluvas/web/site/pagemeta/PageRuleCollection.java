@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageRuleCollection()
- * @model
+ * @model interface="true" abstract="true"
  * @extends SerializableEObject
  * @generated
  */
