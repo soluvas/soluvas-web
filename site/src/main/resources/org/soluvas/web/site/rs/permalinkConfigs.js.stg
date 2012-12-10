@@ -1,0 +1,10 @@
+permalinkConfigs(permalinks) ::= <<
+/**
+ * Permalink configuration for JavaScript clients.
+ */
+define([], function() {
+
+return ~permalinks~;
+
+});
+>>

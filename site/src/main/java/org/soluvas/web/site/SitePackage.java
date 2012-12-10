@@ -1003,6 +1003,72 @@ public interface SitePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PermalinkCatalogImpl <em>Permalink Catalog</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.PermalinkCatalogImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPermalinkCatalog()
+	 * @generated
+	 */
+	int PERMALINK_CATALOG = 18;
+
+	/**
+	 * The feature id for the '<em><b>Permalinks</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERMALINK_CATALOG__PERMALINKS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Permalink Catalog</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERMALINK_CATALOG_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PermalinkImpl <em>Permalink</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.PermalinkImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPermalink()
+	 * @generated
+	 */
+	int PERMALINK = 19;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERMALINK__NAMESPACE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Template</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERMALINK__TEMPLATE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Permalink</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERMALINK_FEATURE_COUNT = 2;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1315,6 +1381,59 @@ public interface SitePackage extends EPackage {
 	EAttribute getEntityPage_EntityClass();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PermalinkCatalog <em>Permalink Catalog</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Permalink Catalog</em>'.
+	 * @see org.soluvas.web.site.PermalinkCatalog
+	 * @generated
+	 */
+	EClass getPermalinkCatalog();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.soluvas.web.site.PermalinkCatalog#getPermalinks <em>Permalinks</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Permalinks</em>'.
+	 * @see org.soluvas.web.site.PermalinkCatalog#getPermalinks()
+	 * @see #getPermalinkCatalog()
+	 * @generated
+	 */
+	EReference getPermalinkCatalog_Permalinks();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.Permalink <em>Permalink</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Permalink</em>'.
+	 * @see org.soluvas.web.site.Permalink
+	 * @generated
+	 */
+	EClass getPermalink();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Permalink#getNamespace <em>Namespace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Namespace</em>'.
+	 * @see org.soluvas.web.site.Permalink#getNamespace()
+	 * @see #getPermalink()
+	 * @generated
+	 */
+	EAttribute getPermalink_Namespace();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.Permalink#getTemplate <em>Template</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template</em>'.
+	 * @see org.soluvas.web.site.Permalink#getTemplate()
+	 * @see #getPermalink()
+	 * @generated
+	 */
+	EAttribute getPermalink_Template();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1611,6 +1730,50 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ENTITY_PAGE__ENTITY_CLASS = eINSTANCE.getEntityPage_EntityClass();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PermalinkCatalogImpl <em>Permalink Catalog</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.PermalinkCatalogImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPermalinkCatalog()
+		 * @generated
+		 */
+		EClass PERMALINK_CATALOG = eINSTANCE.getPermalinkCatalog();
+
+		/**
+		 * The meta object literal for the '<em><b>Permalinks</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PERMALINK_CATALOG__PERMALINKS = eINSTANCE.getPermalinkCatalog_Permalinks();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PermalinkImpl <em>Permalink</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.PermalinkImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPermalink()
+		 * @generated
+		 */
+		EClass PERMALINK = eINSTANCE.getPermalink();
+
+		/**
+		 * The meta object literal for the '<em><b>Namespace</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERMALINK__NAMESPACE = eINSTANCE.getPermalink_Namespace();
+
+		/**
+		 * The meta object literal for the '<em><b>Template</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERMALINK__TEMPLATE = eINSTANCE.getPermalink_Template();
 
 	}
 

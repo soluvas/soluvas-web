@@ -17,6 +17,8 @@ import org.soluvas.web.site.GenericPage;
 import org.soluvas.web.site.LoginPage;
 import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageParam;
+import org.soluvas.web.site.Permalink;
+import org.soluvas.web.site.PermalinkCatalog;
 import org.soluvas.web.site.RawEntityEditPage;
 import org.soluvas.web.site.RawEntityNewPage;
 import org.soluvas.web.site.RawEntityTablePage;
@@ -160,6 +162,20 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass entityPageEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass permalinkCatalogEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass permalinkEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -497,6 +513,51 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPermalinkCatalog() {
+		return permalinkCatalogEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPermalinkCatalog_Permalinks() {
+		return (EReference)permalinkCatalogEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPermalink() {
+		return permalinkEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPermalink_Namespace() {
+		return (EAttribute)permalinkEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPermalink_Template() {
+		return (EAttribute)permalinkEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -567,6 +628,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		entityPageEClass = createEClass(ENTITY_PAGE);
 		createEAttribute(entityPageEClass, ENTITY_PAGE__ENTITY_CLASS);
+
+		permalinkCatalogEClass = createEClass(PERMALINK_CATALOG);
+		createEReference(permalinkCatalogEClass, PERMALINK_CATALOG__PERMALINKS);
+
+		permalinkEClass = createEClass(PERMALINK);
+		createEAttribute(permalinkEClass, PERMALINK__NAMESPACE);
+		createEAttribute(permalinkEClass, PERMALINK__TEMPLATE);
 	}
 
 	/**
@@ -667,6 +735,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		initEClass(entityPageEClass, EntityPage.class, "EntityPage", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEntityPage_EntityClass(), ecorePackage.getEString(), "entityClass", null, 1, 1, EntityPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(permalinkCatalogEClass, PermalinkCatalog.class, "PermalinkCatalog", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPermalinkCatalog_Permalinks(), this.getPermalink(), null, "permalinks", null, 0, -1, PermalinkCatalog.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(permalinkEClass, Permalink.class, "Permalink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPermalink_Namespace(), ecorePackage.getEString(), "namespace", null, 1, 1, Permalink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPermalink_Template(), ecorePackage.getEString(), "template", null, 1, 1, Permalink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -797,6 +872,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Full name of the class that represents the entity.\n\nThis is required for:\n1. Getting the EntityRepository for the entity, scoped to the active tenant\n2. Getting the EntityDescriptor which provides metadata about the entity, scoped to the active tenant\n"
+		   });		
+		addAnnotation
+		  (permalinkEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Permalink configuration for an entity."
+		   });		
+		addAnnotation
+		  (getPermalink_Namespace(), 
+		   source, 
+		   new String[] {
+			 "documentation", "e.g. person, shop, etc."
+		   });		
+		addAnnotation
+		  (getPermalink_Template(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Recognized values are:\n\n<ol>\n<li>baseUri (from WebAddress, automatically chosen whether relative (\'/\'), absolute plain HTTP, or absolute HTTPS),\nincluding scheme and port, and trailing slash.</li>\n<li>slugPath</li>\n</ol>\n\n<p>Reference: https://github.com/damnhandy/Handy-URI-Templates"
 		   });
 	}
 

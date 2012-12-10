@@ -418,4 +418,46 @@ This is required for:
     </xsd:attribute>
   </xsd:complexType>
   <xsd:element name="EntityPage" type="site:EntityPage"/>
+  <xsd:complexType name="PermalinkCatalog">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element name="permalinks" type="site:Permalink"/>
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+  </xsd:complexType>
+  <xsd:element name="PermalinkCatalog" type="site:PermalinkCatalog"/>
+  <xsd:complexType name="Permalink">
+    <xsd:annotation>
+      <xsd:documentation>Permalink configuration for an entity.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+    <xsd:attribute name="namespace" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>e.g. person, shop, etc.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="template" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Recognized values are:
+
+&lt;ol&gt;
+&lt;li&gt;baseUri (from WebAddress, automatically chosen whether relative ('/'), absolute plain HTTP, or absolute HTTPS),
+including scheme and port, and trailing slash.&lt;/li&gt;
+&lt;li&gt;slugPath&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Reference: https://github.com/damnhandy/Handy-URI-Templates</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element name="Permalink" type="site:Permalink">
+    <xsd:annotation>
+      <xsd:documentation>Permalink configuration for an entity.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
 </xsd:schema>

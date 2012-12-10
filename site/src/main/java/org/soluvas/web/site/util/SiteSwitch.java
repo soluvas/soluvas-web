@@ -193,6 +193,18 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SitePackage.PERMALINK_CATALOG: {
+				PermalinkCatalog permalinkCatalog = (PermalinkCatalog)theEObject;
+				T result = casePermalinkCatalog(permalinkCatalog);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.PERMALINK: {
+				Permalink permalink = (Permalink)theEObject;
+				T result = casePermalink(permalink);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -464,6 +476,36 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEntityPage(EntityPage object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Permalink Catalog</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Permalink Catalog</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePermalinkCatalog(PermalinkCatalog object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Permalink</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Permalink</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePermalink(Permalink object) {
 		return null;
 	}
 

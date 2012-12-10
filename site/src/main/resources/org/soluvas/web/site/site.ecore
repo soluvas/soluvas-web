@@ -117,4 +117,25 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PermalinkCatalog">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="permalinks" upperBound="-1"
+        eType="#//Permalink" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Permalink">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Permalink configuration for an entity."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="namespace" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="e.g. person, shop, etc."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="template" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Recognized values are:&#xA;&#xA;&lt;ol>&#xA;&lt;li>baseUri (from WebAddress, automatically chosen whether relative ('/'), absolute plain HTTP, or absolute HTTPS),&#xA;including scheme and port, and trailing slash.&lt;/li>&#xA;&lt;li>slugPath&lt;/li>&#xA;&lt;/ol>&#xA;&#xA;&lt;p>Reference: https://github.com/damnhandy/Handy-URI-Templates"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
 </ecore:EPackage>

@@ -168,6 +168,24 @@ public interface SiteFactory extends EFactory {
 	ResetPasswordPage createResetPasswordPage();
 
 	/**
+	 * Returns a new object of class '<em>Permalink Catalog</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Permalink Catalog</em>'.
+	 * @generated
+	 */
+	PermalinkCatalog createPermalinkCatalog();
+
+	/**
+	 * Returns a new object of class '<em>Permalink</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Permalink</em>'.
+	 * @generated
+	 */
+	Permalink createPermalink();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

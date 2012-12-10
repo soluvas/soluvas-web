@@ -140,6 +140,14 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createEntityPageAdapter();
 			}
 			@Override
+			public Adapter casePermalinkCatalog(PermalinkCatalog object) {
+				return createPermalinkCatalogAdapter();
+			}
+			@Override
+			public Adapter casePermalink(Permalink object) {
+				return createPermalinkAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -408,6 +416,34 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEntityPageAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.PermalinkCatalog <em>Permalink Catalog</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.PermalinkCatalog
+	 * @generated
+	 */
+	public Adapter createPermalinkCatalogAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.Permalink <em>Permalink</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.Permalink
+	 * @generated
+	 */
+	public Adapter createPermalinkAdapter() {
 		return null;
 	}
 
