@@ -9,6 +9,7 @@ import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.Contributor;
 import org.soluvas.web.site.compose.HideContributor;
@@ -57,7 +58,7 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 				contribName = contributor.getTargetPath();
 				contribNameAnsi = contribName.substring(0, 25);
 			} else
-				throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
+				throw new SiteException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
 			final String stateSymbol;
 			switch (contributor.getState()) {
 			case UNRESOLVED:

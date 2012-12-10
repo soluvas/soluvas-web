@@ -14,6 +14,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.soluvas.json.JacksonMapperFactory;
 import org.soluvas.web.site.Page;
+import org.soluvas.web.site.SiteException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Supplier;
@@ -105,7 +106,7 @@ public class BackboneModel<T> extends JsSource {
 		try {
 			return name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");";
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot serialize model to JSON: " + name + ": " + className + " from " + model, e);
+			throw new SiteException("Cannot serialize model to JSON: " + name + ": " + className + " from " + model, e);
 		} finally {
 			bundleContext.ungetService(jacksonMapperFactoryRef);
 		}

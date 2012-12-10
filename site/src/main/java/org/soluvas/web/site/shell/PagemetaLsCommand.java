@@ -10,6 +10,7 @@ import org.osgi.framework.Bundle;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.shell.TenantCommandSupport;
+import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.pagemeta.ClassPageSelector;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
 import org.soluvas.web.site.pagemeta.PageRule;
@@ -51,14 +52,14 @@ public class PagemetaLsCommand extends TenantCommandSupport {
 				selectorSymbol = "@|bold,green ©|@";
 				final String className = ((ClassPageSelector) selector).getClassName();
 				selectorNameAnsi = NameUtils.shortenClassAnsi(className, 29);
-			} else throw new RuntimeException("Unknown PageSelector " + selector);
+			} else throw new SiteException("Unknown PageSelector " + selector);
 			final PageDeclaration declaration = pageRule.getDeclaration();
 			final String declarationSymbol;
 			final String declarationName;
 			if (declaration instanceof SourcePageDeclaration) {
 				declarationSymbol = "@|bold,blue ▲|@";
 				declarationName = ((SourcePageDeclaration) declaration).getSource().toString();
-			} else throw new RuntimeException("Unknown PageDeclaration " + declaration);
+			} else throw new SiteException("Unknown PageDeclaration " + declaration);
 //			final String contribSymbol;
 //			final String contribName;
 //			if (contributor instanceof ChildContributor) {
@@ -70,7 +71,7 @@ public class PagemetaLsCommand extends TenantCommandSupport {
 //			} else if (contributor instanceof HideContributor) {
 //				contribSymbol = "@|bold,red ✖|@";
 //				contribName = contributor.getTargetPath();
-//			} else throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
+//			} else throw new SiteException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
 //			final String stateSymbol;
 //			switch (contributor.getState()) {
 //			case UNRESOLVED:

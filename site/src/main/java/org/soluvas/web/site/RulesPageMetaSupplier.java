@@ -96,7 +96,7 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 			combinePage(pageMeta, source);
 		} else {
 			log.error("Unknown pageMeta declaration: " + declaration);
-			throw new RuntimeException("Unknown pageMeta declaration: " + declaration);
+			throw new SiteException("Unknown pageMeta declaration: " + declaration);
 		}
 	}
 	

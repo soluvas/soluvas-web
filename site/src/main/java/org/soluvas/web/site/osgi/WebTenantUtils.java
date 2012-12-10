@@ -15,6 +15,7 @@ import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.google.common.base.Optional;
@@ -45,7 +46,7 @@ public class WebTenantUtils {
 		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
 		if (!matcher.matches()) {
 			log.error("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
-			throw new RuntimeException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
+			throw new SiteException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
 		}
 		final String tenantId = matcher.group(1);
 		final String tenantEnv = matcher.group(2);
@@ -86,12 +87,12 @@ public class WebTenantUtils {
 			Collection<ServiceReference<T>> foundRefs = bundleContext
 					.getServiceReferences(iface, realFilter);
 			if (foundRefs == null || foundRefs.isEmpty())
-				throw new RuntimeException("Cannot find " + className
+				throw new SiteException("Cannot find " + className
 						+ " service with filter " + realFilter);
 			final ServiceReference<T> serviceRef = foundRefs.iterator().next();
 			return serviceRef;
 		} catch (InvalidSyntaxException e) {
-			throw new RuntimeException("Cannot find " + className
+			throw new SiteException("Cannot find " + className
 					+ " service with filter " + realFilter, e);
 		}
 	}

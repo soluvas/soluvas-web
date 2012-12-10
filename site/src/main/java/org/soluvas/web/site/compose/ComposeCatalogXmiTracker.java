@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.XmiObjectLoader;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.site.SiteException;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
@@ -77,7 +78,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				try {
 					pageClass = (Class<Page>) bundle.loadClass(placeholder.getPageClassName());
 				} catch (ClassNotFoundException e) {
-					throw new RuntimeException("Cannot load Page class " + placeholder.getPageClassName() + " in bundle " + bundle +
+					throw new SiteException("Cannot load Page class " + placeholder.getPageClassName() + " in bundle " + bundle +
 							" referenced from " + url, e);
 				}
 				livePlaceholder.setPageClass(pageClass);
@@ -96,7 +97,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				try {
 					pageClass = (Class<Page>) bundle.loadClass(slave.getPageClassName());
 				} catch (ClassNotFoundException e) {
-					throw new RuntimeException("Cannot load Page class " + slave.getPageClassName() + " in bundle " + bundle +
+					throw new SiteException("Cannot load Page class " + slave.getPageClassName() + " in bundle " + bundle +
 							" referenced from " + url, e);
 				}
 				liveSlave.setPageClass(pageClass);
@@ -164,7 +165,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 						bundle.getSymbolicName(), bundle.getBundleId());
 				contributorRepo.delete(contributor);
 			} else {
-				throw new RuntimeException("Unknown EObject " + eobject.getClass().getName() + " from " + 
+				throw new SiteException("Unknown EObject " + eobject.getClass().getName() + " from " + 
 						bundle.getSymbolicName() + " [" + bundle.getBundleId() + "]");
 			}
 		}

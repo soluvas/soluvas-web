@@ -46,7 +46,7 @@ public class PagemetaCatalogLsCommand extends TenantCommandSupport {
 //			} else if (contributor instanceof HideContributor) {
 //				contribSymbol = "@|bold,red ✖|@";
 //				contribName = contributor.getTargetPath();
-//			} else throw new RuntimeException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
+//			} else throw new SiteException("Unknown contributor " + contributor.getClass().getName() + " from " + contributor.getBundle().getSymbolicName());
 //			final String stateSymbol;
 //			switch (contributor.getState()) {
 //			case UNRESOLVED:

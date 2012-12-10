@@ -7,6 +7,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.soluvas.json.JacksonMapperFactory;
 import org.soluvas.web.site.Page;
+import org.soluvas.web.site.SiteException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Supplier;
@@ -66,7 +67,7 @@ public class PlainModel<T> extends JsSource {
 			final ObjectMapper objectMapper = jacksonMapperFactory.get();
 			return name + " = " + objectMapper.writeValueAsString(data) + ";";
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot serialize model to JSON: " + name + " from " + data, e);
+			throw new SiteException("Cannot serialize model to JSON: " + name + " from " + data, e);
 		} finally {
 			bundleContext.ungetService(jacksonMapperFactoryRef);
 		}

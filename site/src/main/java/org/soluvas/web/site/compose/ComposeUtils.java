@@ -12,6 +12,7 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ExtensiblePage;
+import org.soluvas.web.site.SiteException;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
@@ -60,7 +61,7 @@ public class ComposeUtils {
 						if (page instanceof ExtensiblePage) {
 							model = ((ExtensiblePage) page).getModelForChild(contrib.getTargetPath());
 						} else
-							throw new RuntimeException("Page " + page.getClass().getName() + " must be an instance of ExtensiblePage to provide a model of " +
+							throw new SiteException("Page " + page.getClass().getName() + " must be an instance of ExtensiblePage to provide a model of " +
 									placeholder.getModelClassName() + " for " + placeholder);
 					} else {
 						model = null;
@@ -98,7 +99,7 @@ public class ComposeUtils {
 					parent.replace(componentToAdd);
 				}
 			} else {
-				throw new RuntimeException("Unknown contributor " + contrib.getClass().getName() + " requested by " + contrib);
+				throw new SiteException("Unknown contributor " + contrib.getClass().getName() + " requested by " + contrib);
 			}
 		}
 	}

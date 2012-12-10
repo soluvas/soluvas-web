@@ -20,6 +20,7 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ComponentFactory;
+import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.compose.ComposePackage;
 import org.soluvas.web.site.compose.ContributorState;
 import org.soluvas.web.site.compose.LiveComponentContributor;
@@ -188,13 +189,13 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 									getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
 							return (Component) constructor.newInstance(id, model);
 						} catch (Exception e) {
-							throw new RuntimeException("Cannot create component " + getClassName() + " using " + constructor + " for contributor " +
+							throw new SiteException("Cannot create component " + getClassName() + " using " + constructor + " for contributor " +
 									getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
 						}
 					}
 				};
 			} catch (Exception e) {
-				throw new RuntimeException("Cannot create component " + getClassName() + " for contributor " +
+				throw new SiteException("Cannot create component " + getClassName() + " for contributor " +
 						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
 			}
 		case FACTORY_CLASS:
@@ -206,7 +207,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
 				return (ComponentFactory) bundle.loadClass(factoryClassName).newInstance();
 			} catch (Exception e) {
-				throw new RuntimeException("Cannot create " + factoryClassName + " as a factory for contributor " +
+				throw new SiteException("Cannot create " + factoryClassName + " as a factory for contributor " +
 						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
 			}
 		case FACTORY_BEAN:
@@ -218,7 +219,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 				final Collection<ServiceReference<BlueprintContainer>> refs = bundleContext.getServiceReferences(BlueprintContainer.class,
 						filter);
 				if (refs.isEmpty()) {
-					throw new RuntimeException("Cannot find service " + BlueprintContainer.class.getName() + " with filter " + filter);
+					throw new SiteException("Cannot find service " + BlueprintContainer.class.getName() + " with filter " + filter);
 				}
 				final ServiceReference<BlueprintContainer> bpRef = refs.iterator().next();
 				final BlueprintContainer bp = bundleContext.getService(bpRef);
@@ -228,11 +229,11 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 					bundleContext.ungetService(bpRef);
 				}
 			} catch (Exception e) {
-				throw new RuntimeException("Cannot get bean " + factoryBean + " as a factory for contributor " +
+				throw new SiteException("Cannot get bean " + factoryBean + " as a factory for contributor " +
 						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
 			}
 		default:
-			throw new RuntimeException("Unknown CreationMode " + getCreationMode());
+			throw new SiteException("Unknown CreationMode " + getCreationMode());
 		}
 	}
 

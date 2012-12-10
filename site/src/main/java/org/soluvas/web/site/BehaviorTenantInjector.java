@@ -99,11 +99,11 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 				try {
 					serviceRefs = bundleContext.getServiceReferences(Supplier.class, filter);
 				} catch (InvalidSyntaxException e) {
-					throw new RuntimeException("Cannot inject " + componentId + "#" + field.getName() + ", invalid " +
+					throw new SiteException("Cannot inject " + componentId + "#" + field.getName() + ", invalid " +
 							suppliedClass.getName() + " Supplier service with filter " + filter, e);
 				}
 				if (serviceRefs == null || serviceRefs.isEmpty()) {
-					throw new RuntimeException("Cannot find " + suppliedClass.getName() + " supplier for " + componentId + "#" + field.getName() + ", " +
+					throw new SiteException("Cannot find " + suppliedClass.getName() + " supplier for " + componentId + "#" + field.getName() + ", " +
 							"Supplier with " + filter + " not found");
 				}
 				final ServiceReference<Supplier> serviceRef = serviceRefs.iterator().next();
@@ -114,7 +114,7 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 					FieldUtils.writeField(field, component, suppliedObj, true);
 				} catch (Exception e) {
 					log.error("Cannot inject " + componentId + "#" + field.getName() + " from " + supplier, e);
-					throw new RuntimeException("Cannot inject " + componentId + "#" + field.getName() + " from " + supplier, e);
+					throw new SiteException("Cannot inject " + componentId + "#" + field.getName() + " from " + supplier, e);
 				} finally {
 					bundleContext.ungetService(serviceRef);
 				}

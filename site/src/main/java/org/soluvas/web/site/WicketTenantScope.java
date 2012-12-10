@@ -85,7 +85,7 @@ public class WicketTenantScope implements Scope {
 		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
 		if (!matcher.matches()) {
 			log.error("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
-			throw new RuntimeException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
+			throw new SiteException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
 		}
 		final String tenantId = matcher.group(1);
 		final String tenantEnv = matcher.group(2);
@@ -103,10 +103,10 @@ public class WicketTenantScope implements Scope {
 		try {
 			ServiceReference[] serviceRefs = bundleContext.getServiceReferences(className, filter);
 			if (serviceRefs.length == 0)
-				throw new RuntimeException("Cannot find " + className + " service with filter " + filter);
+				throw new SiteException("Cannot find " + className + " service with filter " + filter);
 			serviceRef = serviceRefs[0];
 		} catch (InvalidSyntaxException e) {
-			throw new RuntimeException("Cannot find " + className + " service with filter " + filter, e);
+			throw new SiteException("Cannot find " + className + " service with filter " + filter, e);
 		}
 		Object bean = bundleContext.getService(serviceRef);
 		if (!beanMap.containsKey(appKey))
