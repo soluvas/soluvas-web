@@ -255,7 +255,7 @@ public class BootstrapPage extends ExtensiblePage {
 			add(new WebMarkupContainer("bootstrapPatchesCss").add(
 					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
 			add(new WebMarkupContainer("requireJs").add(
-					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.0.5.js")));
+					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.2.js")));
 			
 			//Carousel
 			add(new WebMarkupContainer("afterHeader"));
