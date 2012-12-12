@@ -2,7 +2,7 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
-import org.soluvas.web.site.webaddress.WebAddress;
+import org.soluvas.commons.WebAddress;
 
 /**
  * CSS Stylesheet reference information.

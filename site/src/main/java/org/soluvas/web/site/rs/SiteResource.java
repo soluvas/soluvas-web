@@ -20,10 +20,10 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.web.site.PermalinkCatalog;
 import org.soluvas.web.site.SiteException;
-import org.soluvas.web.site.webaddress.WebAddress;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 

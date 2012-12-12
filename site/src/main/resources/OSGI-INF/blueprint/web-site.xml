@@ -17,7 +17,6 @@
 			<list value-type="java.lang.Class">
 				<value>org.soluvas.web.site.SitePackage</value>
 				<value>org.soluvas.web.site.pagemeta.PagemetaPackage</value>
-				<value>org.soluvas.web.site.webaddress.WebaddressPackage</value>
 				<value>org.soluvas.web.site.compose.ComposePackage</value>
 			</list>
 		</argument>

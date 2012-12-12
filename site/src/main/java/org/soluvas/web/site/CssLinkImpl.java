@@ -1,6 +1,6 @@
 package org.soluvas.web.site;
 
-import org.soluvas.web.site.webaddress.WebAddress;
+import org.soluvas.commons.WebAddress;
 
 /**
  * Add a CSS Stylesheet reference.

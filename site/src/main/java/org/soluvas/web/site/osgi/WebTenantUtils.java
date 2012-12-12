@@ -14,9 +14,9 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.web.site.SiteException;
-import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;

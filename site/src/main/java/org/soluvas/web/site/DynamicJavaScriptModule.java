@@ -1,6 +1,6 @@
 package org.soluvas.web.site;
 
-import org.soluvas.web.site.webaddress.WebAddress;
+import org.soluvas.commons.WebAddress;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Supplier;

@@ -14,9 +14,9 @@ import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.web.site.JavaScriptModule;
 import org.soluvas.web.site.JavaScriptShim;
-import org.soluvas.web.site.webaddress.WebAddress;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 

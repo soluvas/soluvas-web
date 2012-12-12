@@ -8,7 +8,7 @@ import org.osgi.service.cm.ManagedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
-import org.soluvas.web.site.webaddress.WebAddress;
+import org.soluvas.commons.WebAddress;
 
 /**
  * @author ceefour

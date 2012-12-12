@@ -3,8 +3,8 @@ package org.soluvas.web.site;
 import java.io.Serializable;
 
 import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.web.site.pagemeta.PageRule;
-import org.soluvas.web.site.webaddress.WebAddress;
 
 /**
  * This is for branding only, not for web page rendering.

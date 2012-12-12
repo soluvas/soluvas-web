@@ -31,6 +31,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
@@ -50,7 +51,6 @@ import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.osgi.WebTenantUtils;
 import org.soluvas.web.site.pagemeta.PageMeta;
-import org.soluvas.web.site.webaddress.WebAddress;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;

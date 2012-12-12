@@ -31,7 +31,7 @@ bc.. <?xml version="1.0" encoding="UTF-8"?>
 			<entry key="clientId" value="${clientId}"/>
 			<entry key="tenantEnv" value="${tenantEnv}"/>
 			<entry key="tenantId" value="${tenantId}"/>
-			<entry key="suppliedClass" value="org.soluvas.web.site.webaddress.WebAddress" />
+			<entry key="suppliedClass" value="org.soluvas.commons.WebAddress" />
 			<entry key="layer" value="application" />
 		</service-properties>
 	</osgi:service>

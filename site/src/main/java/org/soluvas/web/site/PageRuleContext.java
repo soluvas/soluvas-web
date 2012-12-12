@@ -2,7 +2,7 @@ package org.soluvas.web.site;
 
 import javax.annotation.Nonnull;
 
-import org.soluvas.web.site.webaddress.WebAddress;
+import org.soluvas.commons.WebAddress;
 
 public class PageRuleContext {
 	private final String clientId;
