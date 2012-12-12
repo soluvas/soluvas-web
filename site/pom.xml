@@ -37,12 +37,10 @@
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>stringtemplate</artifactId>
-			<version>4.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.spullara.mustache.java</groupId>
 			<artifactId>compiler</artifactId>
-			<version>0.8.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
