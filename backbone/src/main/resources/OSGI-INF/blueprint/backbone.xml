@@ -76,24 +76,6 @@
 		</bean>
 	</service>
 	
-	<!-- TODO: Mustache.js is deprecated, please use Handlebars precompilation -->
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="mustache"/>
-			<argument value="org.soluvas.web.backbone/mustache-0.5.2"/>
-			<argument value="org.soluvas.web.backbone/mustache-0.5.2.min"/>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="mustache"/>
-			<argument>
-				<set/>
-			</argument>
-			<argument value="Mustache"/>
-		</bean>
-	</service>
-	
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="sugar"/>
