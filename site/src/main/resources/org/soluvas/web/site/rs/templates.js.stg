@@ -1,0 +1,16 @@
+templates(bundleName, templates) ::= <<
+/**
+ * ~bundleName~ Handlebars templates for JavaScript clients.
+ */
+define(['handlebars'], function(Handlebars) {
+
+return {
+	~templates:compile();anchor, wrap, separator=", "~
+};
+
+});
+>>
+
+compile(template) ::= <<
+"~template.name~": Handlebars.compile(~template.json~)
+>>
