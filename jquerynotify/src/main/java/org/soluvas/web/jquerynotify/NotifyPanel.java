@@ -7,9 +7,9 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessages;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.string.JavaScriptUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.json.JsonUtils;
 
 /**
  * For Ajax behavior explanation, see:
@@ -57,8 +57,9 @@ public class NotifyPanel extends Panel {
 //				target.appendJavaScript("require('jquery', new function(jQuery) {\n" +
 //						"  jQuery('#notify-container').notify('create', {text: \"" +
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
-				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: \"" +
-						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"});");
+				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
+				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
+						JsonUtils.asJson(msg.getMessage()) + "});");
 			}
 		}
 	}
