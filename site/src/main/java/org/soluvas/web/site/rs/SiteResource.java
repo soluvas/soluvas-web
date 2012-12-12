@@ -1,6 +1,8 @@
 package org.soluvas.web.site.rs;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +29,9 @@ import org.soluvas.web.site.webaddress.WebAddress;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -136,8 +141,8 @@ public class SiteResource {
 	 */
 	@GET @Path("templates/{bundleName}.js")
 	@Produces("text/javascript")
-	public String getTemplate(@PathParam("bundleName") @Nonnull final String bundleName) throws IOException {
-		Bundle bundle;
+	public String getTemplates(@PathParam("bundleName") @Nonnull final String bundleName) throws IOException {
+		final Bundle bundle;
 		try {
 			bundle = Iterables.find(Arrays.asList(bundleContext.getBundles()),
 					new Predicate<Bundle>() {
@@ -172,6 +177,76 @@ public class SiteResource {
 			}
 		}));
 		final URL stgUrl = SiteResource.class.getResource("templates.js.stg");
+		final STGroupFile stg = new STGroupFile(stgUrl, "UTF-8", '~', '~');
+		final ST templatesSt = stg.getInstanceOf("templates");
+		templatesSt.add("bundleName", bundleName);
+		templatesSt.add("templates", templates);
+		
+		// render
+		final String renderedJs = templatesSt.render(80);
+		return renderedJs;
+	}
+
+	/**
+	 * Usage:
+	 * 
+	 * <pre>{@literal
+	 * <service auto-export="interfaces">
+	 * 	<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+	 * 		<argument value="id.co.bippo.story.web/templates" />
+	 * 		<argument value="org.soluvas.web.site/templates/id.co.bippo.story.web" />
+	 * 		<argument value="org.soluvas.web.site/templates/id.co.bippo.story.web" />
+	 * 		<argument value="DYNAMIC" />
+	 * 	</bean>
+	 * </service>
+	 * }</pre>
+	 * 
+	 * @param bundleName
+	 * @return
+	 * @throws IOException
+	 */
+	@GET @Path("templates_compiled/{bundleName}.js")
+	@Produces("text/javascript")
+	public String getCompiledTemplates(@PathParam("bundleName") @Nonnull final String bundleName) throws IOException {
+		final MustacheFactory mf = new DefaultMustacheFactory();
+		final Bundle bundle;
+		try {
+			bundle = Iterables.find(Arrays.asList(bundleContext.getBundles()),
+					new Predicate<Bundle>() {
+				@Override
+				public boolean apply(@Nullable Bundle input) {
+					return bundleName.equals(input.getSymbolicName());
+				}
+			});
+		} catch (final NoSuchElementException e) {
+			throw new SiteException("Cannot find bundle " + bundleName, e);
+		}
+		final List<URL> resources = ImmutableList.copyOf(Iterators.forEnumeration(
+				bundle.findEntries("templates_web", "*.mustache", false)));
+		log.debug("Got {} Mustache templates: {}", resources.size(), resources);
+		final Pattern namePattern = Pattern.compile(".*\\/([^/]+)\\.(mustache|handlebars)");
+		final List<WebTemplate> templates = ImmutableList.copyOf(Lists.transform(resources, new Function<URL, WebTemplate>() {
+			@Override @Nullable
+			public WebTemplate apply(@Nullable URL input) {
+				String body;
+				try {
+					body = IOUtils.toString(input.openStream());
+				} catch (IOException e) {
+					throw new SiteException("Cannot read template " + input, e);
+				}
+				final String fileName = input.getFile();
+				final Matcher matcher = namePattern.matcher(fileName);
+				Preconditions.checkState(matcher.matches(),
+						"Template file name %s does not match %s",
+						fileName, namePattern);
+				final String name = matcher.group(1);
+				final Mustache compiled = mf.compile(new StringReader(body), name);
+				final StringWriter stringWriter = new StringWriter();
+				compiled.execute(stringWriter, new Object[] {});
+				return new WebTemplate(name, stringWriter.toString());
+			}
+		}));
+		final URL stgUrl = SiteResource.class.getResource("templates_compiled.js.stg");
 		final STGroupFile stg = new STGroupFile(stgUrl, "UTF-8", '~', '~');
 		final ST templatesSt = stg.getInstanceOf("templates");
 		templatesSt.add("bundleName", bundleName);
