@@ -11,6 +11,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -707,6 +708,13 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 			final DefaultMustacheFactory mf = new DefaultMustacheFactory();
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Title(), result, context);
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Description(), result, context);
+			final OpenGraphMeta openGraph = result.getOpenGraph();
+			if (openGraph != null) {
+				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Title(), openGraph, context);
+				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Type(), openGraph, context);
+				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Url(), openGraph, context);
+				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Image(), openGraph, context);
+			}
 			return result;
 		} else if (phase == PageMetaPhase.TEXT) {
 			return EcoreUtil.copy(this);
@@ -719,13 +727,16 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * @param mf
 	 */
 	protected void renderMustache(@Nonnull final DefaultMustacheFactory mf, @Nonnull final EAttribute attr,
-			@Nonnull final PageMeta target, @Nonnull final Object scope) {
-		final String template = (String) eGet(attr);
+			@Nonnull final EObject target, @Nonnull final Object scope) {
+		final String template = (String) target.eGet(attr);
+		if (template == null)
+			return;
 		final Mustache tpl = mf.compile(new StringReader(template), attr.getName());
 		final StringWriter writer = new StringWriter();
 		tpl.execute(writer, scope);
 		final String rendered = writer.toString();
-		log.trace("Setting {}='{}' from template: {}", attr.getName(), rendered, template);
+		log.trace("Setting {}.{}='{}' from template: {}", target.eClass().getName(),
+				attr.getName(), rendered, template);
 		target.eSet(attr, rendered);
 	}
 

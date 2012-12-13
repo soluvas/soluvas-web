@@ -55,6 +55,7 @@ import org.soluvas.web.site.pagemeta.PageMeta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -67,6 +68,25 @@ import com.google.common.collect.Ordering;
  */
 @SuppressWarnings("serial")
 public class BootstrapPage extends ExtensiblePage {
+	
+	public static class MetaTag extends WebMarkupContainer {
+
+		/**
+		 * @param id
+		 * @param model
+		 */
+		public MetaTag(String id, IModel<String> model) {
+			super(id, model);
+			add(new AttributeModifier("content", model));
+		}
+		
+		@Override
+		protected void onConfigure() {
+			super.onConfigure();
+			setVisible(!Strings.isNullOrEmpty(getDefaultModelObjectAsString()));
+		}
+		
+	}
 
 	/**
 	 * Usage:
@@ -246,8 +266,18 @@ public class BootstrapPage extends ExtensiblePage {
 			faviconLink.add(new AttributeModifier("href", 
 					new PropertyModel<String>(pageMetaModel, "icon.faviconUri")));
 			add(faviconLink);
-			add(new WebMarkupContainer("metaDescription").add(
-					new AttributeModifier("content", new PropertyModel<String>(pageMetaModel, "description"))));
+			add(
+				new MetaTag("metaDescription",
+					new PropertyModel<String>(pageMetaModel, "description")),
+				new MetaTag("ogTitle",
+					new PropertyModel<String>(pageMetaModel, "openGraph.title")),
+				new MetaTag("ogType",
+					new PropertyModel<String>(pageMetaModel, "openGraph.type")),
+				new MetaTag("ogUrl",
+					new PropertyModel<String>(pageMetaModel, "openGraph.url")),
+				new MetaTag("ogImage",
+					new PropertyModel<String>(pageMetaModel, "openGraph.image")) );
+			
 			add(new WebMarkupContainer("bootstrapCss").add(
 					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
 			add(new WebMarkupContainer("bootstrapResponsiveCss").add(

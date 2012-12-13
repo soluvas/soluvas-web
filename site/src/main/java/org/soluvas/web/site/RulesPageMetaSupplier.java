@@ -89,7 +89,7 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	}
 	
 	protected void processDeclaration(@Nonnull final PageDeclaration declaration, @Nonnull final PageMeta pageMeta) {
-		log.debug("Applying pageMeta declaration {} to {}", declaration, pageMeta);
+		log.trace("Applying pageMeta declaration {} to {}", declaration, pageMeta);
 		if (declaration instanceof SourcePageDeclaration) {
 			SourcePageDeclaration sourcePageDeclaration = (SourcePageDeclaration) declaration;
 			final PageMeta source = sourcePageDeclaration.getSource();
@@ -106,7 +106,7 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 	 * @param overlay
 	 */
 	protected void combinePage(PageMeta current, PageMeta overlay) {
-		log.info("Combining {} with {}", current, overlay);
+		log.trace("Combining {} with {}", current, overlay);
 		EmfUtils.combineEObject(current, overlay);
 	}
 
