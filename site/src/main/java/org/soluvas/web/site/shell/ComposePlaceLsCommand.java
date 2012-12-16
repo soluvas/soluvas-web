@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
-import org.osgi.framework.Bundle;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.compose.LivePlaceholder;
@@ -32,20 +31,19 @@ public class ComposePlaceLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-25s|%-40s|%-25s|%-34s|@",
+		System.out.println(ansi().render("@|negative_on %3s|%-25s|%-40s|%-25s|%-20s|@",
 				"№", "Page", "Path", "IModel", "Bundle"));
 		int i = 0;
 		final Collection<LivePlaceholder> origPlaceholders = placeholderRepo.findAll();
 		final Collection<LivePlaceholder> sortedPlaceholders = origPlaceholders;
 		for (LivePlaceholder placeholder : sortedPlaceholders) {
-			final Bundle bundle = placeholder.getBundle(); // TODO: Use BundleAware, and either use bridge pattern or merge into one class
+			final String bundleAnsi = NameUtils.shortenBundleAnsi(placeholder.getBundle(), 20);
 			final String pageName = placeholder.getPageClassName();
 			final String pageNameAnsi = NameUtils.shortenClassAnsi(pageName, 25);
 			final String modelName = placeholder.getModelClassName();
 			final String modelNameAnsi = NameUtils.shortenClassAnsi(modelName, 25);
-			System.out.println(ansi().render("@|bold,black %3d||@" + pageNameAnsi + "@|bold,black ||@%-40s@|bold,black ||@" + modelNameAnsi + "@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, placeholder.getPath(),
-				bundle.getSymbolicName(), bundle.getBundleId() ));
+			System.out.println(ansi().render("@|bold,black %3d||@" + pageNameAnsi + "@|bold,black ||@%-40s@|bold,black ||@" + modelNameAnsi + "@|bold,black ||@" + bundleAnsi,
+				++i, placeholder.getPath() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ placeholders", i));
 		return null;

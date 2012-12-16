@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
-import org.osgi.framework.Bundle;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.SiteException;
@@ -36,7 +35,7 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-27s|%-25s|%-40s|%-34s|@",
+		System.out.println(ansi().render("@|negative_on %3s|%-27s|%-25s|%-40s|%-20s|@",
 				"№", "Name", "Page", "Path", "Bundle"));
 		int i = 0;
 		final Collection<LiveContributor> origContributors = contributorRepo.findAll();
@@ -73,13 +72,12 @@ public class ComposeContribLsCommand extends OsgiCommandSupport {
 			default:
 				throw new IllegalArgumentException("Unknown contributor state: " + contributor.getState());
 			}
-			final Bundle bundle = contributor.getBundle();
+			final String bundleAnsi = NameUtils.shortenBundleAnsi(contributor.getBundle(), 20);
 			final String pageName = contributor.getPageClassName();
 			final String pageNameAnsi = NameUtils.shortenClassAnsi(pageName, 25);
 			System.out.println(ansi().render(
-					"@|bold,black %3d||@" + contribSymbol + stateSymbol + contribNameAnsi + "@|bold,black ||@" + pageNameAnsi + "@|bold,black ||@%-40s@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, contributor.getTargetPath(),
-				bundle.getSymbolicName(), bundle.getBundleId() ));
+					"@|bold,black %3d||@" + contribSymbol + stateSymbol + contribNameAnsi + "@|bold,black ||@" + pageNameAnsi + "@|bold,black ||@%-40s@|bold,black ||@" + bundleAnsi,
+				++i, contributor.getTargetPath() ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ contributors", i));
 		return null;

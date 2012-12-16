@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.apache.felix.gogo.commands.Command;
 import org.eclipse.emf.common.util.EList;
-import org.osgi.framework.Bundle;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.shell.TenantCommandSupport;
@@ -36,7 +35,7 @@ public class PagemetaLsCommand extends TenantCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		System.out.println(ansi().render("@|negative_on %3s|%-30s|%4s|%-45s|%-40s|%-34s|@",
+		System.out.println(ansi().render("@|negative_on %3s|%-30s|%4s|%-45s|%-40s|%-20s|@",
 				"№", "Name", "Pos", "Page", "Path", "Bundle"));
 		int i = 0;
 		final EList<PageRule> pageRules = pageRuleCollection.getRules();
@@ -86,11 +85,10 @@ public class PagemetaLsCommand extends TenantCommandSupport {
 //			default:
 //				throw new IllegalArgumentException("Unknown contributor state: " + contributor.getState());
 //			}
-			final Bundle bundle = pageRule.getBundle();
+			final String bundleAnsi = NameUtils.shortenBundleAnsi(pageRule.getBundle(), 20);
 			// FIXME: Resource aware!
-			System.out.println(ansi().render("@|bold,black %3d||@" + selectorSymbol + selectorNameAnsi + "@|bold,black ||@%4d@|bold,black ||@" + declarationSymbol + "%-44s@|bold,black ||@%-30s@|bold,yellow %4d|@",
-				++i, pageRule.getPositioner(), declarationName,
-				bundle.getSymbolicName(), bundle.getBundleId() ));
+			System.out.println(ansi().render("@|bold,black %3d||@" + selectorSymbol + selectorNameAnsi + "@|bold,black ||@%4d@|bold,black ||@" + declarationSymbol + "%-44s@|bold,black ||@" + bundleAnsi,
+				++i, pageRule.getPositioner(), declarationName ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ contributors", i));
 		return null;
