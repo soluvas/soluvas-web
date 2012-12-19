@@ -52,9 +52,103 @@
 		filter="(suppliedClass=org.soluvas.web.compose.LiveContributor)" />
 
 	<service auto-export="interfaces">
+		<!-- don't use the 'aggregate' bootstrap module, please use individual modules -->
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="bootstrap"/>
-			<argument value="org.soluvas.web.bootstrap"/>
+			<argument value="bootstrap/bootstrap"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<!-- in minified config, all bootstrap plugins resolve to 'bootstrap.min' -->
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-affix"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-affix"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-alert"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-alert"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-button"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-button"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-carousel"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-carousel"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-collapse"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-collapse"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-dropdown"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-dropdown"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-modal"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-modal"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-popover"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-popover"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-scrollspy"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-scrollspy"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-tab"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-tab"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-tooltip"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-tooltip"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-transition"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-transition"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="bootstrap/bootstrap-typeahead"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap-typeahead"/>
+			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
 		</bean>
 	</service>
 

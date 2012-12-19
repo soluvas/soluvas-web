@@ -22,10 +22,11 @@
 	</service>
 
 	<service auto-export="interfaces">
+		<!-- in minified config, all jquery-ui modules resolve to jquery.ui.custom.min -->
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui/jquery.ui.core"/>
 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.core"/>
-<!-- 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.core"/> -->
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery-ui.custom.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -44,7 +45,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui"/>
 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery-ui.custom"/>
-			<argument value="jquery-ui/js/jquery-ui-1.9.0.custom.min"/>
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery-ui.custom.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -62,7 +63,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.autocomplete"/>
-<!-- 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.autocomplete"/> -->
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery-ui.custom.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
