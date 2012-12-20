@@ -26,7 +26,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui/jquery.ui.core"/>
 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.core"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery-ui.custom.min"/>
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery.ui.core.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -63,7 +63,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
 			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.autocomplete"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery-ui.custom.min"/>
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery.ui.autocomplete.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
