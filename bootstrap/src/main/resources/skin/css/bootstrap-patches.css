@@ -4,4 +4,27 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 	z-index: 1051 !important;
 }
 
+.berbatik-info h2, h1{
+	font-weight: normal;
+}
+
+.footer{
+	background-color: #F5F5F5;
+	border-top: 1px solid #E5E5E5; 
+	margin-top: 70px; 
+	padding: 30px 0; 
+	}
+	
+/* .footer li{ */
+/* 	margin-bottom: 10px; */
+/* } */
+.footer img{
+	margin-right:5px;
+}
+.footer hr{
+	margin:10px 0;
+}
+.footer h4{
+	margin-top: 0;
+}
 
