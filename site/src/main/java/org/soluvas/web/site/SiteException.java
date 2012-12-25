@@ -34,4 +34,8 @@ public class SiteException extends RuntimeException {
 		super(message, cause);
 	}
 
+	public SiteException(Throwable cause, String message, Object... args) {
+		super(String.format(message, args), cause);
+	}
+
 }
