@@ -15,6 +15,8 @@ import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Throwables;
 import com.google.common.collect.Iterables;
 
 /**
@@ -39,6 +41,8 @@ public abstract class AsyncModel<T> extends LoadableDetachableModel<T> {
 	public static final int timeoutValue = 15;
 	public static final TimeUnit timeoutUnit = TimeUnit.SECONDS;
 	private transient Future<T> future;
+	private transient T futureResult;
+	private transient boolean hasResult = false;
 
 	public AsyncModel() {
 		super();
@@ -50,10 +54,11 @@ public abstract class AsyncModel<T> extends LoadableDetachableModel<T> {
 	 */
 	protected void resubmit() {
 		final BundleContext bundleContext = FrameworkUtil.getBundle(AsyncModel.class).getBundleContext();
-		ServiceReference<ExecutorService> executorRef;
+		final ServiceReference<ExecutorService> executorRef;
 		try {
 			executorRef = Iterables.getFirst(
 					bundleContext.getServiceReferences(ExecutorService.class, "(tenantId=*)"), null);
+			Preconditions.checkNotNull(executorRef, "Cannot find ExecutorService");
 		} catch (InvalidSyntaxException e) {
 			throw new SiteException("Cannot get global ExecutorService", e);
 		}
@@ -78,22 +83,44 @@ public abstract class AsyncModel<T> extends LoadableDetachableModel<T> {
 		}
 	}
 	
+	@Override
+	protected void onDetach() {
+		future = null;
+		futureResult = null;
+		hasResult = false;
+		super.onDetach();
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.apache.wicket.model.LoadableDetachableModel#load()
 	 */
 	@Override
 	protected T load() {
-		try {
-			final T result = future.get(timeoutValue, timeoutUnit);
-			return result;
-		} catch (InterruptedException e) {
-			throw new SiteException(e, "Cannot load model %s", getClass().getName());
-		} catch (ExecutionException e) {
-			throw new SiteException(e, "Cannot load model %s", getClass().getName());
-		} catch (TimeoutException e) {
-			log.error("Timed out (%d %s) waiting for model %s", timeoutValue, timeoutUnit, getClass().getName());
-			return null;
+		if (!hasResult) {
+			try {
+				if (future == null) {
+					log.warn("future is null, resubmitting");
+					// FIXME: this is sync!!
+					resubmit();
+				}
+				Preconditions.checkNotNull(future, "future cannot be null");
+				futureResult = future.get(timeoutValue, timeoutUnit);
+				if (futureResult == null)
+					log.warn("AsyncModel returns null!");
+				setObject(futureResult);
+				hasResult = true;
+			} catch (InterruptedException e) {
+				throw new SiteException(e, "Cannot load model %s", getClass().getName());
+			} catch (ExecutionException e) {
+				Throwables.propagate(e.getCause());
+				futureResult = null;
+	//			throw new SiteException(e, "Cannot load model %s", getClass().getName());
+			} catch (TimeoutException e) {
+				log.error("Timed out (%d %s) waiting for model %s", timeoutValue, timeoutUnit, getClass().getName());
+				futureResult = null;
+			}
 		}
+		return futureResult;
 	}
 
 	protected abstract T doLoad() throws Exception;

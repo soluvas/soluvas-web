@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
 import org.soluvas.web.site.pagemeta.OpenGraphMeta;
@@ -733,7 +734,12 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 			return;
 		final Mustache tpl = mf.compile(new StringReader(template), attr.getName());
 		final StringWriter writer = new StringWriter();
-		tpl.execute(writer, scope);
+		try {
+			tpl.execute(writer, scope);
+		} catch (Exception e) {
+			throw new SiteException(e, "Cannot render mustache for %s.%s: %s",
+					target.eClass().getName(), attr.getName(), template);
+		}
 		final String rendered = writer.toString();
 		log.trace("Setting {}.{}='{}' from template: {}", target.eClass().getName(),
 				attr.getName(), rendered, template);
