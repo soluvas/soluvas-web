@@ -9,10 +9,10 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 }
 
 .footer{
-	background-color: #F5F5F5;
-	border-top: 1px solid #E5E5E5; 
-	margin-top: 70px; 
-	padding: 30px 0; 
+/* 	background-color: #F5F5F5; */
+/* 	border-top: 1px solid #E5E5E5;  */
+/* 	margin-top: 70px;  */
+/* 	padding: 30px 0;  */
 	}
 	
 /* .footer li{ */
@@ -28,3 +28,6 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 	margin-top: 0;
 }
 
+.social-media-footer li{
+	margin-bottom: 5px;
+}
