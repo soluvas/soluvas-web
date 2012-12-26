@@ -1,9 +1,4 @@
-/**
- * 
- */
 package org.soluvas.web.bootstrap;
-
-
 
 /**
  * @author atang
