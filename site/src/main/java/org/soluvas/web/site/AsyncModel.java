@@ -32,6 +32,8 @@ import com.google.common.collect.Iterables;
  * });
  * }</pre>
  * 
+ * <p>{@link #onAttach()} doesn't work as I imagined. What we need is onBeforeRequest...
+ * 
  * @author ceefour
  */
 @SuppressWarnings("serial")
@@ -41,8 +43,6 @@ public abstract class AsyncModel<T> extends LoadableDetachableModel<T> {
 	public static final int timeoutValue = 15;
 	public static final TimeUnit timeoutUnit = TimeUnit.SECONDS;
 	private transient Future<T> future;
-	private transient T futureResult;
-	private transient boolean hasResult = false;
 
 	public AsyncModel() {
 		super();
@@ -75,50 +75,28 @@ public abstract class AsyncModel<T> extends LoadableDetachableModel<T> {
 		}
 	}
 	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		if (future == null) {
-			resubmit();
-		}
-	}
-	
-	@Override
-	protected void onDetach() {
-		future = null;
-		futureResult = null;
-		hasResult = false;
-		super.onDetach();
-	}
-	
 	/* (non-Javadoc)
 	 * @see org.apache.wicket.model.LoadableDetachableModel#load()
 	 */
 	@Override
 	protected T load() {
-		if (!hasResult) {
-			try {
-				if (future == null) {
-					log.warn("future is null, resubmitting");
-					// FIXME: this is sync!!
-					resubmit();
-				}
-				Preconditions.checkNotNull(future, "future cannot be null");
-				futureResult = future.get(timeoutValue, timeoutUnit);
-				if (futureResult == null)
-					log.warn("AsyncModel returns null!");
-				setObject(futureResult);
-				hasResult = true;
-			} catch (InterruptedException e) {
-				throw new SiteException(e, "Cannot load model %s", getClass().getName());
-			} catch (ExecutionException e) {
-				Throwables.propagate(e.getCause());
-				futureResult = null;
-	//			throw new SiteException(e, "Cannot load model %s", getClass().getName());
-			} catch (TimeoutException e) {
-				log.error("Timed out (%d %s) waiting for model %s", timeoutValue, timeoutUnit, getClass().getName());
-				futureResult = null;
+		T futureResult = null;
+		try {
+			if (future == null) {
+				log.info("future is null, resubmitting");
+				// FIXME: this is sync!! need onBeforeRequest
+				resubmit();
 			}
+			futureResult = future.get(timeoutValue, timeoutUnit);
+			if (futureResult == null)
+				log.warn("AsyncModel returns null!");
+		} catch (final InterruptedException e) {
+			throw new SiteException(e, "Cannot load model %s", getClass().getName());
+		} catch (final ExecutionException e) {
+			Throwables.propagate(e.getCause());
+//			throw new SiteException(e, "Cannot load model %s", getClass().getName());
+		} catch (final TimeoutException e) {
+			log.error("Timed out (%d %s) waiting for model %s", timeoutValue, timeoutUnit, getClass().getName());
 		}
 		return futureResult;
 	}
