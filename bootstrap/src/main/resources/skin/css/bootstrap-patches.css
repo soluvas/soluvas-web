@@ -31,3 +31,18 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 .social-media-footer li{
 	margin-bottom: 5px;
 }
+
+.custom{
+	background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 5px 5px 5px 5px;
+    padding: 10px;
+	}
+.productWinkPanel{
+	margin:10px 0 20px 0;
+}
+#shopInfoContainer{
+	margin-bottom:15px;
+}
+.nobold{
+	font-weight: normal;
+}
