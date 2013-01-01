@@ -14,15 +14,16 @@ public class DelegatingFilterFactory extends AbstractFilterFactory {
 		super(bundleContext, applicationName, priority);
 	}
 
+	@Override
 	public Filter createFilter(ConfigurableFilterConfig filterConfig) {
-		ClassLoader oldClassloader = Thread.currentThread().getContextClassLoader();
+		final ClassLoader oldClassloader = Thread.currentThread().getContextClassLoader();
         try {
             Thread.currentThread().setContextClassLoader(DelegatingFilter.class.getClassLoader());
-            DelegatingFilter delegatingFilter = DelegatingFilter.class.newInstance();
+            final DelegatingFilter delegatingFilter = new DelegatingFilter(); //DelegatingFilter.class.newInstance();
             delegatingFilter.setFilter(filter);
             delegatingFilter.init(filterConfig);
             return filter;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new IllegalStateException(String.format("Filter %s could not be created for application {}",
                 DelegatingFilter.class.getName(), getApplicationName()), e);
         } finally {
