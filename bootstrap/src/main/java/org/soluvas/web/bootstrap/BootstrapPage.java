@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.apache.wicket.AttributeModifier;
@@ -31,11 +32,14 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.inject.Filter;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
+import org.soluvas.web.site.AsyncModel;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.JavaScriptLink;
@@ -164,6 +168,8 @@ public class BootstrapPage extends ExtensiblePage {
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@Inject @Supplied
 	private WebAddress webAddress;
+	@Inject @Supplied @Filter("(layer=application)")
+	private AppManifest appManifest;
 	@PaxWicketBean(name="contributors")
 	private CrudRepository<LiveContributor, Integer> contributors;
 	
@@ -209,10 +215,10 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 	}
 	
-	protected PageMeta getPageMeta() {
-		final TenantRef tenant = WebTenantUtils.getTenant();
+	protected PageMeta getPageMeta(@Nonnull final TenantRef tenant,
+			String currentUri) {
 		final PageRuleContext context = new PageRuleContext(tenant.getClientId(), tenant.getTenantId(), tenant.getTenantEnv(),
-				this, getRequest().getUrl().toString(), webAddress);
+				this, currentUri, webAddress, appManifest);
 //		final List<PageRule> pageRules = pageRulesSupplier.get();
 //		final PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
 		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
@@ -234,12 +240,14 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 	
 	public BootstrapPage() {
+		final TenantRef tenant = WebTenantUtils.getTenant();
+		final String currentUri = getRequest().getUrl().toString();
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-		final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
+		final IModel<PageMeta> pageMetaModel = new AsyncModel<PageMeta>() {
 			@Override
 			protected PageMeta load() {
-				return getPageMeta();
+				return getPageMeta(tenant, currentUri);
 			}
 		};
 		
@@ -254,14 +262,20 @@ public class BootstrapPage extends ExtensiblePage {
 			
 			// HEAD
 			//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-			final IModel<String> titleModel = new LoadableDetachableModel<String>() {
+			final IModel<String> titleModel = new AsyncModel<String>() {
 				@Override
 				protected String load() {
 					return Optional.fromNullable(getTitle()).or( Optional.fromNullable(pageMetaModel.getObject().getTitle()) ).orNull();
 				}
 			};
+			final IModel<String> titleSuffixModel = new AsyncModel<String>() {
+				@Override
+				protected String load() {
+					return " | " + appManifest.getTitle();
+				}
+			};
 			add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
-			add(new Label("pageTitleSuffix", site.getPageTitleSuffix()).setRenderBodyOnly(true));
+			add(new Label("pageTitleSuffix", titleSuffixModel).setRenderBodyOnly(true));
 			final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
 			faviconLink.add(new AttributeModifier("href", 
 					new PropertyModel<String>(pageMetaModel, "icon.faviconUri")));

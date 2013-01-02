@@ -2,6 +2,7 @@ package org.soluvas.web.site;
 
 import javax.annotation.Nonnull;
 
+import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
 
 public class PageRuleContext {
@@ -11,6 +12,7 @@ public class PageRuleContext {
 	private final ExtensiblePage page;
 	private final String uri;
 	private final WebAddress webAddress;
+	private final AppManifest appManifest;
 	
 	/**
 	 * @param clientId
@@ -20,7 +22,8 @@ public class PageRuleContext {
 	 * @param uri
 	 */
 	public PageRuleContext(@Nonnull final String clientId, @Nonnull final String tenantId, @Nonnull final String tenantEnv,
-			@Nonnull final ExtensiblePage page, String uri, @Nonnull final WebAddress webAddress) {
+			@Nonnull final ExtensiblePage page, String uri, @Nonnull final WebAddress webAddress,
+			@Nonnull final AppManifest appManifest) {
 		super();
 		this.clientId = clientId;
 		this.tenantId = tenantId;
@@ -28,6 +31,7 @@ public class PageRuleContext {
 		this.page = page;
 		this.uri = uri;
 		this.webAddress = webAddress;
+		this.appManifest = appManifest;
 	}
 
 	public String getClientId() {
@@ -58,6 +62,10 @@ public class PageRuleContext {
 	 */
 	public WebAddress getWebAddress() {
 		return webAddress;
+	}
+
+	public AppManifest getAppManifest() {
+		return appManifest;
 	}
 
 	/* (non-Javadoc)
