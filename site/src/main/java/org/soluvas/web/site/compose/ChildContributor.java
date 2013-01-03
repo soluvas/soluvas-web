@@ -2,6 +2,8 @@
  */
 package org.soluvas.web.site.compose;
 
+import org.soluvas.commons.Positionable;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -13,5 +15,5 @@ package org.soluvas.web.site.compose;
  * @model
  * @generated
  */
-public interface ChildContributor extends ComponentContributor {
+public interface ChildContributor extends ComponentContributor, Positionable {
 } // ChildContributor

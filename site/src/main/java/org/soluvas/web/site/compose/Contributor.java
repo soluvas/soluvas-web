@@ -3,8 +3,8 @@
 package org.soluvas.web.site.compose;
 
 import org.osgi.framework.Bundle;
-import org.soluvas.commons.SerializableEObject;
-import org.eclipse.emf.ecore.EObject;
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,10 +21,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.compose.ComposePackage#getContributor()
  * @model interface="true" abstract="true"
- * @extends SerializableEObject
  * @generated
  */
-public interface Contributor extends SerializableEObject {
+public interface Contributor extends BundleAware, ResourceAware {
 	/**
 	 * Returns the value of the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

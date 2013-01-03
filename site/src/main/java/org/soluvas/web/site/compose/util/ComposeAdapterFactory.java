@@ -4,12 +4,34 @@ package org.soluvas.web.site.compose.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
+import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.compose.*;
+import org.soluvas.web.site.compose.ChildContributor;
+import org.soluvas.web.site.compose.ComponentContributor;
+import org.soluvas.web.site.compose.ComposeCatalog;
+import org.soluvas.web.site.compose.ComposePackage;
+import org.soluvas.web.site.compose.Contributor;
+import org.soluvas.web.site.compose.ContributorCollection;
+import org.soluvas.web.site.compose.HideContributor;
+import org.soluvas.web.site.compose.LiveChildContributor;
+import org.soluvas.web.site.compose.LiveComponentContributor;
+import org.soluvas.web.site.compose.LiveContributor;
+import org.soluvas.web.site.compose.LiveContributorCollection;
+import org.soluvas.web.site.compose.LiveHideContributor;
+import org.soluvas.web.site.compose.LivePlaceholder;
+import org.soluvas.web.site.compose.LiveReplaceContributor;
+import org.soluvas.web.site.compose.LiveSlave;
+import org.soluvas.web.site.compose.LiveTarget;
+import org.soluvas.web.site.compose.Placeholder;
+import org.soluvas.web.site.compose.PlaceholderCollection;
+import org.soluvas.web.site.compose.ReplaceContributor;
+import org.soluvas.web.site.compose.Slave;
+import org.soluvas.web.site.compose.SlaveCollection;
+import org.soluvas.web.site.compose.Target;
 
 /**
  * <!-- begin-user-doc -->
@@ -150,6 +172,18 @@ public class ComposeAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseContributorCollection(ContributorCollection object) {
 				return createContributorCollectionAdapter();
+			}
+			@Override
+			public Adapter caseResourceAware(ResourceAware object) {
+				return createResourceAwareAdapter();
+			}
+			@Override
+			public Adapter caseBundleAware(BundleAware object) {
+				return createBundleAwareAdapter();
+			}
+			@Override
+			public Adapter casePositionable(Positionable object) {
+				return createPositionableAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -462,6 +496,48 @@ public class ComposeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createContributorCollectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.ResourceAware <em>Resource Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.ResourceAware
+	 * @generated
+	 */
+	public Adapter createResourceAwareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.BundleAware <em>Bundle Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.BundleAware
+	 * @generated
+	 */
+	public Adapter createBundleAwareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.Positionable <em>Positionable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.Positionable
+	 * @generated
+	 */
+	public Adapter createPositionableAdapter() {
 		return null;
 	}
 

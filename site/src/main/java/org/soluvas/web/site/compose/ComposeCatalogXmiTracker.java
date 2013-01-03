@@ -73,7 +73,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				livePlaceholder.setPageClassName(placeholder.getPageClassName());
 				livePlaceholder.setPath(placeholder.getPath());
 				livePlaceholder.setModelClassName(placeholder.getModelClassName());
-				livePlaceholder.setBundle(bundle);
+				livePlaceholder.setLiveBundle(bundle);
 				final Class<Page> pageClass;
 				try {
 					pageClass = (Class<Page>) bundle.loadClass(placeholder.getPageClassName());
@@ -92,7 +92,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				liveSlave.setPageClassName(slave.getPageClassName());
 				liveSlave.setPath(slave.getPath());
 				liveSlave.setModelClassName(slave.getModelClassName());
-				liveSlave.setBundle(bundle);
+				liveSlave.setLiveBundle(bundle);
 				final Class<Page> pageClass;
 				try {
 					pageClass = (Class<Page>) bundle.loadClass(slave.getPageClassName());
@@ -108,7 +108,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			for (final Contributor contributor : ImmutableList.copyOf(composeCatalog.getContributors())) {
 				log.debug("Adding Contributor for {}/{} from {}", contributor.getPageClassName(), contributor.getTargetPath(), url);
 				final LiveContributor liveContributor = contributor.createLive(bundle);
-				liveContributor.setBundle(bundle);
+				liveContributor.setLiveBundle(bundle);
 				final LiveContributor added = contributorRepo.add(liveContributor);
 				eobjects.add(added);
 			}

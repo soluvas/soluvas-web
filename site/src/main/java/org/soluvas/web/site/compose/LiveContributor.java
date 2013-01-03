@@ -21,7 +21,7 @@ import org.osgi.framework.Bundle;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.soluvas.web.site.compose.LiveContributor#getState <em>State</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.LiveContributor#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.LiveContributor#getLiveBundle <em>Live Bundle</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,30 +60,30 @@ public interface LiveContributor extends Contributor {
 	void setState(ContributorState value);
 
 	/**
-	 * Returns the value of the '<em><b>Bundle</b></em>' attribute.
+	 * Returns the value of the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Bundle</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Live Bundle</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bundle</em>' attribute.
-	 * @see #setBundle(Bundle)
-	 * @see org.soluvas.web.site.compose.ComposePackage#getLiveContributor_Bundle()
+	 * @return the value of the '<em>Live Bundle</em>' attribute.
+	 * @see #setLiveBundle(Bundle)
+	 * @see org.soluvas.web.site.compose.ComposePackage#getLiveContributor_LiveBundle()
 	 * @model dataType="org.soluvas.web.site.compose.Bundle" required="true" transient="true"
 	 * @generated
 	 */
-	Bundle getBundle();
+	Bundle getLiveBundle();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.compose.LiveContributor#getBundle <em>Bundle</em>}' attribute.
+	 * Sets the value of the '{@link org.soluvas.web.site.compose.LiveContributor#getLiveBundle <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bundle</em>' attribute.
-	 * @see #getBundle()
+	 * @param value the new value of the '<em>Live Bundle</em>' attribute.
+	 * @see #getLiveBundle()
 	 * @generated
 	 */
-	void setBundle(Bundle value);
+	void setLiveBundle(Bundle value);
 
 	/**
 	 * <!-- begin-user-doc -->

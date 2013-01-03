@@ -9,6 +9,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.osgi.framework.Bundle;
+import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.ResourceAware;
+import org.soluvas.commons.ResourceType;
 import org.soluvas.web.site.ComponentFactory;
 import org.soluvas.web.site.compose.ComponentContributor;
 import org.soluvas.web.site.compose.ComposePackage;
@@ -27,10 +30,14 @@ import org.soluvas.web.site.compose.LiveTarget;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getResourceType <em>Resource Type</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getResourceUri <em>Resource Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getResourceName <em>Resource Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getPageClassName <em>Page Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getState <em>State</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getLiveBundle <em>Live Bundle</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getFactoryBean <em>Factory Bean</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveComponentContributorImpl#getCreationMode <em>Creation Mode</em>}</li>
@@ -41,6 +48,86 @@ import org.soluvas.web.site.compose.LiveTarget;
  */
 public class LiveComponentContributorImpl extends EObjectImpl implements LiveComponentContributor {
 	
+	/**
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Bundle BUNDLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected Bundle bundle = BUNDLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceType() <em>Resource Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ResourceType RESOURCE_TYPE_EDEFAULT = ResourceType.BUNDLE;
+
+	/**
+	 * The cached value of the '{@link #getResourceType() <em>Resource Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResourceType resourceType = RESOURCE_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceUri() <em>Resource Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_URI_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceUri() <em>Resource Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceUri = RESOURCE_URI_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceName() <em>Resource Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceName() <em>Resource Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceName = RESOURCE_NAME_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getPageClassName() <em>Page Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -102,24 +189,24 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	protected ContributorState state = STATE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * The default value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBundle()
+	 * @see #getLiveBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Bundle BUNDLE_EDEFAULT = null;
+	protected static final Bundle LIVE_BUNDLE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * The cached value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBundle()
+	 * @see #getLiveBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected Bundle bundle = BUNDLE_EDEFAULT;
+	protected Bundle liveBundle = LIVE_BUNDLE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
@@ -275,6 +362,29 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 * @generated
 	 */
 	@Override
+	public Bundle getLiveBundle() {
+		return liveBundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setLiveBundle(Bundle newLiveBundle) {
+		Bundle oldLiveBundle = liveBundle;
+		liveBundle = newLiveBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__LIVE_BUNDLE, oldLiveBundle, liveBundle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Bundle getBundle() {
 		return bundle;
 	}
@@ -290,6 +400,75 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 		bundle = newBundle;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE, oldBundle, bundle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceType getResourceType() {
+		return resourceType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceType(ResourceType newResourceType) {
+		ResourceType oldResourceType = resourceType;
+		resourceType = newResourceType == null ? RESOURCE_TYPE_EDEFAULT : newResourceType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE, oldResourceType, resourceType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getResourceUri() {
+		return resourceUri;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceUri(String newResourceUri) {
+		String oldResourceUri = resourceUri;
+		resourceUri = newResourceUri;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI, oldResourceUri, resourceUri));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceName(String newResourceName) {
+		String oldResourceName = resourceName;
+		resourceName = newResourceName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME, oldResourceName, resourceName));
 	}
 
 	/**
@@ -366,6 +545,7 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentFactory getFactory() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -440,14 +620,22 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
+				return getBundle();
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE:
+				return getResourceType();
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI:
+				return getResourceUri();
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME:
+				return getResourceName();
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return getPageClassName();
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__TARGET_PATH:
 				return getTargetPath();
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__STATE:
 				return getState();
-			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
-				return getBundle();
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__LIVE_BUNDLE:
+				return getLiveBundle();
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME:
 				return getClassName();
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__FACTORY_BEAN:
@@ -466,6 +654,18 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
+				setBundle((Bundle)newValue);
+				return;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE:
+				setResourceType((ResourceType)newValue);
+				return;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI:
+				setResourceUri((String)newValue);
+				return;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME:
+				setResourceName((String)newValue);
+				return;
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName((String)newValue);
 				return;
@@ -475,8 +675,8 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__STATE:
 				setState((ContributorState)newValue);
 				return;
-			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
-				setBundle((Bundle)newValue);
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__LIVE_BUNDLE:
+				setLiveBundle((Bundle)newValue);
 				return;
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME:
 				setClassName((String)newValue);
@@ -499,6 +699,18 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE:
+				setResourceType(RESOURCE_TYPE_EDEFAULT);
+				return;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI:
+				setResourceUri(RESOURCE_URI_EDEFAULT);
+				return;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME:
+				setResourceName(RESOURCE_NAME_EDEFAULT);
+				return;
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName(PAGE_CLASS_NAME_EDEFAULT);
 				return;
@@ -508,8 +720,8 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__STATE:
 				setState(STATE_EDEFAULT);
 				return;
-			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
-				setBundle(BUNDLE_EDEFAULT);
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__LIVE_BUNDLE:
+				setLiveBundle(LIVE_BUNDLE_EDEFAULT);
 				return;
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
@@ -532,14 +744,22 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE:
+				return resourceType != RESOURCE_TYPE_EDEFAULT;
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI:
+				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME:
+				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return PAGE_CLASS_NAME_EDEFAULT == null ? pageClassName != null : !PAGE_CLASS_NAME_EDEFAULT.equals(pageClassName);
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__TARGET_PATH:
 				return TARGET_PATH_EDEFAULT == null ? targetPath != null : !TARGET_PATH_EDEFAULT.equals(targetPath);
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__STATE:
 				return state != STATE_EDEFAULT;
-			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__BUNDLE:
-				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__LIVE_BUNDLE:
+				return LIVE_BUNDLE_EDEFAULT == null ? liveBundle != null : !LIVE_BUNDLE_EDEFAULT.equals(liveBundle);
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__FACTORY_BEAN:
@@ -557,6 +777,14 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == ResourceAware.class) {
+			switch (derivedFeatureID) {
+				case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE: return CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE;
+				case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI: return CommonsPackage.RESOURCE_AWARE__RESOURCE_URI;
+				case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME: return CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
 		if (baseClass == ComponentContributor.class) {
 			switch (derivedFeatureID) {
 				case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME: return ComposePackage.COMPONENT_CONTRIBUTOR__CLASS_NAME;
@@ -575,6 +803,14 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == ResourceAware.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE: return ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE;
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_URI: return ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI;
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME: return ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
 		if (baseClass == ComponentContributor.class) {
 			switch (baseFeatureID) {
 				case ComposePackage.COMPONENT_CONTRIBUTOR__CLASS_NAME: return ComposePackage.LIVE_COMPONENT_CONTRIBUTOR__CLASS_NAME;
@@ -596,14 +832,22 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (pageClassName: ");
+		result.append(" (bundle: ");
+		result.append(bundle);
+		result.append(", resourceType: ");
+		result.append(resourceType);
+		result.append(", resourceUri: ");
+		result.append(resourceUri);
+		result.append(", resourceName: ");
+		result.append(resourceName);
+		result.append(", pageClassName: ");
 		result.append(pageClassName);
 		result.append(", targetPath: ");
 		result.append(targetPath);
 		result.append(", state: ");
 		result.append(state);
-		result.append(", bundle: ");
-		result.append(bundle);
+		result.append(", liveBundle: ");
+		result.append(liveBundle);
 		result.append(", className: ");
 		result.append(className);
 		result.append(", factoryBean: ");

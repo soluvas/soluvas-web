@@ -7,7 +7,8 @@
       <details key="documentation" value="Declares a parent component that can be contributed with children."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Contributor" abstract="true" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Contributor" abstract="true" interface="true"
+      eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware">
     <eOperations name="createLive" lowerBound="1" eType="#//LiveContributor">
       <eParameters name="bundle" lowerBound="1" eType="#//Bundle"/>
     </eOperations>
@@ -29,8 +30,8 @@
         <eTypeArguments eClassifier="#//Page"/>
       </eGenericType>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundle" lowerBound="1"
-        eType="#//Bundle" transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="liveBundle" eType="#//Bundle"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LiveContributor" abstract="true" interface="true"
       eSuperTypes="#//Contributor">
@@ -59,7 +60,7 @@
       <eParameters name="target" eType="#//LiveTarget"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" lowerBound="1" eType="#//ContributorState"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundle" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="liveBundle" lowerBound="1"
         eType="#//Bundle" transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="ComponentFactory" instanceClassName="org.soluvas.web.site.ComponentFactory"
@@ -77,7 +78,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationMode" eType="#//CreationMode"
         defaultValueLiteral="constructor"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ChildContributor" eSuperTypes="#//ComponentContributor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ChildContributor" eSuperTypes="#//ComponentContributor ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//Positionable"/>
   <eClassifiers xsi:type="ecore:EClass" name="LiveChildContributor" eSuperTypes="#//ChildContributor #//LiveComponentContributor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="placeholder" eType="#//LivePlaceholder"/>
   </eClassifiers>
@@ -112,7 +113,7 @@
       <details key="documentation" value="Replaceable component."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Target">
+  <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageClassName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">

@@ -2,8 +2,8 @@
  */
 package org.soluvas.web.site.compose;
 
-import org.soluvas.commons.SerializableEObject;
-import org.eclipse.emf.ecore.EObject;
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,10 +21,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.compose.ComposePackage#getTarget()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface Target extends SerializableEObject {
+public interface Target extends ResourceAware, BundleAware {
 	/**
 	 * Returns the value of the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -15,7 +15,7 @@ import org.osgi.framework.Bundle;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.soluvas.web.site.compose.LiveTarget#getPageClass <em>Page Class</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.LiveTarget#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.LiveTarget#getLiveBundle <em>Live Bundle</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,29 +50,29 @@ public interface LiveTarget extends Target {
 	void setPageClass(Class<Page> value);
 
 	/**
-	 * Returns the value of the '<em><b>Bundle</b></em>' attribute.
+	 * Returns the value of the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Bundle</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Live Bundle</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bundle</em>' attribute.
-	 * @see #setBundle(Bundle)
-	 * @see org.soluvas.web.site.compose.ComposePackage#getLiveTarget_Bundle()
-	 * @model dataType="org.soluvas.web.site.compose.Bundle" required="true" transient="true"
+	 * @return the value of the '<em>Live Bundle</em>' attribute.
+	 * @see #setLiveBundle(Bundle)
+	 * @see org.soluvas.web.site.compose.ComposePackage#getLiveTarget_LiveBundle()
+	 * @model dataType="org.soluvas.web.site.compose.Bundle" transient="true"
 	 * @generated
 	 */
-	Bundle getBundle();
+	Bundle getLiveBundle();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.compose.LiveTarget#getBundle <em>Bundle</em>}' attribute.
+	 * Sets the value of the '{@link org.soluvas.web.site.compose.LiveTarget#getLiveBundle <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bundle</em>' attribute.
-	 * @see #getBundle()
+	 * @param value the new value of the '<em>Live Bundle</em>' attribute.
+	 * @see #getLiveBundle()
 	 * @generated
 	 */
-	void setBundle(Bundle value);
+	void setLiveBundle(Bundle value);
 
 } // LiveTarget

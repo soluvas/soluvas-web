@@ -40,7 +40,7 @@ import com.google.common.base.Preconditions;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveReplaceContributorImpl#getState <em>State</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.impl.LiveReplaceContributorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveReplaceContributorImpl#getLiveBundle <em>Live Bundle</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveReplaceContributorImpl#getSlave <em>Slave</em>}</li>
  * </ul>
  * </p>
@@ -73,24 +73,24 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	protected ContributorState state = STATE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * The default value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBundle()
+	 * @see #getLiveBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Bundle BUNDLE_EDEFAULT = null;
+	protected static final Bundle LIVE_BUNDLE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * The cached value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBundle()
+	 * @see #getLiveBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected Bundle bundle = BUNDLE_EDEFAULT;
+	protected Bundle liveBundle = LIVE_BUNDLE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSlave() <em>Slave</em>}' reference.
@@ -149,9 +149,8 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Bundle getBundle() {
-		return bundle;
+	public Bundle getLiveBundle() {
+		return liveBundle;
 	}
 
 	/**
@@ -159,12 +158,11 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setBundle(Bundle newBundle) {
-		Bundle oldBundle = bundle;
-		bundle = newBundle;
+	public void setLiveBundle(Bundle newLiveBundle) {
+		Bundle oldLiveBundle = liveBundle;
+		liveBundle = newLiveBundle;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE, oldBundle, bundle));
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE, oldLiveBundle, liveBundle));
 	}
 
 	/**
@@ -333,8 +331,8 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 		switch (featureID) {
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__STATE:
 				return getState();
-			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE:
-				return getBundle();
+			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE:
+				return getLiveBundle();
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__SLAVE:
 				if (resolve) return getSlave();
 				return basicGetSlave();
@@ -353,8 +351,8 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__STATE:
 				setState((ContributorState)newValue);
 				return;
-			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE:
-				setBundle((Bundle)newValue);
+			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE:
+				setLiveBundle((Bundle)newValue);
 				return;
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__SLAVE:
 				setSlave((LiveSlave)newValue);
@@ -374,8 +372,8 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__STATE:
 				setState(STATE_EDEFAULT);
 				return;
-			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE:
-				setBundle(BUNDLE_EDEFAULT);
+			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE:
+				setLiveBundle(LIVE_BUNDLE_EDEFAULT);
 				return;
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__SLAVE:
 				setSlave((LiveSlave)null);
@@ -394,8 +392,8 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 		switch (featureID) {
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__STATE:
 				return state != STATE_EDEFAULT;
-			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE:
-				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE:
+				return LIVE_BUNDLE_EDEFAULT == null ? liveBundle != null : !LIVE_BUNDLE_EDEFAULT.equals(liveBundle);
 			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__SLAVE:
 				return slave != null;
 		}
@@ -412,7 +410,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 		if (baseClass == LiveContributor.class) {
 			switch (derivedFeatureID) {
 				case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__STATE: return ComposePackage.LIVE_CONTRIBUTOR__STATE;
-				case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE: return ComposePackage.LIVE_CONTRIBUTOR__BUNDLE;
+				case ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE: return ComposePackage.LIVE_CONTRIBUTOR__LIVE_BUNDLE;
 				default: return -1;
 			}
 		}
@@ -434,7 +432,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 		if (baseClass == LiveContributor.class) {
 			switch (baseFeatureID) {
 				case ComposePackage.LIVE_CONTRIBUTOR__STATE: return ComposePackage.LIVE_REPLACE_CONTRIBUTOR__STATE;
-				case ComposePackage.LIVE_CONTRIBUTOR__BUNDLE: return ComposePackage.LIVE_REPLACE_CONTRIBUTOR__BUNDLE;
+				case ComposePackage.LIVE_CONTRIBUTOR__LIVE_BUNDLE: return ComposePackage.LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE;
 				default: return -1;
 			}
 		}
@@ -458,8 +456,8 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (state: ");
 		result.append(state);
-		result.append(", bundle: ");
-		result.append(bundle);
+		result.append(", liveBundle: ");
+		result.append(liveBundle);
 		result.append(')');
 		return result.toString();
 	}

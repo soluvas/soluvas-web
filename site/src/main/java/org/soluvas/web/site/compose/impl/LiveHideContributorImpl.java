@@ -3,26 +3,25 @@
 package org.soluvas.web.site.compose.impl;
 
 import java.util.Collection;
-import java.util.List;
-import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.osgi.framework.Bundle;
+import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.ResourceAware;
+import org.soluvas.commons.ResourceType;
 import org.soluvas.web.site.compose.ComposePackage;
 import org.soluvas.web.site.compose.ContributorState;
+import org.soluvas.web.site.compose.HideContributor;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.compose.LiveHideContributor;
 import org.soluvas.web.site.compose.LivePlaceholder;
 import org.soluvas.web.site.compose.LiveSlave;
 import org.soluvas.web.site.compose.LiveTarget;
-import org.soluvas.web.site.compose.PlaceholderCollection;
-import org.soluvas.web.site.compose.SlaveCollection;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,10 +30,14 @@ import org.soluvas.web.site.compose.SlaveCollection;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getResourceType <em>Resource Type</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getResourceUri <em>Resource Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getResourceName <em>Resource Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getPageClassName <em>Page Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getState <em>State</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getLiveBundle <em>Live Bundle</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveHideContributorImpl#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
@@ -42,6 +45,86 @@ import org.soluvas.web.site.compose.SlaveCollection;
  * @generated
  */
 public class LiveHideContributorImpl extends EObjectImpl implements LiveHideContributor {
+	/**
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Bundle BUNDLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected Bundle bundle = BUNDLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceType() <em>Resource Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ResourceType RESOURCE_TYPE_EDEFAULT = ResourceType.BUNDLE;
+
+	/**
+	 * The cached value of the '{@link #getResourceType() <em>Resource Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResourceType resourceType = RESOURCE_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceUri() <em>Resource Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_URI_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceUri() <em>Resource Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceUri = RESOURCE_URI_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceName() <em>Resource Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceName() <em>Resource Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceName = RESOURCE_NAME_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getPageClassName() <em>Page Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -103,24 +186,24 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	protected ContributorState state = STATE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * The default value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBundle()
+	 * @see #getLiveBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Bundle BUNDLE_EDEFAULT = null;
+	protected static final Bundle LIVE_BUNDLE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * The cached value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBundle()
+	 * @see #getLiveBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected Bundle bundle = BUNDLE_EDEFAULT;
+	protected Bundle liveBundle = LIVE_BUNDLE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -156,6 +239,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPageClassName() {
 		return pageClassName;
 	}
@@ -165,6 +249,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPageClassName(String newPageClassName) {
 		String oldPageClassName = pageClassName;
 		pageClassName = newPageClassName;
@@ -177,6 +262,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetPath() {
 		return targetPath;
 	}
@@ -186,6 +272,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetPath(String newTargetPath) {
 		String oldTargetPath = targetPath;
 		targetPath = newTargetPath;
@@ -198,6 +285,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContributorState getState() {
 		return state;
 	}
@@ -207,6 +295,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setState(ContributorState newState) {
 		ContributorState oldState = state;
 		state = newState == null ? STATE_EDEFAULT : newState;
@@ -219,6 +308,30 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public Bundle getLiveBundle() {
+		return liveBundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setLiveBundle(Bundle newLiveBundle) {
+		Bundle oldLiveBundle = liveBundle;
+		liveBundle = newLiveBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_HIDE_CONTRIBUTOR__LIVE_BUNDLE, oldLiveBundle, liveBundle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Bundle getBundle() {
 		return bundle;
 	}
@@ -228,6 +341,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBundle(Bundle newBundle) {
 		Bundle oldBundle = bundle;
 		bundle = newBundle;
@@ -240,6 +354,76 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public ResourceType getResourceType() {
+		return resourceType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceType(ResourceType newResourceType) {
+		ResourceType oldResourceType = resourceType;
+		resourceType = newResourceType == null ? RESOURCE_TYPE_EDEFAULT : newResourceType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE, oldResourceType, resourceType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getResourceUri() {
+		return resourceUri;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceUri(String newResourceUri) {
+		String oldResourceUri = resourceUri;
+		resourceUri = newResourceUri;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI, oldResourceUri, resourceUri));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceName(String newResourceName) {
+		String oldResourceName = resourceName;
+		resourceName = newResourceName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME, oldResourceName, resourceName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public LiveTarget getTarget() {
 		if (target != null && ((EObject)target).eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -266,6 +450,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(LiveTarget newTarget) {
 		LiveTarget oldTarget = target;
 		target = newTarget;
@@ -278,6 +463,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void resolve(Collection<LivePlaceholder> placeholders, Collection<LiveSlave> slaves) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -289,6 +475,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void bundleAdded(Bundle bundle) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -300,6 +487,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void targetRemoved(LiveTarget target) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -311,6 +499,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiveContributor createLive(Bundle bundle) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -322,6 +511,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void bundleRemoved(Bundle bundle) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -336,14 +526,22 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
+				return getBundle();
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE:
+				return getResourceType();
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI:
+				return getResourceUri();
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME:
+				return getResourceName();
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return getPageClassName();
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__TARGET_PATH:
 				return getTargetPath();
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__STATE:
 				return getState();
-			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
-				return getBundle();
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__LIVE_BUNDLE:
+				return getLiveBundle();
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__TARGET:
 				if (resolve) return getTarget();
 				return basicGetTarget();
@@ -359,6 +557,18 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
+				setBundle((Bundle)newValue);
+				return;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE:
+				setResourceType((ResourceType)newValue);
+				return;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI:
+				setResourceUri((String)newValue);
+				return;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME:
+				setResourceName((String)newValue);
+				return;
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName((String)newValue);
 				return;
@@ -368,8 +578,8 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__STATE:
 				setState((ContributorState)newValue);
 				return;
-			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
-				setBundle((Bundle)newValue);
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__LIVE_BUNDLE:
+				setLiveBundle((Bundle)newValue);
 				return;
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__TARGET:
 				setTarget((LiveTarget)newValue);
@@ -386,6 +596,18 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE:
+				setResourceType(RESOURCE_TYPE_EDEFAULT);
+				return;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI:
+				setResourceUri(RESOURCE_URI_EDEFAULT);
+				return;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME:
+				setResourceName(RESOURCE_NAME_EDEFAULT);
+				return;
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName(PAGE_CLASS_NAME_EDEFAULT);
 				return;
@@ -395,8 +617,8 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__STATE:
 				setState(STATE_EDEFAULT);
 				return;
-			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
-				setBundle(BUNDLE_EDEFAULT);
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__LIVE_BUNDLE:
+				setLiveBundle(LIVE_BUNDLE_EDEFAULT);
 				return;
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__TARGET:
 				setTarget((LiveTarget)null);
@@ -413,14 +635,22 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE:
+				return resourceType != RESOURCE_TYPE_EDEFAULT;
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI:
+				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME:
+				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return PAGE_CLASS_NAME_EDEFAULT == null ? pageClassName != null : !PAGE_CLASS_NAME_EDEFAULT.equals(pageClassName);
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__TARGET_PATH:
 				return TARGET_PATH_EDEFAULT == null ? targetPath != null : !TARGET_PATH_EDEFAULT.equals(targetPath);
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__STATE:
 				return state != STATE_EDEFAULT;
-			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__BUNDLE:
-				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__LIVE_BUNDLE:
+				return LIVE_BUNDLE_EDEFAULT == null ? liveBundle != null : !LIVE_BUNDLE_EDEFAULT.equals(liveBundle);
 			case ComposePackage.LIVE_HIDE_CONTRIBUTOR__TARGET:
 				return target != null;
 		}
@@ -433,18 +663,72 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * @generated
 	 */
 	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == ResourceAware.class) {
+			switch (derivedFeatureID) {
+				case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE: return CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE;
+				case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI: return CommonsPackage.RESOURCE_AWARE__RESOURCE_URI;
+				case ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME: return CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == HideContributor.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == ResourceAware.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE: return ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE;
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_URI: return ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI;
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME: return ComposePackage.LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == HideContributor.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (pageClassName: ");
+		result.append(" (bundle: ");
+		result.append(bundle);
+		result.append(", resourceType: ");
+		result.append(resourceType);
+		result.append(", resourceUri: ");
+		result.append(resourceUri);
+		result.append(", resourceName: ");
+		result.append(resourceName);
+		result.append(", pageClassName: ");
 		result.append(pageClassName);
 		result.append(", targetPath: ");
 		result.append(targetPath);
 		result.append(", state: ");
 		result.append(state);
-		result.append(", bundle: ");
-		result.append(bundle);
+		result.append(", liveBundle: ");
+		result.append(liveBundle);
 		result.append(')');
 		return result.toString();
 	}

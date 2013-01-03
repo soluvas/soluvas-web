@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.soluvas.commons.CommonsPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,13 +69,49 @@ public interface ComposePackage extends EPackage {
 	int TARGET = 14;
 
 	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET__RESOURCE_TYPE = CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET__RESOURCE_URI = CommonsPackage.RESOURCE_AWARE__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET__RESOURCE_NAME = CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET__BUNDLE = CommonsPackage.RESOURCE_AWARE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET__PAGE_CLASS_NAME = 0;
+	int TARGET__PAGE_CLASS_NAME = CommonsPackage.RESOURCE_AWARE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Path</b></em>' attribute.
@@ -83,7 +120,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET__PATH = 1;
+	int TARGET__PATH = CommonsPackage.RESOURCE_AWARE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Model Class Name</b></em>' attribute.
@@ -92,7 +129,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET__MODEL_CLASS_NAME = 2;
+	int TARGET__MODEL_CLASS_NAME = CommonsPackage.RESOURCE_AWARE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Target</em>' class.
@@ -101,7 +138,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_FEATURE_COUNT = 3;
+	int TARGET_FEATURE_COUNT = CommonsPackage.RESOURCE_AWARE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.PlaceholderImpl <em>Placeholder</em>}' class.
@@ -112,6 +149,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int PLACEHOLDER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER__RESOURCE_TYPE = TARGET__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER__RESOURCE_URI = TARGET__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER__RESOURCE_NAME = TARGET__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER__BUNDLE = TARGET__BUNDLE;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -160,13 +233,49 @@ public interface ComposePackage extends EPackage {
 	int CONTRIBUTOR = 1;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTRIBUTOR__BUNDLE = CommonsPackage.BUNDLE_AWARE__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTRIBUTOR__RESOURCE_TYPE = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTRIBUTOR__RESOURCE_URI = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTRIBUTOR__RESOURCE_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTOR__PAGE_CLASS_NAME = 0;
+	int CONTRIBUTOR__PAGE_CLASS_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Target Path</b></em>' attribute.
@@ -175,7 +284,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTOR__TARGET_PATH = 1;
+	int CONTRIBUTOR__TARGET_PATH = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Contributor</em>' class.
@@ -184,7 +293,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTOR_FEATURE_COUNT = 2;
+	int CONTRIBUTOR_FEATURE_COUNT = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.LiveTargetImpl <em>Live Target</em>}' class.
@@ -195,6 +304,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int LIVE_TARGET = 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_TARGET__RESOURCE_TYPE = TARGET__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_TARGET__RESOURCE_URI = TARGET__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_TARGET__RESOURCE_NAME = TARGET__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_TARGET__BUNDLE = TARGET__BUNDLE;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -233,13 +378,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_TARGET__PAGE_CLASS = TARGET_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_TARGET__BUNDLE = TARGET_FEATURE_COUNT + 1;
+	int LIVE_TARGET__LIVE_BUNDLE = TARGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Live Target</em>' class.
@@ -259,6 +404,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int LIVE_CONTRIBUTOR = 3;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CONTRIBUTOR__BUNDLE = CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CONTRIBUTOR__RESOURCE_TYPE = CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CONTRIBUTOR__RESOURCE_URI = CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CONTRIBUTOR__RESOURCE_NAME = CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -288,13 +469,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_CONTRIBUTOR__STATE = CONTRIBUTOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_CONTRIBUTOR__BUNDLE = CONTRIBUTOR_FEATURE_COUNT + 1;
+	int LIVE_CONTRIBUTOR__LIVE_BUNDLE = CONTRIBUTOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Live Contributor</em>' class.
@@ -314,6 +495,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int HIDE_CONTRIBUTOR = 4;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDE_CONTRIBUTOR__BUNDLE = CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDE_CONTRIBUTOR__RESOURCE_TYPE = CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDE_CONTRIBUTOR__RESOURCE_URI = CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDE_CONTRIBUTOR__RESOURCE_NAME = CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -351,6 +568,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int COMPONENT_CONTRIBUTOR = 5;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CONTRIBUTOR__BUNDLE = CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CONTRIBUTOR__RESOURCE_TYPE = CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CONTRIBUTOR__RESOURCE_URI = CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CONTRIBUTOR__RESOURCE_NAME = CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -417,6 +670,42 @@ public interface ComposePackage extends EPackage {
 	int CHILD_CONTRIBUTOR = 6;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__BUNDLE = COMPONENT_CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__RESOURCE_TYPE = COMPONENT_CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__RESOURCE_URI = COMPONENT_CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__RESOURCE_NAME = COMPONENT_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -462,13 +751,22 @@ public interface ComposePackage extends EPackage {
 	int CHILD_CONTRIBUTOR__CREATION_MODE = COMPONENT_CONTRIBUTOR__CREATION_MODE;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__POSITIONER = COMPONENT_CONTRIBUTOR_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Child Contributor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_CONTRIBUTOR_FEATURE_COUNT = COMPONENT_CONTRIBUTOR_FEATURE_COUNT + 0;
+	int CHILD_CONTRIBUTOR_FEATURE_COUNT = COMPONENT_CONTRIBUTOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.LiveChildContributorImpl <em>Live Child Contributor</em>}' class.
@@ -479,6 +777,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int LIVE_CHILD_CONTRIBUTOR = 7;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__BUNDLE = CHILD_CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__RESOURCE_TYPE = CHILD_CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__RESOURCE_URI = CHILD_CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__RESOURCE_NAME = CHILD_CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -526,6 +860,15 @@ public interface ComposePackage extends EPackage {
 	int LIVE_CHILD_CONTRIBUTOR__CREATION_MODE = CHILD_CONTRIBUTOR__CREATION_MODE;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__POSITIONER = CHILD_CONTRIBUTOR__POSITIONER;
+
+	/**
 	 * The feature id for the '<em><b>State</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -535,13 +878,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_CHILD_CONTRIBUTOR__STATE = CHILD_CONTRIBUTOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_CHILD_CONTRIBUTOR__BUNDLE = CHILD_CONTRIBUTOR_FEATURE_COUNT + 1;
+	int LIVE_CHILD_CONTRIBUTOR__LIVE_BUNDLE = CHILD_CONTRIBUTOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Placeholder</b></em>' reference.
@@ -570,6 +913,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int REPLACE_CONTRIBUTOR = 9;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPLACE_CONTRIBUTOR__BUNDLE = COMPONENT_CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPLACE_CONTRIBUTOR__RESOURCE_TYPE = COMPONENT_CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPLACE_CONTRIBUTOR__RESOURCE_URI = COMPONENT_CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPLACE_CONTRIBUTOR__RESOURCE_NAME = COMPONENT_CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -636,6 +1015,42 @@ public interface ComposePackage extends EPackage {
 	int LIVE_REPLACE_CONTRIBUTOR = 8;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_REPLACE_CONTRIBUTOR__BUNDLE = REPLACE_CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_REPLACE_CONTRIBUTOR__RESOURCE_TYPE = REPLACE_CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_REPLACE_CONTRIBUTOR__RESOURCE_URI = REPLACE_CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_REPLACE_CONTRIBUTOR__RESOURCE_NAME = REPLACE_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -690,13 +1105,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_REPLACE_CONTRIBUTOR__STATE = REPLACE_CONTRIBUTOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_REPLACE_CONTRIBUTOR__BUNDLE = REPLACE_CONTRIBUTOR_FEATURE_COUNT + 1;
+	int LIVE_REPLACE_CONTRIBUTOR__LIVE_BUNDLE = REPLACE_CONTRIBUTOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Slave</b></em>' reference.
@@ -727,6 +1142,42 @@ public interface ComposePackage extends EPackage {
 	int LIVE_COMPONENT_CONTRIBUTOR = 10;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__BUNDLE = LIVE_CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_TYPE = LIVE_CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_URI = LIVE_CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME = LIVE_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -754,13 +1205,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_COMPONENT_CONTRIBUTOR__STATE = LIVE_CONTRIBUTOR__STATE;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_COMPONENT_CONTRIBUTOR__BUNDLE = LIVE_CONTRIBUTOR__BUNDLE;
+	int LIVE_COMPONENT_CONTRIBUTOR__LIVE_BUNDLE = LIVE_CONTRIBUTOR__LIVE_BUNDLE;
 
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
@@ -809,6 +1260,42 @@ public interface ComposePackage extends EPackage {
 	int LIVE_HIDE_CONTRIBUTOR = 11;
 
 	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_HIDE_CONTRIBUTOR__BUNDLE = LIVE_CONTRIBUTOR__BUNDLE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_HIDE_CONTRIBUTOR__RESOURCE_TYPE = LIVE_CONTRIBUTOR__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_HIDE_CONTRIBUTOR__RESOURCE_URI = LIVE_CONTRIBUTOR__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME = LIVE_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -836,13 +1323,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_HIDE_CONTRIBUTOR__STATE = LIVE_CONTRIBUTOR__STATE;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_HIDE_CONTRIBUTOR__BUNDLE = LIVE_CONTRIBUTOR__BUNDLE;
+	int LIVE_HIDE_CONTRIBUTOR__LIVE_BUNDLE = LIVE_CONTRIBUTOR__LIVE_BUNDLE;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -947,6 +1434,42 @@ public interface ComposePackage extends EPackage {
 	int SLAVE = 13;
 
 	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLAVE__RESOURCE_TYPE = TARGET__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLAVE__RESOURCE_URI = TARGET__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLAVE__RESOURCE_NAME = TARGET__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLAVE__BUNDLE = TARGET__BUNDLE;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1021,6 +1544,42 @@ public interface ComposePackage extends EPackage {
 	int LIVE_PLACEHOLDER = 17;
 
 	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_PLACEHOLDER__RESOURCE_TYPE = LIVE_TARGET__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_PLACEHOLDER__RESOURCE_URI = LIVE_TARGET__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_PLACEHOLDER__RESOURCE_NAME = LIVE_TARGET__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_PLACEHOLDER__BUNDLE = LIVE_TARGET__BUNDLE;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1057,13 +1616,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_PLACEHOLDER__PAGE_CLASS = LIVE_TARGET__PAGE_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_PLACEHOLDER__BUNDLE = LIVE_TARGET__BUNDLE;
+	int LIVE_PLACEHOLDER__LIVE_BUNDLE = LIVE_TARGET__LIVE_BUNDLE;
 
 	/**
 	 * The number of structural features of the '<em>Live Placeholder</em>' class.
@@ -1083,6 +1642,42 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	int LIVE_SLAVE = 18;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_SLAVE__RESOURCE_TYPE = LIVE_TARGET__RESOURCE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_SLAVE__RESOURCE_URI = LIVE_TARGET__RESOURCE_URI;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_SLAVE__RESOURCE_NAME = LIVE_TARGET__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_SLAVE__BUNDLE = LIVE_TARGET__BUNDLE;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -1121,13 +1716,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_SLAVE__PAGE_CLASS = LIVE_TARGET__PAGE_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_SLAVE__BUNDLE = LIVE_TARGET__BUNDLE;
+	int LIVE_SLAVE__LIVE_BUNDLE = LIVE_TARGET__LIVE_BUNDLE;
 
 	/**
 	 * The number of structural features of the '<em>Live Slave</em>' class.
@@ -1319,15 +1914,15 @@ public interface ComposePackage extends EPackage {
 	EAttribute getLiveTarget_PageClass();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.compose.LiveTarget#getBundle <em>Bundle</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.compose.LiveTarget#getLiveBundle <em>Live Bundle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Bundle</em>'.
-	 * @see org.soluvas.web.site.compose.LiveTarget#getBundle()
+	 * @return the meta object for the attribute '<em>Live Bundle</em>'.
+	 * @see org.soluvas.web.site.compose.LiveTarget#getLiveBundle()
 	 * @see #getLiveTarget()
 	 * @generated
 	 */
-	EAttribute getLiveTarget_Bundle();
+	EAttribute getLiveTarget_LiveBundle();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.compose.LiveContributor <em>Live Contributor</em>}'.
@@ -1351,15 +1946,15 @@ public interface ComposePackage extends EPackage {
 	EAttribute getLiveContributor_State();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.compose.LiveContributor#getBundle <em>Bundle</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.compose.LiveContributor#getLiveBundle <em>Live Bundle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Bundle</em>'.
-	 * @see org.soluvas.web.site.compose.LiveContributor#getBundle()
+	 * @return the meta object for the attribute '<em>Live Bundle</em>'.
+	 * @see org.soluvas.web.site.compose.LiveContributor#getLiveBundle()
 	 * @see #getLiveContributor()
 	 * @generated
 	 */
-	EAttribute getLiveContributor_Bundle();
+	EAttribute getLiveContributor_LiveBundle();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.compose.HideContributor <em>Hide Contributor</em>}'.
@@ -1815,12 +2410,12 @@ public interface ComposePackage extends EPackage {
 		EAttribute LIVE_TARGET__PAGE_CLASS = eINSTANCE.getLiveTarget_PageClass();
 
 		/**
-		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Live Bundle</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LIVE_TARGET__BUNDLE = eINSTANCE.getLiveTarget_Bundle();
+		EAttribute LIVE_TARGET__LIVE_BUNDLE = eINSTANCE.getLiveTarget_LiveBundle();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.compose.LiveContributor <em>Live Contributor</em>}' class.
@@ -1841,12 +2436,12 @@ public interface ComposePackage extends EPackage {
 		EAttribute LIVE_CONTRIBUTOR__STATE = eINSTANCE.getLiveContributor_State();
 
 		/**
-		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Live Bundle</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LIVE_CONTRIBUTOR__BUNDLE = eINSTANCE.getLiveContributor_Bundle();
+		EAttribute LIVE_CONTRIBUTOR__LIVE_BUNDLE = eINSTANCE.getLiveContributor_LiveBundle();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.compose.impl.HideContributorImpl <em>Hide Contributor</em>}' class.

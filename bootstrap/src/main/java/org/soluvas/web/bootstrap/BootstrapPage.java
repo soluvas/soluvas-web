@@ -185,6 +185,8 @@ public class BootstrapPage extends ExtensiblePage {
 
 	private TenantRef tenant;
 
+	protected final RepeatingView afterHeader;
+
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
 		pageJavaScriptLinks.add(js);
@@ -318,7 +320,7 @@ public class BootstrapPage extends ExtensiblePage {
 					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.2.js")));
 			
 			//Carousel
-			add(new WebMarkupContainer("afterHeader"));
+			add(afterHeader = new RepeatingView("afterHeader"));
 			
 			// NAVBAR
 			final Navbar navbar = new Navbar("navbar");

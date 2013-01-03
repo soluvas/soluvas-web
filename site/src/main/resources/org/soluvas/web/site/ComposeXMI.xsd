@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xsd:schema xmlns:compose="http://www.soluvas.org/schema/web.compose/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.org/schema/web.compose/1.0">
+<xsd:schema xmlns:commons="http://www.soluvas.org/schema/commons/1.0" xmlns:compose="http://www.soluvas.org/schema/web.compose/1.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soluvas.org/schema/web.compose/1.0">
   <xsd:import namespace="http://www.omg.org/XMI" schemaLocation="platform:/plugin/org.eclipse.emf.ecore/model/XMI.xsd"/>
+  <xsd:import namespace="http://www.soluvas.org/schema/commons/1.0" schemaLocation="commons.xsd"/>
   <xsd:simpleType name="ContributorState">
     <xsd:restriction base="xsd:NCName">
       <xsd:enumeration value="unresolved">
@@ -40,17 +41,19 @@
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType abstract="true" name="Contributor">
-    <xsd:choice maxOccurs="unbounded" minOccurs="0">
-      <xsd:element ref="xmi:Extension"/>
-    </xsd:choice>
-    <xsd:attribute ref="xmi:id"/>
-    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
-    <xsd:attribute name="pageClassName" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>Class name of the page that hosts this.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="targetPath" type="xsd:string" use="required"/>
+    <xsd:complexContent>
+      <xsd:extension base="commons:BundleAware">
+        <xsd:attribute name="resourceType" type="commons:ResourceType"/>
+        <xsd:attribute name="resourceUri" type="xsd:string"/>
+        <xsd:attribute name="resourceName" type="xsd:string"/>
+        <xsd:attribute name="pageClassName" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>Class name of the page that hosts this.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="targetPath" type="xsd:string" use="required"/>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="Contributor" type="compose:Contributor"/>
   <xsd:complexType name="LiveTarget">
@@ -104,7 +107,9 @@ Otherwise it may be unresolved or partially resolved.</xsd:documentation>
   <xsd:element name="ComponentContributor" type="compose:ComponentContributor"/>
   <xsd:complexType name="ChildContributor">
     <xsd:complexContent>
-      <xsd:extension base="compose:ComponentContributor"/>
+      <xsd:extension base="compose:ComponentContributor">
+        <xsd:attribute name="positioner" type="xsd:int"/>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ChildContributor" type="compose:ChildContributor"/>
@@ -188,25 +193,24 @@ Otherwise it may be unresolved or partially resolved.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="Target">
-    <xsd:choice maxOccurs="unbounded" minOccurs="0">
-      <xsd:element ref="xmi:Extension"/>
-    </xsd:choice>
-    <xsd:attribute ref="xmi:id"/>
-    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
-    <xsd:attribute name="pageClassName" type="xsd:string" use="required"/>
-    <xsd:attribute name="path" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation>Path of the Component IDs from the Page.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-    <xsd:attribute name="modelClassName" type="xsd:string">
-      <xsd:annotation>
-        <xsd:documentation>This model will be passed to the Contributor Factory to create the Component.
+    <xsd:complexContent>
+      <xsd:extension base="commons:ResourceAware">
+        <xsd:attribute name="pageClassName" type="xsd:string" use="required"/>
+        <xsd:attribute name="path" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>Path of the Component IDs from the Page.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="modelClassName" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>This model will be passed to the Contributor Factory to create the Component.
 
 If it is null, that means the target IModel type is unknown, this can happen when it's a 'hide' contributor,
 Target EObject is created dynamically based on runtime reflection.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="Target" type="compose:Target"/>
   <xsd:complexType name="PlaceholderCollection">

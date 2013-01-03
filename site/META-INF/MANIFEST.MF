@@ -7,7 +7,13 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.soluvas.web.site.compose,
+Export-Package: commons,
+ commons.impl,
+ commons.util,
+ ecore,
+ ecore.impl,
+ ecore.util,
+ org.soluvas.web.site.compose,
  org.soluvas.web.site.compose.impl,
  org.soluvas.web.site.compose.util
 Require-Bundle: org.eclipse.core.runtime,

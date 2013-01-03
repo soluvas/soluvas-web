@@ -7,6 +7,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.osgi.framework.Bundle;
+import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.Positionable;
+import org.soluvas.commons.ResourceAware;
+import org.soluvas.commons.ResourceType;
 import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.ComposeFactory;
 import org.soluvas.web.site.compose.ComposePackage;
@@ -22,11 +26,16 @@ import org.soluvas.web.site.compose.LiveContributor;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getBundle <em>Bundle</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getResourceType <em>Resource Type</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getResourceUri <em>Resource Uri</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getResourceName <em>Resource Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getPageClassName <em>Page Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getFactoryBean <em>Factory Bean</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getCreationMode <em>Creation Mode</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getPositioner <em>Positioner</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,6 +43,86 @@ import org.soluvas.web.site.compose.LiveContributor;
  */
 public class ChildContributorImpl extends EObjectImpl implements ChildContributor {
 	
+	/**
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Bundle BUNDLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected Bundle bundle = BUNDLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceType() <em>Resource Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ResourceType RESOURCE_TYPE_EDEFAULT = ResourceType.BUNDLE;
+
+	/**
+	 * The cached value of the '{@link #getResourceType() <em>Resource Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResourceType resourceType = RESOURCE_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceUri() <em>Resource Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_URI_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceUri() <em>Resource Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceUri = RESOURCE_URI_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceName() <em>Resource Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceName() <em>Resource Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceName = RESOURCE_NAME_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getPageClassName() <em>Page Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -135,6 +224,26 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	protected CreationMode creationMode = CREATION_MODE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer POSITIONER_EDEFAULT = new Integer(0);
+
+	/**
+	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer positioner = POSITIONER_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -151,6 +260,98 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	@Override
 	protected EClass eStaticClass() {
 		return ComposePackage.Literals.CHILD_CONTRIBUTOR;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Bundle getBundle() {
+		return bundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBundle(Bundle newBundle) {
+		Bundle oldBundle = bundle;
+		bundle = newBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.CHILD_CONTRIBUTOR__BUNDLE, oldBundle, bundle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceType getResourceType() {
+		return resourceType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceType(ResourceType newResourceType) {
+		ResourceType oldResourceType = resourceType;
+		resourceType = newResourceType == null ? RESOURCE_TYPE_EDEFAULT : newResourceType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE, oldResourceType, resourceType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getResourceUri() {
+		return resourceUri;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceUri(String newResourceUri) {
+		String oldResourceUri = resourceUri;
+		resourceUri = newResourceUri;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI, oldResourceUri, resourceUri));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResourceName(String newResourceName) {
+		String oldResourceName = resourceName;
+		resourceName = newResourceName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME, oldResourceName, resourceName));
 	}
 
 	/**
@@ -271,6 +472,29 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Integer getPositioner() {
+		return positioner;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPositioner(Integer newPositioner) {
+		Integer oldPositioner = positioner;
+		positioner = newPositioner;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.CHILD_CONTRIBUTOR__POSITIONER, oldPositioner, positioner));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 */
 	@Override
 	public LiveContributor createLive(Bundle bundle) {
@@ -281,6 +505,7 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		liveContributor.setTargetPath(getTargetPath());
 		liveContributor.setFactoryBean(getFactoryBean());
 		liveContributor.setState(ContributorState.UNRESOLVED);
+		liveContributor.setBundle(bundle);
 		return liveContributor;
 	}
 	
@@ -292,6 +517,14 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ComposePackage.CHILD_CONTRIBUTOR__BUNDLE:
+				return getBundle();
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE:
+				return getResourceType();
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI:
+				return getResourceUri();
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
+				return getResourceName();
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return getPageClassName();
 			case ComposePackage.CHILD_CONTRIBUTOR__TARGET_PATH:
@@ -302,6 +535,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return getFactoryBean();
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				return getCreationMode();
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				return getPositioner();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -314,6 +549,18 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ComposePackage.CHILD_CONTRIBUTOR__BUNDLE:
+				setBundle((Bundle)newValue);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE:
+				setResourceType((ResourceType)newValue);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI:
+				setResourceUri((String)newValue);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
+				setResourceName((String)newValue);
+				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName((String)newValue);
 				return;
@@ -329,6 +576,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				setCreationMode((CreationMode)newValue);
 				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				setPositioner((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -341,6 +591,18 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ComposePackage.CHILD_CONTRIBUTOR__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE:
+				setResourceType(RESOURCE_TYPE_EDEFAULT);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI:
+				setResourceUri(RESOURCE_URI_EDEFAULT);
+				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
+				setResourceName(RESOURCE_NAME_EDEFAULT);
+				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName(PAGE_CLASS_NAME_EDEFAULT);
 				return;
@@ -356,6 +618,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				setCreationMode(CREATION_MODE_EDEFAULT);
 				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				setPositioner(POSITIONER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -368,6 +633,14 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ComposePackage.CHILD_CONTRIBUTOR__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE:
+				return resourceType != RESOURCE_TYPE_EDEFAULT;
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI:
+				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
+			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
+				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return PAGE_CLASS_NAME_EDEFAULT == null ? pageClassName != null : !PAGE_CLASS_NAME_EDEFAULT.equals(pageClassName);
 			case ComposePackage.CHILD_CONTRIBUTOR__TARGET_PATH:
@@ -378,8 +651,58 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return FACTORY_BEAN_EDEFAULT == null ? factoryBean != null : !FACTORY_BEAN_EDEFAULT.equals(factoryBean);
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				return creationMode != CREATION_MODE_EDEFAULT;
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == ResourceAware.class) {
+			switch (derivedFeatureID) {
+				case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE: return CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE;
+				case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI: return CommonsPackage.RESOURCE_AWARE__RESOURCE_URI;
+				case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME: return CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Positionable.class) {
+			switch (derivedFeatureID) {
+				case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER: return CommonsPackage.POSITIONABLE__POSITIONER;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == ResourceAware.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE: return ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_TYPE;
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_URI: return ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_URI;
+				case CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME: return ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Positionable.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.POSITIONABLE__POSITIONER: return ComposePackage.CHILD_CONTRIBUTOR__POSITIONER;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**
@@ -392,7 +715,15 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (pageClassName: ");
+		result.append(" (bundle: ");
+		result.append(bundle);
+		result.append(", resourceType: ");
+		result.append(resourceType);
+		result.append(", resourceUri: ");
+		result.append(resourceUri);
+		result.append(", resourceName: ");
+		result.append(resourceName);
+		result.append(", pageClassName: ");
 		result.append(pageClassName);
 		result.append(", targetPath: ");
 		result.append(targetPath);
@@ -402,6 +733,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		result.append(factoryBean);
 		result.append(", creationMode: ");
 		result.append(creationMode);
+		result.append(", positioner: ");
+		result.append(positioner);
 		result.append(')');
 		return result.toString();
 	}

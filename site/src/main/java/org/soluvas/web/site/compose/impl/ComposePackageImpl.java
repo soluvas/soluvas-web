@@ -3,9 +3,8 @@
 package org.soluvas.web.site.compose.impl;
 
 import java.util.Collection;
-import java.util.List;
-import org.apache.wicket.Page;
 
+import org.apache.wicket.Page;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -14,13 +13,10 @@ import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.osgi.framework.Bundle;
-
+import org.soluvas.commons.CommonsPackage;
 import org.soluvas.web.site.ComponentFactory;
-
 import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.ComponentContributor;
 import org.soluvas.web.site.compose.ComposeCatalog;
@@ -289,6 +285,9 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		CommonsPackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theComposePackage.createPackageContents();
 
@@ -309,6 +308,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPlaceholder() {
 		return placeholderEClass;
 	}
@@ -318,6 +318,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getContributor() {
 		return contributorEClass;
 	}
@@ -327,6 +328,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getContributor_PageClassName() {
 		return (EAttribute)contributorEClass.getEStructuralFeatures().get(0);
 	}
@@ -336,6 +338,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getContributor_TargetPath() {
 		return (EAttribute)contributorEClass.getEStructuralFeatures().get(1);
 	}
@@ -345,6 +348,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveTarget() {
 		return liveTargetEClass;
 	}
@@ -354,6 +358,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiveTarget_PageClass() {
 		return (EAttribute)liveTargetEClass.getEStructuralFeatures().get(0);
 	}
@@ -363,7 +368,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLiveTarget_Bundle() {
+	public EAttribute getLiveTarget_LiveBundle() {
 		return (EAttribute)liveTargetEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -372,6 +377,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveContributor() {
 		return liveContributorEClass;
 	}
@@ -381,6 +387,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiveContributor_State() {
 		return (EAttribute)liveContributorEClass.getEStructuralFeatures().get(0);
 	}
@@ -390,7 +397,8 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLiveContributor_Bundle() {
+	@Override
+	public EAttribute getLiveContributor_LiveBundle() {
 		return (EAttribute)liveContributorEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -399,6 +407,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHideContributor() {
 		return hideContributorEClass;
 	}
@@ -408,6 +417,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComponentContributor() {
 		return componentContributorEClass;
 	}
@@ -417,6 +427,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComponentContributor_ClassName() {
 		return (EAttribute)componentContributorEClass.getEStructuralFeatures().get(0);
 	}
@@ -426,6 +437,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComponentContributor_FactoryBean() {
 		return (EAttribute)componentContributorEClass.getEStructuralFeatures().get(1);
 	}
@@ -435,6 +447,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComponentContributor_CreationMode() {
 		return (EAttribute)componentContributorEClass.getEStructuralFeatures().get(2);
 	}
@@ -444,6 +457,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getChildContributor() {
 		return childContributorEClass;
 	}
@@ -453,6 +467,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveChildContributor() {
 		return liveChildContributorEClass;
 	}
@@ -462,6 +477,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiveChildContributor_Placeholder() {
 		return (EReference)liveChildContributorEClass.getEStructuralFeatures().get(0);
 	}
@@ -471,6 +487,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveReplaceContributor() {
 		return liveReplaceContributorEClass;
 	}
@@ -480,6 +497,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiveReplaceContributor_Slave() {
 		return (EReference)liveReplaceContributorEClass.getEStructuralFeatures().get(0);
 	}
@@ -489,6 +507,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getReplaceContributor() {
 		return replaceContributorEClass;
 	}
@@ -498,6 +517,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveComponentContributor() {
 		return liveComponentContributorEClass;
 	}
@@ -507,6 +527,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveHideContributor() {
 		return liveHideContributorEClass;
 	}
@@ -516,6 +537,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiveHideContributor_Target() {
 		return (EReference)liveHideContributorEClass.getEStructuralFeatures().get(0);
 	}
@@ -525,6 +547,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComposeCatalog() {
 		return composeCatalogEClass;
 	}
@@ -534,6 +557,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSlave() {
 		return slaveEClass;
 	}
@@ -543,6 +567,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTarget() {
 		return targetEClass;
 	}
@@ -552,6 +577,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTarget_PageClassName() {
 		return (EAttribute)targetEClass.getEStructuralFeatures().get(0);
 	}
@@ -561,6 +587,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTarget_Path() {
 		return (EAttribute)targetEClass.getEStructuralFeatures().get(1);
 	}
@@ -570,6 +597,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTarget_ModelClassName() {
 		return (EAttribute)targetEClass.getEStructuralFeatures().get(2);
 	}
@@ -579,6 +607,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPlaceholderCollection() {
 		return placeholderCollectionEClass;
 	}
@@ -588,6 +617,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPlaceholderCollection_Placeholders() {
 		return (EReference)placeholderCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -597,6 +627,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSlaveCollection() {
 		return slaveCollectionEClass;
 	}
@@ -606,6 +637,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSlaveCollection_Slaves() {
 		return (EReference)slaveCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -615,6 +647,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLivePlaceholder() {
 		return livePlaceholderEClass;
 	}
@@ -624,6 +657,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveSlave() {
 		return liveSlaveEClass;
 	}
@@ -633,6 +667,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveContributorCollection() {
 		return liveContributorCollectionEClass;
 	}
@@ -642,6 +677,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiveContributorCollection_LiveContributors() {
 		return (EReference)liveContributorCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -651,6 +687,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getContributorCollection() {
 		return contributorCollectionEClass;
 	}
@@ -660,6 +697,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getContributorCollection_Contributors() {
 		return (EReference)contributorCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -669,6 +707,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getContributorState() {
 		return contributorStateEEnum;
 	}
@@ -678,6 +717,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCreationMode() {
 		return creationModeEEnum;
 	}
@@ -687,6 +727,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getComponentFactory() {
 		return componentFactoryEDataType;
 	}
@@ -696,6 +737,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getBundle() {
 		return bundleEDataType;
 	}
@@ -705,6 +747,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getPage() {
 		return pageEDataType;
 	}
@@ -714,6 +757,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getCollection() {
 		return collectionEDataType;
 	}
@@ -723,6 +767,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComposeFactory getComposeFactory() {
 		return (ComposeFactory)getEFactoryInstance();
 	}
@@ -754,11 +799,11 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 
 		liveTargetEClass = createEClass(LIVE_TARGET);
 		createEAttribute(liveTargetEClass, LIVE_TARGET__PAGE_CLASS);
-		createEAttribute(liveTargetEClass, LIVE_TARGET__BUNDLE);
+		createEAttribute(liveTargetEClass, LIVE_TARGET__LIVE_BUNDLE);
 
 		liveContributorEClass = createEClass(LIVE_CONTRIBUTOR);
 		createEAttribute(liveContributorEClass, LIVE_CONTRIBUTOR__STATE);
-		createEAttribute(liveContributorEClass, LIVE_CONTRIBUTOR__BUNDLE);
+		createEAttribute(liveContributorEClass, LIVE_CONTRIBUTOR__LIVE_BUNDLE);
 
 		hideContributorEClass = createEClass(HIDE_CONTRIBUTOR);
 
@@ -841,6 +886,9 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		CommonsPackage theCommonsPackage = (CommonsPackage)EPackage.Registry.INSTANCE.getEPackage(CommonsPackage.eNS_URI);
+
 		// Create type parameters
 		addETypeParameter(collectionEDataType, "T");
 
@@ -848,11 +896,14 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 
 		// Add supertypes to classes
 		placeholderEClass.getESuperTypes().add(this.getTarget());
+		contributorEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
+		contributorEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
 		liveTargetEClass.getESuperTypes().add(this.getTarget());
 		liveContributorEClass.getESuperTypes().add(this.getContributor());
 		hideContributorEClass.getESuperTypes().add(this.getContributor());
 		componentContributorEClass.getESuperTypes().add(this.getContributor());
 		childContributorEClass.getESuperTypes().add(this.getComponentContributor());
+		childContributorEClass.getESuperTypes().add(theCommonsPackage.getPositionable());
 		liveChildContributorEClass.getESuperTypes().add(this.getChildContributor());
 		liveChildContributorEClass.getESuperTypes().add(this.getLiveComponentContributor());
 		liveReplaceContributorEClass.getESuperTypes().add(this.getReplaceContributor());
@@ -866,6 +917,8 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		composeCatalogEClass.getESuperTypes().add(this.getPlaceholderCollection());
 		composeCatalogEClass.getESuperTypes().add(this.getContributorCollection());
 		slaveEClass.getESuperTypes().add(this.getTarget());
+		targetEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
+		targetEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
 		livePlaceholderEClass.getESuperTypes().add(this.getLiveTarget());
 		livePlaceholderEClass.getESuperTypes().add(this.getPlaceholder());
 		liveSlaveEClass.getESuperTypes().add(this.getLiveTarget());
@@ -886,11 +939,11 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		EGenericType g2 = createEGenericType(this.getPage());
 		g1.getETypeArguments().add(g2);
 		initEAttribute(getLiveTarget_PageClass(), g1, "pageClass", null, 1, 1, LiveTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLiveTarget_Bundle(), this.getBundle(), "bundle", null, 1, 1, LiveTarget.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveTarget_LiveBundle(), this.getBundle(), "liveBundle", null, 0, 1, LiveTarget.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(liveContributorEClass, LiveContributor.class, "LiveContributor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLiveContributor_State(), this.getContributorState(), "state", null, 1, 1, LiveContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLiveContributor_Bundle(), this.getBundle(), "bundle", null, 1, 1, LiveContributor.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveContributor_LiveBundle(), this.getBundle(), "liveBundle", null, 1, 1, LiveContributor.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(liveContributorEClass, null, "resolve", 0, 1, IS_UNIQUE, IS_ORDERED);
 		g1 = createEGenericType(this.getCollection());

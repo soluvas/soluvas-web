@@ -4,10 +4,33 @@ package org.soluvas.web.site.compose.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
+import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.compose.*;
+import org.soluvas.web.site.compose.ChildContributor;
+import org.soluvas.web.site.compose.ComponentContributor;
+import org.soluvas.web.site.compose.ComposeCatalog;
+import org.soluvas.web.site.compose.ComposePackage;
+import org.soluvas.web.site.compose.Contributor;
+import org.soluvas.web.site.compose.ContributorCollection;
+import org.soluvas.web.site.compose.HideContributor;
+import org.soluvas.web.site.compose.LiveChildContributor;
+import org.soluvas.web.site.compose.LiveComponentContributor;
+import org.soluvas.web.site.compose.LiveContributor;
+import org.soluvas.web.site.compose.LiveContributorCollection;
+import org.soluvas.web.site.compose.LiveHideContributor;
+import org.soluvas.web.site.compose.LivePlaceholder;
+import org.soluvas.web.site.compose.LiveReplaceContributor;
+import org.soluvas.web.site.compose.LiveSlave;
+import org.soluvas.web.site.compose.LiveTarget;
+import org.soluvas.web.site.compose.Placeholder;
+import org.soluvas.web.site.compose.PlaceholderCollection;
+import org.soluvas.web.site.compose.ReplaceContributor;
+import org.soluvas.web.site.compose.Slave;
+import org.soluvas.web.site.compose.SlaveCollection;
+import org.soluvas.web.site.compose.Target;
 
 /**
  * <!-- begin-user-doc -->
@@ -70,12 +93,16 @@ public class ComposeSwitch<T> extends Switch<T> {
 				Placeholder placeholder = (Placeholder)theEObject;
 				T result = casePlaceholder(placeholder);
 				if (result == null) result = caseTarget(placeholder);
+				if (result == null) result = caseResourceAware(placeholder);
+				if (result == null) result = caseBundleAware(placeholder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ComposePackage.CONTRIBUTOR: {
 				Contributor contributor = (Contributor)theEObject;
 				T result = caseContributor(contributor);
+				if (result == null) result = caseBundleAware(contributor);
+				if (result == null) result = caseResourceAware(contributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -83,6 +110,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				LiveTarget liveTarget = (LiveTarget)theEObject;
 				T result = caseLiveTarget(liveTarget);
 				if (result == null) result = caseTarget(liveTarget);
+				if (result == null) result = caseResourceAware(liveTarget);
+				if (result == null) result = caseBundleAware(liveTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -90,6 +119,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				LiveContributor liveContributor = (LiveContributor)theEObject;
 				T result = caseLiveContributor(liveContributor);
 				if (result == null) result = caseContributor(liveContributor);
+				if (result == null) result = caseBundleAware(liveContributor);
+				if (result == null) result = caseResourceAware(liveContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -97,6 +128,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				HideContributor hideContributor = (HideContributor)theEObject;
 				T result = caseHideContributor(hideContributor);
 				if (result == null) result = caseContributor(hideContributor);
+				if (result == null) result = caseBundleAware(hideContributor);
+				if (result == null) result = caseResourceAware(hideContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -104,6 +137,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				ComponentContributor componentContributor = (ComponentContributor)theEObject;
 				T result = caseComponentContributor(componentContributor);
 				if (result == null) result = caseContributor(componentContributor);
+				if (result == null) result = caseBundleAware(componentContributor);
+				if (result == null) result = caseResourceAware(componentContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -111,7 +146,10 @@ public class ComposeSwitch<T> extends Switch<T> {
 				ChildContributor childContributor = (ChildContributor)theEObject;
 				T result = caseChildContributor(childContributor);
 				if (result == null) result = caseComponentContributor(childContributor);
+				if (result == null) result = casePositionable(childContributor);
 				if (result == null) result = caseContributor(childContributor);
+				if (result == null) result = caseBundleAware(childContributor);
+				if (result == null) result = caseResourceAware(childContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -121,8 +159,11 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseChildContributor(liveChildContributor);
 				if (result == null) result = caseLiveComponentContributor(liveChildContributor);
 				if (result == null) result = caseComponentContributor(liveChildContributor);
+				if (result == null) result = casePositionable(liveChildContributor);
 				if (result == null) result = caseLiveContributor(liveChildContributor);
 				if (result == null) result = caseContributor(liveChildContributor);
+				if (result == null) result = caseBundleAware(liveChildContributor);
+				if (result == null) result = caseResourceAware(liveChildContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -134,6 +175,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseComponentContributor(liveReplaceContributor);
 				if (result == null) result = caseLiveContributor(liveReplaceContributor);
 				if (result == null) result = caseContributor(liveReplaceContributor);
+				if (result == null) result = caseBundleAware(liveReplaceContributor);
+				if (result == null) result = caseResourceAware(liveReplaceContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -142,6 +185,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				T result = caseReplaceContributor(replaceContributor);
 				if (result == null) result = caseComponentContributor(replaceContributor);
 				if (result == null) result = caseContributor(replaceContributor);
+				if (result == null) result = caseBundleAware(replaceContributor);
+				if (result == null) result = caseResourceAware(replaceContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -151,6 +196,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseLiveContributor(liveComponentContributor);
 				if (result == null) result = caseComponentContributor(liveComponentContributor);
 				if (result == null) result = caseContributor(liveComponentContributor);
+				if (result == null) result = caseBundleAware(liveComponentContributor);
+				if (result == null) result = caseResourceAware(liveComponentContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -160,6 +207,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseLiveContributor(liveHideContributor);
 				if (result == null) result = caseHideContributor(liveHideContributor);
 				if (result == null) result = caseContributor(liveHideContributor);
+				if (result == null) result = caseBundleAware(liveHideContributor);
+				if (result == null) result = caseResourceAware(liveHideContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -176,12 +225,16 @@ public class ComposeSwitch<T> extends Switch<T> {
 				Slave slave = (Slave)theEObject;
 				T result = caseSlave(slave);
 				if (result == null) result = caseTarget(slave);
+				if (result == null) result = caseResourceAware(slave);
+				if (result == null) result = caseBundleAware(slave);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ComposePackage.TARGET: {
 				Target target = (Target)theEObject;
 				T result = caseTarget(target);
+				if (result == null) result = caseResourceAware(target);
+				if (result == null) result = caseBundleAware(target);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -203,6 +256,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseLiveTarget(livePlaceholder);
 				if (result == null) result = casePlaceholder(livePlaceholder);
 				if (result == null) result = caseTarget(livePlaceholder);
+				if (result == null) result = caseResourceAware(livePlaceholder);
+				if (result == null) result = caseBundleAware(livePlaceholder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -212,6 +267,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseLiveTarget(liveSlave);
 				if (result == null) result = caseSlave(liveSlave);
 				if (result == null) result = caseTarget(liveSlave);
+				if (result == null) result = caseResourceAware(liveSlave);
+				if (result == null) result = caseBundleAware(liveSlave);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -543,6 +600,51 @@ public class ComposeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseContributorCollection(ContributorCollection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Aware</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Aware</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResourceAware(ResourceAware object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bundle Aware</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bundle Aware</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBundleAware(BundleAware object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Positionable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Positionable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePositionable(Positionable object) {
 		return null;
 	}
 
