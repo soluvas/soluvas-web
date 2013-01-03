@@ -9,8 +9,9 @@ import org.soluvas.commons.WebAddress;
 @SuppressWarnings("serial")
 public class CssLinkImpl implements CssLink {
 	
-	private String path;
-	private int weight;
+	private final String path;
+	private final int weight;
+	private final String tenantId;
 	
 	/**
 	 * 
@@ -19,8 +20,7 @@ public class CssLinkImpl implements CssLink {
 	 *            {@link WebAddress#getSkinUri()} (without leading slash).
 	 */
 	public CssLinkImpl(String path) {
-		super();
-		this.path = path;
+		this(path, 0, null);
 	}
 
 	/**
@@ -31,9 +31,19 @@ public class CssLinkImpl implements CssLink {
 	 * @param weight
 	 */
 	public CssLinkImpl(String path, int weight) {
+		this(path, weight, null);
+	}
+	
+	/**
+	 * @param path
+	 * @param weight
+	 * @param tenantId
+	 */
+	public CssLinkImpl(String path, int weight, String tenantId) {
 		super();
 		this.path = path;
 		this.weight = weight;
+		this.tenantId = tenantId;
 	}
 
 	/* (non-Javadoc)
@@ -45,13 +55,6 @@ public class CssLinkImpl implements CssLink {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptLink#setPath(java.lang.String)
-	 */
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	/* (non-Javadoc)
 	 * @see org.soluvas.web.site.JavaScriptLink#getWeight()
 	 */
 	@Override
@@ -59,11 +62,9 @@ public class CssLinkImpl implements CssLink {
 		return weight;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptLink#setWeight(int)
-	 */
-	public void setWeight(int weight) {
-		this.weight = weight;
+	@Override
+	public String getTenantId() {
+		return tenantId;
 	}
 
 	/* (non-Javadoc)

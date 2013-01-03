@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.apache.wicket.AttributeModifier;
@@ -59,8 +60,10 @@ import org.soluvas.web.site.pagemeta.PageMeta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
@@ -180,6 +183,8 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected TransparentWebMarkupContainer sidebarColumn;
 
+	private TenantRef tenant;
+
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
 		pageJavaScriptLinks.add(js);
@@ -189,15 +194,26 @@ public class BootstrapPage extends ExtensiblePage {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
+		
+		final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2.filter(cssLinks,
+				new Predicate<CssLink>() {
+			@Override
+			public boolean apply(@Nullable CssLink input) {
+				return Strings.isNullOrEmpty(input.getTenantId()) ||
+						"*".equals(input.getTenantId()) ||
+						tenant.getTenantId().equals(input.getTenantId());
+			}
+		}));
 
-		log.debug("Page {} has {} CSS links", getClass().getName(), cssLinks.size());
-		Ordering<CssLink> cssOrdering = Ordering.from(new Comparator<CssLink>() {
+		log.debug("Page {} has {} CSS links (from {} total)", getClass().getName(),
+				filteredCsses.size(), cssLinks.size());
+		final Ordering<CssLink> cssOrdering = Ordering.from(new Comparator<CssLink>() {
 			@Override
 			public int compare(CssLink o1, CssLink o2) {
 				return o1.getWeight() - o2.getWeight();
 			};
 		});
-		List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(cssLinks);
+		final List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(filteredCsses);
 		for (CssLink css : sortedCsses) {
 			response.renderCSSReference(webAddress.getSkinUri() + css.getPath());
 		}
@@ -240,7 +256,7 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 	
 	public BootstrapPage() {
-		final TenantRef tenant = WebTenantUtils.getTenant();
+		tenant = WebTenantUtils.getTenant();
 		final String currentUri = getRequest().getUrl().toString();
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();

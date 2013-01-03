@@ -36,5 +36,12 @@ public interface CssLink extends Serializable {
 	 * @return
 	 */
 	int getWeight();
+	
+	/**
+	 * Tenant ID that this CSS applies to. If null or '*',
+	 * means it applies to all tenants.
+	 * @return
+	 */
+	String getTenantId();
 
 }
