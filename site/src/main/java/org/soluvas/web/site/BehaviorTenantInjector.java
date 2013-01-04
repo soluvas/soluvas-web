@@ -142,11 +142,17 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 	
 	@Override
 	public void onRequestHandlerScheduled(RequestCycle reqCycle,
-			IRequestHandler reqHandler) {
-		log.trace("onRequestHandlerScheduled {} {}", reqHandler.getClass(), reqHandler);
-		if (reqHandler instanceof AjaxRequestTarget) {
-			final Page page = ((AjaxRequestTarget) reqHandler).getPage();
+			IRequestHandler handler) {
+		log.trace("onRequestHandlerScheduled {} {}", handler.getClass(), handler);
+		if (handler instanceof AjaxRequestTarget) {
+			final Page page = ((AjaxRequestTarget) handler).getPage();
 			injectPage(page);
+		} else if (handler instanceof RenderPageRequestHandler) {
+			final RenderPageRequestHandler renderPageHandler = (RenderPageRequestHandler) handler;
+			if (renderPageHandler.isPageInstanceCreated()) {
+				final Page page = (Page) renderPageHandler.getPage();
+				injectPage(page);
+			}
 		}
 	}
 

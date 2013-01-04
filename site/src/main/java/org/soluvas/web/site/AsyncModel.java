@@ -62,6 +62,7 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	/**
 	 * @see org.apache.wicket.model.IDetachable#detach()
 	 */
+	@Override
 	public void detach()
 	{
 		if (attached)
@@ -75,7 +76,7 @@ public abstract class AsyncModel<T> implements IModel<T> {
 				attached = false;
 				transientModelObject = null;
 
-				log.debug("removed transient object for {}, requestCycle {}", this,
+				log.trace("removed transient object for {}, requestCycle {}", this,
 					RequestCycle.get());
 			}
 		}
@@ -84,6 +85,7 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	/**
 	 * @see org.apache.wicket.model.IModel#getObject()
 	 */
+	@Override
 	public T getObject()
 	{
 		while (!attached) {
@@ -180,6 +182,7 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	 * @param object
 	 *            The object to set into the model
 	 */
+	@Override
 	public void setObject(final T object)
 	{
 		attached = true;
