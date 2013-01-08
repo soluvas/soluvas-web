@@ -737,8 +737,6 @@ margin-bottom:20px;
 		}
 		.productThumbListContent li { 
 			float: left;
-			margin: 0 10px 15px 0;
-			width: 23.5%;
 			list-style-type: none;
 		 }
 		 
@@ -775,7 +773,10 @@ margin-bottom:20px;
 		    padding: 14px;
 		}
 		.leftcol-productview {
-	    width: 68.6%;
+	    	width: 68.6%;
+		}
+		.wrapper-item-newproducts {
+			width: 21.9%;
 		}
 		
 }
@@ -786,8 +787,6 @@ margin-bottom:20px;
    .productThumbListContent li {
     float: left;
     list-style-type: none;
-    margin: 0 10px 15px 0;
-    width: 23.1%;
 	}
 	.selleroftheday-img {
     height: 130px;
@@ -821,6 +820,16 @@ margin-bottom:20px;
     width: 41%;
 	}
 	
+	.wrapper-item-newproducts {
+		padding: 5px;
+		margin: 0 8px 13px 0;
+		width: 21.6%;
+		}
+	
+	.last{
+		margin-right:0;
+	}
+	
 }
 
 
@@ -830,8 +839,6 @@ margin-bottom:20px;
    .productThumbListContent li {
     float: left;
     list-style-type: none;
-    margin: 0 10px 15px 0;
-    width: 23.1%;
 	}
 	
 }
