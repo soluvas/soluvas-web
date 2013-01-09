@@ -30,7 +30,7 @@ var PermalinkManager = {
 			slugPath: slugPath, baseUri: webAddress.baseUri});
 	},
 	/**
-	 * Get absolute permalink URI, plain HTTP only.
+	 * Get absolute permalink URI, secure HTTPS.
 	 */
 	secureAbsolute: function(namespace, slugPath) {
 		return permalinkTemplates[namespace].expand({namespace: namespace, slug: slugPath,

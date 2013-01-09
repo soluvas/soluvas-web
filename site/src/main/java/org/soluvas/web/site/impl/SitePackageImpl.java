@@ -4,6 +4,7 @@ package org.soluvas.web.site.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
@@ -19,6 +20,7 @@ import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageParam;
 import org.soluvas.web.site.Permalink;
 import org.soluvas.web.site.PermalinkCatalog;
+import org.soluvas.web.site.PermalinkManager;
 import org.soluvas.web.site.RawEntityEditPage;
 import org.soluvas.web.site.RawEntityNewPage;
 import org.soluvas.web.site.RawEntityTablePage;
@@ -176,6 +178,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass permalinkEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass permalinkManagerEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -558,6 +567,15 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPermalinkManager() {
+		return permalinkManagerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -635,6 +653,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		permalinkEClass = createEClass(PERMALINK);
 		createEAttribute(permalinkEClass, PERMALINK__NAMESPACE);
 		createEAttribute(permalinkEClass, PERMALINK__TEMPLATE);
+
+		permalinkManagerEClass = createEClass(PERMALINK_MANAGER);
 	}
 
 	/**
@@ -742,6 +762,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEClass(permalinkEClass, Permalink.class, "Permalink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPermalink_Namespace(), ecorePackage.getEString(), "namespace", null, 1, 1, Permalink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPermalink_Template(), ecorePackage.getEString(), "template", null, 1, 1, Permalink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(permalinkManagerEClass, PermalinkManager.class, "PermalinkManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		EOperation op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "relative", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "absolute", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "unsecureAbsolute", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "secureAbsolute", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -890,6 +928,30 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Recognized values are:\n\n<ol>\n<li>baseUri (from WebAddress, automatically chosen whether relative (\'/\'), absolute plain HTTP, or absolute HTTPS),\nincluding scheme and port, and trailing slash.</li>\n<li>slugPath</li>\n</ol>\n\n<p>Reference: https://github.com/damnhandy/Handy-URI-Templates"
+		   });		
+		addAnnotation
+		  (permalinkManagerEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Get permalink URI relative to current website."
+		   });		
+		addAnnotation
+		  (permalinkManagerEClass.getEOperations().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Get absolute permalink URI, considering plain HTTP vs secure HTTPS."
+		   });		
+		addAnnotation
+		  (permalinkManagerEClass.getEOperations().get(2), 
+		   source, 
+		   new String[] {
+			 "documentation", "Get absolute permalink URI, plain HTTP only."
+		   });		
+		addAnnotation
+		  (permalinkManagerEClass.getEOperations().get(3), 
+		   source, 
+		   new String[] {
+			 "documentation", "Get absolute permalink URI, secure HTTPS."
 		   });
 	}
 

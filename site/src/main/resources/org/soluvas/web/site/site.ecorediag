@@ -356,6 +356,30 @@
     <element xmi:type="ecore:EClass" href="site.ecore#//Permalink"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_X-UBskJlEeKHJauxTqghiA" x="576" y="24"/>
   </children>
+  <children xmi:type="notation:Node" xmi:id="__EXHAVpJEeKx2vW2-_kvLw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="__EY8MFpJEeKx2vW2-_kvLw" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="__EZjQFpJEeKx2vW2-_kvLw" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="__EZjQVpJEeKx2vW2-_kvLw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="__EZjQlpJEeKx2vW2-_kvLw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="__EZjQ1pJEeKx2vW2-_kvLw"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="__EaKUFpJEeKx2vW2-_kvLw" type="5002">
+      <children xmi:type="notation:Node" xmi:id="_IhAAkFpKEeKx2vW2-_kvLw" type="2002">
+        <element xmi:type="ecore:EOperation" href="site.ecore#//PermalinkManager/relative"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_IhAAkVpKEeKx2vW2-_kvLw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_JXmRYFpKEeKx2vW2-_kvLw" type="2002">
+        <element xmi:type="ecore:EOperation" href="site.ecore#//PermalinkManager/absolute"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JXmRYVpKEeKx2vW2-_kvLw"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="__EaKUVpJEeKx2vW2-_kvLw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="__EaKUlpJEeKx2vW2-_kvLw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="__EaKU1pJEeKx2vW2-_kvLw"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="__EXHAlpJEeKx2vW2-_kvLw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//PermalinkManager"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="__EXHA1pJEeKx2vW2-_kvLw" x="204" y="84"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Wj8eYRbUEeK-u5Qj8_PKYg"/>
   <element xmi:type="ecore:EPackage" href="site.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_tj44ABldEeKZi_5YjoJxfA" type="3002" source="_sH3l8BldEeKZi_5YjoJxfA" target="_Zn0yMRldEeKZi_5YjoJxfA">

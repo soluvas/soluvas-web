@@ -74,6 +74,7 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 			case SitePackage.RESET_PASSWORD_PAGE: return (EObject)createResetPasswordPage();
 			case SitePackage.PERMALINK_CATALOG: return (EObject)createPermalinkCatalog();
 			case SitePackage.PERMALINK: return (EObject)createPermalink();
+			case SitePackage.PERMALINK_MANAGER: return (EObject)createPermalinkManager();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -257,6 +258,16 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	public Permalink createPermalink() {
 		PermalinkImpl permalink = new PermalinkImpl();
 		return permalink;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PermalinkManager createPermalinkManager() {
+		PermalinkManagerImpl permalinkManager = new PermalinkManagerImpl();
+		return permalinkManager;
 	}
 
 	/**
