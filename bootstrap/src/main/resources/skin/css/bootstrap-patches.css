@@ -4,7 +4,7 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 	z-index: 1051 !important;
 }
 
-.berbatik-info h2, h1{
+.berbatik-info h2, h1, h3{
 	font-weight: normal;
 }
 
@@ -203,6 +203,20 @@ a:hover {
 /* 	width: 0%; */
 /* } */
 .wrapper-item-newproducts {
+ border: 1px solid #ddd;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  -webkit-transition: all 0.2s ease-in-out;
+     -moz-transition: all 0.2s ease-in-out;
+       -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+	padding: 7px;
+	margin: 0 10px 15px 0;
+	width: 22.3%;
+}
+
+.wrapp-productThumbListContent {
  border: 1px solid #ddd;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
@@ -779,6 +793,11 @@ margin-bottom:20px;
 			width: 21.9%;
 		}
 		
+		.wrapp-productThumbListContent {
+			width: 21.9%;
+			padding:6px;
+		}
+		
 }
 
 /* landscape phone (galaxy nexus landscape, viewsonic pad landscape, asus galaxy 7--windows to tablet portrait */
@@ -825,6 +844,11 @@ margin-bottom:20px;
 		margin: 0 8px 13px 0;
 		width: 21.6%;
 		}
+	.wrapp-productThumbListContent {
+		padding: 5px;
+		margin: 0 8px 13px 0;
+		width: 21.6%;
+	}
 	
 	.last{
 		margin-right:0;
