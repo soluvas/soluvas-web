@@ -460,4 +460,12 @@ including scheme and port, and trailing slash.&lt;/li&gt;
       <xsd:documentation>Permalink configuration for an entity.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:complexType name="PermalinkManager">
+    <xsd:choice maxOccurs="unbounded" minOccurs="0">
+      <xsd:element ref="xmi:Extension"/>
+    </xsd:choice>
+    <xsd:attribute ref="xmi:id"/>
+    <xsd:attributeGroup ref="xmi:ObjectAttribs"/>
+  </xsd:complexType>
+  <xsd:element name="PermalinkManager" type="site:PermalinkManager"/>
 </xsd:schema>

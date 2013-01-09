@@ -1069,6 +1069,26 @@ public interface SitePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.PermalinkManagerImpl <em>Permalink Manager</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.PermalinkManagerImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPermalinkManager()
+	 * @generated
+	 */
+	int PERMALINK_MANAGER = 20;
+
+	/**
+	 * The number of structural features of the '<em>Permalink Manager</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERMALINK_MANAGER_FEATURE_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1434,6 +1454,16 @@ public interface SitePackage extends EPackage {
 	EAttribute getPermalink_Template();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PermalinkManager <em>Permalink Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Permalink Manager</em>'.
+	 * @see org.soluvas.web.site.PermalinkManager
+	 * @generated
+	 */
+	EClass getPermalinkManager();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1774,6 +1804,16 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PERMALINK__TEMPLATE = eINSTANCE.getPermalink_Template();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.PermalinkManagerImpl <em>Permalink Manager</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.PermalinkManagerImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPermalinkManager()
+		 * @generated
+		 */
+		EClass PERMALINK_MANAGER = eINSTANCE.getPermalinkManager();
 
 	}
 

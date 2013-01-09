@@ -186,6 +186,15 @@ public interface SiteFactory extends EFactory {
 	Permalink createPermalink();
 
 	/**
+	 * Returns a new object of class '<em>Permalink Manager</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Permalink Manager</em>'.
+	 * @generated
+	 */
+	PermalinkManager createPermalinkManager();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
