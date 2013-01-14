@@ -47,21 +47,4 @@ public class WebImage extends WebMarkupContainer {
 		}
 	}
 	
-	@Override
-	protected void onBeforeRender() {
-//		final String srcTemplate = getMarkupAttributes().getString("src");
-//		final Map<String, Object> vars = ImmutableMap.<String, Object>of(
-//				"imagesUri", webAddress.getImagesUri(), "skinUri", webAddress.getSkinUri());
-//		log.trace("Expanding {} using {}", getPageRelativePath(), srcTemplate);
-//		try {
-//			final String src = UriTemplate.fromTemplate(srcTemplate).expand(vars);
-//			
-//			add(new AttributeModifier("src", src).);
-//		} catch (ExpressionParseException e) {
-//			throw new SiteException(e, "WebImage %'s src invalid URI template or without variables, please use standard img for non-dynamic URIs: %s",
-//					getPageRelativePath(), srcTemplate);
-//		}
-		super.onBeforeRender();
-	}
-
 }

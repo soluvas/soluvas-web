@@ -68,21 +68,15 @@ var subscriptions = [];
 <!-- 			    <li><a href="#">Library</a> <span class="divider">/</span></li> -->
 <!-- 			    <li class="active">Data</li> -->
 <!-- 		    </ul> -->
-			<div class="row">		
-				<div class="span12">
-					<div class="row">
-						<div wicket:id="afterHeader" class="afterHeader">
-							<!-- 		Carousel Images is loading.. -->
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="row">
 				<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
 					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
 				</div><!--/span-->
 				
 				<div class="span9" wicket:id="contentColumn">
+					<div wicket:id="afterHeader" class="afterHeader">
+							<!-- 		Carousel Images is loading.. -->
+					</div>
 					<div wicket:id="feedback" class="feedback"></div>
 					<wicket:child>
 						<ol class="featured-products">
