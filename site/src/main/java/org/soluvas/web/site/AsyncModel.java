@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -51,8 +52,9 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	private transient volatile T transientModelObject;
 	public static final int timeoutValue = 15;
 	public static final TimeUnit timeoutUnit = TimeUnit.SECONDS;
-	private transient Future<T> future;
-	private final ReadWriteLock lock = new ReentrantReadWriteLock(); 
+	private volatile transient Future<T> future;
+	private final ReadWriteLock lock = new ReentrantReadWriteLock();
+	private final AtomicInteger scheduledLoads = new AtomicInteger();
 
 	public AsyncModel() {
 		super();
@@ -63,9 +65,9 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	 * @see org.apache.wicket.model.IDetachable#detach()
 	 */
 	@Override
-	public void detach()
+	public synchronized void detach()
 	{
-		if (attached)
+		if (attached || scheduledLoads.get() > 0)
 		{
 			try
 			{
@@ -73,11 +75,32 @@ public abstract class AsyncModel<T> implements IModel<T> {
 			}
 			finally
 			{
-				attached = false;
-				transientModelObject = null;
+				// wait loads
+				while (scheduledLoads.get() > 0) {
+					try {
+						// TODO: find more efficient waiting algorithm
+						Thread.currentThread().sleep(10);
+					} catch (InterruptedException e) {
+					}
+				}
+				
+				final Lock writeLock = lock.writeLock();
+				try {
+					boolean locked = writeLock.tryLock(50, TimeUnit.MILLISECONDS);
+					if (locked) {
+						try {
+							attached = false;
+							transientModelObject = null;
 
-				log.trace("removed transient object for {}, requestCycle {}", this,
-					RequestCycle.get());
+							log.trace("removed transient object for {}, requestCycle {}", this,
+								RequestCycle.get());
+						} finally {
+							writeLock.unlock();
+						}
+					}
+				} catch (InterruptedException e) {
+					log.warn("Interrupted while trying write lock " + getClass().getName(), e);
+				}
 			}
 		}
 	}
@@ -101,6 +124,7 @@ public abstract class AsyncModel<T> implements IModel<T> {
 						}
 						transientModelObject = future.get(timeoutValue, timeoutUnit);
 						attached = true;
+						future = null;
 	//					if (futureResult == null)
 	//						log.warn("AsyncModel returns null!");
 						
@@ -185,15 +209,23 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	@Override
 	public void setObject(final T object)
 	{
-		attached = true;
-		transientModelObject = object;
+		final Lock writeLock = lock.writeLock();
+		writeLock.lock();
+		try {
+			attached = true;
+			transientModelObject = object;
+		} finally {
+			writeLock.unlock();
+		}
 	}
 
 	/**
 	 * @param loader
 	 */
 	protected void resubmit() {
-		final BundleContext bundleContext = FrameworkUtil.getBundle(AsyncModel.class).getBundleContext();
+		scheduledLoads.incrementAndGet();
+		final BundleContext bundleContext = Preconditions.checkNotNull(FrameworkUtil.getBundle(AsyncModel.class).getBundleContext(),
+				"Cannot get bundleContext for %s", AsyncModel.class);
 		final ServiceReference<ExecutorService> executorRef;
 		try {
 			executorRef = Iterables.getFirst(
@@ -207,7 +239,9 @@ public abstract class AsyncModel<T> implements IModel<T> {
 			future = executor.submit(new Callable<T>() {
 				@Override
 				public T call() throws Exception {
-					return load();
+					final T loaded = load();
+					scheduledLoads.decrementAndGet();
+					return loaded;
 				}
 			});
 		} finally {
