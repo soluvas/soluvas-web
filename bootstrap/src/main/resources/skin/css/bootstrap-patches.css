@@ -1,6 +1,13 @@
 /* Fix Bootstrap .modal compatibility with jQuery UI Autocomplete,
 see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-in-bootstrap-modal-dialog */
 
+.info-file {
+		    float: left;
+		    font-size: 11px;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    width: 170px;
+}
 .listImageProd{
 width: 40%;	
 }
@@ -115,7 +122,7 @@ a:hover {
 }
 
 .tophead {
-	margin: 20px 0;
+	margin: 15px 0;
 }
 
 .userinfo {
@@ -592,7 +599,7 @@ a:hover {
 }
 
 .tophead .pull-right li:active {
-	background-color: #fff;
+/* 	background-color: #fff; */
 }
 
 .tophead .nav li.dropdown.open>.dropdown-toggle,.dropdown-toggle,.dropdown-toggle
@@ -960,6 +967,10 @@ margin-bottom:20px;
 /* Mobile styling ( LG optimus, iphone 3,4 bb8300, portrait and landscape) -----------*/
 
 @media (max-width: 480px) {
+	
+	.footer{
+		text-align: center;
+	}
 	.form-horizontal .controls {
  	 margin-left: 0;
 	}
@@ -1187,14 +1198,6 @@ margin-bottom:20px;
 		    float:left;
 		    padding: 8px;
 		    margin-bottom:10px
-		}
-		.info-file {
-		 	float: left;
-		    margin-left: 10px;
-		    margin-top: 5px;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-		    width: 160px;
 		}
 		
 		.muted {
