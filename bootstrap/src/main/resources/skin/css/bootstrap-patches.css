@@ -24,12 +24,18 @@ width: 40%;
 	font-weight: normal;
 }
 
-.footer{
-/* 	background-color: #F5F5F5; */
-/* 	border-top: 1px solid #E5E5E5;  */
-/* 	margin-top: 70px;  */
-/* 	padding: 30px 0;  */
+.footer a{
+	color:#666;
 	}
+.footer a:HOVER{
+	color:#333;
+	}
+.social-media-footer img{
+	opacity:0.8;
+}
+.social-media-footer img:HOVER{
+	opacity:1;
+}
 	
 /* .footer li{ */
 /* 	margin-bottom: 10px; */
@@ -68,12 +74,6 @@ width: 40%;
 
 
 
-
-
-
-
-
-
 .navbar .brand{
  padding: 0 20px;
 }
@@ -82,17 +82,23 @@ a:hover {
 	text-decoration: none;
 }
 
-.imgThumb,.productName {
-	color: #666;
-}
-
 .selleroftheday-listprod a{
 	color:#666;
 }
-.wrapper-item-newproducts a:HOVER{
+
+.wrapper-item-newproducts .productName{
 	color:#666;
-	text-decoration: underline;
 }
+.wrapper-item-newproducts .productName:HOVER{
+	color:#333;
+}
+.wrapp-productThumbListContent .productName{
+	color:#666;
+}
+.wrapp-productThumbListContent .productName:hover{
+	color:#333;
+}
+
 .selleroftheday-listprod a:HOVER{
 	color:#666;
 	text-decoration: underline;
@@ -258,7 +264,7 @@ a:hover {
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		    white-space: nowrap;
-		    width: 100%;
+		    max-width: 100%;
 		     margin: 5px 0 0;
 		}
 .shop-overflow {
@@ -1286,7 +1292,7 @@ margin-bottom:20px;
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		    white-space: nowrap;
-		    width: 100%;
+		    max-width: 100%;
 		}
 		.shop-overflow {
 		    overflow: hidden;
