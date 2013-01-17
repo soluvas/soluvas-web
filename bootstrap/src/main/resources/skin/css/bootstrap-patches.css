@@ -1,6 +1,9 @@
 /* Fix Bootstrap .modal compatibility with jQuery UI Autocomplete,
 see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-in-bootstrap-modal-dialog */
-
+.subcat li{
+	list-style: disc outside none;
+	margin-left:15px;
+}
 .info-file {
 		    float: left;
 		    font-size: 11px;
