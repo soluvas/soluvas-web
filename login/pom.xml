@@ -141,11 +141,12 @@
 						</goals>
 						<inherited>false</inherited>
 						<configuration>
-							<executable>pwd</executable>
+							<!-- need wildcard expansion, so need bash -->
 							<executable>bash</executable>
 							<arguments>
 								<argument>-c</argument>
-								<argument>/usr/local/bin/handlebars src/main/resources/templates_web/*.mustache --amd --output src/main/resources/js/templates.js</argument>
+<!-- 								/usr/local/bin/handlebars -->
+								<argument>handlebars src/main/resources/templates_web/*.mustache --amd --output src/main/resources/js/templates.js</argument>
 							</arguments>
 						</configuration>
 					</execution>
