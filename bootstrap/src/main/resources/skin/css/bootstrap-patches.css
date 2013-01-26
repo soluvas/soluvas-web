@@ -1,5 +1,8 @@
 /* Fix Bootstrap .modal compatibility with jQuery UI Autocomplete,
 see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-in-bootstrap-modal-dialog */
+.ui-autocomplete {
+	z-index: 1051 !important;
+}
 
 .badgeCart{
 	margin: -47px 0 0 57px;
@@ -30,10 +33,6 @@ width: 40%;
 
 #categories a{
 	color:gray;
-}
-
-.ui-autocomplete {
-	z-index: 1051 !important;
 }
 
 .berbatik-info h2, h1, h3{
@@ -772,7 +771,13 @@ margin-bottom:20px;
 	width: 140px;
 }
 
-
+.spinner {
+	background-image: url("../img/spinning_wheel_throbber.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 50px;
+	content: "";
+}
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 1024px) {
