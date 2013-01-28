@@ -3,6 +3,11 @@
  */
 package org.soluvas.web.login;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+
+
 
 /**
  * @author haidar
@@ -12,13 +17,29 @@ public class TwitterManagerImpl implements TwitterManager  {
 
 	private final String consumerKey;
 	private final String consumerSecret;
+	private final Twitter twitter;
 	
 	public TwitterManagerImpl(String consumerKey, String consumerSecret) {
 		super();
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
+		twitter = new TwitterFactory().getInstance();
+		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 	}
 	
+	@Override
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	@Override
+	public Twitter createTwitter(String accessToken, String accessTokenSecret) {
+		final Twitter twitter = new TwitterFactory().getInstance();
+		twitter.setOAuthConsumer(consumerKey, consumerSecret);
+		twitter.setOAuthAccessToken(new AccessToken(accessToken, accessTokenSecret));
+		return twitter;
+	}
+
 	/* (non-Javadoc)
 	 * @see org.soluvas.web.login.FacebookManager#getAppId()
 	 */
