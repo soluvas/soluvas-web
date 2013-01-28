@@ -1,5 +1,15 @@
 /* Fix Bootstrap .modal compatibility with jQuery UI Autocomplete,
 see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-in-bootstrap-modal-dialog */
+
+/* .nav-container well sidebar-nav .accordion { */
+/*     margin-bottom: 10px; */
+/* } */
+.accordion .caret {
+ vertical-align: middle;
+}
+.productCategorizedPanel ul{
+	margin:0;
+}
 .ui-autocomplete {
 	z-index: 1051 !important;
 }
@@ -644,9 +654,9 @@ a:hover {
 	height: 75px;
 }
 
-.sidebar-categories ul {
-	margin: 0;
-}
+/* .sidebar-categories ul { */
+/* 	margin: 0; */
+/* } */
 
 .sidebar-categories { /* 	background-color: #eee; */
 	/* 	padding:5px; */
@@ -1069,9 +1079,9 @@ margin-bottom:20px;
 	.head-product-info h5 {
     	margin-top: 0;
 	}
-	.sidebar-categories ul{
-		margin:0;
-	}
+/* 	.sidebar-categories ul{ */
+/* 		margin:0; */
+/* 	} */
 	.headingpanel {
 		float:left;
 	    font-size: 14px;
