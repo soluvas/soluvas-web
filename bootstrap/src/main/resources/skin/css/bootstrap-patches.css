@@ -4,8 +4,14 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /* .nav-container well sidebar-nav .accordion { */
 /*     margin-bottom: 10px; */
 /* } */
+
+.headCategories{
+	margin-left:-30px;
+}
+
 .accordion .caret {
  vertical-align: middle;
+ border-top: 4px solid #0088CC;
 }
 .productCategorizedPanel ul{
 	margin:0;
