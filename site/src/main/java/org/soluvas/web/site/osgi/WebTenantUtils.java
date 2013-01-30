@@ -35,6 +35,9 @@ public class WebTenantUtils {
 	/**
 	 * Get {@link TenantRef} for current Wicket {@link Application}.
 	 * 
+	 * <p>WARNING: This method is not thread-safe, it must be run from the Wicket thread,
+	 * so it's useless for asynchronous operations.
+	 * 
 	 * @return
 	 */
 	public static TenantRef getTenant() {
@@ -56,6 +59,9 @@ public class WebTenantUtils {
 	/**
 	 * Get OSGi {@link ServiceReference} scoped to the current Wicket
 	 * {@link Application}'s tenant.
+	 * 
+	 * <p>WARNING: This method is not thread-safe, it must be run from the Wicket thread,
+	 * so it's useless for asynchronous operations.
 	 * 
 	 * @param iface
 	 * @param namespace

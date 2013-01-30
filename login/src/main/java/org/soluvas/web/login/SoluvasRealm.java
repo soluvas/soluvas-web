@@ -1,11 +1,17 @@
 package org.soluvas.web.login;
 
+import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.ldap.client.api.LdapConnectionConfig;
+import org.apache.directory.ldap.client.api.LdapNetworkConnection;
+import org.apache.directory.shared.ldap.model.entry.Entry;
+import org.apache.directory.shared.ldap.model.message.SearchScope;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -14,13 +20,17 @@ import org.apache.shiro.realm.ldap.AbstractLdapRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.ldap.LdapUtils;
 import org.soluvas.security.Permission;
 import org.soluvas.security.Role;
 import org.soluvas.security.SecurityCatalog;
 import org.soluvas.security.SecurityRepository;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 /**
@@ -37,6 +47,8 @@ public class SoluvasRealm extends AuthorizingRealm {
 	private final Supplier<SecurityCatalog> securityCatalogSupplier;
 	private final SecurityRepository securityRepo;
 
+	private final String usersDn;
+
 	/**
 	 * 
 	 * @param securityCatalogSupplier Why not generics? See https://issues.apache.org/jira/browse/ARIES-960
@@ -48,8 +60,9 @@ public class SoluvasRealm extends AuthorizingRealm {
 		this.securityCatalogSupplier = securityCatalogSupplier;
 		this.securityRepo = securityRepo;
 		setName(securityRepo.getDomainBase());
-		CredentialsMatcher cm = new LdapBindCredentialsMatcher(securityRepo.getBindConfig(),
-				securityRepo.getUsersRdn() + "," + securityRepo.getDomainBase());
+		usersDn = securityRepo.getUsersRdn() + "," + securityRepo.getDomainBase();
+		final CredentialsMatcher cm = new LdapBindCredentialsMatcher(securityRepo.getBindConfig(),
+				usersDn);
 		setCredentialsMatcher(cm);
 	}
 	
@@ -59,20 +72,20 @@ public class SoluvasRealm extends AuthorizingRealm {
 		final String userName = (String) principalCollection.getPrimaryPrincipal();
 		final Set<String> ldapRoles = securityRepo.getPersonRoles(userName);
 
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		final SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.addRoles(ldapRoles);
 
 		// TODO: permissions should be set somewhere else,
 		// using EMF models
 
-		SecurityCatalog securityCatalog = securityCatalogSupplier.get();
+		final SecurityCatalog securityCatalog = securityCatalogSupplier.get();
 		log.debug(
 				"Processing security catalog for {} with {} roles, {} domains, {} actions, and {} permissions",
 				userName, securityCatalog.getRoles().size(), securityCatalog
 						.getDomains().size(), securityCatalog.getActions()
 						.size(), securityCatalog.getPermissions().size());
 
-		for (Role role : securityCatalog.getRoles()) {
+		for (final Role role : securityCatalog.getRoles()) {
 			switch (role.getAssignMode()) {
 			case GUEST:
 				log.debug("Assigning role {} to {} because assign mode {}",
@@ -93,8 +106,8 @@ public class SoluvasRealm extends AuthorizingRealm {
 			}
 		}
 
-		for (Permission perm : securityCatalog.getPermissions()) {
-			Set<String> intersectingRoles = Sets.intersection(info.getRoles(),
+		for (final Permission perm : securityCatalog.getPermissions()) {
+			final Set<String> intersectingRoles = Sets.intersection(info.getRoles(),
 					ImmutableSet.copyOf(perm.getRoles()));
 			if (!intersectingRoles.isEmpty()) {
 				log.debug("Assigning permission {} to {} due to role(s) {}",
@@ -114,10 +127,43 @@ public class SoluvasRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken authToken) throws AuthenticationException {
-		String userName = (String) authToken.getPrincipal();
-		return new SimpleAuthenticationInfo(userName.toLowerCase(), null,
-				getName());
+			AuthenticationToken token) throws AuthenticationException {
+		final LdapConnectionConfig ldapConfig = securityRepo.getBindConfig();
+		
+		final String personId;
+		
+		if (token instanceof UsernamePasswordToken) {
+			final String tokenUsername = ((UsernamePasswordToken) token).getUsername();
+			if (tokenUsername != null && tokenUsername.contains("@")) {
+				final LdapNetworkConnection conn = new LdapNetworkConnection(
+						ldapConfig);
+				try {
+					Preconditions.checkState(conn.connect(),
+							"Cannot connect to LDAP server %s", ldapConfig.getLdapHost());
+					conn.bind();
+					final String ldapFilter = "(&(mail=" + tokenUsername + ")(objectclass=person))";
+					log.debug("Searching {} for {}", usersDn, ldapFilter);
+					final List<Entry> users = LdapUtils.asList(conn.search(
+							usersDn, ldapFilter, SearchScope.ONELEVEL, "uid"));
+					if (users.size() != 1) {
+						log.info("Found {} users matching email {}, expected 1", users.size(), tokenUsername);
+						throw new AuthenticationException("No user matching email " + tokenUsername);
+					}
+					final Entry userEntry = Iterables.getOnlyElement(users);
+					personId = userEntry.get("uid").getString();
+					log.debug("User matching email {} is {}", tokenUsername, personId);
+				} catch (Exception e) {
+					throw new AuthenticationException("Cannot find user matching " + tokenUsername, e);
+				}
+			} else {
+				personId = Strings.nullToEmpty(tokenUsername).toLowerCase();
+			}
+		} else {
+			throw new AuthenticationException("Unsupported AuthenticationToken: "
+					+ token.getClass() + " using " + token.getPrincipal());
+		}
+		
+		return new SimpleAuthenticationInfo(personId, null, getName());
 	}
 
 }
