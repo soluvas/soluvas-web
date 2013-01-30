@@ -31,8 +31,8 @@ public class LogoutLink extends AjaxLink<Void> {
 		log.info("Logging out {} and redirecting to {}", currentUser.getPrincipal(), homePage);
 		currentUser.logout();
 		info("Anda telah log out.");
-		target.add(ajaxTargets);
-//		getRequestCycle().setResponsePage(homePage);
+//		target.add(ajaxTargets);
+		getRequestCycle().setResponsePage(homePage);
 	}
 
 }
