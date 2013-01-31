@@ -5,7 +5,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class LogoutLink extends AjaxLink<Void> {
+public class LogoutLink extends IndicatingAjaxLink<Void> {
 
 	private static final Logger log = LoggerFactory.getLogger(LogoutLink.class);
 	private final Component[] ajaxTargets;
