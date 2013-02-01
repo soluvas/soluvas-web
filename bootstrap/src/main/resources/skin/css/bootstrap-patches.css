@@ -1,6 +1,7 @@
 /* Fix Bootstrap .modal compatibility with jQuery UI Autocomplete,
 see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-in-bootstrap-modal-dialog */
 
+
 /* .nav-container well sidebar-nav .accordion { */
 /*     margin-bottom: 10px; */
 /* } */
@@ -99,11 +100,10 @@ width: 40%;
 .nobold{
 	font-weight: normal;
 }
-.form-horizontal .controls {
+
+.insertProduct .form-horizontal .controls {
   margin-left: 135px;
 }
-
-
 
 .navbar .brand{
  padding: 0 20px;
@@ -777,15 +777,15 @@ margin-bottom:20px;
 	margin:0;
 }
 
-.categoryChoicesForm .control-label{
-		 text-align: left;
-    	 width: 140px;
-    	}
+/* .categoryChoicesForm .control-label{ */
+/* 		 text-align: left; */
+/*     	 width: 140px; */
+/*     	} */
     	
-.insertProduct .control-label{
-	text-align: left;
-	width: 140px;
-}
+/* .insertProduct .control-label{ */
+/* 	text-align: left; */
+/* 	width: 140px; */
+/* } */
 
 .spinner {
 	background-image: url("../img/spinning_wheel_throbber.gif");
@@ -798,8 +798,10 @@ margin-bottom:20px;
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 1024px) {
 		
+
 		.form-horizontal .control-label{
 			width: 100%;
+			text-align: left;
 		}
 		.form-horizontal .controls {
 	 	 margin-left: 0;
@@ -997,6 +999,9 @@ margin-bottom:20px;
 /* Mobile styling (portrait) -----------*/
 
 @media (max-width: 320px){
+			select{
+			width: 190px;
+		}
 		.thumb-prod-stories {
    			float:none;
    			margin-bottom:5px;
@@ -1011,10 +1016,15 @@ margin-bottom:20px;
 /* Mobile styling ( LG optimus, iphone 3,4 bb8300, portrait and landscape) -----------*/
 
 @media (max-width: 480px) {
-	
-	.footer{
-		text-align: center;
+	select{
+	width: 100%;
 	}
+	input{
+	width: 100%;
+	}
+/* 	.footer{ */
+/* 		text-align: center; */
+/* 	} */
 	.form-horizontal .controls {
  	 margin-left: 0;
 	}
