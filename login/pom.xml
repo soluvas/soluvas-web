@@ -55,11 +55,6 @@
 			<artifactId>shiro-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.directory.shared</groupId>
-			<artifactId>shared-ldap-client-api</artifactId>
-			<version>1.0.0-M13</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 		</dependency>
