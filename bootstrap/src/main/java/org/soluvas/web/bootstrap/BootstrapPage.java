@@ -262,7 +262,9 @@ public class BootstrapPage extends ExtensiblePage {
 		final String currentUri = getRequest().getUrl().toString();
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-		final IModel<PageMeta> pageMetaModel = new AsyncModel<PageMeta>() {
+		// do NOT use AsyncModel here because we need it to load last
+		// (i.e. after all scopes has been attached as page model using addModelForPageMeta)
+		final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
 			@Override
 			protected PageMeta load() {
 				return getPageMeta(tenant, currentUri);
@@ -283,7 +285,8 @@ public class BootstrapPage extends ExtensiblePage {
 			final IModel<String> titleModel = new AsyncModel<String>() {
 				@Override
 				protected String load() {
-					return Optional.fromNullable(getTitle()).or( Optional.fromNullable(pageMetaModel.getObject().getTitle()) ).orNull();
+					return Optional.fromNullable(getTitle())
+							.or( Optional.fromNullable(pageMetaModel.getObject().getTitle()) ).orNull();
 				}
 			};
 			final IModel<String> titleSuffixModel = new AsyncModel<String>() {
