@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.osgi.framework.Bundle;
 import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
 import org.soluvas.commons.ResourceType;
 import org.soluvas.web.site.compose.ComposeFactory;
@@ -29,6 +30,7 @@ import org.soluvas.web.site.compose.ReplaceContributor;
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getResourceType <em>Resource Type</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getResourceUri <em>Resource Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getResourceName <em>Resource Name</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getPositioner <em>Positioner</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getPageClassName <em>Page Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ReplaceContributorImpl#getClassName <em>Class Name</em>}</li>
@@ -119,6 +121,26 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * @ordered
 	 */
 	protected String resourceName = RESOURCE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer POSITIONER_EDEFAULT = new Integer(0);
+
+	/**
+	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer positioner = POSITIONER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPageClassName() <em>Page Class Name</em>}' attribute.
@@ -337,6 +359,29 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * @generated
 	 */
 	@Override
+	public Integer getPositioner() {
+		return positioner;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPositioner(Integer newPositioner) {
+		Integer oldPositioner = positioner;
+		positioner = newPositioner;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER, oldPositioner, positioner));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public String getPageClassName() {
 		return pageClassName;
 	}
@@ -460,6 +505,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 		liveContributor.setFactoryBean(getFactoryBean());
 		liveContributor.setState(ContributorState.UNRESOLVED);
 		liveContributor.setBundle(bundle);
+		liveContributor.setPositioner(positioner);
 		return liveContributor;
 	}
 
@@ -479,6 +525,8 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				return getResourceUri();
 			case ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_NAME:
 				return getResourceName();
+			case ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER:
+				return getPositioner();
 			case ComposePackage.REPLACE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return getPageClassName();
 			case ComposePackage.REPLACE_CONTRIBUTOR__TARGET_PATH:
@@ -512,6 +560,9 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				return;
 			case ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_NAME:
 				setResourceName((String)newValue);
+				return;
+			case ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER:
+				setPositioner((Integer)newValue);
 				return;
 			case ComposePackage.REPLACE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName((String)newValue);
@@ -552,6 +603,9 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 			case ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_NAME:
 				setResourceName(RESOURCE_NAME_EDEFAULT);
 				return;
+			case ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER:
+				setPositioner(POSITIONER_EDEFAULT);
+				return;
 			case ComposePackage.REPLACE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName(PAGE_CLASS_NAME_EDEFAULT);
 				return;
@@ -587,6 +641,8 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
 			case ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_NAME:
 				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
+			case ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER:
+				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
 			case ComposePackage.REPLACE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return PAGE_CLASS_NAME_EDEFAULT == null ? pageClassName != null : !PAGE_CLASS_NAME_EDEFAULT.equals(pageClassName);
 			case ComposePackage.REPLACE_CONTRIBUTOR__TARGET_PATH:
@@ -616,6 +672,12 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				default: return -1;
 			}
 		}
+		if (baseClass == Positionable.class) {
+			switch (derivedFeatureID) {
+				case ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER: return CommonsPackage.POSITIONABLE__POSITIONER;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -631,6 +693,12 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE: return ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_TYPE;
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_URI: return ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_URI;
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME: return ComposePackage.REPLACE_CONTRIBUTOR__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Positionable.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.POSITIONABLE__POSITIONER: return ComposePackage.REPLACE_CONTRIBUTOR__POSITIONER;
 				default: return -1;
 			}
 		}
@@ -655,6 +723,8 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 		result.append(resourceUri);
 		result.append(", resourceName: ");
 		result.append(resourceName);
+		result.append(", positioner: ");
+		result.append(positioner);
 		result.append(", pageClassName: ");
 		result.append(pageClassName);
 		result.append(", targetPath: ");

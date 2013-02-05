@@ -41,18 +41,42 @@
 			<artifactId>org.soluvas.ldap</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.twitter4j</groupId>
-			<artifactId>twitter4j-core</artifactId>
-			<version>3.0.3</version>
+		 <dependency>
+			<groupId>com.restfb</groupId>
+			<artifactId>restfb</artifactId>
 		</dependency>
-		<dependency>
 		<dependency>
 		  <groupId>org.expressme</groupId>
 		  <artifactId>JOpenId</artifactId>
 		  <version>1.08</version>
 		</dependency>
-		
+		<dependency>
+		    <groupId>org.twitter4j</groupId>
+		    <artifactId>twitter4j-core</artifactId>
+		    <version>3.0.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.http-client</groupId>
+		    <artifactId>google-http-client-jackson2</artifactId>
+		    <version>1.13.1-beta</version>
+		</dependency>
+		<dependency>
+      		<groupId>com.google.api-client</groupId>
+      		<artifactId>google-api-client</artifactId>
+      		<version>1.13.2-beta</version>
+    	</dependency>
+<!-- 		<dependency> -->
+<!--       		<groupId>com.google.api-client</groupId> -->
+<!--       		<artifactId>google-api-client-servlet</artifactId> -->
+<!--       		<version>1.13.0-beta</version> -->
+<!--     	</dependency> -->
+	    <dependency>
+	      <groupId>com.google.apis</groupId>
+	      <artifactId>google-api-services-plus</artifactId>
+	      <version>v1-rev49-1.13.2-beta</version>
+	    </dependency>
+
+		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
 		</dependency>

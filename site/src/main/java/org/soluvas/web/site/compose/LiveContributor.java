@@ -3,8 +3,11 @@
 package org.soluvas.web.site.compose;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Comparator;
+
 import org.osgi.framework.Bundle;
+
+import com.google.common.base.Optional;
 
 
 /**
@@ -30,6 +33,16 @@ import org.osgi.framework.Bundle;
  * @generated
  */
 public interface LiveContributor extends Contributor {
+	
+	public static final class PositionerComparator implements
+			Comparator<LiveContributor> {
+		@Override
+		public int compare(LiveContributor arg0, LiveContributor arg1) {
+			return Optional.fromNullable(arg0.getPositioner()).or(0)
+					- Optional.fromNullable(arg1.getPositioner()).or(0);
+		}
+	}
+
 	/**
 	 * Returns the value of the '<em><b>State</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.soluvas.web.site.compose.ContributorState}.

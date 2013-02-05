@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.osgi.framework.Bundle;
 import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
 import org.soluvas.commons.ResourceType;
 import org.soluvas.web.site.compose.ComposeFactory;
@@ -28,6 +29,7 @@ import org.soluvas.web.site.compose.LiveHideContributor;
  *   <li>{@link org.soluvas.web.site.compose.impl.HideContributorImpl#getResourceType <em>Resource Type</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.HideContributorImpl#getResourceUri <em>Resource Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.HideContributorImpl#getResourceName <em>Resource Name</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.HideContributorImpl#getPositioner <em>Positioner</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.HideContributorImpl#getPageClassName <em>Page Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.HideContributorImpl#getTargetPath <em>Target Path</em>}</li>
  * </ul>
@@ -115,6 +117,26 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 	 * @ordered
 	 */
 	protected String resourceName = RESOURCE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer POSITIONER_EDEFAULT = new Integer(0);
+
+	/**
+	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer positioner = POSITIONER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPageClassName() <em>Page Class Name</em>}' attribute.
@@ -273,6 +295,29 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 	 * @generated
 	 */
 	@Override
+	public Integer getPositioner() {
+		return positioner;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPositioner(Integer newPositioner) {
+		Integer oldPositioner = positioner;
+		positioner = newPositioner;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.HIDE_CONTRIBUTOR__POSITIONER, oldPositioner, positioner));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public String getPageClassName() {
 		return pageClassName;
 	}
@@ -324,6 +369,7 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 		liveContributor.setTargetPath(getTargetPath());
 		liveContributor.setState(ContributorState.UNRESOLVED);
 		liveContributor.setBundle(bundle);
+		liveContributor.setPositioner(positioner);
 		return liveContributor;
 	}
 
@@ -343,6 +389,8 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 				return getResourceUri();
 			case ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_NAME:
 				return getResourceName();
+			case ComposePackage.HIDE_CONTRIBUTOR__POSITIONER:
+				return getPositioner();
 			case ComposePackage.HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return getPageClassName();
 			case ComposePackage.HIDE_CONTRIBUTOR__TARGET_PATH:
@@ -370,6 +418,9 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 				return;
 			case ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_NAME:
 				setResourceName((String)newValue);
+				return;
+			case ComposePackage.HIDE_CONTRIBUTOR__POSITIONER:
+				setPositioner((Integer)newValue);
 				return;
 			case ComposePackage.HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName((String)newValue);
@@ -401,6 +452,9 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 			case ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_NAME:
 				setResourceName(RESOURCE_NAME_EDEFAULT);
 				return;
+			case ComposePackage.HIDE_CONTRIBUTOR__POSITIONER:
+				setPositioner(POSITIONER_EDEFAULT);
+				return;
 			case ComposePackage.HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName(PAGE_CLASS_NAME_EDEFAULT);
 				return;
@@ -427,6 +481,8 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
 			case ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_NAME:
 				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
+			case ComposePackage.HIDE_CONTRIBUTOR__POSITIONER:
+				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
 			case ComposePackage.HIDE_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return PAGE_CLASS_NAME_EDEFAULT == null ? pageClassName != null : !PAGE_CLASS_NAME_EDEFAULT.equals(pageClassName);
 			case ComposePackage.HIDE_CONTRIBUTOR__TARGET_PATH:
@@ -450,6 +506,12 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 				default: return -1;
 			}
 		}
+		if (baseClass == Positionable.class) {
+			switch (derivedFeatureID) {
+				case ComposePackage.HIDE_CONTRIBUTOR__POSITIONER: return CommonsPackage.POSITIONABLE__POSITIONER;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -465,6 +527,12 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE: return ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_TYPE;
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_URI: return ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_URI;
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME: return ComposePackage.HIDE_CONTRIBUTOR__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Positionable.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.POSITIONABLE__POSITIONER: return ComposePackage.HIDE_CONTRIBUTOR__POSITIONER;
 				default: return -1;
 			}
 		}
@@ -489,6 +557,8 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 		result.append(resourceUri);
 		result.append(", resourceName: ");
 		result.append(resourceName);
+		result.append(", positioner: ");
+		result.append(positioner);
 		result.append(", pageClassName: ");
 		result.append(pageClassName);
 		result.append(", targetPath: ");

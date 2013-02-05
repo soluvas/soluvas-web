@@ -34,7 +34,7 @@ import com.google.common.base.Supplier;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-@PaxWicketMountPoint(mountPoint="login")
+@PaxWicketMountPoint(mountPoint="login2")
 public class LoginPage extends BootstrapPage {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginPage.class);

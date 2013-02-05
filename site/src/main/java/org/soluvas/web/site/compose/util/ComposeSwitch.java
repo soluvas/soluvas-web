@@ -103,6 +103,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				T result = caseContributor(contributor);
 				if (result == null) result = caseBundleAware(contributor);
 				if (result == null) result = caseResourceAware(contributor);
+				if (result == null) result = casePositionable(contributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -121,6 +122,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(liveContributor);
 				if (result == null) result = caseBundleAware(liveContributor);
 				if (result == null) result = caseResourceAware(liveContributor);
+				if (result == null) result = casePositionable(liveContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -130,6 +132,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(hideContributor);
 				if (result == null) result = caseBundleAware(hideContributor);
 				if (result == null) result = caseResourceAware(hideContributor);
+				if (result == null) result = casePositionable(hideContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -139,6 +142,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(componentContributor);
 				if (result == null) result = caseBundleAware(componentContributor);
 				if (result == null) result = caseResourceAware(componentContributor);
+				if (result == null) result = casePositionable(componentContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -146,10 +150,10 @@ public class ComposeSwitch<T> extends Switch<T> {
 				ChildContributor childContributor = (ChildContributor)theEObject;
 				T result = caseChildContributor(childContributor);
 				if (result == null) result = caseComponentContributor(childContributor);
-				if (result == null) result = casePositionable(childContributor);
 				if (result == null) result = caseContributor(childContributor);
 				if (result == null) result = caseBundleAware(childContributor);
 				if (result == null) result = caseResourceAware(childContributor);
+				if (result == null) result = casePositionable(childContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -159,11 +163,11 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseChildContributor(liveChildContributor);
 				if (result == null) result = caseLiveComponentContributor(liveChildContributor);
 				if (result == null) result = caseComponentContributor(liveChildContributor);
-				if (result == null) result = casePositionable(liveChildContributor);
 				if (result == null) result = caseLiveContributor(liveChildContributor);
 				if (result == null) result = caseContributor(liveChildContributor);
 				if (result == null) result = caseBundleAware(liveChildContributor);
 				if (result == null) result = caseResourceAware(liveChildContributor);
+				if (result == null) result = casePositionable(liveChildContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -177,6 +181,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(liveReplaceContributor);
 				if (result == null) result = caseBundleAware(liveReplaceContributor);
 				if (result == null) result = caseResourceAware(liveReplaceContributor);
+				if (result == null) result = casePositionable(liveReplaceContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -187,6 +192,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(replaceContributor);
 				if (result == null) result = caseBundleAware(replaceContributor);
 				if (result == null) result = caseResourceAware(replaceContributor);
+				if (result == null) result = casePositionable(replaceContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -198,6 +204,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(liveComponentContributor);
 				if (result == null) result = caseBundleAware(liveComponentContributor);
 				if (result == null) result = caseResourceAware(liveComponentContributor);
+				if (result == null) result = casePositionable(liveComponentContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -209,6 +216,7 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseContributor(liveHideContributor);
 				if (result == null) result = caseBundleAware(liveHideContributor);
 				if (result == null) result = caseResourceAware(liveHideContributor);
+				if (result == null) result = casePositionable(liveHideContributor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

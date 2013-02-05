@@ -898,6 +898,7 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		placeholderEClass.getESuperTypes().add(this.getTarget());
 		contributorEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
 		contributorEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
+		contributorEClass.getESuperTypes().add(theCommonsPackage.getPositionable());
 		liveTargetEClass.getESuperTypes().add(this.getTarget());
 		liveContributorEClass.getESuperTypes().add(this.getContributor());
 		hideContributorEClass.getESuperTypes().add(this.getContributor());

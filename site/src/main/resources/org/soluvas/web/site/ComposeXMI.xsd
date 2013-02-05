@@ -46,6 +46,7 @@
         <xsd:attribute name="resourceType" type="commons:ResourceType"/>
         <xsd:attribute name="resourceUri" type="xsd:string"/>
         <xsd:attribute name="resourceName" type="xsd:string"/>
+        <xsd:attribute name="positioner" type="xsd:int"/>
         <xsd:attribute name="pageClassName" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>Class name of the page that hosts this.</xsd:documentation>
@@ -107,9 +108,7 @@ Otherwise it may be unresolved or partially resolved.</xsd:documentation>
   <xsd:element name="ComponentContributor" type="compose:ComponentContributor"/>
   <xsd:complexType name="ChildContributor">
     <xsd:complexContent>
-      <xsd:extension base="compose:ComponentContributor">
-        <xsd:attribute name="positioner" type="xsd:int"/>
-      </xsd:extension>
+      <xsd:extension base="compose:ComponentContributor"/>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ChildContributor" type="compose:ChildContributor"/>
