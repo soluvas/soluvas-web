@@ -2,6 +2,7 @@ package org.soluvas.web.site.compose;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -13,11 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.SiteException;
+import org.soluvas.web.site.compose.LiveContributor.PositionerComparator;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 
 /**
  * @author ceefour
@@ -32,8 +35,10 @@ public class ComposeUtils {
 	 * @param page
 	 * @param contributors
 	 */
-	public static void compose(Page page, Collection<LiveContributor> contributors) {
-		for (LiveContributor contrib : contributors) {
+	public static void compose(final Page page, final Collection<LiveContributor> contributors) {
+		final Ordering<LiveContributor> positionerOrdering = Ordering.from(new PositionerComparator());
+		final List<LiveContributor> sortedContributors = positionerOrdering.immutableSortedCopy(contributors);
+		for (final LiveContributor contrib : sortedContributors) {
 			if (contrib.getState() != ContributorState.RESOLVED)
 				continue;
 			if (contrib instanceof LiveChildContributor) {

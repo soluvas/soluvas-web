@@ -269,13 +269,22 @@ public interface ComposePackage extends EPackage {
 	int CONTRIBUTOR__RESOURCE_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTRIBUTOR__POSITIONER = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTOR__PAGE_CLASS_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 3;
+	int CONTRIBUTOR__PAGE_CLASS_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Target Path</b></em>' attribute.
@@ -284,7 +293,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTOR__TARGET_PATH = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 4;
+	int CONTRIBUTOR__TARGET_PATH = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Contributor</em>' class.
@@ -293,7 +302,7 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTRIBUTOR_FEATURE_COUNT = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 5;
+	int CONTRIBUTOR_FEATURE_COUNT = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.LiveTargetImpl <em>Live Target</em>}' class.
@@ -442,6 +451,15 @@ public interface ComposePackage extends EPackage {
 	int LIVE_CONTRIBUTOR__RESOURCE_NAME = CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CONTRIBUTOR__POSITIONER = CONTRIBUTOR__POSITIONER;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -533,6 +551,15 @@ public interface ComposePackage extends EPackage {
 	int HIDE_CONTRIBUTOR__RESOURCE_NAME = CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDE_CONTRIBUTOR__POSITIONER = CONTRIBUTOR__POSITIONER;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -604,6 +631,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_CONTRIBUTOR__RESOURCE_NAME = CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CONTRIBUTOR__POSITIONER = CONTRIBUTOR__POSITIONER;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -706,6 +742,15 @@ public interface ComposePackage extends EPackage {
 	int CHILD_CONTRIBUTOR__RESOURCE_NAME = COMPONENT_CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_CONTRIBUTOR__POSITIONER = COMPONENT_CONTRIBUTOR__POSITIONER;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -751,22 +796,13 @@ public interface ComposePackage extends EPackage {
 	int CHILD_CONTRIBUTOR__CREATION_MODE = COMPONENT_CONTRIBUTOR__CREATION_MODE;
 
 	/**
-	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_CONTRIBUTOR__POSITIONER = COMPONENT_CONTRIBUTOR_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Child Contributor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_CONTRIBUTOR_FEATURE_COUNT = COMPONENT_CONTRIBUTOR_FEATURE_COUNT + 1;
+	int CHILD_CONTRIBUTOR_FEATURE_COUNT = COMPONENT_CONTRIBUTOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.LiveChildContributorImpl <em>Live Child Contributor</em>}' class.
@@ -815,6 +851,15 @@ public interface ComposePackage extends EPackage {
 	int LIVE_CHILD_CONTRIBUTOR__RESOURCE_NAME = CHILD_CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHILD_CONTRIBUTOR__POSITIONER = CHILD_CONTRIBUTOR__POSITIONER;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -858,15 +903,6 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int LIVE_CHILD_CONTRIBUTOR__CREATION_MODE = CHILD_CONTRIBUTOR__CREATION_MODE;
-
-	/**
-	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIVE_CHILD_CONTRIBUTOR__POSITIONER = CHILD_CONTRIBUTOR__POSITIONER;
 
 	/**
 	 * The feature id for the '<em><b>State</b></em>' attribute.
@@ -949,6 +985,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int REPLACE_CONTRIBUTOR__RESOURCE_NAME = COMPONENT_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPLACE_CONTRIBUTOR__POSITIONER = COMPONENT_CONTRIBUTOR__POSITIONER;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -1049,6 +1094,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int LIVE_REPLACE_CONTRIBUTOR__RESOURCE_NAME = REPLACE_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_REPLACE_CONTRIBUTOR__POSITIONER = REPLACE_CONTRIBUTOR__POSITIONER;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
@@ -1178,6 +1232,15 @@ public interface ComposePackage extends EPackage {
 	int LIVE_COMPONENT_CONTRIBUTOR__RESOURCE_NAME = LIVE_CONTRIBUTOR__RESOURCE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_COMPONENT_CONTRIBUTOR__POSITIONER = LIVE_CONTRIBUTOR__POSITIONER;
+
+	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1294,6 +1357,15 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int LIVE_HIDE_CONTRIBUTOR__RESOURCE_NAME = LIVE_CONTRIBUTOR__RESOURCE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_HIDE_CONTRIBUTOR__POSITIONER = LIVE_CONTRIBUTOR__POSITIONER;
 
 	/**
 	 * The feature id for the '<em><b>Page Class Name</b></em>' attribute.

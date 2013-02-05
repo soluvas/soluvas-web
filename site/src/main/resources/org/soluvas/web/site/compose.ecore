@@ -8,7 +8,7 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Contributor" abstract="true" interface="true"
-      eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware">
+      eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//Positionable">
     <eOperations name="createLive" lowerBound="1" eType="#//LiveContributor">
       <eParameters name="bundle" lowerBound="1" eType="#//Bundle"/>
     </eOperations>

@@ -4,6 +4,7 @@ package org.soluvas.web.site.compose;
 
 import org.osgi.framework.Bundle;
 import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
 
 /**
@@ -23,7 +24,7 @@ import org.soluvas.commons.ResourceAware;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface Contributor extends BundleAware, ResourceAware {
+public interface Contributor extends BundleAware, ResourceAware, Positionable {
 	/**
 	 * Returns the value of the '<em><b>Page Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

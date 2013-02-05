@@ -30,12 +30,12 @@ import org.soluvas.web.site.compose.LiveContributor;
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getResourceType <em>Resource Type</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getResourceUri <em>Resource Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getResourceName <em>Resource Name</em>}</li>
+ *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getPositioner <em>Positioner</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getPageClassName <em>Page Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getTargetPath <em>Target Path</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getFactoryBean <em>Factory Bean</em>}</li>
  *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getCreationMode <em>Creation Mode</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.impl.ChildContributorImpl#getPositioner <em>Positioner</em>}</li>
  * </ul>
  * </p>
  *
@@ -122,6 +122,26 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	 * @ordered
 	 */
 	protected String resourceName = RESOURCE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer POSITIONER_EDEFAULT = new Integer(0);
+
+	/**
+	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPositioner()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer positioner = POSITIONER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPageClassName() <em>Page Class Name</em>}' attribute.
@@ -222,26 +242,6 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	 * @ordered
 	 */
 	protected CreationMode creationMode = CREATION_MODE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPositioner()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Integer POSITIONER_EDEFAULT = new Integer(0);
-
-	/**
-	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPositioner()
-	 * @generated
-	 * @ordered
-	 */
-	protected Integer positioner = POSITIONER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -506,6 +506,7 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		liveContributor.setFactoryBean(getFactoryBean());
 		liveContributor.setState(ContributorState.UNRESOLVED);
 		liveContributor.setBundle(bundle);
+		liveContributor.setPositioner(positioner);
 		return liveContributor;
 	}
 	
@@ -525,6 +526,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return getResourceUri();
 			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
 				return getResourceName();
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				return getPositioner();
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return getPageClassName();
 			case ComposePackage.CHILD_CONTRIBUTOR__TARGET_PATH:
@@ -535,8 +538,6 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return getFactoryBean();
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				return getCreationMode();
-			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
-				return getPositioner();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -561,6 +562,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
 				setResourceName((String)newValue);
 				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				setPositioner((Integer)newValue);
+				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName((String)newValue);
 				return;
@@ -575,9 +579,6 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				setCreationMode((CreationMode)newValue);
-				return;
-			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
-				setPositioner((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -603,6 +604,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
 				setResourceName(RESOURCE_NAME_EDEFAULT);
 				return;
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				setPositioner(POSITIONER_EDEFAULT);
+				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				setPageClassName(PAGE_CLASS_NAME_EDEFAULT);
 				return;
@@ -617,9 +621,6 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return;
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				setCreationMode(CREATION_MODE_EDEFAULT);
-				return;
-			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
-				setPositioner(POSITIONER_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -641,6 +642,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
 			case ComposePackage.CHILD_CONTRIBUTOR__RESOURCE_NAME:
 				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
+			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
+				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
 			case ComposePackage.CHILD_CONTRIBUTOR__PAGE_CLASS_NAME:
 				return PAGE_CLASS_NAME_EDEFAULT == null ? pageClassName != null : !PAGE_CLASS_NAME_EDEFAULT.equals(pageClassName);
 			case ComposePackage.CHILD_CONTRIBUTOR__TARGET_PATH:
@@ -651,8 +654,6 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 				return FACTORY_BEAN_EDEFAULT == null ? factoryBean != null : !FACTORY_BEAN_EDEFAULT.equals(factoryBean);
 			case ComposePackage.CHILD_CONTRIBUTOR__CREATION_MODE:
 				return creationMode != CREATION_MODE_EDEFAULT;
-			case ComposePackage.CHILD_CONTRIBUTOR__POSITIONER:
-				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -723,6 +724,8 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		result.append(resourceUri);
 		result.append(", resourceName: ");
 		result.append(resourceName);
+		result.append(", positioner: ");
+		result.append(positioner);
 		result.append(", pageClassName: ");
 		result.append(pageClassName);
 		result.append(", targetPath: ");
@@ -733,8 +736,6 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		result.append(factoryBean);
 		result.append(", creationMode: ");
 		result.append(creationMode);
-		result.append(", positioner: ");
-		result.append(positioner);
 		result.append(')');
 		return result.toString();
 	}
