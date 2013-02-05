@@ -13,7 +13,7 @@ public interface TwitterManager {
 
 	public abstract String getConsumerSecret();
 
-	Twitter getTwitter();
+	Twitter createTwitter();
 
 	Twitter createTwitter(String accessToken, String accessTokenSecret);
 }
