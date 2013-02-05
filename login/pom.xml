@@ -47,6 +47,12 @@
 			<version>3.0.3</version>
 		</dependency>
 		<dependency>
+		<dependency>
+		  <groupId>org.expressme</groupId>
+		  <artifactId>JOpenId</artifactId>
+		  <version>1.08</version>
+		</dependency>
+		
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
 		</dependency>
