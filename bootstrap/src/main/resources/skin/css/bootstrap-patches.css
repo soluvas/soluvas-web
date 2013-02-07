@@ -5,8 +5,13 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /* .nav-container well sidebar-nav .accordion { */
 /*     margin-bottom: 10px; */
 /* } */
+
+.icon-margintop{
+	margin-top:12px;	
+}
+
 .add-new{
-	background: url("../img/glyphicons_190_circle_plus.png");
+	background-image: url("../img/glyphicons_190_circle_plus.png");
 }
 .bg-content2{
     background: url("../img/background-content2.png") repeat scroll left top transparent;
