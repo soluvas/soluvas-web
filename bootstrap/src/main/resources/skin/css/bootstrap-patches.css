@@ -5,6 +5,24 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /* .nav-container well sidebar-nav .accordion { */
 /*     margin-bottom: 10px; */
 /* } */
+.add-new{
+	background: url("../img/glyphicons_190_circle_plus.png");
+}
+.bg-content2{
+    background: url("../img/background-content2.png") repeat scroll left top transparent;
+    border: 9px solid #FFFFFF;
+ 	margin-bottom: 10px;
+    outline: 1px solid #E0E0E0;
+    padding: 10px 23px;
+}
+.bg-content{
+	background: url("../img/background-content.png") repeat;
+	border: 1px solid #D3D3D3;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    margin-bottom: 10px !important;
+    padding: 20px;
+}
 
 .headCategories{
 	margin-left:-30px;
