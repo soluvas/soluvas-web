@@ -15,7 +15,9 @@ import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.handler.ListenerInterfaceRequestHandler;
 import org.apache.wicket.request.handler.RenderPageRequestHandler;
+import org.apache.wicket.request.mapper.StalePageException;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.osgi.framework.BundleContext;
@@ -131,12 +133,27 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 	public void onRequestHandlerResolved(RequestCycle cycle,
 			IRequestHandler handler) {
 		log.trace("onRequestHandlerResolved {} {}", handler.getClass(), handler);
-		if (handler instanceof RenderPageRequestHandler) {
-			final RenderPageRequestHandler renderPageHandler = (RenderPageRequestHandler) handler;
-			if (renderPageHandler.isPageInstanceCreated()) {
-				final Page page = (Page) renderPageHandler.getPage();
-				injectPage(page);
+		try {
+			if (handler instanceof RenderPageRequestHandler) {
+				final RenderPageRequestHandler renderPageHandler = (RenderPageRequestHandler) handler;
+				if (renderPageHandler.isPageInstanceCreated()) {
+					final Page page = (Page) renderPageHandler.getPage();
+					injectPage(page);
+				}
+				// sometimes (?) inject was not run yet before Wicket calls beforeRender...
+				// but I can't reproduce it again (huh!)
+			} else if (handler instanceof ListenerInterfaceRequestHandler) {
+				final ListenerInterfaceRequestHandler listenerInterfaceHandler = (ListenerInterfaceRequestHandler) handler;
+				log.trace("onRequestHandlerResolved {} {} isPageInstanceCreated={}",
+						handler.getClass(), handler, listenerInterfaceHandler.isPageInstanceCreated());
+				if (listenerInterfaceHandler.isPageInstanceCreated()) {
+					final Page page = (Page) listenerInterfaceHandler.getPage();
+					injectPage(page);
+				}
 			}
+		} catch (StalePageException e) {
+			log.debug("StalePageException during onRequestHandlerResolved " +
+					handler.getClass() + " " + handler, e);
 		}
 	}
 	

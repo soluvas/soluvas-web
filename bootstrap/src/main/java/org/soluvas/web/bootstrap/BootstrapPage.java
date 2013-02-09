@@ -40,7 +40,6 @@ import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
-import org.soluvas.web.site.AsyncModel;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.JavaScriptLink;
@@ -60,6 +59,7 @@ import org.soluvas.web.site.pagemeta.PageMeta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
@@ -239,6 +239,7 @@ public class BootstrapPage extends ExtensiblePage {
 				this, currentUri, webAddress, appManifest);
 //		final List<PageRule> pageRules = pageRulesSupplier.get();
 //		final PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
+		Preconditions.checkNotNull(pageMetaSupplierFactory, "BootstrapPage.pageMetaSupplierFactory cannot be null");
 		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
 		final PageMeta pageMeta = pageMetaSupplier.get();
 		return pageMeta;
@@ -290,7 +291,7 @@ public class BootstrapPage extends ExtensiblePage {
 							.or( Optional.fromNullable(pageMetaModel.getObject().getTitle()) ).orNull();
 				}
 			};
-			final IModel<String> titleSuffixModel = new AsyncModel<String>() {
+			final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
 				@Override
 				protected String load() {
 					return " | " + appManifest.getTitle();
