@@ -1,4 +1,4 @@
-package org.soluvas.web.login;
+package org.soluvas.web.login.facebook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -40,6 +40,8 @@ import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
+import org.soluvas.web.login.FacebookManager;
+import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.SoluvasWebSession;
 
 import com.google.common.base.Preconditions;
@@ -56,11 +58,11 @@ import com.restfb.types.User;
  */
 @SuppressWarnings("serial")
 @PaxWicketMountPoint(mountPoint="fb_recipient/")
-public class FBRecipient extends WebPage {
+public class FacebookRecipient extends WebPage {
 
 //	private EntityLookup<SocialPerson, String> personLookup;
 
-	private static final Logger log = LoggerFactory.getLogger(FBRecipient.class);
+	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	@Inject @Namespace("person") @Filter("(repositoryMode=raw)")
 	private LdapRepository<SocialPerson> personRawRepo;
 //	private LdapSocialPersonRepository ldapSocialPersonRepo;
@@ -73,7 +75,7 @@ public class FBRecipient extends WebPage {
 	@Inject @Supplied
 	private WebAddress webAddress;
 	
-	public FBRecipient(PageParameters params) {
+	public FacebookRecipient(PageParameters params) {
 		super();
 		try {
 			final String code = params.get("code").toOptionalString();
