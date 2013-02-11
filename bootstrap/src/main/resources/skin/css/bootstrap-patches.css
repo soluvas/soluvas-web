@@ -6,6 +6,9 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /*     margin-bottom: 10px; */
 /* } */
 
+.more-view-product ul{
+	margin-left:10px;
+}
 .icon-margintop{
 	margin-top:12px;	
 }
@@ -420,18 +423,12 @@ a:hover {
 	list-style-type: none;
 }
 
-.more-view-product {
-	margin: 0;
-}
 
 .more-view-product li {
 	list-style-type: none;
-	float: left;
+	margin-bottom:5px;
 }
 
-.more-view-product {
-	margin: 15px 0;
-}
 
 .product-desc { /* 	padding:10px; */
 	
@@ -1009,7 +1006,7 @@ margin-bottom:20px;
 	}
 	.more-view-product li {
 		list-style-type: none;
-		float: left;
+/* 		float: left; */
 	}
 	    
 /* 	.productThumbListContent li{ */
@@ -1138,7 +1135,7 @@ margin-bottom:20px;
     	margin: 15px 0;
 	}
 	.more-view-product li {
-    	float: left;
+/*     	float: left; */
    	 	list-style-type: none;
 	}
 	.smartphone{
