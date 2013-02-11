@@ -39,7 +39,10 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.ldap</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.image</artifactId>
+		</dependency>
 		 <dependency>
 			<groupId>com.restfb</groupId>
 			<artifactId>restfb</artifactId>
@@ -114,7 +117,10 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

@@ -1,5 +1,6 @@
 package org.soluvas.web.login.facebook;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.Set;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -35,6 +39,8 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.inject.Filter;
 import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
+import org.soluvas.image.store.Image;
+import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
@@ -66,7 +72,10 @@ public class FacebookRecipient extends WebPage {
 	@Inject @Namespace("person") @Filter("(repositoryMode=raw)")
 	private LdapRepository<SocialPerson> personRawRepo;
 //	private LdapSocialPersonRepository ldapSocialPersonRepo;
-
+	
+	@Inject @Namespace("person")
+	private ImageRepository personImageRepo;
+	
 //	@Inject @Namespace("ldap")
 //	private ObjectPool<LdapConnection> ldapPool;
 	
@@ -111,7 +120,7 @@ public class FacebookRecipient extends WebPage {
 			if (person == null) {
 				person = personRawRepo.findOneByAttribute("mail", user.getEmail());
 			}
-		
+			
 			SocialPerson modifiedPerson = null;
 			if (person != null) {
 				// Direct Login
@@ -152,6 +161,44 @@ public class FacebookRecipient extends WebPage {
 				newPerson.setFacebookAccessToken(accessToken);
 				modifiedPerson = personRawRepo.add(newPerson);
 				log.debug("person is inserted");
+				
+				// Get Image
+				String userID = "haidar.marie";
+				String photoUrl = "https://graph.facebook.com/"+ userID + "/picture?type=large";
+				DefaultHttpClient httpClient = new DefaultHttpClient();
+				
+				try {
+					HttpGet httpGet = new HttpGet(photoUrl);
+					log.debug("Photo URL is  {}",  photoUrl);
+					HttpResponse response = httpClient.execute(httpGet);
+					File tmpFile = File.createTempFile("fb_", ".jpg");
+					try {
+//						FileUtils.copyInputStreamToFile(response.getEntity().getContent(), tmpFile);
+						FileUtils.copyInputStreamToFile(response.getEntity().getContent(), tmpFile);
+						Image newImage =  new Image(tmpFile, ".jpg" , user.getId() + ".jpg");
+						final String imageId = personImageRepo.add(newImage);
+						newPerson.setPhotoId(imageId);
+						personRawRepo.modify(newPerson);
+						log.info("tmp file path is {}", tmpFile);
+					} finally {
+						tmpFile.delete();
+						HttpClientUtils.closeQuietly(response);
+					}
+
+					log.debug("Photo Status Line {}",  response.getStatusLine());
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					log.debug("Photo Status {}",  e);
+					e.printStackTrace();
+				} catch (IOException e) {
+					log.debug("Photo Status {}",  e);
+					// TODO Auto-generated catch block
+//				    httpGet.releaseConnection();
+					e.printStackTrace();
+				} finally {
+					HttpClientUtils.closeQuietly(httpClient);
+				}
+
 			}
 			
 			// Set Token And Set Session
