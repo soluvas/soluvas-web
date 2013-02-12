@@ -1,12 +1,12 @@
 package org.soluvas.web.login;
 
+import id.co.bippo.common.MallManager;
+import id.co.bippo.shop.ShopRepository;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
@@ -19,6 +19,8 @@ import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.inject.Filter;
+import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.google.GoogleLoginLink;
@@ -47,6 +49,10 @@ public class DedicatedLoginPanel extends Panel {
 		
 		@Inject @Supplied
 		private WebAddress webAddress;
+		@Inject
+		private MallManager mallManager;
+		@Inject @Namespace("shop") @Filter("(repositoryMode=normal)")
+		private ShopRepository shopRepo;
 		
 		public FormSignIn(@Nonnull final String id, @Nonnull final IModel<LoginFormModel> userLoginModel,
 				@Nonnull final Component dedicatedLoginPanelComponent) {
@@ -68,9 +74,13 @@ public class DedicatedLoginPanel extends Panel {
 						log.debug("Session has originalUrl, redirecting to {}", destUri);
 						throw new RedirectToUrlException(destUri);
 					} else {
-						final Class<? extends Page> homePage = Application.get().getHomePage();
-						log.debug("Session has no, redirecting to {}", homePage.getName()); 
-						throw new RestartResponseException(homePage);
+						//TODO: call RedirectByUserType
+						final String redirectUri = new RedirectByUserType(mallManager, webAddress, shopRepo).apply(personId);
+						log.debug("Redirecting  by usertype to ");
+						throw new RedirectToUrlException(redirectUri);
+//						final Class<? extends Page> homePage = Application.get().getHomePage();
+//						log.debug("Session has no, redirecting to {}", homePage.getName()); 
+//						throw new RestartResponseException(homePage);
 					}
 				}
 			});

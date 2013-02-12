@@ -228,12 +228,7 @@ public class FacebookRecipient extends WebPage {
 			} else {
 				// If Regular User
 				final Class<? extends Page> homePage = Application.get().getHomePage();
-				
-				//if Mall User
-				
-				//if Shop
-				
-				//if Sys Admin
+//				RedirectByUserTyperType;
 				
 				
 				log.debug("Session has no, redirecting to {}", homePage.getName()); 
