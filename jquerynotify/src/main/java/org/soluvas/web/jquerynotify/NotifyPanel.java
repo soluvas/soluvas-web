@@ -49,8 +49,9 @@ public class NotifyPanel extends Panel {
 		if (event.getPayload() instanceof AjaxRequestTarget) {
 			createNotify((AjaxRequestTarget) event.getPayload());
 		}
+		
 	}
-
+	
 	protected void createNotify(AjaxRequestTarget target) {
 		final FeedbackMessages feedbackMessages = Session.get().getFeedbackMessages();
 		if (!feedbackMessages.isEmpty()) {
@@ -71,6 +72,17 @@ public class NotifyPanel extends Panel {
 //						"  jQuery('#notify-container').notify('create', {text: \"" +
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
 				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
+				String icon = "";
+				if (msg.isInfo()) {
+					icon = "icon";
+				} else if (msg.isError()) {
+					
+				} else if (msg.isWarning()) {
+					
+				} else if (msg.isDebug()) {
+					
+				}
+				
 				final String messageText = Optional.fromNullable(msg.getMessage()).or("").toString();
 				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 						JsonUtils.asJson(messageText) + "});");
