@@ -32,6 +32,18 @@
 			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>id.co.bippo.commerce</groupId>
+			<artifactId>id.co.bippo.common</artifactId>
+			<version>5.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>id.co.bippo.commerce</groupId>
+			<artifactId>id.co.bippo.shop</artifactId>
+			<version>5.0.0-SNAPSHOT</version>
+		</dependency>
+		
+
+		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.json</artifactId>
 		</dependency>

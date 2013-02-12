@@ -163,8 +163,7 @@ public class FacebookRecipient extends WebPage {
 				log.debug("person is inserted");
 				
 				// Get Image
-				String userID = "haidar.marie";
-				String photoUrl = "https://graph.facebook.com/"+ userID + "/picture?type=large";
+				String photoUrl = "https://graph.facebook.com/"+ user.getId() + "/picture?type=large";
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				
 				try {
@@ -175,7 +174,7 @@ public class FacebookRecipient extends WebPage {
 					try {
 //						FileUtils.copyInputStreamToFile(response.getEntity().getContent(), tmpFile);
 						FileUtils.copyInputStreamToFile(response.getEntity().getContent(), tmpFile);
-						Image newImage =  new Image(tmpFile, ".jpg" , user.getId() + ".jpg");
+						Image newImage =  new Image(tmpFile, ".jpg" , user.getId());
 						final String imageId = personImageRepo.add(newImage);
 						newPerson.setPhotoId(imageId);
 						personRawRepo.modify(newPerson);
@@ -227,7 +226,16 @@ public class FacebookRecipient extends WebPage {
 				log.debug("Session has originalUrl, redirecting to {}", destUri);
 				throw new RedirectToUrlException(destUri);
 			} else {
+				// If Regular User
 				final Class<? extends Page> homePage = Application.get().getHomePage();
+				
+				//if Mall User
+				
+				//if Shop
+				
+				//if Sys Admin
+				
+				
 				log.debug("Session has no, redirecting to {}", homePage.getName()); 
 				throw new RestartResponseException(homePage);
 			}
