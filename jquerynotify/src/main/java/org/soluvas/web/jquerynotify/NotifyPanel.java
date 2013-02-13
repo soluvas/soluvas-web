@@ -80,12 +80,12 @@ public class NotifyPanel extends Panel {
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
 				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
 				String pathIcon = webAddress.getSkinUri() + "org.soluvas.web.jquerynotify/images/";
-				if (msg.isInfo()) {
-					pathIcon += "info.png";
-				} else if (msg.isError()) {
+				if (msg.isError()) {
 					pathIcon += "error.png";
 				} else if (msg.isWarning()) {
 					pathIcon += "warning.png";
+				} else if (msg.isInfo()) {
+					pathIcon += "info.png";
 				} else if (msg.isDebug()) {
 					pathIcon += "debug.png";
 				}
@@ -93,10 +93,10 @@ public class NotifyPanel extends Panel {
 				log.debug("Path Icon is: {}", pathIcon);
 				
 				final String messageText = Optional.fromNullable(msg.getMessage()).or("").toString();
-				target.appendJavaScript("jQuery('#notify-container').prepend('<img id=\"icon\"" +
-						"src=\"" + pathIcon + "\" />')");
+//				target.appendJavaScript("jQuery('#notify-container').prepend('<img id=\"icon\"" +
+//						"src=\"" + pathIcon + "\" />')");
 				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
-						JsonUtils.asJson(messageText) + "});");
+						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
 			}
 		}
 	}
