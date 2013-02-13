@@ -64,7 +64,7 @@ public class DedicatedLoginPanel extends Panel {
 			add(new PasswordTextField("password", new PropertyModel<String>(userLoginModel, "password")));
 			add(new CheckBox("rememberMe", new PropertyModel<Boolean>(userLoginModel, "rememberMe")));
 			
-			add(new LdapLoginButton("login", userLoginModel) {
+			final LdapLoginButton ldapLoginBtn = new LdapLoginButton("login", userLoginModel) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
 					final SoluvasWebSession solWebSession = (SoluvasWebSession) getSession();
@@ -83,7 +83,8 @@ public class DedicatedLoginPanel extends Panel {
 //						throw new RestartResponseException(homePage);
 					}
 				}
-			});
+			};
+			add(ldapLoginBtn);
 			
 			add(new FacebookLoginLink("btnLoginWithFb"));
 			add(new TwitterLoginLink("btnLoginWithTwitter"));
@@ -91,6 +92,8 @@ public class DedicatedLoginPanel extends Panel {
 			// TODO: enable Google when it's actually working with Google accounts, not Google+
 			googleLoginLink.setVisible(false);
 			add(googleLoginLink);
+			
+			setDefaultButton(ldapLoginBtn);
 		}
 		
 	}

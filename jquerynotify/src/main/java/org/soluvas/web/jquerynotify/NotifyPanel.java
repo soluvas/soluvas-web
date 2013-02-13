@@ -1,5 +1,7 @@
 package org.soluvas.web.jquerynotify;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.IEvent;
@@ -9,6 +11,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.inject.Supplied;
 import org.soluvas.json.JsonUtils;
 
 import com.google.common.base.Optional;
@@ -29,6 +33,9 @@ import com.google.common.base.Optional;
 public class NotifyPanel extends Panel {
 
 	private static Logger log = LoggerFactory.getLogger(NotifyPanel.class);
+	
+	@Inject @Supplied
+	private WebAddress webAddress;	
 	
 	public NotifyPanel(String id) {
 		this(id, null);
@@ -72,20 +79,24 @@ public class NotifyPanel extends Panel {
 //						"  jQuery('#notify-container').notify('create', {text: \"" +
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
 				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
-				String icon = "";
-				if (msg.isInfo()) {
-					icon = "icon";
-				} else if (msg.isError()) {
-					
+				String pathIcon = webAddress.getSkinUri() + "org.soluvas.web.jquerynotify/images/";
+				if (msg.isError()) {
+					pathIcon += "error.png";
 				} else if (msg.isWarning()) {
-					
+					pathIcon += "warning.png";
+				} else if (msg.isInfo()) {
+					pathIcon += "info.png";
 				} else if (msg.isDebug()) {
-					
+					pathIcon += "debug.png";
 				}
 				
+				log.debug("Path Icon is: {}", pathIcon);
+				
 				final String messageText = Optional.fromNullable(msg.getMessage()).or("").toString();
+//				target.appendJavaScript("jQuery('#notify-container').prepend('<img id=\"icon\"" +
+//						"src=\"" + pathIcon + "\" />')");
 				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
-						JsonUtils.asJson(messageText) + "});");
+						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
 			}
 		}
 	}

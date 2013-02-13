@@ -155,24 +155,31 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 			log.debug("StalePageException during onRequestHandlerResolved " +
 					handler.getClass() + " " + handler, e);
 		}
+		super.onRequestHandlerResolved(cycle, handler);
 	}
 	
 	@Override
 	public void onRequestHandlerScheduled(RequestCycle reqCycle,
 			IRequestHandler handler) {
 		log.trace("onRequestHandlerScheduled {} {}", handler.getClass(), handler);
-		if (handler instanceof AjaxRequestTarget) {
-			final Page page = ((AjaxRequestTarget) handler).getPage();
-			injectPage(page);
-		} else if (handler instanceof RenderPageRequestHandler) {
-			final RenderPageRequestHandler renderPageHandler = (RenderPageRequestHandler) handler;
-			if (renderPageHandler.isPageInstanceCreated()) {
-				final Page page = (Page) renderPageHandler.getPage();
+		try {
+			if (handler instanceof AjaxRequestTarget) {
+				final Page page = ((AjaxRequestTarget) handler).getPage();
 				injectPage(page);
+			} else if (handler instanceof RenderPageRequestHandler) {
+				final RenderPageRequestHandler renderPageHandler = (RenderPageRequestHandler) handler;
+				if (renderPageHandler.isPageInstanceCreated()) {
+					final Page page = (Page) renderPageHandler.getPage();
+					injectPage(page);
+				}
 			}
+		} catch (StalePageException e) {
+			log.debug("StalePageException during onRequestHandlerScheduled " +
+					handler.getClass() + " " + handler, e);
 		}
+		super.onRequestHandlerScheduled(reqCycle, handler);
 	}
-
+	
 	/**
 	 * @param page
 	 */
