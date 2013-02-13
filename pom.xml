@@ -32,6 +32,7 @@
 		<module>banner</module>
 		<!-- Functionality -->
 		<module>login</module>
+		<module>olark</module>
 	</modules>
 
 </project>
