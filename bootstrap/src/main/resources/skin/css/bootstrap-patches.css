@@ -6,6 +6,12 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /*     margin-bottom: 10px; */
 /* } */
 
+.badge {
+    border-radius: 9px 9px 9px 9px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
 .more-view-product ul{
 	margin-left:10px;
 }
@@ -48,7 +54,7 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 }
 
 .badgeCart{
-	margin: -47px 0 0 57px;
+	margin: -44px 0 0 22px;
     position: absolute;
 }
 .wellRio{
@@ -132,7 +138,7 @@ width: 40%;
 }
 
 .navbar .brand{
- padding: 0 20px;
+ padding: 5px 20px;
 }
 
 a:hover {
@@ -168,16 +174,12 @@ a:hover {
 	margin: 5px 0 0;
 }
 
-.navbar-inner {
-	min-height: 50px;
-}
-
 .navbar .nav>li>a {
-	padding: 15px;
+	padding: 13px 10px;
 }
 
 .navbar .divider-vertical {
-	height: 49px;
+	height: 53px;
 }
 
 .navbar-inner {
@@ -208,9 +210,9 @@ a:hover {
 /* 	border: none; */
 /* } */
 
-.navbar-fixed-top .navbar-inner,.navbar-static-top .navbar-inner {
-	box-shadow: none;
-}
+/* .navbar-fixed-top .navbar-inner,.navbar-static-top .navbar-inner { */
+/* 	box-shadow: none; */
+/* } */
 
 .top-nav {
 /* 	background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2); */
@@ -236,7 +238,8 @@ a:hover {
 /* } */
 
 .navbar {
-	margin-bottom: 20px;
+	 margin-bottom: 20px;
+    position: relative;
 }
 
 .navbar .btn,.navbar .btn-group {
@@ -933,7 +936,7 @@ margin-bottom:20px;
 		margin-right:0;
 	}
 	.navbar .brand {
-   	 padding: 0 5px;
+   	 padding: 0 20px;
 	}
 	
 }
@@ -1073,8 +1076,10 @@ margin-bottom:20px;
 	
 	}
 	.productThumbListContent li { 
-			margin: 0 0 15px 0;
-			width: 100%;
+		float: none;
+	    margin: 15px auto;
+	    position: relative;
+	    width: 197px;
 	}
 	
 	.wrapper-item-newproducts img{
