@@ -2,24 +2,24 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.1.0 http://karaf.apache.org/xmlns/shell/v1.1.0">
-
+	
 	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy">
 		<argument ref="blueprintBundleContext"/>
-		<argument value="org.soluvas.web.olark.OlarkPackage" />
+		<argument value="org.soluvas.web.googleanalytics.GoogleanalyticsPackage" />
 	</bean>
-
+	
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/js/org.soluvas.web.olark"/>
+			<property name="alias" value="/static/js/org.soluvas.web.googleanalytics"/>
 			<property name="path" value="/js"/>
 		</bean>
 	</service>
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="org.soluvas.web.olark"/>
-			<argument value="org.soluvas.web.olark"/>
-			<argument value="org.soluvas.web.olark"/>
+			<argument value="org.soluvas.web.googleanalytics"/>
+			<argument value="org.soluvas.web.googleanalytics"/>
+			<argument value="org.soluvas.web.googleanalytics"/>
 		</bean>
 	</service>
 

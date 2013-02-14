@@ -1,9 +1,9 @@
 package org.soluvas.web.login;
 
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.soluvas.web.bootstrap.BootstrapPage;
-import org.soluvas.web.site.AsyncModel;
 
 /**
  * @author rudi
@@ -16,9 +16,9 @@ public class DedicatedLoginPage extends BootstrapPage {
 	public DedicatedLoginPage() {
 		super(false);
 		
-		final IModel<LoginFormModel> userLoginModel = new AsyncModel<LoginFormModel>() {
+		final IModel<LoginFormModel> userLoginModel = new LoadableDetachableModel<LoginFormModel>() {
 			@Override
-			protected LoginFormModel load() throws Exception {
+			protected LoginFormModel load() {
 				return new LoginFormModel();
 			}
 		};
