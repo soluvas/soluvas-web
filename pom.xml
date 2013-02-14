@@ -33,6 +33,7 @@
 		<!-- Functionality -->
 		<module>login</module>
 		<module>olark</module>
+		<module>googleanalytics</module>
 	</modules>
 
 </project>
