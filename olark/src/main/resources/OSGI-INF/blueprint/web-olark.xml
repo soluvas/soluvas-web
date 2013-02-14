@@ -3,6 +3,11 @@
     xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.1.0 http://karaf.apache.org/xmlns/shell/v1.1.0">
 
+	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy">
+		<argument ref="blueprintBundleContext"/>
+		<argument value="org.soluvas.web.olark.OlarkPackage" />
+	</bean>
+
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
 			<property name="alias" value="/static/js/org.soluvas.web.olark"/>
