@@ -47,7 +47,8 @@ import com.google.common.collect.Iterables;
  * 		Maybe this even has to do with AsyncModel having a default timeout value of 15 seconds.
  * 		I'm not exactly sure why all this happens, but for now LoadableDetachableModel is
  * 		the supported Wicket mechanism (and even Wicket/Pax Wicket/Pax Web/Blueprint/Felix
- * 		still has bugs so it's better not to complicate matters). 
+ * 		still has bugs so it's better not to complicate matters).
+ * 		I already tried fixing the timeout mechanism & decreasing the timeout to two seconds but still occuring. 
  * @author ceefour
  */
 @SuppressWarnings("serial")
