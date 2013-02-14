@@ -28,7 +28,7 @@ import com.google.common.collect.Iterables;
  * 
  * <pre>{@literal
  * //Find all product
- * final IModel<List<Product>> productEntities = new AsyncModel<List<Product>>() {
+ * final IModel<List<Product>> productEntities = new LoadableDetachableModel<List<Product>>() {
  * 	@Override
  * 	public List<Product> load() {
  * 		return ImmutableList.copyOf(Iterables.limit(productRepo.findAll(), 16));
@@ -40,9 +40,18 @@ import com.google.common.collect.Iterables;
  * 
  * <p>This model is thread-safe.
  * 
+ * @deprecated DO NOT USE! AsyncModel is "bad" because Wicket does not support it explicitly.
+ * 		Among other lesser problems, the biggest problem is IT SEEMS when an Exception is thrown
+ * 		from an AsyncModel, it doesn't propagate well into the Wicket exception handler and thus,
+ * 		the page rendering hangs and then you get 504 Gateway Timeout.
+ * 		Maybe this even has to do with AsyncModel having a default timeout value of 15 seconds.
+ * 		I'm not exactly sure why all this happens, but for now LoadableDetachableModel is
+ * 		the supported Wicket mechanism (and even Wicket/Pax Wicket/Pax Web/Blueprint/Felix
+ * 		still has bugs so it's better not to complicate matters). 
  * @author ceefour
  */
 @SuppressWarnings("serial")
+@Deprecated
 public abstract class AsyncModel<T> implements IModel<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AsyncModel.class);
@@ -50,8 +59,8 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	private transient volatile boolean attached = false;
 	/** temporary, transient object. */
 	private transient volatile T transientModelObject;
-	public static final int timeoutValue = 15;
-	public static final TimeUnit timeoutUnit = TimeUnit.SECONDS;
+	public static final int timeoutValue = 2000;
+	public static final TimeUnit timeoutUnit = TimeUnit.MILLISECONDS;
 	private volatile transient Future<T> future;
 	private final ReadWriteLock lock = new ReentrantReadWriteLock();
 	private final AtomicInteger scheduledLoads = new AtomicInteger();
@@ -114,7 +123,7 @@ public abstract class AsyncModel<T> implements IModel<T> {
 		while (!attached) {
 			try {
 				final Lock writeLock = lock.writeLock();
-				final boolean locked = writeLock.tryLock(50, TimeUnit.MILLISECONDS);
+				final boolean locked = writeLock.tryLock(10, TimeUnit.MILLISECONDS);
 				if (locked) {
 					try {
 						if (future == null) {
@@ -141,6 +150,9 @@ public abstract class AsyncModel<T> implements IModel<T> {
 	//					Throwables.propagate(e.getCause());
 						throw new SiteException(e, "Cannot load model %s", getClass().getName());
 					} catch (final TimeoutException e) {
+						transientModelObject = null;
+						attached = true;
+						future = null;
 						log.error("Timed out (%d %s) waiting for model %s", timeoutValue, timeoutUnit, getClass().getName());
 					} finally {
 						writeLock.unlock();
