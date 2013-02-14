@@ -7,18 +7,18 @@
 				<form wicket:id="formSignIn" class="formSignIn" id="formSignIn">
 				<input class="span3" placeholder="Username" type="text" name="username" wicket:id="userName">
 				<input class="span3" placeholder="Password" type="password" name="password" wicket:id="password">
-				<label class="checkbox">
-					<input type="checkbox" name="remember" wicket:id="rememberMe"> Remember Me
-				</label>
+				<br/>
+				<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" wicket:id="rememberMe">
+				<label style="margin-bottom: 15px; padding-top: 5px;" class="checkbox">Remember Me</label>
 				<input class="btn btn-primary btn-block" id="signIn" value="Sign In" wicket:id="login">
-				<br>
-				or
+				<label style="text-align:center;">or</label>
 				<a class="btn btn-primary btn-block"  href="#" wicket:id="btnLoginWithFb">Sign In Facebook</a>
-				<a class="btn btn-info btn-block" href="#" wicket:id="btnLoginWithTwitter" id="sign-in-twitter">Sign In with Twitter</a>
-				<a class="btn btn-info btn-block" href="#" wicket:id="btnLoginWithGoogle" id="sign-in-google">Sign In with Google</a>
+				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithTwitter" id="sign-in-twitter">Sign In with Twitter</a>
+				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithGoogle" id="sign-in-google">Sign In with Google</a>
 				</form>
 			</div>
 		</div>
 	</div>
 
 </wicket:panel>
+

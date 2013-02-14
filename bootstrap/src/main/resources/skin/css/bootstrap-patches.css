@@ -6,6 +6,34 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /*     margin-bottom: 10px; */
 /* } */
 
+.CategorySidebar hr{
+	margin:5px 0;
+}
+
+.CategorySidebar .accordion{
+	margin-bottom:0;
+}
+.InnovativeSiderbar input{
+	float:left;
+}
+.inolabel{
+	color: #666666;
+    display: -moz-stack;
+  	margin-left: 7px;
+    margin-top: 4px;
+}
+.InnovativeSiderbar{
+	
+}
+
+.CategorySidebar a{
+	color:#666;
+}
+
+.CategorySidebar a:HOVER{
+	color:#333;
+}
+
 .badge {
     border-radius: 9px 9px 9px 9px;
     padding-left: 6px;
@@ -44,7 +72,7 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 
 .accordion .caret {
  vertical-align: middle;
- border-top: 4px solid #0088CC;
+ border-top: 4px solid #666;
 }
 .productCategorizedPanel ul{
 	margin:0;
@@ -138,7 +166,7 @@ width: 40%;
 }
 
 .navbar .brand{
- padding: 5px 20px;
+ padding: 6px 20px;
 }
 
 a:hover {
@@ -175,16 +203,16 @@ a:hover {
 }
 
 .navbar .nav>li>a {
-	padding: 13px 10px;
+	padding: 16px 10px;
 }
 
 .navbar .divider-vertical {
 	height: 53px;
 }
 
-.navbar-inner {
-	padding: 0;
-}
+/* .navbar-inner { */
+/* 	padding: 0; */
+/* } */
 
 .tophead {
 	margin: 15px 0;
@@ -238,8 +266,7 @@ a:hover {
 /* } */
 
 .navbar {
-	 margin-bottom: 20px;
-    position: relative;
+    position: fixed; 
 }
 
 .navbar .btn,.navbar .btn-group {
@@ -939,12 +966,18 @@ margin-bottom:20px;
    	 padding: 0 20px;
 	}
 	
+/* 	.navbar-inner{ */
+/* 		padding-left: 20px; */
+/*     	padding-right: 20px; */
+/* 	} */
+	
 }
 
 
 /* landscape phone (galaxy nexus and higher potrait to tablet portrait */
 
 @media (min-width:481px) and (max-width:768px) { 
+	
    .productThumbListContent li {
     float: left;
     list-style-type: none;
@@ -980,24 +1013,14 @@ margin-bottom:20px;
 	.selleroftheday-listprod ul{
 		margin:0;
 	}
-/* 	.selleroftheday-box { */
-/*    		 width: 400px; */
-/* 	} */
+
 	.seller-profile {
 	    background-color: #F7F7F3;
 	    border: 1px solid #ECECEC;
 	    margin-right: 5px;
 	    padding: 12px;
 	}
-/* 	.seller-profile-list-prod { */
-/* 	    background-color: #F7F7F3; */
-/* 	    border: 1px solid #ECECEC; */
-/* 	    float: left; */
-/* 	    list-style-type: none; */
-/* 	    margin: 0 10px 0 0; */
-/* 	    padding: 8px; */
-/* 	    width: 186px; */
-/* 	} */
+
 	.selleroftheday-listprod ul {
    	 	margin: 0;
 	}
@@ -1012,11 +1035,8 @@ margin-bottom:20px;
 /* 		float: left; */
 	}
 	    
-/* 	.productThumbListContent li{ */
-/* 		list-style-type: none; */
-/* 		width: 23.85%; */
-    	
-/* 	} */
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+    padding: 5px 20px;
 }
 
 /* Mobile styling (portrait) -----------*/
