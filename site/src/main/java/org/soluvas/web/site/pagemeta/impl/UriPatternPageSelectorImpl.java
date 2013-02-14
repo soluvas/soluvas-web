@@ -102,9 +102,9 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	public boolean matches(PageRuleContext context) {
 //		Pattern regexPattern = new UriTemplateParser(uriSelector.getPattern()).getPattern();
 		Pattern regexPattern = Pattern.compile(getPattern());
-		log.debug("Regex pattern for URI pattern {} is {}", getPattern(), regexPattern);
+		log.trace("Regex pattern for URI pattern {} is {}", getPattern(), regexPattern);
 		if (regexPattern.matcher(context.getUri()).matches()) {
-			log.debug("URI {} matches pageMeta selector {}", context.getUri(), getPattern());
+			log.trace("URI {} matches pageMeta selector {}", context.getUri(), getPattern());
 			return true;
 		}
 		return false;
