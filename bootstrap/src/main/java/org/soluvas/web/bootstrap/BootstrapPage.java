@@ -44,10 +44,12 @@ import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptLinkImpl;
+import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptSource;
 import org.soluvas.web.site.PageMetaSupplier;
 import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
@@ -158,6 +160,10 @@ public class BootstrapPage extends ExtensiblePage {
 	private List<CssLink> cssLinks;
 	@PaxWicketBean(name="headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
+	
+	@Inject
+	private RequireManager requireMgr;
+	
 	@PaxWicketBean(name="footerJavaScripts")
 	private List<JavaScriptLink> footerJavaScripts;
 	@PaxWicketBean(name="footerJavaScriptSources")
@@ -321,8 +327,9 @@ public class BootstrapPage extends ExtensiblePage {
 					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
 			add(new WebMarkupContainer("bootstrapPatchesCss").add(
 					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+			final String requireName = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? "require-2.1.4.js" : "require-2.1.4.min.js";
 			add(new WebMarkupContainer("requireJs").add(
-					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.2.js")));
+					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/" + requireName)));
 			
 			//Carousel
 			add(afterHeader = new RepeatingView("afterHeader"));

@@ -14,8 +14,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 import org.soluvas.commons.WebAddress;
+import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptModule;
 import org.soluvas.web.site.JavaScriptShim;
+import org.soluvas.web.site.RequireManager;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -34,36 +36,25 @@ import com.google.common.collect.Ordering;
 @Path("org.soluvas.web.backbone")
 public class RequireResource {
 	
-	public static enum Mode {
-		/**
-		 * Use original JS.
-		 */
-		DEVELOPMENT,
-		/**
-		 * Use minified JS.
-		 */
-		MINIFIED,
-		/**
-		 * Aggregate all JavaScript, then minify it.
-		 */
-		AGGREGATED_MINIFIED,
-	}
-	
 	private final List<JavaScriptModule> jsModules;
 	private final List<JavaScriptShim> jsShims;
 	private final Supplier<WebAddress> webAddressSupplier;
 	private @Context UriInfo uriInfo;
-	private final Mode mode;
+	private final RequireManager requireMgr;
+	/**
+	 * Think of those people (like myself) on GPRS connections in remote areas.
+	 */
+	private final int waitSeconds = 120;
 	
 	public RequireResource(@Nonnull final Supplier<WebAddress> webAddressSupplier,
 			@Nonnull final List<JavaScriptModule> jsModules,
 			@Nonnull final List<JavaScriptShim> jsShims,
-			@Nonnull final Mode mode) {
+			@Nonnull final RequireManager requireMgr) {
 		super();
 		this.webAddressSupplier = webAddressSupplier;
 		this.jsModules = jsModules;
 		this.jsShims = jsShims;
-		this.mode = mode;
+		this.requireMgr = requireMgr;
 	}
 
 	// http://localhost:8181/cxf/api/berbatik_dev/org.soluvas.web.backbone/requireConfig.js
@@ -76,9 +67,10 @@ public class RequireResource {
 		
 //		log.debug("Get RequireJS config for {} {}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath() );
 		
-		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("/require_config.stg"), "UTF-8", '$', '$');
+		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
 		final ST requireSt = stg.getInstanceOf("require");
 		final WebAddress webAddress = webAddressSupplier.get();
+		requireSt.add("waitSeconds", waitSeconds);
 		requireSt.add("webAddress", webAddress);
 		final List<Map<String, String>> preparedModules = Lists.transform( Ordering.natural().immutableSortedCopy(jsModules), new Function<JavaScriptModule, Map<String, String>>() {
 			@Override @Nullable
@@ -86,7 +78,7 @@ public class RequireResource {
 				String path;
 				switch (input.getBase()) {
 				case STATIC:
-					path = Preconditions.checkNotNull(mode == Mode.DEVELOPMENT ? input.getPath() : Optional.fromNullable(input.getMinifiedPath()).or(input.getPath()),
+					path = Preconditions.checkNotNull(requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? input.getPath() : Optional.fromNullable(input.getMinifiedPath()).or(input.getPath()),
 							"Cannot get path for JavaScriptModule %s", input.getName());
 					break;
 				case DYNAMIC:

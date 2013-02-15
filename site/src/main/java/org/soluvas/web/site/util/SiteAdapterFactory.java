@@ -152,6 +152,10 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createPermalinkManagerAdapter();
 			}
 			@Override
+			public Adapter caseRequireManager(RequireManager object) {
+				return createRequireManagerAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -462,6 +466,20 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPermalinkManagerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.RequireManager <em>Require Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.RequireManager
+	 * @generated
+	 */
+	public Adapter createRequireManagerAdapter() {
 		return null;
 	}
 

@@ -168,4 +168,25 @@
       <eParameters name="slugPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="JavaScriptMode">
+    <eLiterals name="development">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Use original JS."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="minified" value="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Use minified JS."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="aggregated_minified" value="2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Aggregate all JavaScript, then minify it."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RequireManager">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaScriptMode" lowerBound="1"
+        eType="#//JavaScriptMode" changeable="false"/>
+  </eClassifiers>
 </ecore:EPackage>
