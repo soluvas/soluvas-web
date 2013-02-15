@@ -86,46 +86,28 @@
 	</service>
 
 	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="jquery-selectmenu"/>
-			<argument value="org.soluvas.web.jqueryui/jquery.ui.selectmenu"/>
-			<argument value="org.soluvas.web.jqueryui/jquery.ui.selectmenu"/>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="jquery-selectmenu"/>
-			<argument>
-				<set>
-					<value>jquery-ui/jquery.ui.core</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="jquery.dataTables"/>
-			<argument value="org.soluvas.web.jqueryui/datatables/jquery.dataTables"/>
-			<argument value="org.soluvas.web.jqueryui/datatables/jquery.dataTables.min"/>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="jquery.dataTables"/>
-			<argument>
-				<set>
-					<value>jquery-ui/jquery.ui.core</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-
-	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
 			<argument value="org.soluvas.web.jqueryui/css/ui-lightness/jquery-ui-1.10.0.custom.css"/>
 			<argument value="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/ui-lightness/jquery-ui.css"/>
 			<argument value="-1"/>
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="jquery-selectmenu"/>
+			<argument value="org.soluvas.web.jqueryui/jquery.ui.selectmenu"/>
+			<argument value="org.soluvas.web.jqueryui/jquery.ui.selectmenu"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery-selectmenu"/>
+			<argument>
+				<set>
+					<value>jquery-ui/jquery.ui.core</value>
+				</set>
+			</argument>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -133,7 +115,24 @@
 			<argument value="org.soluvas.web.jqueryui/css/jquery.ui.selectmenu.css"/>
 		</bean>
 	</service>
-	
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="jquery.dataTables"/>
+			<argument value="org.soluvas.web.jqueryui/datatables/jquery.dataTables"/>
+			<argument value="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery.dataTables"/>
+			<argument>
+				<set>
+					<value>jquery-ui/jquery.ui.core</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.CssLinkImpl">
 			<argument value="org.soluvas.web.jqueryui/datatables/css/jquery.dataTables_bootstrap2.css"/>
