@@ -4,22 +4,33 @@ package org.soluvas.web.site;
  * Creates a {@literal map} entry in the RequireJS configuration.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class JavaScriptAliasImpl implements JavaScriptAlias {
 	
 	private final String from;
-	private final String to;
-	private final AliasMode mode;
+	private final String minifiedTo;
+	private final String developmentTo;
 	
 	/**
+	 * developmentTo is set to null (meaning this alias is not active during development).
 	 * @param from
-	 * @param to
-	 * @param mode
+	 * @param minifiedTo
 	 */
-	public JavaScriptAliasImpl(String from, String to, AliasMode mode) {
+	public JavaScriptAliasImpl(String from, String minifiedTo) {
+		this(from, minifiedTo, null);
+	}
+
+	/**
+	 * @param from
+	 * @param minifiedTo
+	 * @param developmentTo
+	 */
+	public JavaScriptAliasImpl(String from, String minifiedTo,
+			String developmentTo) {
 		super();
 		this.from = from;
-		this.to = to;
-		this.mode = mode;
+		this.minifiedTo = minifiedTo;
+		this.developmentTo = developmentTo;
 	}
 
 	/* (non-Javadoc)
@@ -30,20 +41,20 @@ public class JavaScriptAliasImpl implements JavaScriptAlias {
 		return from;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptAlias#getTo()
+	/**
+	 * @return the minifiedTo
 	 */
 	@Override
-	public String getTo() {
-		return to;
+	public String getMinifiedTo() {
+		return minifiedTo;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptAlias#getMode()
+	/**
+	 * @return the developmentTo
 	 */
 	@Override
-	public AliasMode getMode() {
-		return mode;
+	public String getDevelopmentTo() {
+		return developmentTo;
 	}
 
 	/* (non-Javadoc)
@@ -53,8 +64,9 @@ public class JavaScriptAliasImpl implements JavaScriptAlias {
 	public String toString() {
 		return "JavaScriptAliasImpl ["
 				+ (from != null ? "from=" + from + ", " : "")
-				+ (to != null ? "to=" + to + ", " : "")
-				+ (mode != null ? "mode=" + mode : "") + "]";
+				+ (minifiedTo != null ? "minifiedTo=" + minifiedTo + ", " : "")
+				+ (developmentTo != null ? "developmentTo=" + developmentTo
+						: "") + "]";
 	}
-
+	
 }

@@ -1,0 +1,8 @@
+h1. Bootstrap Support for Soluvas Web
+
+h2. How to Upgrade
+
+1. Download @http://twitter.github.com/bootstrap/assets/bootstrap.zip@ and name it @bootstrap-2.3.0.zip@
+2. Extract it somewhere
+3. Copy files from @bootstrap/css@ into @/org.soluvas.web.bootstrap/src/main/resources/skin/css@ (overwriting)
+4. Copy @bootstrap/js/bootstrap.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@ (overwriting)

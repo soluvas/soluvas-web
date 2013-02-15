@@ -25,10 +25,7 @@ import org.stringtemplate.v4.STGroupFile;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -39,6 +36,21 @@ import com.google.common.collect.Ordering;
  */
 @Path("org.soluvas.web.backbone")
 public class RequireResource {
+	
+	public static class ModuleAlias {
+		public String from;
+		public String to;
+		
+		/**
+		 * @param from
+		 * @param to
+		 */
+		public ModuleAlias(String from, String to) {
+			super();
+			this.from = from;
+			this.to = to;
+		}
+	}
 	
 	private final List<JavaScriptAlias> jsAliases;
 	private final List<JavaScriptModule> jsModules;
@@ -79,19 +91,20 @@ public class RequireResource {
 		final WebAddress webAddress = webAddressSupplier.get();
 		requireSt.add("waitSeconds", waitSeconds);
 		requireSt.add("webAddress", webAddress);
-		final List<JavaScriptAlias> aliases = ImmutableList.copyOf(Collections2.filter(jsAliases, new Predicate<JavaScriptAlias>() {
-			@Override
-			public boolean apply(@Nullable JavaScriptAlias input) {
-				switch (input.getMode()) {
-					case ANY:
-						return true;
-					case MINIFIED:
-						return requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT;
-					default:
-						throw new IllegalArgumentException("Unknown JavaScriptAlias mode " + input.getMode() + " by " + input);
+		final List<ModuleAlias> aliases = Lists.newArrayList();
+		for (final JavaScriptAlias alias : jsAliases) {
+			switch (requireMgr.getJavaScriptMode()) {
+			case DEVELOPMENT:
+				if (alias.getDevelopmentTo() != null) {
+					aliases.add( new ModuleAlias(alias.getFrom(), alias.getDevelopmentTo()) );
 				}
+				break;
+			case MINIFIED:
+			case AGGREGATED_MINIFIED:
+				aliases.add( new ModuleAlias(alias.getFrom(), alias.getMinifiedTo()) );
+				break;
 			}
-		}));
+		}
 		requireSt.add("aliases", aliases);
 		final List<Map<String, String>> preparedModules = Lists.transform( Ordering.natural().immutableSortedCopy(jsModules), new Function<JavaScriptModule, Map<String, String>>() {
 			@Override @Nullable

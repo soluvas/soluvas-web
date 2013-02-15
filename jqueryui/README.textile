@@ -26,5 +26,4 @@ h2. How to Update
 * @/org.soluvas.web.jqueryui/src/main/resources/js/development-bundle/jquery-1.9.0.js@
 * @/org.soluvas.web.jqueryui/src/main/resources/js/development-bundle/ui/minified/jquery-ui.custom.min.js@
 * @/org.soluvas.web.jqueryui/src/main/resources/js/development-bundle/ui/jquery-ui.custom.js@
-9. Copy @jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.min.js@ into @/org.soluvas.web.jqueryui/src/main/resources/js@  
-10. Copy @file:///home/ceefour/tmp/jquery-ui-1.10.0.custom/css/ui-lightness@ into @/org.soluvas.web.jqueryui/src/main/resources/skin/css@
+9. Copy @/home/ceefour/tmp/jquery-ui-1.10.0.custom/css/ui-lightness@ into @/org.soluvas.web.jqueryui/src/main/resources/skin/css@

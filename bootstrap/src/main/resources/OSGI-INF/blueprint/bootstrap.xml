@@ -56,91 +56,91 @@
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-affix"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-alert"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-button"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-carousel"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-collapse"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-dropdown"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-modal"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-popover"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-scrollspy"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-tab"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-tooltip"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-transition"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="bootstrap/bootstrap-typeahead"/>
 			<argument value="bootstrap/bootstrap"/>
-			<argument value="MINIFIED"/>
+			<argument value="bootstrap/bootstrap"/>
 		</bean>
 	</service>
 
@@ -148,7 +148,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="bootstrap/bootstrap"/>
 			<argument value="org.soluvas.web.bootstrap/bootstrap"/>
-			<argument value="org.soluvas.web.bootstrap/bootstrap.min"/>
+			<argument value="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min"/>
 		</bean>
 	</service>
 
@@ -159,118 +159,6 @@
 				<set>
 					<value>jquery</value>
 				</set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-affix"/>
-			<argument>
-				<set>
-					<value>jquery</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-alert"/>
-			<argument>
-				<set>
-					<value>jquery</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-button"/>
-			<argument>
-				<set>
-					<value>jquery</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-carousel"/>
-			<argument>
-				<set>
-					<value>jquery</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-collapse"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-dropdown"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-modal"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-popover"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-scrollspy"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-tab"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-tooltip"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-transition"/>
-			<argument>
-				<set><value>jquery</value></set>
-			</argument>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="bootstrap/bootstrap-typeahead"/>
-			<argument>
-				<set><value>jquery</value></set>
 			</argument>
 		</bean>
 	</service>

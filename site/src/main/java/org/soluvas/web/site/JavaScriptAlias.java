@@ -1,21 +1,20 @@
 package org.soluvas.web.site;
 
+import java.io.Serializable;
 
-public interface JavaScriptAlias {
+public interface JavaScriptAlias extends Serializable {
 
 	/**
 	 * @return the from
 	 */
 	public abstract String getFrom();
 
-	/**
-	 * @return the to
-	 */
-	public abstract String getTo();
+	String getMinifiedTo();
 
 	/**
-	 * @return the mode
+	 * If developmentTo is set to null, this alias will not be active during development.
+	 * @return
 	 */
-	public abstract AliasMode getMode();
+	String getDevelopmentTo();
 
 }
