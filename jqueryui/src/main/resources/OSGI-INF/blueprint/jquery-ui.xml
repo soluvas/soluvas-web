@@ -25,14 +25,14 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="jquery-ui/jquery.ui.core"/>
-			<argument value="jquery-ui/jquery-ui.custom.min"/>
+			<argument value="jquery-ui.custom"/>
 			<argument value="MINIFIED"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
-			<argument value="jquery-ui/jquery-ui.custom.min"/>
+			<argument value="jquery-ui.custom"/>
 			<argument value="MINIFIED"/>
 		</bean>
 	</service>
@@ -56,8 +56,19 @@
 		</bean>
 	</service>
 	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<!-- jquery-ui.custom has unique conventions:
+			DEVELOPMENT means it's using jquery-ui-x.x.x.custom.min hosted on our own server
+			MINIFIED means it's using code.jquery.com CDN 
+			-->
+			<argument value="jquery-ui.custom"/>
+			<argument value="org.soluvas.web.jqueryui/jquery-ui-1.10.0.custom.min"/>
+			<argument value="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="jquery-ui/jquery-ui.custom.min"/>
+			<argument value="jquery-ui.custom"/>
 			<argument>
 				<set>
 					<value>jquery</value>
