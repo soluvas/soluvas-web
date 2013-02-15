@@ -1,6 +1,6 @@
-require(webAddress, modules, shims) ::= <<
+require(waitSeconds, webAddress, modules, shims) ::= <<
 var require = {
-	waitSeconds: $waitSeconds,
+	waitSeconds: $waitSeconds$,
     //By default load any module IDs from
     baseUrl: '$webAddress.jsUri$',
     //except, if the module ID starts with "app",
