@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 import org.soluvas.commons.WebAddress;
+import org.soluvas.web.site.JavaScriptAlias;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptModule;
 import org.soluvas.web.site.JavaScriptShim;
@@ -24,7 +25,10 @@ import org.stringtemplate.v4.STGroupFile;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -36,6 +40,7 @@ import com.google.common.collect.Ordering;
 @Path("org.soluvas.web.backbone")
 public class RequireResource {
 	
+	private final List<JavaScriptAlias> jsAliases;
 	private final List<JavaScriptModule> jsModules;
 	private final List<JavaScriptShim> jsShims;
 	private final Supplier<WebAddress> webAddressSupplier;
@@ -47,11 +52,13 @@ public class RequireResource {
 	private final int waitSeconds = 120;
 	
 	public RequireResource(@Nonnull final Supplier<WebAddress> webAddressSupplier,
+			@Nonnull final List<JavaScriptAlias> jsAliases,
 			@Nonnull final List<JavaScriptModule> jsModules,
 			@Nonnull final List<JavaScriptShim> jsShims,
 			@Nonnull final RequireManager requireMgr) {
 		super();
 		this.webAddressSupplier = webAddressSupplier;
+		this.jsAliases = jsAliases;
 		this.jsModules = jsModules;
 		this.jsShims = jsShims;
 		this.requireMgr = requireMgr;
@@ -72,6 +79,20 @@ public class RequireResource {
 		final WebAddress webAddress = webAddressSupplier.get();
 		requireSt.add("waitSeconds", waitSeconds);
 		requireSt.add("webAddress", webAddress);
+		final List<JavaScriptAlias> aliases = ImmutableList.copyOf(Collections2.filter(jsAliases, new Predicate<JavaScriptAlias>() {
+			@Override
+			public boolean apply(@Nullable JavaScriptAlias input) {
+				switch (input.getMode()) {
+					case ANY:
+						return true;
+					case MINIFIED:
+						return requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT;
+					default:
+						throw new IllegalArgumentException("Unknown JavaScriptAlias mode " + input.getMode() + " by " + input);
+				}
+			}
+		}));
+		requireSt.add("aliases", aliases);
 		final List<Map<String, String>> preparedModules = Lists.transform( Ordering.natural().immutableSortedCopy(jsModules), new Function<JavaScriptModule, Map<String, String>>() {
 			@Override @Nullable
 			public Map<String, String> apply(@Nullable JavaScriptModule input) {

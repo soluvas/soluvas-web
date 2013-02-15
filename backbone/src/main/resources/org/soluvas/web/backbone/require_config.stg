@@ -1,6 +1,11 @@
-require(waitSeconds, webAddress, modules, shims) ::= <<
+require(waitSeconds, webAddress, modules, shims, aliases) ::= <<
 var require = {
 	waitSeconds: $waitSeconds$,
+    map: {
+    	'*': {
+    		$aliases:alias();anchor, wrap, separator=", "$
+    	}
+    },
     //By default load any module IDs from
     baseUrl: '$webAddress.jsUri$',
     //except, if the module ID starts with "app",
@@ -14,7 +19,6 @@ var require = {
     shim: {
     	$shims:shim();anchor, wrap, separator=", "$
     }
-
 };
 >>
 
@@ -32,3 +36,8 @@ $if(deps)$deps: [$deps:{dep | '$dep$'}; anchor, wrap, separator=", "$]$endif$
 >>
 
 shim_exports(exports) ::= <<$if(exports)$exports: '$exports$'$endif$>>
+
+alias(m) ::= <<
+
+'$m.from$': '$m.to$'
+>>

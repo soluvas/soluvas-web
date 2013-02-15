@@ -38,7 +38,7 @@
 			<argument value="jquery.notify"/>
 			<argument>
 				<set>
-					<value>jquery-ui</value>
+					<value>jquery-ui/jquery.ui.core</value>
 				</set>
 			</argument>
 		</bean>

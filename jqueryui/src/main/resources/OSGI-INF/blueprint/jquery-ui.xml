@@ -20,50 +20,49 @@
 			<property name="path" value="/skin"/>
 		</bean>
 	</service>
-
+	
+	<!-- Note: Please use jquery-ui/jquery.ui.core + actually required widgets -->
 	<service auto-export="interfaces">
-		<!-- in minified config, all jquery-ui modules resolve to jquery.ui.custom.min -->
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="jquery-ui/jquery.ui.core"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.core"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery.ui.core.min"/>
+			<argument value="jquery-ui/jquery-ui.custom.min"/>
+			<argument value="MINIFIED"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="jquery-ui/jquery.ui.core"/>
-			<argument>
-				<set>
-					<value>jquery</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-
-	<!-- Note: Please use jQuery UI core + actually required widgets -->
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="jquery-ui"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery-ui.custom"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery-ui.custom.min"/>
-		</bean>
-	</service>
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="jquery-ui"/>
-			<argument>
-				<set>
-					<value>jquery</value>
-				</set>
-			</argument>
-		</bean>
-	</service>
-
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/jquery.ui.autocomplete"/>
-			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified/jquery.ui.autocomplete.min"/>
+			<argument value="jquery-ui/jquery-ui.custom.min"/>
+			<argument value="MINIFIED"/>
+		</bean>
+	</service>
+
+	<!-- in minified config, all jquery-ui modules resolve to jquery-ui.custom.min -->
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="jquery-ui"/>
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui"/>
+			<argument value="org.soluvas.web.jqueryui/development-bundle/ui/minified"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery-ui/jquery.ui.core"/>
+			<argument>
+				<set>
+					<value>jquery</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery-ui/jquery-ui.custom.min"/>
+			<argument>
+				<set>
+					<value>jquery</value>
+				</set>
+			</argument>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -89,7 +88,7 @@
 			<argument value="jquery-selectmenu"/>
 			<argument>
 				<set>
-					<value>jquery-ui</value>
+					<value>jquery-ui/jquery.ui.core</value>
 				</set>
 			</argument>
 		</bean>
@@ -107,7 +106,7 @@
 			<argument value="jquery.dataTables"/>
 			<argument>
 				<set>
-					<value>jquery</value>
+					<value>jquery-ui/jquery.ui.core</value>
 				</set>
 			</argument>
 		</bean>
