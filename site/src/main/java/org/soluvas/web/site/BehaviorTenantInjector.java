@@ -33,6 +33,7 @@ import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.web.site.osgi.WebTenantUtils;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Iterables;
 
@@ -70,7 +71,9 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 		
 		final List<Field> fields = ReflectionUtils.getAllFields(component.getClass());
 		
-		final BundleContext bundleContext = FrameworkUtil.getBundle(component.getClass()).getBundleContext();
+		final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
+		final BundleContext bundleContext = Preconditions.checkNotNull(FrameworkUtil.getBundle(component.getClass()).getBundleContext(),
+				"Cannot get BundleContext for Wicket component %s %s", component.getClass().getName(), componentId);
 		boolean needBehavior = false;
 		for (Field field : fields) {
 			final Inject injectAnn = field.getAnnotation(Inject.class);
@@ -90,7 +93,6 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 
 				final Class<?> suppliedClass = field.getType();
 				
-				final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 				log.trace("Field {}#{} needs Supplier<{}> for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
 						componentId, field.getName(), suppliedClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
 				final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
