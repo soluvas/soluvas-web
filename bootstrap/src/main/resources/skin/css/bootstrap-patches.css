@@ -203,7 +203,7 @@ a:hover {
 }
 
 .navbar .nav>li>a {
-	padding: 16px 10px;
+	    padding: 17px 10px 10px;
 }
 
 .navbar .divider-vertical {
@@ -909,6 +909,18 @@ margin-bottom:20px;
 /* landscape phone (galaxy nexus landscape, viewsonic pad landscape, asus galaxy 7--windows to tablet portrait */
 
 @media (max-width:800px) { 
+	
+	.form-navbar-pub {
+    	margin:0;
+	}	
+	.navbar .nav > li > a {
+    	padding: 9px 22px;
+	}
+	
+	.navbar .nav > li > form {
+    	padding: 9px 22px;
+	}
+	
    .productThumbListContent li {
     float: left;
     list-style-type: none;
