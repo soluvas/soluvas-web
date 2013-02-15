@@ -13,6 +13,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.soluvas.commons.WebAddress;
+import org.soluvas.data.EntityLookup;
+import org.soluvas.ldap.Person;
 import org.soluvas.ldap.SocialPerson;
 
 import com.google.common.base.Function;
@@ -33,14 +35,17 @@ public class RedirectByUserType implements Function<String, String> {
 	private final ShopRepository shopRepo;
 //	@Inject @Supplied
 	private final WebAddress webAddress;
+	private final EntityLookup<Person, String> personLookkup;
 	
 	public RedirectByUserType(@Nonnull final MallManager mallManager,
-			@Nonnull final WebAddress webAddress, @Nonnull final ShopRepository shopRepo) {
+			@Nonnull final WebAddress webAddress, @Nonnull final ShopRepository shopRepo,
+			@Nonnull final EntityLookup<Person, String> personLookup) {
 		super();
 		
 		this.mallManager = mallManager;
 		this.webAddress = webAddress;
 		this.shopRepo = shopRepo;
+		this.personLookkup = personLookup;
 	}
 	
 	@Override
@@ -57,13 +62,13 @@ public class RedirectByUserType implements Function<String, String> {
 		}));
 		if (mallAdminIds.contains(personId)) {
 			// ke id.co.bippo.web.mall.IndexMallPage 
-			
 			return (webAddress.getBaseUri() + "mall");
 		} else if (!shopRepo.findShopsByPersonId(personId).isEmpty()) {
 			// ke id.co.bippo.web.shop.IndexShopPage
-			return (webAddress.getBaseUri() + "shop_index/"+ personId);
-			//user biasa
+			final Person userSession = personLookkup.findOne(personId);
+			return (webAddress.getBaseUri() + "shop_index/"+ userSession.getSlug());
 		} else {
+			//user biasa
 			return (webAddress.getBaseUri());
 		}
 	}
