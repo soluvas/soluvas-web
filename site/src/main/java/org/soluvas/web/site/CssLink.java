@@ -44,4 +44,6 @@ public interface CssLink extends Serializable {
 	 */
 	String getTenantId();
 
+	String getMinifiedPath();
+
 }

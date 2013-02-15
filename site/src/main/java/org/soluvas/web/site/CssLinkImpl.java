@@ -10,6 +10,7 @@ import org.soluvas.commons.WebAddress;
 public class CssLinkImpl implements CssLink {
 	
 	private final String path;
+	private final String minifiedPath;
 	private final int weight;
 	private final String tenantId;
 	
@@ -20,7 +21,7 @@ public class CssLinkImpl implements CssLink {
 	 *            {@link WebAddress#getSkinUri()} (without leading slash).
 	 */
 	public CssLinkImpl(String path) {
-		this(path, 0, null);
+		this(path, path, 0, null);
 	}
 
 	/**
@@ -30,8 +31,19 @@ public class CssLinkImpl implements CssLink {
 	 *            {@link WebAddress#getSkinUri()} (without leading slash).
 	 * @param weight
 	 */
-	public CssLinkImpl(String path, int weight) {
-		this(path, weight, null);
+	public CssLinkImpl(String path, String minifiedPath) {
+		this(path, minifiedPath, 0, null);
+	}
+	
+	/**
+	 * 
+	 * @param path
+	 *            The path to the CSS file, relative to
+	 *            {@link WebAddress#getSkinUri()} (without leading slash).
+	 * @param weight
+	 */
+	public CssLinkImpl(String path, String minifiedPath, int weight) {
+		this(path, minifiedPath, weight, null);
 	}
 	
 	/**
@@ -39,9 +51,10 @@ public class CssLinkImpl implements CssLink {
 	 * @param weight
 	 * @param tenantId
 	 */
-	public CssLinkImpl(String path, int weight, String tenantId) {
+	public CssLinkImpl(String path, String minifiedPath, int weight, String tenantId) {
 		super();
 		this.path = path;
+		this.minifiedPath = minifiedPath;
 		this.weight = weight;
 		this.tenantId = tenantId;
 	}
@@ -52,6 +65,14 @@ public class CssLinkImpl implements CssLink {
 	@Override
 	public String getPath() {
 		return path;
+	}
+	
+	/**
+	 * @return the minifiedPath
+	 */
+	@Override
+	public String getMinifiedPath() {
+		return minifiedPath;
 	}
 
 	/* (non-Javadoc)
@@ -68,11 +89,15 @@ public class CssLinkImpl implements CssLink {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.soluvas.web.site.JavaScriptLink#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return String.format("JavaScriptLink [path=%s, weight=%s]", path, weight);
+		return "CssLinkImpl ["
+				+ (path != null ? "path=" + path + ", " : "")
+				+ (minifiedPath != null ? "minifiedPath=" + minifiedPath + ", "
+						: "") + "weight=" + weight + ", "
+				+ (tenantId != null ? "tenantId=" + tenantId : "") + "]";
 	}
 
 }

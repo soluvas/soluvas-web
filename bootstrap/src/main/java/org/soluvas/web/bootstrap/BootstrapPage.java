@@ -199,6 +199,14 @@ public class BootstrapPage extends ExtensiblePage {
 		return js;
 	}
 	
+	public static String smartPrefixUri(String prefix, String uri) {
+		if (uri.startsWith("//") || uri.startsWith("https:") || uri.startsWith("http:")) {
+			return uri;
+		} else {
+			return prefix + uri;
+		}
+	}
+	
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
@@ -223,7 +231,11 @@ public class BootstrapPage extends ExtensiblePage {
 		});
 		final List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(filteredCsses);
 		for (CssLink css : sortedCsses) {
-			response.renderCSSReference(webAddress.getSkinUri() + css.getPath());
+			if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT && css.getMinifiedPath() != null) {
+				response.renderCSSReference(smartPrefixUri(webAddress.getSkinUri(), css.getMinifiedPath()));
+			} else {
+				response.renderCSSReference(smartPrefixUri(webAddress.getSkinUri(), css.getPath()));
+			}
 		}
 		
 		log.debug("Page {} has {} head JavaScript links", getClass().getName(), headJavaScripts.size());
