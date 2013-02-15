@@ -321,15 +321,23 @@ public class BootstrapPage extends ExtensiblePage {
 				new MetaTag("ogImage",
 					new PropertyModel<String>(pageMetaModel, "openGraph.image")) );
 			
+			final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+					webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css" :
+						"//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
+			final String bootstrapResponsiveCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+					webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css" :
+						"//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
 			add(new WebMarkupContainer("bootstrapCss").add(
-					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css")));
+					new AttributeModifier("href", bootstrapCssUri)));
 			add(new WebMarkupContainer("bootstrapResponsiveCss").add(
-					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css")));
+					new AttributeModifier("href", bootstrapResponsiveCssUri)));
 			add(new WebMarkupContainer("bootstrapPatchesCss").add(
 					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
-			final String requireName = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? "require-2.1.4.js" : "require-2.1.4.min.js";
+			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4.js" :
+						"//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
 			add(new WebMarkupContainer("requireJs").add(
-					new AttributeModifier("src", webAddress.getJsUri() + "org.soluvas.web.bootstrap/" + requireName)));
+					new AttributeModifier("src", requireJsUri)));
 			
 			//Carousel
 			add(afterHeader = new RepeatingView("afterHeader"));
