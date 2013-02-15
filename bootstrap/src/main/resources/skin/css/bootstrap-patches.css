@@ -6,6 +6,22 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /*     margin-bottom: 10px; */
 /* } */
 
+.account-info{
+	padding:9px !important;
+}
+
+.nav > li > a {
+    color: #666666;
+}
+
+.nav > li > a:HOVER {
+    color: #333;
+}
+
+.nav-header{
+	color: #666666;
+}
+
 .CategorySidebar hr{
 	margin:5px 0;
 }
@@ -24,14 +40,6 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 }
 .InnovativeSiderbar{
 	
-}
-
-.CategorySidebar a{
-	color:#666;
-}
-
-.CategorySidebar a:HOVER{
-	color:#333;
 }
 
 .badge {
@@ -82,7 +90,7 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 }
 
 .badgeCart{
-	margin: -44px 0 0 22px;
+	margin: -50px 0 0 22px;
     position: absolute;
 }
 .wellRio{
@@ -203,7 +211,7 @@ a:hover {
 }
 
 .navbar .nav>li>a {
-	    padding: 17px 10px 10px;
+	    padding: 17px 10px;
 }
 
 .navbar .divider-vertical {
@@ -909,7 +917,11 @@ margin-bottom:20px;
 /* landscape phone (galaxy nexus landscape, viewsonic pad landscape, asus galaxy 7--windows to tablet portrait */
 
 @media (max-width:800px) { 
-	
+
+	.badgeCart {
+	    margin: -45px 0 0 32px;
+	    position: absolute;
+	}
 	.form-navbar-pub {
     	margin:0;
 	}	
@@ -919,6 +931,10 @@ margin-bottom:20px;
 	
 	.navbar .nav > li > form {
     	padding: 9px 22px;
+	}
+	
+	.account-info {
+    	padding: 5px 20px !important;
 	}
 	
    .productThumbListContent li {
