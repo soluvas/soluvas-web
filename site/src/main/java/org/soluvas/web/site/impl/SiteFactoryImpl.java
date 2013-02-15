@@ -3,6 +3,7 @@
 package org.soluvas.web.site.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -75,8 +76,39 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 			case SitePackage.PERMALINK_CATALOG: return (EObject)createPermalinkCatalog();
 			case SitePackage.PERMALINK: return (EObject)createPermalink();
 			case SitePackage.PERMALINK_MANAGER: return (EObject)createPermalinkManager();
+			case SitePackage.REQUIRE_MANAGER: return (EObject)createRequireManager();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case SitePackage.JAVA_SCRIPT_MODE:
+				return createJavaScriptModeFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case SitePackage.JAVA_SCRIPT_MODE:
+				return convertJavaScriptModeToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -268,6 +300,36 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	public PermalinkManager createPermalinkManager() {
 		PermalinkManagerImpl permalinkManager = new PermalinkManagerImpl();
 		return permalinkManager;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RequireManager createRequireManager() {
+		RequireManagerImpl requireManager = new RequireManagerImpl();
+		return requireManager;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JavaScriptMode createJavaScriptModeFromString(EDataType eDataType, String initialValue) {
+		JavaScriptMode result = JavaScriptMode.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJavaScriptModeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

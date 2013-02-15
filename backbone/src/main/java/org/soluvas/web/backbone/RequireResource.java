@@ -14,8 +14,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 import org.soluvas.commons.WebAddress;
+import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptModule;
 import org.soluvas.web.site.JavaScriptShim;
+import org.soluvas.web.site.RequireManager;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -34,26 +36,11 @@ import com.google.common.collect.Ordering;
 @Path("org.soluvas.web.backbone")
 public class RequireResource {
 	
-	public static enum Mode {
-		/**
-		 * Use original JS.
-		 */
-		DEVELOPMENT,
-		/**
-		 * Use minified JS.
-		 */
-		MINIFIED,
-		/**
-		 * Aggregate all JavaScript, then minify it.
-		 */
-		AGGREGATED_MINIFIED,
-	}
-	
 	private final List<JavaScriptModule> jsModules;
 	private final List<JavaScriptShim> jsShims;
 	private final Supplier<WebAddress> webAddressSupplier;
 	private @Context UriInfo uriInfo;
-	private final Mode mode;
+	private final RequireManager requireMgr;
 	/**
 	 * Think of those people (like myself) on GPRS connections in remote areas.
 	 */
@@ -62,12 +49,12 @@ public class RequireResource {
 	public RequireResource(@Nonnull final Supplier<WebAddress> webAddressSupplier,
 			@Nonnull final List<JavaScriptModule> jsModules,
 			@Nonnull final List<JavaScriptShim> jsShims,
-			@Nonnull final Mode mode) {
+			@Nonnull final RequireManager requireMgr) {
 		super();
 		this.webAddressSupplier = webAddressSupplier;
 		this.jsModules = jsModules;
 		this.jsShims = jsShims;
-		this.mode = mode;
+		this.requireMgr = requireMgr;
 	}
 
 	// http://localhost:8181/cxf/api/berbatik_dev/org.soluvas.web.backbone/requireConfig.js
@@ -91,7 +78,7 @@ public class RequireResource {
 				String path;
 				switch (input.getBase()) {
 				case STATIC:
-					path = Preconditions.checkNotNull(mode == Mode.DEVELOPMENT ? input.getPath() : Optional.fromNullable(input.getMinifiedPath()).or(input.getPath()),
+					path = Preconditions.checkNotNull(requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? input.getPath() : Optional.fromNullable(input.getMinifiedPath()).or(input.getPath()),
 							"Cannot get path for JavaScriptModule %s", input.getName());
 					break;
 				case DYNAMIC:

@@ -4,6 +4,7 @@ package org.soluvas.web.site;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -1089,6 +1090,45 @@ public interface SitePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.RequireManagerImpl <em>Require Manager</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.RequireManagerImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getRequireManager()
+	 * @generated
+	 */
+	int REQUIRE_MANAGER = 21;
+
+	/**
+	 * The feature id for the '<em><b>Java Script Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUIRE_MANAGER__JAVA_SCRIPT_MODE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Require Manager</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUIRE_MANAGER_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.JavaScriptMode
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
+	 * @generated
+	 */
+	int JAVA_SCRIPT_MODE = 22;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.Section <em>Section</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1464,6 +1504,37 @@ public interface SitePackage extends EPackage {
 	EClass getPermalinkManager();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.RequireManager <em>Require Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Require Manager</em>'.
+	 * @see org.soluvas.web.site.RequireManager
+	 * @generated
+	 */
+	EClass getRequireManager();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.RequireManager#getJavaScriptMode <em>Java Script Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Java Script Mode</em>'.
+	 * @see org.soluvas.web.site.RequireManager#getJavaScriptMode()
+	 * @see #getRequireManager()
+	 * @generated
+	 */
+	EAttribute getRequireManager_JavaScriptMode();
+
+	/**
+	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Java Script Mode</em>'.
+	 * @see org.soluvas.web.site.JavaScriptMode
+	 * @generated
+	 */
+	EEnum getJavaScriptMode();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1814,6 +1885,34 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EClass PERMALINK_MANAGER = eINSTANCE.getPermalinkManager();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.RequireManagerImpl <em>Require Manager</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.RequireManagerImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getRequireManager()
+		 * @generated
+		 */
+		EClass REQUIRE_MANAGER = eINSTANCE.getRequireManager();
+
+		/**
+		 * The meta object literal for the '<em><b>Java Script Mode</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REQUIRE_MANAGER__JAVA_SCRIPT_MODE = eINSTANCE.getRequireManager_JavaScriptMode();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.JavaScriptMode
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
+		 * @generated
+		 */
+		EEnum JAVA_SCRIPT_MODE = eINSTANCE.getJavaScriptMode();
 
 	}
 
