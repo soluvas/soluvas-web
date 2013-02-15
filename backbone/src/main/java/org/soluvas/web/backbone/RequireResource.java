@@ -54,6 +54,10 @@ public class RequireResource {
 	private final Supplier<WebAddress> webAddressSupplier;
 	private @Context UriInfo uriInfo;
 	private final Mode mode;
+	/**
+	 * Think of those people (like myself) on GPRS connections in remote areas.
+	 */
+	private final int waitSeconds = 120;
 	
 	public RequireResource(@Nonnull final Supplier<WebAddress> webAddressSupplier,
 			@Nonnull final List<JavaScriptModule> jsModules,
@@ -76,9 +80,10 @@ public class RequireResource {
 		
 //		log.debug("Get RequireJS config for {} {}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath() );
 		
-		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("/require_config.stg"), "UTF-8", '$', '$');
+		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
 		final ST requireSt = stg.getInstanceOf("require");
 		final WebAddress webAddress = webAddressSupplier.get();
+		requireSt.add("waitSeconds", waitSeconds);
 		requireSt.add("webAddress", webAddress);
 		final List<Map<String, String>> preparedModules = Lists.transform( Ordering.natural().immutableSortedCopy(jsModules), new Function<JavaScriptModule, Map<String, String>>() {
 			@Override @Nullable
