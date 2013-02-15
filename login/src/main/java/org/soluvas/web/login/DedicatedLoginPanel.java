@@ -22,6 +22,8 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.inject.Filter;
 import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
+import org.soluvas.data.EntityLookup;
+import org.soluvas.ldap.Person;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.google.GoogleLoginLink;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
@@ -53,6 +55,8 @@ public class DedicatedLoginPanel extends Panel {
 		private MallManager mallManager;
 		@Inject @Namespace("shop") @Filter("(repositoryMode=normal)")
 		private ShopRepository shopRepo;
+		@Inject @Namespace("person")
+		private EntityLookup<Person, String> personLookup;
 		
 		public FormSignIn(@Nonnull final String id, @Nonnull final IModel<LoginFormModel> userLoginModel,
 				@Nonnull final Component dedicatedLoginPanelComponent) {
@@ -75,7 +79,7 @@ public class DedicatedLoginPanel extends Panel {
 						throw new RedirectToUrlException(destUri);
 					} else {
 						//TODO: call RedirectByUserType
-						final String redirectUri = new RedirectByUserType(mallManager, webAddress, shopRepo).apply(personId);
+						final String redirectUri = new RedirectByUserType(mallManager, webAddress, shopRepo, personLookup).apply(personId);
 						log.debug("Redirecting  by usertype to ");
 						throw new RedirectToUrlException(redirectUri);
 //						final Class<? extends Page> homePage = Application.get().getHomePage();

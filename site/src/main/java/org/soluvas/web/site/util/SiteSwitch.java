@@ -211,6 +211,12 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SitePackage.REQUIRE_MANAGER: {
+				RequireManager requireManager = (RequireManager)theEObject;
+				T result = caseRequireManager(requireManager);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -527,6 +533,21 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePermalinkManager(PermalinkManager object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Require Manager</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Require Manager</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRequireManager(RequireManager object) {
 		return null;
 	}
 

@@ -4,6 +4,7 @@ package org.soluvas.web.site.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -15,6 +16,7 @@ import org.soluvas.web.site.EntityNewPage;
 import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
+import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.LoginPage;
 import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageParam;
@@ -25,6 +27,7 @@ import org.soluvas.web.site.RawEntityEditPage;
 import org.soluvas.web.site.RawEntityNewPage;
 import org.soluvas.web.site.RawEntityTablePage;
 import org.soluvas.web.site.RegisterPage;
+import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.ResetPasswordPage;
 import org.soluvas.web.site.Section;
 import org.soluvas.web.site.SectionCollection;
@@ -185,6 +188,20 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass permalinkManagerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass requireManagerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum javaScriptModeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -576,6 +593,33 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getRequireManager() {
+		return requireManagerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRequireManager_JavaScriptMode() {
+		return (EAttribute)requireManagerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getJavaScriptMode() {
+		return javaScriptModeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -655,6 +699,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(permalinkEClass, PERMALINK__TEMPLATE);
 
 		permalinkManagerEClass = createEClass(PERMALINK_MANAGER);
+
+		requireManagerEClass = createEClass(REQUIRE_MANAGER);
+		createEAttribute(requireManagerEClass, REQUIRE_MANAGER__JAVA_SCRIPT_MODE);
+
+		// Create enums
+		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
 	}
 
 	/**
@@ -780,6 +830,15 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "secureAbsolute", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(requireManagerEClass, RequireManager.class, "RequireManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRequireManager_JavaScriptMode(), this.getJavaScriptMode(), "javaScriptMode", null, 1, 1, RequireManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
+		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.DEVELOPMENT);
+		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.MINIFIED);
+		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.AGGREGATED_MINIFIED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -952,6 +1011,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Get absolute permalink URI, secure HTTPS."
+		   });		
+		addAnnotation
+		  (javaScriptModeEEnum.getELiterals().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use original JS."
+		   });		
+		addAnnotation
+		  (javaScriptModeEEnum.getELiterals().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Use minified JS."
+		   });		
+		addAnnotation
+		  (javaScriptModeEEnum.getELiterals().get(2), 
+		   source, 
+		   new String[] {
+			 "documentation", "Aggregate all JavaScript, then minify it."
 		   });
 	}
 
