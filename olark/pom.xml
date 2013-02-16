@@ -14,10 +14,6 @@
 	<name>Soluvas Web Olark</name>
 	<description>Show olark chat</description>
 	
-	<properties>
-		<handlebars.dir>/usr/local/bin</handlebars.dir>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.soluvas</groupId>
@@ -31,17 +27,6 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>id.co.bippo.commerce</groupId>
-			<artifactId>id.co.bippo.common</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>id.co.bippo.commerce</groupId>
-			<artifactId>id.co.bippo.shop</artifactId>
-			<version>5.0.0-SNAPSHOT</version>
-		</dependency>
-		
 
 		<dependency>
 			<groupId>org.soluvas</groupId>
@@ -55,49 +40,7 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.image</artifactId>
 		</dependency>
-		 <dependency>
-			<groupId>com.restfb</groupId>
-			<artifactId>restfb</artifactId>
-		</dependency>
-		<dependency>
-		  <groupId>org.expressme</groupId>
-		  <artifactId>JOpenId</artifactId>
-		  <version>1.08</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.twitter4j</groupId>
-		    <artifactId>twitter4j-core</artifactId>
-		    <version>3.0.3</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.http-client</groupId>
-		    <artifactId>google-http-client-jackson2</artifactId>
-		    <version>1.13.1-beta</version>
-		</dependency>
-		<dependency>
-      		<groupId>com.google.api-client</groupId>
-      		<artifactId>google-api-client</artifactId>
-      		<version>1.13.2-beta</version>
-    	</dependency>
-<!-- 		<dependency> -->
-<!--       		<groupId>com.google.api-client</groupId> -->
-<!--       		<artifactId>google-api-client-servlet</artifactId> -->
-<!--       		<version>1.13.0-beta</version> -->
-<!--     	</dependency> -->
-	    <dependency>
-	      <groupId>com.google.apis</groupId>
-	      <artifactId>google-api-services-plus</artifactId>
-	      <version>v1-rev49-1.13.2-beta</version>
-	    </dependency>
-
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -181,31 +124,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<!-- not working yet with CloudBees, due to PATH setting, so disabled for now -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>precompile-mustache</id> -->
-<!-- 						<phase>generate-resources</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>exec</goal> -->
-<!-- 						</goals> -->
-<!-- 						<inherited>false</inherited> -->
-<!-- 						<configuration> -->
-							<!-- need wildcard expansion, so need bash -->
-<!-- 							<executable>bash</executable> -->
-<!-- 							<arguments> -->
-<!-- 								<argument>-c</argument> -->
-<!-- 								/usr/local/bin/handlebars -->
-										<!-- WARNING: check argument for double "-" when uncommenting -->
-<!-- 								<argument>${handlebars.dir}/handlebars src/main/resources/templates_web/*.mustache - -amd - -output src/main/resources/js/templates.js</argument> -->
-<!-- 							</arguments> -->
-<!-- 						</configuration> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -237,11 +155,4 @@
 		</pluginManagement>
 	</build>
 	
-	<repositories>
-	    <repository>
-	      <id>google-api-services</id>
-	      <url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
-	    </repository>
-	</repositories>
-
 </project>
