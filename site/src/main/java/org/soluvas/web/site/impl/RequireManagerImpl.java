@@ -4,7 +4,9 @@ package org.soluvas.web.site.impl;
 
 import javax.annotation.Nonnull;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.RequireManager;
@@ -18,6 +20,7 @@ import org.soluvas.web.site.SitePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.RequireManagerImpl#getJavaScriptMode <em>Java Script Mode</em>}</li>
+ *   <li>{@link org.soluvas.web.site.impl.RequireManagerImpl#getCacheBust <em>Cache Bust</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,6 +49,26 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 	protected JavaScriptMode javaScriptMode = JAVA_SCRIPT_MODE_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getCacheBust() <em>Cache Bust</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCacheBust()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CACHE_BUST_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCacheBust() <em>Cache Bust</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCacheBust()
+	 * @generated
+	 * @ordered
+	 */
+	protected String cacheBust = CACHE_BUST_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 */
@@ -53,9 +76,11 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 		throw new UnsupportedOperationException("Please use constructor with arguments.");
 	}
 	
-	public RequireManagerImpl(@Nonnull final JavaScriptMode javaScriptMode) {
+	public RequireManagerImpl(@Nonnull final JavaScriptMode javaScriptMode,
+			@Nonnull final String cacheBust) {
 		super();
 		this.javaScriptMode = javaScriptMode;
+		this.cacheBust = cacheBust;
 	}
 
 	/**
@@ -84,10 +109,22 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 	 * @generated
 	 */
 	@Override
+	public String getCacheBust() {
+		return cacheBust;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SitePackage.REQUIRE_MANAGER__JAVA_SCRIPT_MODE:
 				return getJavaScriptMode();
+			case SitePackage.REQUIRE_MANAGER__CACHE_BUST:
+				return getCacheBust();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -102,6 +139,8 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 		switch (featureID) {
 			case SitePackage.REQUIRE_MANAGER__JAVA_SCRIPT_MODE:
 				return javaScriptMode != JAVA_SCRIPT_MODE_EDEFAULT;
+			case SitePackage.REQUIRE_MANAGER__CACHE_BUST:
+				return CACHE_BUST_EDEFAULT == null ? cacheBust != null : !CACHE_BUST_EDEFAULT.equals(cacheBust);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -118,6 +157,8 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (javaScriptMode: ");
 		result.append(javaScriptMode);
+		result.append(", cacheBust: ");
+		result.append(cacheBust);
 		result.append(')');
 		return result.toString();
 	}

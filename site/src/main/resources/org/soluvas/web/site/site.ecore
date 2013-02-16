@@ -188,5 +188,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="RequireManager">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaScriptMode" lowerBound="1"
         eType="#//JavaScriptMode" changeable="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cacheBust" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        changeable="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A string used to bust CDN cache, e.g. &quot;2013-02-16 18:43:22+07:00&quot;.&#xA;&#xA;This will be appended as a query string to &quot;relative&quot; js, skin, and img URIs. Relative here in reference to webAddres URIs. Absolute URIs won't be cache-busted."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

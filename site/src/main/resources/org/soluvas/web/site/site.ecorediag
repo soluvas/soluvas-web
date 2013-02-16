@@ -410,6 +410,10 @@
         <element xmi:type="ecore:EAttribute" href="site.ecore#//RequireManager/javaScriptMode"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_LE8OUXclEeKSspP_3NZQcA"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_-h7MQXgtEeKQZpRu9y9Pfw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//RequireManager/cacheBust"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_-h7MQngtEeKQZpRu9y9Pfw"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_JycrsXclEeKSspP_3NZQcA"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_JycrsnclEeKSspP_3NZQcA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_Jycrs3clEeKSspP_3NZQcA"/>

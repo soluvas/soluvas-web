@@ -1,6 +1,7 @@
 package org.soluvas.web.backbone;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import org.stringtemplate.v4.STGroupFile;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -89,6 +91,8 @@ public class RequireResource {
 		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
 		final ST requireSt = stg.getInstanceOf("require");
 		final WebAddress webAddress = webAddressSupplier.get();
+		requireSt.add("urlArgs", Strings.isNullOrEmpty(requireMgr.getCacheBust()) ? "" :
+			URLEncoder.encode(requireMgr.getCacheBust(), "UTF-8"));
 		requireSt.add("waitSeconds", waitSeconds);
 		requireSt.add("webAddress", webAddress);
 		final List<ModuleAlias> aliases = Lists.newArrayList();

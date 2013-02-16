@@ -6,3 +6,25 @@ h2. How to Upgrade
 2. Extract it somewhere
 3. Copy files from @bootstrap/css@ into @/org.soluvas.web.bootstrap/src/main/resources/skin/css@ (overwriting)
 4. Copy @bootstrap/js/bootstrap.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@ (overwriting)
+
+h2. CDN Cache Busting Support
+
+Make sure to configure Amazon CloudFront cache behavior to honor query strings.
+
+h2. Upgrading RequireJS
+
+We use lookfirst's fork of RequireJS. See https://github.com/jrburke/requirejs/issues/376
+for reasons.
+
+1. Get the fork from https://github.com/lookfirst/requirejs
+2. Copy require.js as @/org.soluvas.web.bootstrap/src/main/resources/js/require-2.1.4-lookfirst.js@
+3. I use UglifyJS v1 to minify RequireJS myself. I'm not sure if this is proper but so far it works. Install uglify-js@1:
+
+bc. sudo npm install -g uglify-js@1
+
+4. Uglify require.js :
+
+bc. cd ~/git/require
+uglifyjs require.js > require-2.1.4-lookfirst.min.js
+
+5. Copy @require-2.1.4-lookfirst.min.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@

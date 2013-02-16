@@ -1109,13 +1109,22 @@ public interface SitePackage extends EPackage {
 	int REQUIRE_MANAGER__JAVA_SCRIPT_MODE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Cache Bust</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUIRE_MANAGER__CACHE_BUST = 1;
+
+	/**
 	 * The number of structural features of the '<em>Require Manager</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REQUIRE_MANAGER_FEATURE_COUNT = 1;
+	int REQUIRE_MANAGER_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
@@ -1525,6 +1534,17 @@ public interface SitePackage extends EPackage {
 	EAttribute getRequireManager_JavaScriptMode();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.RequireManager#getCacheBust <em>Cache Bust</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cache Bust</em>'.
+	 * @see org.soluvas.web.site.RequireManager#getCacheBust()
+	 * @see #getRequireManager()
+	 * @generated
+	 */
+	EAttribute getRequireManager_CacheBust();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1903,6 +1923,14 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REQUIRE_MANAGER__JAVA_SCRIPT_MODE = eINSTANCE.getRequireManager_JavaScriptMode();
+
+		/**
+		 * The meta object literal for the '<em><b>Cache Bust</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REQUIRE_MANAGER__CACHE_BUST = eINSTANCE.getRequireManager_CacheBust();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

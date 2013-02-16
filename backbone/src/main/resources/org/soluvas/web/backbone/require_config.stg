@@ -1,6 +1,7 @@
-require(waitSeconds, webAddress, modules, shims, aliases) ::= <<
+require(waitSeconds, urlArgs, webAddress, modules, shims, aliases) ::= <<
 var require = {
 	waitSeconds: $waitSeconds$,
+	urlArgs: "$urlArgs$",
     map: {
     	'*': {
     		$aliases:alias();anchor, wrap, separator=", "$

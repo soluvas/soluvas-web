@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -201,11 +202,15 @@ public class BootstrapPage extends ExtensiblePage {
 		return js;
 	}
 	
-	public static String smartPrefixUri(String prefix, String uri) {
+	@SuppressWarnings("deprecation")
+	public String smartPrefixUri(String prefix, String uri) {
 		if (uri.startsWith("//") || uri.startsWith("https:") || uri.startsWith("http:")) {
 			return uri;
 		} else {
-			return prefix + uri;
+			// cache bust for relative CSS URIs
+			final String suffix = Strings.isNullOrEmpty(requireMgr.getCacheBust()) ? "" :
+				"?" + URLEncoder.encode(requireMgr.getCacheBust());
+			return prefix + uri + suffix;
 		}
 	}
 	
@@ -347,9 +352,14 @@ public class BootstrapPage extends ExtensiblePage {
 					new AttributeModifier("href", bootstrapResponsiveCssUri)));
 			add(new WebMarkupContainer("bootstrapPatchesCss").add(
 					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+			// For now we use lookfirst's fork of RequireJS.
+			// See https://github.com/jrburke/requirejs/issues/376 for reasons.
+//			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+//					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js" :
+//						"//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
 			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4.js" :
-						"//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
+					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.js" :
+						webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js";
 			add(new WebMarkupContainer("requireJs").add(
 					new AttributeModifier("src", requireJsUri)));
 			
