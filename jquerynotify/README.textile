@@ -10,12 +10,4 @@ h2. Testing
 
 Using web browser's JavaScript console:
 
-bc. $('#notify-container').ech.notify('create', {text: "Let's rock the world!"});
-
-h2. jQuery UI 1.10 Notes
-
-The jQuery UI Notify plugin has not been updated for a long time.
-
-$(...).notify(...) cannot be used now. Need to use $(...).ech.notify(...); 
-
-See http://jqueryui.com/upgrade-guide/1.9/#changed-naming-convention-for-data-keys
+bc. $('#notify-container').notify('create', {text: "Let's rock the world!"});
