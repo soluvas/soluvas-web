@@ -33,8 +33,8 @@
 	</licenses>
 
 	<properties>
-		<pax-wicket.version>1.1.2</pax-wicket.version>
-		<wicket.version>1.5.8</wicket.version><!-- workaround for ... -->
+		<pax-wicket.version>2.1.0</pax-wicket.version>
+		<wicket.version>6.5.0</wicket.version><!-- used by wicketstuff e.g. wicket-datetime -->
 	</properties>
 
 	<dependencyManagement>
@@ -86,7 +86,7 @@
 			<dependency>
 				<groupId>org.ops4j.pax.web</groupId>
 				<artifactId>pax-web-extender-whiteboard</artifactId>
-				<version>1.1.3</version><!-- 2.0.2 is available, but not default in Karaf 2.3.0 -->
+				<version>1.1.3</version><!-- 1.1.12 is available, but not default in Karaf 2.3.0 -->
 			</dependency>
 
 			<dependency>
@@ -107,6 +107,11 @@
 				<version>2.8.2</version>
 			</dependency>
 			
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-datetime</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
 			<!-- Pax Wicket Core -->
 			<dependency>
 				<groupId>org.ops4j.pax.wicket</groupId>
@@ -118,12 +123,6 @@
 						<groupId>org.ops4j.base</groupId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-			<dependency>
-				<!-- Workaround for ... -->
-				<groupId>org.apache.wicket</groupId>
-				<artifactId>wicket-extensions</artifactId>
-				<version>${wicket.version}</version>
 			</dependency>
 			<!-- Pax Wicket Test Utilities -->
 			<dependency>
@@ -143,11 +142,12 @@
 <!-- 				<artifactId>wicket-spring</artifactId> -->
 <!-- 				<version>${wicket.version}</version> -->
 <!-- 			</dependency> -->
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.apache.wicket</groupId> -->
-<!-- 				<artifactId>wicket-extensions</artifactId> -->
-<!-- 				<version>${wicket.version}</version> -->
-<!-- 			</dependency> -->
+			<dependency>
+				<!-- For some reason, something is dependencyManagement-ing wicket-extensions with 1.4.15 -->
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-extensions</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>

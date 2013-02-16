@@ -4,11 +4,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 
+import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.string.JavaScriptUtils;
 import org.apache.wicket.util.string.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,11 +48,11 @@ public class DebugMustacheBackboneContainer extends WebComponent {
 
 	private static final Logger log = LoggerFactory.getLogger(DebugMustacheBackboneContainer.class);
 	private Mustache mainMustache;
-	private String modelPath = "bippo/product/";
-	private String backboneModelClassName = "Product";
-	private String templatePath = "bippo/product/";
-	private String templateModule = "Product";
-	private String backboneViewName = "SomeView";
+	private final String modelPath = "bippo/product/";
+	private final String backboneModelClassName = "Product";
+	private final String templatePath = "bippo/product/";
+	private final String templateModule = "Product";
+	private final String backboneViewName = "SomeView";
 	
 	public DebugMustacheBackboneContainer(String id, IModel<?> model) {
 		super(id, model);

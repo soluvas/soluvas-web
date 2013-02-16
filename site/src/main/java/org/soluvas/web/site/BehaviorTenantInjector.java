@@ -12,12 +12,12 @@ import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.application.IComponentInstantiationListener;
+import org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler;
+import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
+import org.apache.wicket.core.request.mapper.StalePageException;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.request.handler.ListenerInterfaceRequestHandler;
-import org.apache.wicket.request.handler.RenderPageRequestHandler;
-import org.apache.wicket.request.mapper.StalePageException;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.osgi.framework.BundleContext;
@@ -44,8 +44,10 @@ import com.google.common.collect.Iterables;
  * 
  * The Wicket app's {@link Application#getApplicationKey()} must be {tenantId}_{tenantEnv}.
  * 
+ * @deprecated Our homegrown multitenancy support for Pax Wicket is unstable and too problematic. :(
  * @author ceefour
  */
+@Deprecated
 public class BehaviorTenantInjector extends AbstractRequestCycleListener implements IComponentInstantiationListener {
 
 	public static final class InjectVisitor implements

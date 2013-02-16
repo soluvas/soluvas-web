@@ -38,6 +38,12 @@
 			<argument value="jquery-ui.custom"/>
 		</bean>
 	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
+			<argument value="jquery-ui/jquery.ui.widget"/>
+			<argument value="jquery-ui.custom"/>
+		</bean>
+	</service>
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
@@ -52,6 +58,16 @@
 			<argument>
 				<set>
 					<value>jquery</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery-ui/jquery.ui.widget"/>
+			<argument>
+				<set>
+					<value>jquery-ui/jquery.ui.core</value>
 				</set>
 			</argument>
 		</bean>
@@ -79,7 +95,7 @@
 			<argument value="jquery-ui/jquery.ui.autocomplete"/>
 			<argument>
 				<set>
-					<value>jquery-ui/jquery.ui.core</value>
+					<value>jquery-ui/jquery.ui.widget</value>
 				</set>
 			</argument>
 		</bean>
@@ -105,7 +121,7 @@
 			<argument value="jquery-selectmenu"/>
 			<argument>
 				<set>
-					<value>jquery-ui/jquery.ui.core</value>
+					<value>jquery-ui/jquery.ui.widget</value>
 				</set>
 			</argument>
 		</bean>
@@ -128,7 +144,7 @@
 			<argument value="jquery.dataTables"/>
 			<argument>
 				<set>
-					<value>jquery-ui/jquery.ui.core</value>
+					<value>jquery-ui/jquery.ui.widget</value>
 				</set>
 			</argument>
 		</bean>

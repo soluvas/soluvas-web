@@ -13,7 +13,9 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -232,9 +234,9 @@ public class BootstrapPage extends ExtensiblePage {
 		final List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(filteredCsses);
 		for (CssLink css : sortedCsses) {
 			if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT && css.getMinifiedPath() != null) {
-				response.renderCSSReference(smartPrefixUri(webAddress.getSkinUri(), css.getMinifiedPath()));
+				response.render(CssHeaderItem.forUrl(smartPrefixUri(webAddress.getSkinUri(), css.getMinifiedPath())));
 			} else {
-				response.renderCSSReference(smartPrefixUri(webAddress.getSkinUri(), css.getPath()));
+				response.render(CssHeaderItem.forUrl(smartPrefixUri(webAddress.getSkinUri(), css.getPath())));
 			}
 		}
 		
@@ -247,7 +249,7 @@ public class BootstrapPage extends ExtensiblePage {
 		});
 		List<JavaScriptLink> sortedJses = jsOrdering.immutableSortedCopy(headJavaScripts);
 		for (JavaScriptLink js : sortedJses) {
-			response.renderJavaScriptReference(js.getSrc());
+			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
 		}
 	}
 	

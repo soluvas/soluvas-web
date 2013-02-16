@@ -1,12 +1,14 @@
 package org.soluvas.web.jquerynotify;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.IEvent;
+import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.feedback.FeedbackMessages;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
@@ -53,14 +55,14 @@ public class NotifyPanel extends Panel {
 	@Override
 	public void onEvent(IEvent<?> event) {
 		super.onEvent(event);
+//		log.debug("We get event {}", event.getPayload());
 		if (event.getPayload() instanceof AjaxRequestTarget) {
 			createNotify((AjaxRequestTarget) event.getPayload());
 		}
-		
 	}
 	
 	protected void createNotify(AjaxRequestTarget target) {
-		final FeedbackMessages feedbackMessages = Session.get().getFeedbackMessages();
+		final List<FeedbackMessage> feedbackMessages = new FeedbackCollector(target.getPage()).collect();
 		if (!feedbackMessages.isEmpty()) {
 			log.debug("{} got {} feedback messages", Session.get(), feedbackMessages.size());
 			for (final FeedbackMessage msg : feedbackMessages) {
@@ -90,13 +92,14 @@ public class NotifyPanel extends Panel {
 					pathIcon += "debug.png";
 				}
 				
-				log.debug("Path Icon is: {}", pathIcon);
+//				log.debug("Path Icon is: {}", pathIcon);
 				
 				final String messageText = Optional.fromNullable(msg.getMessage()).or("").toString();
 //				target.appendJavaScript("jQuery('#notify-container').prepend('<img id=\"icon\"" +
 //						"src=\"" + pathIcon + "\" />')");
 				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
+				msg.markRendered();
 			}
 		}
 	}
