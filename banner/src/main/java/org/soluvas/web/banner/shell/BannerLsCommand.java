@@ -11,7 +11,6 @@ import org.soluvas.web.banner.Banner;
 import org.soluvas.web.banner.BannerCatalog;
 
 import com.google.common.base.Strings;
-import com.google.common.base.Supplier;
 
 /**
  * List registered {@link Banner}s.
@@ -25,9 +24,8 @@ public class BannerLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		final ServiceReference<Supplier> bannerCatalogRef = bundleContext.getServiceReferences(Supplier.class, "(suppliedClass=" + BannerCatalog.class.getName() + ")").iterator().next();
-		final Supplier bannerCatalogSupplier = getService(Supplier.class, bannerCatalogRef);
-		final BannerCatalog bannerCatalog = (BannerCatalog) bannerCatalogSupplier.get();
+		final ServiceReference<BannerCatalog> bannerCatalogRef = bundleContext.getServiceReference(BannerCatalog.class);
+		final BannerCatalog bannerCatalog = getService(BannerCatalog.class, bannerCatalogRef);
 		final EList<Banner> banners = bannerCatalog.getBanners();
 		System.out.println(ansi().render("@|negative_on %3s|%-20s|%-25s|%-25s|%-20s|@",
 				"№", "Title", "Image", "Link", "Bundle"));

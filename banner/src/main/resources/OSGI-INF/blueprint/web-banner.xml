@@ -30,25 +30,9 @@
 	
 	<bean id="bannerPackage" class="org.soluvas.web.banner.impl.BannerPackageImpl"
 		factory-method="getInstance" />
-	<bean id="bannerCatalogSupplier" class="org.soluvas.commons.OverridingSupplier"
-		destroy-method="destroy">
-		<argument ref="bannerPackage"/>
-		<argument value="BannerCatalog"/>
-		<argument><list /></argument>
-	</bean>
-	<service ref="bannerCatalogSupplier" auto-export="interfaces">
-		<service-properties>
-			<entry key="clientId" value="${clientId}" />
-			<entry key="tenantId" value="${tenantId}" />
-			<entry key="tenantEnv" value="${tenantEnv}" />
-			<entry key="suppliedClass" value="org.soluvas.web.banner.BannerCatalog" />
-			<entry key="layer" value="application" />
-		</service-properties>
-	</service>
-	<bean id="bannerCatalogXmiTracker" class="org.soluvas.commons.SupplierXmiTracker">
+	<bean id="bannerCatalogXmiTracker" class="org.soluvas.commons.ServiceXmiTracker">
 		<argument value="org.soluvas.web.banner.BannerPackage" />
 		<argument value="org.soluvas.web.banner.BannerCatalog" />
-		<argument ref="bannerCatalogSupplier" />
 	</bean>
 	<bean class="org.osgi.util.tracker.BundleTracker" init-method="open" destroy-method="close">
 		<argument ref="blueprintBundleContext" />
