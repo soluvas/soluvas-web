@@ -2,9 +2,7 @@
  */
 package org.soluvas.web.googleanalytics.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.googleanalytics.GoogleAnalyticsManager;
 import org.soluvas.web.googleanalytics.GoogleanalyticsPackage;
@@ -17,6 +15,7 @@ import org.soluvas.web.googleanalytics.GoogleanalyticsPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.soluvas.web.googleanalytics.impl.GoogleAnalyticsManagerImpl#getTrackingId <em>Tracking Id</em>}</li>
+ *   <li>{@link org.soluvas.web.googleanalytics.impl.GoogleAnalyticsManagerImpl#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,6 +43,26 @@ public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAna
 	protected String trackingId = TRACKING_ID_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabled = ENABLED_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 */
@@ -51,9 +70,10 @@ public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAna
 		throw new UnsupportedOperationException("Please use the constructor with arguments");
 	}
 	
-	public GoogleAnalyticsManagerImpl(String trackingId) {
+	public GoogleAnalyticsManagerImpl(String trackingId, boolean enabled) {
 		super();
 		this.trackingId = trackingId;
+		this.enabled = enabled;
 	}
 
 	/**
@@ -82,10 +102,22 @@ public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAna
 	 * @generated
 	 */
 	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GoogleanalyticsPackage.GOOGLE_ANALYTICS_MANAGER__TRACKING_ID:
 				return getTrackingId();
+			case GoogleanalyticsPackage.GOOGLE_ANALYTICS_MANAGER__ENABLED:
+				return isEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -100,6 +132,8 @@ public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAna
 		switch (featureID) {
 			case GoogleanalyticsPackage.GOOGLE_ANALYTICS_MANAGER__TRACKING_ID:
 				return TRACKING_ID_EDEFAULT == null ? trackingId != null : !TRACKING_ID_EDEFAULT.equals(trackingId);
+			case GoogleanalyticsPackage.GOOGLE_ANALYTICS_MANAGER__ENABLED:
+				return enabled != ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -116,6 +150,8 @@ public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAna
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (trackingId: ");
 		result.append(trackingId);
+		result.append(", enabled: ");
+		result.append(enabled);
 		result.append(')');
 		return result.toString();
 	}

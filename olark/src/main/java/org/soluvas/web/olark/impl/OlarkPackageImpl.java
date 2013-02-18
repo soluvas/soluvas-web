@@ -110,6 +110,15 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getOlarkManager_Enabled() {
+		return (EAttribute)olarkManagerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OlarkFactory getOlarkFactory() {
 		return (OlarkFactory)getEFactoryInstance();
 	}
@@ -135,6 +144,7 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 		// Create classes and their features
 		olarkManagerEClass = createEClass(OLARK_MANAGER);
 		createEAttribute(olarkManagerEClass, OLARK_MANAGER__SITE_ID);
+		createEAttribute(olarkManagerEClass, OLARK_MANAGER__ENABLED);
 	}
 
 	/**
@@ -169,6 +179,7 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(olarkManagerEClass, OlarkManager.class, "OlarkManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOlarkManager_SiteId(), ecorePackage.getEString(), "siteId", "", 1, 1, OlarkManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOlarkManager_Enabled(), ecorePackage.getEBoolean(), "enabled", null, 1, 1, OlarkManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

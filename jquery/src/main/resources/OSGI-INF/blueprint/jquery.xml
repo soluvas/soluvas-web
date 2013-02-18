@@ -15,11 +15,17 @@
 		</bean>
 	</service>
 
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl"> -->
+<!-- 			<argument value="jquery"/> -->
+<!-- 			<argument value="org.soluvas.web.jquery/jquery-1.8.3"/> -->
+<!-- 			<argument value="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery"/>
-			<argument value="org.soluvas.web.jquery/jquery-1.8.3"/>
-			<argument value="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min"/>
+			<argument value="org.soluvas.web.jquery/jquery-dummy"/>
 		</bean>
 	</service>
 

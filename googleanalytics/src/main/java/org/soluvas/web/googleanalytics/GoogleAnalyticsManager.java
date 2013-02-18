@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.soluvas.web.googleanalytics.GoogleAnalyticsManager#getTrackingId <em>Tracking Id</em>}</li>
+ *   <li>{@link org.soluvas.web.googleanalytics.GoogleAnalyticsManager#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,5 +36,20 @@ public interface GoogleAnalyticsManager extends EObject {
 	 * @generated
 	 */
 	String getTrackingId();
+
+	/**
+	 * Returns the value of the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enabled</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled</em>' attribute.
+	 * @see org.soluvas.web.googleanalytics.GoogleanalyticsPackage#getGoogleAnalyticsManager_Enabled()
+	 * @model required="true" changeable="false"
+	 * @generated
+	 */
+	boolean isEnabled();
 
 } // GoogleAnalyticsManager
