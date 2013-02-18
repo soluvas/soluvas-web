@@ -2,9 +2,7 @@
  */
 package org.soluvas.web.olark.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.olark.OlarkManager;
 import org.soluvas.web.olark.OlarkPackage;
@@ -17,6 +15,7 @@ import org.soluvas.web.olark.OlarkPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.soluvas.web.olark.impl.OlarkManagerImpl#getSiteId <em>Site Id</em>}</li>
+ *   <li>{@link org.soluvas.web.olark.impl.OlarkManagerImpl#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,6 +43,26 @@ public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 	protected String siteId = SITE_ID_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabled = ENABLED_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 */
@@ -51,9 +70,10 @@ public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 		throw new UnsupportedOperationException("Please use constructor with arguments");
 	}
 	
-	public OlarkManagerImpl(String siteId) {
+	public OlarkManagerImpl(String siteId, boolean enabled) {
 		super();
 		this.siteId = siteId;
+		this.enabled = enabled;
 	}
 
 	/**
@@ -82,10 +102,22 @@ public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 	 * @generated
 	 */
 	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OlarkPackage.OLARK_MANAGER__SITE_ID:
 				return getSiteId();
+			case OlarkPackage.OLARK_MANAGER__ENABLED:
+				return isEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -100,6 +132,8 @@ public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 		switch (featureID) {
 			case OlarkPackage.OLARK_MANAGER__SITE_ID:
 				return SITE_ID_EDEFAULT == null ? siteId != null : !SITE_ID_EDEFAULT.equals(siteId);
+			case OlarkPackage.OLARK_MANAGER__ENABLED:
+				return enabled != ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -116,6 +150,8 @@ public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (siteId: ");
 		result.append(siteId);
+		result.append(", enabled: ");
+		result.append(enabled);
 		result.append(')');
 		return result.toString();
 	}

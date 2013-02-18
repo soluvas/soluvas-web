@@ -7,6 +7,10 @@
         <element xmi:type="ecore:EAttribute" href="olark.ecore#//OlarkManager/siteId"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_k9UucHWtEeKrm6KZ8FscYA"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_jmShkXm0EeKli8-p1vnJQA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="olark.ecore#//OlarkManager/enabled"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jmShknm0EeKli8-p1vnJQA"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_i_JxkXWtEeKrm6KZ8FscYA"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_i_JxknWtEeKrm6KZ8FscYA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_i_Jxk3WtEeKrm6KZ8FscYA"/>

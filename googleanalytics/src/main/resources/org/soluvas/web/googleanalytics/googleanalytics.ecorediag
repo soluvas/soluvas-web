@@ -7,6 +7,10 @@
         <element xmi:type="ecore:EAttribute" href="googleanalytics.ecore#//GoogleAnalyticsManager/trackingId"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Er2-sXZcEeKkLMBS8FxkCg"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_KH5mMHm1EeKli8-p1vnJQA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="googleanalytics.ecore#//GoogleAnalyticsManager/enabled"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_KH5mMXm1EeKli8-p1vnJQA"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_AP6-4XZcEeKkLMBS8FxkCg"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_AP6-4nZcEeKkLMBS8FxkCg"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_AP6-43ZcEeKkLMBS8FxkCg"/>
