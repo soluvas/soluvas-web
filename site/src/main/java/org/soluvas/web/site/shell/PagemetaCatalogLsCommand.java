@@ -5,9 +5,9 @@ import static org.fusesource.jansi.Ansi.ansi;
 import java.util.Collection;
 
 import org.apache.felix.gogo.commands.Command;
+import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
-import org.soluvas.commons.shell.TenantCommandSupport;
 import org.soluvas.web.site.pagemeta.PageMetaCatalog;
 import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
@@ -18,7 +18,7 @@ import com.google.common.base.Supplier;
  * @author ceefour
  */
 @Command(scope="pagemeta", name="catalogls", description="List registered PageMetaCatalogs.")
-public class PagemetaCatalogLsCommand extends TenantCommandSupport {
+public class PagemetaCatalogLsCommand extends OsgiCommandSupport {
 	
 	/* (non-Javadoc)
 	 * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
@@ -27,7 +27,7 @@ public class PagemetaCatalogLsCommand extends TenantCommandSupport {
 	@Override
 	protected Object doExecute() throws Exception {
 		final Collection<ServiceReference<Supplier>> refs = bundleContext.getServiceReferences(Supplier.class,
-				"(&(suppliedClass=org.soluvas.web.site.pagemeta.PageRuleCollection)(|(tenantId=\\*)(tenantId=" + tenant.getTenantId() + "))(layer=module))");
+				"(&(suppliedClass=org.soluvas.web.site.pagemeta.PageMetaCatalog)(layer=module))");
 		System.out.println(ansi().render("@|negative_on %3s|%-50s|%-2s|%-34s|@",
 				"№", "Name", "∑", "Bundle"));
 		int i = 0;
@@ -64,7 +64,7 @@ public class PagemetaCatalogLsCommand extends TenantCommandSupport {
 			System.out.println(ansi().render("@|bold,black %3d||@%-50s@|bold,black ||@%2d@|bold,black ||@%-30s@|bold,yellow %4d|@",
 				++i, supplier, ruleCount, bundle.getSymbolicName(), bundle.getBundleId() ));
 		}
-		System.out.println(ansi().render("@|bold %d|@ PageMetaCatalogs for @|bold %s|@", i, tenant));
+		System.out.println(ansi().render("@|bold %d|@ PageMetaCatalogs", i));
 		return null;
 	}
 

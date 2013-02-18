@@ -6,21 +6,21 @@
         
 	<reference id="pagemetaPackage" interface="org.soluvas.web.site.pagemeta.PagemetaPackage" />
 	
-	<bean id="defaultPageRuleCollectionSupplier" class="org.soluvas.commons.XmiObjectLoader"
-		destroy-method="destroy" depends-on="pagemetaPackage">
-		<argument ref="pagemetaPackage" />
-    	<argument type="java.lang.Class" value="org.soluvas.web.site.SiteFactory" />
-    	<argument type="java.lang.String" value="/org/soluvas/web/site/default.PageMetaCatalog.xmi" />
-	</bean>
-	<service ref="defaultPageRuleCollectionSupplier" auto-export="interfaces">
-		<service-properties>
-			<entry key="clientId" value="*" />
-			<entry key="tenantEnv" value="*" />
-			<entry key="tenantId" value="*" />
-			<entry key="suppliedClass" value="org.soluvas.web.site.pagemeta.PageRuleCollection" />
-			<entry key="layer" value="module" />
-		</service-properties>
-	</service>
+<!-- 	<bean id="defaultPageRuleCollectionSupplier" class="org.soluvas.commons.XmiObjectLoader" -->
+<!-- 		destroy-method="destroy" depends-on="pagemetaPackage"> -->
+<!-- 		<argument ref="pagemetaPackage" /> -->
+<!--     	<argument type="java.lang.Class" value="org.soluvas.web.site.SiteFactory" /> -->
+<!--     	<argument type="java.lang.String" value="/org/soluvas/web/site/default.PageMetaCatalog.xmi" /> -->
+<!-- 	</bean> -->
+<!-- 	<service ref="defaultPageRuleCollectionSupplier" auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="clientId" value="*" /> -->
+<!-- 			<entry key="tenantEnv" value="*" /> -->
+<!-- 			<entry key="tenantId" value="*" /> -->
+<!-- 			<entry key="suppliedClass" value="org.soluvas.web.site.pagemeta.PageRuleCollection" /> -->
+<!-- 			<entry key="layer" value="module" /> -->
+<!-- 		</service-properties> -->
+<!-- 	</service> -->
 
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
@@ -162,5 +162,8 @@
 			</argument>
 		</bean>
 	</service>
+	
+	<reference id="pageMetaSupplierFactory"
+		interface="org.soluvas.web.site.PageMetaSupplierFactory"/>
 	
 </blueprint>

@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
 import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.pagemeta.*;
 
@@ -122,6 +123,7 @@ public class PagemetaSwitch<T> extends Switch<T> {
 				T result = casePageRule(pageRule);
 				if (result == null) result = caseBundleAware(pageRule);
 				if (result == null) result = caseResourceAware(pageRule);
+				if (result == null) result = casePositionable(pageRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -510,6 +512,21 @@ public class PagemetaSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseResourceAware(ResourceAware object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Positionable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Positionable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePositionable(Positionable object) {
 		return null;
 	}
 

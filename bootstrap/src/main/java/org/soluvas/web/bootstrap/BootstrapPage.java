@@ -174,9 +174,7 @@ public class BootstrapPage extends ExtensiblePage {
 	
 	protected final RepeatingView sidebarBlocks;
 
-//	@PaxWicketBean(name="pageRulesSupplier")
-//	private Supplier<List<PageRule>> pageRulesSupplier;
-	@Inject
+	@PaxWicketBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@Inject @Supplied
 	private WebAddress webAddress;

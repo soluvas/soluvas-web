@@ -388,6 +388,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageMeta_Phase() {
 		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(12);
 	}
@@ -407,6 +408,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_BrandingBundleName() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(0);
 	}
@@ -416,6 +418,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_FaviconPath() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(1);
 	}
@@ -435,6 +438,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon57Path() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(3);
 	}
@@ -454,6 +458,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon72Path() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(5);
 	}
@@ -473,6 +478,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon114Path() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(7);
 	}
@@ -492,6 +498,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageIcon_Icon144Path() {
 		return (EAttribute)pageIconEClass.getEStructuralFeatures().get(9);
 	}
@@ -841,18 +848,9 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPageRule_Positioner() {
-		return (EAttribute)pageRuleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public EReference getPageRule_Declaration() {
-		return (EReference)pageRuleEClass.getEStructuralFeatures().get(2);
+		return (EReference)pageRuleEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1080,6 +1078,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getClassPageSelector() {
 		return classPageSelectorEClass;
 	}
@@ -1089,6 +1088,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getClassPageSelector_ClassName() {
 		return (EAttribute)classPageSelectorEClass.getEStructuralFeatures().get(0);
 	}
@@ -1098,6 +1098,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPageMetaPhase() {
 		return pageMetaPhaseEEnum;
 	}
@@ -1107,6 +1108,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getPageRuleContext() {
 		return pageRuleContextEDataType;
 	}
@@ -1207,7 +1209,6 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		pageRuleEClass = createEClass(PAGE_RULE);
 		createEReference(pageRuleEClass, PAGE_RULE__SELECTOR);
-		createEAttribute(pageRuleEClass, PAGE_RULE__POSITIONER);
 		createEReference(pageRuleEClass, PAGE_RULE__DECLARATION);
 
 		pageDeclarationEClass = createEClass(PAGE_DECLARATION);
@@ -1285,6 +1286,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		uriPatternPageSelectorEClass.getESuperTypes().add(this.getPageSelector());
 		pageRuleEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
 		pageRuleEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
+		pageRuleEClass.getESuperTypes().add(theCommonsPackage.getPositionable());
 		sourcePageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		processorPageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
 		resourcePageDeclarationEClass.getESuperTypes().add(this.getPageDeclaration());
@@ -1374,7 +1376,6 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		initEClass(pageRuleEClass, PageRule.class, "PageRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPageRule_Selector(), this.getPageSelector(), null, "selector", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPageRule_Positioner(), ecorePackage.getEIntegerObject(), "positioner", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPageRule_Declaration(), this.getPageDeclaration(), null, "declaration", null, 0, 1, PageRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pageDeclarationEClass, PageDeclaration.class, "PageDeclaration", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1671,10 +1672,10 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 			 "documentation", "Matches web requests using http://code.google.com/p/wo-furi/"
 		   });		
 		addAnnotation
-		  (getPageRule_Positioner(), 
+		  (pageRuleEClass, 
 		   source, 
 		   new String[] {
-			 "documentation", "Guide:\n\n* -200 : org.soluvas core\n* -100 : coarse-grained\n* -50 : module-level fine-grained (e.g. bippo salesorder)\n* -10 : product-level fine-grained (e.g. bippo )\n* 0 or missing : application-level fine-grained (e.g. berbatik)\n* 10 : customizations\n"
+			 "documentation", "Positioner Guide:\n\n* -200 : org.soluvas core\n* -100 : coarse-grained\n* -50 : module-level fine-grained (e.g. bippo salesorder)\n* -10 : product-level fine-grained (e.g. bippo )\n* 0 or missing : application-level fine-grained (e.g. berbatik)\n* 10 : customizations\n"
 		   });		
 		addAnnotation
 		  (getPageRule_Declaration(), 
@@ -1778,6 +1779,10 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		   new String[] {
 			 "documentation", "Titles already merged."
 		   });
+	}
+	
+	public static PagemetaPackage getInstance() {
+		return eINSTANCE;
 	}
 
 } //PagemetaPackageImpl

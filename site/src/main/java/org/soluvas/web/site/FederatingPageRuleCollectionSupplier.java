@@ -28,7 +28,9 @@ import com.google.common.collect.Ordering;
 
 /**
  * @author ceefour
+ * @deprecated Use {@link FederatingPageMetaCatalogSupplier}.
  */
+@Deprecated
 public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCollection>,
 	DelegatingSupplier<PageRuleCollection> {
 

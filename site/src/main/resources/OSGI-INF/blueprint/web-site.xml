@@ -9,6 +9,18 @@
         http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
+	<!-- this property placeholder is deprecated in favor of XMI config -->
+    <cm:property-placeholder persistent-id="org.soluvas.web.site" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="siteTitle"			value="FashionWow"/>
+            <cm:property name="homeTitle"			value="Cute and trendy clothing, dresses, and skirts"/>
+            <cm:property name="pageTitleSuffix"		value="| FashionWow"/>
+            <cm:property name="logoText"			value="FashionWow"/>
+            <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
+            <cm:property name="footerHtml"			value="Copyright © 2012 Soluvas"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+    
 	<reference id="commonsPackage" interface="org.soluvas.commons.CommonsPackage" />
 	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy"
 		depends-on="commonsPackage">
@@ -48,17 +60,6 @@
 <!-- 		<cm:managed-component class="org.soluvas.web.site.SimpleSite"/> -->
 <!-- 	</cm:managed-service-factory> -->
 
-    <cm:property-placeholder persistent-id="org.soluvas.web.site" update-strategy="reload">
-        <cm:default-properties>
-            <cm:property name="siteTitle"			value="FashionWow"/>
-            <cm:property name="homeTitle"			value="Cute and trendy clothing, dresses, and skirts"/>
-            <cm:property name="pageTitleSuffix"		value="| FashionWow"/>
-            <cm:property name="logoText"			value="FashionWow"/>
-            <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
-            <cm:property name="footerHtml"			value="Copyright © 2012 Soluvas"/>
-        </cm:default-properties>
-    </cm:property-placeholder>
-    
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
 			<property name="alias" value="/static/org.soluvas.web.site/images"/>
@@ -177,6 +178,114 @@
 			<property name="alias" value="/static/js/org.soluvas.web.site"/>
 			<property name="path" value="/js"/>
 		</bean>
+	</service>
+
+	<bean id="pagemetaPackage" class="org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl"
+		factory-method="getInstance"/>
+		
+<!-- 	<bean id="customPageRuleCollectionSupplier" class="org.soluvas.commons.XmiObjectLoader" -->
+<!-- 		destroy-method="destroy" depends-on="pagemetaPackage"> -->
+<!-- 		<argument ref="pagemetaPackage" /> -->
+<!--     	<argument ref="blueprintBundle" /> -->
+<!--     	<argument type="java.lang.String" value="custom.PageMetaCatalog.xmi" /> -->
+<!-- 	</bean> -->
+<!-- 	<service ref="customPageRuleCollectionSupplier" auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="clientId" value="${clientId}" /> -->
+<!-- 			<entry key="tenantEnv" value="${tenantEnv}" /> -->
+<!-- 			<entry key="tenantId" value="${tenantId}" /> -->
+<!-- 			<entry key="suppliedClass" value="org.soluvas.web.site.pagemeta.PageRuleCollection" /> -->
+<!-- 			<entry key="layer" value="module" /> -->
+<!-- 		</service-properties> -->
+<!-- 	</service> -->
+		
+	<bean id="aggregatingPageMetaCatalogSupplier" class="org.soluvas.commons.AggregatingSupplier"
+		destroy-method="destroy" depends-on="pagemetaPackage">
+		<argument ref="pagemetaPackage" />
+		<argument value="PageMetaCatalog" />
+		<argument>
+			<list />
+		</argument>
+	</bean>
+	<service ref="aggregatingPageMetaCatalogSupplier" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="${clientId}" />
+			<entry key="tenantEnv" value="${tenantEnv}" />
+			<entry key="tenantId" value="${tenantId}" />
+			<entry key="suppliedClass" value="org.soluvas.web.site.pagemeta.PageMetaCatalog" />
+			<entry key="layer" value="application" />
+		</service-properties>
+	</service>
+	<bean id="pageMetaCatalogSupplierTracker" class="org.soluvas.commons.SupplierTracker">
+		<argument ref="blueprintBundleContext" />
+		<argument ref="aggregatingPageMetaCatalogSupplier" />
+	</bean>
+	<bean class="org.osgi.util.tracker.ServiceTracker" init-method="open" destroy-method="close">
+		<argument ref="blueprintBundleContext" />
+		<argument>
+			<bean class="org.osgi.framework.FrameworkUtil" factory-method="createFilter">
+				<argument value="(&amp;(objectClass=com.google.common.base.Supplier)(suppliedClass=org.soluvas.web.site.pagemeta.PageMetaCatalog)(layer=module))" />
+			</bean>
+		</argument>
+		<argument ref="pageMetaCatalogSupplierTracker" />
+	</bean>
+	<bean id="pageMetaCatalogXmiTracker" class="org.soluvas.commons.XmiTracker">
+		<argument value="org.soluvas.web.site.pagemeta.PagemetaPackage" />
+		<argument value="org.soluvas.web.site.pagemeta.PageMetaCatalog" />
+		<argument value="*" />
+		<argument value="*" />
+	</bean>
+	<bean class="org.osgi.util.tracker.BundleTracker" init-method="open" destroy-method="close">
+		<argument ref="blueprintBundleContext" />
+		<argument value="32" />
+		<argument ref="pageMetaCatalogXmiTracker" />
+	</bean>
+	
+<!--     <bean id="federatingPageRuleCollectionSupplier" class="org.soluvas.web.site.FederatingPageRuleCollectionSupplier" -->
+<!--     	destroy-method="destroy" depends-on="pagemetaPackage"> -->
+<!--     	<argument ref="pagemetaPackage" /> -->
+<!--     	<argument> -->
+<!--     		<list /> -->
+<!--     	</argument> -->
+<!--     </bean> -->
+<!-- 	<service ref="federatingPageRuleCollectionSupplier" auto-export="interfaces"> -->
+<!-- 		<service-properties> -->
+<!-- 			<entry key="clientId" value="*" /> -->
+<!-- 			<entry key="tenantEnv" value="*" /> -->
+<!-- 			<entry key="tenantId" value="*" /> -->
+<!-- 			<entry key="suppliedClass" value="org.soluvas.web.site.pagemeta.PageRuleCollection" /> -->
+<!-- 			<entry key="layer" value="application" /> -->
+<!-- 		</service-properties> -->
+<!-- 	</service> -->
+<!--  	<bean id="pageMetaCatalogXmiTracker" class="org.soluvas.commons.SupplierXmiTracker"> -->
+<!--  		<argument value="org.soluvas.web.site.PagemetaPackage" /> -->
+<!--  		<argument value="org.soluvas.web.site.pagemeta.PageMetaCatalog" /> -->
+<!--  		<argument ref="federatingPageRuleCollectionSupplier" /> -->
+<!--  	</bean> -->
+<!--     <bean class="org.osgi.util.tracker.ServiceTracker" init-method="open" destroy-method="close"> -->
+<!--     	<argument ref="blueprintBundleContext" /> -->
+<!-- 		<argument> -->
+<!-- 			<bean class="org.osgi.framework.FrameworkUtil" factory-method="createFilter"> -->
+<!-- 				<argument value="(&amp;(objectClass=com.google.common.base.Supplier)(suppliedClass=org.soluvas.web.site.pagemeta.PageRuleCollection)(layer=module)" /> -->
+<!-- 			</bean> -->
+<!-- 		</argument> -->
+<!--     	<argument> -->
+<!--     		<bean class="org.soluvas.commons.SupplierTracker"> -->
+<!--     			<argument ref="blueprintBundleContext" /> -->
+<!--     			<argument ref="federatingPageRuleCollectionSupplier" /> -->
+<!--     		</bean> -->
+<!--     	</argument> -->
+<!--     </bean> -->
+
+    <bean id="pageMetaSupplierFactory" class="org.soluvas.web.site.RulesPageMetaSupplierFactory">
+    	<argument ref="aggregatingPageMetaCatalogSupplier"/>
+    </bean>
+	<service ref="pageMetaSupplierFactory" auto-export="interfaces">
+		<service-properties>
+			<entry key="clientId" value="*" />
+			<entry key="tenantEnv" value="*" />
+			<entry key="tenantId" value="*" />
+		</service-properties>
 	</service>
 
 </blueprint>
