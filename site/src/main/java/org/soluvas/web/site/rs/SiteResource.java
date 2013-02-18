@@ -60,7 +60,7 @@ public class SiteResource {
 	private final String tenantId;
 	private final String tenantEnv;
 	private final Supplier<WebAddress> webAddressSupplier;
-	private final Supplier<PermalinkCatalog> permalinkCatalogSupplier;
+	private final PermalinkCatalog permalinkCatalog;
 	
 	/**
 	 * @param bundleContext
@@ -71,14 +71,14 @@ public class SiteResource {
 	public SiteResource(BundleContext bundleContext, String clientId,
 			String tenantId, String tenantEnv,
 			Supplier<WebAddress> webAddressSupplier,
-			Supplier<PermalinkCatalog> permalinkCatalogSupplier) {
+			@Nonnull final PermalinkCatalog permalinkCatalog) {
 		super();
 		this.bundleContext = bundleContext;
 		this.clientId = clientId;
 		this.tenantId = tenantId;
 		this.tenantEnv = tenantEnv;
 		this.webAddressSupplier = webAddressSupplier;
-		this.permalinkCatalogSupplier = permalinkCatalogSupplier;
+		this.permalinkCatalog = permalinkCatalog;
 	}
 
 	@GET @Path("webAddress.js")
@@ -103,8 +103,6 @@ public class SiteResource {
 	public String getPermalinkConfigs() {
 //		final TenantRef tenant = JaxrsUtils.getTenant(uriInfo);
 //		final WebAddress webAddress = TenantUtils.getSupplied(bundleContext, tenant, WebAddress.class);
-		final PermalinkCatalog permalinkCatalog = Preconditions.checkNotNull(permalinkCatalogSupplier.get(),
-				"Supplied permalinkCatalog cannot be null");
 
 		final URL stgUrl = SiteResource.class.getResource("permalinkConfigs.js.stg");
 		final STGroupFile stg = new STGroupFile(stgUrl, "UTF-8", '~', '~');

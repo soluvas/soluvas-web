@@ -135,6 +135,11 @@
 				<argument ref="contributorRepository" />
 			</action>
 		</command>
+
+		<!-- Permalink -->
+		<command name="perma/info">
+			<action class="org.soluvas.web.site.shell.PermaInfoCommand"/>
+		</command>
 	</command-bundle>
 	
 <!-- 	<bean id="siteRs" class="org.soluvas.web.site.rs.SiteResource"> -->
@@ -287,5 +292,17 @@
 			<entry key="tenantId" value="*" />
 		</service-properties>
 	</service>
+
+	<bean id="sitePackage" class="org.soluvas.web.site.impl.SitePackageImpl"
+		factory-method="getInstance"/>
+	<bean id="permalinkCatalogXmiTracker" class="org.soluvas.commons.ServiceXmiTracker">                       
+		<argument value="org.soluvas.web.site.SitePackage" />                                            
+		<argument value="org.soluvas.web.site.PermalinkCatalog" />                                            
+	</bean>                                                                                                  
+	<bean class="org.osgi.util.tracker.BundleTracker" init-method="open" destroy-method="close">             
+		<argument ref="blueprintBundleContext" />                                                            
+		<argument value="32" />                                                                              
+		<argument ref="permalinkCatalogXmiTracker" />                                                           
+	</bean>                                                                                                  
 
 </blueprint>
