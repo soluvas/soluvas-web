@@ -10,4 +10,10 @@ h2. Testing
 
 Using web browser's JavaScript console:
 
-bc. $('#notify-container').notify('create', {text: "Let's rock the world!"});
+bc. 
+$('#notify-container').notify('create', {text: "Let's rock the world!"});
+$('#notify-container').notify('create', 'ui-notify-info', {text: 'hello'});
+$('#notify-container').notify('create', 'ui-notify-warning', {text: 'hello'});
+$('#notify-container').notify('create', 'ui-notify-debug', {text: 'hello'});
+$('#notify-container').notify('create', 'ui-notify-error', {text: 'hello'});
+

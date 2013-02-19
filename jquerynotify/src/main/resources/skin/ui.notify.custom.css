@@ -1,0 +1,12 @@
+.ui-notify .icon {
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}
+.ui-notify .ui-icon-error { background-image: url('images/error.png'); }
+.ui-notify .ui-icon-warning { background-image: url('images/warning.png'); }
+.ui-notify .ui-icon-info { background-image: url('images/info.png'); }
+.ui-notify .ui-icon-debug { background-image: url('images/debug.png'); }
