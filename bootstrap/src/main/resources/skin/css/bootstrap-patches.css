@@ -860,13 +860,10 @@ margin-bottom:20px;
 		.form-horizontal .controls {
 	 	 margin-left: 0;
 		}
-		.productThumbListContent li { 
-			float: left;
-			list-style-type: none;
-		 }
 		 
 		.wrapper-item-newproducts {
 		    padding: 6px;
+		    width: 21.9%;
 		}
 		.selleroftheday-box {
 		    width: 43.7%;
@@ -899,10 +896,7 @@ margin-bottom:20px;
 		.leftcol-productview {
 	    	width: 68.6%;
 		}
-		.wrapper-item-newproducts {
-			width: 21.9%;
-		}
-		
+
 		.wrapp-productThumbListContent {
 			width: 21.9%;
 			padding:6px;
@@ -933,10 +927,6 @@ margin-bottom:20px;
     	padding: 5px 20px !important;
 	}
 	
-   .productThumbListContent li {
-    float: left;
-    list-style-type: none;
-	}
 	.selleroftheday-img {
     height: 130px;
     width: 130px;
@@ -977,6 +967,7 @@ margin-bottom:20px;
 		margin: 0 8px 13px 0;
 		width: 21.6%;
 		}
+		
 	.wrapp-productThumbListContent {
 		padding: 5px;
 		margin: 0 8px 13px 0;
@@ -1005,22 +996,17 @@ margin-bottom:20px;
 
 /* landscape phone (galaxy nexus and higher potrait to tablet portrait */
 
-@media (min-width:481px) and (max-width:768px) { 
+/* @media (min-width:481px) and (max-width:768px) {  */
 	
-   .productThumbListContent li {
-    float: left;
-    list-style-type: none;
-	}
+/* 	.more-view-product ul{ */
+/* 		margin:5px 0 0 15px; */
+/* 	} */
+/* 	.more-view-product li{ */
+/* 		float:left; */
+/* 		margin:5px; */
+/* 	} */
 	
-	.more-view-product ul{
-		margin:5px 0 0 15px;
-	}
-	.more-view-product li{
-		float:left;
-		margin:5px;
-	}
-	
-}
+/* } */
 
 
 /* Landscape phone to portrait tablet */
@@ -1138,11 +1124,12 @@ margin-bottom:20px;
 		list-style-type: none;
 	
 	}
-	.productThumbListContent li { 
-		float: none;
-	    margin: 15px auto;
-	    position: relative;
-	    width: 197px;
+	
+	
+	.wrapper-item-newproducts {
+	    margin: 0 8px 13px 0;
+	    padding: 5px;
+	    width: 100%;
 	}
 	
 	.wrapper-item-newproducts img{
