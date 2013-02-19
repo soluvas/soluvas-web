@@ -25,6 +25,4 @@ public class Olark extends Panel {
 		add(contact);
 	}
 	
-	
-
 }

@@ -74,13 +74,22 @@ public interface OlarkPackage extends EPackage {
 	int OLARK_MANAGER__SITE_ID = 0;
 
 	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OLARK_MANAGER__ENABLED = 1;
+
+	/**
 	 * The number of structural features of the '<em>Manager</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLARK_MANAGER_FEATURE_COUNT = 1;
+	int OLARK_MANAGER_FEATURE_COUNT = 2;
 
 
 	/**
@@ -103,6 +112,17 @@ public interface OlarkPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getOlarkManager_SiteId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.olark.OlarkManager#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.soluvas.web.olark.OlarkManager#isEnabled()
+	 * @see #getOlarkManager()
+	 * @generated
+	 */
+	EAttribute getOlarkManager_Enabled();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -143,6 +163,14 @@ public interface OlarkPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute OLARK_MANAGER__SITE_ID = eINSTANCE.getOlarkManager_SiteId();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OLARK_MANAGER__ENABLED = eINSTANCE.getOlarkManager_Enabled();
 
 	}
 

@@ -475,10 +475,6 @@ a:hover {
 /* margin-bottom:10px; */
 /* border-bottom:1px dotted #666; */
 /* } */
-.like-product-box ul,li {
-	margin: 0;
-	list-style-type: none;
-}
 
 .head-like h5 {
 	margin-top: 0;
@@ -797,10 +793,10 @@ padding:13px;
 margin-bottom:20px;
 }
 
-
 #shopProductContainer li {
     float: left;
     margin: 0 5px 5px 0;
+    list-style: none outside none;
 }
 
 .grandtotal{
@@ -994,6 +990,11 @@ margin-bottom:20px;
    	 padding: 0 20px;
 	}
 	
+	#shopInfoContainer .media a{
+		float:none;
+	}
+	
+	
 /* 	.navbar-inner{ */
 /* 		padding-left: 20px; */
 /*     	padding-right: 20px; */
@@ -1011,12 +1012,29 @@ margin-bottom:20px;
     list-style-type: none;
 	}
 	
+	.more-view-product ul{
+		margin:5px 0 0 15px;
+	}
+	.more-view-product li{
+		float:left;
+		margin:5px;
+	}
+	
 }
 
 
 /* Landscape phone to portrait tablet */
 
 @media (max-width: 767px) {
+	
+	.more-view-product ul{
+		 margin: 0;
+	}
+	.more-view-product li{
+		float:left;
+		margin-right:5px;
+	}
+	
 /* 	.selleroftheday-box{ */
 /* 		width: 400px; */
 /* 	} */
@@ -1058,10 +1076,7 @@ margin-bottom:20px;
 	.leftcol-productview {
 	    width: 65%;
 	}
-	.more-view-product li {
-		list-style-type: none;
-/* 		float: left; */
-	}
+
 	    
 .navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
     padding: 5px 20px;
@@ -1186,10 +1201,6 @@ margin-bottom:20px;
 	}
 	.more-view-product {
     	margin: 15px 0;
-	}
-	.more-view-product li {
-/*     	float: left; */
-   	 	list-style-type: none;
 	}
 	.smartphone{
 			width: 85px;

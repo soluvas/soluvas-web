@@ -74,13 +74,22 @@ public interface GoogleanalyticsPackage extends EPackage {
 	int GOOGLE_ANALYTICS_MANAGER__TRACKING_ID = 0;
 
 	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_MANAGER__ENABLED = 1;
+
+	/**
 	 * The number of structural features of the '<em>Google Analytics Manager</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GOOGLE_ANALYTICS_MANAGER_FEATURE_COUNT = 1;
+	int GOOGLE_ANALYTICS_MANAGER_FEATURE_COUNT = 2;
 
 
 	/**
@@ -103,6 +112,17 @@ public interface GoogleanalyticsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGoogleAnalyticsManager_TrackingId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.googleanalytics.GoogleAnalyticsManager#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.soluvas.web.googleanalytics.GoogleAnalyticsManager#isEnabled()
+	 * @see #getGoogleAnalyticsManager()
+	 * @generated
+	 */
+	EAttribute getGoogleAnalyticsManager_Enabled();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -143,6 +163,14 @@ public interface GoogleanalyticsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_ANALYTICS_MANAGER__TRACKING_ID = eINSTANCE.getGoogleAnalyticsManager_TrackingId();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_ANALYTICS_MANAGER__ENABLED = eINSTANCE.getGoogleAnalyticsManager_Enabled();
 
 	}
 

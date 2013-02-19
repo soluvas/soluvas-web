@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.soluvas.web.olark.OlarkManager#getSiteId <em>Site Id</em>}</li>
+ *   <li>{@link org.soluvas.web.olark.OlarkManager#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,5 +37,20 @@ public interface OlarkManager extends EObject {
 	 * @generated
 	 */
 	String getSiteId();
+
+	/**
+	 * Returns the value of the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enabled</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled</em>' attribute.
+	 * @see org.soluvas.web.olark.OlarkPackage#getOlarkManager_Enabled()
+	 * @model required="true" changeable="false"
+	 * @generated
+	 */
+	boolean isEnabled();
 
 } // OlarkManager

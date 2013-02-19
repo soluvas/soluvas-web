@@ -5,5 +5,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="siteId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"
         defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"/>
   </eClassifiers>
 </ecore:EPackage>
