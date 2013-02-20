@@ -165,5 +165,11 @@
 	
 	<reference id="pageMetaSupplierFactory"
 		interface="org.soluvas.web.site.PageMetaSupplierFactory"/>
+		
+<!-- 	References for replacing @Inject-->
+
+	<reference id="requireMgr" interface="org.soluvas.web.site.RequireManager"/>
+		
+<!-- 	End of References -->
 	
 </blueprint>
