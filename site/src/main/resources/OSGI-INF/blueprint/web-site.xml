@@ -305,4 +305,14 @@
 		<argument ref="permalinkCatalogXmiTracker" />                                                           
 	</bean>                                                                                                  
 
+	<bean id="siteCatalogXmiTracker" class="org.soluvas.commons.ServiceXmiTracker">                       
+		<argument value="org.soluvas.web.site.SitePackage" />                                            
+		<argument value="org.soluvas.web.site.SiteCatalog" />                                            
+	</bean>                                                                                                  
+	<bean class="org.osgi.util.tracker.BundleTracker" init-method="open" destroy-method="close">             
+		<argument ref="blueprintBundleContext" />                                                            
+		<argument value="32" />                                                                              
+		<argument ref="siteCatalogXmiTracker" />                                                           
+	</bean>                                                                                                  
+	
 </blueprint>
