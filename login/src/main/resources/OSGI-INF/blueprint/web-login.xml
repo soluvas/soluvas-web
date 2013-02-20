@@ -20,5 +20,23 @@
 
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
 	</command-bundle>
+	
+	
+<!-- 	References for replacing @Inject-->
+
+	<reference id="facebookMgr" interface="org.soluvas.web.login.FacebookManager"/>
+	
+	<reference id="googleMgr" interface="org.soluvas.web.login.GoogleManager"/>
+	
+	<reference id="twitterMgr" interface="org.soluvas.web.login.TwitterManager"/>
+	
+	<reference id="personRawRepo" interface="org.soluvas.ldap.LdapRepository"
+		filter="(&amp;(namespace=person)(repositoryMode=raw))"/>
+		
+	<reference id="personImageRepo" interface="org.soluvas.image.store.ImageRepository"
+		filter="(namespace=person)"/>
+		
+		
+<!-- 	End of References -->
 
 </blueprint>

@@ -6,6 +6,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.request.flow.RedirectToUrlException;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -18,7 +19,7 @@ public class FacebookLoginLink extends AjaxLink<Void> {
 	private static final Logger log = LoggerFactory
 			.getLogger(FacebookLoginLink.class);
 
-	@Inject 
+	@PaxWicketBean(name="facebookMgr")
 	private FacebookManager facebookMgr;
 	@Inject @Supplied
 	private WebAddress webAddress;

@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.request.flow.RedirectToUrlException;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -22,7 +23,7 @@ public class TwitterLoginLink extends IndicatingAjaxLink<Void> {
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterLoginLink.class);
 	
-	@Inject 
+	@PaxWicketBean(name="twitterMgr")
 	private TwitterManager twitterMgr;
 	@Inject @Supplied
 	private WebAddress webAddress;

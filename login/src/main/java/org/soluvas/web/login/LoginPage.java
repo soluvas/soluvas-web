@@ -41,6 +41,7 @@ public class LoginPage extends BootstrapPage {
 	private final LoginFormModel loginFormModel = new LoginFormModel();
 	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
 	private transient SecurityManager securityManager;
+	
 	@Inject @Supplied
 	private AppManifest appManifest;
 

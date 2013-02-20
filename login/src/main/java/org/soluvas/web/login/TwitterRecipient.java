@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,6 @@ import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.NameUtils.PersonName;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Filter;
-import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
@@ -55,11 +54,12 @@ public class TwitterRecipient extends WebPage {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterRecipient.class);
-	@Inject
+	
+	@PaxWicketBean(name="twitterMgr")
 	private TwitterManager twitterManager;
 	@Inject @Supplied
 	private WebAddress webAddress;
-	@Inject @Namespace("person") @Filter("(repositoryMode=raw)")
+	@PaxWicketBean(name="personRawRepo")	
 	private LdapRepository<SocialPerson> personRawRepo;
 	
 	public TwitterRecipient(PageParameters params) {
