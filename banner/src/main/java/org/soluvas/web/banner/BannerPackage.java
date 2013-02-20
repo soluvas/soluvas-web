@@ -322,7 +322,7 @@ public interface BannerPackage extends EPackage {
 	 * @generated
 	 */
 	BannerFactory getBannerFactory();
-
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * Defines literals for the meta objects that represent

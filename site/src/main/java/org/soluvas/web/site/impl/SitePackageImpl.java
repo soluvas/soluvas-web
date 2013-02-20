@@ -269,6 +269,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSection() {
 		return sectionEClass;
 	}
@@ -278,6 +279,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSection_Id() {
 		return (EAttribute)sectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -287,6 +289,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSection_Name() {
 		return (EAttribute)sectionEClass.getEStructuralFeatures().get(1);
 	}
@@ -296,6 +299,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSection_Pages() {
 		return (EReference)sectionEClass.getEStructuralFeatures().get(2);
 	}
@@ -305,6 +309,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSiteCatalog() {
 		return siteCatalogEClass;
 	}
@@ -314,6 +319,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSectionCollection() {
 		return sectionCollectionEClass;
 	}
@@ -323,6 +329,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSectionCollection_Sections() {
 		return (EReference)sectionCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -332,6 +339,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPage() {
 		return pageEClass;
 	}
@@ -341,6 +349,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPage_Name() {
 		return (EAttribute)pageEClass.getEStructuralFeatures().get(0);
 	}
@@ -350,6 +359,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPage_MountPoint() {
 		return (EAttribute)pageEClass.getEStructuralFeatures().get(1);
 	}
@@ -359,6 +369,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPage_Params() {
 		return (EReference)pageEClass.getEStructuralFeatures().get(2);
 	}
@@ -368,6 +379,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPage_Section() {
 		return (EReference)pageEClass.getEStructuralFeatures().get(3);
 	}
@@ -377,6 +389,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGenericPage() {
 		return genericPageEClass;
 	}
@@ -386,6 +399,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRawEntityTablePage() {
 		return rawEntityTablePageEClass;
 	}
@@ -395,6 +409,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEntityTablePage() {
 		return entityTablePageEClass;
 	}
@@ -404,6 +419,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEntityEditPage() {
 		return entityEditPageEClass;
 	}
@@ -413,6 +429,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRawEntityEditPage() {
 		return rawEntityEditPageEClass;
 	}
@@ -422,6 +439,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRawEntityNewPage() {
 		return rawEntityNewPageEClass;
 	}
@@ -431,6 +449,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEntityNewPage() {
 		return entityNewPageEClass;
 	}
@@ -440,6 +459,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getContentPage() {
 		return contentPageEClass;
 	}
@@ -449,6 +469,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDashboardPage() {
 		return dashboardPageEClass;
 	}
@@ -458,6 +479,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPageParam() {
 		return pageParamEClass;
 	}
@@ -467,6 +489,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPageParam_Name() {
 		return (EAttribute)pageParamEClass.getEStructuralFeatures().get(0);
 	}
@@ -476,6 +499,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLoginPage() {
 		return loginPageEClass;
 	}
@@ -485,6 +509,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLoginPage_RegisterPage() {
 		return (EReference)loginPageEClass.getEStructuralFeatures().get(0);
 	}
@@ -494,6 +519,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLoginPage_ResetPasswordPage() {
 		return (EReference)loginPageEClass.getEStructuralFeatures().get(1);
 	}
@@ -503,6 +529,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRegisterPage() {
 		return registerPageEClass;
 	}
@@ -512,6 +539,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getResetPasswordPage() {
 		return resetPasswordPageEClass;
 	}
@@ -521,6 +549,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEntityPage() {
 		return entityPageEClass;
 	}
@@ -530,6 +559,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityPage_EntityClass() {
 		return (EAttribute)entityPageEClass.getEStructuralFeatures().get(0);
 	}
@@ -539,6 +569,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPermalinkCatalog() {
 		return permalinkCatalogEClass;
 	}
@@ -548,6 +579,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPermalinkCatalog_Permalinks() {
 		return (EReference)permalinkCatalogEClass.getEStructuralFeatures().get(0);
 	}
@@ -557,6 +589,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPermalink() {
 		return permalinkEClass;
 	}
@@ -566,6 +599,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPermalink_Namespace() {
 		return (EAttribute)permalinkEClass.getEStructuralFeatures().get(0);
 	}
@@ -575,6 +609,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPermalink_Template() {
 		return (EAttribute)permalinkEClass.getEStructuralFeatures().get(1);
 	}
@@ -584,6 +619,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPermalinkManager() {
 		return permalinkManagerEClass;
 	}
@@ -593,6 +629,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRequireManager() {
 		return requireManagerEClass;
 	}
@@ -602,6 +639,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRequireManager_JavaScriptMode() {
 		return (EAttribute)requireManagerEClass.getEStructuralFeatures().get(0);
 	}
@@ -611,6 +649,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRequireManager_CacheBust() {
 		return (EAttribute)requireManagerEClass.getEStructuralFeatures().get(1);
 	}
@@ -620,6 +659,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
 	}
@@ -629,6 +669,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SiteFactory getSiteFactory() {
 		return (SiteFactory)getEFactoryInstance();
 	}
@@ -1047,6 +1088,10 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   new String[] {
 			 "documentation", "A string used to bust CDN cache, e.g. \"2013-02-16 18:43:22+07:00\".\n\nThis will be appended as a query string to \"relative\" js, skin, and img URIs. Relative here in reference to webAddres URIs. Absolute URIs won\'t be cache-busted."
 		   });
+	}
+	
+	public static SitePackage getInstance() {
+		return eINSTANCE;
 	}
 
 } //SitePackageImpl

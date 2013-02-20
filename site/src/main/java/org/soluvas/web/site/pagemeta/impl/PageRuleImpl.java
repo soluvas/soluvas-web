@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.osgi.framework.Bundle;
 import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
 import org.soluvas.commons.ResourceType;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
@@ -31,8 +32,8 @@ import org.soluvas.web.site.pagemeta.PageSelector;
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getResourceType <em>Resource Type</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getResourceUri <em>Resource Uri</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getResourceName <em>Resource Name</em>}</li>
- *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getSelector <em>Selector</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getPositioner <em>Positioner</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getSelector <em>Selector</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageRuleImpl#getDeclaration <em>Declaration</em>}</li>
  * </ul>
  * </p>
@@ -121,16 +122,6 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	protected String resourceName = RESOURCE_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSelector() <em>Selector</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSelector()
-	 * @generated
-	 * @ordered
-	 */
-	protected PageSelector selector;
-
-	/**
 	 * The default value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -138,7 +129,7 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer POSITIONER_EDEFAULT = null;
+	protected static final Integer POSITIONER_EDEFAULT = new Integer(0);
 
 	/**
 	 * The cached value of the '{@link #getPositioner() <em>Positioner</em>}' attribute.
@@ -149,6 +140,16 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 	 * @ordered
 	 */
 	protected Integer positioner = POSITIONER_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSelector() <em>Selector</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected PageSelector selector;
 
 	/**
 	 * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' containment reference.
@@ -402,10 +403,10 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 				return getResourceUri();
 			case PagemetaPackage.PAGE_RULE__RESOURCE_NAME:
 				return getResourceName();
-			case PagemetaPackage.PAGE_RULE__SELECTOR:
-				return getSelector();
 			case PagemetaPackage.PAGE_RULE__POSITIONER:
 				return getPositioner();
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
+				return getSelector();
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return getDeclaration();
 		}
@@ -432,11 +433,11 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 			case PagemetaPackage.PAGE_RULE__RESOURCE_NAME:
 				setResourceName((String)newValue);
 				return;
-			case PagemetaPackage.PAGE_RULE__SELECTOR:
-				setSelector((PageSelector)newValue);
-				return;
 			case PagemetaPackage.PAGE_RULE__POSITIONER:
 				setPositioner((Integer)newValue);
+				return;
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
+				setSelector((PageSelector)newValue);
 				return;
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				setDeclaration((PageDeclaration)newValue);
@@ -465,11 +466,11 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 			case PagemetaPackage.PAGE_RULE__RESOURCE_NAME:
 				setResourceName(RESOURCE_NAME_EDEFAULT);
 				return;
-			case PagemetaPackage.PAGE_RULE__SELECTOR:
-				setSelector((PageSelector)null);
-				return;
 			case PagemetaPackage.PAGE_RULE__POSITIONER:
 				setPositioner(POSITIONER_EDEFAULT);
+				return;
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
+				setSelector((PageSelector)null);
 				return;
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				setDeclaration((PageDeclaration)null);
@@ -494,10 +495,10 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 				return RESOURCE_URI_EDEFAULT == null ? resourceUri != null : !RESOURCE_URI_EDEFAULT.equals(resourceUri);
 			case PagemetaPackage.PAGE_RULE__RESOURCE_NAME:
 				return RESOURCE_NAME_EDEFAULT == null ? resourceName != null : !RESOURCE_NAME_EDEFAULT.equals(resourceName);
-			case PagemetaPackage.PAGE_RULE__SELECTOR:
-				return selector != null;
 			case PagemetaPackage.PAGE_RULE__POSITIONER:
 				return POSITIONER_EDEFAULT == null ? positioner != null : !POSITIONER_EDEFAULT.equals(positioner);
+			case PagemetaPackage.PAGE_RULE__SELECTOR:
+				return selector != null;
 			case PagemetaPackage.PAGE_RULE__DECLARATION:
 				return declaration != null;
 		}
@@ -519,6 +520,12 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 				default: return -1;
 			}
 		}
+		if (baseClass == Positionable.class) {
+			switch (derivedFeatureID) {
+				case PagemetaPackage.PAGE_RULE__POSITIONER: return CommonsPackage.POSITIONABLE__POSITIONER;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -534,6 +541,12 @@ public class PageRuleImpl extends EObjectImpl implements PageRule {
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_TYPE: return PagemetaPackage.PAGE_RULE__RESOURCE_TYPE;
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_URI: return PagemetaPackage.PAGE_RULE__RESOURCE_URI;
 				case CommonsPackage.RESOURCE_AWARE__RESOURCE_NAME: return PagemetaPackage.PAGE_RULE__RESOURCE_NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Positionable.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.POSITIONABLE__POSITIONER: return PagemetaPackage.PAGE_RULE__POSITIONER;
 				default: return -1;
 			}
 		}

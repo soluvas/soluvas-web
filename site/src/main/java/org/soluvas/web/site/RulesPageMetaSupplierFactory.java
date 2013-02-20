@@ -2,8 +2,8 @@ package org.soluvas.web.site;
 
 import javax.annotation.Nonnull;
 
+import org.soluvas.web.site.pagemeta.PageMetaCatalog;
 import org.soluvas.web.site.pagemeta.PageRule;
-import org.soluvas.web.site.pagemeta.PageRuleCollection;
 
 import com.google.common.base.Supplier;
 
@@ -14,9 +14,10 @@ import com.google.common.base.Supplier;
  */
 public class RulesPageMetaSupplierFactory implements PageMetaSupplierFactory<RulesPageMetaSupplier> {
 
-	private final Supplier<PageRuleCollection> rulesSupplier;
+	private final Supplier<PageMetaCatalog> rulesSupplier;
 	
-	public RulesPageMetaSupplierFactory(@Nonnull final Supplier<PageRuleCollection> rulesSupplier) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public RulesPageMetaSupplierFactory(@Nonnull final Supplier rulesSupplier) {
 		super();
 		this.rulesSupplier = rulesSupplier;
 	}

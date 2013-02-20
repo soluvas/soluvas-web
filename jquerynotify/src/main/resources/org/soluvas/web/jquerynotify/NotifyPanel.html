@@ -3,16 +3,28 @@
 
 <!-- set the container hidden to avoid a flash of unstyled content
 	when the page first loads -->
-<div id="notify-container" style="display:none; margin-top: 60px">
+<div id="notify-container" style="display:block; margin-top: 60px">
     <!--
     Later on, you can choose which template to use by referring to the
     ID assigned to each template.  Alternatively, you could refer
     to each template by index, so in this example, "basic-template" is
     index 0 and "advanced-template" is index 1.
     -->
-    <div id="basic-template">
+    <div id="ui-notify-info">
         <a class="ui-notify-cross ui-notify-close" href="#">×</a>
-        <p><img id="icon" src="#{pathIcon}"/>&nbsp; #{text}</p>
+        <p><i class="icon ui-icon-info"></i>&nbsp; #{text}</p>
+    </div>
+    <div id="ui-notify-error">
+        <a class="ui-notify-cross ui-notify-close" href="#">×</a>
+        <p><i class="icon ui-icon-error"></i>&nbsp; #{text}</p>
+    </div>
+    <div id="ui-notify-warning">
+        <a class="ui-notify-cross ui-notify-close" href="#">×</a>
+        <p><i class="icon ui-icon-warning"></i>&nbsp; #{text}</p>
+    </div>
+    <div id="ui-notify-debug">
+        <a class="ui-notify-cross ui-notify-close" href="#">×</a>
+        <p><i class="icon ui-icon-debug"></i>&nbsp; #{text}</p>
     </div>
 </div>
 

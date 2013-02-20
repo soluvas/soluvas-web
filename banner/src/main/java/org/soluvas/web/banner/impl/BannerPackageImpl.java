@@ -7,9 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.soluvas.web.banner.Banner;
 import org.soluvas.web.banner.BannerCatalog;
 import org.soluvas.web.banner.BannerCollection;
@@ -118,6 +116,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBanner() {
 		return bannerEClass;
 	}
@@ -127,6 +126,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBanner_ImageUri() {
 		return (EAttribute)bannerEClass.getEStructuralFeatures().get(0);
 	}
@@ -136,6 +136,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBanner_Title() {
 		return (EAttribute)bannerEClass.getEStructuralFeatures().get(1);
 	}
@@ -145,6 +146,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBanner_LinkUri() {
 		return (EAttribute)bannerEClass.getEStructuralFeatures().get(2);
 	}
@@ -154,6 +156,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBanner_Width() {
 		return (EAttribute)bannerEClass.getEStructuralFeatures().get(3);
 	}
@@ -163,6 +166,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBanner_Height() {
 		return (EAttribute)bannerEClass.getEStructuralFeatures().get(4);
 	}
@@ -172,6 +176,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBanner_ImageBase() {
 		return (EAttribute)bannerEClass.getEStructuralFeatures().get(5);
 	}
@@ -181,6 +186,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBannerCatalog() {
 		return bannerCatalogEClass;
 	}
@@ -190,6 +196,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBannerCollection() {
 		return bannerCollectionEClass;
 	}
@@ -199,6 +206,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBannerCollection_Banners() {
 		return (EReference)bannerCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -208,6 +216,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getImageBase() {
 		return imageBaseEEnum;
 	}
@@ -217,6 +226,7 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BannerFactory getBannerFactory() {
 		return (BannerFactory)getEFactoryInstance();
 	}
@@ -340,6 +350,10 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 		   new String[] {
 			 "documentation", "Provided Image URI is an relative path to site\'s Images URI."
 		   });
+	}
+
+	public static BannerPackage getInstance() {
+		return eINSTANCE;
 	}
 
 } //BannerPackageImpl

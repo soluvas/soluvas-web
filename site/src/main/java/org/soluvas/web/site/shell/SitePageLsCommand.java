@@ -12,7 +12,6 @@ import org.soluvas.web.site.SiteCatalog;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -24,20 +23,13 @@ import com.google.common.collect.Lists;
 @Command(scope="site", name="pagels", description="List registered (Wicket) pages.")
 public class SitePageLsCommand extends OsgiCommandSupport {
 	
-	private Supplier<SiteCatalog> siteCatalogSupplier;
-	
-	public SitePageLsCommand(Supplier<SiteCatalog> siteCatalogSupplier) {
-		super();
-		this.siteCatalogSupplier = siteCatalogSupplier;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
-		SiteCatalog siteCatalog = siteCatalogSupplier.get();
-		List<String> sectionFmts = Lists.transform(siteCatalog.getSections(), new Function<Section, String>() {
+		final SiteCatalog siteCatalog = getService(SiteCatalog.class, bundleContext.getServiceReference(SiteCatalog.class));
+		final List<String> sectionFmts = Lists.transform(siteCatalog.getSections(), new Function<Section, String>() {
 			@Override
 			@Nullable
 			public String apply(@Nullable Section section) {
@@ -46,7 +38,7 @@ public class SitePageLsCommand extends OsgiCommandSupport {
 		});
 		System.out.format("%d sections: %s\n", sectionFmts.size(), Joiner.on(", ").join(sectionFmts));
 		
-		List<Page> concatPages = ImmutableList.copyOf(Iterables.concat(Lists.transform(siteCatalog.getSections(), new Function<Section, List<Page>>() {
+		final List<Page> concatPages = ImmutableList.copyOf(Iterables.concat(Lists.transform(siteCatalog.getSections(), new Function<Section, List<Page>>() {
 			@Override
 			@Nullable
 			public List<Page> apply(@Nullable Section section) {
@@ -58,7 +50,7 @@ public class SitePageLsCommand extends OsgiCommandSupport {
 				"#", "Name", "Mount Point", "Type", "Section" );
 		
 		int i = 0;
-		for (Page it : concatPages) {
+		for (final Page it : concatPages) {
 			// TODO: use locale settings to format date, currency, amount, "and", many
 			// TODO: format products
 			System.out.format("%3d | %-20s | %-35s | %-20s | %s\n",

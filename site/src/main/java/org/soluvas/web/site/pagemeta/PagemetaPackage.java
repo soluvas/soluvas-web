@@ -698,22 +698,22 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_RULE__RESOURCE_NAME = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_RULE__SELECTOR = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Positioner</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_RULE__POSITIONER = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 4;
+	int PAGE_RULE__POSITIONER = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_RULE__SELECTOR = CommonsPackage.BUNDLE_AWARE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Declaration</b></em>' containment reference.
@@ -1766,17 +1766,6 @@ public interface PagemetaPackage extends EPackage {
 	EReference getPageRule_Selector();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageRule#getPositioner <em>Positioner</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Positioner</em>'.
-	 * @see org.soluvas.web.site.pagemeta.PageRule#getPositioner()
-	 * @see #getPageRule()
-	 * @generated
-	 */
-	EAttribute getPageRule_Positioner();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.pagemeta.PageRule#getDeclaration <em>Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2573,14 +2562,6 @@ public interface PagemetaPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PAGE_RULE__SELECTOR = eINSTANCE.getPageRule_Selector();
-
-		/**
-		 * The meta object literal for the '<em><b>Positioner</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PAGE_RULE__POSITIONER = eINSTANCE.getPageRule_Positioner();
 
 		/**
 		 * The meta object literal for the '<em><b>Declaration</b></em>' containment reference feature.

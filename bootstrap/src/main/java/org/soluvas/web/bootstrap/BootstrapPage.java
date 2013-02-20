@@ -164,7 +164,7 @@ public class BootstrapPage extends ExtensiblePage {
 	@PaxWicketBean(name="headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
 	
-	@Inject
+	@PaxWicketBean(name="requireMgr")
 	private RequireManager requireMgr;
 	
 	@PaxWicketBean(name="footerJavaScripts")
@@ -174,9 +174,7 @@ public class BootstrapPage extends ExtensiblePage {
 	
 	protected final RepeatingView sidebarBlocks;
 
-//	@PaxWicketBean(name="pageRulesSupplier")
-//	private Supplier<List<PageRule>> pageRulesSupplier;
-	@Inject
+	@PaxWicketBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@Inject @Supplied
 	private WebAddress webAddress;

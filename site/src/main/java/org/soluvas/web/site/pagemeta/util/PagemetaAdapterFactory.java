@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.pagemeta.*;
 
@@ -152,6 +153,10 @@ public class PagemetaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseResourceAware(ResourceAware object) {
 				return createResourceAwareAdapter();
+			}
+			@Override
+			public Adapter casePositionable(Positionable object) {
+				return createPositionableAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -464,6 +469,20 @@ public class PagemetaAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createResourceAwareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.Positionable <em>Positionable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.Positionable
+	 * @generated
+	 */
+	public Adapter createPositionableAdapter() {
 		return null;
 	}
 
