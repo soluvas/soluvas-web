@@ -17,6 +17,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -28,6 +29,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
@@ -76,11 +79,12 @@ import com.google.common.collect.Ordering;
 
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
+ * 
  * @author ceefour
  */
 @SuppressWarnings("serial")
 public class BootstrapPage extends ExtensiblePage {
-	
+
 	public static class MetaTag extends WebMarkupContainer {
 
 		/**
@@ -91,26 +95,29 @@ public class BootstrapPage extends ExtensiblePage {
 			super(id, model);
 			add(new AttributeModifier("content", model));
 		}
-		
+
 		@Override
 		protected void onConfigure() {
 			super.onConfigure();
 			setVisible(!Strings.isNullOrEmpty(getDefaultModelObjectAsString()));
 		}
-		
+
 	}
 
 	/**
 	 * Usage:
 	 * 
-	 * <pre>{@code
-	 * final Builder<String, String> dependencies = ImmutableMap.builder();
-	 * new AmdDependencyVisitor(dependencies).component(BootstrapPage.this, null);
-	 * visitChildren(new AmdDependencyVisitor(dependencies));
-	 * final Map<String, String> dependencyMap = dependencies.build();
-	 * log.debug("Page {} has {} AMD dependencies: {}", getClass().getName(), dependencyMap.size(),
-	 * 		dependencyMap.keySet());
-	 * }</pre>
+	 * <pre>
+	 * {
+	 * 	&#064;code
+	 * 	final Builder&lt;String, String&gt; dependencies = ImmutableMap.builder();
+	 * 	new AmdDependencyVisitor(dependencies).component(BootstrapPage.this, null);
+	 * 	visitChildren(new AmdDependencyVisitor(dependencies));
+	 * 	final Map&lt;String, String&gt; dependencyMap = dependencies.build();
+	 * 	log.debug(&quot;Page {} has {} AMD dependencies: {}&quot;, getClass().getName(),
+	 * 			dependencyMap.size(), dependencyMap.keySet());
+	 * }
+	 * </pre>
 	 * 
 	 * @author ceefour
 	 */
@@ -123,9 +130,9 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 
 		@Override
-		public void component(Component component,
-				IVisit<Void> visit) {
-			List<AmdDependency> amdDeps = component.getBehaviors(AmdDependency.class);
+		public void component(Component component, IVisit<Void> visit) {
+			List<AmdDependency> amdDeps = component
+					.getBehaviors(AmdDependency.class);
 			for (AmdDependency dep : amdDeps) {
 				dependencies.put(dep.getPath(), dep.getName());
 			}
@@ -133,56 +140,60 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 
 	public static final class JsSourceVisitor implements
-		IVisitor<Component, Void> {
+			IVisitor<Component, Void> {
 		private final ImmutableList.Builder<String> jsSources;
-		
+
 		public JsSourceVisitor(ImmutableList.Builder<String> jsSources) {
 			this.jsSources = jsSources;
 		}
-		
+
 		@Override
-		public void component(Component component,
-				IVisit<Void> visit) {
-			List<JsSource> jsSourceBehaviors = component.getBehaviors(JsSource.class);
+		public void component(Component component, IVisit<Void> visit) {
+			List<JsSource> jsSourceBehaviors = component
+					.getBehaviors(JsSource.class);
 			for (JsSource src : jsSourceBehaviors) {
-				jsSources.add( src.getJsSource() );
+				jsSources.add(src.getJsSource());
 			}
 		}
 	}
-	
-	private static final Logger log = LoggerFactory.getLogger(BootstrapPage.class);
-	
-	@PaxWicketBean(name="jacksonMapperFactory")
+
+	private static final Logger log = LoggerFactory
+			.getLogger(BootstrapPage.class);
+
+	@PaxWicketBean(name = "jacksonMapperFactory")
 	private Supplier<ObjectMapper> jacksonMapperFactory;
 	/**
 	 * Should not use {@link Site} directly!
 	 */
-//	@PaxWicketBean(name="site") @Deprecated
-//	private Site site;
-	@PaxWicketBean(name="cssLinks")
+	// @PaxWicketBean(name="site") @Deprecated
+	// private Site site;
+	@PaxWicketBean(name = "cssLinks")
 	private List<CssLink> cssLinks;
-	@PaxWicketBean(name="headJavaScripts")
+	@PaxWicketBean(name = "headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
-	
+
 	@Inject
 	private RequireManager requireMgr;
-	
-	@PaxWicketBean(name="footerJavaScripts")
+
+	@PaxWicketBean(name = "footerJavaScripts")
 	private List<JavaScriptLink> footerJavaScripts;
-	@PaxWicketBean(name="footerJavaScriptSources")
+	@PaxWicketBean(name = "footerJavaScriptSources")
 	private List<JavaScriptSource> footerJavaScriptSources;
-	
+
 	protected final RepeatingView sidebarBlocks;
 
-	@PaxWicketBean(name="pageMetaSupplierFactory")
+	@PaxWicketBean(name = "pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@Inject @Supplied
+	@Inject
+	@Supplied
 	private WebAddress webAddress;
-	@Inject @Supplied @Filter("(layer=application)")
+	@Inject
+	@Supplied
+	@Filter("(layer=application)")
 	private AppManifest appManifest;
-	@PaxWicketBean(name="contributors")
+	@PaxWicketBean(name = "contributors")
 	private CrudRepository<LiveContributor, Integer> contributors;
-	
+
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	protected Component feedbackPanel;
 
@@ -199,119 +210,156 @@ public class BootstrapPage extends ExtensiblePage {
 		pageJavaScriptLinks.add(js);
 		return js;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public String smartPrefixUri(String prefix, String uri) {
-		if (uri.startsWith("//") || uri.startsWith("https:") || uri.startsWith("http:")) {
+		if (uri.startsWith("//") || uri.startsWith("https:")
+				|| uri.startsWith("http:")) {
 			return uri;
 		} else {
 			// cache bust for relative CSS URIs
-			final String suffix = Strings.isNullOrEmpty(requireMgr.getCacheBust()) ? "" :
-				"?" + URLEncoder.encode(requireMgr.getCacheBust());
+			final String suffix = Strings.isNullOrEmpty(requireMgr
+					.getCacheBust()) ? "" : "?"
+					+ URLEncoder.encode(requireMgr.getCacheBust());
 			return prefix + uri + suffix;
 		}
 	}
-	
+
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		
-		final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2.filter(cssLinks,
-				new Predicate<CssLink>() {
-			@Override
-			public boolean apply(@Nullable CssLink input) {
-				return Strings.isNullOrEmpty(input.getTenantId()) ||
-						"*".equals(input.getTenantId()) ||
-						tenant.getTenantId().equals(input.getTenantId());
-			}
-		}));
 
-		log.debug("Page {} has {} CSS links (from {} total)", getClass().getName(),
-				filteredCsses.size(), cssLinks.size());
-		final Ordering<CssLink> cssOrdering = Ordering.from(new Comparator<CssLink>() {
-			@Override
-			public int compare(CssLink o1, CssLink o2) {
-				return o1.getWeight() - o2.getWeight();
-			};
-		});
-		final List<CssLink> sortedCsses = cssOrdering.immutableSortedCopy(filteredCsses);
+		response.render(JavaScriptReferenceHeaderItem
+				.forReference(getApplication().getJavaScriptLibrarySettings()
+						.getJQueryReference()));
+
+		final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
+				.filter(cssLinks, new Predicate<CssLink>() {
+					@Override
+					public boolean apply(@Nullable CssLink input) {
+						return Strings.isNullOrEmpty(input.getTenantId())
+								|| "*".equals(input.getTenantId())
+								|| tenant.getTenantId().equals(
+										input.getTenantId());
+					}
+				}));
+
+		log.debug("Page {} has {} CSS links (from {} total)", getClass()
+				.getName(), filteredCsses.size(), cssLinks.size());
+		final Ordering<CssLink> cssOrdering = Ordering
+				.from(new Comparator<CssLink>() {
+					@Override
+					public int compare(CssLink o1, CssLink o2) {
+						return o1.getWeight() - o2.getWeight();
+					};
+				});
+		final List<CssLink> sortedCsses = cssOrdering
+				.immutableSortedCopy(filteredCsses);
 		for (CssLink css : sortedCsses) {
-			if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT && css.getMinifiedPath() != null) {
-				response.render(CssHeaderItem.forUrl(smartPrefixUri(webAddress.getSkinUri(), css.getMinifiedPath())));
+			if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT
+					&& css.getMinifiedPath() != null) {
+				response.render(CssHeaderItem.forUrl(smartPrefixUri(
+						webAddress.getSkinUri(), css.getMinifiedPath())));
 			} else {
-				response.render(CssHeaderItem.forUrl(smartPrefixUri(webAddress.getSkinUri(), css.getPath())));
+				response.render(CssHeaderItem.forUrl(smartPrefixUri(
+						webAddress.getSkinUri(), css.getPath())));
 			}
 		}
-		
-		log.debug("Page {} has {} head JavaScript links", getClass().getName(), headJavaScripts.size());
-		Ordering<JavaScriptLink> jsOrdering = Ordering.from(new Comparator<JavaScriptLink>() {
-			@Override
-			public int compare(JavaScriptLink o1, JavaScriptLink o2) {
-				return o1.getWeight() - o2.getWeight();
-			};
-		});
-		List<JavaScriptLink> sortedJses = jsOrdering.immutableSortedCopy(headJavaScripts);
+
+		log.debug("Page {} has {} head JavaScript links", getClass().getName(),
+				headJavaScripts.size());
+		Ordering<JavaScriptLink> jsOrdering = Ordering
+				.from(new Comparator<JavaScriptLink>() {
+					@Override
+					public int compare(JavaScriptLink o1, JavaScriptLink o2) {
+						return o1.getWeight() - o2.getWeight();
+					};
+				});
+		List<JavaScriptLink> sortedJses = jsOrdering
+				.immutableSortedCopy(headJavaScripts);
 		for (JavaScriptLink js : sortedJses) {
 			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
 		}
 	}
-	
+
 	protected PageMeta getPageMeta(@Nonnull final TenantRef tenant,
 			String currentUri) {
-		final PageRuleContext context = new PageRuleContext(tenant.getClientId(), tenant.getTenantId(), tenant.getTenantEnv(),
-				this, currentUri, webAddress, appManifest);
-//		final List<PageRule> pageRules = pageRulesSupplier.get();
-//		final PageMetaSupplier pageSupplier = new RulesPageMetaSupplier(pageRules, context);
-		Preconditions.checkNotNull(pageMetaSupplierFactory, "BootstrapPage.pageMetaSupplierFactory cannot be null");
-		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory.create(context);
+		final PageRuleContext context = new PageRuleContext(
+				tenant.getClientId(), tenant.getTenantId(),
+				tenant.getTenantEnv(), this, currentUri, webAddress,
+				appManifest);
+		// final List<PageRule> pageRules = pageRulesSupplier.get();
+		// final PageMetaSupplier pageSupplier = new
+		// RulesPageMetaSupplier(pageRules, context);
+		Preconditions.checkNotNull(pageMetaSupplierFactory,
+				"BootstrapPage.pageMetaSupplierFactory cannot be null");
+		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory
+				.create(context);
 		final PageMeta pageMeta = pageMetaSupplier.get();
 		return pageMeta;
 	}
-	
+
 	@Override
 	protected void renderPlaceholderTag(ComponentTag tag, Response response) {
 		super.renderPlaceholderTag(tag, response);
 	}
-	
+
 	/**
 	 * Please override this.
+	 * 
 	 * @return
 	 */
 	protected String getTitle() {
 		return null;
 	}
-	
+
 	public BootstrapPage() {
+		// Use CDN jQuery if we're in production
+		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
+			getApplication()
+					.getJavaScriptLibrarySettings()
+					.setJQueryReference(
+							new UrlResourceReference(
+									Url.parse("http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")));
+		}
+
 		tenant = WebTenantUtils.getTenant();
 		final String currentUri = getRequest().getUrl().toString();
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
 		// do NOT use AsyncModel here because we need it to load LAST
-		// (i.e. after all scopes has been attached as page model using addModelForPageMeta)
+		// (i.e. after all scopes has been attached as page model using
+		// addModelForPageMeta)
 		final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
 			@Override
 			protected PageMeta load() {
 				return getPageMeta(tenant, currentUri);
 			}
 		};
-		
-		// HTML
-		add(new TransparentWebMarkupContainer("html").add(
-				new AttributeModifier("lang", new PropertyModel<String>(pageMetaModel, "languageCode"))));
 
-		final BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
-		final ServiceReference<Site> siteRef = bundleContext.getServiceReference(Site.class);
+		// HTML
+		add(new TransparentWebMarkupContainer("html")
+				.add(new AttributeModifier("lang", new PropertyModel<String>(
+						pageMetaModel, "languageCode"))));
+
+		final BundleContext bundleContext = FrameworkUtil.getBundle(getClass())
+				.getBundleContext();
+		final ServiceReference<Site> siteRef = bundleContext
+				.getServiceReference(Site.class);
 		try {
 			final Site site = bundleContext.getService(siteRef);
-			
+
 			// HEAD
-			//add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-			// do NOT use AsyncModel here, because it depends on PageMeta model loading last
+			// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+			// do NOT use AsyncModel here, because it depends on PageMeta model
+			// loading last
 			final IModel<String> titleModel = new LoadableDetachableModel<String>() {
 				@Override
 				protected String load() {
-					return Optional.fromNullable(getTitle())
-							.or( Optional.fromNullable(pageMetaModel.getObject().getTitle()) ).orNull();
+					return Optional
+							.fromNullable(getTitle())
+							.or(Optional.fromNullable(pageMetaModel.getObject()
+									.getTitle())).orNull();
 				}
 			};
 			final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
@@ -321,83 +369,104 @@ public class BootstrapPage extends ExtensiblePage {
 				}
 			};
 			add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
-			add(new Label("pageTitleSuffix", titleSuffixModel).setRenderBodyOnly(true));
-			final WebMarkupContainer faviconLink = new WebMarkupContainer("faviconLink");
-			faviconLink.add(new AttributeModifier("href", 
-					new PropertyModel<String>(pageMetaModel, "icon.faviconUri")));
+			add(new Label("pageTitleSuffix", titleSuffixModel)
+					.setRenderBodyOnly(true));
+			final WebMarkupContainer faviconLink = new WebMarkupContainer(
+					"faviconLink");
+			faviconLink
+					.add(new AttributeModifier("href",
+							new PropertyModel<String>(pageMetaModel,
+									"icon.faviconUri")));
 			add(faviconLink);
-			add(
-				new MetaTag("metaDescription",
-					new PropertyModel<String>(pageMetaModel, "description")),
-				new MetaTag("ogTitle",
-					new PropertyModel<String>(pageMetaModel, "openGraph.title")),
-				new MetaTag("ogType",
-					new PropertyModel<String>(pageMetaModel, "openGraph.type")),
-				new MetaTag("ogUrl",
-					new PropertyModel<String>(pageMetaModel, "openGraph.url")),
-				new MetaTag("ogImage",
-					new PropertyModel<String>(pageMetaModel, "openGraph.image")) );
-			
-			final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-					webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap.css" :
-						"//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
-			final String bootstrapResponsiveCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-					webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-responsive.css" :
-						"//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
-			add(new WebMarkupContainer("bootstrapCss").add(
-					new AttributeModifier("href", bootstrapCssUri)));
-			add(new WebMarkupContainer("bootstrapResponsiveCss").add(
-					new AttributeModifier("href", bootstrapResponsiveCssUri)));
-			add(new WebMarkupContainer("bootstrapPatchesCss").add(
-					new AttributeModifier("href", webAddress.getSkinUri() + "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+			add(new MetaTag("metaDescription", new PropertyModel<String>(
+					pageMetaModel, "description")),
+					new MetaTag("ogTitle", new PropertyModel<String>(
+							pageMetaModel, "openGraph.title")), new MetaTag(
+							"ogType", new PropertyModel<String>(pageMetaModel,
+									"openGraph.type")), new MetaTag("ogUrl",
+							new PropertyModel<String>(pageMetaModel,
+									"openGraph.url")), new MetaTag("ogImage",
+							new PropertyModel<String>(pageMetaModel,
+									"openGraph.image")));
+
+			final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
+					.getSkinUri()
+					+ "org.soluvas.web.bootstrap/css/bootstrap.css"
+					: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
+			final String bootstrapResponsiveCssUri = requireMgr
+					.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
+					.getSkinUri()
+					+ "org.soluvas.web.bootstrap/css/bootstrap-responsive.css"
+					: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
+			add(new WebMarkupContainer("bootstrapCss")
+					.add(new AttributeModifier("href", bootstrapCssUri)));
+			add(new WebMarkupContainer("bootstrapResponsiveCss")
+					.add(new AttributeModifier("href",
+							bootstrapResponsiveCssUri)));
+			add(new WebMarkupContainer("bootstrapPatchesCss")
+					.add(new AttributeModifier(
+							"href",
+							webAddress.getSkinUri()
+									+ "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
 			// For now we use lookfirst's fork of RequireJS.
 			// See https://github.com/jrburke/requirejs/issues/376 for reasons.
-//			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-//					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js" :
-//						"//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
-			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.js" :
-						webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js";
-			add(new WebMarkupContainer("requireJs").add(
-					new AttributeModifier("src", requireJsUri)));
-			
-			//Carousel
+			// final String requireJsUri = requireMgr.getJavaScriptMode() ==
+			// JavaScriptMode.DEVELOPMENT ?
+			// webAddress.getJsUri() +
+			// "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js" :
+			// "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
+			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
+					.getJsUri()
+					+ "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.js"
+					: webAddress.getJsUri()
+							+ "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js";
+			add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
+					"src", requireJsUri)));
+
+			// Carousel
 			add(afterHeader = new RepeatingView("afterHeader"));
-			
+
 			// NAVBAR
 			final Navbar navbar = new Navbar("navbar");
 			add(navbar);
-//		add(new Label("logoText", site.getLogoText()).setRenderBodyOnly(true));
-//		add(new Label("logoAlt", site.getLogoAlt()).setRenderBodyOnly(true));
-			navbar.add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()) {
+			// add(new Label("logoText",
+			// site.getLogoText()).setRenderBodyOnly(true));
+			// add(new Label("logoAlt",
+			// site.getLogoAlt()).setRenderBodyOnly(true));
+			navbar.add(new BookmarkablePageLink<Page>("homeLink",
+					getApplication().getHomePage()) {
 				{
 					this.setBody(new Model<String>(site.getLogoText()));
 				}
+
 				@Override
 				protected void onComponentTag(ComponentTag tag) {
 					super.onComponentTag(tag);
 					tag.getAttributes().put("title", site.getLogoAlt());
 				}
 			});
-			
+
 			add(new Header());
-			final String requireConfigPath = webAddress.getApiPath() + "org.soluvas.web.backbone/requireConfig.js";
-			add(new WebMarkupContainer("requireConfig").add(new AttributeModifier("src", requireConfigPath)));
-			
+			final String requireConfigPath = webAddress.getApiPath()
+					+ "org.soluvas.web.backbone/requireConfig.js";
+			add(new WebMarkupContainer("requireConfig")
+					.add(new AttributeModifier("src", requireConfigPath)));
+
 			// SIDEBAR
 			sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 			add(sidebarColumn);
 			sidebarBlocks = new RepeatingView("sidebarBlocks");
 			sidebarColumn.add(sidebarBlocks);
-			
+
 			contentColumn = new TransparentWebMarkupContainer("contentColumn");
 			add(contentColumn);
-			feedbackPanel = new FeedbackPanel("feedback").setOutputMarkupId(true);
+			feedbackPanel = new FeedbackPanel("feedback")
+					.setOutputMarkupId(true);
 			add(feedbackPanel);
-			
+
 			// FOOTER
 			add(new Footer(site.getFooterHtml()));
-			
+
 		} finally {
 			bundleContext.ungetService(siteRef);
 		}
@@ -406,57 +475,80 @@ public class BootstrapPage extends ExtensiblePage {
 
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
 		add(beforeFooterJs);
-		
-		log.debug("Page {} has {} footer JavaScript links", getClass().getName(), footerJavaScripts.size());
-		final List<JavaScriptLink> sortedJsLinks = linkOrdering.immutableSortedCopy(footerJavaScripts);
-		final RepeatingView footerJavaScriptLinks = new RepeatingView("footerJavaScriptLinks");
+
+		log.debug("Page {} has {} footer JavaScript links", getClass()
+				.getName(), footerJavaScripts.size());
+		final List<JavaScriptLink> sortedJsLinks = linkOrdering
+				.immutableSortedCopy(footerJavaScripts);
+		final RepeatingView footerJavaScriptLinks = new RepeatingView(
+				"footerJavaScriptLinks");
 		for (JavaScriptLink js : sortedJsLinks) {
-			footerJavaScriptLinks.add(new WebMarkupContainer(footerJavaScriptLinks.newChildId()).add(new AttributeModifier("src", js.getSrc())));
+			footerJavaScriptLinks.add(new WebMarkupContainer(
+					footerJavaScriptLinks.newChildId())
+					.add(new AttributeModifier("src", js.getSrc())));
 		}
 		add(footerJavaScriptLinks);
-		
-		log.debug("Page {} has {} footer JavaScript sources", getClass().getName(), footerJavaScriptSources.size());
-		final List<JavaScriptSource> sortedJsSources = sourceOrdering.immutableSortedCopy(footerJavaScriptSources);
-		final RepeatingView footerJavaScriptSources = new RepeatingView("footerJavaScriptSources");
+
+		log.debug("Page {} has {} footer JavaScript sources", getClass()
+				.getName(), footerJavaScriptSources.size());
+		final List<JavaScriptSource> sortedJsSources = sourceOrdering
+				.immutableSortedCopy(footerJavaScriptSources);
+		final RepeatingView footerJavaScriptSources = new RepeatingView(
+				"footerJavaScriptSources");
 		for (JavaScriptSource js : sortedJsSources) {
-			footerJavaScriptSources.add(new Label(footerJavaScriptSources.newChildId(), js.getScript()).setEscapeModelStrings(false));
+			footerJavaScriptSources
+					.add(new Label(footerJavaScriptSources.newChildId(), js
+							.getScript()).setEscapeModelStrings(false));
 		}
 		add(footerJavaScriptSources);
-		
-		log.debug("Page {} has {} page JavaScript links", getClass().getName(), pageJavaScriptLinks.size());
-		final List<JavaScriptLink> sortedPageJsLinks = linkOrdering.immutableSortedCopy(pageJavaScriptLinks);
-		final RepeatingView pageJavaScriptLinksView = new RepeatingView("pageJavaScriptLinks");
+
+		log.debug("Page {} has {} page JavaScript links", getClass().getName(),
+				pageJavaScriptLinks.size());
+		final List<JavaScriptLink> sortedPageJsLinks = linkOrdering
+				.immutableSortedCopy(pageJavaScriptLinks);
+		final RepeatingView pageJavaScriptLinksView = new RepeatingView(
+				"pageJavaScriptLinks");
 		for (JavaScriptLink js : sortedPageJsLinks) {
-			pageJavaScriptLinksView.add(new WebMarkupContainer(pageJavaScriptLinksView.newChildId()).add(new AttributeModifier("src", js.getSrc())));
+			pageJavaScriptLinksView.add(new WebMarkupContainer(
+					pageJavaScriptLinksView.newChildId())
+					.add(new AttributeModifier("src", js.getSrc())));
 		}
 		add(pageJavaScriptLinksView);
-		
+
 		final IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
-				final Builder<String, String> dependencies = ImmutableMap.builder();
-				final AmdDependencyVisitor amdDependencyVisitor = new AmdDependencyVisitor(dependencies);
+				final Builder<String, String> dependencies = ImmutableMap
+						.builder();
+				final AmdDependencyVisitor amdDependencyVisitor = new AmdDependencyVisitor(
+						dependencies);
 				amdDependencyVisitor.component(BootstrapPage.this, null);
 				visitChildren(amdDependencyVisitor);
 				final Map<String, String> dependencyMap = dependencies.build();
-				log.debug("Page {} has {} AMD dependencies: {}", getClass().getName(), dependencyMap.size(),
-						dependencyMap.keySet());
-				
-				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList.builder();
-				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(pageJsSourcesBuilder);
+				log.debug("Page {} has {} AMD dependencies: {}", getClass()
+						.getName(), dependencyMap.size(), dependencyMap
+						.keySet());
+
+				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList
+						.builder();
+				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(
+						pageJsSourcesBuilder);
 				jsSourceVisitor.component(BootstrapPage.this, null);
 				visitChildren(jsSourceVisitor);
 				final List<String> pageJsSources = pageJsSourcesBuilder.build();
-				log.debug("Page {} has {} page JavaScript sources", getClass().getName(), pageJsSources.size());
+				log.debug("Page {} has {} page JavaScript sources", getClass()
+						.getName(), pageJsSources.size());
 				final String merged = Joiner.on('\n').join(pageJsSources);
 
-				JavaScriptSource js = new AmdJavaScriptSource(merged, dependencyMap);
+				JavaScriptSource js = new AmdJavaScriptSource(merged,
+						dependencyMap);
 				return js.getScript();
 			};
 		};
-		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel).setEscapeModelStrings(false));
+		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel)
+				.setEscapeModelStrings(false));
 	}
-	
+
 	public BootstrapPage(boolean sidebarVisible) {
 		this();
 		if (!sidebarVisible) {
@@ -464,12 +556,12 @@ public class BootstrapPage extends ExtensiblePage {
 			contentColumn.add(new AttributeModifier("class", "span12"));
 		}
 	}
-	
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		// compose other components
 		ComposeUtils.compose(this, contributors.findAll());
 	}
-	
+
 }
