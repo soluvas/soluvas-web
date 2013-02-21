@@ -31,13 +31,12 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Filter;
-import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.image.store.Image;
 import org.soluvas.image.store.ImageRepository;
@@ -66,20 +65,14 @@ import com.restfb.types.User;
 @PaxWicketMountPoint(mountPoint="fb_recipient/")
 public class FacebookRecipient extends WebPage {
 
-//	private EntityLookup<SocialPerson, String> personLookup;
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
-	@Inject @Namespace("person") @Filter("(repositoryMode=raw)")
+	
+	@PaxWicketBean(name="personRawRepo")
 	private LdapRepository<SocialPerson> personRawRepo;
-//	private LdapSocialPersonRepository ldapSocialPersonRepo;
-	
-	@Inject @Namespace("person")
+	@PaxWicketBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
-	
-//	@Inject @Namespace("ldap")
-//	private ObjectPool<LdapConnection> ldapPool;
-	
-	@Inject 
+	@PaxWicketBean(name="facebookMgr") 
 	private FacebookManager facebookMgr;
 	@Inject @Supplied
 	private WebAddress webAddress;

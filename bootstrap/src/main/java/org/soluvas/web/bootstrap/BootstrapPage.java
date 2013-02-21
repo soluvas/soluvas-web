@@ -171,8 +171,7 @@ public class BootstrapPage extends ExtensiblePage {
 	private List<CssLink> cssLinks;
 	@PaxWicketBean(name = "headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
-
-	@Inject
+	@PaxWicketBean(name = "requireMgr")
 	private RequireManager requireMgr;
 
 	@PaxWicketBean(name = "footerJavaScripts")
