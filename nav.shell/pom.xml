@@ -10,7 +10,6 @@
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>org.soluvas.web.nav.shell</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 	<name>Soluvas Web Nav Shell</name>
 	<description>Soluvas Web Nav Shell.</description>
