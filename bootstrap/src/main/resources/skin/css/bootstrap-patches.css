@@ -6,6 +6,14 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /*     margin-bottom: 10px; */
 /* } */
 
+.imageList {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 15px;
+    margin-left: 0;
+    margin-right: 10px;
+    width: 190px;
+}
+
 .shop-liked li{
 	list-style-type: none;
 }
@@ -281,7 +289,7 @@ a:hover {
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		    white-space: nowrap;
-		    width: 40%;
+		    width: 42%;
 		    text-align: right;
 }
 
@@ -1490,10 +1498,7 @@ margin-bottom:20px;
 		    width: 55%;
 		}
 		.price-overflow{
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-		    white-space: nowrap;
-		    width: 40%;
+		    width: 42%;
 		    text-align: right;
 		}
 }
