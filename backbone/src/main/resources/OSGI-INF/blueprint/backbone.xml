@@ -138,20 +138,20 @@
 
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="backbone.pagination" />
-			<argument value="org.soluvas.web.backbone/backbone.pagination" />
+			<argument value="backbone.paginator" />
+			<argument value="org.soluvas.web.backbone/backbone.paginator" />
 		</bean>
 	</service>
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
-			<argument value="backbone.pagination" />
+			<argument value="backbone.paginator" />
 			<argument>
 				<set>
 					<value>jquery</value>
 					<value>backbone</value>
 				</set>
 			</argument>
-			<argument value="Backbone.Pagination" />
+			<argument value="BackbonePaginator" />
 		</bean>
 	</service>
 
