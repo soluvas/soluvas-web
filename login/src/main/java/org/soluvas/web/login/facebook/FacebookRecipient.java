@@ -58,6 +58,7 @@ import com.restfb.FacebookClient;
 import com.restfb.types.User;
 
 /**
+ * Get Facebook Login , token Access, FB Photo profile
  * @author haidar
  *
  */
