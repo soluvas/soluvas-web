@@ -8,6 +8,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.util.MapModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,15 @@ public class WebLink extends ExternalLink {
 	public WebLink(String id, IModel<Map<String, Object>> params) {
 		super(id, "");
 		this.params = params;
+	}
+	
+	public WebLink(String id, final String paramKey, final IModel<?> paramValue) {
+		this(id, new LoadableDetachableModel<Map<String, Object>>() {
+			@Override
+			protected Map<String, Object> load() {
+				return ImmutableMap.<String, Object>of(paramKey, paramValue.getObject());
+			}
+		});
 	}
 	
 	public WebLink(String id, String paramKey, Object paramValue) {
