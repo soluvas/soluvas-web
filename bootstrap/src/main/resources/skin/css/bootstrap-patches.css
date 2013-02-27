@@ -6,6 +6,11 @@ see http://stackoverflow.com/questions/10957781/google-maps-autocomplete-result-
 /*     margin-bottom: 10px; */
 /* } */
 
+.form-actions {
+    background-color: #F0F0F0;
+    border-top: 1px solid #E0E0E0;
+	}
+	
 .imageList {
     background: none repeat scroll 0 0 #FFFFFF;
     margin-bottom: 15px;
