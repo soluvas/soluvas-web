@@ -25,11 +25,13 @@ import org.soluvas.commons.NameUtils.PersonName;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.inject.Supplied;
+import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithTwitterException;
+import org.soluvas.twitter.TwitterUtils;
 import org.soluvas.web.site.SoluvasWebSession;
 
 import twitter4j.Twitter;
@@ -61,6 +63,8 @@ public class TwitterRecipient extends WebPage {
 	private WebAddress webAddress;
 	@PaxWicketBean(name="personRawRepo")	
 	private LdapRepository<SocialPerson> personRawRepo;
+	@PaxWicketBean(name="personImageRepo")
+	private ImageRepository personImageRepo;
 	
 	public TwitterRecipient(PageParameters params) {
 		super();
@@ -114,6 +118,7 @@ public class TwitterRecipient extends WebPage {
 				person.setTwitterId(Long.valueOf(user.getId()));
 				person.setTwitterAccessToken(oAuthAccessToken.getToken());
 				person.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
+				person.setTwitterScreenName(user.getScreenName());
 				modifiedPerson = personRawRepo.modify(person);
 			} else {
 				Preconditions.checkNotNull(user.getName(), "Twitter User's Name cannot be empty");
@@ -136,6 +141,14 @@ public class TwitterRecipient extends WebPage {
 				newPerson.setTwitterId(Long.valueOf(user.getId()));
 				newPerson.setTwitterAccessToken(oAuthAccessToken.getToken());
 				newPerson.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
+				
+				//Set photo from Twitter.
+				try {
+					final String imageId = TwitterUtils.refreshPhotoFromTwitter(newPerson.getTwitterScreenName(), newPerson.getName(), personImageRepo);
+					newPerson.setPhotoId(imageId);
+				} catch (Exception e) {
+					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
+				}
 				
 				modifiedPerson = personRawRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
