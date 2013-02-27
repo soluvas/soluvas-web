@@ -1,6 +1,5 @@
 package org.soluvas.web.login.facebook;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -11,12 +10,9 @@ import java.util.Set;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -38,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.inject.Supplied;
-import org.soluvas.image.store.Image;
+import org.soluvas.facebook.FacebookUtils;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
@@ -153,44 +149,15 @@ public class FacebookRecipient extends WebPage {
 				newPerson.setFacebookUsername(user.getUsername());
 				newPerson.setFacebookId(Long.valueOf(user.getId()));
 				newPerson.setFacebookAccessToken(accessToken);
-				modifiedPerson = personRawRepo.add(newPerson);
-				log.debug("person is inserted");
 				
-				// Get Image
-				String photoUrl = "https://graph.facebook.com/"+ user.getId() + "/picture?type=large";
-				DefaultHttpClient httpClient = new DefaultHttpClient();
-				
+				//Set photo from Facebook.
 				try {
-					HttpGet httpGet = new HttpGet(photoUrl);
-					log.debug("Photo URL is  {}",  photoUrl);
-					HttpResponse response = httpClient.execute(httpGet);
-					File tmpFile = File.createTempFile("fb_", ".jpg");
-					try {
-//						FileUtils.copyInputStreamToFile(response.getEntity().getContent(), tmpFile);
-						FileUtils.copyInputStreamToFile(response.getEntity().getContent(), tmpFile);
-						Image newImage =  new Image(tmpFile, ".jpg" , user.getId());
-						final String imageId = personImageRepo.add(newImage);
-						newPerson.setPhotoId(imageId);
-						personRawRepo.modify(newPerson);
-						log.info("tmp file path is {}", tmpFile);
-					} finally {
-						tmpFile.delete();
-						HttpClientUtils.closeQuietly(response);
-					}
-
-					log.debug("Photo Status Line {}",  response.getStatusLine());
-				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
-					log.debug("Photo Status {}",  e);
-					e.printStackTrace();
-				} catch (IOException e) {
-					log.debug("Photo Status {}",  e);
-					// TODO Auto-generated catch block
-//				    httpGet.releaseConnection();
-					e.printStackTrace();
-				} finally {
-					HttpClientUtils.closeQuietly(httpClient);
+					final String imageId = FacebookUtils.refreshPhotoFromFacebook(newPerson.getFacebookId(), newPerson.getName(), personImageRepo);
+					newPerson.setPhotoId(imageId);
+				} catch (Exception e) {
+					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
 				}
+				modifiedPerson = personRawRepo.add(newPerson);
 
 			}
 			
@@ -232,7 +199,7 @@ public class FacebookRecipient extends WebPage {
 			throw new NotLoggedWithFacebookException();
 		}
 	}
-	
+
 	public String fetchAccessToken(URIBuilder accessTokenUri) {
 		try {
 			final HttpGet accessTokenUriRequest = new HttpGet(accessTokenUri.build());

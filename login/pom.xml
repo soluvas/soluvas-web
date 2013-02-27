@@ -21,6 +21,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.facebook</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.twitter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.bootstrap</artifactId>
 		</dependency>
 		<dependency>
