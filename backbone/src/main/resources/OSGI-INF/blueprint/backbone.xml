@@ -151,7 +151,25 @@
 					<value>backbone</value>
 				</set>
 			</argument>
-			<argument value="BackbonePaginator" />
+			<argument value="Backbone.Paginator" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="diacritic" />
+			<argument value="org.soluvas.web.backbone/diacritic" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="diacritic" />
+			<argument>
+				<set>
+					<value>backbone</value>
+				</set>
+			</argument>
+			<argument value="Diacritic" />
 		</bean>
 	</service>
 
