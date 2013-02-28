@@ -119,6 +119,15 @@ public class TwitterRecipient extends WebPage {
 				person.setTwitterAccessToken(oAuthAccessToken.getToken());
 				person.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
 				person.setTwitterScreenName(user.getScreenName());
+				
+				//Set photo from Twitter.
+				try {
+					final String imageId = TwitterUtils.refreshPhotoFromTwitter(person.getTwitterScreenName(), person.getName(), personImageRepo);
+					person.setPhotoId(imageId);
+				} catch (Exception e) {
+					log.error("Cannot refresh photo from Facebook for person " + person.getId() + " " + person.getName(), e);
+				}
+				
 				modifiedPerson = personRawRepo.modify(person);
 			} else {
 				Preconditions.checkNotNull(user.getName(), "Twitter User's Name cannot be empty");
@@ -137,10 +146,11 @@ public class TwitterRecipient extends WebPage {
 				});
 				final PersonName personName = NameUtils.splitName(user.getName());
 				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
-				//log.debug("User's email is {}", user.getEmail());
+//				log.debug("User's email is {}", user.getEmail());
 				newPerson.setTwitterId(Long.valueOf(user.getId()));
 				newPerson.setTwitterAccessToken(oAuthAccessToken.getToken());
 				newPerson.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
+				newPerson.setTwitterScreenName(user.getScreenName());
 				
 				//Set photo from Twitter.
 				try {
@@ -150,9 +160,10 @@ public class TwitterRecipient extends WebPage {
 					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
 				}
 				
-				modifiedPerson = personRawRepo.add(newPerson);
+				modifiedPerson = personRawRepo.add(modifiedPerson);
 				log.debug("person {} is inserted", personId);
 			}
+			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
 					Strings.nullToEmpty(modifiedPerson.getId()));
