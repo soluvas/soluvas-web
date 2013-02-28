@@ -100,5 +100,5 @@ public class RegionBehavior<T> extends Behavior {
 				+ (region != null ? "region=" + region + ", " : "")
 				+ (model != null ? "model=" + model : "") + "]";
 	}
-
+	
 }

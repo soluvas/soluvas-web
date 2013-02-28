@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +21,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.StyleConfiguration;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.web.site.PermalinkCatalog;
@@ -27,14 +29,14 @@ import org.soluvas.web.site.SiteException;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
-import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * Provides {@link WebAddress}.
@@ -61,6 +63,7 @@ public class SiteResource {
 	private final String tenantEnv;
 	private final Supplier<WebAddress> webAddressSupplier;
 	private final PermalinkCatalog permalinkCatalog;
+	private final StyleConfiguration styleConfig;
 	
 	/**
 	 * @param bundleContext
@@ -71,7 +74,8 @@ public class SiteResource {
 	public SiteResource(BundleContext bundleContext, String clientId,
 			String tenantId, String tenantEnv,
 			Supplier<WebAddress> webAddressSupplier,
-			@Nonnull final PermalinkCatalog permalinkCatalog) {
+			@Nonnull final PermalinkCatalog permalinkCatalog,
+			@Nonnull final StyleConfiguration styleConfig) {
 		super();
 		this.bundleContext = bundleContext;
 		this.clientId = clientId;
@@ -79,6 +83,7 @@ public class SiteResource {
 		this.tenantEnv = tenantEnv;
 		this.webAddressSupplier = webAddressSupplier;
 		this.permalinkCatalog = permalinkCatalog;
+		this.styleConfig = styleConfig;
 	}
 
 	@GET @Path("webAddress.js")
@@ -135,6 +140,7 @@ public class SiteResource {
 	@GET @Path("templates/{bundleName}.js")
 	@Produces("text/javascript")
 	public String getTemplates(@PathParam("bundleName") @Nonnull final String bundleName) throws IOException {
+		final String defaultStyle = styleConfig.getDefaultStyle();
 		final Bundle bundle;
 		try {
 			bundle = Iterables.find(Arrays.asList(bundleContext.getBundles()),
@@ -147,33 +153,53 @@ public class SiteResource {
 		} catch (final NoSuchElementException e) {
 			throw new SiteException("Cannot find bundle " + bundleName, e);
 		}
-		final List<URL> resources = ImmutableList.copyOf(Iterators.forEnumeration(
-				bundle.findEntries("templates_web", "*.mustache", false)));
-		log.debug("Got {} Mustache templates: {}", resources.size(), resources);
-		final Pattern namePattern = Pattern.compile(".*\\/([^/]+)\\.(mustache|handlebars)");
-		final List<WebTemplate> templates = ImmutableList.copyOf(Lists.transform(resources, new Function<URL, WebTemplate>() {
-			@Override @Nullable
-			public WebTemplate apply(@Nullable URL input) {
-				String body;
-				try {
-					body = IOUtils.toString(input.openStream());
-				} catch (IOException e) {
-					throw new SiteException("Cannot read template " + input, e);
+		List<URL> resources = ImmutableList.of();
+		try {
+			resources = ImmutableList.copyOf(Iterators.forEnumeration(
+					bundle.findEntries("templates_web", "*.mustache", false)));
+			log.debug("Got {} Mustache templates: {}", resources.size(), resources);
+		} catch (NullPointerException e1) {
+			log.warn("Cannot find any templates_web/*.mustache in bundle " + bundle.getSymbolicName(), e1);
+		}
+		final Pattern skinnedPattern = Pattern.compile(".*\\/([^/]+)\\_([a-z0-9]+)\\.(mustache|handlebars)");
+		final Pattern generalPattern = Pattern.compile(".*\\/([^/]+)\\.(mustache|handlebars)");
+		final Map<String, WebTemplate> templateMap = Maps.newHashMap();
+		for (final URL input : resources) {
+			final String fileName = input.getFile();
+			final Matcher skinnedMatcher = skinnedPattern.matcher(fileName);
+			final String name;
+			final boolean overrideIfExists;
+			if (skinnedMatcher.matches()) {
+				if (!Objects.equal(defaultStyle, skinnedMatcher.group(2))) {
+					log.trace("Skipping template {} because defaultStyle is {}", input, defaultStyle);
+					continue;
 				}
-				final String fileName = input.getFile();
-				final Matcher matcher = namePattern.matcher(fileName);
-				Preconditions.checkState(matcher.matches(),
+				name = skinnedMatcher.group(1);
+				overrideIfExists = true;
+			} else {
+				final Matcher generalMatcher = generalPattern.matcher(fileName);
+				Preconditions.checkState(generalMatcher.matches(),
 						"Template file name %s does not match %s",
-						fileName, namePattern);
-				final String name = matcher.group(1);
-				return new WebTemplate(name, JsonUtils.asJson(body));
+						fileName, generalPattern);
+				name = generalMatcher.group(1);
+				overrideIfExists = false;
 			}
-		}));
+			final String body;
+			try {
+				body = IOUtils.toString(input.openStream());
+			} catch (IOException e) {
+				throw new SiteException("Cannot read template " + input, e);
+			}
+			final WebTemplate webTemplate = new WebTemplate(name, JsonUtils.asJson(body));
+			if (overrideIfExists || !templateMap.containsKey(name)) {
+				templateMap.put(name, webTemplate);
+			}
+		}
 		final URL stgUrl = SiteResource.class.getResource("templates.js.stg");
 		final STGroupFile stg = new STGroupFile(stgUrl, "UTF-8", '~', '~');
 		final ST templatesSt = stg.getInstanceOf("templates");
 		templatesSt.add("bundleName", bundleName);
-		templatesSt.add("templates", templates);
+		templatesSt.add("templates", templateMap.values());
 		
 		// render
 		final String renderedJs = templatesSt.render(80);

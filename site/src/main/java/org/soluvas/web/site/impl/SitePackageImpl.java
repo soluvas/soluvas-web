@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.soluvas.commons.StyleConfiguration;
 import org.soluvas.web.site.ContentPage;
 import org.soluvas.web.site.DashboardPage;
 import org.soluvas.web.site.EntityEditPage;

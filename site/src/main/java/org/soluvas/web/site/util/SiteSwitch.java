@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.soluvas.commons.StyleConfiguration;
 import org.soluvas.web.site.*;
 
 /**
