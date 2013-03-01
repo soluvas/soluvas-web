@@ -20,7 +20,6 @@ import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 /**
@@ -76,11 +75,11 @@ public class RulesPageMetaSupplier implements PageMetaSupplier {
 				return model.getObject();
 			}
 		});
-		final ImmutableMap.Builder<String, Object> scopeBuilder = ImmutableMap.builder();
-		scopeBuilder.put("webAddress", context.getWebAddress());
-		scopeBuilder.put("appManifest", context.getAppManifest());
-		scopeBuilder.putAll(modelsScopeMap);
-		final Map<String, Object> scope = scopeBuilder.build();
+		// cannot use ImmutableMap because modelsScopeMap may contain null values
+		final Map<String, Object> scope = Maps.newHashMap();
+		scope.put("webAddress", context.getWebAddress());
+		scope.put("appManifest", context.getAppManifest());
+		scope.putAll(modelsScopeMap);
 		final PageMeta textPageMeta = pageMeta.getPhase() == PageMetaPhase.TEMPLATE ? pageMeta.toText(scope) : pageMeta;
 		final PageMeta finalPageMeta = pageMeta.getPhase() == PageMetaPhase.TEXT ? pageMeta.toFinal() : textPageMeta;
 		
