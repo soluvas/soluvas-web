@@ -16,10 +16,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.damnhandy</groupId>
-			<artifactId>handy-uri-templates</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.security</artifactId>
 		</dependency>
@@ -90,7 +86,6 @@
 		<dependency>
 			<groupId>com.damnhandy</groupId>
 			<artifactId>handy-uri-templates</artifactId>
-			<version>1.1.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
