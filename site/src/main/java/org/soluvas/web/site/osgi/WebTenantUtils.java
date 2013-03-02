@@ -1,8 +1,6 @@
 package org.soluvas.web.site.osgi;
 
 import java.util.Collection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,19 +39,20 @@ public class WebTenantUtils {
 	 * @return
 	 */
 	public static TenantRef getTenant() {
-		Application app = Application.get();
-		final String appKey = app.getApplicationKey();
-		log.trace("Getting Wicket tenant for app key={} name={}", appKey,
-				app.getName());
-		
-		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
-		if (!matcher.matches()) {
-			log.error("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
-			throw new SiteException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
-		}
-		final String tenantId = matcher.group(1);
-		final String tenantEnv = matcher.group(2);
-		return new TenantRef(null, tenantId, tenantEnv);
+		return new TenantRef(null, null, null);
+//		Application app = Application.get();
+//		final String appKey = app.getApplicationKey();
+//		log.trace("Getting Wicket tenant for app key={} name={}", appKey,
+//				app.getName());
+//		
+//		Matcher matcher = Pattern.compile("(.+)_([^_]+)").matcher(appKey);
+//		if (!matcher.matches()) {
+//			log.error("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
+//			throw new SiteException("Cannot parse application key " + appKey + " into tenantId_tenantEnv");
+//		}
+//		final String tenantId = matcher.group(1);
+//		final String tenantEnv = matcher.group(2);
+//		return new TenantRef(null, tenantId, tenantEnv);
 	}
 
 	/**
@@ -86,11 +85,16 @@ public class WebTenantUtils {
 		final String namespaceFilter = !Strings.isNullOrEmpty(namespace) ? "(namespace="
 				+ namespace + ")"
 				: "";
-		String realFilter = "(&(tenantId=" + tenantId + ")(tenantEnv="
-				+ tenantEnv + ")" + namespaceFilter + additionalFilter + ")";
+		// single tenant for now
+//		String realFilter = "(&(tenantId=" + tenantId + ")(tenantEnv="
+//				+ tenantEnv + ")" + namespaceFilter + additionalFilter + ")";
+		String realFilter = "(&" + namespaceFilter + additionalFilter + ")";
+		if ("(&)".equals(realFilter)) {
+			realFilter = null;
+		}
 
 		try {
-			Collection<ServiceReference<T>> foundRefs = bundleContext
+			final Collection<ServiceReference<T>> foundRefs = bundleContext
 					.getServiceReferences(iface, realFilter);
 			if (foundRefs == null || foundRefs.isEmpty())
 				throw new SiteException("Cannot find " + className
