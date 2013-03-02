@@ -66,6 +66,7 @@ import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -238,8 +239,7 @@ public class BootstrapPage extends ExtensiblePage {
 					public boolean apply(@Nullable CssLink input) {
 						return Strings.isNullOrEmpty(input.getTenantId())
 								|| "*".equals(input.getTenantId())
-								|| tenant.getTenantId().equals(
-										input.getTenantId());
+								|| Objects.equal(tenant.getTenantId(), input.getTenantId());
 					}
 				}));
 

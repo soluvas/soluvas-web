@@ -72,20 +72,21 @@ public class WebTenantUtils {
 		final BundleContext bundleContext = FrameworkUtil.getBundle(
 				WebTenantUtils.class).getBundleContext();
 
-		final TenantRef tenant = getTenant();
-		final String tenantId = tenant.getTenantId();
-		final String tenantEnv = tenant.getTenantEnv();
+//		final TenantRef tenant = getTenant();
+//		final String tenantId = tenant != null ? tenant.getTenantId() : null;
+//		final String tenantEnv = tenant != null ? tenant.getTenantEnv() : null;
 		
 		final String className = iface.getName();
 		final String additionalFilter = Optional.fromNullable(filter).or("");
-		log.trace(
-				"Lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}",
-				new Object[] { className, tenantId, tenantEnv, namespace,
-						additionalFilter });
+		// single tenant for now
+//		log.trace(
+//				"Lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}",
+//				className, tenantId, tenantEnv, namespace, additionalFilter);
+		log.trace("Lookup {} for namespace={} filter: {}",
+				className, namespace, additionalFilter);
 		final String namespaceFilter = !Strings.isNullOrEmpty(namespace) ? "(namespace="
 				+ namespace + ")"
 				: "";
-		// single tenant for now
 //		String realFilter = "(&(tenantId=" + tenantId + ")(tenantEnv="
 //				+ tenantEnv + ")" + namespaceFilter + additionalFilter + ")";
 		String realFilter = "(&" + namespaceFilter + additionalFilter + ")";
