@@ -1,7 +1,11 @@
 package org.soluvas.web.site.client;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
@@ -22,17 +26,29 @@ import com.google.common.base.Supplier;
 public class PlainModel<T> extends JsSource {
 	
 	private final String name;
-	private final T data;
+	private final IModel<T> model;
 	
 	/**
 	 * @param name
 	 * @param className
 	 * @param data
 	 */
+	@SuppressWarnings("unchecked")
 	public PlainModel(String name, T data) {
 		super();
 		this.name = name;
-		this.data = data;
+		this.model = (IModel<T>) Model.of((Serializable) data);
+	}
+
+	/**
+	 * @param name
+	 * @param className
+	 * @param model
+	 */
+	public PlainModel(String name, IModel<T> model) {
+		super();
+		this.name = name;
+		this.model = model;
 	}
 
 	/**
@@ -46,16 +62,7 @@ public class PlainModel<T> extends JsSource {
 	 * @return the data
 	 */
 	public T getData() {
-		return data;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "PlainModel [" + (name != null ? "name=" + name + ", " : "")
-				+ (data != null ? "data=" + data : "") + "]";
+		return model.getObject();
 	}
 
 	@Override
@@ -63,6 +70,7 @@ public class PlainModel<T> extends JsSource {
 		final BundleContext bundleContext = FrameworkUtil.getBundle(PlainModel.class).getBundleContext();
 		final ServiceReference<JacksonMapperFactory> jacksonMapperFactoryRef = bundleContext.getServiceReference(JacksonMapperFactory.class);
 		final Supplier<ObjectMapper> jacksonMapperFactory = bundleContext.getService(jacksonMapperFactoryRef);
+		final T data = model.getObject();
 		try {
 			final ObjectMapper objectMapper = jacksonMapperFactory.get();
 			return name + " = " + objectMapper.writeValueAsString(data) + ";";
