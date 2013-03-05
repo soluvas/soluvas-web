@@ -12,7 +12,7 @@ public class CssLinkImpl implements CssLink {
 	private final String path;
 	private final String minifiedPath;
 	private final int weight;
-	private final String tenantId;
+	private final String style;
 	
 	/**
 	 * 
@@ -49,14 +49,14 @@ public class CssLinkImpl implements CssLink {
 	/**
 	 * @param path
 	 * @param weight
-	 * @param tenantId
+	 * @param style
 	 */
-	public CssLinkImpl(String path, String minifiedPath, int weight, String tenantId) {
+	public CssLinkImpl(String path, String minifiedPath, int weight, String style) {
 		super();
 		this.path = path;
 		this.minifiedPath = minifiedPath;
 		this.weight = weight;
-		this.tenantId = tenantId;
+		this.style = style;
 	}
 
 	/* (non-Javadoc)
@@ -83,9 +83,13 @@ public class CssLinkImpl implements CssLink {
 		return weight;
 	}
 
+	/**
+	 * Name of Wicket style to enable this CSS.
+	 * @see org.soluvas.web.site.CssLink#getStyle()
+	 */
 	@Override
-	public String getTenantId() {
-		return tenantId;
+	public String getStyle() {
+		return style;
 	}
 
 	/* (non-Javadoc)
@@ -97,7 +101,7 @@ public class CssLinkImpl implements CssLink {
 				+ (path != null ? "path=" + path + ", " : "")
 				+ (minifiedPath != null ? "minifiedPath=" + minifiedPath + ", "
 						: "") + "weight=" + weight + ", "
-				+ (tenantId != null ? "tenantId=" + tenantId : "") + "]";
+				+ (style != null ? "style=" + style : "") + "]";
 	}
 
 }
