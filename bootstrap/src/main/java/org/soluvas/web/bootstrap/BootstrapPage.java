@@ -233,13 +233,14 @@ public class BootstrapPage extends ExtensiblePage {
 				.forReference(getApplication().getJavaScriptLibrarySettings()
 						.getJQueryReference()));
 
+		final String currentStyle = getStyle();
 		final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
 				.filter(cssLinks, new Predicate<CssLink>() {
 					@Override
 					public boolean apply(@Nullable CssLink input) {
-						return Strings.isNullOrEmpty(input.getTenantId())
-								|| "*".equals(input.getTenantId())
-								|| Objects.equal(tenant.getTenantId(), input.getTenantId());
+						return Strings.isNullOrEmpty(input.getStyle())
+								|| "*".equals(input.getStyle())
+								|| Objects.equal(currentStyle, input.getStyle());
 					}
 				}));
 

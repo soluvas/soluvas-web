@@ -42,7 +42,7 @@ public interface CssLink extends Serializable {
 	 * means it applies to all tenants.
 	 * @return
 	 */
-	String getTenantId();
+	String getStyle();
 
 	String getMinifiedPath();
 
