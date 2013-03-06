@@ -1,7 +1,5 @@
 package org.soluvas.web.login.facebook;
 
-import javax.inject.Inject;
-
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -10,7 +8,6 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.web.login.FacebookManager;
 
 @SuppressWarnings("serial")
@@ -21,7 +18,7 @@ public class FacebookLoginLink extends AjaxLink<Void> {
 
 	@PaxWicketBean(name="facebookMgr")
 	private FacebookManager facebookMgr;
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 	
 	public FacebookLoginLink(String id) {

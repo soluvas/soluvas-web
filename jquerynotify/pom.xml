@@ -39,11 +39,16 @@
 				<configuration>
 					<instructions>
 						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
-						<Import-Package>*, javax.servlet,javax.servlet.http,
+						<Import-Package>javax.servlet,javax.servlet.http,
+							org.eclipse.emf.ecore,org.eclipse.emf.common.notify,
+							org.eclipse.emf.common.util,org.eclipse.emf.ecore.resource,
+							org.osgi.framework,
 							org.ops4j.pax.wicket.util.proxy,
 							net.sf.cglib.proxy;version="[2,3)",
 							net.sf.cglib.core;version="[2,3)",
-							net.sf.cglib.reflect;version="[2,3)"</Import-Package>
+							net.sf.cglib.reflect;version="[2,3)",
+							*
+						</Import-Package>
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
 					</instructions>
 				</configuration>

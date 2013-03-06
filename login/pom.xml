@@ -175,7 +175,9 @@
 					<instructions>
 						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
 						<Import-Package>
-							org.eclipse.emf.ecore,org.eclipse.emf.ecore.resource,org.eclipse.emf.common,org.eclipse.emf.common.notify,
+							org.eclipse.emf.ecore,org.eclipse.emf.ecore.resource,
+							org.eclipse.emf.common,org.eclipse.emf.common.notify,
+							org.eclipse.emf.common.util,
 							*</Import-Package>
 						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
 						<!--<Export-Package>com.soluvas.social</Export-Package> -->

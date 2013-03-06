@@ -1,7 +1,5 @@
 package org.soluvas.web.login.google;
 
-import javax.inject.Inject;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.request.flow.RedirectToUrlException;
@@ -9,7 +7,6 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.web.login.GoogleManager;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -26,7 +23,7 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 	
 	@PaxWicketBean(name="googleMgr")
 	private GoogleManager googleMgr;
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 
 	public GoogleLoginLink(String id) {

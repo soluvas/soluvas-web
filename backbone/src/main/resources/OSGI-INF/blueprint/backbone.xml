@@ -173,4 +173,30 @@
 		</bean>
 	</service>
 
+	<reference id="webAddress" interface="org.soluvas.commons.WebAddress"/>
+	<reference-list id="jsAliases" interface="org.soluvas.web.site.JavaScriptAlias" availability="optional" />
+	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule" availability="optional" />
+	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional" />
+	<reference id="requireMgr" interface="org.soluvas.web.site.RequireManager"/>
+	
+	<bean id="rsList" class="java.util.ArrayList">
+		<argument>
+			<list>
+				<bean class="org.soluvas.web.backbone.RequireResource">
+					<argument ref="webAddress" />
+					<argument ref="jsAliases" />
+					<argument ref="jsModules" />
+					<argument ref="jsShims" />
+					<argument ref="requireMgr" />
+				</bean>
+			</list>
+		</argument>
+	</bean>
+	<service ref="rsList" auto-export="interfaces">
+		<service-properties>
+			<entry key="type" value="jaxrs" />
+			<entry key="address" value="api" />
+		</service-properties>
+	</service>
+	
 </blueprint>

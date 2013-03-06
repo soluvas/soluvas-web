@@ -2,14 +2,12 @@ package org.soluvas.web.site;
 
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.impl.ExpressionParseException;
@@ -24,7 +22,7 @@ public class WebImage extends WebMarkupContainer {
 
 	private static final Logger log = LoggerFactory.getLogger(WebImage.class);
 	
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 	
 	public WebImage(String id) {

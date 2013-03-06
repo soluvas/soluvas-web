@@ -27,7 +27,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -57,7 +56,7 @@ public class RequireResource {
 	private final List<JavaScriptAlias> jsAliases;
 	private final List<JavaScriptModule> jsModules;
 	private final List<JavaScriptShim> jsShims;
-	private final Supplier<WebAddress> webAddressSupplier;
+	private final WebAddress webAddress;
 	private @Context UriInfo uriInfo;
 	private final RequireManager requireMgr;
 	/**
@@ -65,13 +64,13 @@ public class RequireResource {
 	 */
 	private final int waitSeconds = 120;
 	
-	public RequireResource(@Nonnull final Supplier<WebAddress> webAddressSupplier,
+	public RequireResource(@Nonnull final WebAddress webAddress,
 			@Nonnull final List<JavaScriptAlias> jsAliases,
 			@Nonnull final List<JavaScriptModule> jsModules,
 			@Nonnull final List<JavaScriptShim> jsShims,
 			@Nonnull final RequireManager requireMgr) {
 		super();
-		this.webAddressSupplier = webAddressSupplier;
+		this.webAddress = webAddress;
 		this.jsAliases = jsAliases;
 		this.jsModules = jsModules;
 		this.jsShims = jsShims;
@@ -90,7 +89,6 @@ public class RequireResource {
 		
 		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
 		final ST requireSt = stg.getInstanceOf("require");
-		final WebAddress webAddress = webAddressSupplier.get();
 		requireSt.add("urlArgs", Strings.isNullOrEmpty(requireMgr.getCacheBust()) ? "" :
 			URLEncoder.encode(requireMgr.getCacheBust(), "UTF-8"));
 		requireSt.add("waitSeconds", waitSeconds);

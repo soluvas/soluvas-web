@@ -23,6 +23,7 @@
 	
 	
 <!-- 	References for replacing @Inject-->
+	<reference id="webAddress" interface="org.soluvas.commons.WebAddress"/>
 
 	<reference id="facebookMgr" interface="org.soluvas.web.login.FacebookManager"/>
 	

@@ -8,7 +8,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -33,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.facebook.FacebookUtils;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
@@ -71,7 +69,7 @@ public class FacebookRecipient extends WebPage {
 	private ImageRepository personImageRepo;
 	@PaxWicketBean(name="facebookMgr") 
 	private FacebookManager facebookMgr;
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 	
 	public FacebookRecipient(PageParameters params) {

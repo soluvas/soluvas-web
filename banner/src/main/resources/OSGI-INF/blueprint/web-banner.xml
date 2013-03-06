@@ -30,7 +30,7 @@
 	
 	<bean id="bannerPackage" class="org.soluvas.web.banner.impl.BannerPackageImpl"
 		factory-method="getInstance" />
-	<bean id="bannerCatalogXmiTracker" class="org.soluvas.commons.ServiceXmiTracker">
+	<bean id="bannerCatalogXmiTracker" class="org.soluvas.commons.ServiceXmiTracker" destroy-method="destroy">
 		<argument value="org.soluvas.web.banner.BannerPackage" />
 		<argument value="org.soluvas.web.banner.BannerCatalog" />
 	</bean>

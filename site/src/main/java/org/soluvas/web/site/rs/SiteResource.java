@@ -32,7 +32,6 @@ import org.stringtemplate.v4.STGroupFile;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
@@ -61,7 +60,7 @@ public class SiteResource {
 	private final String clientId;
 	private final String tenantId;
 	private final String tenantEnv;
-	private final Supplier<WebAddress> webAddressSupplier;
+	private final WebAddress webAddress;
 	private final PermalinkCatalog permalinkCatalog;
 	private final StyleConfiguration styleConfig;
 	
@@ -73,7 +72,7 @@ public class SiteResource {
 	 */
 	public SiteResource(BundleContext bundleContext, String clientId,
 			String tenantId, String tenantEnv,
-			Supplier<WebAddress> webAddressSupplier,
+			WebAddress webAddressSupplier,
 			@Nonnull final PermalinkCatalog permalinkCatalog,
 			@Nonnull final StyleConfiguration styleConfig) {
 		super();
@@ -81,7 +80,7 @@ public class SiteResource {
 		this.clientId = clientId;
 		this.tenantId = tenantId;
 		this.tenantEnv = tenantEnv;
-		this.webAddressSupplier = webAddressSupplier;
+		this.webAddress = webAddressSupplier;
 		this.permalinkCatalog = permalinkCatalog;
 		this.styleConfig = styleConfig;
 	}
@@ -91,7 +90,6 @@ public class SiteResource {
 	public String getImageConfigs() {
 //		final TenantRef tenant = JaxrsUtils.getTenant(uriInfo);
 //		final WebAddress webAddress = TenantUtils.getSupplied(bundleContext, tenant, WebAddress.class);
-		final WebAddress webAddress = webAddressSupplier.get();
 
 		final URL stgUrl = SiteResource.class.getResource("webAddress.js.stg");
 		final STGroupFile stg = new STGroupFile(stgUrl, "UTF-8", '~', '~');

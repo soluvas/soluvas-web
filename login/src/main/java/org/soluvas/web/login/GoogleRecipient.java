@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Set;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -17,7 +16,6 @@ import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.NameUtils.PersonName;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
@@ -54,7 +52,7 @@ public class GoogleRecipient extends WebPage {
 	private LdapRepository<SocialPerson> personRawRepo;
 	@PaxWicketBean(name="googleMgr")
 	private GoogleManager googleManager;
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 
 	private static final HttpTransport TRANSPORT = new NetHttpTransport();

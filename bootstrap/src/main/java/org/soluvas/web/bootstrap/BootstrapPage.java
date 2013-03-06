@@ -184,8 +184,7 @@ public class BootstrapPage extends ExtensiblePage {
 
 	@PaxWicketBean(name = "pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@Inject
-	@Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 	@Inject
 	@Supplied

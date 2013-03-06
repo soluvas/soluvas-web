@@ -3,7 +3,6 @@ package org.soluvas.web.login;
 import java.util.Set;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -24,7 +23,6 @@ import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.NameUtils.PersonName;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
@@ -59,7 +57,7 @@ public class TwitterRecipient extends WebPage {
 	
 	@PaxWicketBean(name="twitterMgr")
 	private TwitterManager twitterManager;
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 	@PaxWicketBean(name="personRawRepo")	
 	private LdapRepository<SocialPerson> personRawRepo;

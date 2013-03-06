@@ -2,8 +2,6 @@ package org.soluvas.web.jquerynotify;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.event.IEvent;
@@ -11,10 +9,10 @@ import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.json.JsonUtils;
 
 import com.google.common.base.Optional;
@@ -36,7 +34,7 @@ public class NotifyPanel extends Panel {
 
 	private static Logger log = LoggerFactory.getLogger(NotifyPanel.class);
 	
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;	
 	
 	public NotifyPanel(String id) {

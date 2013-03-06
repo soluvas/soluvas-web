@@ -2,18 +2,16 @@ package org.soluvas.web.site;
 
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.util.MapModel;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Supplied;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.impl.ExpressionParseException;
@@ -29,7 +27,7 @@ public class WebLink extends ExternalLink {
 
 	private static final Logger log = LoggerFactory.getLogger(WebLink.class);
 	
-	@Inject @Supplied
+	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
 
 	private final IModel<Map<String, Object>> params;
