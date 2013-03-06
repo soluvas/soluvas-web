@@ -397,11 +397,11 @@ public class BootstrapPage extends ExtensiblePage {
 			add(new WebMarkupContainer("bootstrapResponsiveCss")
 					.add(new AttributeModifier("href",
 							bootstrapResponsiveCssUri)));
-			add(new WebMarkupContainer("bootstrapPatchesCss")
+			add(new WebMarkupContainer("soluvasCss")
 					.add(new AttributeModifier(
 							"href",
 							webAddress.getSkinUri()
-									+ "org.soluvas.web.bootstrap/css/bootstrap-patches.css")));
+									+ "org.soluvas.web.bootstrap/css/soluvas.css")));
 			// For now we use lookfirst's fork of RequireJS.
 			// See https://github.com/jrburke/requirejs/issues/376 for reasons.
 			// final String requireJsUri = requireMgr.getJavaScriptMode() ==

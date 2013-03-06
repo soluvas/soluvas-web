@@ -1,0 +1,7 @@
+.spinner {
+	background-image: url("../img/spinning_wheel_throbber.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 50px;
+	content: "";
+}
