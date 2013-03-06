@@ -169,6 +169,7 @@
 <!-- 	References for replacing @Inject-->
 
 	<reference id="webAddress" interface="org.soluvas.commons.WebAddress"/>
+	<reference id="appManifest" interface="org.soluvas.commons.AppManifest"/>
 	<reference id="requireMgr" interface="org.soluvas.web.site.RequireManager"/>
 		
 <!-- 	End of References -->

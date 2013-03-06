@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -41,8 +40,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.commons.inject.Filter;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.AmdJavaScriptSource;
@@ -186,9 +183,7 @@ public class BootstrapPage extends ExtensiblePage {
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
-	@Inject
-	@Supplied
-	@Filter("(layer=application)")
+	@PaxWicketBean(name="appManifest")
 	private AppManifest appManifest;
 	@PaxWicketBean(name = "contributors")
 	private CrudRepository<LiveContributor, Integer> contributors;

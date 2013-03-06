@@ -1,7 +1,5 @@
 package org.soluvas.web.login;
 
-import javax.inject.Inject;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -20,11 +18,11 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.inject.Supplied;
 import org.soluvas.web.bootstrap.BootstrapPage;
 
 import com.google.common.base.Supplier;
@@ -42,7 +40,7 @@ public class LoginPage extends BootstrapPage {
 	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
 	private transient SecurityManager securityManager;
 	
-	@Inject @Supplied
+	@PaxWicketBean(name="appManifest")
 	private AppManifest appManifest;
 
 	protected void initializeSecurityManager() {
