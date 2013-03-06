@@ -1,8 +1,13 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
     xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0
+    	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
         http://karaf.apache.org/xmlns/shell/v1.1.0 http://karaf.apache.org/xmlns/shell/v1.1.0">
 
+	<cm:property-placeholder persistent-id="org.soluvas" update-strategy="none">
+	</cm:property-placeholder>
+	
 	<service auto-export="interfaces">
 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
 			<property name="alias" value="/static/js/org.soluvas.web.login"/>
@@ -21,23 +26,34 @@
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
 	</command-bundle>
 	
+	<bean id="facebookManager" class="org.soluvas.web.login.FacebookManagerImpl">
+		<argument value="${authFacebookAppId}" />
+		<argument value="${authFacebookAppSecret}" />
+	</bean>
+	<service ref="facebookManager" auto-export="interfaces"/>
+
+	<bean id="googleManager" class="org.soluvas.web.login.GoogleManagerImpl">
+		<argument value="${authGoogleClientId}" />
+		<argument value="${authGoogleClientSecret}" />
+		<argument value="${authGoogleApiKey}" />
+	</bean>
+	<service ref="googleManager" auto-export="interfaces"/>
+	
+	<bean id="twitterMgr" class="org.soluvas.web.login.TwitterManagerImpl">
+		<argument value="${authTwitterConsumerKey}" />
+		<argument value="${authTwitterConsumerSecret}" />
+	</bean>
+	<service ref="twitterMgr" auto-export="interfaces"/>
 	
 <!-- 	References for replacing @Inject-->
 	<reference id="webAddress" interface="org.soluvas.commons.WebAddress"/>
 	<reference id="appManifest" interface="org.soluvas.commons.AppManifest"/>
 
-	<reference id="facebookMgr" interface="org.soluvas.web.login.FacebookManager"/>
-	
-	<reference id="googleMgr" interface="org.soluvas.web.login.GoogleManager"/>
-	
-	<reference id="twitterMgr" interface="org.soluvas.web.login.TwitterManager"/>
-	
 	<reference id="personRawRepo" interface="org.soluvas.ldap.LdapRepository"
 		filter="(&amp;(namespace=person)(repositoryMode=raw))"/>
 		
 	<reference id="personImageRepo" interface="org.soluvas.image.store.ImageRepository"
 		filter="(namespace=person)"/>
-		
 		
 <!-- 	End of References -->
 

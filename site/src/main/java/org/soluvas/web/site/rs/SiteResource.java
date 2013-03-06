@@ -72,7 +72,7 @@ public class SiteResource {
 	 */
 	public SiteResource(BundleContext bundleContext, String clientId,
 			String tenantId, String tenantEnv,
-			WebAddress webAddressSupplier,
+			WebAddress webAddress,
 			@Nonnull final PermalinkCatalog permalinkCatalog,
 			@Nonnull final StyleConfiguration styleConfig) {
 		super();
@@ -80,7 +80,8 @@ public class SiteResource {
 		this.clientId = clientId;
 		this.tenantId = tenantId;
 		this.tenantEnv = tenantEnv;
-		this.webAddress = webAddressSupplier;
+		this.webAddress = Preconditions.checkNotNull(webAddress,
+				"webAddress cannot be null");
 		this.permalinkCatalog = permalinkCatalog;
 		this.styleConfig = styleConfig;
 	}
