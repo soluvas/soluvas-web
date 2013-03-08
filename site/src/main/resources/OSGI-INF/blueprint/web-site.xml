@@ -329,5 +329,36 @@
 			<entry key="tenantEnv" value="${tenantEnv}" />
 		</service-properties>
 	</service>
+	
+	<!-- optional because it will be provided by the {tenantId}_common/custom.PermalinkCatalog.xmi -->
+	<reference id="permalinkCatalog" interface="org.soluvas.web.site.PermalinkCatalog"
+		availability="optional"/>
+	<!-- optional because it will be provided by the {tenantId}_common/{tenantId}.Mall.xmi -->
+	<reference id="styleConfig" interface="org.soluvas.commons.StyleConfiguration"
+		availability="optional"/>
 
+	<bean id="siteRs" class="org.soluvas.web.site.rs.SiteResource"
+		depends-on="webAddress permalinkCatalog styleConfig">
+		<argument ref="blueprintBundleContext" />
+		<argument value="*" />
+		<argument value="*" />
+		<argument value="*" />
+		<argument ref="webAddress" />
+		<argument ref="permalinkCatalog" />
+		<argument ref="styleConfig" />
+	</bean>
+	<service auto-export="interfaces">
+		<service-properties>
+			<entry key="type" value="jaxrs" />
+			<entry key="address" value="api" />
+		</service-properties>
+		<bean class="java.util.ArrayList">
+			<argument>
+				<list>
+					<ref component-id="siteRs" />
+				</list>
+			</argument>
+		</bean>
+	</service>
+	
 </blueprint>
