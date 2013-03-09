@@ -239,8 +239,9 @@
 									</pluginExecutionFilter>
 									<action>
 										<execute>
-											<!-- seems to be needed on Eclipse 3.8.2 / m2e 1.3 ! -->
-											<runOnIncremental>true</runOnIncremental>
+											<!-- seems to be needed on Eclipse 3.8.2 / m2e 1.3, but makes things slower -->
+											<!-- so please use Eclipse 3.8.1 and m2e 1.2 for now! -->
+											<!-- runOnIncremental>true</runOnIncremental-->
 										</execute>
 									</action>
 								</pluginExecution>
