@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.facebook.FacebookUtils;
+import org.soluvas.facebook.FacebookUtilsImpl;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
@@ -150,7 +150,7 @@ public class FacebookRecipient extends WebPage {
 				
 				//Set photo from Facebook.
 				try {
-					final String imageId = FacebookUtils.refreshPhotoFromFacebook(newPerson.getFacebookId(), newPerson.getName(), personImageRepo);
+					final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(newPerson.getFacebookId(), newPerson.getName(), personImageRepo);
 					newPerson.setPhotoId(imageId);
 				} catch (Exception e) {
 					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
