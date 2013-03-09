@@ -35,8 +35,8 @@ import com.google.common.collect.Ordering;
  * @author ceefour
  *
  */
-@Path("org.soluvas.web.backbone")
-public class RequireResource {
+//@Path("org.soluvas.web.backbone")
+public class BackboneResource {
 	
 	public static class ModuleAlias {
 		public String from;
@@ -64,7 +64,7 @@ public class RequireResource {
 	 */
 	private final int waitSeconds = 120;
 	
-	public RequireResource(@Nonnull final WebAddress webAddress,
+	public BackboneResource(@Nonnull final WebAddress webAddress,
 			@Nonnull final List<JavaScriptAlias> jsAliases,
 			@Nonnull final List<JavaScriptModule> jsModules,
 			@Nonnull final List<JavaScriptShim> jsShims,
@@ -87,7 +87,7 @@ public class RequireResource {
 		
 //		log.debug("Get RequireJS config for {} {}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath() );
 		
-		final STGroupFile stg = new STGroupFile(RequireResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
+		final STGroupFile stg = new STGroupFile(BackboneResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
 		final ST requireSt = stg.getInstanceOf("require");
 		requireSt.add("urlArgs", Strings.isNullOrEmpty(requireMgr.getCacheBust()) ? "" :
 			URLEncoder.encode(requireMgr.getCacheBust(), "UTF-8"));

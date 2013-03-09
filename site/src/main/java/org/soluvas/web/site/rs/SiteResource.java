@@ -41,7 +41,7 @@ import com.google.common.collect.Maps;
  * Provides {@link WebAddress}.
  * @author ceefour
  */
-@Path("org.soluvas.web.site")
+//@Path("org.soluvas.web.site")
 public class SiteResource {
 	
 	public static class WebTemplate {
