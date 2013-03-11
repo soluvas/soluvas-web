@@ -199,6 +199,8 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected final RepeatingView afterHeader;
 
+	protected boolean sidebarVisible;
+
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
 		pageJavaScriptLinks.add(js);
@@ -308,6 +310,13 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 
 	public BootstrapPage() {
+		this(true);
+	}
+
+	public BootstrapPage(boolean sidebarVisible) {
+		super();
+		this.sidebarVisible = sidebarVisible;
+		
 		// Use CDN jQuery if we're in production
 		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
 			getApplication()
@@ -543,17 +552,14 @@ public class BootstrapPage extends ExtensiblePage {
 				.setEscapeModelStrings(false));
 	}
 
-	public BootstrapPage(boolean sidebarVisible) {
-		this();
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		// sidebar visibility
 		if (!sidebarVisible) {
 			sidebarColumn.setVisible(false);
 			contentColumn.add(new AttributeModifier("class", "span12"));
 		}
-	}
-
-	@Override
-	protected void onInitialize() {
-		super.onInitialize();
 		// compose other components
 		ComposeUtils.compose(this, contributors.findAll());
 	}
