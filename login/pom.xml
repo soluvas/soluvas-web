@@ -186,10 +186,10 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<!-- not working yet with CloudBees, due to PATH setting, so disabled for now -->
+			<!-- not working yet with CloudBees, due to PATH setting, so disabled for now -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>exec-maven-plugin</artifactId> -->
 <!-- 				<executions> -->
 <!-- 					<execution> -->
 <!-- 						<id>precompile-mustache</id> -->
@@ -210,7 +210,7 @@
 <!-- 						</configuration> -->
 <!-- 					</execution> -->
 <!-- 				</executions> -->
-			</plugin>
+<!-- 			</plugin> -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
