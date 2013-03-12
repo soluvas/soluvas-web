@@ -48,8 +48,8 @@ public class GoogleRecipient extends WebPage {
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleRecipient.class);
 	
-	@PaxWicketBean(name="personRawRepo")
-	private LdapRepository<SocialPerson> personRawRepo;
+	@PaxWicketBean(name="personLdapRepo")
+	private LdapRepository<SocialPerson> personLdapRepo;
 	@PaxWicketBean(name="googleMgr")
 	private GoogleManager googleManager;
 	@PaxWicketBean(name="webAddress")
@@ -86,9 +86,9 @@ public class GoogleRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", user);
 			log.debug("Got user {}", JsonUtils.asJson(user));
 			
-			SocialPerson person = personRawRepo.findOneByAttribute("googlePlusId", String.valueOf(user.getId()));
+			SocialPerson person = personLdapRepo.findOneByAttribute("googlePlusId", String.valueOf(user.getId()));
 			if (person == null) {
-				person = personRawRepo.findOneByAttribute("google", user.getName().toString());
+				person = personLdapRepo.findOneByAttribute("google", user.getName().toString());
 			}
 			
 			if (person != null) {
@@ -102,20 +102,20 @@ public class GoogleRecipient extends WebPage {
 				person.setGoogleUsername(user.getDisplayName());
 				person.setGooglePlusId(user.getId());
 				person.setGoogleAccessToken(accessToken);
-				personRawRepo.modify(person);
+				personLdapRepo.modify(person);
 			} else {
 				Preconditions.checkNotNull(user.getName(), "Google User's Name cannot be empty");
 				final String personId = SlugUtils.generateValidId(user.getDisplayName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personRawRepo.exists(input);
+						return !personLdapRepo.exists(input);
 					}
 				});
 				
 				final String personSlug = SlugUtils.generateValidScreenName(user.getDisplayName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personRawRepo.existsByAttribute("uniqueIdentifier", input);
+						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
 					}
 				});
 				final PersonName personName = NameUtils.splitName(user.getDisplayName());
@@ -124,7 +124,7 @@ public class GoogleRecipient extends WebPage {
 				newPerson.setGooglePlusId(user.getId());
 				newPerson.setGoogleAccessToken(accessToken);
 				
-				personRawRepo.add(newPerson);
+				personLdapRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
 			}
 		} catch (final Exception e) {

@@ -59,8 +59,8 @@ public class TwitterRecipient extends WebPage {
 	private TwitterManager twitterManager;
 	@PaxWicketBean(name="webAddress")
 	private WebAddress webAddress;
-	@PaxWicketBean(name="personRawRepo")	
-	private LdapRepository<SocialPerson> personRawRepo;
+	@PaxWicketBean(name="personLdapRepo")
+	private LdapRepository<SocialPerson> personLdapRepo;
 	@PaxWicketBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	
@@ -97,9 +97,9 @@ public class TwitterRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", user);
 			log.debug("Got user {}", JsonUtils.asJson(user));
 			
-			SocialPerson person = personRawRepo.findOneByAttribute("twitterId", String.valueOf(user.getId()));
+			SocialPerson person = personLdapRepo.findOneByAttribute("twitterId", String.valueOf(user.getId()));
 			if (person == null) {
-				person = personRawRepo.findOneByAttribute("twitterScreenName", user.getScreenName());
+				person = personLdapRepo.findOneByAttribute("twitterScreenName", user.getScreenName());
 			}
 			
 			SocialPerson modifiedPerson = null;
@@ -126,20 +126,20 @@ public class TwitterRecipient extends WebPage {
 					log.error("Cannot refresh photo from Facebook for person " + person.getId() + " " + person.getName(), e);
 				}
 				
-				modifiedPerson = personRawRepo.modify(person);
+				modifiedPerson = personLdapRepo.modify(person);
 			} else {
 				Preconditions.checkNotNull(user.getName(), "Twitter User's Name cannot be empty");
 				final String personId = SlugUtils.generateValidId(user.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personRawRepo.exists(input);
+						return !personLdapRepo.exists(input);
 					}
 				});
 				
 				final String personSlug = SlugUtils.generateValidScreenName(user.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personRawRepo.existsByAttribute("uniqueIdentifier", input);
+						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
 					}
 				});
 				final PersonName personName = NameUtils.splitName(user.getName());
@@ -158,7 +158,7 @@ public class TwitterRecipient extends WebPage {
 					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
 				}
 				
-				modifiedPerson = personRawRepo.add(modifiedPerson);
+				modifiedPerson = personLdapRepo.add(modifiedPerson);
 				log.debug("person {} is inserted", personId);
 			}
 			

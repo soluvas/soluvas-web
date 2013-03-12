@@ -63,8 +63,8 @@ public class FacebookRecipient extends WebPage {
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	
-	@PaxWicketBean(name="personRawRepo")
-	private LdapRepository<SocialPerson> personRawRepo;
+	@PaxWicketBean(name="personLdapRepo")
+	private LdapRepository<SocialPerson> personLdapRepo;
 	@PaxWicketBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	@PaxWicketBean(name="facebookMgr") 
@@ -101,12 +101,12 @@ public class FacebookRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", user);
 			log.debug("Got user and user details{}", JsonUtils.asJson(user));
 			
-			SocialPerson person = personRawRepo.findOneByAttribute("fbId", user.getId());
+			SocialPerson person = personLdapRepo.findOneByAttribute("fbId", user.getId());
 			if (person == null) {
-				person = personRawRepo.findOneByAttribute("fbUser", user.getUsername());
+				person = personLdapRepo.findOneByAttribute("fbUser", user.getUsername());
 			}
 			if (person == null) {
-				person = personRawRepo.findOneByAttribute("mail", user.getEmail());
+				person = personLdapRepo.findOneByAttribute("mail", user.getEmail());
 			}
 			
 			SocialPerson modifiedPerson = null;
@@ -124,20 +124,20 @@ public class FacebookRecipient extends WebPage {
 				person.setFacebookUsername(user.getUsername());
 				person.setFacebookId(Long.valueOf(user.getId()));
 				person.setFacebookAccessToken(accessToken);
-				modifiedPerson = personRawRepo.modify(person);
+				modifiedPerson = personLdapRepo.modify(person);
 			} else {
 				Preconditions.checkNotNull(user.getName(), "Facebook User's Name cannot be empty");
 				final String personId = SlugUtils.generateValidId(user.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personRawRepo.exists(input);
+						return !personLdapRepo.exists(input);
 					}
 				});
 				
 				final String personSlug = SlugUtils.generateValidScreenName(user.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personRawRepo.existsByAttribute("uniqueIdentifier", input);
+						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
 					}
 				});
 				//https://graph.facebook.com/USER_ID/picture?type=large HTTPCLIENT
@@ -155,7 +155,7 @@ public class FacebookRecipient extends WebPage {
 				} catch (Exception e) {
 					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
 				}
-				modifiedPerson = personRawRepo.add(newPerson);
+				modifiedPerson = personLdapRepo.add(newPerson);
 
 			}
 			

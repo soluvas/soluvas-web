@@ -1,6 +1,5 @@
 package org.soluvas.web.site.compose;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -24,7 +23,7 @@ public class EmfGenericRepository<T extends EObject> extends CrudRepositoryBase<
 	}
 
 	@Override
-	public Collection<T> findAll() {
+	public List<T> findAll() {
 		return ImmutableList.copyOf(coll);
 	}
 

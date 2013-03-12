@@ -49,7 +49,7 @@
 	<reference id="webAddress" interface="org.soluvas.commons.WebAddress"/>
 	<reference id="appManifest" interface="org.soluvas.commons.AppManifest"/>
 
-	<reference id="personRawRepo" interface="org.soluvas.ldap.LdapRepository"
+	<reference id="personLdapRepo" interface="org.soluvas.ldap.LdapRepository"
 		filter="(&amp;(namespace=person)(repositoryMode=raw))"/>
 		
 	<reference id="personImageRepo" interface="org.soluvas.image.store.ImageRepository"
