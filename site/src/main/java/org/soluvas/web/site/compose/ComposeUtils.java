@@ -83,7 +83,7 @@ public class ComposeUtils {
 					Component target = page;
 					MarkupContainer parent = null;
 					boolean validPath = true;
-					for (String segment : pathSegments) {
+					for (final String segment : pathSegments) {
 						parent = (MarkupContainer) target;
 						Component child = target.get(segment);
 						if (child == null) {
@@ -95,7 +95,12 @@ public class ComposeUtils {
 						target = child;
 					}
 					if (!validPath)
-						continue;;
+						continue;
+					if (parent == null) {
+						log.warn("Invalid path: {}, got null parent for contrib {}",
+								contrib.getTargetPath(), contrib);
+						continue;
+					}
 					final String compId = Iterables.getLast(pathSegments);
 					Preconditions.checkNotNull(parent, "parent must not be null. Probably path %s is invalid for page %s.",
 							contrib.getTargetPath(), page.getClass());
