@@ -106,9 +106,8 @@ public class SiteResource {
 	 * @param tenantId
 	 * @param tenantEnv
 	 */
-	public SiteResource(BundleContext bundleContext, String clientId,
-			String tenantId, String tenantEnv,
-			WebAddress webAddress,
+	public SiteResource(@Nonnull BundleContext bundleContext,
+			@Nonnull WebAddress webAddress,
 			@Nonnull final PermalinkCatalog permalinkCatalog,
 			@Nonnull final StyleConfiguration styleConfig,
 			@Nonnull final List<JavaScriptAlias> jsAliases,
@@ -250,14 +249,18 @@ public class SiteResource {
 	@GET @Path("requireConfig.js")
 	@Produces("text/javascript")
 	public String getRequireConfig(@Nonnull @Context final HttpServletRequest httpReq) throws IOException {
+final String stgFile = "require_config.stg";
 //		TenantRef tenantInfo = JaxrsUtils.getTenantInfo(uriInfo);
 //		log.debug("Get RequireJS config for {} {} tenant={}:{}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath(),
 //				tenantInfo.getTenantId(), tenantInfo.getTenantId());
 		
 //		log.debug("Get RequireJS config for {} {}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath() );
 		
-		final STGroupFile stg = new STGroupFile(SiteResource.class.getResource("require_config.stg"), "UTF-8", '$', '$');
-		final ST requireSt = stg.getInstanceOf("require");
+		final URL requireConfigStgResource = Preconditions.checkNotNull(SiteResource.class.getResource(stgFile),
+				"Cannot get resource %s from %s", stgFile, SiteResource.class.getName());
+		final STGroupFile stg = new STGroupFile(requireConfigStgResource, "UTF-8", '$', '$');
+		final ST requireSt = Preconditions.checkNotNull(stg.getInstanceOf("require"),
+				"Cannot get 'require' template from %s", requireConfigStgResource);
 		requireSt.add("urlArgs", Strings.isNullOrEmpty(requireMgr.getCacheBust()) ? "" :
 			URLEncoder.encode(requireMgr.getCacheBust(), "UTF-8"));
 		requireSt.add("waitSeconds", waitSeconds);

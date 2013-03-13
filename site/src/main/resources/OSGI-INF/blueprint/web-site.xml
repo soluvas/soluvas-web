@@ -91,7 +91,7 @@
 		</bean>
 	</service>
 	
-	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule"
+	<reference-list id="jsModuleRefs" interface="org.soluvas.web.site.JavaScriptModule"
 		availability="optional" member-type="service-reference" />
 	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional" />
 	
@@ -103,7 +103,7 @@
 		<command name="js/ls">
 			<action class="org.soluvas.web.site.shell.JsLsCommand">
 				<argument ref="blueprintBundleContext" />
-				<argument ref="jsModules" />
+				<argument ref="jsModuleRefs" />
 			</action>
 		</command>
 		<command name="js/lsshim">
@@ -314,17 +314,14 @@
 	<reference id="styleConfig" interface="org.soluvas.commons.StyleConfiguration"
 		availability="optional"/>
 
-	<reference-list id="jsAliases" interface="org.soluvas.web.site.JavaScriptAlias" availability="optional" />
-	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule" availability="optional" />
-	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional" />
-	<reference id="requireMgr" interface="org.soluvas.web.site.RequireManager"/>
+	<reference-list id="jsAliases" interface="org.soluvas.web.site.JavaScriptAlias"
+		availability="optional" />
+	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule"
+		availability="optional"/>
 
 	<bean id="siteRs" class="org.soluvas.web.site.rs.SiteResource"
 		depends-on="webAddress permalinkCatalog styleConfig">
 		<argument ref="blueprintBundleContext" />
-		<argument value="*" />
-		<argument value="*" />
-		<argument value="*" />
 		<argument ref="webAddress" />
 		<argument ref="permalinkCatalog" />
 		<argument ref="styleConfig" />
@@ -347,14 +344,6 @@
 		</jaxrs:serviceBeans>
 	</jaxrs:server>	
 	
-	<service auto-export="interfaces">
-		<bean
-			class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/js/org.soluvas.web.site" />
-			<property name="path" value="/js" />
-		</bean>
-	</service>
-
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="underscore" />
