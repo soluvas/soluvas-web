@@ -18,7 +18,7 @@ however its logic is decide @urlArgs@ based on the **final** URI. Our logic deci
 the URI **before** appending @baseUrl@.
 
 1. Get the fork from git@github.com:soluvas/requirejs.git
-2. Copy require.js as @/org.soluvas.web.bootstrap/src/main/resources/js/require-2.1.4-soluvas.js@
+2. Copy require.js as @/org.soluvas.web.bootstrap/src/main/resources/js/require-2.1.5-soluvas.js@
 3. I use UglifyJS v1 to minify RequireJS myself. I'm not sure if this is proper but so far it works. Install uglify-js@1:
 
 bc. sudo npm install -g uglify-js@1
@@ -26,6 +26,6 @@ bc. sudo npm install -g uglify-js@1
 4. Uglify require.js :
 
 bc. cd ~/git/require
-uglifyjs require.js > require-2.1.4-lookfirst.min.js
+uglifyjs require.js > require-2.1.5-soluvas.min.js
 
-5. Copy @require-2.1.4-lookfirst.min.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@
+5. Copy @require-2.1.5-soluvas.min.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@
