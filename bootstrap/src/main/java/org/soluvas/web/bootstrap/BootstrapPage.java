@@ -445,7 +445,7 @@ public class BootstrapPage extends ExtensiblePage {
 
 			add(new Header());
 			final String requireConfigPath = webAddress.getApiPath()
-					+ "org.soluvas.web.backbone/requireConfig.js";
+					+ "org.soluvas.web.site/requireConfig.js";
 			add(new WebMarkupContainer("requireConfig")
 					.add(new AttributeModifier("src", requireConfigPath)));
 

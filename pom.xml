@@ -21,7 +21,6 @@
 		<module>jquery</module>
 		<module>jqueryui</module>
 		<module>jquerynotify</module>
-		<module>backbone</module>
 		<module>bootstrap</module>
 		<module>stomp</module>
 		<!-- Structure -->
