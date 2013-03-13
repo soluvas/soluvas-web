@@ -411,18 +411,12 @@ public class BootstrapPage extends ExtensiblePage {
 							"href",
 							webAddress.getSkinUri()
 									+ "org.soluvas.web.bootstrap/css/soluvas.css")));
-			// For now we use lookfirst's fork of RequireJS.
+			// For now we use soluvas's fork of RequireJS.
 			// See https://github.com/jrburke/requirejs/issues/376 for reasons.
-			// final String requireJsUri = requireMgr.getJavaScriptMode() ==
-			// JavaScriptMode.DEVELOPMENT ?
-			// webAddress.getJsUri() +
-			// "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js" :
-			// "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
-			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
-					.getJsUri()
-					+ "org.soluvas.web.bootstrap/require-2.1.4-soluvas.js"
-					: webAddress.getJsUri()
-							+ "org.soluvas.web.bootstrap/require-2.1.4-soluvas.js";
+			// too bad we can't use "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
+			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+					webAddress .getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.js" :
+					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.min.js";
 			add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
 					"src", requireJsUri)));
 
