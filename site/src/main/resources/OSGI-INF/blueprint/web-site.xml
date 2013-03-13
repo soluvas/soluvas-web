@@ -9,16 +9,18 @@
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
 	<!-- this property placeholder is deprecated in favor of XMI config -->
-    <cm:property-placeholder persistent-id="org.soluvas.web.site" update-strategy="reload">
+    <cm:property-placeholder persistent-id="org.soluvas" update-strategy="none">
         <cm:default-properties>
+        	<!-- js and css -->
+			<cm:property name="jsMode"				value="DEVELOPMENT" />
+			<cm:property name="cacheBust"			value="" />
+        	<!-- legacy, deprecated -->
             <cm:property name="siteTitle"			value="FashionWow"/>
             <cm:property name="homeTitle"			value="Cute and trendy clothing, dresses, and skirts"/>
             <cm:property name="pageTitleSuffix"		value="| FashionWow"/>
             <cm:property name="logoText"			value="FashionWow"/>
             <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
             <cm:property name="footerHtml"			value="Copyright © 2012 Soluvas"/>
-			<cm:property name="jsMode"						value="DEVELOPMENT" />
-			<cm:property name="cacheBust"					value="" />
         </cm:default-properties>
     </cm:property-placeholder>
     

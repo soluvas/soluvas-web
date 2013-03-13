@@ -420,9 +420,9 @@ public class BootstrapPage extends ExtensiblePage {
 			// "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
 			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 					.getJsUri()
-					+ "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.js"
+					+ "org.soluvas.web.bootstrap/require-2.1.4-soluvas.js"
 					: webAddress.getJsUri()
-							+ "org.soluvas.web.bootstrap/require-2.1.4-lookfirst.min.js";
+							+ "org.soluvas.web.bootstrap/require-2.1.4-soluvas.js";
 			add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
 					"src", requireJsUri)));
 
