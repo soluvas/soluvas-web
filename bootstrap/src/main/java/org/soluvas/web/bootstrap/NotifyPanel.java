@@ -1,4 +1,4 @@
-package org.soluvas.web.jquerynotify;
+package org.soluvas.web.bootstrap;
 
 import java.util.List;
 
