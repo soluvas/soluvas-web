@@ -18,7 +18,6 @@
 		<!-- Core -->
 		<module>site</module>
 		<!-- UI Foundation -->
-		<module>jqueryui</module>
 		<module>jquerynotify</module>
 		<module>bootstrap</module>
 		<module>stomp</module>
