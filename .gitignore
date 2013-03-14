@@ -3,3 +3,7 @@
 .settings
 target
 .directory
+/backbone
+/jquery
+/jqueryui
+/jquerynotify

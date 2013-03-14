@@ -1,0 +1,45 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+<!-- 	<service auto-export="interfaces"> -->
+<!-- 		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping"> -->
+<!-- 			<property name="alias" value="/static/img/org.soluvas.web.bootstrap"/> -->
+<!-- 			<property name="path" value="/img"/> -->
+<!-- 		</bean> -->
+<!-- 	</service> -->
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="jquery.notify"/>
+			<argument value="org.soluvas.web.bootstrap/jquery.notify"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery.notify"/>
+			<argument>
+				<set>
+					<value>jquery-ui/jquery.ui.widget</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.CssLinkImpl">
+			<argument value="org.soluvas.web.bootstrap/ui.notify.css"/>
+			<argument value="org.soluvas.web.bootstrap/ui.notify.css"/>
+			<argument value="0"/>
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.CssLinkImpl">
+			<argument value="org.soluvas.web.bootstrap/ui.notify.custom.css"/>
+			<argument value="org.soluvas.web.bootstrap/ui.notify.custom.css"/>
+			<argument value="0"/>
+		</bean>
+	</service>
+
+</blueprint>

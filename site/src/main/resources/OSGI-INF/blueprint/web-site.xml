@@ -9,16 +9,18 @@
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
 
 	<!-- this property placeholder is deprecated in favor of XMI config -->
-    <cm:property-placeholder persistent-id="org.soluvas.web.site" update-strategy="reload">
+    <cm:property-placeholder persistent-id="org.soluvas" update-strategy="none">
         <cm:default-properties>
+        	<!-- js and css -->
+			<cm:property name="jsMode"				value="DEVELOPMENT" />
+			<cm:property name="cacheBust"			value="" />
+        	<!-- legacy, deprecated -->
             <cm:property name="siteTitle"			value="FashionWow"/>
             <cm:property name="homeTitle"			value="Cute and trendy clothing, dresses, and skirts"/>
             <cm:property name="pageTitleSuffix"		value="| FashionWow"/>
             <cm:property name="logoText"			value="FashionWow"/>
             <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
             <cm:property name="footerHtml"			value="Copyright © 2012 Soluvas"/>
-			<cm:property name="jsMode"						value="DEVELOPMENT" />
-			<cm:property name="cacheBust"					value="" />
         </cm:default-properties>
     </cm:property-placeholder>
     
@@ -89,7 +91,7 @@
 		</bean>
 	</service>
 	
-	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule"
+	<reference-list id="jsModuleRefs" interface="org.soluvas.web.site.JavaScriptModule"
 		availability="optional" member-type="service-reference" />
 	<reference-list id="jsShims" interface="org.soluvas.web.site.JavaScriptShim" availability="optional" />
 	
@@ -101,7 +103,7 @@
 		<command name="js/ls">
 			<action class="org.soluvas.web.site.shell.JsLsCommand">
 				<argument ref="blueprintBundleContext" />
-				<argument ref="jsModules" />
+				<argument ref="jsModuleRefs" />
 			</action>
 		</command>
 		<command name="js/lsshim">
@@ -312,15 +314,21 @@
 	<reference id="styleConfig" interface="org.soluvas.commons.StyleConfiguration"
 		availability="optional"/>
 
+	<reference-list id="jsAliases" interface="org.soluvas.web.site.JavaScriptAlias"
+		availability="optional" />
+	<reference-list id="jsModules" interface="org.soluvas.web.site.JavaScriptModule"
+		availability="optional"/>
+
 	<bean id="siteRs" class="org.soluvas.web.site.rs.SiteResource"
 		depends-on="webAddress permalinkCatalog styleConfig">
 		<argument ref="blueprintBundleContext" />
-		<argument value="*" />
-		<argument value="*" />
-		<argument value="*" />
 		<argument ref="webAddress" />
 		<argument ref="permalinkCatalog" />
 		<argument ref="styleConfig" />
+		<argument ref="jsAliases" />
+		<argument ref="jsModules" />
+		<argument ref="jsShims" />
+		<argument ref="requireMgr" />
 	</bean>
 	<reference id="jacksonMapperFactory" interface="org.soluvas.json.JacksonMapperFactory" />
 	<bean id="jacksonContextResolver" class="org.soluvas.jaxrs.Jackson2ContextResolver">
@@ -336,4 +344,167 @@
 		</jaxrs:serviceBeans>
 	</jaxrs:server>	
 	
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="underscore" />
+			<argument value="org.soluvas.web.site/underscore-1.4.4" />
+			<argument
+				value="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="underscore" />
+			<argument>
+				<set />
+			</argument>
+			<argument value="_" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="backbone" />
+			<argument value="org.soluvas.web.site/backbone-0.9.10" />
+			<argument
+				value="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="backbone" />
+			<argument>
+				<set>
+					<value>underscore</value>
+					<value>jquery</value>
+				</set>
+			</argument>
+			<argument value="Backbone" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="handlebars" />
+			<argument value="org.soluvas.web.site/handlebars-1.0.rc.3" />
+			<argument
+				value="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="handlebars" />
+			<argument>
+				<set />
+			</argument>
+			<argument value="Handlebars" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptAliasImpl">
+			<argument value="handlebars.runtime" />
+			<argument value="handlebars" />
+			<argument value="handlebars" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="sugar" />
+			<argument value="org.soluvas.web.site/sugar-1.3.9-custom.development" />
+			<argument value="//cdnjs.cloudflare.com/ajax/libs/sugar/1.3.8/sugar.min" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="sugar" />
+			<argument>
+				<set />
+			</argument>
+			<argument value="Date" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="sugar_id" />
+			<argument value="org.soluvas.web.site/sugar_id" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="sugar_id" />
+			<argument>
+				<set>
+					<value>sugar</value>
+				</set>
+			</argument>
+			<argument value="Date" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="livevalidation" />
+			<argument value="org.soluvas.web.site/livevalidation_amd-1.3" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="pref.locale" />
+			<argument value="org.soluvas.web.site/pref.locale" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="uritemplate" />
+			<argument value="org.soluvas.web.site/uritemplate" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="uritemplate" />
+			<argument>
+				<set />
+			</argument>
+			<argument value="UriTemplate" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="backbone.paginator" />
+			<argument value="org.soluvas.web.site/backbone.paginator" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="backbone.paginator" />
+			<argument>
+				<set>
+					<value>jquery</value>
+					<value>backbone</value>
+				</set>
+			</argument>
+			<argument value="Backbone.Paginator" />
+		</bean>
+	</service>
+
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="diacritic" />
+			<argument value="org.soluvas.web.site/diacritic" />
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="diacritic" />
+			<argument>
+				<set>
+					<value>backbone</value>
+				</set>
+			</argument>
+			<argument value="Diacritic" />
+		</bean>
+	</service>
+
 </blueprint>

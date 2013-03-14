@@ -13,11 +13,12 @@ Make sure to configure Amazon CloudFront cache behavior to honor query strings.
 
 h2. Upgrading RequireJS
 
-We use lookfirst's fork of RequireJS. See https://github.com/jrburke/requirejs/issues/376
-for reasons.
+We wanted to use lookfirst's fork of RequireJS (https://github.com/jrburke/requirejs/issues/376)
+however its logic is decide @urlArgs@ based on the **final** URI. Our logic decides @urlArgs@ based on
+the URI **before** appending @baseUrl@.
 
-1. Get the fork from https://github.com/lookfirst/requirejs
-2. Copy require.js as @/org.soluvas.web.bootstrap/src/main/resources/js/require-2.1.4-lookfirst.js@
+1. Get the fork from git@github.com:soluvas/requirejs.git
+2. Copy require.js as @/org.soluvas.web.bootstrap/src/main/resources/js/require-2.1.5-soluvas.js@
 3. I use UglifyJS v1 to minify RequireJS myself. I'm not sure if this is proper but so far it works. Install uglify-js@1:
 
 bc. sudo npm install -g uglify-js@1
@@ -25,6 +26,6 @@ bc. sudo npm install -g uglify-js@1
 4. Uglify require.js :
 
 bc. cd ~/git/require
-uglifyjs require.js > require-2.1.4-lookfirst.min.js
+uglifyjs require.js > require-2.1.5-soluvas.min.js
 
-5. Copy @require-2.1.4-lookfirst.min.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@
+5. Copy @require-2.1.5-soluvas.min.js@ into @/org.soluvas.web.bootstrap/src/main/resources/js@
