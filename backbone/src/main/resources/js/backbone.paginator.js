@@ -657,9 +657,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       info = {},
       totalRecords = (self.sortedAndFilteredModels) ? self.sortedAndFilteredModels.length : self.length,
       totalPages = Math.ceil(totalRecords / self.perPage);
-
+//      console.debug('totalUnfilteredRecords ', self.origModels.length);
       info = {
-        totalUnfilteredRecords: self.origModels.length,
+//        totalUnfilteredRecords: self.origModels.length,
+        totalUnfilteredRecords: totalRecords,
         totalRecords: totalRecords,
         currentPage: self.currentPage,
         perPage: this.perPage,
