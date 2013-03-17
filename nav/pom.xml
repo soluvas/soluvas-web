@@ -17,9 +17,17 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.web.login</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.karaf.shell</groupId>
+			<artifactId>org.apache.karaf.shell.console</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.compendium</artifactId>
@@ -105,6 +113,12 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
+						<Import-Package>
+							org.apache.felix.service.command;resolution:=optional,
+							org.apache.felix.gogo.commands;resolution:=optional,
+							org.apache.karaf.shell.console;resolution:=optional,
+							*
+						</Import-Package>
 						<Export-Package>org.soluvas.web.nav.*</Export-Package>
 					</instructions>
 				</configuration>
