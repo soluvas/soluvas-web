@@ -156,7 +156,12 @@
               				org.apache.felix.service.command;resolution:=optional, 
                             org.apache.felix.gogo.commands;resolution:=optional 							
 						</Import-Package>
-						<Export-Package>org.soluvas.web.site.*</Export-Package>
+						<Export-Package>
+							org.soluvas.web.site.*,
+							org.soluvas.web.olark.*,
+							org.soluvas.web.googleanalytics.*,
+							org.soluvas.web.banner.*
+						</Export-Package>
 						<DynamicImport-Package>*</DynamicImport-Package> <!-- why? http://team.ops4j.org/browse/PAXWICKET-375 -->
 					</instructions>
 				</configuration>

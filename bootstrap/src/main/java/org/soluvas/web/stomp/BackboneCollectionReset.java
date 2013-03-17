@@ -2,10 +2,6 @@ package org.soluvas.web.stomp;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.soluvas.async.CallbackAdapter;
-import org.soluvas.json.JsonUtils;
-import org.soluvas.web.nav.Menu;
-import org.soluvas.web.nav.MenuRepository;
 import org.soluvas.web.site.JavaScriptSourceImpl;
 
 /**
@@ -16,13 +12,13 @@ import org.soluvas.web.site.JavaScriptSourceImpl;
 @SuppressWarnings("serial")
 public class BackboneCollectionReset extends JavaScriptSourceImpl {
 
-	private MenuRepository menuRepository;
+//	private MenuRepository menuRepository;
 	
-	public BackboneCollectionReset(MenuRepository menuRepository, int weight) {
+	public BackboneCollectionReset(/*MenuRepository menuRepository,*/ int weight) {
 		super(null, weight);
-		this.menuRepository = menuRepository;
+//		this.menuRepository = menuRepository;
 	}
-
+	
 	/**
 	 * Output JavaScript like this:
 	 * 
@@ -34,16 +30,16 @@ public class BackboneCollectionReset extends JavaScriptSourceImpl {
 	@Override
 	public String getBody() {
 		final AtomicReference<String> body = new AtomicReference<String>();
-		menuRepository.findOne("main", new CallbackAdapter<Void, Void, Menu>() {
-			@Override
-			public void success(Menu data) {
-				String buf = "$(document).ready(function() {\n";
-				buf += "	navbarMenuItems.reset( " + JsonUtils.asJson(data.getItems()) + " );\n";
-				buf += "	sidebarMenuItems.reset( " + JsonUtils.asJson(data.getItems()) + " );\n";
-				buf += "});\n";
-				body.set( buf );
-			}
-		});
+//		menuRepository.findOne("main", new CallbackAdapter<Void, Void, Menu>() {
+//			@Override
+//			public void success(Menu data) {
+//				String buf = "$(document).ready(function() {\n";
+//				buf += "	navbarMenuItems.reset( " + JsonUtils.asJson(data.getItems()) + " );\n";
+//				buf += "	sidebarMenuItems.reset( " + JsonUtils.asJson(data.getItems()) + " );\n";
+//				buf += "});\n";
+//				body.set( buf );
+//			}
+//		});
 		return body.get();
 	}
 

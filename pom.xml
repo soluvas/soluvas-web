@@ -19,17 +19,11 @@
 		<module>site</module>
 		<!-- UI Foundation -->
 		<module>bootstrap</module>
-		<module>stomp</module>
 		<!-- Structure -->
 		<module>nav</module>
-		<module>nav.shell</module>
-		<module>nav.ui</module>
 		<!-- Reusable components -->
-		<module>banner</module>
 		<!-- Functionality -->
 		<module>login</module>
-		<module>olark</module>
-		<module>googleanalytics</module>
 	</modules>
 
 </project>
