@@ -16,13 +16,6 @@
 		</command>
 	</command-bundle>
 
-	<service auto-export="interfaces">
-		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/img/org.soluvas.web.banner"/>
-			<property name="path" value="/img"/>
-		</bean>
-	</service>
-	
 	<bean id="bannerPackage" class="org.soluvas.web.banner.impl.BannerPackageImpl"
 		factory-method="getInstance" />
 	<bean id="bannerCatalogXmiTracker" class="org.soluvas.commons.ServiceXmiTracker" destroy-method="destroy">

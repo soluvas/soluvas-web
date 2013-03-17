@@ -10,31 +10,11 @@
 		<argument value="org.soluvas.web.olark.OlarkPackage" />
 	</bean>
 
-	<service auto-export="interfaces">
-		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/js/org.soluvas.web.olark"/>
-			<property name="path" value="/js"/>
-		</bean>
-	</service>
-
-	<service auto-export="interfaces">
-		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
-			<argument value="org.soluvas.web.olark"/>
-			<argument value="org.soluvas.web.olark"/>
-			<argument value="org.soluvas.web.olark"/>
-		</bean>
-	</service>
-
 	<bean id="olarkManager" class="org.soluvas.web.olark.impl.OlarkManagerImpl">
 		<argument value="${olarkSiteId}" />
 		<argument value="${olarkEnabled}" />
 	</bean>
-	<service ref="olarkManager" auto-export="interfaces">
-		<service-properties>
-			<entry key="clientId" value="${clientId}" />
-			<entry key="tenantEnv" value="${tenantEnv}" />
-		</service-properties>
-	</service>
+	<service ref="olarkManager" auto-export="interfaces"/>
 
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
 	</command-bundle>
