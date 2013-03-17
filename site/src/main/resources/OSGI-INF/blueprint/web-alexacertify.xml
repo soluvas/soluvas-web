@@ -5,7 +5,7 @@
     	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
         http://karaf.apache.org/xmlns/shell/v1.1.0 http://karaf.apache.org/xmlns/shell/v1.1.0">
 
-	<bean id="alexaCertify" class="org.soluvas.web.site.alexa.AlexaCertify">
+	<bean id="alexaCertify" class="org.soluvas.web.site.alexa.AlexaCertifyImpl">
 		<argument value="${alexaCertifyEnabled}"/>
 		<argument value="${alexaCertifyAccount}"/>
 		<argument value="${alexaCertifyDomain}"/>
