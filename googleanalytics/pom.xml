@@ -30,10 +30,6 @@
 
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.json</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.ldap</artifactId>
 		</dependency>
 		<dependency>

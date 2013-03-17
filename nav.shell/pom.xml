@@ -21,11 +21,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.async</artifactId>
-		</dependency>
-		
-		<dependency>
 			<groupId>org.apache.karaf.shell</groupId>
 			<artifactId>org.apache.karaf.shell.console</artifactId>
 		</dependency>
@@ -48,11 +43,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.cdi</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.ldap</artifactId>
 			<version>2.0.0-SNAPSHOT</version>
 			<exclusions>
@@ -63,10 +53,6 @@
 			</exclusions>
 		</dependency>
 		-->
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.push</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>

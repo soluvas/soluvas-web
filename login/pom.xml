@@ -21,11 +21,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.facebook</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.twitter</artifactId>
+			<artifactId>org.soluvas.socmed</artifactId>
 		</dependency>
 
 		<dependency>
@@ -41,10 +37,6 @@
 			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.json</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.ldap</artifactId>

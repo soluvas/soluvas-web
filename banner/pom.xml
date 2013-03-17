@@ -23,11 +23,6 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.commons</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.soluvas</groupId>
-			<artifactId>org.soluvas.json</artifactId>
-			<scope>test</scope>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.karaf.shell</groupId>
