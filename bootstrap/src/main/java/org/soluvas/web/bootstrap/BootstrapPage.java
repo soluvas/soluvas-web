@@ -54,6 +54,8 @@ import org.soluvas.web.site.PageMetaSupplierFactory;
 import org.soluvas.web.site.PageRuleContext;
 import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.Site;
+import org.soluvas.web.site.alexa.AlexaCertify;
+import org.soluvas.web.site.alexa.AlexaCertifyScript;
 import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
@@ -187,6 +189,8 @@ public class BootstrapPage extends ExtensiblePage {
 	private AppManifest appManifest;
 	@PaxWicketBean(name = "contributors")
 	private CrudRepository<LiveContributor, Integer> contributors;
+	@PaxWicketBean(name="alexaCertify")
+	private AlexaCertify alexaCertify;
 
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	protected Component feedbackPanel;
@@ -544,6 +548,8 @@ public class BootstrapPage extends ExtensiblePage {
 		};
 		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel)
 				.setEscapeModelStrings(false));
+		
+		add(new AlexaCertifyScript("alexaCertifyScript", new Model<>(alexaCertify)));
 	}
 
 	@Override
