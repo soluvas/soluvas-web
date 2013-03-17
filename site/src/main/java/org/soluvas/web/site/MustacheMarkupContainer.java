@@ -3,8 +3,6 @@ package org.soluvas.web.site;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import javax.annotation.Nullable;
-
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -15,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -28,13 +25,6 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 
 	private static final Logger log = LoggerFactory.getLogger(MustacheMarkupContainer.class);
 	
-	public static class Nl2Br implements Function<String, String> {
-		@Override @Nullable
-		public String apply(@Nullable String input) {
-			return input != null ? input.replace("\n", "<br>\n") : null;
-		}
-	}
-	
 	public MustacheMarkupContainer(String id, IModel<?> model) {
 		super(id, model);
 	}
@@ -42,8 +32,8 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 	@Override
 	public void onComponentTagBody(MarkupStream markupStream,
 			ComponentTag openTag) {
+		log.debug("Compiling Mustache for {}", getPageRelativePath());
 		final String template = getMarkup().toString(true);
-		log.debug("Compiling Mustache for {}: {}", getPageRelativePath(), template);
 		final MustacheFactory mf = new DefaultMustacheFactory();
 		final Mustache mainMustache = mf.compile(new StringReader(template), "main");
 		

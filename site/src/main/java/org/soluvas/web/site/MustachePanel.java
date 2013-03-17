@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Renders a Mustache template, template is contained within the panel HTML markup.
@@ -37,7 +38,8 @@ public class MustachePanel extends Panel {
 		final Mustache mainMustache = mf.compile(new StringReader(template), "main");
 		
 		final StringWriter writer = new StringWriter();
-		mainMustache.execute(writer, getDefaultModelObject());
+		mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
+				ImmutableMap.of("nl2br", new Nl2Br()) });
 		final String body = writer.toString();
 		replaceComponentTagBody(markupStream, openTag, body);
 	}
