@@ -12,17 +12,17 @@ import org.slf4j.LoggerFactory;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
 
 /**
  * Renders a Mustache template, template is contained within the panel HTML markup.
- * The template is cached on first render.
+ * Cannot cache due to Wicket serialization mechanism.
  * @author ceefour
  */
 @SuppressWarnings("serial")
 public class MustachePanel extends Panel {
 
 	private static final Logger log = LoggerFactory.getLogger(MustachePanel.class);
-	private Mustache mainMustache;
 	
 	public MustachePanel(String id, IModel<?> model) {
 		super(id, model);
@@ -31,13 +31,10 @@ public class MustachePanel extends Panel {
 	@Override
 	public void onComponentTagBody(MarkupStream markupStream,
 			ComponentTag openTag) {
-		// Compile the template only if not already compiled
-		if (mainMustache == null) {
-			log.debug("Compiling Mustache for {}", getPageRelativePath());
-			String template = markupStream.get().toString();
-			DefaultMustacheFactory mf = new DefaultMustacheFactory();
-			mainMustache = mf.compile(new StringReader(template), "main");
-		}
+		log.debug("Compiling Mustache for {}", getPageRelativePath());
+		final String template = getMarkup().toString(true);
+		final MustacheFactory mf = new DefaultMustacheFactory();
+		final Mustache mainMustache = mf.compile(new StringReader(template), "main");
 		
 		final StringWriter writer = new StringWriter();
 		mainMustache.execute(writer, getDefaultModelObject());
