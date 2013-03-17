@@ -9,17 +9,10 @@
         http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0">
 
 	<service auto-export="interfaces">
-		<bean class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/static/js/org.soluvas.web.stomp"/>
-			<property name="path" value="/js"/>
-		</bean>
-	</service>
-
-	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="sockjs"/>
-			<argument value="org.soluvas.web.stomp/sockjs-0.3.2"/>
-			<argument value="org.soluvas.web.stomp/sockjs-0.3.2.min"/>
+			<argument value="org.soluvas.web.bootstrap/sockjs-0.3.2"/>
+			<argument value="org.soluvas.web.bootstrap/sockjs-0.3.2.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -33,7 +26,7 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="stomp"/>
-			<argument value="org.soluvas.web.stomp/stomp"/>
+			<argument value="org.soluvas.web.bootstrap/stomp"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
@@ -44,7 +37,7 @@
 		</bean>
 	</service>
 
-	<reference id="menuRepo" interface="org.soluvas.web.nav.MenuRepository" availability="optional"/>
+	<!-- reference id="menuRepo" interface="org.soluvas.web.nav.MenuRepository" availability="optional"/>
 	<service auto-export="interfaces">
 		<service-properties>
 			<entry key="region" value="footer"/>
@@ -53,6 +46,6 @@
 			<argument ref="menuRepo"/>
 			<argument value="0"/>
 		</bean>
-	</service>
+	</service-->
 
 </blueprint>

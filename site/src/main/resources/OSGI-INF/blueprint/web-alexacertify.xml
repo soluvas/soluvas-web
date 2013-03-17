@@ -5,16 +5,6 @@
     	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
         http://karaf.apache.org/xmlns/shell/v1.1.0 http://karaf.apache.org/xmlns/shell/v1.1.0">
 
-	<cm:property-placeholder persistent-id="org.soluvas" update-strategy="none">
-		<cm:default-properties>
-			<cm:property name="alexaCertifyEnabled"			value="false"/>
-			<cm:property name="alexaCertifyAccount"			value=""/>
-			<cm:property name="alexaCertifyDomain"			value=""/>
-			<cm:property name="alexaCertifyJsCdn"			value=""/>
-			<cm:property name="alexaCertifyImageCdn"		value=""/>
-		</cm:default-properties>
-	</cm:property-placeholder>
-
 	<bean id="alexaCertify" class="org.soluvas.web.site.alexa.AlexaCertify">
 		<argument value="${alexaCertifyEnabled}"/>
 		<argument value="${alexaCertifyAccount}"/>

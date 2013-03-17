@@ -21,6 +21,21 @@
             <cm:property name="logoText"			value="FashionWow"/>
             <cm:property name="logoAlt"				value="Cute and trendy clothing, dresses, and skirts"/>
             <cm:property name="footerHtml"			value="Copyright © 2012 Soluvas"/>
+            
+            <!-- Olark -->
+			<cm:property name="olarkSiteId"					value="" />
+			<cm:property name="olarkEnabled"				value="false" />
+			
+			<!-- Google Analytics -->
+			<cm:property name="googleanalyticsTrackingId"	value="" />
+			<cm:property name="googleanalyticsEnabled"		value="false" />
+			
+			<!-- Alexa Certify -->
+			<cm:property name="alexaCertifyEnabled"			value="false"/>
+			<cm:property name="alexaCertifyAccount"			value=""/>
+			<cm:property name="alexaCertifyDomain"			value=""/>
+			<cm:property name="alexaCertifyJsCdn"			value=""/>
+			<cm:property name="alexaCertifyImageCdn"		value=""/>
         </cm:default-properties>
     </cm:property-placeholder>
     

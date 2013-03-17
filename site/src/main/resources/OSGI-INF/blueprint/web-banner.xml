@@ -5,11 +5,6 @@
     	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
         http://karaf.apache.org/xmlns/shell/v1.1.0 http://karaf.apache.org/xmlns/shell/v1.1.0">
 
-	<cm:property-placeholder persistent-id="org.soluvas" update-strategy="none">
-		<cm:default-properties>
-		</cm:default-properties>
-	</cm:property-placeholder>
-
 	<bean class="org.soluvas.commons.EPackageRegistration" init-method="init" destroy-method="destroy">
 		<argument ref="blueprintBundleContext"/>
 		<argument value="org.soluvas.web.banner.BannerPackage" />
