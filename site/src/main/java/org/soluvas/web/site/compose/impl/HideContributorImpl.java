@@ -363,7 +363,7 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public LiveContributor createLive(Bundle bundle) {
+	public LiveContributor createLive() {
 		final LiveHideContributor liveContributor = ComposeFactory.eINSTANCE.createLiveHideContributor();
 		liveContributor.setPageClassName(getPageClassName());
 		liveContributor.setTargetPath(getTargetPath());

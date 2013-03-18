@@ -23,7 +23,6 @@ import org.soluvas.web.site.compose.LiveTarget;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.soluvas.web.site.compose.impl.LiveTargetImpl#getPageClass <em>Page Class</em>}</li>
- *   <li>{@link org.soluvas.web.site.compose.impl.LiveTargetImpl#getLiveBundle <em>Live Bundle</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,25 +38,6 @@ public class LiveTargetImpl extends TargetImpl implements LiveTarget {
 	 * @ordered
 	 */
 	protected Class<Page> pageClass;
-
-	/**
-	 * The default value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLiveBundle()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Bundle LIVE_BUNDLE_EDEFAULT = null;
-	/**
-	 * The cached value of the '{@link #getLiveBundle() <em>Live Bundle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLiveBundle()
-	 * @generated
-	 * @ordered
-	 */
-	protected Bundle liveBundle = LIVE_BUNDLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -104,34 +84,11 @@ public class LiveTargetImpl extends TargetImpl implements LiveTarget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Bundle getLiveBundle() {
-		return liveBundle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLiveBundle(Bundle newLiveBundle) {
-		Bundle oldLiveBundle = liveBundle;
-		liveBundle = newLiveBundle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComposePackage.LIVE_TARGET__LIVE_BUNDLE, oldLiveBundle, liveBundle));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ComposePackage.LIVE_TARGET__PAGE_CLASS:
 				return getPageClass();
-			case ComposePackage.LIVE_TARGET__LIVE_BUNDLE:
-				return getLiveBundle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -148,9 +105,6 @@ public class LiveTargetImpl extends TargetImpl implements LiveTarget {
 			case ComposePackage.LIVE_TARGET__PAGE_CLASS:
 				setPageClass((Class<Page>)newValue);
 				return;
-			case ComposePackage.LIVE_TARGET__LIVE_BUNDLE:
-				setLiveBundle((Bundle)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -166,9 +120,6 @@ public class LiveTargetImpl extends TargetImpl implements LiveTarget {
 			case ComposePackage.LIVE_TARGET__PAGE_CLASS:
 				setPageClass((Class<Page>)null);
 				return;
-			case ComposePackage.LIVE_TARGET__LIVE_BUNDLE:
-				setLiveBundle(LIVE_BUNDLE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -183,8 +134,6 @@ public class LiveTargetImpl extends TargetImpl implements LiveTarget {
 		switch (featureID) {
 			case ComposePackage.LIVE_TARGET__PAGE_CLASS:
 				return pageClass != null;
-			case ComposePackage.LIVE_TARGET__LIVE_BUNDLE:
-				return LIVE_BUNDLE_EDEFAULT == null ? liveBundle != null : !LIVE_BUNDLE_EDEFAULT.equals(liveBundle);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -201,8 +150,6 @@ public class LiveTargetImpl extends TargetImpl implements LiveTarget {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (pageClass: ");
 		result.append(pageClass);
-		result.append(", liveBundle: ");
-		result.append(liveBundle);
 		result.append(')');
 		return result.toString();
 	}

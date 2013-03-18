@@ -636,8 +636,7 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public LiveContributor createLive(Bundle bundle) {
+	public LiveContributor createLive() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

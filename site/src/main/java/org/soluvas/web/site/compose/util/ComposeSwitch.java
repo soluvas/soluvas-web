@@ -226,6 +226,8 @@ public class ComposeSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSlaveCollection(composeCatalog);
 				if (result == null) result = casePlaceholderCollection(composeCatalog);
 				if (result == null) result = caseContributorCollection(composeCatalog);
+				if (result == null) result = caseResourceAware(composeCatalog);
+				if (result == null) result = caseBundleAware(composeCatalog);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

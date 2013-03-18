@@ -79,9 +79,9 @@ public interface Contributor extends BundleAware, ResourceAware, Positionable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model required="true" bundleDataType="org.soluvas.web.site.compose.Bundle" bundleRequired="true"
+	 * @model required="true"
 	 * @generated
 	 */
-	LiveContributor createLive(Bundle bundle);
+	LiveContributor createLive();
 
 } // Contributor

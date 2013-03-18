@@ -497,7 +497,7 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public LiveContributor createLive(Bundle bundle) {
+	public LiveContributor createLive() {
 		final LiveChildContributor liveContributor = ComposeFactory.eINSTANCE.createLiveChildContributor();
 		liveContributor.setPageClassName(getPageClassName());
 		liveContributor.setClassName(getClassName());

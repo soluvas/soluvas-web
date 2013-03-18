@@ -542,8 +542,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public LiveContributor createLive(Bundle bundle) {
+	public LiveContributor createLive() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

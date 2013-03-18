@@ -18,7 +18,7 @@ import org.soluvas.web.site.compose.Slave;
 @Command(scope="compose", name="placels", description="List registered Slaves.")
 public class ComposeSlaveLsCommand extends OsgiCommandSupport {
 	
-	private final transient CrudRepository<LiveSlave, Integer> slaveRepo;
+	private final CrudRepository<LiveSlave, Integer> slaveRepo;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ComposeSlaveLsCommand(CrudRepository slaveRepo) {
@@ -36,11 +36,11 @@ public class ComposeSlaveLsCommand extends OsgiCommandSupport {
 		int i = 0;
 		final Collection<LiveSlave> origSlaves = slaveRepo.findAll();
 		final Collection<LiveSlave> sortedSlaves = origSlaves;
-		for (LiveSlave slave : sortedSlaves) {
-			Bundle bundle = slave.getBundle();
+		for (final LiveSlave slave : sortedSlaves) {
+			final Bundle bundle = slave.getBundle();
 			System.out.println(ansi().render("@|bold,black %3d||@%-40s@|bold,black ||@%-40s@|bold,black ||@%-40s@|bold,black ||@%-30s@|bold,yellow %4d|@",
 				++i, slave.getPageClassName(), slave.getPath(), slave.getModelClassName(),
-				bundle.getSymbolicName(), bundle.getBundleId() ));
+				bundle != null ? bundle.getSymbolicName() : null, bundle != null ? bundle.getBundleId() : null ));
 		}
 		System.out.println(ansi().render("@|bold %d|@ slaves", i));
 		return null;

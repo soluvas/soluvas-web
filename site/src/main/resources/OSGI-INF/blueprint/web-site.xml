@@ -87,8 +87,8 @@
 		</bean>
 	</service>
 
-	<!-- Site is DEPRECATED -->
-	<service auto-export="interfaces" ranking="-100">
+	<!-- Site is DEPRECATED, currently served by bippo.app/app.xml -->
+	<!-- service auto-export="interfaces" ranking="-100">
 		<service-properties>
 			<entry key="clientId" value="*"/>
 			<entry key="tenantId" value="*"/>
@@ -104,7 +104,7 @@
 			<property name="footerHtml"			value="${footerHtml}"/>		
 			<property name="faviconUri"			value="/static/org.soluvas.web.site/images/soluvas-favicon.ico"/>
 		</bean>
-	</service>
+	</service-->
 	
 	<reference-list id="jsModuleRefs" interface="org.soluvas.web.site.JavaScriptModule"
 		availability="optional" member-type="service-reference" />

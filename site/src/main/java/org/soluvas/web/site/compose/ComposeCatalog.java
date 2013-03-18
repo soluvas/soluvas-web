@@ -2,6 +2,9 @@
  */
 package org.soluvas.web.site.compose;
 
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.ResourceAware;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -13,5 +16,5 @@ package org.soluvas.web.site.compose;
  * @model
  * @generated
  */
-public interface ComposeCatalog extends SlaveCollection, PlaceholderCollection, ContributorCollection {
+public interface ComposeCatalog extends SlaveCollection, PlaceholderCollection, ContributorCollection, ResourceAware, BundleAware {
 } // ComposeCatalog

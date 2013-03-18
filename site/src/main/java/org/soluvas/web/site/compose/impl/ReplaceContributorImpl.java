@@ -496,7 +496,7 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public LiveContributor createLive(Bundle bundle) {
+	public LiveContributor createLive() {
 		final LiveReplaceContributor liveContributor = ComposeFactory.eINSTANCE.createLiveReplaceContributor();
 		liveContributor.setPageClassName(getPageClassName());
 		liveContributor.setClassName(getClassName());

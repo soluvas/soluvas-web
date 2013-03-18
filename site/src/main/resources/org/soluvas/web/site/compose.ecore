@@ -9,9 +9,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Contributor" abstract="true" interface="true"
       eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//Positionable">
-    <eOperations name="createLive" lowerBound="1" eType="#//LiveContributor">
-      <eParameters name="bundle" lowerBound="1" eType="#//Bundle"/>
-    </eOperations>
+    <eOperations name="createLive" lowerBound="1" eType="#//LiveContributor"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageClassName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -30,8 +28,6 @@
         <eTypeArguments eClassifier="#//Page"/>
       </eGenericType>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="liveBundle" eType="#//Bundle"
-        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LiveContributor" abstract="true" interface="true"
       eSuperTypes="#//Contributor">
@@ -92,7 +88,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="LiveHideContributor" eSuperTypes="#//LiveContributor #//HideContributor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//LiveTarget"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComposeCatalog" eSuperTypes="#//SlaveCollection #//PlaceholderCollection #//ContributorCollection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComposeCatalog" eSuperTypes="#//SlaveCollection #//PlaceholderCollection #//ContributorCollection ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ContributorState">
     <eLiterals name="unresolved">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

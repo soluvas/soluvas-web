@@ -368,15 +368,6 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLiveTarget_LiveBundle() {
-		return (EAttribute)liveTargetEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public EClass getLiveContributor() {
 		return liveContributorEClass;
@@ -799,7 +790,6 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 
 		liveTargetEClass = createEClass(LIVE_TARGET);
 		createEAttribute(liveTargetEClass, LIVE_TARGET__PAGE_CLASS);
-		createEAttribute(liveTargetEClass, LIVE_TARGET__LIVE_BUNDLE);
 
 		liveContributorEClass = createEClass(LIVE_CONTRIBUTOR);
 		createEAttribute(liveContributorEClass, LIVE_CONTRIBUTOR__STATE);
@@ -917,6 +907,8 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		composeCatalogEClass.getESuperTypes().add(this.getSlaveCollection());
 		composeCatalogEClass.getESuperTypes().add(this.getPlaceholderCollection());
 		composeCatalogEClass.getESuperTypes().add(this.getContributorCollection());
+		composeCatalogEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
+		composeCatalogEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
 		slaveEClass.getESuperTypes().add(this.getTarget());
 		targetEClass.getESuperTypes().add(theCommonsPackage.getResourceAware());
 		targetEClass.getESuperTypes().add(theCommonsPackage.getBundleAware());
@@ -932,21 +924,19 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		initEAttribute(getContributor_PageClassName(), ecorePackage.getEString(), "pageClassName", null, 1, 1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContributor_TargetPath(), ecorePackage.getEString(), "targetPath", null, 1, 1, Contributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = addEOperation(contributorEClass, this.getLiveContributor(), "createLive", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getBundle(), "bundle", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEOperation(contributorEClass, this.getLiveContributor(), "createLive", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(liveTargetEClass, LiveTarget.class, "LiveTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		EGenericType g1 = createEGenericType(ecorePackage.getEJavaClass());
 		EGenericType g2 = createEGenericType(this.getPage());
 		g1.getETypeArguments().add(g2);
 		initEAttribute(getLiveTarget_PageClass(), g1, "pageClass", null, 1, 1, LiveTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLiveTarget_LiveBundle(), this.getBundle(), "liveBundle", null, 0, 1, LiveTarget.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(liveContributorEClass, LiveContributor.class, "LiveContributor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLiveContributor_State(), this.getContributorState(), "state", null, 1, 1, LiveContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLiveContributor_LiveBundle(), this.getBundle(), "liveBundle", null, 1, 1, LiveContributor.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		op = addEOperation(liveContributorEClass, null, "resolve", 0, 1, IS_UNIQUE, IS_ORDERED);
+		EOperation op = addEOperation(liveContributorEClass, null, "resolve", 0, 1, IS_UNIQUE, IS_ORDERED);
 		g1 = createEGenericType(this.getCollection());
 		g2 = createEGenericType(this.getLivePlaceholder());
 		g1.getETypeArguments().add(g2);

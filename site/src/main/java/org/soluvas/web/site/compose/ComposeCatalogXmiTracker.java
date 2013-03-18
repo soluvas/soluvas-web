@@ -70,10 +70,13 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			for (final Placeholder placeholder : ImmutableList.copyOf(composeCatalog.getPlaceholders())) {
 				log.debug("Adding Placeholder {}/{} from {}", placeholder.getPageClassName(), placeholder.getPath(), url);
 				final LivePlaceholder livePlaceholder = ComposeFactory.eINSTANCE.createLivePlaceholder();
+				livePlaceholder.setBundle(placeholder.getBundle());
+				livePlaceholder.setResourceName(placeholder.getResourceName());
+				livePlaceholder.setResourceType(placeholder.getResourceType());
+				livePlaceholder.setResourceUri(placeholder.getResourceUri());
 				livePlaceholder.setPageClassName(placeholder.getPageClassName());
 				livePlaceholder.setPath(placeholder.getPath());
 				livePlaceholder.setModelClassName(placeholder.getModelClassName());
-				livePlaceholder.setLiveBundle(bundle);
 				final Class<Page> pageClass;
 				try {
 					pageClass = (Class<Page>) bundle.loadClass(placeholder.getPageClassName());
@@ -89,10 +92,13 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			for (final Slave slave : ImmutableList.copyOf(composeCatalog.getSlaves())) {
 				log.debug("Adding Slave {}/{} from {}", slave.getPageClassName(), slave.getPath(), url);
 				final LiveSlave liveSlave = ComposeFactory.eINSTANCE.createLiveSlave();
+				liveSlave.setBundle(slave.getBundle());
+				liveSlave.setResourceName(slave.getResourceName());
+				liveSlave.setResourceType(slave.getResourceType());
+				liveSlave.setResourceUri(slave.getResourceUri());
 				liveSlave.setPageClassName(slave.getPageClassName());
 				liveSlave.setPath(slave.getPath());
 				liveSlave.setModelClassName(slave.getModelClassName());
-				liveSlave.setLiveBundle(bundle);
 				final Class<Page> pageClass;
 				try {
 					pageClass = (Class<Page>) bundle.loadClass(slave.getPageClassName());
@@ -107,8 +113,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			
 			for (final Contributor contributor : ImmutableList.copyOf(composeCatalog.getContributors())) {
 				log.debug("Adding Contributor for {}/{} from {}", contributor.getPageClassName(), contributor.getTargetPath(), url);
-				final LiveContributor liveContributor = contributor.createLive(bundle);
-				liveContributor.setLiveBundle(bundle);
+				final LiveContributor liveContributor = contributor.createLive();
 				final LiveContributor added = contributorRepo.add(liveContributor);
 				eobjects.add(added);
 			}

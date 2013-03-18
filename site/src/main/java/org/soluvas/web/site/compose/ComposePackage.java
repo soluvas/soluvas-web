@@ -387,22 +387,13 @@ public interface ComposePackage extends EPackage {
 	int LIVE_TARGET__PAGE_CLASS = TARGET_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIVE_TARGET__LIVE_BUNDLE = TARGET_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Live Target</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_TARGET_FEATURE_COUNT = TARGET_FEATURE_COUNT + 2;
+	int LIVE_TARGET_FEATURE_COUNT = TARGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.LiveContributor <em>Live Contributor</em>}' class.
@@ -1487,13 +1478,49 @@ public interface ComposePackage extends EPackage {
 	int COMPOSE_CATALOG__CONTRIBUTORS = SLAVE_COLLECTION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSE_CATALOG__RESOURCE_TYPE = SLAVE_COLLECTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSE_CATALOG__RESOURCE_URI = SLAVE_COLLECTION_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSE_CATALOG__RESOURCE_NAME = SLAVE_COLLECTION_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSE_CATALOG__BUNDLE = SLAVE_COLLECTION_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Catalog</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSE_CATALOG_FEATURE_COUNT = SLAVE_COLLECTION_FEATURE_COUNT + 2;
+	int COMPOSE_CATALOG_FEATURE_COUNT = SLAVE_COLLECTION_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.compose.impl.SlaveImpl <em>Slave</em>}' class.
@@ -1688,15 +1715,6 @@ public interface ComposePackage extends EPackage {
 	int LIVE_PLACEHOLDER__PAGE_CLASS = LIVE_TARGET__PAGE_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIVE_PLACEHOLDER__LIVE_BUNDLE = LIVE_TARGET__LIVE_BUNDLE;
-
-	/**
 	 * The number of structural features of the '<em>Live Placeholder</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1786,15 +1804,6 @@ public interface ComposePackage extends EPackage {
 	 * @ordered
 	 */
 	int LIVE_SLAVE__PAGE_CLASS = LIVE_TARGET__PAGE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Live Bundle</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIVE_SLAVE__LIVE_BUNDLE = LIVE_TARGET__LIVE_BUNDLE;
 
 	/**
 	 * The number of structural features of the '<em>Live Slave</em>' class.
@@ -1984,17 +1993,6 @@ public interface ComposePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLiveTarget_PageClass();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.compose.LiveTarget#getLiveBundle <em>Live Bundle</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Live Bundle</em>'.
-	 * @see org.soluvas.web.site.compose.LiveTarget#getLiveBundle()
-	 * @see #getLiveTarget()
-	 * @generated
-	 */
-	EAttribute getLiveTarget_LiveBundle();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.compose.LiveContributor <em>Live Contributor</em>}'.
@@ -2480,14 +2478,6 @@ public interface ComposePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LIVE_TARGET__PAGE_CLASS = eINSTANCE.getLiveTarget_PageClass();
-
-		/**
-		 * The meta object literal for the '<em><b>Live Bundle</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute LIVE_TARGET__LIVE_BUNDLE = eINSTANCE.getLiveTarget_LiveBundle();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.compose.LiveContributor <em>Live Contributor</em>}' class.
