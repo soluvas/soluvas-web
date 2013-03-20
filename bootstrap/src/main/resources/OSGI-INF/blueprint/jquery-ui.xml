@@ -144,4 +144,22 @@
 		</bean>
 	</service>
 
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
+			<argument value="jquery.masonry"/>
+			<argument value="org.soluvas.web.bootstrap/jquery.masonry-2.1.08.min"/>
+			<argument value="org.soluvas.web.bootstrap/jquery.masonry-2.1.08.min"/>
+		</bean>
+	</service>
+	<service auto-export="interfaces">
+		<bean class="org.soluvas.web.site.JavaScriptShimImpl">
+			<argument value="jquery.masonry"/>
+			<argument>
+				<set>
+					<value>jquery</value>
+				</set>
+			</argument>
+		</bean>
+	</service>
+
 </blueprint>
