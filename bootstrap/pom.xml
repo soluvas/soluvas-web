@@ -86,6 +86,7 @@
 							org.apache.wicket,
 							org.soluvas.web.site,
 							org.slf4j,
+							com.google.common.util.concurrent,
 							javax.servlet,javax.servlet.http,
 							org.ops4j.pax.wicket.util.proxy,
 							net.sf.cglib.proxy;version="[2,3)",

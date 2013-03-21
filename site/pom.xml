@@ -152,6 +152,7 @@
 							org.apache.wicket.markup.repeater,
 							org.apache.wicket.model,
 							org.apache.wicket.util.string,
+							com.google.common.util.concurrent,
 							javax.servlet, javax.servlet.http,
 							org.ops4j.pax.wicket.util.proxy,
 							net.sf.cglib.proxy;version="[2,3)",
