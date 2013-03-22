@@ -72,6 +72,28 @@ var subscriptions = [];
 			<div class="row">
 				<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
 					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+					
+				<div class="facebook">
+					<div id="fb-root"></div>
+							<script>(function(d, s, id) {
+							  var js, fjs = d.getElementsByTagName(s)[0];
+							  if (d.getElementById(id)) return;
+							  js = d.createElement(s); js.id = id;
+							  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=252601253204";
+							  fjs.parentNode.insertBefore(js, fjs);
+							}(document, 'script', 'facebook-jssdk'));</script>
+						
+						<div class="fb-like-box" data-href="https://www.facebook.com/tuneeca" data-width="271" data-show-faces="true" data-stream="true" data-border-color="#F4F4F4" data-header="true"></div>
+				
+				
+				</div>
+				
+				<div class="twitter">
+					<a class="twitter-timeline"  href="https://twitter.com/tuneeca"  data-widget-id="312515663077974018">Tweets by @tuneeca</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					
+				</div>
+					
 				</div><!--/span-->
 				
 				<div class="span9" wicket:id="contentColumn">
@@ -86,25 +108,6 @@ var subscriptions = [];
 							</div>
 						</ol>
 					</wicket:child>
-				</div>
-				<div class="span5">
-				<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=252601253204";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<div class="fb-like-box" data-href="https://www.facebook.com/tuneeca" data-width="441" data-show-faces="true" data-stream="true" data-border-color="#F4F4F4" data-header="true"></div>
-				
-				
-				</div>
-				<div class="span4">
-				<a class="twitter-timeline"  href="https://twitter.com/tuneeca"  data-widget-id="312515663077974018">Tweets by @tuneeca</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-				
 				</div>
 			</div><!--/row-->
 			<hr>
