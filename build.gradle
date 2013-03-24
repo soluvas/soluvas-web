@@ -1,0 +1,150 @@
+//apply plugin: 'java'
+//apply plugin: 'osgi'
+
+apply from: '../soluvas-framework/libraries.gradle'
+
+allprojects {
+	
+	apply plugin: 'maven'
+	
+	repositories {
+		mavenLocal()
+		mavenRepo name: 'bippo-gk-nexus', url: "http://192.168.44.17:8080/nexus/content/groups/public/"
+		/* Add below to nexus:
+		<repository> <id>com.springsource.repository.bundles.release</id> <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name> <url>http://repository.springsource.com/maven/bundles/release</url> </repository> <repository> <id>com.springsource.repository.bundles.external</id> <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name> <url>http://repository.springsource.com/maven/bundles/external</url> </repository>
+		*/
+	}
+	
+	group = 'org.soluvas.web'
+	version = '2.0.0-SNAPSHOT'
+ 
+	uploadArchives {
+		repositories.mavenDeployer {
+			repository(url: 'http://192.168.44.17:8080/nexus/content/repositories/snapshots') {
+				authentication userName: 'admin', password: 'admin123'
+			}
+			// "pom.project" has no effect, but "pom { project" omits dependencies :(
+			pom.project {
+				scm {
+					connection 'scm:git:git@github.com:soluvas/soluvas-framework.git'
+					url 'http://github.com/soluvas/soluvas-framework'
+				}
+				organization {
+					name 'Soluvas'
+					url 'http://www.soluvas.com/'
+				}
+				developers {
+					developer {
+						id 'ceefour'
+						name 'Hendy Irawan'
+						url 'http://www.hendyirawan.com/'
+						email 'hendy@soluvas.com'
+						organization  { name 'Soluvas' }
+						organizationUrl 'http://www.soluvas.com/'
+					}
+					developer {
+						id 'rudi'
+						name 'Rudi Wijaya'
+						email 'rudi.mail90@gmail.com'
+						organization 'Bippo'
+						organizationUrl 'http://www.bippo.co.id/'
+					}
+					developer {
+						id 'atang'
+						name 'Atang Sutisna'
+						email 'atang.sutisna87@gmail.com'
+						organization 'Bippo'
+						organizationUrl 'http://www.bippo.co.id/'
+					}
+				}
+				licenses {
+					license {
+						name 'Apache License 2.0'
+						url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+						distribution 'repo'
+					}
+				}
+			}
+		}
+	}
+}
+
+ext {
+	wicketVersion = '6.5.0'
+	libraries.wicket = "org.apache.wicket:wicket-extensions:$wicketVersion"
+	libraries.wicket_datetime = "org.apache.wicket:wicket-datetime:$wicketVersion"
+	libraries.pax_wicket = "org.ops4j.pax.wicket:org.ops4j.pax.wicket.service:2.1.0"
+	libraries.pax_wicket_test = "org.ops4j.pax.wicket:org.ops4j.pax.wicket.service:2.1.0"
+}
+
+archivesBaseName = "${project.group}.build"
+
+subprojects {
+	if (!project.path.startsWith(':soluvas-framework')) {	
+		apply plugin: 'java'
+		apply plugin: 'osgi'
+		apply plugin: 'maven'
+
+		archivesBaseName = "${project.group}.${project.name}"
+
+		targetCompatibility = '1.7'
+		sourceCompatibility = '1.7'
+
+		configurations {
+			all*.exclude module: 'ops4j-base'
+			all*.exclude group: 'org.springframework.osgi'
+		}
+
+		dependencies {
+			compile project(':soluvas-framework:commons')
+			compile libraries.guava
+			compile libraries.commons_io, libraries.commons_codec,
+				libraries.commons_lang3, libraries.commons_beanutils
+			compile libraries.joda_money, libraries.joda_time, libraries.jscience
+			compile libraries.cdi, libraries.validation
+			compile libraries.emf
+			compile libraries.wicket, libraries.wicket_datetime
+			compile(libraries.pax_wicket)
+			testCompile(libraries.pax_wicket_test)
+			compile libraries.slf4j_api
+			runtime libraries.logback, libraries.slf4j_jcl_over_slf4j
+			testCompile libraries.hamcrest, libraries.junit
+			compile libraries.findbugs
+		}
+
+		test {
+			onlyIf { Boolean.getBoolean('run.tests') }
+		}
+	}
+}
+
+/*
+dependencies {
+	compile 'org.atmosphere:atmosphere-runtime:1.0.12'
+	compile 'org.apache.wicket:wicket-spring:6.6.0'
+	compile 'org.apache.wicket:wicket-atmosphere:0.8'
+	compile 'org.springframework:spring-web:3.2.2.RELEASE'
+	compile 'commons-io:commons-io:2.4'
+	compile 'commons-codec:commons-codec:1.7'
+	compile 'org.apache.shiro:shiro-core:1.2.1'
+	providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+	compile 'org.eclipse.emf:org.eclipse.emf.ecore:2.8.1.v20120911-0500'
+	compile 'org.eclipse.emf:org.eclipse.emf.common:2.8.0.v20120911-0500'
+	compile 'org.joda:joda-money:0.8'
+	compile 'joda-time:joda-time:2.1'
+	compile 'org.mongodb:mongo-java-driver:2.7.3'
+	compile 'com.google.code.morphia:morphia:0.99.1-SNAPSHOT'
+	compile 'com.google.code.morphia:morphia-logging-slf4j:0.99'
+	providedCompile 'javax.enterprise:cdi-api:1.0-SP4'
+	runtime 'org.slf4j:jcl-over-slf4j:1.7.2'
+	runtime 'ch.qos.logback:logback-classic:1.0.6'
+	compile 'org.slf4j:slf4j-api:1.7.2'
+	testCompile 'org.hamcrest:hamcrest-all:1.3'
+	testCompile 'junit:junit:4.11'
+	testCompile 'com.google.code.findbugs:jsr305:2.0.1'
+}
+*/
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.4'
+}

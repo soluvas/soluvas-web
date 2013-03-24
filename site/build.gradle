@@ -1,0 +1,6 @@
+dependencies {
+	compile project(':soluvas-framework:data')
+    compile libraries.stringtemplate, libraries.mustache,
+		libraries.uritemplates
+	compile libraries.jsr311
+}

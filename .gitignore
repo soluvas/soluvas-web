@@ -1,7 +1,9 @@
 .classpath
 .project
 .settings
+.gradle
 target
+build
 .directory
 /backbone
 /jquery

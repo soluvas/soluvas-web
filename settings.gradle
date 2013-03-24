@@ -1,0 +1,4 @@
+includeFlat 'soluvas-framework'
+include 'soluvas-framework:commons', 'soluvas-framework:data'
+include 'site', 'bootstrap', 'login', 'nav'
+// include 'taxonomy'
