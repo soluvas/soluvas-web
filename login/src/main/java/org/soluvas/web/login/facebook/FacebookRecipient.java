@@ -109,7 +109,7 @@ public class FacebookRecipient extends WebPage {
 				person = personLdapRepo.findOneByAttribute("mail", user.getEmail());
 			}
 			
-			SocialPerson modifiedPerson = null;
+			final SocialPerson modifiedPerson;
 			if (person != null) {
 				// Direct Login
 				log.debug("person is exist, update the Access Token");

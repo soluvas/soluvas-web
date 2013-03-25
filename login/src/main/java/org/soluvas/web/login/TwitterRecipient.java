@@ -102,7 +102,7 @@ public class TwitterRecipient extends WebPage {
 				person = personLdapRepo.findOneByAttribute("twitterScreenName", user.getScreenName());
 			}
 			
-			SocialPerson modifiedPerson = null;
+			final SocialPerson modifiedPerson;
 			
 			if (person != null) {
 				// Direct Login
@@ -128,21 +128,21 @@ public class TwitterRecipient extends WebPage {
 				
 				modifiedPerson = personLdapRepo.modify(person);
 			} else {
-				Preconditions.checkNotNull(user.getName(), "Twitter User's Name cannot be empty");
-				final String personId = SlugUtils.generateValidId(user.getName(), new Predicate<String>() {
+				final String personFullName = Preconditions.checkNotNull(user.getName(), "Twitter User's Name cannot be empty");
+				final String personId = SlugUtils.generateValidId(personFullName, new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
 						return !personLdapRepo.exists(input);
 					}
 				});
 				
-				final String personSlug = SlugUtils.generateValidScreenName(user.getName(), new Predicate<String>() {
+				final String personSlug = SlugUtils.generateValidScreenName(personFullName, new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
 						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
 					}
 				});
-				final PersonName personName = NameUtils.splitName(user.getName());
+				final PersonName personName = NameUtils.splitName(personFullName);
 				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
 //				log.debug("User's email is {}", user.getEmail());
 				newPerson.setTwitterId(Long.valueOf(user.getId()));
@@ -158,7 +158,7 @@ public class TwitterRecipient extends WebPage {
 					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
 				}
 				
-				modifiedPerson = personLdapRepo.add(modifiedPerson);
+				modifiedPerson = personLdapRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
 			}
 			
