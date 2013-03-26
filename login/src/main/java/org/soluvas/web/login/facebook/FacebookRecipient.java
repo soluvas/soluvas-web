@@ -209,7 +209,7 @@ public class FacebookRecipient extends WebPage {
 								.getStatusLine().getStatusCode(), responseAccessTokenReq
 								.getStatusLine().getReasonPhrase()));
 			final Scanner scanner = new Scanner(responseAccessTokenReq.getEntity().getContent());
-			final List<NameValuePair> data = new ArrayList<NameValuePair>();
+			final List<NameValuePair> data = new ArrayList<>();
 			URLEncodedUtils.parse(data, scanner, "UTF-8");
 			
 			final String accessToken = data.get(0).getValue();
