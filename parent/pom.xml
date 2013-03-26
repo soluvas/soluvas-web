@@ -122,11 +122,11 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.apache.wicket</groupId> -->
-<!-- 				<artifactId>wicket-spring</artifactId> -->
-<!-- 				<version>${wicket.version}</version> -->
-<!-- 			</dependency> -->
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-spring</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
 			<dependency>
 				<!-- For some reason, something is dependencyManagement-ing wicket-extensions with 1.4.15 -->
 				<groupId>org.apache.wicket</groupId>
