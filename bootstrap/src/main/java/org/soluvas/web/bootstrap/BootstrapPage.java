@@ -30,8 +30,10 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.UrlResourceReference;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
+import org.joda.time.DateTime;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -160,36 +162,36 @@ public class BootstrapPage extends ExtensiblePage {
 	private static final Logger log = LoggerFactory
 			.getLogger(BootstrapPage.class);
 
-	@PaxWicketBean(name = "jacksonMapperFactory")
+	@PaxWicketBean(name = "jacksonMapperFactory") @SpringBean(name="jacksonMapperFactory")
 	private Supplier<ObjectMapper> jacksonMapperFactory;
 	/**
 	 * Should not use {@link Site} directly!
 	 */
 	// @PaxWicketBean(name="site") @Deprecated
 	// private Site site;
-	@PaxWicketBean(name = "cssLinks")
+	@PaxWicketBean(name = "cssLinks") @SpringBean(name="cssLinks")
 	private List<CssLink> cssLinks;
-	@PaxWicketBean(name = "headJavaScripts")
+	@PaxWicketBean(name = "headJavaScripts") @SpringBean(name="headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
-	@PaxWicketBean(name = "requireMgr")
+	@PaxWicketBean(name = "requireMgr") @SpringBean(name="requireMgr")
 	private RequireManager requireMgr;
 
-	@PaxWicketBean(name = "footerJavaScripts")
+	@PaxWicketBean(name = "footerJavaScripts") @SpringBean(name="footerJavaScripts")
 	private List<JavaScriptLink> footerJavaScripts;
-	@PaxWicketBean(name = "footerJavaScriptSources")
+	@PaxWicketBean(name = "footerJavaScriptSources") @SpringBean(name="footerJavaScriptSources")
 	private List<JavaScriptSource> footerJavaScriptSources;
 
 	protected final RepeatingView sidebarBlocks;
 
-	@PaxWicketBean(name = "pageMetaSupplierFactory")
+	@PaxWicketBean(name = "pageMetaSupplierFactory") @SpringBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@PaxWicketBean(name="webAddress")
+	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
 	private WebAddress webAddress;
-	@PaxWicketBean(name="appManifest")
+	@PaxWicketBean(name="appManifest") @SpringBean(name="appManifest")
 	private AppManifest appManifest;
-	@PaxWicketBean(name = "contributors")
+	@PaxWicketBean(name = "contributors") @SpringBean(name="contributorRepo")
 	private CrudRepository<LiveContributor, Integer> contributors;
-	@PaxWicketBean(name="alexaCertify")
+	@PaxWicketBean(name="alexaCertify") @SpringBean(name="alexaCertify")
 	private AlexaCertify alexaCertify;
 
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
@@ -349,128 +351,117 @@ public class BootstrapPage extends ExtensiblePage {
 				.add(new AttributeModifier("lang", new PropertyModel<String>(
 						pageMetaModel, "languageCode"))));
 
-		final BundleContext bundleContext = FrameworkUtil.getBundle(getClass())
-				.getBundleContext();
-		final ServiceReference<Site> siteRef = bundleContext
-				.getServiceReference(Site.class);
-		try {
-			final Site site = bundleContext.getService(siteRef);
+		// HEAD
+		// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+		// do NOT use AsyncModel here, because it depends on PageMeta model
+		// loading last
+		final IModel<String> titleModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				return Optional
+						.fromNullable(getTitle())
+						.or(Optional.fromNullable(pageMetaModel.getObject()
+								.getTitle())).orNull();
+			}
+		};
+		final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				return " | " + appManifest.getTitle();
+			}
+		};
+		add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
+		add(new Label("pageTitleSuffix", titleSuffixModel)
+				.setRenderBodyOnly(true));
+		final WebMarkupContainer faviconLink = new WebMarkupContainer(
+				"faviconLink");
+		faviconLink
+				.add(new AttributeModifier("href",
+						new PropertyModel<String>(pageMetaModel,
+								"icon.faviconUri")));
+		add(faviconLink);
+		add(new MetaTag("metaDescription", new PropertyModel<String>(
+				pageMetaModel, "description")),
+				new MetaTag("ogTitle", new PropertyModel<String>(
+						pageMetaModel, "openGraph.title")), new MetaTag(
+						"ogType", new PropertyModel<String>(pageMetaModel,
+								"openGraph.type")), new MetaTag("ogUrl",
+						new PropertyModel<String>(pageMetaModel,
+								"openGraph.url")), new MetaTag("ogImage",
+						new PropertyModel<String>(pageMetaModel,
+								"openGraph.image")));
 
-			// HEAD
-			// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-			// do NOT use AsyncModel here, because it depends on PageMeta model
-			// loading last
-			final IModel<String> titleModel = new LoadableDetachableModel<String>() {
-				@Override
-				protected String load() {
-					return Optional
-							.fromNullable(getTitle())
-							.or(Optional.fromNullable(pageMetaModel.getObject()
-									.getTitle())).orNull();
-				}
-			};
-			final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
-				@Override
-				protected String load() {
-					return " | " + appManifest.getTitle();
-				}
-			};
-			add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
-			add(new Label("pageTitleSuffix", titleSuffixModel)
-					.setRenderBodyOnly(true));
-			final WebMarkupContainer faviconLink = new WebMarkupContainer(
-					"faviconLink");
-			faviconLink
-					.add(new AttributeModifier("href",
-							new PropertyModel<String>(pageMetaModel,
-									"icon.faviconUri")));
-			add(faviconLink);
-			add(new MetaTag("metaDescription", new PropertyModel<String>(
-					pageMetaModel, "description")),
-					new MetaTag("ogTitle", new PropertyModel<String>(
-							pageMetaModel, "openGraph.title")), new MetaTag(
-							"ogType", new PropertyModel<String>(pageMetaModel,
-									"openGraph.type")), new MetaTag("ogUrl",
-							new PropertyModel<String>(pageMetaModel,
-									"openGraph.url")), new MetaTag("ogImage",
-							new PropertyModel<String>(pageMetaModel,
-									"openGraph.image")));
+		final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
+				.getSkinUri()
+				+ "org.soluvas.web.bootstrap/css/bootstrap.css"
+				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
+		final String bootstrapResponsiveCssUri = requireMgr
+				.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
+				.getSkinUri()
+				+ "org.soluvas.web.bootstrap/css/bootstrap-responsive.css"
+				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
+		add(new WebMarkupContainer("bootstrapCss")
+				.add(new AttributeModifier("href", bootstrapCssUri)));
+		add(new WebMarkupContainer("bootstrapResponsiveCss")
+				.add(new AttributeModifier("href",
+						bootstrapResponsiveCssUri)));
+		add(new WebMarkupContainer("soluvasCss")
+				.add(new AttributeModifier(
+						"href",
+						webAddress.getSkinUri()
+								+ "org.soluvas.web.bootstrap/css/soluvas.css")));
+		// For now we use soluvas's fork of RequireJS.
+		// See https://github.com/jrburke/requirejs/issues/376 for reasons.
+		// too bad we can't use "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
+		final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+				webAddress .getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.js" :
+				webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.min.js";
+		add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
+				"src", requireJsUri)));
 
-			final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
-					.getSkinUri()
-					+ "org.soluvas.web.bootstrap/css/bootstrap.css"
-					: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
-			final String bootstrapResponsiveCssUri = requireMgr
-					.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
-					.getSkinUri()
-					+ "org.soluvas.web.bootstrap/css/bootstrap-responsive.css"
-					: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
-			add(new WebMarkupContainer("bootstrapCss")
-					.add(new AttributeModifier("href", bootstrapCssUri)));
-			add(new WebMarkupContainer("bootstrapResponsiveCss")
-					.add(new AttributeModifier("href",
-							bootstrapResponsiveCssUri)));
-			add(new WebMarkupContainer("soluvasCss")
-					.add(new AttributeModifier(
-							"href",
-							webAddress.getSkinUri()
-									+ "org.soluvas.web.bootstrap/css/soluvas.css")));
-			// For now we use soluvas's fork of RequireJS.
-			// See https://github.com/jrburke/requirejs/issues/376 for reasons.
-			// too bad we can't use "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
-			final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-					webAddress .getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.js" :
-					webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.min.js";
-			add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
-					"src", requireJsUri)));
+		// Carousel
+		add(afterHeader = new RepeatingView("afterHeader"));
 
-			// Carousel
-			add(afterHeader = new RepeatingView("afterHeader"));
+		// NAVBAR
+		final Navbar navbar = new Navbar("navbar");
+		add(navbar);
+		// add(new Label("logoText",
+		// site.getLogoText()).setRenderBodyOnly(true));
+		// add(new Label("logoAlt",
+		// site.getLogoAlt()).setRenderBodyOnly(true));
+		navbar.add(new BookmarkablePageLink<Page>("homeLink",
+				getApplication().getHomePage()) {
+			{
+				this.setBody(new Model<String>(appManifest.getTitle()));
+			}
 
-			// NAVBAR
-			final Navbar navbar = new Navbar("navbar");
-			add(navbar);
-			// add(new Label("logoText",
-			// site.getLogoText()).setRenderBodyOnly(true));
-			// add(new Label("logoAlt",
-			// site.getLogoAlt()).setRenderBodyOnly(true));
-			navbar.add(new BookmarkablePageLink<Page>("homeLink",
-					getApplication().getHomePage()) {
-				{
-					this.setBody(new Model<String>(site.getLogoText()));
-				}
+			@Override
+			protected void onComponentTag(ComponentTag tag) {
+				super.onComponentTag(tag);
+				tag.getAttributes().put("title", appManifest.getTitle());
+			}
+		});
 
-				@Override
-				protected void onComponentTag(ComponentTag tag) {
-					super.onComponentTag(tag);
-					tag.getAttributes().put("title", site.getLogoAlt());
-				}
-			});
+		add(new Header());
+		final String requireConfigPath = webAddress.getApiPath()
+				+ "org.soluvas.web.site/requireConfig.js";
+		add(new WebMarkupContainer("requireConfig")
+				.add(new AttributeModifier("src", requireConfigPath)));
 
-			add(new Header());
-			final String requireConfigPath = webAddress.getApiPath()
-					+ "org.soluvas.web.site/requireConfig.js";
-			add(new WebMarkupContainer("requireConfig")
-					.add(new AttributeModifier("src", requireConfigPath)));
+		// SIDEBAR
+		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
+		add(sidebarColumn);
+		sidebarBlocks = new RepeatingView("sidebarBlocks");
+		sidebarColumn.add(sidebarBlocks);
 
-			// SIDEBAR
-			sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
-			add(sidebarColumn);
-			sidebarBlocks = new RepeatingView("sidebarBlocks");
-			sidebarColumn.add(sidebarBlocks);
+		contentColumn = new TransparentWebMarkupContainer("contentColumn");
+		add(contentColumn);
+		feedbackPanel = new FeedbackPanel("feedback")
+				.setOutputMarkupId(true);
+		add(feedbackPanel);
 
-			contentColumn = new TransparentWebMarkupContainer("contentColumn");
-			add(contentColumn);
-			feedbackPanel = new FeedbackPanel("feedback")
-					.setOutputMarkupId(true);
-			add(feedbackPanel);
-
-			// FOOTER
-			add(new Footer(site.getFooterHtml()));
-
-		} finally {
-			bundleContext.ungetService(siteRef);
-		}
+		// FOOTER
+		add(new Footer("© " + new DateTime().toString("yyyy") + " " + appManifest.getTitle()));
 
 		// JAVASCRIPT
 

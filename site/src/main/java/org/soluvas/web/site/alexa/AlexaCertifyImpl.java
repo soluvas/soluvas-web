@@ -1,11 +1,17 @@
 package org.soluvas.web.site.alexa;
 
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 
 /**
  * Configuration for Alexa certify.
  * @author rudi
  */
 @SuppressWarnings("serial")
+@Component("alexaCertify")
 public class AlexaCertifyImpl implements AlexaCertify {
 	
 	private final boolean enabled;
@@ -26,8 +32,13 @@ public class AlexaCertifyImpl implements AlexaCertify {
 	 */
 	private final String imageCdn;
 	
-	public AlexaCertifyImpl(boolean enabled, String account, String domain, String jsCdn,
-			String imageCdn) {
+	@Inject
+	public AlexaCertifyImpl(
+			@Value("#{soluvasProps.alexaCertifyEnabled}") boolean enabled,
+			@Value("#{soluvasProps.alexaCertifyAccount}") String account,
+			@Value("#{soluvasProps.alexaCertifyDomain}") String domain,
+			@Value("#{soluvasProps.alexaCertifyJsCdn}") String jsCdn,
+			@Value("#{soluvasProps.alexaCertifyImageCdn}") String imageCdn) {
 		super();
 		this.enabled = enabled;
 		this.account = account;
