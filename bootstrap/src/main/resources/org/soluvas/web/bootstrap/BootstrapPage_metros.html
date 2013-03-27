@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:wicket="urn:wicket"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:wicket http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master"
-	wicket:id="html"
-	lang="id">
+<html wicket:id="html" lang="id">
 <head>
 	<meta charset="utf-8" />
 	<title><span wicket:id="pageTitle"/> <span wicket:id="pageTitleSuffix"/></title>
@@ -48,6 +43,7 @@
 	<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
 	<script src="requireConfig" wicket:id="requireConfig"></script>
 	<script wicket:id="requireJs" src="/static/js/org.soluvas.web.bootstrap/require-2.1.4.js"></script>
+	<script>define('jquery',[],jQuery);</script>
 
 <script>
 // TODO: refactor push support (both XHR or StompWeb-powered) to separate AMD module

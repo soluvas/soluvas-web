@@ -148,7 +148,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="jquery.masonry"/>
 			<argument value="org.soluvas.web.bootstrap/jquery.masonry-2.1.08.min"/>
-			<argument value="org.soluvas.web.bootstrap/jquery.masonry-2.1.08.min"/>
+			<argument value="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">

@@ -401,8 +401,7 @@
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="handlebars" />
 			<argument value="org.soluvas.web.site/handlebars-1.0.rc.3" />
-			<argument
-				value="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min" />
+			<argument value="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min"/>
 		</bean>
 	</service>
 	<service auto-export="interfaces">
