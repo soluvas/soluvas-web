@@ -218,4 +218,23 @@ public class BootstrapConfig {
 				ImmutableSet.of("jquery"));
 	}
 	
+	@Bean
+	public JavaScriptModule notifyModule() {
+		return new JavaScriptModuleImpl("jquery.notify", "org.soluvas.web.bootstrap/jquery.notify");
+	}
+	
+	@Bean
+	public JavaScriptShim notifyShim() {
+		return new JavaScriptShimImpl("jquery.notify", ImmutableSet.of("jquery-ui/jquery.ui.widget"));
+	}
+	
+	@Bean
+	public CssLink notifyCss() {
+		return new CssLinkImpl("org.soluvas.web.bootstrap/ui.notify.css");
+	}
+	
+	@Bean
+	public CssLink notifyCustomCss() {
+		return new CssLinkImpl("org.soluvas.web.bootstrap/ui.notify.custom.css");
+	}
 }
