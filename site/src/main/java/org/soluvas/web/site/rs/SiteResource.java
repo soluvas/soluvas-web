@@ -3,6 +3,7 @@ package org.soluvas.web.site.rs;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -34,6 +36,10 @@ import org.soluvas.web.site.JavaScriptShim;
 import org.soluvas.web.site.PermalinkCatalog;
 import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.SiteException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.stereotype.Service;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -56,6 +62,11 @@ import com.google.common.collect.Ordering;
  * @author ceefour
  */
 //@Path("org.soluvas.web.site")
+/**
+ * @author agus
+ *
+ */
+@Service
 public class SiteResource {
 	
 	public static class WebTemplate {
@@ -95,18 +106,22 @@ public class SiteResource {
 	private final PermalinkCatalog permalinkCatalog;
 	private final StyleConfiguration styleConfig;
 	
-	private final List<JavaScriptAlias> jsAliases;
-	private final List<JavaScriptModule> jsModules;
-	private final List<JavaScriptShim> jsShims;
+	private List<JavaScriptAlias> jsAliases = new ArrayList<>();
+	private List<JavaScriptModule> jsModules = new ArrayList<>();
+	private List<JavaScriptShim> jsShims = new ArrayList<>();
 	private final RequireManager requireMgr;
 	
 	/**
-	 * @param bundleContext
-	 * @param clientId
-	 * @param tenantId
-	 * @param tenantEnv
+	 * @param bundleContext If null, will use classpath scanning.
+	 * @param webAddress
+	 * @param permalinkCatalog
+	 * @param styleConfig
+	 * @param jsAliases
+	 * @param jsModules
+	 * @param jsShims
+	 * @param requireMgr
 	 */
-	public SiteResource(@Nonnull BundleContext bundleContext,
+	public SiteResource(@Nullable BundleContext bundleContext,
 			@Nonnull WebAddress webAddress,
 			@Nonnull final PermalinkCatalog permalinkCatalog,
 			@Nonnull final StyleConfiguration styleConfig,
@@ -124,6 +139,36 @@ public class SiteResource {
 		this.jsModules = jsModules;
 		this.jsShims = jsShims;
 		this.requireMgr = requireMgr;
+	}
+
+	@Inject
+	public SiteResource(
+			@Nonnull WebAddress webAddress,
+			@Nonnull final PermalinkCatalog permalinkCatalog,
+			@Nonnull final StyleConfiguration styleConfig,
+			@Nonnull final RequireManager requireMgr) {
+		super();
+		this.bundleContext = null;
+		this.webAddress = Preconditions.checkNotNull(webAddress,
+				"webAddress cannot be null");
+		this.permalinkCatalog = permalinkCatalog;
+		this.styleConfig = styleConfig;
+		this.requireMgr = requireMgr;
+	}
+	
+	@Autowired(required=false)
+	public void setJsAliases(List<JavaScriptAlias> jsAliases) {
+		this.jsAliases = jsAliases;
+	}
+
+	@Autowired(required=false)
+	public void setJsModules(List<JavaScriptModule> jsModules) {
+		this.jsModules = jsModules;
+	}
+
+	@Autowired(required=false)
+	public void setJsShims(List<JavaScriptShim> jsShims) {
+		this.jsShims = jsShims;
 	}
 
 	@GET @Path("webAddress.js")
@@ -180,26 +225,7 @@ public class SiteResource {
 	@Produces("text/javascript")
 	public String getTemplates(@PathParam("bundleName") @Nonnull final String bundleName) throws IOException {
 		final String defaultStyle = styleConfig.getDefaultStyle();
-		final Bundle bundle;
-		try {
-			bundle = Iterables.find(Arrays.asList(bundleContext.getBundles()),
-					new Predicate<Bundle>() {
-				@Override
-				public boolean apply(@Nullable Bundle input) {
-					return bundleName.equals(input.getSymbolicName());
-				}
-			});
-		} catch (final NoSuchElementException e) {
-			throw new SiteException("Cannot find bundle " + bundleName, e);
-		}
-		List<URL> resources = ImmutableList.of();
-		try {
-			resources = ImmutableList.copyOf(Iterators.forEnumeration(
-					bundle.findEntries("templates_web", "*.mustache", false)));
-			log.debug("Got {} Mustache templates: {}", resources.size(), resources);
-		} catch (NullPointerException e1) {
-			log.warn("Cannot find any templates_web/*.mustache in bundle " + bundle.getSymbolicName(), e1);
-		}
+		final List<URL> resources = bundleContext != null ? findTemplatesByBundle(bundleName) : findTemplatesByClasspath(bundleName);
 		final Pattern skinnedPattern = Pattern.compile(".*\\/([^/]+)\\_([a-z0-9]+)\\.(mustache|handlebars)");
 		final Pattern generalPattern = Pattern.compile(".*\\/([^/]+)\\.(mustache|handlebars)");
 		final Map<String, WebTemplate> templateMap = Maps.newHashMap();
@@ -245,11 +271,58 @@ public class SiteResource {
 		return renderedJs;
 	}
 
+	private List<URL> findTemplatesByClasspath(String bundleName) {
+		final PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(SiteResource.class.getClassLoader());
+		try {
+			final Resource[] resources = resolver.getResources("/" + bundleName + "/*.mustache");
+			final List<URL> urls = Lists.transform(ImmutableList.copyOf(resources), new Function<Resource, URL>() {
+				@SuppressWarnings("null")
+				@Override @Nullable
+				public URL apply(@Nullable Resource input) {
+					try {
+						return input.getURL();
+					} catch (IOException e) {
+						throw new SiteException("Cannot get URL of Resource " + input, e);
+					}
+				}
+			});
+			log.debug("Got {} Mustache templates: {}", urls.size(), urls);
+			return urls;
+		} catch (IOException e) {
+			log.warn("Cannot find any templates_web/*.mustache in package " + bundleName, e);
+			return ImmutableList.of();
+		}
+	}
+
+	private List<URL> findTemplatesByBundle(final String bundleName) {
+		final Bundle bundle;
+		try {
+			bundle = Iterables.find(Arrays.asList(bundleContext.getBundles()),
+					new Predicate<Bundle>() {
+				@Override
+				public boolean apply(@Nullable Bundle input) {
+					return bundleName.equals(input.getSymbolicName());
+				}
+			});
+		} catch (final NoSuchElementException e) {
+			throw new SiteException("Cannot find bundle " + bundleName, e);
+		}
+		try {
+			final List<URL> resources = ImmutableList.copyOf(Iterators.forEnumeration(
+					bundle.findEntries(bundleName + "/templates_web", "*.mustache", false)));
+			log.debug("Got {} Mustache templates: {}", resources.size(), resources);
+			return resources;
+		} catch (NullPointerException e1) {
+			log.warn("Cannot find any templates_web/*.mustache in bundle " + bundle.getSymbolicName(), e1);
+			return ImmutableList.of();
+		}
+	}
+
 	// http://localhost:8181/cxf/api/org.soluvas.web.site/requireConfig.js
 	@GET @Path("requireConfig.js")
 	@Produces("text/javascript")
 	public String getRequireConfig(@Nonnull @Context final HttpServletRequest httpReq) throws IOException {
-final String stgFile = "require_config.stg";
+		final String stgFile = "require_config.stg";
 //		TenantRef tenantInfo = JaxrsUtils.getTenantInfo(uriInfo);
 //		log.debug("Get RequireJS config for {} {} tenant={}:{}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath(),
 //				tenantInfo.getTenantId(), tenantInfo.getTenantId());
