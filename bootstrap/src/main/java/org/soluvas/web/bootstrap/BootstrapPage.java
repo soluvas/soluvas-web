@@ -186,9 +186,9 @@ public class BootstrapPage extends ExtensiblePage {
 	@PaxWicketBean(name = "pageMetaSupplierFactory") @SpringBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
 	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
-	private WebAddress webAddress;
+	protected WebAddress webAddress;
 	@PaxWicketBean(name="appManifest") @SpringBean(name="appManifest")
-	private AppManifest appManifest;
+	protected AppManifest appManifest;
 	@PaxWicketBean(name = "contributors") @SpringBean(name="contributorRepo")
 	private CrudRepository<LiveContributor, Integer> contributors;
 	@PaxWicketBean(name="alexaCertify") @SpringBean(name="alexaCertify")
