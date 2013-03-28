@@ -147,7 +147,7 @@
 				<configuration>
 					<instructions>
 						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
-						<Import-Package>*,
+						<Import-Package>
 							org.apache.wicket,
 							org.apache.wicket.application,
 							org.apache.wicket.behavior,
@@ -156,6 +156,7 @@
 							org.apache.wicket.markup.repeater,
 							org.apache.wicket.model,
 							org.apache.wicket.util.string,
+							org.apache.wicket.spring.*;resolution:=optional,
 							com.google.common.util.concurrent,
 							javax.servlet, javax.servlet.http,
 							org.ops4j.pax.wicket.util.proxy,
@@ -163,7 +164,8 @@
 							net.sf.cglib.core;version="[2,3)",
 							net.sf.cglib.reflect;version="[2,3)",
               				org.apache.felix.service.command;resolution:=optional, 
-                            org.apache.felix.gogo.commands;resolution:=optional 							
+                            org.apache.felix.gogo.commands;resolution:=optional,
+                            * 							
 						</Import-Package>
 						<Export-Package>
 							org.soluvas.web.site.*,
