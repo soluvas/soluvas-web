@@ -1,8 +1,13 @@
 package org.soluvas.web.site;
 
+import org.soluvas.commons.XmiObjectLoader;
 import org.soluvas.web.site.JavaScriptModule.Base;
+import org.soluvas.web.site.pagemeta.PageMetaCatalog;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -10,7 +15,9 @@ import com.google.common.collect.ImmutableSet;
  * @author agus
  *
  */
-@Configuration
+@Configuration @Lazy
+@ComponentScan({"org.soluvas.web.site", "org.soluvas.web.olark",
+		"org.soluvas.web.googleanalytics"})
 public class SiteConfig {
 	
 	@Bean
@@ -140,5 +147,11 @@ public class SiteConfig {
 		return new JavaScriptShimImpl("diacritic", 
 				ImmutableSet.of("backbone"), "Diacritic");
 	}
+	
+//	@Bean
+//	public PageMetaCatalog webSiteCatalog() {
+//		return new XmiObjectLoader<PageMetaCatalog>(PagemetaPackage.eINSTANCE,
+//				SiteConfig.class, "default.PageMetaCatalog.xmi").get();
+//	}
 
 }

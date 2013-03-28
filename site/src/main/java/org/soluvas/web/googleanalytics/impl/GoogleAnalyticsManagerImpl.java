@@ -2,10 +2,14 @@
  */
 package org.soluvas.web.googleanalytics.impl;
 
+import javax.inject.Inject;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.googleanalytics.GoogleAnalyticsManager;
 import org.soluvas.web.googleanalytics.GoogleanalyticsPackage;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,6 +25,7 @@ import org.soluvas.web.googleanalytics.GoogleanalyticsPackage;
  *
  * @generated
  */
+@Service("googleAnalyticsMgr")
 public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAnalyticsManager {
 	/**
 	 * The default value of the '{@link #getTrackingId() <em>Tracking Id</em>}' attribute.
@@ -70,7 +75,10 @@ public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAna
 		throw new UnsupportedOperationException("Please use the constructor with arguments");
 	}
 	
-	public GoogleAnalyticsManagerImpl(String trackingId, boolean enabled) {
+	@Inject
+	public GoogleAnalyticsManagerImpl(
+			@Value("#{soluvasProps.googleanalyticsTrackingId}") String trackingId,
+			@Value("#{soluvasProps.googleanalyticsEnabled}") boolean enabled) {
 		super();
 		this.trackingId = trackingId;
 		this.enabled = enabled;

@@ -2,10 +2,14 @@
  */
 package org.soluvas.web.olark.impl;
 
+import javax.inject.Inject;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.olark.OlarkManager;
 import org.soluvas.web.olark.OlarkPackage;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,6 +25,7 @@ import org.soluvas.web.olark.OlarkPackage;
  *
  * @generated
  */
+@Service("olarkMgr")
 public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 	/**
 	 * The default value of the '{@link #getSiteId() <em>Site Id</em>}' attribute.
@@ -70,7 +75,10 @@ public class OlarkManagerImpl extends EObjectImpl implements OlarkManager {
 		throw new UnsupportedOperationException("Please use constructor with arguments");
 	}
 	
-	public OlarkManagerImpl(String siteId, boolean enabled) {
+	@Inject
+	public OlarkManagerImpl(
+			@Value("#{soluvasProps.olarkSiteId}") String siteId,
+			@Value("#{soluvasProps.olarkEnabled}") boolean enabled) {
 		super();
 		this.siteId = siteId;
 		this.enabled = enabled;

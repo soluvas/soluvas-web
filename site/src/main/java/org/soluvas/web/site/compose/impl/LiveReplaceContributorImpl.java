@@ -171,47 +171,52 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 */
 	@Override
 	public ComponentFactory getFactory() {
+		final String resourceContainer = bundle != null ? bundle.getSymbolicName() + " [" + bundle.getBundleId() + "]"
+				: getResourceUri();
 		switch (getCreationMode()) {
 		case CONSTRUCTOR:
-			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s [%d] must not be null",
-					getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s must not be null",
+					getPageClassName(), getTargetPath(), resourceContainer);
 			try {
-				final Class<?> componentClass = bundle.loadClass(getClassName());
+				final Class<?> componentClass = bundle != null ? bundle.loadClass(getClassName()) :
+					LiveChildContributorImpl.class.getClassLoader().loadClass(getClassName());
 				final Constructor<?> constructor = componentClass.getConstructor(String.class, IModel.class);
 				return new ComponentFactory<Component, Serializable>() {
 					@Override
 					public Component create(String id,
 							IModel<Serializable> model) {
 						try {
-							log.debug("Creating {} using {} for contributor {}/{} from {} [{}]", getClassName(), constructor,
-									getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+							log.debug("Creating {} using {} for contributor {}/{} from {}", getClassName(), constructor,
+									getPageClassName(), getTargetPath(), resourceContainer);
 							return (Component) constructor.newInstance(id, model);
 						} catch (Exception e) {
 							throw new SiteException("Cannot create component " + getClassName() + " using " + constructor + " for contributor " +
-									getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+									getPageClassName() + "/" + getTargetPath() + " from " + resourceContainer, e);
 						}
 					}
 				};
 			} catch (Exception e) {
 				throw new SiteException("Cannot create component " + getClassName() + " for contributor " +
-						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+						getPageClassName() + "/" + getTargetPath() + " from " + resourceContainer, e);
 			}
 		case FACTORY_CLASS:
-			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s [%d] must not be null",
-					getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+			Preconditions.checkNotNull(getClassName(), "className for contributor %s/%s from %s must not be null",
+					getPageClassName(), getTargetPath(), resourceContainer);
 			final String factoryClassName = getClassName() + "Factory";
 			try {
-				log.debug("Creating {} as factory for contributor {}/{} from {} [{}]", factoryClassName,
-						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
-				return (ComponentFactory) bundle.loadClass(factoryClassName).newInstance();
+				log.debug("Creating {} as factory for contributor {}/{} from {}", factoryClassName,
+						getPageClassName(), getTargetPath(), resourceContainer);
+				final Class<?> factoryClass = bundle != null ? bundle.loadClass(factoryClassName) :
+					LiveChildContributorImpl.class.getClassLoader().loadClass(factoryClassName);
+				return (ComponentFactory) factoryClass.newInstance();
 			} catch (Exception e) {
 				throw new SiteException("Cannot create " + factoryClassName + " as a factory for contributor " +
-						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+						getPageClassName() + "/" + getTargetPath() + " from " + resourceContainer, e);
 			}
 		case FACTORY_BEAN:
 			try {
-				log.debug("Getting bean {} as factory for contributor {}/{} from {} [{}]", factoryBean,
-						getPageClassName(), getTargetPath(), bundle.getSymbolicName(), bundle.getBundleId());
+				log.debug("Getting bean {} as factory for contributor {}/{} from {}", factoryBean,
+						getPageClassName(), getTargetPath(), resourceContainer);
 				final BundleContext bundleContext = bundle.getBundleContext();
 				final String filter = "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")";
 				final Collection<ServiceReference<BlueprintContainer>> refs = bundleContext.getServiceReferences(BlueprintContainer.class,
@@ -228,7 +233,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 				}
 			} catch (Exception e) {
 				throw new SiteException("Cannot get bean " + factoryBean + " as a factory for contributor " +
-						getPageClassName() + "/" + getTargetPath() + " from " + getBundle().getSymbolicName() + " [" + getBundle().getBundleId() + "]", e);
+						getPageClassName() + "/" + getTargetPath() + " from " + resourceContainer, e);
 			}
 		default:
 			throw new SiteException("Unknown CreationMode " + getCreationMode());

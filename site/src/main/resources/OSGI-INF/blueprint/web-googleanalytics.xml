@@ -15,12 +15,7 @@
 		<argument value="${googleanalyticsTrackingId}" />
 		<argument value="${googleanalyticsEnabled}" />
 	</bean>
-	<service ref="googleAnalyticsManager" auto-export="interfaces">
-		<service-properties>
-			<entry key="clientId" value="${clientId}" />
-			<entry key="tenantEnv" value="${tenantEnv}" />
-		</service-properties>
-	</service>
+	<service ref="googleAnalyticsManager" auto-export="interfaces"/>
 
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
 	</command-bundle>
