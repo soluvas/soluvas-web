@@ -274,7 +274,7 @@ public class SiteResource {
 	private List<URL> findTemplatesByClasspath(String bundleName) {
 		final PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(SiteResource.class.getClassLoader());
 		try {
-			final Resource[] resources = resolver.getResources("/" + bundleName + "/*.mustache");
+			final Resource[] resources = resolver.getResources("/" + bundleName.replace('.', '/') + "/*.mustache");
 			final List<URL> urls = Lists.transform(ImmutableList.copyOf(resources), new Function<Resource, URL>() {
 				@SuppressWarnings("null")
 				@Override @Nullable
@@ -309,7 +309,7 @@ public class SiteResource {
 		}
 		try {
 			final List<URL> resources = ImmutableList.copyOf(Iterators.forEnumeration(
-					bundle.findEntries(bundleName + "/templates_web", "*.mustache", false)));
+					bundle.findEntries(bundleName.replace('.', '/') + "/templates_web", "*.mustache", false)));
 			log.debug("Got {} Mustache templates: {}", resources.size(), resources);
 			return resources;
 		} catch (NullPointerException e1) {
