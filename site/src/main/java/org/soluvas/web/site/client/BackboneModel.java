@@ -3,16 +3,19 @@ package org.soluvas.web.site.client;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.soluvas.json.JacksonMapperFactory;
+import org.soluvas.json.JsonUtils;
 import org.soluvas.web.site.Page;
 import org.soluvas.web.site.SiteException;
 
@@ -98,17 +101,18 @@ public class BackboneModel<T> extends JsSource {
 	
 	@Override
 	public String getJsSource() {
-		final BundleContext bundleContext = FrameworkUtil.getBundle(BackboneModel.class).getBundleContext();
-		final ServiceReference<JacksonMapperFactory> jacksonMapperFactoryRef = bundleContext.getServiceReference(JacksonMapperFactory.class);
-		final Supplier<ObjectMapper> jacksonMapperFactory = bundleContext.getService(jacksonMapperFactoryRef);
-		final ObjectMapper objectMapper = jacksonMapperFactory.get();
+//		final BundleContext bundleContext = FrameworkUtil.getBundle(BackboneModel.class).getBundleContext();
+//		final ServiceReference<JacksonMapperFactory> jacksonMapperFactoryRef = bundleContext.getServiceReference(JacksonMapperFactory.class);
+//		final Supplier<ObjectMapper> jacksonMapperFactory = bundleContext.getService(jacksonMapperFactoryRef);
+//		final ObjectMapper objectMapper = jacksonMapperFactory.get();
 		final T data = model.getObject();
 		try {
-			return name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");";
+//			return name + " = new "+ className + "(" + objectMapper.writeValueAsString(data) + ");";
+			return name + " = new "+ className + "(" + JsonUtils.asJson(data) + ");";
 		} catch (Exception e) {
 			throw new SiteException("Cannot serialize model to JSON: " + name + ": " + className + " from " + model, e);
-		} finally {
-			bundleContext.ungetService(jacksonMapperFactoryRef);
+//		} finally {
+//			bundleContext.ungetService(jacksonMapperFactoryRef);
 		}
 	}
 	

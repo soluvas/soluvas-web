@@ -3,6 +3,7 @@ package org.soluvas.web.bootstrap;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -125,15 +126,15 @@ public class BootstrapPage extends ExtensiblePage {
 	 */
 	public static final class AmdDependencyVisitor implements
 			IVisitor<Component, Void> {
-		private final Builder<String, String> dependencies;
+		private final Map<String, String> dependencies;
 
-		public AmdDependencyVisitor(Builder<String, String> dependencies) {
-			this.dependencies = dependencies;
+		public AmdDependencyVisitor(Map<String, String> dependencyMap) {
+			this.dependencies = dependencyMap;
 		}
 
 		@Override
 		public void component(Component component, IVisit<Void> visit) {
-			List<AmdDependency> amdDeps = component
+			final List<AmdDependency> amdDeps = component
 					.getBehaviors(AmdDependency.class);
 			for (AmdDependency dep : amdDeps) {
 				dependencies.put(dep.getPath(), dep.getName());
@@ -510,16 +511,14 @@ public class BootstrapPage extends ExtensiblePage {
 		final IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
-				final Builder<String, String> dependencies = ImmutableMap
-						.builder();
+				// cannot use ImmutableMap, because AMD dependencies can be duplicated
+				final Map<String, String> dependencyMap = new HashMap<>();
 				final AmdDependencyVisitor amdDependencyVisitor = new AmdDependencyVisitor(
-						dependencies);
+						dependencyMap);
 				amdDependencyVisitor.component(BootstrapPage.this, null);
 				visitChildren(amdDependencyVisitor);
-				final Map<String, String> dependencyMap = dependencies.build();
 				log.debug("Page {} has {} AMD dependencies: {}", getClass()
-						.getName(), dependencyMap.size(), dependencyMap
-						.keySet());
+						.getName(), dependencyMap.size(), dependencyMap.keySet());
 
 				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList
 						.builder();
