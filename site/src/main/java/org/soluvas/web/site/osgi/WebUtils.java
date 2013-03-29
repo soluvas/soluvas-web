@@ -6,6 +6,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.Application;
+import org.apache.wicket.injection.Injector;
+import org.ops4j.pax.wicket.api.InjectorHolder;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
@@ -25,10 +27,10 @@ import com.google.common.base.Supplier;
  * 
  * @author ceefour
  */
-public class WebTenantUtils {
+public class WebUtils {
 
 	private static transient Logger log = LoggerFactory
-			.getLogger(WebTenantUtils.class);
+			.getLogger(WebUtils.class);
 	
 	/**
 	 * Get {@link TenantRef} for current Wicket {@link Application}.
@@ -70,7 +72,7 @@ public class WebTenantUtils {
 	public static <T> ServiceReference<T> getService(@Nonnull Class<T> iface,
 			@Nullable String namespace, @Nullable String filter) {
 		final BundleContext bundleContext = FrameworkUtil.getBundle(
-				WebTenantUtils.class).getBundleContext();
+				WebUtils.class).getBundleContext();
 
 //		final TenantRef tenant = getTenant();
 //		final String tenantId = tenant != null ? tenant.getTenantId() : null;
@@ -120,7 +122,7 @@ public class WebTenantUtils {
 		final ServiceReference<Supplier> supplierRef = getService(
 				Supplier.class, null, "(&(suppliedClass=" + clazz.getName() + ")(layer=application))");
 		final BundleContext bundleContext = FrameworkUtil.getBundle(
-				WebTenantUtils.class).getBundleContext();
+				WebUtils.class).getBundleContext();
 		final Supplier<T> supplier = bundleContext.getService(supplierRef);
 		try {
 			return supplier.get();
@@ -146,8 +148,21 @@ public class WebTenantUtils {
 	 * 		or {@code https://images.berbatik.com/id.co.bippo.web.pub/logo_diweb.gif}
 	 */
 	public static String getImageUri(Class bundleClazz, String path) {
-		final WebAddress webAddress = WebTenantUtils.getWebAddress();
+		final WebAddress webAddress = WebUtils.getWebAddress();
 		return webAddress.getImagesUri() + FrameworkUtil.getBundle(bundleClazz).getSymbolicName() + "/" + path;
+	}
+	
+	/**
+	 * Injection that will work both on Pax Wicket (OSGi) and plain Spring.
+	 * (transitional)
+	 * @param obj
+	 */
+	public static void inject(@Nonnull Object obj) {
+		try {
+			InjectorHolder.getInjector().inject(obj, obj.getClass());
+		} catch (IllegalStateException e) {
+			Injector.get().inject(obj);
+		}
 	}
 	
 }

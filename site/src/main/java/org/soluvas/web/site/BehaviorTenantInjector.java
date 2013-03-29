@@ -31,7 +31,7 @@ import org.soluvas.commons.inject.Filter;
 import org.soluvas.commons.inject.Namespace;
 import org.soluvas.commons.inject.Supplied;
 import org.soluvas.commons.tenant.TenantRef;
-import org.soluvas.web.site.osgi.WebTenantUtils;
+import org.soluvas.web.site.osgi.WebUtils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
@@ -67,7 +67,7 @@ public class BehaviorTenantInjector extends AbstractRequestCycleListener impleme
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void onInstantiation(Component component) {
-		final TenantRef tenant = WebTenantUtils.getTenant();
+		final TenantRef tenant = WebUtils.getTenant();
 		final String tenantId = tenant.getTenantId();
 		final String tenantEnv = tenant.getTenantEnv();
 		

@@ -62,7 +62,7 @@ import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
-import org.soluvas.web.site.osgi.WebTenantUtils;
+import org.soluvas.web.site.osgi.WebUtils;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -332,7 +332,7 @@ public class BootstrapPage extends ExtensiblePage {
 									Url.parse("http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")));
 		}
 
-		tenant = WebTenantUtils.getTenant();
+		tenant = WebUtils.getTenant();
 		final String currentUri = getRequest().getUrl().toString();
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
