@@ -1,6 +1,7 @@
 package org.soluvas.web.site.compose;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class ComposeUtils {
 	public static void compose(final Page page, final Collection<LiveContributor> contributors) {
 		final Ordering<LiveContributor> positionerOrdering = Ordering.from(new PositionerComparator());
 		final List<LiveContributor> sortedContributors = positionerOrdering.immutableSortedCopy(contributors);
+		final List<String> childContributors = new ArrayList<>();
+		final List<String> replaceContributors = new ArrayList<>();
 		for (final LiveContributor contrib : sortedContributors) {
 			if (contrib.getState() != ContributorState.RESOLVED)
 				continue;
@@ -74,6 +77,7 @@ public class ComposeUtils {
 					final Component componentToAdd = childContrib.getFactory().create(repeatingViewParent.newChildId(), model);
 					log.debug("Adding {} to {} in {}", componentToAdd, repeatingViewParent, page);
 					repeatingViewParent.add(componentToAdd);
+					childContributors.add(((LiveChildContributor) contrib).getClassName());
 				}
 			} else if (contrib instanceof LiveReplaceContributor) {
 				final LiveReplaceContributor replaceContrib = (LiveReplaceContributor) contrib;
@@ -107,11 +111,15 @@ public class ComposeUtils {
 					final Component componentToAdd = replaceContrib.getFactory().create(compId, new Model<Serializable>(null)); // TODO: need model!
 					log.debug("Replacing {} with {} to {} in {}", contrib.getTargetPath(), componentToAdd, parent, page);
 					parent.replace(componentToAdd);
+					replaceContributors.add(((LiveReplaceContributor) contrib).getClassName());
 				}
 			} else {
 				throw new SiteException("Unknown contributor " + contrib.getClass().getName() + " requested by " + contrib);
 			}
 		}
+		log.debug("Contributed {} children ({}) and {} replacements ({}) out of {} for page {}",
+				childContributors.size(), childContributors, replaceContributors.size(), replaceContributors,
+				sortedContributors.size(), page.getClass().getName());
 	}
 	
 }

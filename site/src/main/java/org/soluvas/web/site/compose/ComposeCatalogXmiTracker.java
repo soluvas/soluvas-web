@@ -102,9 +102,10 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				final Resource[] resources = resolver.getResources(locationPattern);
 				allResources.addAll(ImmutableList.copyOf(resources));
 			}
-			log.info("Scanned {} for {} returned {} resources: {}",
-					classLoader, locationPatterns, allResources.size(), allResources);
-			final List<URL> xmiUrls = Lists.transform(allResources, new Function<Resource, URL>() {
+			log.info("Scanned {} returned {} resources: {}",
+					locationPatterns, allResources.size(), allResources);
+			final List<URL> xmiUrls = ImmutableList.copyOf(Lists.transform(
+					allResources, new Function<Resource, URL>() {
 				@Override @Nullable
 				public URL apply(@Nullable Resource input) {
 					try {
@@ -113,9 +114,9 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 						throw new SiteException("Cannot get URL for " + input, e);
 					}
 				}
-			});
+			}));
 			for (URL xmiUrl : xmiUrls) {
-				final List<EObject> objs = extractObjects(xmiUrls, null, classLoader);
+				final List<EObject> objs = extractObjects(ImmutableList.of(xmiUrl), null, classLoader);
 				eObjects.put(xmiUrl.toString(), objs);
 			}
 		} catch (IOException e) {
@@ -180,7 +181,16 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			}
 			
 			for (final Contributor contributor : ImmutableList.copyOf(composeCatalog.getContributors())) {
-				log.debug("Adding Contributor for {}/{} from {}", contributor.getPageClassName(), contributor.getTargetPath(), url);
+				final String contributorName;
+				if (contributor instanceof ChildContributor) {
+					contributorName = ((ChildContributor) contributor).getClassName();
+				} else if (contributor instanceof ReplaceContributor) {
+					contributorName = ((ReplaceContributor) contributor).getClassName();
+				} else {
+					contributorName = "unknown";
+				}
+				log.debug("Adding Contributor {} for {}/{} from {}", contributorName,
+						contributor.getPageClassName(), contributor.getTargetPath(), url);
 				final LiveContributor liveContributor = contributor.createLive();
 				final LiveContributor added = contributorRepo.add(liveContributor);
 				eobjects.add(added);
