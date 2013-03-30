@@ -1,5 +1,11 @@
 package org.soluvas.web.login;
 
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
@@ -8,12 +14,16 @@ import twitter4j.auth.AccessToken;
  * @author haidar
  *
  */
+@Service("twitterMgr") @Lazy
 public class TwitterManagerImpl implements TwitterManager  {
 
 	private final String consumerKey;
 	private final String consumerSecret;
 	
-	public TwitterManagerImpl(String consumerKey, String consumerSecret) {
+	@Inject
+	public TwitterManagerImpl(
+			@Value("#{soluvasProps.authTwitterConsumerKey}") String consumerKey,
+			@Value("#{soluvasProps.authTwitterConsumerSecret}") String consumerSecret) {
 		super();
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
