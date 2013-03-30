@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
@@ -55,13 +56,13 @@ public class TwitterRecipient extends WebPage {
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterRecipient.class);
 	
-	@PaxWicketBean(name="twitterMgr")
+	@PaxWicketBean(name="twitterMgr") @SpringBean(name="twitterMgr")
 	private TwitterManager twitterManager;
-	@PaxWicketBean(name="webAddress")
+	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
 	private WebAddress webAddress;
-	@PaxWicketBean(name="personLdapRepo")
+	@PaxWicketBean(name="personLdapRepo") @SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;
-	@PaxWicketBean(name="personImageRepo")
+	@PaxWicketBean(name="personImageRepo") @SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	
 	public TwitterRecipient(PageParameters params) {

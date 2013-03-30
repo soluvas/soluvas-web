@@ -18,6 +18,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class LoginPage extends BootstrapPage {
 	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
 	private transient SecurityManager securityManager;
 	
-	@PaxWicketBean(name="appManifest")
+	@PaxWicketBean(name="appManifest") @SpringBean(name="appManifest")
 	private AppManifest appManifest;
 
 	protected void initializeSecurityManager() {

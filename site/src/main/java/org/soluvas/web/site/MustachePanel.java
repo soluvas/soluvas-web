@@ -9,6 +9,7 @@ import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.transformer.AbstractTransformerBehavior;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +33,9 @@ import com.google.common.collect.ImmutableMap;
 public class MustachePanel extends Panel {
 
 	private static final Logger log = LoggerFactory.getLogger(MustachePanel.class);
-	@PaxWicketBean(name="webAddress")
+	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
 	private WebAddress webAddress;
-	@PaxWicketBean(name="appManifest")
+	@PaxWicketBean(name="appManifest") @SpringBean(name="appManifest")
 	private AppManifest appManifest;
 	
 	public MustachePanel(String id, IModel<?> model) {

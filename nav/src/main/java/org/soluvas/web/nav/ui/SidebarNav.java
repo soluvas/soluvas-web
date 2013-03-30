@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.service.blueprint.container.ServiceUnavailableException;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ import org.soluvas.web.nav.ProcessMenuItem;
 public class SidebarNav extends Panel {
 
 	private static final Logger log = LoggerFactory.getLogger(SidebarNav.class);
-	@PaxWicketBean(name="processLinkFactory")
+	@PaxWicketBean(name="processLinkFactory") @SpringBean(name="processLinkFactory")
 	private ProcessLinkFactory processLinkFactory; 
 	
 	public SidebarNav(String id, final IModel<Menu> model) {

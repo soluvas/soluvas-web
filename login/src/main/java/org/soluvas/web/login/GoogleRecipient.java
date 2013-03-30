@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
@@ -48,11 +49,11 @@ public class GoogleRecipient extends WebPage {
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleRecipient.class);
 	
-	@PaxWicketBean(name="personLdapRepo")
+	@PaxWicketBean(name="personLdapRepo") @SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;
-	@PaxWicketBean(name="googleMgr")
+	@PaxWicketBean(name="googleMgr") @SpringBean(name="googleMgr")
 	private GoogleManager googleManager;
-	@PaxWicketBean(name="webAddress")
+	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
 	private WebAddress webAddress;
 
 	private static final HttpTransport TRANSPORT = new NetHttpTransport();

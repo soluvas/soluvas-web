@@ -26,6 +26,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
@@ -63,13 +64,13 @@ public class FacebookRecipient extends WebPage {
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	
-	@PaxWicketBean(name="personLdapRepo")
+	@PaxWicketBean(name="personLdapRepo") @SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;
-	@PaxWicketBean(name="personImageRepo")
+	@PaxWicketBean(name="personImageRepo") @SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
-	@PaxWicketBean(name="facebookMgr") 
+	@PaxWicketBean(name="facebookMgr") @SpringBean(name="facebookMgr")
 	private FacebookManager facebookMgr;
-	@PaxWicketBean(name="webAddress")
+	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
 	private WebAddress webAddress;
 	
 	public FacebookRecipient(PageParameters params) {
