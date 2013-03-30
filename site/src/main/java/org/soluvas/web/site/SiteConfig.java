@@ -46,8 +46,8 @@ public class SiteConfig {
 	@Bean
 	public JavaScriptModule backboneModule() {
 		return new JavaScriptModuleImpl("backbone",
-				"org.soluvas.web.site/backbone-0.9.10",
-				"//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min");
+				"org.soluvas.web.site/backbone-1.0.0",
+				"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min");
 	}
 	
 	@Bean

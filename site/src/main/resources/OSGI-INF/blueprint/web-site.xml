@@ -379,9 +379,9 @@
 	<service auto-export="interfaces">
 		<bean class="org.soluvas.web.site.JavaScriptModuleImpl">
 			<argument value="backbone" />
-			<argument value="org.soluvas.web.site/backbone-0.9.10" />
+			<argument value="org.soluvas.web.site/backbone-1.0.0" />
 			<argument
-				value="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min" />
+				value="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min" />
 		</bean>
 	</service>
 	<service auto-export="interfaces">
