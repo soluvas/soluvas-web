@@ -1,9 +1,6 @@
 package org.soluvas.web.site;
 
-import org.soluvas.commons.XmiObjectLoader;
 import org.soluvas.web.site.JavaScriptModule.Base;
-import org.soluvas.web.site.pagemeta.PageMetaCatalog;
-import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +38,12 @@ public class SiteConfig {
 		return new JavaScriptModuleImpl("underscore",
 				"org.soluvas.web.site/underscore-1.4.4",
 				"//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min");
+	}
+
+	@Bean
+	public JavaScriptShim underscoreShim() {
+		return new JavaScriptShimImpl("underscore", 
+				ImmutableSet.<String>of(), "_");
 	}
 
 	@Bean
