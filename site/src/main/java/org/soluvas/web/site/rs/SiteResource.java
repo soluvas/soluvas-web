@@ -37,6 +37,7 @@ import org.soluvas.web.site.PermalinkCatalog;
 import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.SiteException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
@@ -66,7 +67,7 @@ import com.google.common.collect.Ordering;
  * @author agus
  *
  */
-@Service
+@Service @Lazy
 public class SiteResource {
 	
 	public static class WebTemplate {
