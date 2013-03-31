@@ -89,7 +89,7 @@ public class TwitterRecipient extends WebPage {
         //response.sendRedirect(request.getContextPath() + "/");
 	        
 		log.debug("Code parameter url is {}", verifier);
-		add(new Label("code" ,verifier));
+		add(new Label("code", verifier));
 		try {
 			final String accessToken = oAuthAccessToken.getToken(); 
 			log.debug("fetching access token {}", accessToken);
