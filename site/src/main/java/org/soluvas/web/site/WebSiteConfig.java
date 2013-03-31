@@ -14,8 +14,9 @@ import com.google.common.collect.ImmutableSet;
  */
 @Configuration @Lazy
 @ComponentScan({"org.soluvas.web.site", "org.soluvas.web.olark",
-		"org.soluvas.web.googleanalytics"})
-public class SiteConfig {
+		"org.soluvas.web.googleanalytics",
+		"org.soluvas.web.bootstrap"})
+public class WebSiteConfig {
 	
 	@Bean
 	public JavaScriptModule webAddressModule() {
