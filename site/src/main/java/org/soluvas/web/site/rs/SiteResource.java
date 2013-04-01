@@ -275,10 +275,9 @@ public class SiteResource {
 	private List<URL> findTemplatesByClasspath(String bundleName) {
 		final PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(SiteResource.class.getClassLoader());
 		try {
-			final Resource[] resources = resolver.getResources("/" + bundleName.replace('.', '/') + "/*.mustache");
+			final Resource[] resources = resolver.getResources("/" + bundleName.replace('.', '/') + "/templates_web/*.mustache");
 			final List<URL> urls = Lists.transform(ImmutableList.copyOf(resources), new Function<Resource, URL>() {
-				@SuppressWarnings("null")
-				@Override @Nullable
+				@SuppressWarnings("null") @Override @Nullable
 				public URL apply(@Nullable Resource input) {
 					try {
 						return input.getURL();
@@ -287,7 +286,7 @@ public class SiteResource {
 					}
 				}
 			});
-			log.debug("Got {} Mustache templates: {}", urls.size(), urls);
+			log.debug("Got {} Mustache templates for {}: {}", urls.size(), bundleName, urls);
 			return urls;
 		} catch (IOException e) {
 			log.warn("Cannot find any templates_web/*.mustache in package " + bundleName, e);
