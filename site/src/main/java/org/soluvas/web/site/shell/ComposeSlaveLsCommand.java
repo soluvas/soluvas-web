@@ -4,24 +4,30 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import org.apache.felix.gogo.commands.Command;
 import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.site.annotation.SlaveRelated;
 import org.soluvas.web.site.compose.LiveSlave;
 import org.soluvas.web.site.compose.Slave;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 /**
  * List registered {@link Slave}s.
  * @author ceefour
  */
-@Command(scope="compose", name="placels", description="List registered Slaves.")
+@Service @Lazy
+@Command(scope="compose", name="slavels", description="List registered Slaves.")
 public class ComposeSlaveLsCommand extends OsgiCommandSupport {
 	
 	private final CrudRepository<LiveSlave, Integer> slaveRepo;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ComposeSlaveLsCommand(CrudRepository slaveRepo) {
+	@SuppressWarnings({ "rawtypes", "unchecked" }) @Inject
+	public ComposeSlaveLsCommand(@SlaveRelated CrudRepository slaveRepo) {
 		super();
 		this.slaveRepo = slaveRepo;
 	}

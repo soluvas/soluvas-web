@@ -4,24 +4,30 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import org.apache.felix.gogo.commands.Command;
-import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.soluvas.commons.NameUtils;
+import org.soluvas.commons.shell.ExtCommandSupport;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.site.annotation.PlaceholderRelated;
 import org.soluvas.web.site.compose.LivePlaceholder;
 import org.soluvas.web.site.compose.Placeholder;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 /**
  * List registered {@link Placeholder}s.
  * @author ceefour
  */
+@Service @Lazy
 @Command(scope="compose", name="placels", description="List registered Placeholders.")
-public class ComposePlaceLsCommand extends OsgiCommandSupport {
+public class ComposePlaceLsCommand extends ExtCommandSupport {
 	
 	private final transient CrudRepository<LivePlaceholder, Integer> placeholderRepo;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ComposePlaceLsCommand(CrudRepository placeholderRepo) {
+	@SuppressWarnings({ "rawtypes", "unchecked" }) @Inject
+	public ComposePlaceLsCommand(@PlaceholderRelated CrudRepository placeholderRepo) {
 		super();
 		this.placeholderRepo = placeholderRepo;
 	}

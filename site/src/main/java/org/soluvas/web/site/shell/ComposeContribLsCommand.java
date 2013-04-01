@@ -4,28 +4,34 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import org.apache.felix.gogo.commands.Command;
-import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.soluvas.commons.NameUtils;
+import org.soluvas.commons.shell.ExtCommandSupport;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.SiteException;
+import org.soluvas.web.site.annotation.ContributorRelated;
 import org.soluvas.web.site.compose.ChildContributor;
 import org.soluvas.web.site.compose.Contributor;
 import org.soluvas.web.site.compose.HideContributor;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.compose.ReplaceContributor;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 /**
  * List registered {@link Contributor}s.
  * @author ceefour
  */
-@Command(scope="compose", name="placels", description="List registered Contributors.")
-public class ComposeContribLsCommand extends OsgiCommandSupport {
+@Service @Lazy
+@Command(scope="compose", name="contribls", description="List registered Contributors.")
+public class ComposeContribLsCommand extends ExtCommandSupport {
 	
 	private final CrudRepository<LiveContributor, Integer> contributorRepo;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ComposeContribLsCommand(CrudRepository contributorRepo) {
+	@SuppressWarnings({ "rawtypes", "unchecked" }) @Inject
+	public ComposeContribLsCommand(@ContributorRelated CrudRepository contributorRepo) {
 		super();
 		this.contributorRepo = contributorRepo;
 	}
