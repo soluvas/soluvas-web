@@ -370,6 +370,9 @@ public class HideContributorImpl extends EObjectImpl implements HideContributor 
 		liveContributor.setState(ContributorState.UNRESOLVED);
 		liveContributor.setBundle(bundle);
 		liveContributor.setPositioner(positioner);
+		liveContributor.setResourceName(getResourceName());
+		liveContributor.setResourceUri(getResourceUri());
+		liveContributor.setResourceType(getResourceType());
 		return liveContributor;
 	}
 

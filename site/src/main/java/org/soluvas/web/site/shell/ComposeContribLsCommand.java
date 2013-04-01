@@ -42,7 +42,7 @@ public class ComposeContribLsCommand extends ExtCommandSupport {
 	@Override
 	protected Object doExecute() throws Exception {
 		System.out.println(ansi().render("@|negative_on %3s|%-27s|%-25s|%-40s|%-20s|@",
-				"№", "Name", "Page", "Path", "Bundle"));
+				"№", "Name", "Page", "Path", "Bundle/Resource"));
 		int i = 0;
 		final Collection<LiveContributor> origContributors = contributorRepo.findAll();
 		final Collection<LiveContributor> sortedContributors = origContributors;
@@ -78,7 +78,8 @@ public class ComposeContribLsCommand extends ExtCommandSupport {
 			default:
 				throw new IllegalArgumentException("Unknown contributor state: " + contributor.getState());
 			}
-			final String bundleAnsi = NameUtils.shortenBundleAnsi(contributor.getBundle(), 20);
+			final String bundleAnsi = contributor.getBundle() != null ? NameUtils.shortenBundleAnsi(contributor.getBundle(), 20) :
+				contributor.getResourceUri();
 			final String pageName = contributor.getPageClassName();
 			final String pageNameAnsi = NameUtils.shortenClassAnsi(pageName, 25);
 			System.out.println(ansi().render(

@@ -506,6 +506,9 @@ public class ReplaceContributorImpl extends EObjectImpl implements ReplaceContri
 		liveContributor.setState(ContributorState.UNRESOLVED);
 		liveContributor.setBundle(bundle);
 		liveContributor.setPositioner(positioner);
+		liveContributor.setResourceName(getResourceName());
+		liveContributor.setResourceUri(getResourceUri());
+		liveContributor.setResourceType(getResourceType());
 		return liveContributor;
 	}
 

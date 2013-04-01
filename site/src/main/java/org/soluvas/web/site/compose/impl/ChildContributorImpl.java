@@ -507,6 +507,9 @@ public class ChildContributorImpl extends EObjectImpl implements ChildContributo
 		liveContributor.setState(ContributorState.UNRESOLVED);
 		liveContributor.setBundle(bundle);
 		liveContributor.setPositioner(positioner);
+		liveContributor.setResourceName(getResourceName());
+		liveContributor.setResourceUri(getResourceUri());
+		liveContributor.setResourceType(getResourceType());
 		return liveContributor;
 	}
 	
