@@ -209,7 +209,7 @@ public class BootstrapConfig {
 	public JavaScriptModule masonryModule() {
 		return new JavaScriptModuleImpl("jquery.masonry",
 				"org.soluvas.web.bootstrap/jquery.masonry-2.1.08.min",
-				"//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js");
+				"//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min");
 	}
 
 	@Bean
