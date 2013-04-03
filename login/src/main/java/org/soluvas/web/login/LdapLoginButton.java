@@ -49,8 +49,7 @@ public class LdapLoginButton extends IndicatingAjaxButton {
 		} catch (final AuthenticationException e) {
 			error(String.format("Invalid credentials for %s",
 					token.getUsername()));
-			log.debug(
-					String.format("Invalid credentials for %s",
+			log.info(String.format("Invalid credentials for %s",
 							token.getUsername()), e);
 		}
 		super.onSubmit(target, form);
