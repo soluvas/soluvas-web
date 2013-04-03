@@ -236,6 +236,12 @@ public class BootstrapPage extends ExtensiblePage {
 				.forReference(getApplication().getJavaScriptLibrarySettings()
 						.getJQueryReference()));
 
+		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
+//		if (requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT) {
+//			response.render(JavaScriptReferenceHeaderItem
+//					.forUrl(webAddress.getJsUri() + "org.soluvas.web.bootstrap/live-soluvas.js"));
+//		}
+
 		final String currentStyle = getStyle();
 		final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
 				.filter(cssLinks, new Predicate<CssLink>() {
