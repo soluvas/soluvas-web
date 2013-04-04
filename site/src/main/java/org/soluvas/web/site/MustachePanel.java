@@ -25,7 +25,7 @@ import com.google.common.collect.ImmutableMap;
  * Renders a Mustache template, template is contained within the panel HTML markup.
  * Cannot cache due to Wicket serialization mechanism.
  * 
- * <p>webAddress, appManifest, nl2br are built-in.
+ * <p>Built-in scopes: id, markupId, nl2br, appManifest, webAddress.
  * 
  * @author ceefour
  */
@@ -51,7 +51,8 @@ public class MustachePanel extends Panel {
 				
 				final StringWriter writer = new StringWriter();
 				mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
-						ImmutableMap.of("nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
+						ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
+								"nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
 				final String body = writer.toString();
 				return body;
 			}

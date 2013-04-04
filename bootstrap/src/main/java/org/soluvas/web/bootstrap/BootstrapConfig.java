@@ -208,7 +208,7 @@ public class BootstrapConfig {
 	@Bean
 	public JavaScriptModule masonryModule() {
 		return new JavaScriptModuleImpl("jquery.masonry",
-				"org.soluvas.web.bootstrap/jquery.masonry-2.1.08.min",
+				"org.soluvas.web.bootstrap/jquery.masonry-2.1.08",
 				"//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min");
 	}
 
