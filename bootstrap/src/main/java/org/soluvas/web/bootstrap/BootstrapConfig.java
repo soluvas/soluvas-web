@@ -167,6 +167,12 @@ public class BootstrapConfig {
 		return new JavaScriptShimImpl("jquery-ui.custom",
 				ImmutableSet.of("jquery"));
 	}
+	
+	@Bean
+	public CssLink uiCss() {
+		return new CssLinkImpl("org.soluvas.web.bootstrap/css/ui-lightness/jquery-ui-1.10.0.custom.css",
+				"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/ui-lightness/jquery-ui.css", -1);
+	}
 
 	@Bean
 	public JavaScriptModule selectmenuModule() {
