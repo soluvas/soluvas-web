@@ -11,7 +11,6 @@ import org.apache.wicket.model.Model;
  */
 @SuppressWarnings("serial")
 public class LiveChatPanel extends Panel {
-
 	/**
 	 * @param id
 	 * @param model
@@ -20,7 +19,7 @@ public class LiveChatPanel extends Panel {
 		super(id, model);
 		Component inner = null;
 		final LiveChatManager liveChatMgr = model.getObject();
-		switch (LiveChatProvider.OLARK) {
+		switch (liveChatMgr.getProvider()) {
 		case OLARK:
 			inner = new Olark("inner", new Model<>(liveChatMgr.getSiteId()));
 			break;
