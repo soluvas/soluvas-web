@@ -66,9 +66,9 @@ public class OlarkSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case OlarkPackage.OLARK_MANAGER: {
-				OlarkManager olarkManager = (OlarkManager)theEObject;
-				T result = caseOlarkManager(olarkManager);
+			case OlarkPackage.LIVE_CHAT_MANAGER: {
+				LiveChatManager liveChatManager = (LiveChatManager)theEObject;
+				T result = caseLiveChatManager(liveChatManager);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -77,17 +77,17 @@ public class OlarkSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Manager</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Live Chat Manager</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Manager</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Live Chat Manager</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseOlarkManager(OlarkManager object) {
+	public T caseLiveChatManager(LiveChatManager object) {
 		return null;
 	}
 

@@ -10,7 +10,7 @@
 		<argument value="org.soluvas.web.olark.OlarkPackage" />
 	</bean>
 
-	<bean id="olarkManager" class="org.soluvas.web.olark.impl.OlarkManagerImpl">
+	<bean id="olarkManager" class="org.soluvas.web.olark.impl.LiveChatManagerImpl">
 		<argument value="${olarkSiteId}" />
 		<argument value="${olarkEnabled}" />
 	</bean>

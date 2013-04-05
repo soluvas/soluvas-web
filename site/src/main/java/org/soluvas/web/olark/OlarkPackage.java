@@ -4,6 +4,7 @@ package org.soluvas.web.olark;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -55,14 +56,14 @@ public interface OlarkPackage extends EPackage {
 	OlarkPackage eINSTANCE = org.soluvas.web.olark.impl.OlarkPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.olark.impl.OlarkManagerImpl <em>Manager</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.olark.impl.LiveChatManagerImpl <em>Live Chat Manager</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.olark.impl.OlarkManagerImpl
-	 * @see org.soluvas.web.olark.impl.OlarkPackageImpl#getOlarkManager()
+	 * @see org.soluvas.web.olark.impl.LiveChatManagerImpl
+	 * @see org.soluvas.web.olark.impl.OlarkPackageImpl#getLiveChatManager()
 	 * @generated
 	 */
-	int OLARK_MANAGER = 0;
+	int LIVE_CHAT_MANAGER = 0;
 
 	/**
 	 * The feature id for the '<em><b>Site Id</b></em>' attribute.
@@ -71,7 +72,7 @@ public interface OlarkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OLARK_MANAGER__SITE_ID = 0;
+	int LIVE_CHAT_MANAGER__SITE_ID = 0;
 
 	/**
 	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
@@ -80,49 +81,90 @@ public interface OlarkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OLARK_MANAGER__ENABLED = 1;
+	int LIVE_CHAT_MANAGER__ENABLED = 1;
 
 	/**
-	 * The number of structural features of the '<em>Manager</em>' class.
+	 * The feature id for the '<em><b>Provider</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLARK_MANAGER_FEATURE_COUNT = 2;
-
+	int LIVE_CHAT_MANAGER__PROVIDER = 2;
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.olark.OlarkManager <em>Manager</em>}'.
+	 * The number of structural features of the '<em>Live Chat Manager</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Manager</em>'.
-	 * @see org.soluvas.web.olark.OlarkManager
 	 * @generated
+	 * @ordered
 	 */
-	EClass getOlarkManager();
+	int LIVE_CHAT_MANAGER_FEATURE_COUNT = 3;
+
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.olark.OlarkManager#getSiteId <em>Site Id</em>}'.
+	 * The meta object id for the '{@link org.soluvas.web.olark.LiveChatProvider <em>Live Chat Provider</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.olark.LiveChatProvider
+	 * @see org.soluvas.web.olark.impl.OlarkPackageImpl#getLiveChatProvider()
+	 * @generated
+	 */
+	int LIVE_CHAT_PROVIDER = 1;
+
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.olark.LiveChatManager <em>Live Chat Manager</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Live Chat Manager</em>'.
+	 * @see org.soluvas.web.olark.LiveChatManager
+	 * @generated
+	 */
+	EClass getLiveChatManager();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.olark.LiveChatManager#getSiteId <em>Site Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Site Id</em>'.
-	 * @see org.soluvas.web.olark.OlarkManager#getSiteId()
-	 * @see #getOlarkManager()
+	 * @see org.soluvas.web.olark.LiveChatManager#getSiteId()
+	 * @see #getLiveChatManager()
 	 * @generated
 	 */
-	EAttribute getOlarkManager_SiteId();
+	EAttribute getLiveChatManager_SiteId();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.olark.OlarkManager#isEnabled <em>Enabled</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.olark.LiveChatManager#isEnabled <em>Enabled</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Enabled</em>'.
-	 * @see org.soluvas.web.olark.OlarkManager#isEnabled()
-	 * @see #getOlarkManager()
+	 * @see org.soluvas.web.olark.LiveChatManager#isEnabled()
+	 * @see #getLiveChatManager()
 	 * @generated
 	 */
-	EAttribute getOlarkManager_Enabled();
+	EAttribute getLiveChatManager_Enabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.olark.LiveChatManager#getProvider <em>Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Provider</em>'.
+	 * @see org.soluvas.web.olark.LiveChatManager#getProvider()
+	 * @see #getLiveChatManager()
+	 * @generated
+	 */
+	EAttribute getLiveChatManager_Provider();
+
+	/**
+	 * Returns the meta object for enum '{@link org.soluvas.web.olark.LiveChatProvider <em>Live Chat Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Live Chat Provider</em>'.
+	 * @see org.soluvas.web.olark.LiveChatProvider
+	 * @generated
+	 */
+	EEnum getLiveChatProvider();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -147,14 +189,14 @@ public interface OlarkPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.olark.impl.OlarkManagerImpl <em>Manager</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.olark.impl.LiveChatManagerImpl <em>Live Chat Manager</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.olark.impl.OlarkManagerImpl
-		 * @see org.soluvas.web.olark.impl.OlarkPackageImpl#getOlarkManager()
+		 * @see org.soluvas.web.olark.impl.LiveChatManagerImpl
+		 * @see org.soluvas.web.olark.impl.OlarkPackageImpl#getLiveChatManager()
 		 * @generated
 		 */
-		EClass OLARK_MANAGER = eINSTANCE.getOlarkManager();
+		EClass LIVE_CHAT_MANAGER = eINSTANCE.getLiveChatManager();
 
 		/**
 		 * The meta object literal for the '<em><b>Site Id</b></em>' attribute feature.
@@ -162,7 +204,7 @@ public interface OlarkPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OLARK_MANAGER__SITE_ID = eINSTANCE.getOlarkManager_SiteId();
+		EAttribute LIVE_CHAT_MANAGER__SITE_ID = eINSTANCE.getLiveChatManager_SiteId();
 
 		/**
 		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
@@ -170,7 +212,25 @@ public interface OlarkPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OLARK_MANAGER__ENABLED = eINSTANCE.getOlarkManager_Enabled();
+		EAttribute LIVE_CHAT_MANAGER__ENABLED = eINSTANCE.getLiveChatManager_Enabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Provider</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIVE_CHAT_MANAGER__PROVIDER = eINSTANCE.getLiveChatManager_Provider();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.olark.LiveChatProvider <em>Live Chat Provider</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.olark.LiveChatProvider
+		 * @see org.soluvas.web.olark.impl.OlarkPackageImpl#getLiveChatProvider()
+		 * @generated
+		 */
+		EEnum LIVE_CHAT_PROVIDER = eINSTANCE.getLiveChatProvider();
 
 	}
 

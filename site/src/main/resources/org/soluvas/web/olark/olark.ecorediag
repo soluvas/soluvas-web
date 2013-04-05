@@ -4,12 +4,16 @@
     <children xmi:type="notation:Node" xmi:id="_i_H8YHWtEeKrm6KZ8FscYA" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_i_JxkHWtEeKrm6KZ8FscYA" type="5001">
       <children xmi:type="notation:Node" xmi:id="_k9UHYHWtEeKrm6KZ8FscYA" type="2001">
-        <element xmi:type="ecore:EAttribute" href="olark.ecore#//OlarkManager/siteId"/>
+        <element xmi:type="ecore:EAttribute" href="olark.ecore#//LiveChatManager/siteId"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_k9UucHWtEeKrm6KZ8FscYA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_jmShkXm0EeKli8-p1vnJQA" type="2001">
-        <element xmi:type="ecore:EAttribute" href="olark.ecore#//OlarkManager/enabled"/>
+        <element xmi:type="ecore:EAttribute" href="olark.ecore#//LiveChatManager/enabled"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_jmShknm0EeKli8-p1vnJQA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_EBrfAJ3JEeKGh6RAxV66hA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="olark.ecore#//LiveChatManager/provider"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EBrfAZ3JEeKGh6RAxV66hA"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_i_JxkXWtEeKrm6KZ8FscYA"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_i_JxknWtEeKrm6KZ8FscYA"/>
@@ -21,8 +25,27 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_i_KYo3WtEeKrm6KZ8FscYA"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_i_GuQXWtEeKrm6KZ8FscYA" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="olark.ecore#//OlarkManager"/>
+    <element xmi:type="ecore:EClass" href="olark.ecore#//LiveChatManager"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i_GuQnWtEeKrm6KZ8FscYA" x="158" y="91"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_FnHLwJ3JEeKGh6RAxV66hA" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_FnIZ4J3JEeKGh6RAxV66hA" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_FnIZ4Z3JEeKGh6RAxV66hA" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_GV1S8J3JEeKGh6RAxV66hA" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="olark.ecore#//LiveChatProvider/olark"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_GV1S8Z3JEeKGh6RAxV66hA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_G0zG4J3JEeKGh6RAxV66hA" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="olark.ecore#//LiveChatProvider/livechatinc"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_G0zG4Z3JEeKGh6RAxV66hA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_FnIZ4p3JEeKGh6RAxV66hA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_FnIZ453JEeKGh6RAxV66hA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_FnIZ5J3JEeKGh6RAxV66hA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_FnHLwZ3JEeKGh6RAxV66hA" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="olark.ecore#//LiveChatProvider"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FnHLwp3JEeKGh6RAxV66hA" x="419" y="226"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_gpdFgnWtEeKrm6KZ8FscYA"/>
   <element xmi:type="ecore:EPackage" href="olark.ecore#/"/>

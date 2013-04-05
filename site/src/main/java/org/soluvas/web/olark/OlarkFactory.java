@@ -22,13 +22,13 @@ public interface OlarkFactory extends EFactory {
 	OlarkFactory eINSTANCE = org.soluvas.web.olark.impl.OlarkFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Manager</em>'.
+	 * Returns a new object of class '<em>Live Chat Manager</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Manager</em>'.
+	 * @return a new object of class '<em>Live Chat Manager</em>'.
 	 * @generated
 	 */
-	OlarkManager createOlarkManager();
+	LiveChatManager createLiveChatManager();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -3,6 +3,7 @@
 package org.soluvas.web.olark.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -56,7 +57,7 @@ public class OlarkFactoryImpl extends EFactoryImpl implements OlarkFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case OlarkPackage.OLARK_MANAGER: return createOlarkManager();
+			case OlarkPackage.LIVE_CHAT_MANAGER: return createLiveChatManager();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -67,9 +68,59 @@ public class OlarkFactoryImpl extends EFactoryImpl implements OlarkFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OlarkManager createOlarkManager() {
-		OlarkManagerImpl olarkManager = new OlarkManagerImpl();
-		return olarkManager;
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case OlarkPackage.LIVE_CHAT_PROVIDER:
+				return createLiveChatProviderFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case OlarkPackage.LIVE_CHAT_PROVIDER:
+				return convertLiveChatProviderToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LiveChatManager createLiveChatManager() {
+		LiveChatManagerImpl liveChatManager = new LiveChatManagerImpl();
+		return liveChatManager;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LiveChatProvider createLiveChatProviderFromString(EDataType eDataType, String initialValue) {
+		LiveChatProvider result = LiveChatProvider.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLiveChatProviderToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

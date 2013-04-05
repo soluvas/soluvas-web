@@ -4,12 +4,14 @@ package org.soluvas.web.olark.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.soluvas.web.olark.OlarkFactory;
-import org.soluvas.web.olark.OlarkManager;
+import org.soluvas.web.olark.LiveChatManager;
+import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.olark.OlarkPackage;
 
 /**
@@ -24,8 +26,13 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass olarkManagerEClass = null;
-
+	private EClass liveChatManagerEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum liveChatProviderEEnum = null;
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
@@ -92,8 +99,8 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getOlarkManager() {
-		return olarkManagerEClass;
+	public EClass getLiveChatManager() {
+		return liveChatManagerEClass;
 	}
 
 	/**
@@ -101,8 +108,8 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOlarkManager_SiteId() {
-		return (EAttribute)olarkManagerEClass.getEStructuralFeatures().get(0);
+	public EAttribute getLiveChatManager_SiteId() {
+		return (EAttribute)liveChatManagerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -110,8 +117,26 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOlarkManager_Enabled() {
-		return (EAttribute)olarkManagerEClass.getEStructuralFeatures().get(1);
+	public EAttribute getLiveChatManager_Enabled() {
+		return (EAttribute)liveChatManagerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLiveChatManager_Provider() {
+		return (EAttribute)liveChatManagerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getLiveChatProvider() {
+		return liveChatProviderEEnum;
 	}
 
 	/**
@@ -142,9 +167,13 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 		isCreated = true;
 
 		// Create classes and their features
-		olarkManagerEClass = createEClass(OLARK_MANAGER);
-		createEAttribute(olarkManagerEClass, OLARK_MANAGER__SITE_ID);
-		createEAttribute(olarkManagerEClass, OLARK_MANAGER__ENABLED);
+		liveChatManagerEClass = createEClass(LIVE_CHAT_MANAGER);
+		createEAttribute(liveChatManagerEClass, LIVE_CHAT_MANAGER__SITE_ID);
+		createEAttribute(liveChatManagerEClass, LIVE_CHAT_MANAGER__ENABLED);
+		createEAttribute(liveChatManagerEClass, LIVE_CHAT_MANAGER__PROVIDER);
+
+		// Create enums
+		liveChatProviderEEnum = createEEnum(LIVE_CHAT_PROVIDER);
 	}
 
 	/**
@@ -177,9 +206,15 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(olarkManagerEClass, OlarkManager.class, "OlarkManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOlarkManager_SiteId(), ecorePackage.getEString(), "siteId", "", 1, 1, OlarkManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getOlarkManager_Enabled(), ecorePackage.getEBoolean(), "enabled", null, 1, 1, OlarkManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(liveChatManagerEClass, LiveChatManager.class, "LiveChatManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLiveChatManager_SiteId(), ecorePackage.getEString(), "siteId", "", 1, 1, LiveChatManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveChatManager_Enabled(), ecorePackage.getEBoolean(), "enabled", null, 1, 1, LiveChatManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveChatManager_Provider(), this.getLiveChatProvider(), "provider", null, 0, 1, LiveChatManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(liveChatProviderEEnum, LiveChatProvider.class, "LiveChatProvider");
+		addEEnumLiteral(liveChatProviderEEnum, LiveChatProvider.OLARK);
+		addEEnumLiteral(liveChatProviderEEnum, LiveChatProvider.LIVECHATINC);
 
 		// Create resource
 		createResource(eNS_URI);
