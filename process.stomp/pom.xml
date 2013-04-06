@@ -5,9 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.soluvas</groupId>
-		<artifactId>org.soluvas.web.parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<artifactId>org.soluvas.web.build</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>org.soluvas.process.stomp</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
