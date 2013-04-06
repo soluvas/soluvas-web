@@ -12,7 +12,6 @@
 	<url>http://www.soluvas.org/</url>
 
 	<modules>
-		<module>parent</module>
 		<!-- Core -->
 		<module>site</module>
 		<!-- UI Foundation -->
