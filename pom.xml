@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 	<name>Soluvas Web Build</name>
 	<description>Soluvas Web Framework.</description>
-	<url>http://www.soluvas.org/</url>
+	<url>http://www.soluvas.com/</url>
 
 	<modules>
 		<!-- Core -->
@@ -24,6 +24,8 @@
 	</modules>
 
 	<scm>
+		<connection>scm:git:git@github.com:soluvas/soluvas-web.git</connection>
+		<url>http://github.com/soluvas/soluvas-web</url>
 	</scm>
 	<organization>
 		<name>Soluvas</name>
