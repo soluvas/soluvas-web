@@ -4,6 +4,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.MarkupElement;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
@@ -42,7 +43,14 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 	public void onComponentTagBody(MarkupStream markupStream,
 			ComponentTag openTag) {
 		log.debug("Compiling Mustache for {}", getPageRelativePath());
-		String template = markupStream.get().toString();//getMarkupFragment().toString(true);
+		MarkupElement markupElement = markupStream.get(); //getMarkupFragment().toString(true);
+		String template = markupElement.toString();
+		while (markupStream.hasMore()) {
+			markupElement = markupStream.next();
+			if (markupElement != null) {
+				template += markupElement.toString();
+			}
+		}
 //		final String template = getMarkup().toString(true);
 		final MustacheFactory mf = new DefaultMustacheFactory();
 		final Mustache mainMustache = mf.compile(new StringReader(template), "main");
