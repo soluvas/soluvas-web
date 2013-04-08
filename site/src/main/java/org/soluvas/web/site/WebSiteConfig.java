@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableSet;
 		"org.soluvas.web.googleanalytics",
 		"org.soluvas.web.bootstrap"})
 public class WebSiteConfig {
-	
+
 	@Bean
 	public JavaScriptModule webAddressModule() {
 		return new JavaScriptModuleImpl("org.soluvas.web.site/webAddress",
