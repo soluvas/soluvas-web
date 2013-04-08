@@ -1,16 +1,12 @@
 package org.soluvas.web.site;
 
-import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
-import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
-import org.joda.money.format.MoneyFormatter;
-import org.joda.money.format.MoneyFormatterBuilder;
 
 /**
  * Formats a {@link CurrencyUnit} code as symbol in current {@link Locale}.
@@ -27,6 +23,7 @@ public class CurrencyLabel extends Label {
 		super(id, label);
 	}
 	
+	@Override
 	public void onComponentTagBody(final MarkupStream markupStream, final ComponentTag openTag)
 	{
 		replaceComponentTagBody(markupStream, openTag, getDefaultModelObjectAsFormattedString());
@@ -37,6 +34,7 @@ public class CurrencyLabel extends Label {
 		if (currency != null) {
 			// TODO: proper locale support
 			return currency.getSymbol(Locale.forLanguageTag("id-ID"));
+//			return "IDR";
 		} else {
 			return "";
 		}
