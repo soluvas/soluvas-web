@@ -1,6 +1,5 @@
 package org.soluvas.web.bootstrap;
 
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -19,6 +18,12 @@ import org.springframework.stereotype.Service;
 /**
  * Looks up HTML content from "${dataFolder}/common/content/${slug}.html".
  * Used by {@link ContentPage}.
+ * It can be used to load:
+ * <ol>
+ * <li>Page content, e.g. <b>about</b>.html.</li>
+ * <li>Sidebar content, e.g. <b>about.sidebar</b>.html</li>
+ * </ol>
+ * To load sidebar, use e.g. "about.sidebar" as slug.
  * @author rudi
  */
 @Service("contentLookup") @Lazy @ContentRelated
@@ -40,7 +45,7 @@ public class CommonFolderContentLookup implements EntityLookup<String, String> {
 		} catch (IOException e) {
 			throw new SiteException(e, "Cannot read %s", file);
 		}
-		log.debug("Read {} ({} bytes) in {}", file.getParent(), content.length(), file.getName());
+		log.debug("Read {} ({} bytes) in {}", file.getName(), content.length(), file.getParent());
 		return (S) content;
 	}
 
