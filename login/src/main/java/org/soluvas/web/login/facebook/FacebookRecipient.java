@@ -1,7 +1,6 @@
 package org.soluvas.web.login.facebook;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,7 +40,6 @@ import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.web.login.FacebookManager;
-import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.SoluvasWebSession;
 
 import com.google.common.base.Preconditions;
@@ -81,21 +79,16 @@ public class FacebookRecipient extends WebPage {
 				throw new NotLoggedWithFacebookException();
 			}
 	//		Preconditions.checkArgument(!Strings.isNullOrEmpty(code), "Code Parameter must be provided");
-			final String token_url = "https://graph.facebook.com/oauth/access_token?";
-			final String myUrl = webAddress.getBaseUri() + "fb_recipient/";
+			final String redirectUri = webAddress.getBaseUri() + "fb_recipient/";
 			final String appId = facebookMgr.getAppId();
 			final String appSecret = facebookMgr.getAppSecret();
 	
 			log.debug("Code parameter url is {}", code);
 			add(new Label("code" ,code));
-			URIBuilder fbLoginUri = new URIBuilder(token_url);
-			fbLoginUri.addParameter("client_id", appId);
-			fbLoginUri.addParameter("client_secret", appSecret);
-			fbLoginUri.addParameter("redirect_uri", myUrl);
-			fbLoginUri.addParameter("code", code);
 			
-			log.info("Getting access token");
-			final String accessToken = fetchAccessToken(fbLoginUri);
+			log.info("Getting access token for appId {} redirectUri {}",
+					appId, redirectUri);
+			final String accessToken = fetchAccessToken(appId, appSecret, redirectUri, code);
 			log.debug("fetching access token {}", accessToken);
 			final FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
 			final User user = facebookClient.fetchObject("me", User.class);
@@ -194,13 +187,18 @@ public class FacebookRecipient extends WebPage {
 				log.debug("Session has no, redirecting to {}", homePage.getName()); 
 				throw new RestartResponseException(homePage);
 			}
-		} catch (final URISyntaxException e) {
-			throw new NotLoggedWithFacebookException();
+		} catch (final Exception e) {
+			throw new NotLoggedWithFacebookException("Cannot login via Facebook", e);
 		}
 	}
 
-	public String fetchAccessToken(URIBuilder accessTokenUri) {
+	public String fetchAccessToken(String appId, String appSecret, String redirectUri, String code) {
 		try {
+			final URIBuilder accessTokenUri = new URIBuilder("https://graph.facebook.com/oauth/access_token");
+			accessTokenUri.addParameter("client_id", appId);
+			accessTokenUri.addParameter("client_secret", appSecret);
+			accessTokenUri.addParameter("redirect_uri", redirectUri);
+			accessTokenUri.addParameter("code", code);
 			final HttpGet accessTokenUriRequest = new HttpGet(accessTokenUri.build());
 			final DefaultHttpClient client = new DefaultHttpClient();
 			final HttpResponse responseAccessTokenReq = client.execute(accessTokenUriRequest);
@@ -217,10 +215,9 @@ public class FacebookRecipient extends WebPage {
 			return accessToken;
 			//throw new RedirectToUrlException(myUrl.toString());
 		} catch (final Exception ex) {
-			throw new LoginException("Error when building Facebook URI", ex);
+			throw new RuntimeException("Error when building Facebook URI for appId " + 
+				appId + " and redirectUri " + redirectUri, ex);
 		}
 	}
 	
-//	protected void onLoginSuccess(String personId) {
-//	}
 }
