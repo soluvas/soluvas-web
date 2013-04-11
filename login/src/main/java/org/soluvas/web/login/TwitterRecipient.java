@@ -172,7 +172,7 @@ public class TwitterRecipient extends WebPage {
 				currentUser.login(token);
 				final String personId = Preconditions.checkNotNull(modifiedPerson.getId(),
 						"Cannot get current user as person ID");
-				info(String.format("Your are now logged in as %s", personId));
+				info(String.format("You are now logged in as %s", personId));
 				log.debug("Current user is now {}", personId);
 				log.debug("{} permitted to edit person? {}", personId, currentUser.isPermitted("person:edit:*"));
 //							onLoginSuccess(personId);
