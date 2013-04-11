@@ -4,7 +4,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,8 @@ public class ContentPage extends BootstrapPage {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(ContentPage.class);
-	@PaxWicketBean(name="contentLookup") @SpringBean(name="contentLookup")
+	
+	@SpringBean(name="contentLookup")
 	private EntityLookup<String, String> contentLookup;
 	
 	public ContentPage(PageParameters params) {
