@@ -2,15 +2,15 @@ package org.soluvas.web.bootstrap;
 
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -24,46 +24,30 @@ import com.google.common.base.Optional;
  * http://www.wexoo.net/20110831/building-a-custom-feedbackpanel-in-wicket-with-js
  * http://javathoughts.capesugarbird.com/2009/06/replacing-wickets-feedbackpanel-with.html
  * 
- * See also jGrowl behavior in https://github.com/wicketstuff/core
- * 
- * We might just move to that.
- * 
- * @todo There is issue with z-index, it is covered by navbar.
  * @author ceefour
- * @deprecated No longer used. Use {@link GrowlBehavior} panel instead,
- * 	more lightweight (no CSS because already provided by Bootstrap),
- *  uses Bootstrap theme, CDN available at cdnjs.com, works on top of navbar.
  */
-@SuppressWarnings("serial") @Deprecated
-public class NotifyPanel extends Panel {
+@SuppressWarnings("serial")
+public class GrowlBehavior extends Behavior {
 
-	private static Logger log = LoggerFactory.getLogger(NotifyPanel.class);
+	private static Logger log = LoggerFactory.getLogger(GrowlBehavior.class);
 	
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
-	private WebAddress webAddress;	
+	@SpringBean
+	private WebAddress webAddress;
 	
-	public NotifyPanel(String id) {
-		this(id, null);
-	}
-	
-	/**
-	 * @param id
-	 * @param model
-	 */
-	public NotifyPanel(String id, IModel<?> model) {
-		super(id, model);
-		setRenderBodyOnly(true);
+	public GrowlBehavior() {
+		super();
+		Injector.get().inject(this);
 	}
 
 	@Override
-	public void onEvent(IEvent<?> event) {
-		super.onEvent(event);
+	public void onEvent(Component component, IEvent<?> event) {
+		super.onEvent(component, event);
 //		log.debug("We get event {}", event.getPayload());
 		if (event.getPayload() instanceof AjaxRequestTarget) {
 			createNotify((AjaxRequestTarget) event.getPayload());
 		}
 	}
-	
+
 	protected void createNotify(AjaxRequestTarget target) {
 		final List<FeedbackMessage> feedbackMessages = new FeedbackCollector(target.getPage()).collect();
 		if (!feedbackMessages.isEmpty()) {
@@ -84,15 +68,15 @@ public class NotifyPanel extends Panel {
 //						"  jQuery('#notify-container').notify('create', {text: \"" +
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
 				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
-				String templateName = "ui-notify-info";
+				String growlType = "info";
 				if (msg.isError()) {
-					templateName = "ui-notify-error";
+					growlType = "error";
 				} else if (msg.isWarning()) {
-					templateName = "ui-notify-warning";
+					growlType = "error";
 				} else if (msg.isInfo()) {
-					templateName = "ui-notify-info";
+					growlType = "success";
 				} else if (msg.isDebug()) {
-					templateName = "ui-notify-debug";
+					growlType = "info";
 				}
 				
 //				log.debug("Path Icon is: {}", pathIcon);
@@ -102,11 +86,11 @@ public class NotifyPanel extends Panel {
 //						"src=\"" + pathIcon + "\" />')");
 //				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
-				target.appendJavaScript("jQuery('#notify-container').notify('create', '" + templateName + "', {text: " +
-						JsonUtils.asJson(messageText) + "});");
+				target.appendJavaScript("require(['bootstrap-growl'], function(){ $.bootstrapGrowl(" +
+						JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'}); });");
 				msg.markRendered();
 			}
 		}
 	}
-	
+
 }

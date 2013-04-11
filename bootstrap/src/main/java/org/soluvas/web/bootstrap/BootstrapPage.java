@@ -36,9 +36,6 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.joda.time.DateTime;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
@@ -76,8 +73,6 @@ import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Ordering;
 
 /**
@@ -546,6 +541,8 @@ public class BootstrapPage extends ExtensiblePage {
 				.setEscapeModelStrings(false));
 		
 		add(new AlexaCertifyScript("alexaCertifyScript", new Model<>(alexaCertify)));
+		
+		add(new GrowlBehavior());
 	}
 
 	@Override

@@ -243,4 +243,17 @@ public class BootstrapConfig {
 	public CssLink notifyCustomCss() {
 		return new CssLinkImpl("org.soluvas.web.bootstrap/ui.notify.custom.css");
 	}
+	
+	@Bean
+	public JavaScriptModule growlModule() {
+		return new JavaScriptModuleImpl("bootstrap-growl",
+				"org.soluvas.web.bootstrap/jquery.bootstrap-growl-1.0.0",
+				"//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min");
+	}
+	
+	@Bean
+	public JavaScriptShim growlShim() {
+		return new JavaScriptShimImpl("bootstrap-growl", ImmutableSet.of("jquery"));
+	}
+	
 }
