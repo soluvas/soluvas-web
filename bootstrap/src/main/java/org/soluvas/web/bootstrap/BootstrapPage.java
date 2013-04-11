@@ -557,4 +557,18 @@ public class BootstrapPage extends ExtensiblePage {
 		ComposeUtils.compose(this, contributors.findAll());
 	}
 
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+		final List<String> visibleChildren = new ArrayList<>();
+		for (Component child : sidebarBlocks) {
+			child.configure();
+			if (child.isVisible()) {
+				visibleChildren.add(child.getPageRelativePath());
+			}
+		}
+		log.debug("Visible sidebarBlocks children: {}", visibleChildren);
+		sidebarColumn.setVisible(!visibleChildren.isEmpty());
+	}
+	
 }
