@@ -1,7 +1,7 @@
 package org.soluvas.web.login;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.HashSet;
 
 import javax.annotation.Nullable;
 
@@ -34,8 +34,8 @@ import com.google.api.services.plus.PlusScopes;
 import com.google.api.services.plus.model.Person;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
 
 /**
  * Google Recipient 
@@ -87,23 +87,15 @@ public class GoogleRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", user);
 			log.debug("Got user {}", JsonUtils.asJson(user));
 			
-			SocialPerson person = personLdapRepo.findOneByAttribute("googlePlusId", String.valueOf(user.getId()));
-			if (person == null) {
-				person = personLdapRepo.findOneByAttribute("google", user.getName().toString());
+			SocialPerson existingPerson = personLdapRepo.findOneByAttribute("googlePlusId", String.valueOf(user.getId()));
+			if (existingPerson == null) {
+				existingPerson = personLdapRepo.findOneByAttribute("google", user.getName().toString());
 			}
 			
-			if (person != null) {
+			if (existingPerson != null) {
 				// Direct Login
-				log.debug("person is exist, update the Access Token");
-				final Set<String> emails = Sets.newHashSet();
-				if (person.getEmails() != null) {
-					emails.addAll(person.getEmails());
-				}
-				
-				person.setGoogleUsername(user.getDisplayName());
-				person.setGooglePlusId(user.getId());
-				person.setGoogleAccessToken(accessToken);
-				personLdapRepo.modify(person);
+				log.debug("Person {} from Google ID {} ({}) exists",
+						existingPerson.getId(), user.getId(), user.getEmails());
 			} else {
 				Preconditions.checkNotNull(user.getName(), "Google User's Name cannot be empty");
 				final String personId = SlugUtils.generateValidId(user.getDisplayName(), new Predicate<String>() {
@@ -121,13 +113,26 @@ public class GoogleRecipient extends WebPage {
 				});
 				final PersonName personName = NameUtils.splitName(user.getDisplayName());
 				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
-				//log.debug("User's email is {}", user.getEmail());
-				newPerson.setGooglePlusId(user.getId());
-				newPerson.setGoogleAccessToken(accessToken);
-				
-				personLdapRepo.add(newPerson);
+				existingPerson = personLdapRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
 			}
+
+			if (existingPerson.getEmails() == null) {
+				existingPerson.setEmails(new HashSet<String>());
+			}
+			if (user.getEmails() != null && !user.getEmails().isEmpty()) {
+				for (final Person.Emails googleEmail : user.getEmails()) {
+					if (!Strings.isNullOrEmpty(googleEmail.getValue())) {
+						existingPerson.getEmails().add(googleEmail.getValue());
+					}
+				}
+				if (!Strings.isNullOrEmpty(user.getEmails().get(0).getValue())) {
+					existingPerson.setGoogleUsername(user.getEmails().get(0).getValue());
+				}
+			}
+			existingPerson.setGooglePlusId(user.getId());
+			existingPerson.setGoogleAccessToken(accessToken);
+			personLdapRepo.modify(existingPerson);
 		} catch (final Exception e) {
 //			info("Error when building a uri using Google Account" + e.getMessage());
 //			log.error("Error when building a uri using Google Account", e);

@@ -2,9 +2,9 @@ package org.soluvas.web.login.facebook;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -45,7 +45,6 @@ import org.soluvas.web.site.SoluvasWebSession;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.types.User;
@@ -91,67 +90,70 @@ public class FacebookRecipient extends WebPage {
 			final String accessToken = fetchAccessToken(appId, appSecret, redirectUri, code);
 			log.debug("fetching access token {}", accessToken);
 			final FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
-			final User user = facebookClient.fetchObject("me", User.class);
-			Preconditions.checkNotNull("User should not be null", user);
-			log.debug("Got user and user details{}", JsonUtils.asJson(user));
+			final User fbUser = facebookClient.fetchObject("me", User.class);
+			Preconditions.checkNotNull("User should not be null", fbUser);
+			log.debug("Got user and user details{}", JsonUtils.asJson(fbUser));
 			
-			SocialPerson person = personLdapRepo.findOneByAttribute("fbId", user.getId());
-			if (person == null) {
-				person = personLdapRepo.findOneByAttribute("fbUser", user.getUsername());
+			SocialPerson existingPerson = personLdapRepo.findOneByAttribute("fbId", fbUser.getId());
+			if (existingPerson == null) {
+				existingPerson = personLdapRepo.findOneByAttribute("fbUser", fbUser.getUsername());
 			}
-			if (person == null) {
-				person = personLdapRepo.findOneByAttribute("mail", user.getEmail());
+			if (existingPerson == null) {
+				existingPerson = personLdapRepo.findOneByAttribute("mail", fbUser.getEmail());
 			}
 			
-			final SocialPerson modifiedPerson;
-			if (person != null) {
+			if (existingPerson != null) {
 				// Direct Login
-				log.debug("person is exist, update the Access Token");
-				final Set<String> emails = Sets.newHashSet();
-				if (person.getEmails() != null) {
-					emails.addAll(person.getEmails());
-				}
-				if (!Strings.isNullOrEmpty(user.getEmail())) {
-					emails.add(user.getEmail());
-				}
-				person.setEmails(emails);
-				person.setFacebookUsername(user.getUsername());
-				person.setFacebookId(Long.valueOf(user.getId()));
-				person.setFacebookAccessToken(accessToken);
-				modifiedPerson = personLdapRepo.modify(person);
+				log.debug("Person {} from Facebook ID {} exists",
+						existingPerson.getId(), fbUser.getId());
 			} else {
-				Preconditions.checkNotNull(user.getName(), "Facebook User's Name cannot be empty");
-				final String personId = SlugUtils.generateValidId(user.getName(), new Predicate<String>() {
+				Preconditions.checkNotNull(fbUser.getName(), "Facebook User's Name cannot be empty");
+				final String personId = SlugUtils.generateValidId(fbUser.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
 						return !personLdapRepo.exists(input);
 					}
 				});
 				
-				final String personSlug = SlugUtils.generateValidScreenName(user.getName(), new Predicate<String>() {
+				final String personSlug = SlugUtils.generateValidScreenName(fbUser.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
 						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
 					}
 				});
-				//https://graph.facebook.com/USER_ID/picture?type=large HTTPCLIENT
-				final SocialPerson newPerson = new SocialPerson(personId, personSlug, user.getFirstName(), user.getLastName());
-				log.debug("User's email is {}", user.getEmail());
-				newPerson.setPrimaryEmail(user.getEmail());
-				newPerson.setFacebookUsername(user.getUsername());
-				newPerson.setFacebookId(Long.valueOf(user.getId()));
-				newPerson.setFacebookAccessToken(accessToken);
 				
+				existingPerson = new SocialPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName());
+				personLdapRepo.add(existingPerson);
+			}
+
+			existingPerson.setFacebookUsername(fbUser.getUsername());
+			existingPerson.setFacebookId(Long.valueOf(fbUser.getId()));
+			existingPerson.setFacebookAccessToken(accessToken);
+			if (existingPerson.getEmails() == null) {
+				existingPerson.setEmails(new HashSet<String>());
+			}
+			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
+				log.debug("User {} from Facebook ID {} has email {}",
+						existingPerson.getId(), fbUser.getId(), fbUser.getEmail());
+				existingPerson.getEmails().add(fbUser.getEmail());
+				if (existingPerson.getPrimaryEmail() == null) {
+					existingPerson.setPrimaryEmail(fbUser.getEmail());
+				}
+			} else {
+				log.warn("User {} from Facebook ID {} has no email address",
+					existingPerson.getId(), fbUser.getId());
+			}
+			if (existingPerson.getPhotoId() == null) {
 				//Set photo from Facebook.
 				try {
-					final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(newPerson.getFacebookId(), newPerson.getName(), personImageRepo);
-					newPerson.setPhotoId(imageId);
+					final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(
+							existingPerson.getFacebookId(), existingPerson.getName(), personImageRepo);
+					existingPerson.setPhotoId(imageId);
 				} catch (Exception e) {
-					log.error("Cannot refresh photo from Facebook for person " + newPerson.getId() + " " + newPerson.getName(), e);
+					log.error("Cannot refresh photo from Facebook for person " + existingPerson.getId() + " " + existingPerson.getName(), e);
 				}
-				modifiedPerson = personLdapRepo.add(newPerson);
-
 			}
+			final SocialPerson modifiedPerson = personLdapRepo.modify(existingPerson); 
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
@@ -182,7 +184,6 @@ public class FacebookRecipient extends WebPage {
 				// If Regular User
 				final Class<? extends Page> homePage = Application.get().getHomePage();
 //				RedirectByUserTyperType;
-				
 				
 				log.debug("Session has no, redirecting to {}", homePage.getName()); 
 				throw new RestartResponseException(homePage);
