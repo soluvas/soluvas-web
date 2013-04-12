@@ -43,15 +43,21 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 	public void onComponentTagBody(MarkupStream markupStream,
 			ComponentTag openTag) {
 		log.debug("Compiling Mustache for {}", getPageRelativePath());
-		MarkupElement markupElement = markupStream.get(); //getMarkupFragment().toString(true);
-		String template = markupElement.toString();
+		markupStream.setCurrentIndex(1);
+		String template = "";
+		MarkupElement currentElement = markupStream.get(); //getMarkupFragment().toString(true);
 		while (markupStream.hasMore()) {
-			markupElement = markupStream.next();
-			if (markupElement != null) {
-				template += markupElement.toString();
+			if (currentElement != null) {
+				if (currentElement.closes(openTag)) {
+					// skip closing tag for this component
+				} else {
+					template += currentElement.toString();
+				}
 			}
+			currentElement = markupStream.next();
 		}
-//		final String template = getMarkup().toString(true);
+		log.trace("Mustache template for {}: {}", getPageRelativePath(), template);
+		
 		final MustacheFactory mf = new DefaultMustacheFactory();
 		final Mustache mainMustache = mf.compile(new StringReader(template), "main");
 		
