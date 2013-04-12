@@ -946,12 +946,6 @@ public class ComposePackageImpl extends EPackageImpl implements ComposePackage {
 		g1.getETypeArguments().add(g2);
 		addEParameter(op, g1, "slaves", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(liveContributorEClass, null, "bundleAdded", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getBundle(), "bundle", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(liveContributorEClass, null, "bundleRemoved", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getBundle(), "bundle", 0, 1, IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(liveContributorEClass, null, "targetRemoved", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getLiveTarget(), "target", 0, 1, IS_UNIQUE, IS_ORDERED);
 

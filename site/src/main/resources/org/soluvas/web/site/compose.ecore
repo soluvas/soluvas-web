@@ -46,12 +46,6 @@
         </eGenericType>
       </eParameters>
     </eOperations>
-    <eOperations name="bundleAdded">
-      <eParameters name="bundle" eType="#//Bundle"/>
-    </eOperations>
-    <eOperations name="bundleRemoved">
-      <eParameters name="bundle" eType="#//Bundle"/>
-    </eOperations>
     <eOperations name="targetRemoved">
       <eParameters name="target" eType="#//LiveTarget"/>
     </eOperations>

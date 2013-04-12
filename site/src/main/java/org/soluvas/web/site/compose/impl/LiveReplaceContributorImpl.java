@@ -149,6 +149,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Bundle getLiveBundle() {
 		return liveBundle;
 	}
@@ -158,6 +159,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLiveBundle(Bundle newLiveBundle) {
 		Bundle oldLiveBundle = liveBundle;
 		liveBundle = newLiveBundle;
@@ -301,14 +303,6 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public synchronized void bundleAdded(Bundle bundle) {
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 */
-	@Override
 	public synchronized void targetRemoved(LiveTarget target) {
 		if (state == ContributorState.RESOLVED) {
 			if (target == getSlave()) {
@@ -316,14 +310,6 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 				setSlave(null);
 			}
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 */
-	@Override
-	public synchronized void bundleRemoved(Bundle bundle) {
 	}
 
 	/**

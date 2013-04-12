@@ -84,10 +84,6 @@
         <element xmi:type="ecore:EOperation" href="compose.ecore#//LiveContributor/targetRemoved"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_MPIu4S8LEeKEOZyrfiAgqw"/>
       </children>
-      <children xmi:type="notation:Node" xmi:id="_NAONkC8LEeKEOZyrfiAgqw" type="2002">
-        <element xmi:type="ecore:EOperation" href="compose.ecore#//LiveContributor/bundleRemoved"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_NAONkS8LEeKEOZyrfiAgqw"/>
-      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_gAYDkC7xEeKEOZyrfiAgqw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_gAYDkS7xEeKEOZyrfiAgqw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_gAYDki7xEeKEOZyrfiAgqw"/>

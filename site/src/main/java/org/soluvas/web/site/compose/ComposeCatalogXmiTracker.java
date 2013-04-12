@@ -258,14 +258,6 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 		}
 		log.info("Removed {} EObjects from {}",
 				eobjects.size(), resourceContainer);
-
-		log.warn("NOT Notifying {} contributors that bundle {} is removed",
-				contribs.size(), resourceContainer);
-//		log.debug("Notifying {} contributors that bundle {} is removed",
-//				contribs.size(), resourceContainer);
-//		for (final LiveContributor contrib : contribs) {
-//			contrib.bundleRemoved(bundle);
-//		}
 	}
 
 }

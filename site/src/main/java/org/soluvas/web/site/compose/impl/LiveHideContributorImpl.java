@@ -519,18 +519,6 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * @generated
 	 */
 	@Override
-	public void bundleAdded(Bundle bundle) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public void targetRemoved(LiveTarget target) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -543,18 +531,6 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 * @generated
 	 */
 	public LiveContributor createLive() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void bundleRemoved(Bundle bundle) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

@@ -149,6 +149,7 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Bundle getLiveBundle() {
 		return liveBundle;
 	}
@@ -158,6 +159,7 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLiveBundle(Bundle newLiveBundle) {
 		Bundle oldLiveBundle = liveBundle;
 		liveBundle = newLiveBundle;
@@ -299,14 +301,6 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public synchronized void bundleAdded(Bundle bundle) {
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 */
-	@Override
 	public synchronized void targetRemoved(LiveTarget target) {
 		if (state == ContributorState.RESOLVED) {
 			if (target == getPlaceholder()) {
@@ -314,15 +308,6 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 				setPlaceholder(null);
 			}
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 */
-	@Override
-	public synchronized void bundleRemoved(Bundle bundle) {
-		// TODO: implement this method
 	}
 
 	/**

@@ -613,18 +613,6 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 * @generated
 	 */
 	@Override
-	public void bundleAdded(Bundle bundle) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public void targetRemoved(LiveTarget target) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -637,18 +625,6 @@ public class LiveComponentContributorImpl extends EObjectImpl implements LiveCom
 	 * @generated
 	 */
 	public LiveContributor createLive() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void bundleRemoved(Bundle bundle) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

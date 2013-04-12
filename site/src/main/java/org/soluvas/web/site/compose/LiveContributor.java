@@ -109,25 +109,9 @@ public interface LiveContributor extends Contributor {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model bundleDataType="org.soluvas.web.site.compose.Bundle"
-	 * @generated
-	 */
-	void bundleAdded(Bundle bundle);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
 	 */
 	void targetRemoved(LiveTarget target);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model bundleDataType="org.soluvas.web.site.compose.Bundle"
-	 * @generated
-	 */
-	void bundleRemoved(Bundle bundle);
 
 } // LiveContributor
