@@ -454,6 +454,7 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
+		sidebarBlocks.setVisible(false);
 		sidebarColumn.add(sidebarBlocks);
 
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
