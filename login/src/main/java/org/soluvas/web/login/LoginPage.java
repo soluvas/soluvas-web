@@ -31,9 +31,11 @@ import com.google.common.base.Supplier;
 /**
  * Login form Wicket style no Backbone.
  * @author ceefour
+ * @deprecated use {@link DedicatedLoginPage}.
  */
 @SuppressWarnings("serial")
 @PaxWicketMountPoint(mountPoint="login2")
+@Deprecated
 public class LoginPage extends BootstrapPage {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
