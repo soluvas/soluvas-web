@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap;
 
+
 /**
  * Only default styling.
  * @author rio
@@ -17,8 +18,8 @@ public class BackendPage extends BootstrapPage {
 	/**
 	 * @param sidebarVisible
 	 */
-	public BackendPage(boolean sidebarVisible) {
-		super(sidebarVisible);
+	public BackendPage(SidebarVisibility sidebarVisibility) {
+		super(sidebarVisibility);
 	}
 
 }

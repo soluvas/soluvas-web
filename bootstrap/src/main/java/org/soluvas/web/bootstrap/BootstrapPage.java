@@ -82,6 +82,11 @@ import com.google.common.collect.Ordering;
  */
 @SuppressWarnings("serial")
 public class BootstrapPage extends ExtensiblePage {
+	
+	public static enum SidebarVisibility {
+		VISIBLE,
+		HIDDEN
+	}
 
 	public static class MetaTag extends WebMarkupContainer {
 
@@ -201,7 +206,7 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected final RepeatingView afterHeader;
 
-	protected boolean sidebarVisible;
+	protected SidebarVisibility sidebarVisibility;
 
 	public JavaScriptLink addJsLink(String uri) {
 		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
@@ -318,12 +323,12 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 
 	public BootstrapPage() {
-		this(true);
+		this(SidebarVisibility.VISIBLE);
 	}
 
-	public BootstrapPage(boolean sidebarVisible) {
+	public BootstrapPage(SidebarVisibility sidebarVisibility) {
 		super();
-		this.sidebarVisible = sidebarVisible;
+		this.sidebarVisibility = sidebarVisibility;
 		
 		// Use CDN jQuery if we're in production
 		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
@@ -454,7 +459,6 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
-		sidebarBlocks.setVisible(false);
 		sidebarColumn.add(sidebarBlocks);
 
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
@@ -550,7 +554,7 @@ public class BootstrapPage extends ExtensiblePage {
 	protected void onInitialize() {
 		super.onInitialize();
 		// sidebar visibility
-		if (!sidebarVisible) {
+		if (sidebarVisibility == SidebarVisibility.HIDDEN) {
 			sidebarColumn.setVisible(false);
 			contentColumn.add(new AttributeModifier("class", "span12"));
 		}
