@@ -3,24 +3,15 @@ package org.soluvas.web.site.client;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
-import org.soluvas.json.JacksonMapperFactory;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.web.site.Page;
 import org.soluvas.web.site.SiteException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Supplier;
 
 /**
  * Adds Backbone model instance with preloaded data.

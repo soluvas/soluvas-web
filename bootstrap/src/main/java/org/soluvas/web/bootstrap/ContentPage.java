@@ -4,11 +4,11 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.site.MustacheRenderer;
+import org.soluvas.web.site.WicketMountPoint;
 
 /**
  * Reads HTML file from specified folder or classpath location.
@@ -20,7 +20,7 @@ import org.soluvas.web.site.MustacheRenderer;
  * @todo Merge with Soluvas Content.
  */
 @SuppressWarnings("serial")
-@PaxWicketMountPoint(mountPoint="p/${slug}")
+@WicketMountPoint(mountPoint="p/${slug}")
 public class ContentPage extends BootstrapPage {
 
 	private static final Logger log = LoggerFactory

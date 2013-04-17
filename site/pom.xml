@@ -54,16 +54,6 @@
 			<artifactId>jersey-core</artifactId>
 			<version>1.17.1</version>
 		</dependency>
-		<!-- Pax Wicket Core -->
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.service</artifactId>
-		</dependency>
-		<!-- Pax Wicket Test Utilities -->
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.test</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-atmosphere</artifactId>

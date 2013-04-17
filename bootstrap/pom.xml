@@ -22,15 +22,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.service</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.test</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.common</artifactId>
 		</dependency>

@@ -9,7 +9,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -28,7 +27,7 @@ public class WebLink extends ExternalLink {
 
 	private static final Logger log = LoggerFactory.getLogger(WebLink.class);
 	
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
+	@SpringBean(name="webAddress")
 	private WebAddress webAddress;
 
 	private final IModel<Map<String, Object>> params;

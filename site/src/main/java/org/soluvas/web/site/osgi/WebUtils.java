@@ -6,8 +6,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.Application;
-import org.apache.wicket.injection.Injector;
-import org.ops4j.pax.wicket.api.InjectorHolder;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
@@ -150,19 +148,6 @@ public class WebUtils {
 	public static String getImageUri(Class bundleClazz, String path) {
 		final WebAddress webAddress = WebUtils.getWebAddress();
 		return webAddress.getImagesUri() + FrameworkUtil.getBundle(bundleClazz).getSymbolicName() + "/" + path;
-	}
-	
-	/**
-	 * Injection that will work both on Pax Wicket (OSGi) and plain Spring.
-	 * (transitional)
-	 * @param obj
-	 */
-	public static void inject(@Nonnull Object obj) {
-		try {
-			InjectorHolder.getInjector().inject(obj, obj.getClass());
-		} catch (IllegalStateException e) {
-			Injector.get().inject(obj);
-		}
 	}
 	
 }

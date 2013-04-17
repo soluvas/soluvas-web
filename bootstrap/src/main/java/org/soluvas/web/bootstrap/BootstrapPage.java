@@ -35,7 +35,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.joda.time.DateTime;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
@@ -163,36 +162,36 @@ public class BootstrapPage extends ExtensiblePage {
 	private static final Logger log = LoggerFactory
 			.getLogger(BootstrapPage.class);
 
-	@PaxWicketBean(name = "jacksonMapperFactory") @SpringBean(name="jacksonMapperFactory")
+	@SpringBean(name="jacksonMapperFactory")
 	private Supplier<ObjectMapper> jacksonMapperFactory;
 	/**
 	 * Should not use {@link Site} directly!
 	 */
-	// @PaxWicketBean(name="site") @Deprecated
+	// @Deprecated
 	// private Site site;
-	@PaxWicketBean(name = "cssLinks") @SpringBean(name="cssLinks")
+	@SpringBean(name="cssLinks")
 	private List<CssLink> cssLinks;
-	@PaxWicketBean(name = "headJavaScripts") @SpringBean(name="headJavaScripts")
+	@SpringBean(name="headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
-	@PaxWicketBean(name = "requireMgr") @SpringBean(name="requireMgr")
+	@SpringBean(name="requireMgr")
 	private RequireManager requireMgr;
 
-	@PaxWicketBean(name = "footerJavaScripts") @SpringBean(name="footerJavaScripts")
+	@SpringBean(name="footerJavaScripts")
 	private List<JavaScriptLink> footerJavaScripts;
-	@PaxWicketBean(name = "footerJavaScriptSources") @SpringBean(name="footerJavaScriptSources")
+	@SpringBean(name="footerJavaScriptSources")
 	private List<JavaScriptSource> footerJavaScriptSources;
 
 	protected final RepeatingView sidebarBlocks;
 
-	@PaxWicketBean(name = "pageMetaSupplierFactory") @SpringBean(name="pageMetaSupplierFactory")
+	@SpringBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
+	@SpringBean(name="webAddress")
 	protected WebAddress webAddress;
-	@PaxWicketBean(name="appManifest") @SpringBean(name="appManifest")
+	@SpringBean(name="appManifest")
 	protected AppManifest appManifest;
-	@PaxWicketBean(name = "contributors") @SpringBean(name="contributorRepo")
+	@SpringBean(name="contributorRepo")
 	private CrudRepository<LiveContributor, Integer> contributors;
-	@PaxWicketBean(name="alexaCertify") @SpringBean(name="alexaCertify")
+	@SpringBean(name="alexaCertify")
 	private AlexaCertify alexaCertify;
 
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();

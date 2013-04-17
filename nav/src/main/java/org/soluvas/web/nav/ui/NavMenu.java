@@ -19,7 +19,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.osgi.service.blueprint.container.ServiceUnavailableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +36,7 @@ import org.soluvas.web.nav.ProcessMenuItem;
 public class NavMenu extends Panel {
 
 	private static final Logger log = LoggerFactory.getLogger(NavMenu.class);
-	@PaxWicketBean(name="processLinkFactory") @SpringBean(name="processLinkFactory")
+	@SpringBean(name="processLinkFactory")
 	private transient ProcessLinkFactory processLinkFactory; 
 	
 	/**

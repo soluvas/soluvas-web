@@ -10,7 +10,6 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -39,7 +38,7 @@ public class NotifyPanel extends Panel {
 
 	private static Logger log = LoggerFactory.getLogger(NotifyPanel.class);
 	
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
+	@SpringBean(name="webAddress")
 	private WebAddress webAddress;	
 	
 	public NotifyPanel(String id) {

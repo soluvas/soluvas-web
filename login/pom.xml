@@ -45,14 +45,20 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.image</artifactId>
 		</dependency>
-		 <dependency>
+		
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.restfb</groupId>
 			<artifactId>restfb</artifactId>
 		</dependency>
 		<dependency>
-		  <groupId>org.expressme</groupId>
-		  <artifactId>JOpenId</artifactId>
-		  <version>1.08</version>
+			<groupId>org.expressme</groupId>
+			<artifactId>JOpenId</artifactId>
+			<version>1.08</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.http-client</groupId>

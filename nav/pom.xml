@@ -37,17 +37,6 @@
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 
-		<!-- Pax Wicket Core -->
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.service</artifactId>
-		</dependency>
-		<!-- Pax Wicket Test Utilities -->
-		<dependency>
-			<groupId>org.ops4j.pax.wicket</groupId>
-			<artifactId>org.ops4j.pax.wicket.test</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>com.rabbitmq</groupId>
 			<artifactId>amqp-client</artifactId>

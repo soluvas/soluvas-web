@@ -9,8 +9,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.NameUtils;
@@ -21,6 +19,7 @@ import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.NotLoggedWithGooglePlusException;
+import org.soluvas.web.site.WicketMountPoint;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -43,17 +42,17 @@ import com.google.common.collect.ImmutableList;
  *
  */
 @SuppressWarnings("serial")
-@PaxWicketMountPoint(mountPoint="google_recipient/")
+@WicketMountPoint(mountPoint="google_recipient/")
 public class GoogleRecipient extends WebPage {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleRecipient.class);
 	
-	@PaxWicketBean(name="personLdapRepo") @SpringBean(name="personLdapRepo")
+	@SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;
-	@PaxWicketBean(name="googleMgr") @SpringBean(name="googleMgr")
+	@SpringBean(name="googleMgr")
 	private GoogleManager googleManager;
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
+	@SpringBean(name="webAddress")
 	private WebAddress webAddress;
 
 	private static final HttpTransport TRANSPORT = new NetHttpTransport();

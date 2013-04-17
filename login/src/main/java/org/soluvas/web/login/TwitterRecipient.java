@@ -14,8 +14,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.NameUtils;
@@ -30,6 +28,7 @@ import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithTwitterException;
 import org.soluvas.twitter.TwitterUtils;
 import org.soluvas.web.site.SoluvasWebSession;
+import org.soluvas.web.site.WicketMountPoint;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -47,19 +46,19 @@ import com.google.common.base.Strings;
  *
  */
 @SuppressWarnings("serial")
-@PaxWicketMountPoint(mountPoint="twitter_recipient/")
+@WicketMountPoint(mountPoint="twitter_recipient/")
 public class TwitterRecipient extends WebPage {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterRecipient.class);
 	
-	@PaxWicketBean(name="twitterMgr") @SpringBean(name="twitterMgr")
+	@SpringBean(name="twitterMgr")
 	private TwitterManager twitterManager;
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
+	@SpringBean(name="webAddress")
 	private WebAddress webAddress;
-	@PaxWicketBean(name="personLdapRepo") @SpringBean(name="personLdapRepo")
+	@SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;
-	@PaxWicketBean(name="personImageRepo") @SpringBean(name="personImageRepo")
+	@SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	
 	public TwitterRecipient(PageParameters params) {

@@ -26,8 +26,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
@@ -41,6 +39,7 @@ import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.web.login.FacebookManager;
 import org.soluvas.web.site.SoluvasWebSession;
+import org.soluvas.web.site.WicketMountPoint;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -55,19 +54,18 @@ import com.restfb.types.User;
  *
  */
 @SuppressWarnings("serial")
-@PaxWicketMountPoint(mountPoint="fb_recipient/")
+@WicketMountPoint(mountPoint="fb_recipient/")
 public class FacebookRecipient extends WebPage {
-
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	
-	@PaxWicketBean(name="personLdapRepo") @SpringBean(name="personLdapRepo")
+	@SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;
-	@PaxWicketBean(name="personImageRepo") @SpringBean(name="personImageRepo")
+	@SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
-	@PaxWicketBean(name="facebookMgr") @SpringBean(name="facebookMgr")
+	@SpringBean(name="facebookMgr")
 	private FacebookManager facebookMgr;
-	@PaxWicketBean(name="webAddress") @SpringBean(name="webAddress")
+	@SpringBean(name="webAddress")
 	private WebAddress webAddress;
 	
 	public FacebookRecipient(PageParameters params) {
