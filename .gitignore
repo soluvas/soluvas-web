@@ -5,6 +5,7 @@
 target
 build
 .directory
+rebel.xml
 /backbone
 /jquery
 /jqueryui

@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import org.apache.wicket.Application;
 import org.apache.wicket.IApplicationListener;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -15,6 +17,8 @@ import com.google.common.eventbus.Subscribe;
  */
 public abstract class AtmosphereApplication extends WebApplication {
 	
+	private static final Logger log = LoggerFactory
+			.getLogger(AtmosphereApplication.class);
 	@Inject
 	private EventBus eventBus;
 	private org.apache.wicket.atmosphere.EventBus atmosphereEventBus;
@@ -38,6 +42,7 @@ public abstract class AtmosphereApplication extends WebApplication {
 
 	@Subscribe
 	public void bridgeToAtmosphere(Object obj) {
+		log.trace("Bridging {}", obj);
 		atmosphereEventBus.post(obj);
 	}
 
