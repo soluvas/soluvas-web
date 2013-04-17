@@ -26,7 +26,7 @@ public class MustacheRenderer extends WebComponent {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(MustacheRenderer.class);
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	@SpringBean(name="appManifest")
 	private AppManifest appManifest;

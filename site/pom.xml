@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>org.soluvas.web.site</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Soluvas Web Site</name>
 	<description>Core Site API and Services.</description>
 
@@ -61,6 +61,10 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
 		</dependency>
 
 		<dependency>
@@ -139,43 +143,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
-						<Import-Package>
-							org.apache.wicket,
-							org.apache.wicket.application,
-							org.apache.wicket.behavior,
-							org.apache.wicket.markup,
-							org.apache.wicket.markup.html,
-							org.apache.wicket.markup.repeater,
-							org.apache.wicket.model,
-							org.apache.wicket.util.string,
-							org.apache.wicket.spring.*;resolution:=optional,
-							com.google.common.util.concurrent,
-							javax.servlet, javax.servlet.http,
-							org.ops4j.pax.wicket.util.proxy,
-							net.sf.cglib.proxy;version="[2,3)",
-							net.sf.cglib.core;version="[2,3)",
-							net.sf.cglib.reflect;version="[2,3)",
-              				org.apache.felix.service.command;resolution:=optional, 
-                            org.apache.felix.gogo.commands;resolution:=optional,
-                            * 							
-						</Import-Package>
-						<Export-Package>
-							org.soluvas.web.site.*,
-							org.soluvas.web.olark.*,
-							org.soluvas.web.googleanalytics.*,
-							org.soluvas.web.banner.*
-						</Export-Package>
-						<DynamicImport-Package>*</DynamicImport-Package> <!-- why? http://team.ops4j.org/browse/PAXWICKET-375 -->
-					</instructions>
-				</configuration>
-			</plugin>
-
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.codehaus.mojo</groupId> -->
 <!-- 				<artifactId>build-helper-maven-plugin</artifactId> -->
@@ -195,7 +162,6 @@
 <!-- 					</execution> -->
 <!-- 				</executions> -->
 <!-- 			</plugin> -->
-		
 		</plugins>
 	</build>
 

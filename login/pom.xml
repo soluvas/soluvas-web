@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>org.soluvas.web.login</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Soluvas Web Login</name>
 	<description>Generic login forms and pages.</description>
 	
@@ -172,25 +172,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<!-- Required imports of Pax Wicket, see http://team.ops4j.org/wiki/display/paxwicket/Wicket+Applications+(Quick) -->
-						<Import-Package>
-							org.eclipse.emf.ecore,org.eclipse.emf.ecore.resource,
-							org.eclipse.emf.common,org.eclipse.emf.common.notify,
-							org.eclipse.emf.common.util,
-							*</Import-Package>
-						<Require-Bundle>org.ops4j.pax.wicket.service</Require-Bundle>
-						<!--<Export-Package>com.soluvas.social</Export-Package> -->
-						<!--<Private-Package>org.foo.myproject.*</Private-Package> -->
-						<!--<Bundle-Activator>org.foo.myproject.impl1.Activator</Bundle-Activator> -->
-					</instructions>
-				</configuration>
-			</plugin>
 			<!-- not working yet with CloudBees, due to PATH setting, so disabled for now -->
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.codehaus.mojo</groupId> -->
@@ -217,34 +198,6 @@
 <!-- 				</executions> -->
 <!-- 			</plugin> -->
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>exec-maven-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>exec</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 	
 	<repositories>

@@ -38,7 +38,7 @@ public class NotifyPanel extends Panel {
 
 	private static Logger log = LoggerFactory.getLogger(NotifyPanel.class);
 	
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;	
 	
 	public NotifyPanel(String id) {

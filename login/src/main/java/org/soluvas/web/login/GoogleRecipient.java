@@ -52,7 +52,7 @@ public class GoogleRecipient extends WebPage {
 	private LdapRepository<SocialPerson> personLdapRepo;
 	@SpringBean(name="googleMgr")
 	private GoogleManager googleManager;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 
 	private static final HttpTransport TRANSPORT = new NetHttpTransport();

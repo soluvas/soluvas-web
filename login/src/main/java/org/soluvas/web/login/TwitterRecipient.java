@@ -54,7 +54,7 @@ public class TwitterRecipient extends WebPage {
 	
 	@SpringBean(name="twitterMgr")
 	private TwitterManager twitterManager;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	@SpringBean(name="personLdapRepo")
 	private LdapRepository<SocialPerson> personLdapRepo;

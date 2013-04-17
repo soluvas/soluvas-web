@@ -26,7 +26,7 @@ public class DedicatedLoginPage extends BootstrapPage {
 	private static final Logger log = LoggerFactory
 			.getLogger(DedicatedLoginPage.class);
 	
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	@SpringBean(name="personLookup")
 	private EntityLookup<Person, String> personLookup;

@@ -42,7 +42,7 @@ public class DedicatedLoginPanel extends Panel {
 	
 	public class FormSignIn extends Form<LoginFormModel> {
 		
-		@SpringBean(name="webAddress")
+		@SpringBean
 		private WebAddress webAddress;
 		@SpringBean(name="personLookup")
 		private EntityLookup<Person, String> personLookup;

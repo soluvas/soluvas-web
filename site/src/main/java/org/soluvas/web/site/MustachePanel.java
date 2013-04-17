@@ -32,7 +32,7 @@ import com.google.common.collect.ImmutableMap;
 public class MustachePanel extends Panel {
 
 	private static final Logger log = LoggerFactory.getLogger(MustachePanel.class);
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	@SpringBean(name="appManifest")
 	private AppManifest appManifest;

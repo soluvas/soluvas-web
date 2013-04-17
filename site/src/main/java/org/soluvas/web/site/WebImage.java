@@ -22,7 +22,7 @@ public class WebImage extends WebMarkupContainer {
 
 	private static final Logger log = LoggerFactory.getLogger(WebImage.class);
 	
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	
 	public WebImage(String id) {

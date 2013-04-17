@@ -29,7 +29,7 @@ import com.google.common.collect.ImmutableMap;
 public class MustacheMarkupContainer extends WebMarkupContainer {
 
 	private static final Logger log = LoggerFactory.getLogger(MustacheMarkupContainer.class);
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	@SpringBean(name="appManifest")
 	private AppManifest appManifest;

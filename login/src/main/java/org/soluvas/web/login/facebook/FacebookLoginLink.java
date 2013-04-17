@@ -18,7 +18,7 @@ public class FacebookLoginLink extends AjaxLink<Void> {
 
 	@SpringBean(name="facebookMgr")
 	private FacebookManager facebookMgr;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	
 	public FacebookLoginLink(String id) {

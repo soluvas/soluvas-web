@@ -185,7 +185,7 @@ public class BootstrapPage extends ExtensiblePage {
 
 	@SpringBean(name="pageMetaSupplierFactory")
 	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	protected WebAddress webAddress;
 	@SpringBean(name="appManifest")
 	protected AppManifest appManifest;

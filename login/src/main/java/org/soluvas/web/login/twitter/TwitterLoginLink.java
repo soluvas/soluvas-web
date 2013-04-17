@@ -22,7 +22,7 @@ public class TwitterLoginLink extends IndicatingAjaxLink<Void> {
 	
 	@SpringBean(name="twitterMgr")
 	private TwitterManager twitterMgr;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 
 	public TwitterLoginLink(String id) {

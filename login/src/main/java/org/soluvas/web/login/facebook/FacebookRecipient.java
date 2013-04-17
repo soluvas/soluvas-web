@@ -65,7 +65,7 @@ public class FacebookRecipient extends WebPage {
 	private ImageRepository personImageRepo;
 	@SpringBean(name="facebookMgr")
 	private FacebookManager facebookMgr;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 	
 	public FacebookRecipient(PageParameters params) {

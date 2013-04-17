@@ -27,7 +27,7 @@ public class WebLink extends ExternalLink {
 
 	private static final Logger log = LoggerFactory.getLogger(WebLink.class);
 	
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 
 	private final IModel<Map<String, Object>> params;

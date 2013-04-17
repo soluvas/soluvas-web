@@ -122,7 +122,6 @@
 				<version>${wicket.version}</version>
 			</dependency>
 			<dependency>
-				<!-- For some reason, something is dependencyManagement-ing wicket-extensions with 1.4.15 -->
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-extensions</artifactId>
 				<version>${wicket.version}</version>

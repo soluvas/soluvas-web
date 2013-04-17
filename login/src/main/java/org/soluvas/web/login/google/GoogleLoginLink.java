@@ -23,7 +23,7 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 	
 	@SpringBean(name="googleMgr")
 	private GoogleManager googleMgr;
-	@SpringBean(name="webAddress")
+	@SpringBean
 	private WebAddress webAddress;
 
 	public GoogleLoginLink(String id) {
