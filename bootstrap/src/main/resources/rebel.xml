@@ -2,8 +2,15 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="/home/mahendri/git/soluvas-web/bootstrap/target/classes">
+		<dir name="${user.home}/git/soluvas-web/bootstrap/target/classes">
 		</dir>
 	</classpath>
+
+	<web>
+		<link target="/">
+			<dir name="${user.home}/git/soluvas-web/bootstrap/target/classes/META-INF/resources">
+			</dir>
+		</link>
+	</web>
 
 </application>
