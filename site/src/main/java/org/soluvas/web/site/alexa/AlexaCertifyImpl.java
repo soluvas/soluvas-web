@@ -3,6 +3,7 @@ package org.soluvas.web.site.alexa;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author rudi
  */
 @SuppressWarnings("serial")
-@Component("alexaCertify")
+@Component("alexaCertify") @Scope("prototype")
 public class AlexaCertifyImpl implements AlexaCertify {
 	
 	private final boolean enabled;
