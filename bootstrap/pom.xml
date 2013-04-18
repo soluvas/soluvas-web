@@ -20,6 +20,12 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.site</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>de.agilecoders.wicket</groupId>
+			<artifactId>wicket-bootstrap-core</artifactId>
+			<version>0.8.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
