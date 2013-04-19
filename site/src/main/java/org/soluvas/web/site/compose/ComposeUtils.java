@@ -56,7 +56,7 @@ public class ComposeUtils {
 						if (child == null) {
 							validPath = false;
 							log.warn("Skipping non-existing component " + segment + " from parent " + parent + " requested by " + contrib +
-									", probably the component hierarchy is incompatible due to other contributors. Try using the weight attribute to reorder.");
+									", probably the component hierarchy is incompatible due to other contributors. Try using the positioner attribute to reorder.");
 							break;
 						}
 						parent = child;
