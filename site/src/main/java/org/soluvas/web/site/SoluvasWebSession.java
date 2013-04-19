@@ -1,8 +1,12 @@
 package org.soluvas.web.site;
 
+import java.util.Locale;
+
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
+import org.joda.time.DateTimeZone;
+import org.soluvas.commons.locale.LocaleContext;
 
 /**
  * @author ceefour
@@ -19,6 +23,12 @@ public class SoluvasWebSession extends WebSession {
 	
 	public SoluvasWebSession(Request request) {
 		super(request);
+		// TODO: do not hardcode
+		setLocale(Locale.forLanguageTag("id-ID"));
+		if (getClientInfo().getProperties().getTimeZone() == null) {
+			// TODO: do not hardcode
+			getClientInfo().getProperties().setTimeZone(DateTimeZone.forID("Asia/Jakarta").toTimeZone());
+		}
 	}
 	
 	@Deprecated
@@ -59,5 +69,10 @@ public class SoluvasWebSession extends WebSession {
 	public String toString() {
 		return String.format("SoluvasWebSession [userId=%s]", userId);
 	}
-
+	
+	public LocaleContext getLocaleContext() {
+		// TODO: return actual settings
+		return new LocaleContext();
+	}
+	
 }
