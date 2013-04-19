@@ -3,6 +3,8 @@ package org.soluvas.web.site;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import javax.annotation.Nullable;
+
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
@@ -21,6 +23,7 @@ import org.joda.money.format.MoneyFormatterBuilder;
 @SuppressWarnings("serial")
 public class CurrencyLabel extends Label {
 
+	@Nullable
 	private IModel<BigDecimal> amountModel;
 
 	public CurrencyLabel(String id, IModel<CurrencyUnit> model) {
@@ -50,7 +53,7 @@ public class CurrencyLabel extends Label {
 	private String getDefaultModelObjectAsFormattedString() {
 		final CurrencyUnit currency = (CurrencyUnit) getDefaultModelObject();
 		if (currency != null) {
-			final BigDecimal amount = amountModel.getObject();
+			final BigDecimal amount = amountModel != null ? amountModel.getObject() : null;
 			// TODO: proper locale support
 			final Locale locale = Locale.forLanguageTag("id-ID");
 			if (amount != null) {
