@@ -41,8 +41,10 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new Label("name", new PropertyModel<String>(getModel(), "name")));
+		// Hover trigger doesn't work properly because even if going to popover content,
+		// it will still get hidden
 		final PopoverConfig config = new PopoverConfig().withAnimation(true).withPlacement(Placement.bottom)
-				.withHtml(true);
+				.withHtml(true);//.withHoverTrigger().withDelay(Duration.milliseconds(500));
 		add(new IconImageContainer("icon", getModel()));
 		final IModel<String> labelModel = new AbstractReadOnlyModel<String>() {
 			@Override
@@ -69,7 +71,7 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 
 	@Override
 	protected void onComponentTag(ComponentTag tag) {
-		tag.setName("abbr");
+		tag.setName("div");
 		super.onComponentTag(tag);
 	}
 }
