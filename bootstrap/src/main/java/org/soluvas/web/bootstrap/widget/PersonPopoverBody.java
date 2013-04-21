@@ -1,4 +1,4 @@
-package org.soluvas.web.bootstrap;
+package org.soluvas.web.bootstrap.widget;
 
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.GenericPanel;

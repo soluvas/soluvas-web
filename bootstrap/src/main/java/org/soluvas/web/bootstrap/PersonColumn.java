@@ -7,6 +7,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.soluvas.ldap.SocialPerson;
+import org.soluvas.web.bootstrap.widget.PersonPopover;
 import org.soluvas.web.site.widget.DateTimeLabel;
 
 /**
