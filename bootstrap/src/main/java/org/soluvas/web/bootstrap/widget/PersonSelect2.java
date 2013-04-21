@@ -84,7 +84,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 			"  .append(document.createTextNode(object.text)).append('<br>')" +
 			"  .append($('<small>').css({color: '#666'}).text(object.location));" +
 			"container.append(thediv);" +
-			"thediv.css({height: '50px'});" +
+			"thediv.css({height: '45px'});" +
 			"}");
 		getSettings().setFormatSelection(
 				"function(object, container, query) {" +
