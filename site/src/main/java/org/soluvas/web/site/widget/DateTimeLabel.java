@@ -18,13 +18,13 @@ import org.joda.time.base.AbstractInstant;
 @SuppressWarnings("serial")
 public class DateTimeLabel extends DateLabel {
 
-	private IModel<AbstractInstant> dateTimeModel;
+	private IModel<? extends AbstractInstant> dateTimeModel;
 
 	public DateTimeLabel(String id, DateConverter converter) {
 		super(id, converter);
 	}
 
-	public DateTimeLabel(String id, final IModel<AbstractInstant> model, DateConverter converter) {
+	public DateTimeLabel(String id, final IModel<? extends AbstractInstant> model, DateConverter converter) {
 		super(id, new AbstractReadOnlyModel<Date>() {
 			@Override
 			public Date getObject() {

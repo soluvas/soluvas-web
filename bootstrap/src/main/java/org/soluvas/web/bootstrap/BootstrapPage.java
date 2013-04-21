@@ -174,7 +174,7 @@ public class BootstrapPage extends ExtensiblePage {
 	@SpringBean(name="headJavaScripts")
 	private List<JavaScriptLink> headJavaScripts;
 	@SpringBean(name="requireMgr")
-	private RequireManager requireMgr;
+	protected RequireManager requireMgr;
 
 	@SpringBean(name="footerJavaScripts")
 	private List<JavaScriptLink> footerJavaScripts;
@@ -192,7 +192,7 @@ public class BootstrapPage extends ExtensiblePage {
 	@SpringBean(name="contributorRepo")
 	private CrudRepository<LiveContributor, Integer> contributors;
 	@SpringBean(name="alexaCertify")
-	private AlexaCertify alexaCertify;
+	protected AlexaCertify alexaCertify;
 
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	protected Component feedbackPanel;

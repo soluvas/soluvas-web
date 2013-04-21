@@ -49,6 +49,10 @@
 	<script src="requireConfig" wicket:id="requireConfig"></script>
 	<script wicket:id="requireJs" src="/static/js/org.soluvas.web.bootstrap/require-2.1.4.js"></script>
 	<script>define('jquery',[],function(){return jQuery});</script>
+	<script>define('bootstrap/bootstrap-collapse',[],function(){});</script>
+	<script>define('bootstrap/bootstrap-transition',[],function(){});</script>
+	<script>define('bootstrap/bootstrap-modal',[],function(){});</script>
+	<script>define('bootstrap',[],function(){});</script>
 
 <script>
 // TODO: refactor push support (both XHR or StompWeb-powered) to separate AMD module
@@ -101,8 +105,6 @@ var subscriptions = [];
 	<script type="text/javascript" src="something.js" wicket:id="footerJavaScriptLinks"></script>
 	<script type="text/javascript" wicket:id="footerJavaScriptSources">[footerJavaScriptSources]</script>
 	
-	<script>require(['bootstrap/bootstrap-collapse', 'bootstrap/bootstrap-transition']);</script>
-
 	<script type="text/javascript" src="something.js" wicket:id="pageJavaScriptLinks"></script>
 	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
 

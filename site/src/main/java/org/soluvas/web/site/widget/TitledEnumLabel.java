@@ -6,9 +6,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.EnumLabel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.util.string.Strings;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EAnnotation;
@@ -30,59 +28,46 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(TitledEnumLabel.class);
-	private final Map<T, String> mapping;
+	private final Map<T, String> iconMapping;
 	private boolean enumVisible = true;
-	private final IModel<String> titleModel;
+	private final Map<T, String> docs;
 	
 	public TitledEnumLabel(String id, final IModel<T> model) {
 		super(id, model);
-		this.mapping = ImmutableMap.of();
-		this.titleModel = new Model<>();
+		this.iconMapping = ImmutableMap.of();
+		this.docs = ImmutableMap.of();
 	}
 
 	public TitledEnumLabel(String id, final IModel<T> model, final EEnum eEnum) {
 		super(id, model);
-		this.mapping = ImmutableMap.of();
-		this.titleModel = initEEnum(eEnum);
+		this.iconMapping = ImmutableMap.of();
+		this.docs = initEEnum(eEnum);
 	}
 
 	public TitledEnumLabel(String id, final IModel<T> model, final EEnum eEnum,
 			Map<T, String> mapping) {
 		super(id, model);
-		this.mapping = mapping;
-		this.titleModel = initEEnum(eEnum);
+		this.iconMapping = mapping;
+		this.docs = initEEnum(eEnum);
 	}
 	
-	public TitledEnumLabel(String id, final IModel<T> model, Map<T, String> mapping) {
+	public TitledEnumLabel(String id, final IModel<T> model, Map<T, String> iconMapping) {
 		super(id, model);
-		this.mapping = mapping;
-		this.titleModel = new Model<>();
+		this.iconMapping = iconMapping;
+		this.docs = ImmutableMap.of();
 	}
 	
-	private IModel<String> initEEnum(final EEnum eEnum) {
-		return new AbstractReadOnlyModel<String>() {
-			@Override
-			public String getObject() {
-				final T enumValue = getModelObject();
-				if (enumValue == null) {
-					return null;
-				}
-//				incorrect result: final EEnumLiteral literal = eEnum.getEEnumLiteral(enumValue.ordinal());
-				final EEnumLiteral literal = eEnum.getEEnumLiteral(enumValue.name().toLowerCase());
-				if (literal != null) {
-					final EAnnotation eAnnotation = literal
-							.getEAnnotation("http://www.eclipse.org/emf/2002/GenModel");
-					if (eAnnotation != null && eAnnotation.getDetails().containsKey("documentation")) {
-						return eAnnotation.getDetails().get("documentation");
-					} else {
-						return null;
-					}
-				} else {
-					log.warn("Cannot get {} enum literal {}", eEnum);
-					return null;
-				}
+	private Map<T, String> initEEnum(final EEnum eEnum) {
+		final ImmutableMap.Builder<T, String> b = ImmutableMap.builder();
+		for (final EEnumLiteral literal : eEnum.getELiterals()) {
+			final EAnnotation eAnnotation = literal
+					.getEAnnotation("http://www.eclipse.org/emf/2002/GenModel");
+			if (eAnnotation != null && eAnnotation.getDetails().containsKey("documentation")) {
+				final String doc = eAnnotation.getDetails().get("documentation");
+				b.put((T) literal.getInstance(), doc);
 			}
-		};
+		}
+		return b.build();
 	}
 	
 	@Override
@@ -107,10 +92,10 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 			enumValue = obj != null ? WordUtils.capitalizeFully(obj.toString().replace('_', ' ')) : "";
 		}
 		
-		final String title = titleModel.getObject();
+		final String title = docs.get(obj);
 		final String iconStr;
-		if (!mapping.isEmpty() && obj != null) {
-			final String icon = mapping.containsKey(obj) ? mapping.get(obj) : "question-sign";
+		if (!iconMapping.isEmpty() && obj != null) {
+			final String icon = iconMapping.containsKey(obj) ? iconMapping.get(obj) : "question-sign";
 			iconStr = "<i class=\"icon-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(title) +"\"></i> ";
 		} else {
 			iconStr = "";
