@@ -2,6 +2,8 @@ package org.soluvas.web.site.widget;
 
 import java.math.BigDecimal;
 
+import javax.measure.unit.Unit;
+
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -11,30 +13,29 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 
 /**
- * Renders the {@link BigDecimal}-typed {@link IColumn} (and currency)
- * as a {@link CurrencyLabel}, with CSS class <code>currency</code>.
+ * Renders the {@link BigDecimal}-typed {@link IColumn} and {@link Unit}
+ * as a {@link MeasureLabel}, with CSS class <code>measure</code>.
  * @author adri
  *
  * @param <T>
  * @param <S>
  */
 @SuppressWarnings("serial")
-public class CurrencyColumn<T> extends PropertyColumn<T, String> {
+public class MeasureColumn<T> extends PropertyColumn<T, String> {
 
-	private final String currencyExpression;
+	private final String unitExpression;
 
-	public CurrencyColumn(IModel<String> displayModel, String amountExpression,
-			String currencyExpression) {
+	public MeasureColumn(IModel<String> displayModel, String unitExpression, String amountExpression) {
 		super(displayModel, amountExpression, amountExpression);
-		this.currencyExpression = currencyExpression;
+		this.unitExpression = unitExpression;
 	}
 	
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-		final CurrencyLabel label = new CurrencyLabel(componentId,
-				new PropertyModel<>(model, currencyExpression),
+		final MeasureLabel label = new MeasureLabel(componentId,
+				new PropertyModel<>(model, unitExpression),
 				(IModel) getDataModel(model));
 		item.add(label);
-		item.add(new AttributeAppender("class", "currency"));
+		item.add(new AttributeAppender("class", "measure"));
 	}
 }
