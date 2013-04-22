@@ -41,14 +41,21 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 	public TitledEnumLabel(String id, final IModel<T> model, final EEnum eEnum) {
 		super(id, model);
 		this.iconMapping = ImmutableMap.of();
-		this.docs = initEEnum(eEnum);
+		this.docs = (Map<T, String>) getEEnumDocs(eEnum);
 	}
 
 	public TitledEnumLabel(String id, final IModel<T> model, final EEnum eEnum,
 			Map<T, String> mapping) {
 		super(id, model);
 		this.iconMapping = mapping;
-		this.docs = initEEnum(eEnum);
+		this.docs = (Map<T, String>) getEEnumDocs(eEnum);
+	}
+	
+	public TitledEnumLabel(String id, final IModel<T> model, final Map<T, String> docs,
+			Map<T, String> mapping) {
+		super(id, model);
+		this.iconMapping = mapping;
+		this.docs = docs;
 	}
 	
 	public TitledEnumLabel(String id, final IModel<T> model, Map<T, String> iconMapping) {
@@ -57,14 +64,14 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 		this.docs = ImmutableMap.of();
 	}
 	
-	private Map<T, String> initEEnum(final EEnum eEnum) {
-		final ImmutableMap.Builder<T, String> b = ImmutableMap.builder();
+	public static <E extends Enum<E>> Map<E, String> getEEnumDocs(final EEnum eEnum) {
+		final ImmutableMap.Builder<E, String> b = ImmutableMap.builder();
 		for (final EEnumLiteral literal : eEnum.getELiterals()) {
 			final EAnnotation eAnnotation = literal
 					.getEAnnotation("http://www.eclipse.org/emf/2002/GenModel");
 			if (eAnnotation != null && eAnnotation.getDetails().containsKey("documentation")) {
 				final String doc = eAnnotation.getDetails().get("documentation");
-				b.put((T) literal.getInstance(), doc);
+				b.put((E) literal.getInstance(), doc);
 			}
 		}
 		return b.build();

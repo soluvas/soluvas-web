@@ -25,29 +25,29 @@ import com.google.common.collect.ImmutableMap;
 @SuppressWarnings("serial")
 public class EnumColumn<T> extends PropertyColumn<T, String> {
 
-	private final EEnum eEnum;
-	private final Map<Enum<?>, String> iconMapping;
+	private final Map<? extends Enum<?>, String> iconMapping;
 	private boolean enumVisible = true;
 	private String headerIcon = null;
+	private final Map<? extends Enum<?>, String> docs;
 
 	public EnumColumn(IModel<String> displayModel, String propertyExpression,
 			EEnum eEnum) {
 		super(displayModel, propertyExpression, propertyExpression);
-		this.eEnum = eEnum;
+		this.docs = TitledEnumLabel.getEEnumDocs(eEnum);
 		this.iconMapping = ImmutableMap.of();
 	}
 	
 	public EnumColumn(IModel<String> displayModel, String propertyExpression,
 			EEnum eEnum, Map<? extends Enum<?>, String> iconMapping) {
 		super(displayModel, propertyExpression, propertyExpression);
-		this.eEnum = eEnum;
+		this.docs = TitledEnumLabel.getEEnumDocs(eEnum);
 		this.iconMapping = ImmutableMap.copyOf(iconMapping);
 	}
 	
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
 		final TitledEnumLabel label = new TitledEnumLabel(componentId,
-				getDataModel(model), eEnum, iconMapping);
+				getDataModel(model), docs, iconMapping);
 		label.setEnumVisible(enumVisible);
 		item.add(label);
 		item.add(new AttributeAppender("class", "enum"));
