@@ -1,6 +1,7 @@
 package org.soluvas.web.site.widget;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
@@ -57,21 +58,25 @@ public class CurrencyLabel extends Label {
 
 	private String getDefaultModelObjectAsFormattedString() {
 		final Object currencyObj = getDefaultModelObject();
+		final BigDecimal amount = amountModel != null ? amountModel.getObject() : null;
+		final Locale locale = getLocale();
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
 					(CurrencyUnit) currencyObj : CurrencyUnit.of((String) currencyObj);
-			final BigDecimal amount = amountModel != null ? amountModel.getObject() : null;
-			final Locale locale = getLocale();
+			final String currencyHtml = amount != null ? "<small class=\"muted\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
 			if (amount != null) {
 				final MoneyFormatter formatter = new MoneyFormatterBuilder()
 					.appendAmountLocalized().toFormatter(locale);
-				return "<small class=\"muted\">" + currency.getSymbol(locale) + "</small>" + formatter.print(BigMoney.of(currency, amount));
+				return currencyHtml + formatter.print(BigMoney.of(currency, amount));
 			} else {
-				return currency.getSymbol(locale);
+				return currencyHtml;
 			}
-//			return "IDR";
 		} else {
-			return "";
+			if (amount != null) {
+				return "<small class=\"muted\">?</small> " + DecimalFormat.getInstance(locale).format(amount.doubleValue());
+			} else {
+				return "";
+			}
 		}
 	}
 	
