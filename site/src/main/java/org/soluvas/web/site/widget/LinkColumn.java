@@ -16,6 +16,7 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	private PopupSettings popupSettings;
 	final Optional<IModel<String>> labelModel;
 	final Class<? extends Page> pageClass;
+	final PageParameters paramsTemplate;
 	final String paramName;
 	final String paramExpression;
 
@@ -25,6 +26,19 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		super(displayModel, sortProperty, propertyExpression);
 		this.labelModel = Optional.absent();
 		this.pageClass = pageClass;
+		this.paramsTemplate = new PageParameters();
+		this.paramName = paramName;
+		this.paramExpression = paramExpression;
+	}
+
+	public LinkColumn(IModel<String> displayModel, S sortProperty,
+			String propertyExpression, 
+			Class<? extends Page> pageClass, PageParameters paramsTemplate,
+			String paramName, String paramExpression) {
+		super(displayModel, sortProperty, propertyExpression);
+		this.labelModel = Optional.absent();
+		this.pageClass = pageClass;
+		this.paramsTemplate = paramsTemplate;
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
 	}
@@ -34,6 +48,7 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		super(displayModel, null);
 		this.labelModel = Optional.of(labelModel);
 		this.pageClass = pageClass;
+		this.paramsTemplate = new PageParameters();
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
 	}
@@ -43,13 +58,14 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		super(displayModel, propertyExpressions);
 		this.labelModel = Optional.absent();
 		this.pageClass = pageClass;
+		this.paramsTemplate = new PageParameters();
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
 	}
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-		final PageParameters params = new PageParameters()
+		final PageParameters params = new PageParameters(paramsTemplate)
 			.add(paramName, new PropertyModel<>(model, paramExpression).getObject());
 		item.add(new LinkPanel<T, S>(componentId, pageClass, params,
 				labelModel.or((IModel) getDataModel(model))));
