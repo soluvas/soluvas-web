@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -103,7 +104,7 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 		final String iconStr;
 		if (!iconMapping.isEmpty() && obj != null) {
 			final String icon = iconMapping.containsKey(obj) ? iconMapping.get(obj) : "question-sign";
-			iconStr = "<i class=\"icon-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(title) +"\"></i> ";
+			iconStr = "<i class=\"icon-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(Optional.fromNullable(title).or("")) +"\"></i> ";
 		} else {
 			iconStr = "";
 		}
