@@ -29,8 +29,8 @@ public class ValueLabel extends Label {
 		super(id, model);
 	}
 
-	public ValueLabel(String id, Term term) {
-		super(id, term);
+	public ValueLabel(String id, Value<?> value) {
+		super(id, value);
 	}
 	
 	public ValueLabel(String id, IModel<Value<?>> model, boolean hideTextIfImageExists) {
@@ -38,8 +38,8 @@ public class ValueLabel extends Label {
 		this.hideTextIfImageExists = hideTextIfImageExists;
 	}
 
-	public ValueLabel(String id, Term term, boolean hideTextIfImageExists) {
-		super(id, term);
+	public ValueLabel(String id, Value<?> value, boolean hideTextIfImageExists) {
+		super(id, value);
 		this.hideTextIfImageExists = hideTextIfImageExists;
 	}
 	
