@@ -40,7 +40,7 @@ public class DateTimeLabel extends DateLabel {
 		add(new AttributeModifier("title", new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				return dateTimeModel != null ? dateTimeModel.getObject().toString() : null;
+				return dateTimeModel.getObject() != null ? dateTimeModel.getObject().toString() : null;
 			}
 		}));
 	}
