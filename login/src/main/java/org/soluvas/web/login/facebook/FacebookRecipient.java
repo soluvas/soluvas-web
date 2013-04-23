@@ -68,7 +68,7 @@ public class FacebookRecipient extends WebPage {
 	@SpringBean
 	private WebAddress webAddress;
 	
-	public FacebookRecipient(PageParameters params) {
+	public FacebookRecipient(final PageParameters params) {
 		super();
 		try {
 			final String code = params.get("code").toOptionalString();

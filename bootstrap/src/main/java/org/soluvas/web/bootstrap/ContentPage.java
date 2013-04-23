@@ -29,7 +29,7 @@ public class ContentPage extends BootstrapPage {
 	@SpringBean(name="contentLookup")
 	private EntityLookup<String, String> contentLookup;
 	
-	public ContentPage(PageParameters params) {
+	public ContentPage(final PageParameters params) {
 		super();
 		final String slug = params.get("slug").toString();
 		final LoadableDetachableModel<String> contentModel = new LoadableDetachableModel<String>() {

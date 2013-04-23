@@ -61,7 +61,7 @@ public class TwitterRecipient extends WebPage {
 	@SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	
-	public TwitterRecipient(PageParameters params) {
+	public TwitterRecipient(final PageParameters params) {
 		super();
 		final String verifier = params.get("oauth_verifier").toOptionalString();
 //		Preconditions.checkArgument(!Strings.isNullOrEmpty(verifier), "oauth_verifier Parameter must be provided");
