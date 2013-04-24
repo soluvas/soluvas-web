@@ -27,7 +27,6 @@ public abstract class AtmosphereApplication extends WebApplication {
 	protected void init() {
 		super.init();
 		atmosphereEventBus = new org.apache.wicket.atmosphere.EventBus(this);
-		eventBus.register(this);
 		getApplicationListeners().add(new IApplicationListener() {
 			@Override
 			public void onBeforeDestroyed(Application application) {
@@ -36,13 +35,14 @@ public abstract class AtmosphereApplication extends WebApplication {
 			
 			@Override
 			public void onAfterInitialized(Application application) {
+				eventBus.register(this);
 			}
 		});
 	}
 
 	@Subscribe
 	public void bridgeToAtmosphere(Object obj) {
-		log.trace("Bridging {}", obj);
+		log.trace("Bridging {}", obj.getClass().getName());
 		atmosphereEventBus.post(obj);
 	}
 
