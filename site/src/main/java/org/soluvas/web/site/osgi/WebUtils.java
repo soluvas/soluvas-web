@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.commons.tenant.TenantRefImpl;
 import org.soluvas.web.site.SiteException;
 
 import com.google.common.base.Optional;
@@ -31,7 +32,7 @@ public class WebUtils {
 			.getLogger(WebUtils.class);
 	
 	/**
-	 * Get {@link TenantRef} for current Wicket {@link Application}.
+	 * Get {@link TenantRefImpl} for current Wicket {@link Application}.
 	 * 
 	 * <p>WARNING: This method is not thread-safe, it must be run from the Wicket thread,
 	 * so it's useless for asynchronous operations.
@@ -39,7 +40,7 @@ public class WebUtils {
 	 * @return
 	 */
 	public static TenantRef getTenant() {
-		return new TenantRef(null, null, null);
+		return new TenantRefImpl(null, null, null);
 //		Application app = Application.get();
 //		final String appKey = app.getApplicationKey();
 //		log.trace("Getting Wicket tenant for app key={} name={}", appKey,
