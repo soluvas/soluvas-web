@@ -74,7 +74,7 @@ public class ValueLabel extends Label {
 					return iconHtml + Strings.escapeMarkup(valueObj.getDisplayValue());
 				}
 			} else {
-				return (String) Strings.escapeMarkup(valueObj.getDisplayValue());
+				return Strings.escapeMarkup(valueObj.getDisplayValue()) + ""; // foolproof way to convert CharSequence to String, do NOT cast CharSequence to String!
 			}
 		} else {
 			return "";
