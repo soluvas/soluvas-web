@@ -3,6 +3,7 @@ package org.soluvas.web.bootstrap;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.soluvas.web.site.JavaScriptMode;
+import org.soluvas.web.site.client.AmdDependency;
 
 
 /**
@@ -39,6 +40,13 @@ public class BackendPage extends BootstrapPage {
 		} else {
 			response.render(JavaScriptHeaderItem.forUrl("//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"));
 		}
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		
+		add(new AmdDependency("bootstrap/bootstrap-dropdown", "bootstrap_dropdown"));
 	}
 	
 }
