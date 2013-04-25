@@ -40,5 +40,5 @@ public class BackendPage extends BootstrapPage {
 			response.render(JavaScriptHeaderItem.forUrl("//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"));
 		}
 	}
-
+	
 }
