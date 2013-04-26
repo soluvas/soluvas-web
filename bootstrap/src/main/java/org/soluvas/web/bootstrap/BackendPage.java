@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap;
 
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.soluvas.web.site.JavaScriptMode;
 
 
@@ -17,14 +18,14 @@ public class BackendPage extends BootstrapPage {
 	/**
 	 * 
 	 */
-	public BackendPage() {
-		this(SidebarVisibility.VISIBLE);
+	public BackendPage(PageParameters params) {
+		this(params, SidebarVisibility.VISIBLE);
 	}
 
 	/**
 	 * @param sidebarVisible
 	 */
-	public BackendPage(SidebarVisibility sidebarVisibility) {
+	public BackendPage(PageParameters params, SidebarVisibility sidebarVisibility) {
 		super(sidebarVisibility);
 	}
 	
