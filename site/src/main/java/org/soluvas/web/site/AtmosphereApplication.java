@@ -30,19 +30,21 @@ public abstract class AtmosphereApplication extends WebApplication {
 		getApplicationListeners().add(new IApplicationListener() {
 			@Override
 			public void onBeforeDestroyed(Application application) {
-				eventBus.unregister(this);
+				log.info("Unregistering {} from EventBus {}", application, eventBus);
+				eventBus.unregister(AtmosphereApplication.this);
 			}
 			
 			@Override
 			public void onAfterInitialized(Application application) {
-				eventBus.register(this);
+				log.info("Registering {} to EventBus {}", application, eventBus);
+				eventBus.register(AtmosphereApplication.this);
 			}
 		});
 	}
 
 	@Subscribe
 	public void bridgeToAtmosphere(Object obj) {
-		log.trace("Bridging {}", obj.getClass().getName());
+//		log.trace("Bridging {}", obj.getClass().getName());
 		atmosphereEventBus.post(obj);
 	}
 
