@@ -59,11 +59,11 @@ public class ValueLabel extends Label {
 				if (term.getImageId() != null) {
 					final String bundleName = "base".equals(term.getNsPrefix()) ? "org.soluvas.data" : "tenant_common";
 					final String uri = webAddress.getImagesUri() + bundleName + "/" + term.getKindNsPrefix() + "_" + term.getKindName() +"/" + term.getImageId() + ".png";
-					iconHtml = "<img src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\"/> ";
+					iconHtml = "<img src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\" style=\"border: 1px solid #ccc;\"/> ";
 				} else {
 					final String color = term.getColor();
 					if (color != null) {
-						iconHtml = "<span style=\"background: " + color + "; width: 20px; display: inline-block;\">&nbsp;</span> "; 
+						iconHtml = "<span style=\"background: " + color + "; width: 20px; display: inline-block; border: 1px solid #ccc;\">&nbsp;</span> "; 
 					} else {
 						iconHtml = "";
 					}
@@ -71,7 +71,7 @@ public class ValueLabel extends Label {
 				if (hideTextIfImageExists && !"".equals(iconHtml)) {
 					return iconHtml;
 				} else {
-					return iconHtml + Strings.escapeMarkup(valueObj.getDisplayValue());
+					return iconHtml + Strings.escapeMarkup(term.getDisplayName());
 				}
 			} else {
 				return Strings.escapeMarkup(valueObj.getDisplayValue()) + ""; // foolproof way to convert CharSequence to String, do NOT cast CharSequence to String!
