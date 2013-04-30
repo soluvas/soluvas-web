@@ -10,6 +10,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 
@@ -65,8 +66,11 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
+		final Object paramValue = Preconditions.checkNotNull(new PropertyModel<>(model, paramExpression).getObject(),
+				"Cannot get '%s' parameter because of null '%s' in %s",
+				paramName, paramExpression, model.getObject());
 		final PageParameters params = new PageParameters(paramsTemplate)
-			.add(paramName, new PropertyModel<>(model, paramExpression).getObject());
+			.add(paramName, paramValue);
 		item.add(new LinkPanel<T, S>(componentId, pageClass, params,
 				labelModel.or((IModel) getDataModel(model))));
 	}
