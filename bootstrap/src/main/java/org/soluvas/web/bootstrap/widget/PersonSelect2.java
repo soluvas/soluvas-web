@@ -55,12 +55,14 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		@Override
 		public void toJson(SocialPerson choice, JSONWriter writer)
 				throws JSONException {
-			final DisplayImage displayImage = displayImages.get(choice.getId());
 			writer.key("id").value(choice.getId())
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
-				.key("photoUri").value(displayImage.getSrc())
 				.key("location").value(Optional.fromNullable(choice.getCity()).or(""));
+			final DisplayImage displayImage = displayImages.get(choice.getId());
+			if (displayImage != null) {
+				writer.key("photoUri").value(displayImage.getSrc());
+			}
 		}
 	}
 
