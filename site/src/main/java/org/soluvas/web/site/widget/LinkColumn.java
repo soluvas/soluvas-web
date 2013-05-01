@@ -3,7 +3,6 @@ package org.soluvas.web.site.widget;
 import org.apache.wicket.Page;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.markup.html.link.PopupSettings;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
@@ -12,9 +11,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
+@SuppressWarnings("serial")
 public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 
-	private PopupSettings popupSettings;
 	final Optional<IModel<String>> labelModel;
 	final Class<? extends Page> pageClass;
 	final PageParameters paramsTemplate;
@@ -54,12 +53,22 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		this.paramExpression = paramExpression;
 	}
 
-	public LinkColumn(IModel<String> displayModel, String propertyExpressions,
+	public LinkColumn(IModel<String> displayModel, String propertyExpression,
 			Class<? extends Page> pageClass, String paramName, String paramExpression) {
-		super(displayModel, propertyExpressions);
+		super(displayModel, propertyExpression);
 		this.labelModel = Optional.absent();
 		this.pageClass = pageClass;
 		this.paramsTemplate = new PageParameters();
+		this.paramName = paramName;
+		this.paramExpression = paramExpression;
+	}
+
+	public LinkColumn(IModel<String> displayModel, String propertyExpression,
+			Class<? extends Page> pageClass, PageParameters paramsTemplate, String paramName, String paramExpression) {
+		super(displayModel, propertyExpression);
+		this.labelModel = Optional.absent();
+		this.pageClass = pageClass;
+		this.paramsTemplate = paramsTemplate;
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
 	}
