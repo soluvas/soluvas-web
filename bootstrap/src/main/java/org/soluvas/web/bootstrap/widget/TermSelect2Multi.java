@@ -22,6 +22,7 @@ public class TermSelect2Multi extends Select2MultiChoice<Term> {
 //				log.debug("Selected color term is {}", selectedColorTermModel.getObject());
 //			}
 //		});
+		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 				"function(object, container, query) {" +
 						"if (object.imageUri !== undefined) {" +
