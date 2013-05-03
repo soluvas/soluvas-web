@@ -1,3 +1,14 @@
+<wicket:head>
+<style>
+.color-box {
+	border: 1px solid #ccc;
+	display: inline-block;
+	width: 1.8em;
+	height: 1.8em;
+	vertical-align: bottom;
+}
+</style>
+</wicket:head>
 <wicket:panel>
 <div class="row">
 	<div class="span9">
@@ -33,6 +44,7 @@
 				<label class="control-label" wicket:for="color">HTML Color</label>	
 				<div class="controls">
 					<input type="checkbox" wicket:id="colorUsed"/>
+					<span wicket:id="colorBox" class="color-box" style="background-color: #ff0000">&nbsp;</span>
 					<input type="text" wicket:id="color"/>
 				</div>
 			</div>

@@ -1,10 +1,12 @@
 package org.soluvas.web.bootstrap.term;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
@@ -13,6 +15,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.GenericPanel;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -138,13 +141,30 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		form.add(new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable));
 		form.add(new TextField<>("imageId", new PropertyModel<>(getModel(), "imageId")).setEnabled(editable));
 		final IModel<Boolean> colorUsed = new Model<>(getModelObject().getColor() != null);
-		final ColorPickerTextField colorFld = new ColorPickerTextField("color", new PropertyModel<String>(getModel(), "color")) {
+		final PropertyModel<String> colorModel = new PropertyModel<>(getModel(), "color");
+		final Label colorBox = new Label("colorBox");
+		colorBox.setOutputMarkupId(true);
+		colorBox.add(new AttributeModifier("style", new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				return "background-color: " + Optional.fromNullable(colorModel.getObject()).or("white") + ";";
+			}
+		}));
+		form.add(colorBox);
+		final ColorPickerTextField colorFld = new ColorPickerTextField("color", colorModel) {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
 				setEnabled(colorUsed.getObject());
 			}
 		};
+		// 'change' event doesn't work, neither does OnChangeAjaxBehavior, dunno why
+		colorFld.add(new AjaxFormComponentUpdatingBehavior("blur") {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				target.add(colorBox);
+			}
+		});
 		colorFld.setOutputMarkupId(true);
 		colorFld.setEnabled(editable);
 		form.add(colorFld);
