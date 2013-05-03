@@ -22,6 +22,13 @@ public class TermSelect2Multi extends Select2MultiChoice<Term> {
 //				log.debug("Selected color term is {}", selectedColorTermModel.getObject());
 //			}
 //		});
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		// do NOT put this (getAjax()) in constructor, you'll get NPE
+		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 				"function(object, container, query) {" +
 						"if (object.imageUri !== undefined) {" +
@@ -45,5 +52,4 @@ public class TermSelect2Multi extends Select2MultiChoice<Term> {
 						"container.append(document.createTextNode(object.text));" +
 				"}");
 	}
-	
 }

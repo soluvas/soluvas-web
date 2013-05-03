@@ -78,6 +78,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 	protected void onInitialize() {
 		super.onInitialize();
 		setProvider(new PersonChoiceProvider());
+		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 			"function(object, container, query) {" +
 			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
