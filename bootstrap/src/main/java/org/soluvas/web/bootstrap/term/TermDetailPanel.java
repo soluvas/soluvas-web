@@ -20,6 +20,7 @@ import org.soluvas.data.TermRepository;
 import org.soluvas.data.impl.TermImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
@@ -159,6 +160,9 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				final Term term = TermDetailPanel.this.getModelObject();
+				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
+					term.setColor(null);
+				}
 				switch (editMode) {
 				case ADD:
 					termRepo.add(term);
