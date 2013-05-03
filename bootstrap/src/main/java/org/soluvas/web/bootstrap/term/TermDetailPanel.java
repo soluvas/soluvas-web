@@ -1,7 +1,10 @@
 package org.soluvas.web.bootstrap.term;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
@@ -178,6 +181,35 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		};
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
+		
+		final IndicatingAjaxButton deleteBtn = new IndicatingAjaxButton("deleteBtn", form) {
+			@Override
+			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+				super.updateAjaxAttributes(attributes);
+				attributes.getAjaxCallListeners().add(new AjaxCallListener() {
+					@Override
+					public CharSequence getPrecondition(Component component) {
+						return "return confirm(\"Do you want to delete term '" + originalUName + "'?\")";
+					}
+				});
+			}
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				super.onSubmit(target, form);
+				final Term term = TermDetailPanel.this.getModelObject();
+				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
+					term.setColor(null);
+				}
+				termRepo.delete(originalUName);
+				warn("Deleted term " + originalUName);
+				setResponsePage(backPage);
+			}
+		};
+		deleteBtn.setEnabled(editable);
+		deleteBtn.setVisible(editMode == EditMode.MODIFY);
+		add(deleteBtn);
+		
 	}
 	
 }
