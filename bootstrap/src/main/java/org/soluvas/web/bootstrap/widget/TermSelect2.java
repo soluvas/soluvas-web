@@ -21,6 +21,12 @@ public class TermSelect2 extends Select2Choice<Term> {
 //				log.debug("Selected color term is {}", selectedColorTermModel.getObject());
 //			}
 //		});
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		// do NOT put this (getAjax()) in constructor, you'll get NPE
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 				"function(object, container, query) {" +
