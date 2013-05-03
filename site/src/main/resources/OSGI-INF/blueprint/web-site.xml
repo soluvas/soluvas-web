@@ -189,7 +189,7 @@
 	<bean id="pagemetaPackage" class="org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl"
 		factory-method="getInstance"/>
 		
-<!-- 	<bean id="customPageRuleCollectionSupplier" class="org.soluvas.commons.XmiObjectLoader" -->
+<!-- 	<bean id="customPageRuleCollectionSupplier" class="org.soluvas.commons.StaticXmiLoader" -->
 <!-- 		destroy-method="destroy" depends-on="pagemetaPackage"> -->
 <!-- 		<argument ref="pagemetaPackage" /> -->
 <!--     	<argument ref="blueprintBundle" /> -->

@@ -6,7 +6,7 @@
         
 	<reference id="pagemetaPackage" interface="org.soluvas.web.site.pagemeta.PagemetaPackage" />
 	
-<!-- 	<bean id="defaultPageRuleCollectionSupplier" class="org.soluvas.commons.XmiObjectLoader" -->
+<!-- 	<bean id="defaultPageRuleCollectionSupplier" class="org.soluvas.commons.StaticXmiLoader" -->
 <!-- 		destroy-method="destroy" depends-on="pagemetaPackage"> -->
 <!-- 		<argument ref="pagemetaPackage" /> -->
 <!--     	<argument type="java.lang.Class" value="org.soluvas.web.site.SiteFactory" /> -->

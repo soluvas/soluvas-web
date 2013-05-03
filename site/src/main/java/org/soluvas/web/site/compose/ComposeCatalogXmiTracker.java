@@ -22,7 +22,7 @@ import org.osgi.util.tracker.BundleTrackerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.ResourceType;
-import org.soluvas.commons.XmiObjectLoader;
+import org.soluvas.commons.StaticXmiLoader;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.SiteException;
 import org.springframework.core.io.Resource;
@@ -131,9 +131,9 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 		final Builder<EObject> eobjects = ImmutableList.builder();
 		for (final URL url : xmiFiles) {
 			log.debug("Getting {} from {}", suppliedClassName, url);
-			final XmiObjectLoader<ComposeCatalog> loader = bundle != null ?
-					new XmiObjectLoader<ComposeCatalog>(ePackage, url, bundle) :
-						new XmiObjectLoader<ComposeCatalog>(ePackage, url, ResourceType.CLASSPATH);
+			final StaticXmiLoader<ComposeCatalog> loader = bundle != null ?
+					new StaticXmiLoader<ComposeCatalog>(ePackage, url, bundle) :
+						new StaticXmiLoader<ComposeCatalog>(ePackage, url, ResourceType.CLASSPATH);
 			final ComposeCatalog composeCatalog = loader.get();
 			
 			for (final Placeholder placeholder : ImmutableList.copyOf(composeCatalog.getPlaceholders())) {

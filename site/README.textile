@@ -21,7 +21,7 @@ bc.. <?xml version="1.0" encoding="UTF-8"?>
 	</osgix:cm-properties>
 	<ctx:property-placeholder properties-ref="cmProps" />
 
-	<bean id="xmiWebAddressSupplier" class="org.soluvas.commons.XmiObjectLoader">
+	<bean id="xmiWebAddressSupplier" class="org.soluvas.commons.StaticXmiLoader">
 		<constructor-arg value="org.soluvas.web.site.webaddress.WebaddressPackage" />
 		<constructor-arg value="org.soluvas.web.site.TenantService" />
 		<constructor-arg value="default.WebAddress.xmi" />
@@ -208,7 +208,7 @@ h2. Site Catalog Supplier
 
 To use @site:pagels@ command, create a @.SiteCatalog.xmi@ file and publish to OSGi using _Supplier pattern_:
 
-bc. 	<bean id="xmiSiteCatalogSupplier" class="org.soluvas.commons.XmiObjectLoader">
+bc. 	<bean id="xmiSiteCatalogSupplier" class="org.soluvas.commons.StaticXmiLoader">
 	<argument value="org.soluvas.web.site.SitePackage" />
 	<argument value="id.co.bippo.common.PersonRef" />
 	<argument value="bippo.SiteCatalog.xmi" />
