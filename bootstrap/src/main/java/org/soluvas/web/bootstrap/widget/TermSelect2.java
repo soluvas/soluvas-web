@@ -1,7 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.List;
+
 import org.apache.wicket.model.IModel;
 import org.soluvas.data.Term;
+import org.soluvas.data.Value;
 
 import com.vaynberg.wicket.select2.Select2Choice;
 
@@ -15,12 +18,19 @@ public class TermSelect2 extends Select2Choice<Term> {
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName) {
 		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName));
-//		acColorTerm.add(new OnChangeAjaxBehavior() {
-//			@Override
-//			protected void onUpdate(AjaxRequestTarget target) {
-//				log.debug("Selected color term is {}", selectedColorTermModel.getObject());
-//			}
-//		});
+	}
+	
+	/**
+	 * Filter only terms which match the values provided by whitelist. The whitelist can be dynamic.
+	 * @param id
+	 * @param model
+	 * @param kindNsPrefix
+	 * @param kindName
+	 * @param whitelist
+	 */
+	public TermSelect2(String id, IModel<Term> model,
+			String kindNsPrefix, String kindName, final IModel<List<Value<?>>> whitelist) {
+		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName, whitelist));
 	}
 	
 	@Override
