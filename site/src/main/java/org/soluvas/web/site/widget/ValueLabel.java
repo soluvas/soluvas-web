@@ -59,7 +59,7 @@ public class ValueLabel extends Label {
 				if (term.getImageId() != null) {
 					final String bundleName = "base".equals(term.getNsPrefix()) ? "org.soluvas.data" : "tenant_common";
 					final String uri = webAddress.getImagesUri() + bundleName + "/" + term.getKindNsPrefix() + "_" + term.getKindName() +"/" + term.getImageId() + ".png";
-					iconHtml = "<img src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\" style=\"border: 1px solid #ccc;\"/> ";
+					iconHtml = "<img src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\"/> ";
 				} else {
 					final String color = term.getColor();
 					if (color != null) {
