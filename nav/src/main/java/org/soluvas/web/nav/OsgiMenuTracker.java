@@ -32,7 +32,7 @@ import com.google.common.collect.Lists;
 public class OsgiMenuTracker implements BundleTrackerCustomizer {
 
 	private static final Logger log = LoggerFactory.getLogger(OsgiMenuTracker.class);
-	private BundleContext bundleContext;
+	private final BundleContext bundleContext;
 	
 	public OsgiMenuTracker(BundleContext bundleContext) {
 		super();
@@ -71,10 +71,10 @@ public class OsgiMenuTracker implements BundleTrackerCustomizer {
 						return input.getId();
 					}
 				});
-				log.info("{} contains {} menu items: {}", new Object[] {
-						navEntry, catalog.getItems().size(), menuItemIds });
-				log.info("{} contains {} menus: {}", new Object[] {
-						navEntry, catalog.getMenus().size(), menuIds });
+				log.info("{} contains {} menu items: {}", 
+						navEntry, catalog.getItems().size(), menuItemIds );
+				log.info("{} contains {} menus: {}", 
+						navEntry, catalog.getMenus().size(), menuIds );
 				
 				for (final Menu menu : catalog.getMenus()) {
 					for (MenuItem item : menu.getItems()) {
@@ -113,7 +113,7 @@ public class OsgiMenuTracker implements BundleTrackerCustomizer {
 			return;
 		List<ServiceRegistration> regs = (List<ServiceRegistration>)object;
 		log.info("Bundle {} removed, removing {} ServiceRegistration objects", 
-				new Object[] { bundle, regs.size() });
+				bundle, regs.size() );
 		
 		for (ServiceRegistration ref : regs) {
 			ref.unregister();
