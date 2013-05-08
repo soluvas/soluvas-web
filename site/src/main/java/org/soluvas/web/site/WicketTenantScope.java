@@ -91,7 +91,7 @@ public class WicketTenantScope implements Scope {
 		final URI uri = URI.create("service://" + name.replace("scopedTarget.", ""));
 		final String className = uri.getHost();
 		List<NameValuePair> filterPairs = URLEncodedUtils.parse(uri, "UTF-8");
-		log.debug("Lookup {} for tenantId={} tenantEnv={} filters: {}", new Object[] { className, tenantId, tenantEnv, filterPairs });
+		log.debug("Lookup {} for tenantId={} tenantEnv={} filters: {}", className, tenantId, tenantEnv, filterPairs );
 		String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")";
 		for (NameValuePair pair : filterPairs) {
 			filter += "(" + pair.getName() + "=" + pair.getValue() + ")";

@@ -74,8 +74,8 @@ public class NavMenu extends Panel {
 					final PageMenuItem pageMi = (PageMenuItem) menuItem;
 					Class<Page> pageClass;
 					try {
-						log.debug("Loading Page class {} from bundle {} for menu item {}", new Object[] {
-								pageMi.getPageClass(), menuItem.getBundle(), pageMi.getId() });
+						log.debug("Loading Page class {} from bundle {} for menu item {}", 
+								pageMi.getPageClass(), menuItem.getBundle(), pageMi.getId() );
 						pageClass = (Class<Page>) menuItem.getBundle().loadClass(pageMi.getPageClass());
 						PageParameters pagePars = new PageParameters();
 						for (Entry<String, String> param : pageMi.getParameters()) {

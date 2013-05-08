@@ -71,8 +71,8 @@ public class ProxyTenantInjector implements IComponentInstantiationListener {
 			if (supplied == null) {
 				final Class<?> serviceClass = field.getType();
 				
-				log.trace("Field {}#{} will lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
-						component.getId(), field.getName(), serviceClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
+				log.trace("Field {}#{} will lookup {} for tenantId={} tenantEnv={} namespace={} filter: {}", 
+						component.getId(), field.getName(), serviceClass.getName(), tenantId, tenantEnv, namespace, additionalFilter );
 				final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
 				final String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + suppliedClassFilter + additionalFilter + ")";
 				
@@ -88,8 +88,8 @@ public class ProxyTenantInjector implements IComponentInstantiationListener {
 			} else {
 				final Class<?> suppliedClass = field.getType();
 				
-				log.trace("Field {}#{} needs Supplier<{}> for tenantId={} tenantEnv={} namespace={} filter: {}", new Object[] {
-						component.getId(), field.getName(), suppliedClass.getName(), tenantId, tenantEnv, namespace, additionalFilter });
+				log.trace("Field {}#{} needs Supplier<{}> for tenantId={} tenantEnv={} namespace={} filter: {}", 
+						component.getId(), field.getName(), suppliedClass.getName(), tenantId, tenantEnv, namespace, additionalFilter );
 				final String suppliedClassFilter = supplied != null ? "(suppliedClass=" + field.getType().getName() + ")(layer=application)" : "";
 				final String filter = "(&(tenantId=" + tenantId + ")(tenantEnv=" + tenantEnv + ")" + namespaceFilter + suppliedClassFilter + additionalFilter + ")";
 				

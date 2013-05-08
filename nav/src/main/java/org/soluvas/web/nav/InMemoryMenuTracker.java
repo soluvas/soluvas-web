@@ -32,7 +32,7 @@ import com.google.common.collect.Lists;
 public class InMemoryMenuTracker implements BundleTrackerCustomizer {
 
 	private static final Logger log = LoggerFactory.getLogger(InMemoryMenuTracker.class);
-	private MenuRepository menuRepository;
+	private final MenuRepository menuRepository;
 	
 	public InMemoryMenuTracker(MenuRepository menuRepository) {
 		super();
@@ -62,10 +62,10 @@ public class InMemoryMenuTracker implements BundleTrackerCustomizer {
 						return input.getId();
 					}
 				});
-				log.info("{} contains {} menu items: {}", new Object[] {
-						navEntry, catalog.getItems().size(), menuItemIds });
-				log.info("{} contains {} menus: {}", new Object[] {
-						navEntry, catalog.getMenus().size(), menuIds });
+				log.info("{} contains {} menu items: {}", 
+						navEntry, catalog.getItems().size(), menuItemIds );
+				log.info("{} contains {} menus: {}", 
+						navEntry, catalog.getMenus().size(), menuIds );
 				
 				for (final MenuItem item : catalog.getItems()) {
 					if (Strings.isNullOrEmpty(item.getParentId())) {
@@ -125,8 +125,8 @@ public class InMemoryMenuTracker implements BundleTrackerCustomizer {
 			}
 		});
 		log.info("Bundle {} removed, removing: {} menu items: {}; {} menus: {}", 
-				new Object[] { bundle, catalog.getItems().size(), menuItemIds,
-				catalog.getMenus().size(), menuIds });
+				bundle, catalog.getItems().size(), menuItemIds,
+				catalog.getMenus().size(), menuIds );
 		
 		for (final MenuItem item : catalog.getItems()) {
 			if (Strings.isNullOrEmpty(item.getParentId())) {
