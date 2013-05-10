@@ -1,0 +1,13 @@
+/* Andia fixes for responsive */
+@media (max-width: 767px) {
+	/* from bootstrap-responsive.css */
+	body {
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+}
+
+/* Not liking the text-align: center */
+body {
+	text-align: left;
+}
