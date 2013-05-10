@@ -31,6 +31,12 @@
 		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.security</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
@@ -59,6 +65,12 @@
 			<groupId>org.expressme</groupId>
 			<artifactId>JOpenId</artifactId>
 			<version>1.08</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.http-client</groupId>
