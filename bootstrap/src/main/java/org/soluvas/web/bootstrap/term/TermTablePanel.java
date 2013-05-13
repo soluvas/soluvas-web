@@ -19,7 +19,7 @@ import org.apache.wicket.model.Model;
 import org.soluvas.data.Kind;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
-import org.soluvas.data.domain.PageRequest;
+import org.soluvas.data.domain.PageOffsetRequest;
 import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.widget.LinkColumn;
@@ -63,7 +63,7 @@ public class TermTablePanel extends Panel {
 				final SortParam<String> sortParam = getSort();
 				final Sort sort = sortParam != null ? new Sort(sortParam.isAscending() ? Direction.ASC : Direction.DESC, sortParam.getProperty())
 					: new Sort("name");
-				final org.soluvas.data.domain.Page<Term> page = TermTablePanel.this.termRepo.findAll(new PageRequest(first / count, count, sort));
+				final org.soluvas.data.domain.Page<Term> page = TermTablePanel.this.termRepo.findAll(new PageOffsetRequest(first, count, sort));
 				return page.getContent().iterator();
 			}
 
