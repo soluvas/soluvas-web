@@ -21,11 +21,11 @@ public class DisplayImageContainer extends WebMarkupContainer {
 
 	@SpringBean
 	private WebAddress webAddress;
-	private final String title;
+	private final IModel<String> titleModel;
 	
 	public DisplayImageContainer(String id, IModel<DisplayImage> model) {
 		super(id, model);
-		this.title = null;
+		this.titleModel = new Model<>();
 	}
 	
 	/**
@@ -35,12 +35,22 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	 */
 	public DisplayImageContainer(String id, IModel<DisplayImage> model, @Nullable String title) {
 		super(id, model);
-		this.title = title;
+		this.titleModel = new Model<>(title);
+	}
+	
+	/**
+	 * @param id
+	 * @param model
+	 * @param title Title to override alt & title attributes.
+	 */
+	public DisplayImageContainer(String id, IModel<DisplayImage> model, IModel<String> titleModel) {
+		super(id, model);
+		this.titleModel = titleModel;
 	}
 	
 	public DisplayImageContainer(String id, DisplayImage image) {
 		super(id, new Model<>(image));
-		this.title = null;
+		this.titleModel = new Model<>();
 	}
 	
 	/**
@@ -50,7 +60,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	 */
 	public DisplayImageContainer(String id, DisplayImage image, @Nullable String title) {
 		super(id, new Model<>(image));
-		this.title = title;
+		this.titleModel = new Model<>(title);
 	}
 	
 	@Override
@@ -64,6 +74,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 		if (image.getHeight() != null) {
 			tag.put("height", image.getHeight());
 		}
+		final String title = titleModel.getObject();
 		if (!Strings.isNullOrEmpty(title)) {
 			tag.put("alt", title);
 			tag.put("title", title);

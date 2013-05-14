@@ -111,8 +111,9 @@ public class ResourceImageRepository extends PagingAndSortingRepositoryBase<Imag
 	@Override
 	public List<ImageStyle> getStyles() {
 		return ImmutableList.of(
-				new ImageStyle(ImageStyles.THUMBNAIL.getLiteral(), "t", null, null),
-				new ImageStyle(ImageStyles.SMALL.getLiteral(), "s", null, null)
+				new ImageStyle(ImageStyles.THUMBNAIL.getLiteral(), "t", 75, 75),
+				new ImageStyle(ImageStyles.SMALL.getLiteral(), "s", 240, null),
+				new ImageStyle(ImageStyles.NORMAL.getLiteral(), "n", 480, null)
 			);
 	}
 
