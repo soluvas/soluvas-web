@@ -80,11 +80,12 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		setProvider(new PersonChoiceProvider());
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
-			"function(object, container, query) {" +
+			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
 			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
+			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(document.createTextNode(object.text)).append('<br>')" +
+			"  .append(textMarkup.join('')).append('<br>')" +
 			"  .append($('<small>').css({color: '#666'}).text(object.location));" +
 			"container.append(thediv);" +
 			"thediv.css({height: '45px'});" +
