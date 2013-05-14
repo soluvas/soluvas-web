@@ -86,6 +86,11 @@ public class BootstrapPage extends ExtensiblePage {
 		VISIBLE,
 		HIDDEN
 	}
+	
+	public static enum AddedInfoVisibility {
+		VISIBLE,
+		HIDDEN
+	}
 
 	public static class MetaTag extends WebMarkupContainer {
 
@@ -196,6 +201,8 @@ public class BootstrapPage extends ExtensiblePage {
 
 	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	protected Component feedbackPanel;
+	
+	protected Component contentAddedInfo;
 
 	protected TransparentWebMarkupContainer contentColumn;
 
@@ -205,6 +212,8 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected final RepeatingView afterHeader;
 
+	protected AddedInfoVisibility addedInfoVisibility;
+	
 	protected SidebarVisibility sidebarVisibility;
 
 	public JavaScriptLink addJsLink(String uri) {
@@ -328,6 +337,7 @@ public class BootstrapPage extends ExtensiblePage {
 	public BootstrapPage(SidebarVisibility sidebarVisibility) {
 		super();
 		this.sidebarVisibility = sidebarVisibility;
+		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;
 		
 		// Use CDN jQuery if we're in production
 		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
@@ -454,12 +464,17 @@ public class BootstrapPage extends ExtensiblePage {
 		add(new WebMarkupContainer("requireConfig")
 				.add(new AttributeModifier("src", requireConfigPath)));
 
+		// ADDED INFO
+		contentAddedInfo = new WebMarkupContainer("addedInfo");
+		add(contentAddedInfo);
+		
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
 		sidebarColumn.add(sidebarBlocks);
 
+		// CONTENT
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
 		add(contentColumn);
 		feedbackPanel = new FeedbackPanel("feedback")
@@ -559,6 +574,10 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		// compose other components
 		ComposeUtils.compose(this, contributors.findAll());
+		
+		if (addedInfoVisibility == AddedInfoVisibility.VISIBLE) {
+			contentAddedInfo.setVisible(true);
+		}
 	}
 
 	@Override
