@@ -68,7 +68,7 @@ public class WebUtils {
 	 * @param filter
 	 * @return
 	 */
-	public static <T> ServiceReference<T> getService(@Nonnull Class<T> iface,
+	public static <T> ServiceReference<T> getService(Class<T> iface,
 			@Nullable String namespace, @Nullable String filter) {
 		final BundleContext bundleContext = FrameworkUtil.getBundle(
 				WebUtils.class).getBundleContext();
@@ -117,7 +117,7 @@ public class WebUtils {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <T> T getSupplied(@Nonnull Class<T> clazz) {
+	public static <T> T getSupplied(Class<T> clazz) {
 		final ServiceReference<Supplier> supplierRef = getService(
 				Supplier.class, null, "(&(suppliedClass=" + clazz.getName() + ")(layer=application))");
 		final BundleContext bundleContext = FrameworkUtil.getBundle(

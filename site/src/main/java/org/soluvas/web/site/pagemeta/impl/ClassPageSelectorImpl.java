@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageRequestContext;
 import org.soluvas.web.site.pagemeta.ClassPageSelector;
 import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
@@ -101,7 +101,7 @@ public class ClassPageSelectorImpl extends EObjectImpl implements ClassPageSelec
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public boolean matches(PageRuleContext context) {
+	public boolean matches(PageRequestContext context) {
 		final Class<? extends Page> pageClass = context.getPage().getClass();
 		if (getClassName().equals(pageClass.getName())) {
 			log.debug("Page {} matches selector {} because className is {}", context, this, getClassName());

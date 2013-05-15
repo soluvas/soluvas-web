@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.soluvas.commons.CommonsPackage;
-import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageRequestContext;
 import org.soluvas.web.site.pagemeta.ClassPageSelector;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
@@ -1419,7 +1419,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		addEEnumLiteral(pageMetaPhaseEEnum, PageMetaPhase.FINAL);
 
 		// Initialize data types
-		initEDataType(pageRuleContextEDataType, PageRuleContext.class, "PageRuleContext", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(pageRuleContextEDataType, PageRequestContext.class, "PageRuleContext", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

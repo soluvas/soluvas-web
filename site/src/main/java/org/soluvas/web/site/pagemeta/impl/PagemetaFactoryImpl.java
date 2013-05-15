@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageRequestContext;
 import org.soluvas.web.site.pagemeta.*;
 import org.soluvas.web.site.pagemeta.OpenGraphAudio;
 import org.soluvas.web.site.pagemeta.OpenGraphImage;
@@ -316,8 +316,8 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageRuleContext createPageRuleContextFromString(EDataType eDataType, String initialValue) {
-		return (PageRuleContext)super.createFromString(eDataType, initialValue);
+	public PageRequestContext createPageRuleContextFromString(EDataType eDataType, String initialValue) {
+		return (PageRequestContext)super.createFromString(eDataType, initialValue);
 	}
 
 	/**

@@ -57,7 +57,7 @@ public class ExtensiblePage extends WebPage {
 	 * @param model
 	 * @todo Find a better name / mechanism.
 	 */
-	protected void addModelForPageMeta(@Nonnull final String name, @Nonnull final IModel<?> model) {
+	protected void addModelForPageMeta(final String name, final IModel<?> model) {
 		log.trace("Adding model for PageMeta {} in {}", name, getPageClass().getName());
 		modelsForPageMeta.put(name, model);
 	}
@@ -70,7 +70,7 @@ public class ExtensiblePage extends WebPage {
 	 * @todo remove modelForChild and replace with {@link RegionBehavior}
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public <T> IModel<T> getModelForChild(@Nonnull final String path) {
+	public <T> IModel<T> getModelForChild(final String path) {
 		final Component region = Preconditions.checkNotNull(get(path),
 				"Cannot find component '%s' in %s for getModelForChild",
 				path, getClass().getName());
@@ -100,7 +100,7 @@ public class ExtensiblePage extends WebPage {
 	 * @deprecated Use {@link RegionBehavior}.
 	 */
 	@Deprecated
-	protected RepeatingView addRegion(@Nonnull final String regionId, @Nullable final IModel<?> model) {
+	protected RepeatingView addRegion(final String regionId, @Nullable final IModel<?> model) {
 		final RepeatingView region;
 		add(region = new RepeatingView(regionId));
 		addModelForChild(regionId, model);

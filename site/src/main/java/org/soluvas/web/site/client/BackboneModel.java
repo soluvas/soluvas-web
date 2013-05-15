@@ -33,7 +33,7 @@ public class BackboneModel<T> extends JsSource {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Deprecated
-	public BackboneModel(String name, String className, @Nonnull final T data) {
+	public BackboneModel(String name, String className, final T data) {
 		super();
 		this.name = name;
 		this.className = className;

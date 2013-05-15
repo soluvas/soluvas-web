@@ -221,7 +221,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 		removedBundle(objects, bundle.getSymbolicName() + " [" + bundle.getBundleId() + "]");
 	}
 	
-	private void removedBundle(@Nonnull final List<EObject> eobjects,
+	private void removedBundle(final List<EObject> eobjects,
 			String resourceContainer) {
 		if (eobjects.isEmpty())
 			return;

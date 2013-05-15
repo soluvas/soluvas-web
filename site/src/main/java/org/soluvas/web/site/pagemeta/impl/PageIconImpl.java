@@ -533,7 +533,7 @@ public class PageIconImpl extends EObjectImpl implements PageIcon {
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public PageIcon toAbsolute(@Nonnull final String imagesUri) {
+	public PageIcon toAbsolute(final String imagesUri) {
 		final PageIcon result = EcoreUtil.copy(this);
 		if (result.getFaviconUri() == null)
 			result.setFaviconUri(imagesUri + getBrandingBundleName() + "/" + getFaviconPath());

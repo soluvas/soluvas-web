@@ -1118,7 +1118,7 @@ public interface PagemetaPackage extends EPackage {
 	 * The meta object id for the '<em>Page Rule Context</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.PageRuleContext
+	 * @see org.soluvas.web.site.PageRequestContext
 	 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleContext()
 	 * @generated
 	 */
@@ -2041,11 +2041,11 @@ public interface PagemetaPackage extends EPackage {
 	EEnum getPageMetaPhase();
 
 	/**
-	 * Returns the meta object for data type '{@link org.soluvas.web.site.PageRuleContext <em>Page Rule Context</em>}'.
+	 * Returns the meta object for data type '{@link org.soluvas.web.site.PageRequestContext <em>Page Rule Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Page Rule Context</em>'.
-	 * @see org.soluvas.web.site.PageRuleContext
+	 * @see org.soluvas.web.site.PageRequestContext
 	 * @model instanceClass="org.soluvas.web.site.PageRuleContext"
 	 * @generated
 	 */
@@ -2797,7 +2797,7 @@ public interface PagemetaPackage extends EPackage {
 		 * The meta object literal for the '<em>Page Rule Context</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.PageRuleContext
+		 * @see org.soluvas.web.site.PageRequestContext
 		 * @see org.soluvas.web.site.pagemeta.impl.PagemetaPackageImpl#getPageRuleContext()
 		 * @generated
 		 */

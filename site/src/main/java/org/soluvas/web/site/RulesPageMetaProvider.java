@@ -3,7 +3,6 @@ package org.soluvas.web.site;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.model.IModel;
@@ -13,6 +12,7 @@ import org.soluvas.commons.EmfUtils;
 import org.soluvas.web.site.pagemeta.PageDeclaration;
 import org.soluvas.web.site.pagemeta.PageIcon;
 import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaCatalog;
 import org.soluvas.web.site.pagemeta.PageMetaPhase;
 import org.soluvas.web.site.pagemeta.PageRule;
 import org.soluvas.web.site.pagemeta.PagemetaFactory;
@@ -27,38 +27,42 @@ import com.google.common.collect.Maps;
  * will override the information set by the previous rules.
  * @author ceefour
  */
-@Deprecated
-public class RulesPageMetaSupplier implements PageMetaSupplier {
+public class RulesPageMetaProvider implements PageMetaProvider {
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(RulesPageMetaSupplier.class);
+			.getLogger(RulesPageMetaProvider.class);
 	
 	/**
-	 * Source of {@link PageRule}s, can be mutable.
+	 * Source of {@link PageRule}s, can be dynamic.
 	 */
 	private final List<PageRule> ruleSource;
-	private final PageRequestContext context;
 	
 	/**
-	 * @param ruleSource Can be mutable.
+	 * @param ruleSource Can be dynamic.
 	 * @param context
 	 */
-	public RulesPageMetaSupplier(final List<PageRule> ruleSource, final PageRequestContext context) {
+	public RulesPageMetaProvider(final List<PageRule> ruleSource) {
 		super();
 		this.ruleSource = ruleSource;
-		this.context = context;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.common.base.Supplier#get()
+	/**
+	 * @param ruleSource Can be dynamic.
+	 * @param context
 	 */
+	public RulesPageMetaProvider(final PageMetaCatalog pageMetaCatalog) {
+		super();
+		this.ruleSource = pageMetaCatalog.getRules();
+	}
+
 	@Override
-	public PageMeta get() {
+	public PageMeta get(PageRequestContext context) {
 		// create blank (should be from somewhere)
 		final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
 		pageMeta.setIcon(PagemetaFactory.eINSTANCE.createPageIcon());
 		pageMeta.setOpenGraph(PagemetaFactory.eINSTANCE.createOpenGraphMeta());
 		
+		// copy it, so even in dynamic environments, the list won't change during processing
 		final List<PageRule> immutableRules = ImmutableList.copyOf(ruleSource);
 		log.debug("Considering {} pageMeta rules with context: {}", immutableRules.size(), context);
 		for (final PageRule rule : immutableRules) {

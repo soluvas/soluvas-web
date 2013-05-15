@@ -9,6 +9,7 @@ import com.google.common.base.Supplier;
  * Supplies a {@link Page} metadata to be rendered in a web page template.
  * @author ceefour
  */
+@Deprecated
 public interface PageMetaSupplier extends Supplier<PageMeta> {
 
 }

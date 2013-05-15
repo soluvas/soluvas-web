@@ -330,6 +330,6 @@ public interface PageIcon extends SerializableEObject {
 	 * <!-- end-model-doc -->
 	 * @model
 	 */
-	PageIcon toAbsolute(@Nonnull String imagesUri);
+	PageIcon toAbsolute(String imagesUri);
 
 } // PageIcon

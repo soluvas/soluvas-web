@@ -48,7 +48,7 @@ public class FederatingPageRuleCollectionSupplier implements Supplier<PageRuleCo
 	private final List<Supplier<PageRuleCollection>> suppliers = new CopyOnWriteArrayList<Supplier<PageRuleCollection>>();
 	private final PageRuleCollection federatedPageRules;
 	
-	public FederatingPageRuleCollectionSupplier(@Nonnull final PagemetaPackage pageMetaPackage, Collection<Supplier<PageRuleCollection>> initialSuppliers) {
+	public FederatingPageRuleCollectionSupplier(final PagemetaPackage pageMetaPackage, Collection<Supplier<PageRuleCollection>> initialSuppliers) {
 		super();
 		log.info("Initializing federating page rules supplier with {} suppliers", suppliers.size());
 		this.suppliers.addAll( initialSuppliers );

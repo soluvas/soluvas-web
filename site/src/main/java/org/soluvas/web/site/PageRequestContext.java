@@ -1,11 +1,25 @@
 package org.soluvas.web.site;
 
-import javax.annotation.Nonnull;
+import java.io.Serializable;
 
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.web.site.pagemeta.PageMeta;
 
-public class PageRuleContext {
+/**
+ * General information about the current web page request. 
+ * <p>Usages:
+ * <ol>
+ * 	<li>Passed to {@link PageMetaProvider#get(PageRuleContext)}
+ * 		in order to provide a {@link PageMeta}.</li>
+ * </ol>
+ * @author ceefour
+ */
+public class PageRequestContext implements Serializable {
+	/**
+	 * First schema version.
+	 */
+	private static final long serialVersionUID = 1L;
 	private final String clientId;
 	private final String tenantId;
 	private final String tenantEnv;
@@ -21,9 +35,9 @@ public class PageRuleContext {
 	 * @param page
 	 * @param uri
 	 */
-	public PageRuleContext(@Nonnull final String clientId, @Nonnull final String tenantId, @Nonnull final String tenantEnv,
-			@Nonnull final ExtensiblePage page, String uri, @Nonnull final WebAddress webAddress,
-			@Nonnull final AppManifest appManifest) {
+	public PageRequestContext(final String clientId, final String tenantId, final String tenantEnv,
+			final ExtensiblePage page, String uri, final WebAddress webAddress,
+			final AppManifest appManifest) {
 		super();
 		this.clientId = clientId;
 		this.tenantId = tenantId;
@@ -68,9 +82,6 @@ public class PageRuleContext {
 		return appManifest;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "PageRuleContext ["

@@ -324,7 +324,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="PageRuleContext" instanceClassName="org.soluvas.web.site.PageRuleContext"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="PageRuleContext" instanceClassName="org.soluvas.web.site.PageRequestContext"/>
   <eClassifiers xsi:type="ecore:EEnum" name="PageMetaPhase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="PageMeta need to have at least 3 states : &#xA;&#xA;1. `template`. Contains Mustache templates.&#xA;2. `text`. Will not be parsed for template but titles not yet merged.&#xA;3. `final`. Titles already merged."/>

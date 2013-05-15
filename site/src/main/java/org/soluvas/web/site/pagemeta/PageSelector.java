@@ -3,7 +3,7 @@
 package org.soluvas.web.site.pagemeta;
 
 import org.soluvas.commons.SerializableEObject;
-import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageRequestContext;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -32,5 +32,5 @@ public interface PageSelector extends SerializableEObject {
 	 * @model contextDataType="org.soluvas.web.site.pagemeta.PageRuleContext"
 	 * @generated
 	 */
-	boolean matches(PageRuleContext context);
+	boolean matches(PageRequestContext context);
 } // PageSelector

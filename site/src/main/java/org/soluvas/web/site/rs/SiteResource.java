@@ -123,13 +123,13 @@ public class SiteResource {
 	 * @param requireMgr
 	 */
 	public SiteResource(@Nullable BundleContext bundleContext,
-			@Nonnull WebAddress webAddress,
-			@Nonnull final PermalinkCatalog permalinkCatalog,
-			@Nonnull final StyleConfiguration styleConfig,
-			@Nonnull final List<JavaScriptAlias> jsAliases,
-			@Nonnull final List<JavaScriptModule> jsModules,
-			@Nonnull final List<JavaScriptShim> jsShims,
-			@Nonnull final RequireManager requireMgr) {
+			WebAddress webAddress,
+			final PermalinkCatalog permalinkCatalog,
+			final StyleConfiguration styleConfig,
+			final List<JavaScriptAlias> jsAliases,
+			final List<JavaScriptModule> jsModules,
+			final List<JavaScriptShim> jsShims,
+			final RequireManager requireMgr) {
 		super();
 		this.bundleContext = bundleContext;
 		this.webAddress = Preconditions.checkNotNull(webAddress,
@@ -144,10 +144,10 @@ public class SiteResource {
 
 	@Inject
 	public SiteResource(
-			@Nonnull WebAddress webAddress,
-			@Nonnull final PermalinkCatalog permalinkCatalog,
-			@Nonnull final StyleConfiguration styleConfig,
-			@Nonnull final RequireManager requireMgr) {
+			WebAddress webAddress,
+			final PermalinkCatalog permalinkCatalog,
+			final StyleConfiguration styleConfig,
+			final RequireManager requireMgr) {
 		super();
 		this.bundleContext = null;
 		this.webAddress = Preconditions.checkNotNull(webAddress,
@@ -224,7 +224,7 @@ public class SiteResource {
 	 */
 	@GET @Path("templates/{bundleName}.js")
 	@Produces("text/javascript")
-	public String getTemplates(@PathParam("bundleName") @Nonnull final String bundleName) throws IOException {
+	public String getTemplates(@PathParam("bundleName") final String bundleName) throws IOException {
 		final String defaultStyle = styleConfig.getDefaultStyle();
 		final List<URL> resources = bundleContext != null ? findTemplatesByBundle(bundleName) : findTemplatesByClasspath(bundleName);
 		final Pattern skinnedPattern = Pattern.compile(".*\\/([^/]+)\\_([a-z0-9]+)\\.(mustache|handlebars)");
@@ -321,7 +321,7 @@ public class SiteResource {
 	// http://localhost:8181/cxf/api/org.soluvas.web.site/requireConfig.js
 	@GET @Path("requireConfig.js")
 	@Produces("text/javascript")
-	public String getRequireConfig(@Nonnull @Context final HttpServletRequest httpReq) throws IOException {
+	public String getRequireConfig(@Context final HttpServletRequest httpReq) throws IOException {
 		final String stgFile = "require_config.stg";
 //		TenantRef tenantInfo = JaxrsUtils.getTenantInfo(uriInfo);
 //		log.debug("Get RequireJS config for {} {} tenant={}:{}", uriInfo.getAbsolutePath().getPath(), uriInfo.getPath(),

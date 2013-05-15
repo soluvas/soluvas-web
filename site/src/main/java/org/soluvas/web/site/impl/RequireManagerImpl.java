@@ -76,8 +76,8 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 		throw new UnsupportedOperationException("Please use constructor with arguments.");
 	}
 	
-	public RequireManagerImpl(@Nonnull final JavaScriptMode javaScriptMode,
-			@Nonnull final String cacheBust) {
+	public RequireManagerImpl(final JavaScriptMode javaScriptMode,
+			final String cacheBust) {
 		super();
 		this.javaScriptMode = javaScriptMode;
 		this.cacheBust = cacheBust;

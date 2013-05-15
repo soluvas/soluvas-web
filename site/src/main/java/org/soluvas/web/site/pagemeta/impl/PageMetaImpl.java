@@ -703,7 +703,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public PageMeta toText(@Nonnull final Object context) {
+	public PageMeta toText(final Object context) {
 		if (phase == PageMetaPhase.TEMPLATE) {
 			final PageMetaImpl result = EcoreUtil.copy(this);
 			final DefaultMustacheFactory mf = new DefaultMustacheFactory();
@@ -727,8 +727,8 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * @param context
 	 * @param mf
 	 */
-	protected void renderMustache(@Nonnull final DefaultMustacheFactory mf, @Nonnull final EAttribute attr,
-			@Nonnull final EObject target, @Nonnull final Object scope) {
+	protected void renderMustache(final DefaultMustacheFactory mf, final EAttribute attr,
+			final EObject target, final Object scope) {
 		final String template = (String) target.eGet(attr);
 		if (template == null)
 			return;

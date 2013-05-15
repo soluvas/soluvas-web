@@ -45,12 +45,10 @@ import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.JavaScriptLink;
-import org.soluvas.web.site.JavaScriptLinkImpl;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptSource;
-import org.soluvas.web.site.PageMetaSupplier;
-import org.soluvas.web.site.PageMetaSupplierFactory;
-import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageMetaProvider;
+import org.soluvas.web.site.PageRequestContext;
 import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.alexa.AlexaCertify;
@@ -66,7 +64,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
@@ -188,8 +185,10 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected final RepeatingView sidebarBlocks;
 
-	@SpringBean(name="pageMetaSupplierFactory")
-	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
+//	@SpringBean(name="pageMetaSupplierFactory")
+//	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
+	@SpringBean
+	private PageMetaProvider pageMetaProvider;
 	@SpringBean
 	protected WebAddress webAddress;
 	@SpringBean(name="appManifest")
@@ -215,12 +214,6 @@ public class BootstrapPage extends ExtensiblePage {
 	protected AddedInfoVisibility addedInfoVisibility;
 	
 	protected SidebarVisibility sidebarVisibility;
-
-	public JavaScriptLink addJsLink(String uri) {
-		JavaScriptLinkImpl js = new JavaScriptLinkImpl(uri, 100);
-		pageJavaScriptLinks.add(js);
-		return js;
-	}
 
 	@SuppressWarnings("deprecation")
 	public String smartPrefixUri(String prefix, String uri) {
@@ -301,18 +294,14 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected PageMeta getPageMeta(@Nonnull final TenantRef tenant,
 			String currentUri) {
-		final PageRuleContext context = new PageRuleContext(
+		final PageRequestContext context = new PageRequestContext(
 				tenant.getClientId(), tenant.getTenantId(),
 				tenant.getTenantEnv(), this, currentUri, webAddress,
 				appManifest);
 		// final List<PageRule> pageRules = pageRulesSupplier.get();
 		// final PageMetaSupplier pageSupplier = new
 		// RulesPageMetaSupplier(pageRules, context);
-		Preconditions.checkNotNull(pageMetaSupplierFactory,
-				"BootstrapPage.pageMetaSupplierFactory cannot be null");
-		final PageMetaSupplier pageMetaSupplier = pageMetaSupplierFactory
-				.create(context);
-		final PageMeta pageMeta = pageMetaSupplier.get();
+		final PageMeta pageMeta = pageMetaProvider.get(context);
 		return pageMeta;
 	}
 

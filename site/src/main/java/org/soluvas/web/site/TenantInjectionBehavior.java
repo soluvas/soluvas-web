@@ -24,8 +24,8 @@ public class TenantInjectionBehavior extends Behavior {
 	 * @param tenantId
 	 * @param tenantEnv
 	 */
-	public TenantInjectionBehavior(@Nonnull final BundleContext bundleContext,
-			@Nonnull final String tenantId, @Nonnull final String tenantEnv) {
+	public TenantInjectionBehavior(final BundleContext bundleContext,
+			final String tenantId, final String tenantEnv) {
 		super();
 		tenantInjection = new TenantInjection(bundleContext, tenantId, tenantEnv);
 	}
@@ -35,7 +35,7 @@ public class TenantInjectionBehavior extends Behavior {
 	 * @param component
 	 * @param phase 
 	 */
-	public void inject(@Nonnull final Component component, @Nonnull final String phase) {
+	public void inject(final Component component, final String phase) {
 		final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 		tenantInjection.inject(component, componentId, phase);
 	}
@@ -45,19 +45,19 @@ public class TenantInjectionBehavior extends Behavior {
 	 * @param component
 	 * @param phase 
 	 */
-	public void uninject(@Nonnull final Component component, @Nonnull final String phase) {
+	public void uninject(final Component component, final String phase) {
 		final String componentId = component instanceof org.apache.wicket.Page ? component.getClass().getName() : component.getId();
 		tenantInjection.uninject(component, componentId, phase);
 	}
 
 	@Override
-	public void detach(@Nonnull final Component component) {
+	public void detach(final Component component) {
 		uninject(component, "detach");
 		super.detach(component);
 	}
 	
 	@Override
-	public void afterRender(@Nonnull final Component component) {
+	public void afterRender(final Component component) {
 		// Behaviors are "rendered" after 'afterRender', and they can use IModel's
 		// so we must make sure things are still injected when the Behaviors execute
 		super.afterRender(component);

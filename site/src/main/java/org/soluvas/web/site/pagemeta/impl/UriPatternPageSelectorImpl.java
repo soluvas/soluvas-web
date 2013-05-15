@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.web.site.PageRuleContext;
+import org.soluvas.web.site.PageRequestContext;
 import org.soluvas.web.site.pagemeta.PagemetaPackage;
 import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
@@ -99,7 +99,7 @@ public class UriPatternPageSelectorImpl extends EObjectImpl implements UriPatter
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public boolean matches(PageRuleContext context) {
+	public boolean matches(PageRequestContext context) {
 //		Pattern regexPattern = new UriTemplateParser(uriSelector.getPattern()).getPattern();
 		Pattern regexPattern = Pattern.compile(getPattern());
 		log.trace("Regex pattern for URI pattern {} is {}", getPattern(), regexPattern);
