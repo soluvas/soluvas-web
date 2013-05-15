@@ -2,12 +2,20 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+import org.apache.wicket.Page;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 /**
- * General information about the current web page request. 
+ * General information about the current web page request, which are:
+ * <ol>
+ * 	<li>tenant information</li>
+ *  <li>currently executing Wicket {@link Page}</li>
+ *  <li>current URI</li>
+ *  <li>{@link WebAddress}</li>
+ *  <li>{@link AppManifest}</li>
+ * </ol>
  * <p>Usages:
  * <ol>
  * 	<li>Passed to {@link PageMetaProvider#get(PageRuleContext)}

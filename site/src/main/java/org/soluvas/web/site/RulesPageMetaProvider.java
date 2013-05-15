@@ -23,7 +23,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
 /**
- * Provides a {@link PageMeta} using an ordered list of {@link PageRule}s. The later rules
+ * Provides {@link PageMeta} instances (metadata for {@link org.soluvas.web.site.Page})
+ * to be rendered in a web page template,
+ * using an ordered list of {@link PageRule}s. The later rules
  * will override the information set by the previous rules.
  * @author ceefour
  */
@@ -55,6 +57,11 @@ public class RulesPageMetaProvider implements PageMetaProvider {
 		this.ruleSource = pageMetaCatalog.getRules();
 	}
 
+	/**
+	 * Creates {@link PageMeta} from a {@link PageRequestContext} (which contains tenant information)
+	 * and a list of {@link PageRule}s (in {@link #ruleSource}).
+	 * @see org.soluvas.web.site.PageMetaProvider#get(org.soluvas.web.site.PageRequestContext)
+	 */
 	@Override
 	public PageMeta get(PageRequestContext context) {
 		// create blank (should be from somewhere)
