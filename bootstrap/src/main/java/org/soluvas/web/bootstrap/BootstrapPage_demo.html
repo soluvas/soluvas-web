@@ -16,7 +16,7 @@
 	<link wicket:id="bootstrapCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<style type="text/css">
       body {
-/*         padding-top: 60px; */
+		padding-top: 10px;
         padding-bottom: 10px;
       }
 /*       .sidebar-nav { */
@@ -88,11 +88,13 @@ var subscriptions = [];
 					</wicket:child>
 				</div>
 			</div><!--/row-->
+			<hr>
+			<footer class="footer" wicket:id="footer">
+				<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small>
+			</footer>
 	</div><!--/.fluid-container-->
 	<div class="clearfix"></div>
-	<footer class="footer" wicket:id="footer">
-		<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small>
-	</footer>
+	
 
 	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
  	
