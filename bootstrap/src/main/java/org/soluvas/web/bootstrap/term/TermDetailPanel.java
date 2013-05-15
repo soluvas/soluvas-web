@@ -155,7 +155,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setEnabled(colorUsed.getObject());
+				setEnabled(editable && colorUsed.getObject());
 			}
 		};
 		// 'change' event doesn't work, neither does OnChangeAjaxBehavior, dunno why

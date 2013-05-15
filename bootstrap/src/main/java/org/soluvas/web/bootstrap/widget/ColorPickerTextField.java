@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
 public class ColorPickerTextField extends TextField<String> {
 
 	private static JavaScriptResourceReference colorpickerJs = new JavaScriptResourceReference(
-			ColorPickerTextField.class, "bootstrap-colorpicker.js");
+			ColorPickerTextField.class, "js/colorpicker.js");
 	private static CssResourceReference colorpickerCss = new CssResourceReference(
-			ColorPickerTextField.class, "colorpicker.css");
+			ColorPickerTextField.class, "css/colorpicker.css");
 	/**
 	 * bootstrap-colorpicker won't enhance if the textfield was not enabled,
 	 * so we must wait until the first time the textfield is enabled.
