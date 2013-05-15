@@ -68,10 +68,11 @@ public class DisplayImageContainer extends WebMarkupContainer {
 		super.onComponentTag(tag);
 		final DisplayImage image = (DisplayImage) getDefaultModelObject();
 		tag.put("src", image.getSrc());
-		if (image.getWidth() != null) {
+		// only override width & height if not specified by markup
+		if (tag.getAttribute("width") == null && image.getWidth() != null) {
 			tag.put("width", image.getWidth());
 		}
-		if (image.getHeight() != null) {
+		if (tag.getAttribute("height") == null && image.getHeight() != null) {
 			tag.put("height", image.getHeight());
 		}
 		final String title = titleModel.getObject();
