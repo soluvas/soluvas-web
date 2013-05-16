@@ -9,6 +9,7 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.StringValue;
 import org.soluvas.commons.Person;
 import org.soluvas.data.person.PersonRepository;
 
@@ -61,10 +62,10 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 
 	@Override
 	protected Url buildUrl(UrlInfo info) {
-		if (info.getPageClass() == personShowPage) {
-			final String articleSlug = info.getPageParameters().get("personSlug").toString();
-			if (articleSlug != null) {
-				return new Url(ImmutableList.of(articleSlug), 
+		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
+			final StringValue personSlugValue = info.getPageParameters().get("personSlug");
+			if (personSlugValue != null) {
+				return new Url(ImmutableList.of(personSlugValue.toString()), 
 					Charsets.UTF_8);
 			} else {
 				return null;
