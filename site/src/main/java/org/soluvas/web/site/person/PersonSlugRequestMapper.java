@@ -42,7 +42,7 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 		if (request.getUrl().getSegments().size() == 1) {
 			final String segment1 = request.getUrl().getSegments().get(0);
 			if (SLUG_PATTERN.matcher(segment1).matches()) {
-				if (personRepo.existsBySlug(segment1)) {
+				if (personRepo.existsBySlug(segment1) != null) {
 					return new UrlInfo(null, personShowPage, 
 							new PageParameters().set("personSlug", segment1));
 				}
