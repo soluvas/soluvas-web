@@ -3,6 +3,7 @@ package org.soluvas.web.site.widget;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
@@ -11,6 +12,8 @@ import org.joda.money.CurrencyUnit;
 /**
  * Extends {@link NumberTextField} for amount, and prepended with a fixed
  * {@link CurrencyUnit} add-on.
+ * <p><b>KNOWN ISSUE</b>: You cannot {@link AjaxRequestTarget} this component.
+ * If you need to, you must wrap it inside a {@code <div>} then target the div.
  * @author ceefour
  */
 public class CurrencyTextField extends NumberTextField<BigDecimal> {
