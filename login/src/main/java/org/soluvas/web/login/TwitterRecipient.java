@@ -14,8 +14,10 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AccountStatus;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.NameUtils.PersonName;
 import org.soluvas.commons.SlugUtils;
@@ -120,10 +122,20 @@ public class TwitterRecipient extends WebPage {
 				});
 				final PersonName personName = NameUtils.splitName(personFullName);
 				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
+				existingPerson.setCreationTime(new DateTime());
+				existingPerson.setModificationTime(new DateTime());
 				existingPerson = personLdapRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
 			}
 			
+			if (existingPerson.getValidationTime() == null) {
+				existingPerson.setValidationTime(new DateTime());
+			}
+			if (existingPerson.getAccountStatus() == null ||
+					existingPerson.getAccountStatus() == AccountStatus.DRAFT ||
+					existingPerson.getAccountStatus() == AccountStatus.ACTIVE) {
+				existingPerson.setAccountStatus(AccountStatus.VALIDATED);
+			}
 			existingPerson.setTwitterScreenName(twitterUser.getScreenName());
 			existingPerson.setTwitterId(Long.valueOf(twitterUser.getId()));
 			existingPerson.setTwitterAccessToken(oAuthAccessToken.getToken());

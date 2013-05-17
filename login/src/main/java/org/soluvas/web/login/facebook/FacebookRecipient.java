@@ -26,8 +26,10 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AccountStatus;
 import org.soluvas.commons.Gender;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
@@ -122,9 +124,19 @@ public class FacebookRecipient extends WebPage {
 				});
 				
 				existingPerson = new SocialPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName());
+				existingPerson.setCreationTime(new DateTime());
+				existingPerson.setModificationTime(new DateTime());
 				personLdapRepo.add(existingPerson);
 			}
 
+			if (existingPerson.getValidationTime() == null) {
+				existingPerson.setValidationTime(new DateTime());
+			}
+			if (existingPerson.getAccountStatus() == null ||
+					existingPerson.getAccountStatus() == AccountStatus.DRAFT ||
+					existingPerson.getAccountStatus() == AccountStatus.ACTIVE) {
+				existingPerson.setAccountStatus(AccountStatus.VALIDATED);
+			}
 			if (fbUser.getGender() != null) {
 				try {
 					final Gender gender = Gender.valueOf(fbUser.getGender().toUpperCase());
