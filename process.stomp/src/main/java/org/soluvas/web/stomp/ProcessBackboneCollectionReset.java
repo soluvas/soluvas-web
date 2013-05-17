@@ -18,7 +18,7 @@ import org.soluvas.web.site.JavaScriptSourceImpl;
 @SuppressWarnings("serial")
 public class ProcessBackboneCollectionReset extends JavaScriptSourceImpl {
 
-	private transient Logger log = LoggerFactory.getLogger(ProcessBackboneCollectionReset.class);
+	private static final Logger log = LoggerFactory.getLogger(ProcessBackboneCollectionReset.class);
 	private ProcessRepository processRepository;
 	
 	public ProcessBackboneCollectionReset(ProcessRepository processRepository, int weight) {

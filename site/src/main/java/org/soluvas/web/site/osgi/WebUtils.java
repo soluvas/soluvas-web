@@ -2,7 +2,6 @@ package org.soluvas.web.site.osgi;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.Application;
@@ -28,7 +27,7 @@ import com.google.common.base.Supplier;
  */
 public class WebUtils {
 
-	private static transient Logger log = LoggerFactory
+	private static final Logger log = LoggerFactory
 			.getLogger(WebUtils.class);
 	
 	/**
