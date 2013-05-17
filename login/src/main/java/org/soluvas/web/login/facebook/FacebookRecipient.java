@@ -28,6 +28,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.Gender;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.facebook.FacebookUtilsImpl;
@@ -124,6 +125,15 @@ public class FacebookRecipient extends WebPage {
 				personLdapRepo.add(existingPerson);
 			}
 
+			if (fbUser.getGender() != null) {
+				try {
+					final Gender gender = Gender.valueOf(fbUser.getGender().toUpperCase());
+					existingPerson.setGender(gender);
+				} catch (Exception e) {
+					log.warn("Invalid gender value {} from Facebook ID {}",
+							fbUser.getGender(), fbUser.getId());
+				}
+			}
 			existingPerson.setFacebookUsername(fbUser.getUsername());
 			existingPerson.setFacebookId(Long.valueOf(fbUser.getId()));
 			existingPerson.setFacebookAccessToken(accessToken);
