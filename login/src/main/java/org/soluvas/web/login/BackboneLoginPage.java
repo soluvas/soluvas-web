@@ -14,8 +14,8 @@ public class BackboneLoginPage extends BootstrapPage {
 
 	public BackboneLoginPage() {
 		super();
-		LoginFormModel loginFormData = new LoginFormModel("hendy", "bippo");
-		add(new BackboneLoginForm("loginForm", new Model<LoginFormModel>(loginFormData)));
+		LoginToken loginFormData = new LoginToken("hendy", "bippo");
+		add(new BackboneLoginForm("loginForm", new Model<LoginToken>(loginFormData)));
 	}
 
 }

@@ -2,21 +2,27 @@ package org.soluvas.web.login;
 
 import java.io.Serializable;
 
+import org.apache.wicket.markup.html.form.Form;
+
 /**
+ * Data to be submitted by a login {@link Form}.
  * @author ceefour
  */
-@SuppressWarnings("serial")
-public class LoginFormModel implements Serializable {
+public class LoginToken implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
-	private Boolean rememberMe = false;
+	private boolean rememberMe = false;
 
-	public LoginFormModel() {
+	public LoginToken() {
 		super();
 	}
 	
-	public LoginFormModel(String username, String password) {
+	public LoginToken(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -38,11 +44,11 @@ public class LoginFormModel implements Serializable {
 		this.password = password;
 	}
 
-	public Boolean getRememberMe() {
+	public boolean getRememberMe() {
 		return rememberMe;
 	}
 
-	public void setRememberMe(Boolean rememberMe) {
+	public void setRememberMe(boolean rememberMe) {
 		this.rememberMe = rememberMe;
 	}
 

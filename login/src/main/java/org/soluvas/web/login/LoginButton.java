@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
@@ -16,21 +17,26 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
+/**
+ * Generic {@link IndicatingAjaxButton} that can be used with any Shiro {@link Realm},
+ * provided it accepts {@link UsernamePasswordToken}.
+ * @author ceefour
+ */
 @SuppressWarnings("serial")
-public class LdapLoginButton extends IndicatingAjaxButton {
+public class LoginButton extends IndicatingAjaxButton {
 	private static final Logger log = LoggerFactory
-			.getLogger(LdapLoginButton.class);
-	private final IModel<LoginFormModel> loginFormModel;
+			.getLogger(LoginButton.class);
+	private final IModel<LoginToken> loginTokenModel;
 
-	public LdapLoginButton(String id,
-			@Nonnull final IModel<LoginFormModel> loginFormModel) {
+	public LoginButton(String id,
+			@Nonnull final IModel<LoginToken> loginTokenModel) {
 		super(id);
-		this.loginFormModel = loginFormModel;
+		this.loginTokenModel = loginTokenModel;
 	}
 
 	@Override
 	protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-		final LoginFormModel loginData = loginFormModel.getObject();
+		final LoginToken loginData = loginTokenModel.getObject();
 		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
 		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
 		final UsernamePasswordToken token = new UsernamePasswordToken(

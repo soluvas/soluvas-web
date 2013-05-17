@@ -49,10 +49,10 @@ public class DedicatedLoginPage extends BootstrapPage {
 	public DedicatedLoginPage() {
 		super(SidebarVisibility.HIDDEN);
 		
-		final IModel<LoginFormModel> userLoginModel = new LoadableDetachableModel<LoginFormModel>() {
+		final IModel<LoginToken> userLoginModel = new LoadableDetachableModel<LoginToken>() {
 			@Override
-			protected LoginFormModel load() {
-				return new LoginFormModel();
+			protected LoginToken load() {
+				return new LoginToken();
 			}
 		};
 		

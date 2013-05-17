@@ -34,13 +34,13 @@ public class DedicatedLoginPanel extends Panel {
 			.getLogger(DedicatedLoginPanel.class);
 
 	public DedicatedLoginPanel(@Nonnull final String id,
-			@Nonnull final IModel<LoginFormModel> userLoginModel) {
+			@Nonnull final IModel<LoginToken> userLoginModel) {
 		super(id, userLoginModel);
 		
 		add(new FormSignIn("formSignIn", userLoginModel, this));
 	}
 	
-	public class FormSignIn extends Form<LoginFormModel> {
+	public class FormSignIn extends Form<LoginToken> {
 		
 		@SpringBean
 		private WebAddress webAddress;
@@ -48,7 +48,7 @@ public class DedicatedLoginPanel extends Panel {
 		private EntityLookup<Person, String> personLookup;
 		
 		@SuppressWarnings("unused")
-		public FormSignIn(@Nonnull final String id, @Nonnull final IModel<LoginFormModel> userLoginModel,
+		public FormSignIn(@Nonnull final String id, @Nonnull final IModel<LoginToken> userLoginModel,
 				@Nonnull final Component dedicatedLoginPanelComponent) {
 			super(id, userLoginModel);
 			
@@ -58,7 +58,7 @@ public class DedicatedLoginPanel extends Panel {
 			add(new PasswordTextField("password", new PropertyModel<String>(userLoginModel, "password")));
 			add(new CheckBox("rememberMe", new PropertyModel<Boolean>(userLoginModel, "rememberMe")));
 			
-			final LdapLoginButton ldapLoginBtn = new LdapLoginButton("login", userLoginModel) {
+			final LoginButton ldapLoginBtn = new LoginButton("login", userLoginModel) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
 					final SoluvasWebSession solWebSession = (SoluvasWebSession) getSession();

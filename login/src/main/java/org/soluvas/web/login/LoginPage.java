@@ -38,7 +38,7 @@ import com.google.common.base.Supplier;
 public class LoginPage extends BootstrapPage {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
-	private final LoginFormModel loginFormModel = new LoginFormModel();
+	private final LoginToken loginFormModel = new LoginToken();
 	private transient final Supplier<Subject> subjectSupplier = new SecurityUtilsSubjectSupplier();
 	private transient SecurityManager securityManager;
 	
@@ -61,7 +61,7 @@ public class LoginPage extends BootstrapPage {
 		
 		add(new Label("appName", new PropertyModel<String>(appManifest, "title")));
 
-		final Form<LoginFormModel> loginForm = new Form<LoginFormModel>("loginForm", new Model<LoginFormModel>(loginFormModel));
+		final Form<LoginToken> loginForm = new Form<LoginToken>("loginForm", new Model<LoginToken>(loginFormModel));
 		add(loginForm);
 		LoadableDetachableModel<Subject> currentUserModel = new LoadableDetachableModel<Subject>() {
 			@Override

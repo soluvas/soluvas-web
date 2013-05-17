@@ -9,7 +9,7 @@ import org.soluvas.web.site.HandlebarsRenderer;
 @SuppressWarnings("serial")
 public class BackboneLoginForm extends HandlebarsRenderer {
 
-	public BackboneLoginForm(String id, IModel<LoginFormModel> model) {
+	public BackboneLoginForm(String id, IModel<LoginToken> model) {
 		super(id, model, BackboneLoginForm.class, "form", "form-horizontal");
 	}
 
