@@ -44,7 +44,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 			final List<SocialPerson> matching = personLdapRepo.search(term);
 			response.addAll(matching);
 			// preload image URIs
-			displayImages = imageMgr.getSafePersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL);
+			displayImages = imageMgr.getSafeSocialPersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL);
 		}
 
 		@Override
