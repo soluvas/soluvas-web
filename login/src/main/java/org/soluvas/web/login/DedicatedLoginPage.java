@@ -40,7 +40,7 @@ public class DedicatedLoginPage extends BootstrapPage {
 		final Subject subject = SecurityUtils.getSubject();
 		if (subject.getPrincipal() != null) {
 			final Person userSession = appSessionMgr.requirePerson(subject);
-			log.warn("{} has logged in..", userSession.getId());
+			log.info("{} has logged in..", userSession.getId());
 			final Class<? extends Page> homePage = getApplication().getHomePage();
 			getRequestCycle().setResponsePage(homePage);
 		}
