@@ -33,6 +33,7 @@ import org.soluvas.commons.AccountStatus;
 import org.soluvas.commons.Gender;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.facebook.FacebookManager;
 import org.soluvas.facebook.FacebookUtilsImpl;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
@@ -40,7 +41,6 @@ import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
-import org.soluvas.web.login.FacebookManager;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.soluvas.web.site.WicketMountPoint;
 

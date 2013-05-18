@@ -84,12 +84,6 @@
 			</dependency>
 
 			<dependency>
-			    <groupId>com.restfb</groupId>
-			    <artifactId>restfb</artifactId>
-			    <version>1.6.11</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
 				<version>3.16.1-GA</version>

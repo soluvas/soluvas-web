@@ -26,7 +26,7 @@
 	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
 	</command-bundle>
 	
-	<bean id="facebookMgr" class="org.soluvas.web.login.FacebookManagerImpl">
+	<bean id="facebookMgr" class="org.soluvas.facebook.FacebookManagerImpl">
 		<argument value="${authFacebookAppId}" />
 		<argument value="${authFacebookAppSecret}" />
 	</bean>
