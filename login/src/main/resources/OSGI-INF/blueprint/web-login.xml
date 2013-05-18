@@ -39,7 +39,7 @@
 	</bean>
 	<service ref="googleMgr" auto-export="interfaces"/>
 	
-	<bean id="twitterMgr" class="org.soluvas.web.login.TwitterManagerImpl">
+	<bean id="twitterMgr" class="org.soluvas.twitter.TwitterManagerImpl">
 		<argument value="${authTwitterConsumerKey}" />
 		<argument value="${authTwitterConsumerSecret}" />
 	</bean>

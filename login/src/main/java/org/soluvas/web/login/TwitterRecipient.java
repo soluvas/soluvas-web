@@ -28,6 +28,7 @@ import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithTwitterException;
+import org.soluvas.twitter.TwitterManager;
 import org.soluvas.twitter.TwitterUtils;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.soluvas.web.site.WicketMountPoint;
