@@ -3,6 +3,7 @@
 package org.soluvas.web.site.pagemeta.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -27,7 +28,7 @@ import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
  */
 public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePageDeclaration {
 	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getSource()
@@ -62,14 +63,6 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 */
 	@Override
 	public PageMeta getSource() {
-		if (source != null && ((EObject)source).eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (PageMeta)eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
-			}
-		}
 		return source;
 	}
 
@@ -78,8 +71,14 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMeta basicGetSource() {
-		return source;
+	public NotificationChain basicSetSource(PageMeta newSource, NotificationChain msgs) {
+		PageMeta oldSource = source;
+		source = newSource;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, newSource);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -89,10 +88,31 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	 */
 	@Override
 	public void setSource(PageMeta newSource) {
-		PageMeta oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, oldSource, source));
+		if (newSource != source) {
+			NotificationChain msgs = null;
+			if (source != null)
+				msgs = ((InternalEObject)source).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, null, msgs);
+			if (newSource != null)
+				msgs = ((InternalEObject)newSource).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, null, msgs);
+			msgs = basicSetSource(newSource, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE, newSource, newSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
+				return basicSetSource(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -104,8 +124,7 @@ public class SourcePageDeclarationImpl extends EObjectImpl implements SourcePage
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case PagemetaPackage.SOURCE_PAGE_DECLARATION__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
+				return getSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pagemeta:PageMetaCatalog
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0"
-    xsi:schemaLocation="http://www.soluvas.org/schema/web.site.pagemeta/1.0 pagemeta.ecore">
-  <pageMetas
-      languageCode="en"
-      charset="utf-8"
-      title="Soluvas Web"
-      keywords=""
-      description=""
-      viewport="width=device-width, initial-scale=1.0">
-    <icon brandingBundleName="org.soluvas.web.site"
-        faviconPath="soluvas-favicon.ico"/>
-    <openGraph
-        title="Soluvas Web"
-        type="website"
-        locale="en_US"
-        siteName="Soluvas Web"/>
-  </pageMetas>
-  <rules positioner="-200">
-    <selector
-        xsi:type="pagemeta:UriPatternPageSelector"
-        pattern=".*"/>
-    <declaration
-        xsi:type="pagemeta:SourcePageDeclaration"
-        source="//@pageMetas.0"/>
-  </rules>
+<pagemeta:PageMetaCatalog xmi:version="2.0"
+	xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:pagemeta="http://www.soluvas.org/schema/web.site.pagemeta/1.0"
+	xsi:schemaLocation="http://www.soluvas.org/schema/web.site.pagemeta/1.0 pagemeta.ecore">
+	<rules positioner="-200">
+		<selector xsi:type="pagemeta:UriPatternPageSelector" pattern=".*" />
+		<declaration xsi:type="pagemeta:SourcePageDeclaration">
+			<source languageCode="en" charset="utf-8" title="Soluvas Web"
+				keywords="" description="" viewport="width=device-width, initial-scale=1.0">
+				<icon brandingBundleName="org.soluvas.web.site" faviconPath="soluvas-favicon.ico" />
+				<openGraph title="Soluvas Web" type="website" locale="en_US"
+					siteName="Soluvas Web" />
+			</source>
+		</declaration>
+	</rules>
 </pagemeta:PageMetaCatalog>

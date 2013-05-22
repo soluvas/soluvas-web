@@ -35,7 +35,6 @@ import org.soluvas.web.site.pagemeta.PageRuleCollection;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl#getPageMetas <em>Page Metas</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl#getBundle <em>Bundle</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl#getResourceType <em>Resource Type</em>}</li>
@@ -47,15 +46,6 @@ import org.soluvas.web.site.pagemeta.PageRuleCollection;
  * @generated
  */
 public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog {
-	/**
-	 * The cached value of the '{@link #getPageMetas() <em>Page Metas</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPageMetas()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<PageMeta> pageMetas;
 	/**
 	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -154,18 +144,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	@Override
 	protected EClass eStaticClass() {
 		return PagemetaPackage.Literals.PAGE_META_CATALOG;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<PageMeta> getPageMetas() {
-		if (pageMetas == null) {
-			pageMetas = new EObjectContainmentEList<PageMeta>(PageMeta.class, this, PagemetaPackage.PAGE_META_CATALOG__PAGE_METAS);
-		}
-		return pageMetas;
 	}
 
 	/**
@@ -272,8 +250,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PagemetaPackage.PAGE_META_CATALOG__PAGE_METAS:
-				return ((InternalEList<?>)getPageMetas()).basicRemove(otherEnd, msgs);
 			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 		}
@@ -288,8 +264,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PagemetaPackage.PAGE_META_CATALOG__PAGE_METAS:
-				return getPageMetas();
 			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				return getRules();
 			case PagemetaPackage.PAGE_META_CATALOG__BUNDLE:
@@ -313,10 +287,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PagemetaPackage.PAGE_META_CATALOG__PAGE_METAS:
-				getPageMetas().clear();
-				getPageMetas().addAll((Collection<? extends PageMeta>)newValue);
-				return;
 			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				getRules().clear();
 				getRules().addAll((Collection<? extends PageRule>)newValue);
@@ -345,9 +315,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PagemetaPackage.PAGE_META_CATALOG__PAGE_METAS:
-				getPageMetas().clear();
-				return;
 			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				getRules().clear();
 				return;
@@ -375,8 +342,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PagemetaPackage.PAGE_META_CATALOG__PAGE_METAS:
-				return pageMetas != null && !pageMetas.isEmpty();
 			case PagemetaPackage.PAGE_META_CATALOG__RULES:
 				return rules != null && !rules.isEmpty();
 			case PagemetaPackage.PAGE_META_CATALOG__BUNDLE:
@@ -398,12 +363,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == PageRuleCollection.class) {
-			switch (derivedFeatureID) {
-				case PagemetaPackage.PAGE_META_CATALOG__RULES: return PagemetaPackage.PAGE_RULE_COLLECTION__RULES;
-				default: return -1;
-			}
-		}
 		if (baseClass == BundleAware.class) {
 			switch (derivedFeatureID) {
 				case PagemetaPackage.PAGE_META_CATALOG__BUNDLE: return CommonsPackage.BUNDLE_AWARE__BUNDLE;
@@ -428,12 +387,6 @@ public class PageMetaCatalogImpl extends EObjectImpl implements PageMetaCatalog 
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == PageRuleCollection.class) {
-			switch (baseFeatureID) {
-				case PagemetaPackage.PAGE_RULE_COLLECTION__RULES: return PagemetaPackage.PAGE_META_CATALOG__RULES;
-				default: return -1;
-			}
-		}
 		if (baseClass == BundleAware.class) {
 			switch (baseFeatureID) {
 				case CommonsPackage.BUNDLE_AWARE__BUNDLE: return PagemetaPackage.PAGE_META_CATALOG__BUNDLE;

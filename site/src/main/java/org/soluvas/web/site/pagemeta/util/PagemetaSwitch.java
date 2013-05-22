@@ -164,7 +164,6 @@ public class PagemetaSwitch<T> extends Switch<T> {
 			case PagemetaPackage.PAGE_META_CATALOG: {
 				PageMetaCatalog pageMetaCatalog = (PageMetaCatalog)theEObject;
 				T result = casePageMetaCatalog(pageMetaCatalog);
-				if (result == null) result = casePageMetaCollection(pageMetaCatalog);
 				if (result == null) result = casePageRuleCollection(pageMetaCatalog);
 				if (result == null) result = caseBundleAware(pageMetaCatalog);
 				if (result == null) result = caseResourceAware(pageMetaCatalog);

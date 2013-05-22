@@ -27,26 +27,26 @@ package org.soluvas.web.site.pagemeta;
  */
 public interface SourcePageDeclaration extends PageDeclaration {
 	/**
-	 * Returns the value of the '<em><b>Source</b></em>' reference.
+	 * Returns the value of the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' reference.
+	 * @return the value of the '<em>Source</em>' containment reference.
 	 * @see #setSource(PageMeta)
 	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getSourcePageDeclaration_Source()
-	 * @model
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	PageMeta getSource();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.pagemeta.SourcePageDeclaration#getSource <em>Source</em>}' reference.
+	 * Sets the value of the '{@link org.soluvas.web.site.pagemeta.SourcePageDeclaration#getSource <em>Source</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' reference.
+	 * @param value the new value of the '<em>Source</em>' containment reference.
 	 * @see #getSource()
 	 * @generated
 	 */

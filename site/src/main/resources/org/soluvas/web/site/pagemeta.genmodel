@@ -14,7 +14,7 @@
       <genEnumLiterals ecoreEnumLiteral="pagemeta.ecore#//PageMetaPhase/final"/>
     </genEnums>
     <genDataTypes ecoreDataType="pagemeta.ecore#//PageRuleContext"/>
-    <genClasses ecoreClass="pagemeta.ecore#//PageMeta">
+    <genClasses ecoreClass="pagemeta.ecore#//PageMeta" labelFeature="#//pagemeta/PageMeta/title">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pagemeta.ecore#//PageMeta/icon"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pagemeta.ecore#//PageMeta/languageCode"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pagemeta.ecore#//PageMeta/openGraph"/>
@@ -91,7 +91,6 @@
     </genClasses>
     <genClasses ecoreClass="pagemeta.ecore#//PageRule">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pagemeta.ecore#//PageRule/selector"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pagemeta.ecore#//PageRule/positioner"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pagemeta.ecore#//PageRule/declaration"/>
     </genClasses>
     <genClasses image="false" ecoreClass="pagemeta.ecore#//PageDeclaration"/>

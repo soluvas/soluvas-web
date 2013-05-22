@@ -248,7 +248,8 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Applies the contents of the specified &quot;source&quot; Page to current web request.&#xA;&#xA;The Page instance must be linked via EMF, which is sometimes handy but not very flexible for runtime purposes."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//PageMeta"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//PageMeta" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorPageDeclaration" eSuperTypes="#//PageDeclaration">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -287,7 +288,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PageMetaCatalog" eSuperTypes="#//PageMetaCollection #//PageRuleCollection ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware">
+  <eClassifiers xsi:type="ecore:EClass" name="PageMetaCatalog" eSuperTypes="#//PageRuleCollection ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//BundleAware ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//ResourceAware">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The site catalog is used to define all *logical* sections and pages in a site.&#xA;&#xA;It is used in 2 ways:&#xA;1. at generation time, to generate concrete page classes, Wicket HTML markup, and JS files.&#xA;2. at runtime, to inspect *logical* sections and pages in the site.&#xA;&#xA;Note that information about actual concrete page classes etc. are not visible here, and if needed, then it should be described using another schema."/>
     </eAnnotations>

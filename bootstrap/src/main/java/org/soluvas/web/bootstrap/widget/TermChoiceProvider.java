@@ -14,6 +14,9 @@ import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.json.JSONException;
 import org.json.JSONWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.soluvas.commons.QNameFunction;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermManager;
@@ -26,21 +29,28 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 
 @SuppressWarnings("serial")
 public class TermChoiceProvider extends ChoiceProvider<Term> {
-	
+
+	private static final Logger log = LoggerFactory
+			.getLogger(TermChoiceProvider.class);
 	@SpringBean
 	private TermManager termMgr;
 	@SpringBean
 	private WebAddress webAddress;
 	private final IModel<List<Term>> termsModel;
+	private String kindNsPrefix;
+	private String kindName;
 	
 	public TermChoiceProvider(String kindNsPrefix, String kindName) {
 		super();
 		Injector.get().inject(this);
+		this.kindNsPrefix = kindNsPrefix;
+		this.kindName = kindName;
 		termsModel = new ListModel<>(termMgr.findTerms(kindNsPrefix, kindName));
 	}
 	
@@ -83,12 +93,19 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 		final Collection<Term> termColl = Collections2.transform(uNames, new Function<String, Term>() {
 			@Override @Nullable
 			public Term apply(@Nullable final String id) {
-				return Iterables.find(termsModel.getObject(), new Predicate<Term>() {
-					@Override
-					public boolean apply(@Nullable Term input) {
-						return input.getQName().equals(id);
-					}
-				}, null);
+				final List<Term> terms = termsModel.getObject();
+				try {
+					return Iterables.find(terms, new Predicate<Term>() {
+						@Override
+						public boolean apply(@Nullable Term input) {
+							return input.getQName().equals(id);
+						}
+					}, null);
+				} catch (Exception e) {
+					log.warn("Invalid term UName '{}' for kind {}_{}, {} valid terms are: {}",
+							id, kindNsPrefix, kindName, terms.size(), Lists.transform(terms, new QNameFunction()));
+					return null;
+				}
 			}
 		});
 		return termColl;

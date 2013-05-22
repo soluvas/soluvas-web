@@ -763,7 +763,7 @@ public interface PagemetaPackage extends EPackage {
 	int SOURCE_PAGE_DECLARATION = 10;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * The feature id for the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -893,24 +893,6 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_META_COLLECTION = 15;
 
 	/**
-	 * The feature id for the '<em><b>Page Metas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_COLLECTION__PAGE_METAS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Page Meta Collection</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_COLLECTION_FEATURE_COUNT = 1;
-
-	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageMetaCatalogImpl <em>Page Meta Catalog</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -919,69 +901,6 @@ public interface PagemetaPackage extends EPackage {
 	 * @generated
 	 */
 	int PAGE_META_CATALOG = 14;
-
-	/**
-	 * The feature id for the '<em><b>Page Metas</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG__PAGE_METAS = PAGE_META_COLLECTION__PAGE_METAS;
-
-	/**
-	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG__RULES = PAGE_META_COLLECTION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG__BUNDLE = PAGE_META_COLLECTION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG__RESOURCE_TYPE = PAGE_META_COLLECTION_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG__RESOURCE_URI = PAGE_META_COLLECTION_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG__RESOURCE_NAME = PAGE_META_COLLECTION_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of structural features of the '<em>Page Meta Catalog</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PAGE_META_CATALOG_FEATURE_COUNT = PAGE_META_COLLECTION_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.PageRuleCollection <em>Page Rule Collection</em>}' class.
@@ -1010,6 +929,78 @@ public interface PagemetaPackage extends EPackage {
 	 * @ordered
 	 */
 	int PAGE_RULE_COLLECTION_FEATURE_COUNT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RULES = PAGE_RULE_COLLECTION__RULES;
+
+	/**
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__BUNDLE = PAGE_RULE_COLLECTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Resource Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RESOURCE_TYPE = PAGE_RULE_COLLECTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Resource Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RESOURCE_URI = PAGE_RULE_COLLECTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG__RESOURCE_NAME = PAGE_RULE_COLLECTION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Page Meta Catalog</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_CATALOG_FEATURE_COUNT = PAGE_RULE_COLLECTION_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Page Metas</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_COLLECTION__PAGE_METAS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Page Meta Collection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META_COLLECTION_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageTitleImpl <em>Page Title</em>}' class.
@@ -1797,10 +1788,10 @@ public interface PagemetaPackage extends EPackage {
 	EClass getSourcePageDeclaration();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.soluvas.web.site.pagemeta.SourcePageDeclaration#getSource <em>Source</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.soluvas.web.site.pagemeta.SourcePageDeclaration#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @return the meta object for the containment reference '<em>Source</em>'.
 	 * @see org.soluvas.web.site.pagemeta.SourcePageDeclaration#getSource()
 	 * @see #getSourcePageDeclaration()
 	 * @generated
@@ -2046,7 +2037,7 @@ public interface PagemetaPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Page Rule Context</em>'.
 	 * @see org.soluvas.web.site.PageRequestContext
-	 * @model instanceClass="org.soluvas.web.site.PageRuleContext"
+	 * @model instanceClass="org.soluvas.web.site.PageRequestContext"
 	 * @generated
 	 */
 	EDataType getPageRuleContext();
@@ -2592,7 +2583,7 @@ public interface PagemetaPackage extends EPackage {
 		EClass SOURCE_PAGE_DECLARATION = eINSTANCE.getSourcePageDeclaration();
 
 		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

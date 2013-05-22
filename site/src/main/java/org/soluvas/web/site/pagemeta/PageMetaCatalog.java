@@ -26,5 +26,5 @@ import org.soluvas.commons.ResourceAware;
  * @model
  * @generated
  */
-public interface PageMetaCatalog extends PageMetaCollection, PageRuleCollection, BundleAware, ResourceAware {
+public interface PageMetaCatalog extends PageRuleCollection, BundleAware, ResourceAware {
 } // PageMetaCatalog
