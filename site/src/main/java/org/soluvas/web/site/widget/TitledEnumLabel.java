@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -66,6 +67,7 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 	}
 	
 	public static <E extends Enum<E>> Map<E, String> getEEnumDocs(final EEnum eEnum) {
+		Preconditions.checkNotNull(eEnum, "EEnum must be specified");
 		final ImmutableMap.Builder<E, String> b = ImmutableMap.builder();
 		for (final EEnumLiteral literal : eEnum.getELiterals()) {
 			final EAnnotation eAnnotation = literal

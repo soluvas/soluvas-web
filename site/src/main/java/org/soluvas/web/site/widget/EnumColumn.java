@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
@@ -53,6 +54,11 @@ public class EnumColumn<T> extends PropertyColumn<T, String> {
 		item.add(new AttributeAppender("class", "enum"));
 	}
 	
+	/**
+	 * Sets whether the enum label is visible (default) or hidden (shows only icon).
+	 * @param enumVisible
+	 * @return
+	 */
 	public EnumColumn<T> enumVisible(boolean enumVisible) {
 		this.enumVisible = enumVisible;
 		return this;
@@ -69,6 +75,11 @@ public class EnumColumn<T> extends PropertyColumn<T, String> {
 		}
 	}
 	
+	/**
+	 * The glyphicon name (in Bootstrap) to use for the {@link DataTable} header icon, e.g. {@code download}.
+	 * @param headerIcon
+	 * @return
+	 */
 	public EnumColumn<T> headerIcon(String headerIcon) {
 		this.headerIcon = headerIcon;
 		return this;
