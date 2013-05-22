@@ -21,13 +21,19 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleLoginLink.class);
 	
-	@SpringBean(name="googleMgr")
+	@SpringBean(name="googleMgr", required=false)
 	private GoogleManager googleMgr;
 	@SpringBean
 	private WebAddress webAddress;
 
 	public GoogleLoginLink(String id) {
 		super(id);
+	}
+	
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+		setVisible( googleMgr != null );
 	}
 
 	@Override
@@ -47,5 +53,5 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 		// .setCredentialStore(
 	    // new JdoCredentialStore(JDOHelper.getPersistenceManagerFactory("transactions-optional")))
 	}
-
+	
 }

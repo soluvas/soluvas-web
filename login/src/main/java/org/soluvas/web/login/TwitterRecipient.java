@@ -6,12 +6,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.wicket.Application;
-import org.apache.wicket.Page;
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
@@ -173,17 +169,7 @@ public class TwitterRecipient extends WebPage {
 			}
 						
 			// Redirect Url
-			final SoluvasWebSession solWebSession = (SoluvasWebSession) getSession();
-			if (solWebSession.getOriginalUrl() != null) {
-				final String destUri = webAddress.getBaseUri() + solWebSession.getOriginalUrl().toString();
-				log.debug("Session has originalUrl, redirecting to {}", destUri);
-				solWebSession.setOriginalUrl(null);
-				throw new RedirectToUrlException(destUri);
-			} else {
-				final Class<? extends Page> homePage = Application.get().getHomePage();
-				log.debug("Session has no, redirecting to {}", homePage.getName()); 
-				throw new RestartResponseException(homePage);
-			}
+			((SoluvasWebSession) getSession()).postLoginSuccess();
 		} catch (TwitterException e) {
 			throw new NotLoggedWithTwitterException("Error when processing Twitter verifier", e);
 //			info("Error when processing Twitter verifier" + e.getMessage());

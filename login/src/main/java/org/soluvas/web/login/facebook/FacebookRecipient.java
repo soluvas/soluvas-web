@@ -18,12 +18,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.wicket.Application;
-import org.apache.wicket.Page;
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
@@ -194,20 +190,7 @@ public class FacebookRecipient extends WebPage {
 			}
 			
 			// Redirect Url
-			final SoluvasWebSession solWebSession = (SoluvasWebSession) getSession();
-			if (solWebSession.getOriginalUrl() != null) {
-				final String destUri = webAddress.getBaseUri() + solWebSession.getOriginalUrl().toString();
-				solWebSession.setOriginalUrl(null);
-				log.debug("Session has originalUrl, redirecting to {}", destUri);
-				throw new RedirectToUrlException(destUri);
-			} else {
-				// If Regular User
-				final Class<? extends Page> homePage = Application.get().getHomePage();
-//				RedirectByUserTyperType;
-				
-				log.debug("Session has no, redirecting to {}", homePage.getName()); 
-				throw new RestartResponseException(homePage);
-			}
+			((SoluvasWebSession) getSession()).postLoginSuccess();
 		} catch (final Exception e) {
 			throw new NotLoggedWithFacebookException("Cannot login via Facebook", e);
 		}

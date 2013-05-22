@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -11,7 +12,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,6 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.ldap.Person;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
-import org.soluvas.web.login.google.GoogleLoginLink;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
 
@@ -61,31 +60,17 @@ public class DedicatedLoginPanel extends Panel {
 			final LoginButton ldapLoginBtn = new LoginButton("login", userLoginModel) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
-					final SoluvasWebSession solWebSession = (SoluvasWebSession) getSession();
-					if (solWebSession.getOriginalUrl() != null) {
-						final String destUri = webAddress.getBaseUri() + solWebSession.getOriginalUrl().toString();
-						solWebSession.setOriginalUrl(null);
-						log.debug("Session has originalUrl, redirecting to {}", destUri);
-						throw new RedirectToUrlException(destUri);
-					} else {
-//						final String redirectUri = new RedirectByUserType(mallManager, webAddress, shopRepo, personLookup).apply(personId);
-						final String destUri = webAddress.getBaseUri() + solWebSession.getOriginalUrl().toString();
-						log.debug("Redirecting  by usertype to {}", destUri);
-						throw new RedirectToUrlException(destUri);
-//						final Class<? extends Page> homePage = Application.get().getHomePage();
-//						log.debug("Session has no, redirecting to {}", homePage.getName()); 
-//						throw new RestartResponseException(homePage);
-					}
+					((SoluvasWebSession) getSession()).postLoginSuccess();
 				}
 			};
 			add(ldapLoginBtn);
 			
 			add(new FacebookLoginLink("btnLoginWithFb"));
 			add(new TwitterLoginLink("btnLoginWithTwitter"));
-			final GoogleLoginLink googleLoginLink = new GoogleLoginLink("btnLoginWithGoogle");
+			add(new WebMarkupContainer("btnLoginWithGoogle").setVisible(false));
 			// TODO: enable Google when it's actually working with Google accounts, not Google+
-			googleLoginLink.setVisible(false);
-			add(googleLoginLink);
+//			final GoogleLoginLink googleLoginLink = new GoogleLoginLink("btnLoginWithGoogle");
+//			add(googleLoginLink);
 			
 			setDefaultButton(ldapLoginBtn);
 		}
