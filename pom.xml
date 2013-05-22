@@ -49,7 +49,7 @@
 	</licenses>
 
 	<properties>
-		<wicket.version>6.7.0</wicket.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicket.version>6.8.0</wicket.version><!-- used by wicketstuff e.g. wicket-datetime -->
 	</properties>
 
 	<dependencyManagement>
@@ -108,7 +108,7 @@
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-atmosphere</artifactId>
-				<version>0.9</version>
+				<version>0.10</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
