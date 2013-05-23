@@ -33,7 +33,9 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
-		setVisible( googleMgr != null );
+//		setVisible( googleMgr != null );
+		// TODO: always disabled for now. enable if Google login (ClientLogin, not Plus?) is working properly
+		setVisible( false );
 	}
 
 	@Override
