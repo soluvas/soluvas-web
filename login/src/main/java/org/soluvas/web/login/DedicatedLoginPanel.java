@@ -1,15 +1,14 @@
 package org.soluvas.web.login;
 
-import javax.annotation.Nonnull;
-
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -19,6 +18,7 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.ldap.Person;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
+import org.soluvas.web.login.facebook.FacebookRecipient;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
 
@@ -27,16 +27,33 @@ import org.soluvas.web.site.SoluvasWebSession;
  *
  */
 @SuppressWarnings("serial")
-public class DedicatedLoginPanel extends Panel {
+public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 	
 	static final Logger log = LoggerFactory
 			.getLogger(DedicatedLoginPanel.class);
+	private final Class<? extends Page> facebookRecipientPage;
+	private final Class<? extends Page> twitterRecipientPage;
 
-	public DedicatedLoginPanel(@Nonnull final String id,
-			@Nonnull final IModel<LoginToken> userLoginModel) {
+	public DedicatedLoginPanel(final String id,
+			final IModel<LoginToken> userLoginModel) {
 		super(id, userLoginModel);
-		
-		add(new FormSignIn("formSignIn", userLoginModel, this));
+		this.facebookRecipientPage = FacebookRecipient.class;
+		this.twitterRecipientPage = TwitterRecipient.class;
+	}
+	
+	public DedicatedLoginPanel(final String id,
+			final IModel<LoginToken> userLoginModel,
+			Class<? extends Page> facebookRecipientPage,
+			Class<? extends Page> twitterRecipientPage) {
+		super(id, userLoginModel);
+		this.facebookRecipientPage = facebookRecipientPage;
+		this.twitterRecipientPage = twitterRecipientPage;
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		add(new FormSignIn("formSignIn", getModel(), this));		
 	}
 	
 	public class FormSignIn extends Form<LoginToken> {
@@ -47,8 +64,8 @@ public class DedicatedLoginPanel extends Panel {
 		private EntityLookup<Person, String> personLookup;
 		
 		@SuppressWarnings("unused")
-		public FormSignIn(@Nonnull final String id, @Nonnull final IModel<LoginToken> userLoginModel,
-				@Nonnull final Component dedicatedLoginPanelComponent) {
+		public FormSignIn(final String id, final IModel<LoginToken> userLoginModel,
+				final Component dedicatedLoginPanelComponent) {
 			super(id, userLoginModel);
 			
 			setOutputMarkupId(true);
@@ -65,8 +82,8 @@ public class DedicatedLoginPanel extends Panel {
 			};
 			add(ldapLoginBtn);
 			
-			add(new FacebookLoginLink("btnLoginWithFb"));
-			add(new TwitterLoginLink("btnLoginWithTwitter"));
+			add(new FacebookLoginLink("btnLoginWithFb", facebookRecipientPage));
+			add(new TwitterLoginLink("btnLoginWithTwitter", twitterRecipientPage));
 			add(new WebMarkupContainer("btnLoginWithGoogle").setVisible(false));
 			// TODO: enable Google when it's actually working with Google accounts, not Google+
 //			final GoogleLoginLink googleLoginLink = new GoogleLoginLink("btnLoginWithGoogle");
