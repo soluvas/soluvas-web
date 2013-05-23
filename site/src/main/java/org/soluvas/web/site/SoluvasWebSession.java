@@ -14,7 +14,6 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.flow.RedirectToUrlException;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -39,6 +38,10 @@ public class SoluvasWebSession extends WebSession {
 	private String twitterRequestTokenSecret;
 	private Url originalUrl;
 	private boolean tokenFlow;
+	/**
+	 * Used by token flow authentication.
+	 */
+	private String redirectUri;
 	/**
 	 * Used by token flow. Won't work with {@link SocialPerson}.
 	 */
@@ -107,6 +110,14 @@ public class SoluvasWebSession extends WebSession {
 	public void setTokenFlow(boolean tokenFlow) {
 		this.tokenFlow = tokenFlow;
 	}
+	
+	public String getRedirectUri() {
+		return redirectUri;
+	}
+
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
+	}
 
 	/**
 	 * Login handlers and recipient pages (Facebook, Twitter, token)
@@ -128,11 +139,13 @@ public class SoluvasWebSession extends WebSession {
 				personRepo.modify(person.getId(), person);
 			}
 			
-			final Url relativeUrl = requestCycle.mapUrlFor(TokenRecipientPage.class, new PageParameters());
-			final String destUri = requestCycle.getRequest().getFilterPath() + "/" + relativeUrl.toString() + 
-					"#access_token=" + person.getClientAccessToken();
+//			final Url relativeUrl = requestCycle.mapUrlFor(TokenRecipientPage.class, new PageParameters());
+//			final String destUri = requestCycle.getRequest().getFilterPath() + "/" + relativeUrl.toString() + 
+//					"#access_token=" + person.getClientAccessToken();
+//			final String destUri = "about:blank" +"#access_token=" + person.getClientAccessToken();
+			final String destUri = getRedirectUri()  +"#access_token=" + person.getClientAccessToken();
 			setTokenFlow(false);
-			setOriginalUrl(null);
+			setRedirectUri(null);
 			log.debug("Redirecting to token recipient page: {}", destUri);
 			throw new RedirectToUrlException(destUri);
 		} else if (getOriginalUrl() != null) {
