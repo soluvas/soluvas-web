@@ -215,6 +215,8 @@ public class BootstrapPage extends ExtensiblePage {
 	
 	protected SidebarVisibility sidebarVisibility;
 
+	protected Navbar navbar;
+
 	@SuppressWarnings("deprecation")
 	public String smartPrefixUri(String prefix, String uri) {
 		if (uri.startsWith("//") || uri.startsWith("https:")
@@ -427,8 +429,7 @@ public class BootstrapPage extends ExtensiblePage {
 		// Carousel
 		add(afterHeader = new RepeatingView("afterHeader"));
 
-		// NAVBAR
-		final Navbar navbar = new Navbar("navbar");
+		navbar = new Navbar("navbar");
 		add(navbar);
 		// add(new Label("logoText",
 		// site.getLogoText()).setRenderBodyOnly(true));

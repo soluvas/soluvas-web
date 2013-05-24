@@ -26,20 +26,25 @@ public abstract class AtmosphereApplication extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
-		atmosphereEventBus = new org.apache.wicket.atmosphere.EventBus(this);
-		getApplicationListeners().add(new IApplicationListener() {
-			@Override
-			public void onBeforeDestroyed(Application application) {
-				log.info("Unregistering {} from EventBus {}", application, eventBus);
-				eventBus.unregister(AtmosphereApplication.this);
-			}
-			
-			@Override
-			public void onAfterInitialized(Application application) {
-				log.info("Registering {} to EventBus {}", application, eventBus);
-				eventBus.register(AtmosphereApplication.this);
-			}
-		});
+		try {
+			atmosphereEventBus = new org.apache.wicket.atmosphere.EventBus(this);
+			getApplicationListeners().add(new IApplicationListener() {
+				@Override
+				public void onBeforeDestroyed(Application application) {
+					log.info("Unregistering {} from EventBus {}", application, eventBus);
+					eventBus.unregister(AtmosphereApplication.this);
+				}
+				
+				@Override
+				public void onAfterInitialized(Application application) {
+					log.info("Registering {} to EventBus {}", application, eventBus);
+					eventBus.register(AtmosphereApplication.this);
+				}
+			});
+		} catch (Exception e) {
+			// log error, but let application continue without Atmosphere
+			log.error("Cannot initialize Wicket Atmosphere EventBus", e);
+		}
 	}
 
 	@Subscribe

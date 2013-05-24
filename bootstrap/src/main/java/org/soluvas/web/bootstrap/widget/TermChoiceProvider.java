@@ -10,7 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.json.JSONException;
 import org.json.JSONWriter;
@@ -22,6 +21,7 @@ import org.soluvas.data.Term;
 import org.soluvas.data.TermManager;
 import org.soluvas.data.Value;
 import org.soluvas.data.ValueFunction;
+import org.soluvas.web.site.TermListModel;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -46,12 +46,12 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	private String kindNsPrefix;
 	private String kindName;
 	
-	public TermChoiceProvider(String kindNsPrefix, String kindName) {
+	public TermChoiceProvider(final String kindNsPrefix, final String kindName) {
 		super();
 		Injector.get().inject(this);
 		this.kindNsPrefix = kindNsPrefix;
 		this.kindName = kindName;
-		termsModel = new ListModel<>(termMgr.findTerms(kindNsPrefix, kindName));
+		termsModel = new TermListModel(kindNsPrefix, kindName);
 	}
 	
 	/**
