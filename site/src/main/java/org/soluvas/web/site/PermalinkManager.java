@@ -2,7 +2,7 @@
  */
 package org.soluvas.web.site;
 
-import org.soluvas.commons.SerializableEObject;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,10 +12,9 @@ import org.soluvas.commons.SerializableEObject;
  *
  * @see org.soluvas.web.site.SitePackage#getPermalinkManager()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PermalinkManager extends SerializableEObject {
+public interface PermalinkManager extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.site/src/main/java" modelPluginID="org.soluvas.web.site"
-    modelName="Compose" rootExtendsInterface="org.soluvas.commons.SerializableEObject"
-    rootImplementsInterface="" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    modelName="Compose"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
     suppressGenModelAnnotations="false" copyrightFields="false" publicConstructors="true"
     usedGenPackages="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.genmodel#//commons platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <foreignModel>compose.ecore</foreignModel>

@@ -9,6 +9,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.image.DisplayImage;
+import org.soluvas.web.site.EmfModel;
 
 import com.google.common.base.Strings;
 
@@ -49,7 +50,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	}
 	
 	public DisplayImageContainer(String id, DisplayImage image) {
-		super(id, new Model<>(image));
+		super(id, new EmfModel<>(image));
 		this.titleModel = new Model<>();
 	}
 	
@@ -59,7 +60,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	 * @param title Title to override alt & title attributes.
 	 */
 	public DisplayImageContainer(String id, DisplayImage image, @Nullable String title) {
-		super(id, new Model<>(image));
+		super(id, new EmfModel<>(image));
 		this.titleModel = new Model<>(title);
 	}
 	

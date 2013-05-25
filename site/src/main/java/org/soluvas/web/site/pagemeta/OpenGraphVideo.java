@@ -2,7 +2,6 @@
  */
 package org.soluvas.web.site.pagemeta;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -33,10 +32,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphVideo()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface OpenGraphVideo extends SerializableEObject {
+public interface OpenGraphVideo extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Url</b></em>' attribute.
 	 * <!-- begin-user-doc -->

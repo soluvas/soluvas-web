@@ -2,7 +2,6 @@
  */
 package org.soluvas.web.site.pagemeta;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -40,10 +39,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphImage()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface OpenGraphImage extends SerializableEObject {
+public interface OpenGraphImage extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Url</b></em>' attribute.
 	 * <!-- begin-user-doc -->

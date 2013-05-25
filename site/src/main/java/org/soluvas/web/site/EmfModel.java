@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.apache.commons.codec.binary.Hex;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
@@ -57,7 +59,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		super();
 	}
 
-	public EmfModel(T obj) {
+	public EmfModel(@Nullable T obj) {
 		super(obj);
 	}
 
@@ -86,7 +88,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 //				log.debug("Removing {}", cur.eClass().getName());
 //				resContents.remove();
 //			}
-			log.trace("De-Serialized {} careInstructions={}", new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
+			log.trace("De-Serialized {}", obj.eClass().getName());
 			return obj;
 		} else {
 			log.trace("De-Serialized null");
@@ -110,15 +112,15 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	@Override
 	protected void onDetach() {
 		final T obj = getObject();
-		try {
-			log.trace("Serializing {} careInstructions={}", 
-					new PropertyModel<String>(obj, "eClass.name").getObject(),
-					new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
-		} catch (Exception e) {
-			log.trace("Serializing {} careInstructions={}", 
-					new PropertyModel<String>(obj, "eClass.name").getObject(), e );
-		}
 		if (obj != null) {
+			try {
+				log.trace("Serializing {} careInstructions={}", 
+						new PropertyModel<String>(obj, "eClass.name").getObject(),
+						new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
+			} catch (Exception e) {
+				log.trace("Serializing {} careInstructions={}", 
+						new PropertyModel<String>(obj, "eClass.name").getObject(), e );
+			}
 			final Resource res = new XMIResourceImpl();
 			final T copied = EcoreUtil.copy(obj);
 			res.getContents().add(copied);

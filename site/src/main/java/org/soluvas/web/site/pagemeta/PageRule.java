@@ -5,7 +5,6 @@ package org.soluvas.web.site.pagemeta;
 import org.soluvas.commons.BundleAware;
 import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**

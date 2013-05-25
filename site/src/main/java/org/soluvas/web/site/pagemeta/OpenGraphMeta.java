@@ -4,7 +4,6 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -246,10 +245,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getOpenGraphMeta()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface OpenGraphMeta extends SerializableEObject {
+public interface OpenGraphMeta extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->

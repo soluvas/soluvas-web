@@ -2,7 +2,7 @@
  */
 package org.soluvas.web.site;
 
-import org.soluvas.commons.SerializableEObject;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,10 +23,9 @@ import org.soluvas.commons.SerializableEObject;
  *
  * @see org.soluvas.web.site.SitePackage#getPermalink()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface Permalink extends SerializableEObject {
+public interface Permalink extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Namespace</b></em>' attribute.
 	 * <!-- begin-user-doc -->

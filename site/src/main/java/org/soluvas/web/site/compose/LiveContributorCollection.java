@@ -4,7 +4,6 @@ package org.soluvas.web.site.compose;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -25,10 +24,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.compose.ComposePackage#getLiveContributorCollection()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface LiveContributorCollection extends SerializableEObject {
+public interface LiveContributorCollection extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Live Contributors</b></em>' reference list.
 	 * The list contents are of type {@link org.soluvas.web.site.compose.LiveContributor}.

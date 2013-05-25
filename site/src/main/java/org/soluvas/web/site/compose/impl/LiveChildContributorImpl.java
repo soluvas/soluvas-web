@@ -247,7 +247,7 @@ public class LiveChildContributorImpl extends ChildContributorImpl implements Li
 	 */
 	@Override
 	public LivePlaceholder getPlaceholder() {
-		if (placeholder != null && ((EObject)placeholder).eIsProxy()) {
+		if (placeholder != null && placeholder.eIsProxy()) {
 			InternalEObject oldPlaceholder = (InternalEObject)placeholder;
 			placeholder = (LivePlaceholder)eResolveProxy(oldPlaceholder);
 			if (placeholder != oldPlaceholder) {

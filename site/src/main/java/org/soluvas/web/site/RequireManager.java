@@ -2,7 +2,7 @@
  */
 package org.soluvas.web.site;
 
-import org.soluvas.commons.SerializableEObject;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,10 +19,9 @@ import org.soluvas.commons.SerializableEObject;
  *
  * @see org.soluvas.web.site.SitePackage#getRequireManager()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface RequireManager extends SerializableEObject {
+public interface RequireManager extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Java Script Mode</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.soluvas.web.site.JavaScriptMode}.

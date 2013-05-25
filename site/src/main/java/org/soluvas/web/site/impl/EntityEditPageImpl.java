@@ -214,7 +214,7 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 	 */
 	public void setSection(Section newSection) {
 		if (newSection != eInternalContainer() || (eContainerFeatureID() != SitePackage.ENTITY_EDIT_PAGE__SECTION && newSection != null)) {
-			if (EcoreUtil.isAncestor(this, (EObject)newSection))
+			if (EcoreUtil.isAncestor(this, newSection))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)

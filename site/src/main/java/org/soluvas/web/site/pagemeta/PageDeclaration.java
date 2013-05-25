@@ -2,7 +2,6 @@
  */
 package org.soluvas.web.site.pagemeta;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -13,8 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageDeclaration()
  * @model interface="true" abstract="true"
- * @extends SerializableEObject
  * @generated
  */
-public interface PageDeclaration extends SerializableEObject {
+public interface PageDeclaration extends EObject {
 } // PageDeclaration

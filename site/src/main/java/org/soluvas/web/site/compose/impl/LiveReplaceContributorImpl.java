@@ -249,7 +249,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 	 */
 	@Override
 	public LiveSlave getSlave() {
-		if (slave != null && ((EObject)slave).eIsProxy()) {
+		if (slave != null && slave.eIsProxy()) {
 			InternalEObject oldSlave = (InternalEObject)slave;
 			slave = (LiveSlave)eResolveProxy(oldSlave);
 			if (slave != oldSlave) {

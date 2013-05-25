@@ -3,7 +3,6 @@
 package org.soluvas.web.site;
 
 import org.eclipse.emf.common.util.EList;
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -28,10 +27,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.SitePackage#getSection()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface Section extends SerializableEObject {
+public interface Section extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

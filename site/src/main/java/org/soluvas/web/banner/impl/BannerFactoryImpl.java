@@ -57,8 +57,8 @@ public class BannerFactoryImpl extends EFactoryImpl implements BannerFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case BannerPackage.BANNER: return (EObject)createBanner();
-			case BannerPackage.BANNER_CATALOG: return (EObject)createBannerCatalog();
+			case BannerPackage.BANNER: return createBanner();
+			case BannerPackage.BANNER_CATALOG: return createBannerCatalog();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

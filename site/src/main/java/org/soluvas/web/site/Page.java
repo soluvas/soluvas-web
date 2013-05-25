@@ -4,7 +4,6 @@ package org.soluvas.web.site;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -24,10 +23,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.SitePackage#getPage()
  * @model interface="true" abstract="true"
- * @extends SerializableEObject
  * @generated
  */
-public interface Page extends SerializableEObject {
+public interface Page extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -4,7 +4,6 @@ package org.soluvas.web.site.compose;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -21,10 +20,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.compose.ComposePackage#getPlaceholderCollection()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PlaceholderCollection extends SerializableEObject {
+public interface PlaceholderCollection extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Placeholders</b></em>' containment reference list.
 	 * The list contents are of type {@link org.soluvas.web.site.compose.Placeholder}.

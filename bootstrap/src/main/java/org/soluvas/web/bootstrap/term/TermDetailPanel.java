@@ -25,6 +25,7 @@ import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
 import org.soluvas.data.impl.TermImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
+import org.soluvas.web.site.EmfModel;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -87,7 +88,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		term.setKindNsPrefix(kindNsPrefix);
 		term.setKindName(kindName);
 		term.setNsPrefix(tenant.getTenantId());
-		setModel(new Model<Term>(term));
+		setModel(new EmfModel<Term>(term));
 	}
 
 	/**
@@ -102,7 +103,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	 */
 	public TermDetailPanel(String id, TermRepository termRepo, String uName, final String kindNsPrefix, final String kindName, String kindDisplayName,
 			final Class<? extends Page> backPage) {
-		super(id, new Model<>(
+		super(id, new EmfModel<>(
 				Preconditions.checkNotNull(termRepo.findOne(uName),
 						"Cannot find term %s using %s", uName, termRepo)
 			));

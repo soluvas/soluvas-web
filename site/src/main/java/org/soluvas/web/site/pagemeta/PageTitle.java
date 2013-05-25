@@ -4,7 +4,6 @@ package org.soluvas.web.site.pagemeta;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -33,10 +32,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageTitle()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PageTitle extends SerializableEObject {
+public interface PageTitle extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Main</b></em>' attribute.
 	 * <!-- begin-user-doc -->

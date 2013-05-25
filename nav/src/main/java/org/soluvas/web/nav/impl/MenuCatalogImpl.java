@@ -61,7 +61,7 @@ public class MenuCatalogImpl extends EObjectImpl implements MenuCatalog {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MenuCatalogImpl() {
+	public MenuCatalogImpl() {
 		super();
 	}
 

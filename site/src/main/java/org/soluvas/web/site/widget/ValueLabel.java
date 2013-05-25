@@ -10,6 +10,7 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermManager;
 import org.soluvas.data.Value;
+import org.soluvas.web.site.EmfModel;
 
 /**
  * Formats a {@link Value}, and if lookup successful via {@link TermManager}, with associated
@@ -30,7 +31,7 @@ public class ValueLabel extends Label {
 	}
 
 	public ValueLabel(String id, Value<?> value) {
-		super(id, value);
+		this(id, new EmfModel<Value<?>>(value));
 	}
 	
 	public ValueLabel(String id, IModel<Value<?>> model, boolean hideTextIfImageExists) {
@@ -39,8 +40,7 @@ public class ValueLabel extends Label {
 	}
 
 	public ValueLabel(String id, Value<?> value, boolean hideTextIfImageExists) {
-		super(id, value);
-		this.hideTextIfImageExists = hideTextIfImageExists;
+		this(id, new EmfModel<Value<?>>(value), hideTextIfImageExists);
 	}
 	
 	@Override

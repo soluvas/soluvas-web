@@ -216,7 +216,7 @@ public class LoginPageImpl extends EObjectImpl implements LoginPage {
 	 */
 	public void setSection(Section newSection) {
 		if (newSection != eInternalContainer() || (eContainerFeatureID() != SitePackage.LOGIN_PAGE__SECTION && newSection != null)) {
-			if (EcoreUtil.isAncestor(this, (EObject)newSection))
+			if (EcoreUtil.isAncestor(this, newSection))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
@@ -236,7 +236,7 @@ public class LoginPageImpl extends EObjectImpl implements LoginPage {
 	 * @generated
 	 */
 	public RegisterPage getRegisterPage() {
-		if (registerPage != null && ((EObject)registerPage).eIsProxy()) {
+		if (registerPage != null && registerPage.eIsProxy()) {
 			InternalEObject oldRegisterPage = (InternalEObject)registerPage;
 			registerPage = (RegisterPage)eResolveProxy(oldRegisterPage);
 			if (registerPage != oldRegisterPage) {
@@ -274,7 +274,7 @@ public class LoginPageImpl extends EObjectImpl implements LoginPage {
 	 * @generated
 	 */
 	public ResetPasswordPage getResetPasswordPage() {
-		if (resetPasswordPage != null && ((EObject)resetPasswordPage).eIsProxy()) {
+		if (resetPasswordPage != null && resetPasswordPage.eIsProxy()) {
 			InternalEObject oldResetPasswordPage = (InternalEObject)resetPasswordPage;
 			resetPasswordPage = (ResetPasswordPage)eResolveProxy(oldResetPasswordPage);
 			if (resetPasswordPage != oldResetPasswordPage) {

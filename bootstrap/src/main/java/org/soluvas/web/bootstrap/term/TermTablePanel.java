@@ -22,6 +22,7 @@ import org.soluvas.data.TermRepository;
 import org.soluvas.data.domain.PageOffsetRequest;
 import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
+import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.widget.LinkColumn;
 
 /**
@@ -74,7 +75,7 @@ public class TermTablePanel extends Panel {
 
 			@Override
 			public IModel<Term> model(Term object) {
-				return new Model<>(object);
+				return new EmfModel<>(object);
 			}
 		};
 		termDp.setSort("name", SortOrder.ASCENDING);

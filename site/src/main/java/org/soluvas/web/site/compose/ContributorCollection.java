@@ -4,7 +4,6 @@ package org.soluvas.web.site.compose;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -21,10 +20,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.compose.ComposePackage#getContributorCollection()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface ContributorCollection extends SerializableEObject {
+public interface ContributorCollection extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Contributors</b></em>' containment reference list.
 	 * The list contents are of type {@link org.soluvas.web.site.compose.Contributor}.

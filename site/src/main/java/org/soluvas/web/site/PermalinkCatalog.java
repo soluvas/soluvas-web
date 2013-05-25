@@ -4,7 +4,7 @@ package org.soluvas.web.site;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.soluvas.commons.SerializableEObject;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,10 +20,9 @@ import org.soluvas.commons.SerializableEObject;
  *
  * @see org.soluvas.web.site.SitePackage#getPermalinkCatalog()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PermalinkCatalog extends SerializableEObject {
+public interface PermalinkCatalog extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Permalinks</b></em>' containment reference list.
 	 * The list contents are of type {@link org.soluvas.web.site.Permalink}.

@@ -50,7 +50,7 @@ public class ProcessMenuItemImpl extends MenuItemImpl implements ProcessMenuItem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProcessMenuItemImpl() {
+	public ProcessMenuItemImpl() {
 		super();
 	}
 

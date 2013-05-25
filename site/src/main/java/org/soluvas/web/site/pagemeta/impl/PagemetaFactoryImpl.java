@@ -73,21 +73,21 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case PagemetaPackage.PAGE_META: return (EObject)createPageMeta();
-			case PagemetaPackage.PAGE_ICON: return (EObject)createPageIcon();
-			case PagemetaPackage.OPEN_GRAPH_META: return (EObject)createOpenGraphMeta();
-			case PagemetaPackage.OPEN_GRAPH_IMAGE: return (EObject)createOpenGraphImage();
-			case PagemetaPackage.OPEN_GRAPH_VIDEO: return (EObject)createOpenGraphVideo();
-			case PagemetaPackage.OPEN_GRAPH_AUDIO: return (EObject)createOpenGraphAudio();
-			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR: return (EObject)createUriPatternPageSelector();
-			case PagemetaPackage.PAGE_RULE: return (EObject)createPageRule();
-			case PagemetaPackage.SOURCE_PAGE_DECLARATION: return (EObject)createSourcePageDeclaration();
-			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION: return (EObject)createProcessorPageDeclaration();
-			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: return (EObject)createResourcePageDeclaration();
-			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: return (EObject)createRepositoryPageDeclaration();
-			case PagemetaPackage.PAGE_META_CATALOG: return (EObject)createPageMetaCatalog();
-			case PagemetaPackage.PAGE_TITLE: return (EObject)createPageTitle();
-			case PagemetaPackage.CLASS_PAGE_SELECTOR: return (EObject)createClassPageSelector();
+			case PagemetaPackage.PAGE_META: return createPageMeta();
+			case PagemetaPackage.PAGE_ICON: return createPageIcon();
+			case PagemetaPackage.OPEN_GRAPH_META: return createOpenGraphMeta();
+			case PagemetaPackage.OPEN_GRAPH_IMAGE: return createOpenGraphImage();
+			case PagemetaPackage.OPEN_GRAPH_VIDEO: return createOpenGraphVideo();
+			case PagemetaPackage.OPEN_GRAPH_AUDIO: return createOpenGraphAudio();
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR: return createUriPatternPageSelector();
+			case PagemetaPackage.PAGE_RULE: return createPageRule();
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION: return createSourcePageDeclaration();
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION: return createProcessorPageDeclaration();
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: return createResourcePageDeclaration();
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: return createRepositoryPageDeclaration();
+			case PagemetaPackage.PAGE_META_CATALOG: return createPageMetaCatalog();
+			case PagemetaPackage.PAGE_TITLE: return createPageTitle();
+			case PagemetaPackage.CLASS_PAGE_SELECTOR: return createClassPageSelector();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

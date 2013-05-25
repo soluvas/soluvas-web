@@ -61,24 +61,24 @@ public class ComposeFactoryImpl extends EFactoryImpl implements ComposeFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case ComposePackage.PLACEHOLDER: return (EObject)createPlaceholder();
-			case ComposePackage.LIVE_TARGET: return (EObject)createLiveTarget();
-			case ComposePackage.HIDE_CONTRIBUTOR: return (EObject)createHideContributor();
-			case ComposePackage.CHILD_CONTRIBUTOR: return (EObject)createChildContributor();
-			case ComposePackage.LIVE_CHILD_CONTRIBUTOR: return (EObject)createLiveChildContributor();
-			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR: return (EObject)createLiveReplaceContributor();
-			case ComposePackage.REPLACE_CONTRIBUTOR: return (EObject)createReplaceContributor();
-			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR: return (EObject)createLiveComponentContributor();
-			case ComposePackage.LIVE_HIDE_CONTRIBUTOR: return (EObject)createLiveHideContributor();
-			case ComposePackage.COMPOSE_CATALOG: return (EObject)createComposeCatalog();
-			case ComposePackage.SLAVE: return (EObject)createSlave();
-			case ComposePackage.TARGET: return (EObject)createTarget();
-			case ComposePackage.PLACEHOLDER_COLLECTION: return (EObject)createPlaceholderCollection();
-			case ComposePackage.SLAVE_COLLECTION: return (EObject)createSlaveCollection();
-			case ComposePackage.LIVE_PLACEHOLDER: return (EObject)createLivePlaceholder();
-			case ComposePackage.LIVE_SLAVE: return (EObject)createLiveSlave();
-			case ComposePackage.LIVE_CONTRIBUTOR_COLLECTION: return (EObject)createLiveContributorCollection();
-			case ComposePackage.CONTRIBUTOR_COLLECTION: return (EObject)createContributorCollection();
+			case ComposePackage.PLACEHOLDER: return createPlaceholder();
+			case ComposePackage.LIVE_TARGET: return createLiveTarget();
+			case ComposePackage.HIDE_CONTRIBUTOR: return createHideContributor();
+			case ComposePackage.CHILD_CONTRIBUTOR: return createChildContributor();
+			case ComposePackage.LIVE_CHILD_CONTRIBUTOR: return createLiveChildContributor();
+			case ComposePackage.LIVE_REPLACE_CONTRIBUTOR: return createLiveReplaceContributor();
+			case ComposePackage.REPLACE_CONTRIBUTOR: return createReplaceContributor();
+			case ComposePackage.LIVE_COMPONENT_CONTRIBUTOR: return createLiveComponentContributor();
+			case ComposePackage.LIVE_HIDE_CONTRIBUTOR: return createLiveHideContributor();
+			case ComposePackage.COMPOSE_CATALOG: return createComposeCatalog();
+			case ComposePackage.SLAVE: return createSlave();
+			case ComposePackage.TARGET: return createTarget();
+			case ComposePackage.PLACEHOLDER_COLLECTION: return createPlaceholderCollection();
+			case ComposePackage.SLAVE_COLLECTION: return createSlaveCollection();
+			case ComposePackage.LIVE_PLACEHOLDER: return createLivePlaceholder();
+			case ComposePackage.LIVE_SLAVE: return createLiveSlave();
+			case ComposePackage.LIVE_CONTRIBUTOR_COLLECTION: return createLiveContributorCollection();
+			case ComposePackage.CONTRIBUTOR_COLLECTION: return createContributorCollection();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}

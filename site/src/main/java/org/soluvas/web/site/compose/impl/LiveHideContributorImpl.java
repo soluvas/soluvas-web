@@ -468,7 +468,7 @@ public class LiveHideContributorImpl extends EObjectImpl implements LiveHideCont
 	 */
 	@Override
 	public LiveTarget getTarget() {
-		if (target != null && ((EObject)target).eIsProxy()) {
+		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
 			target = (LiveTarget)eResolveProxy(oldTarget);
 			if (target != oldTarget) {

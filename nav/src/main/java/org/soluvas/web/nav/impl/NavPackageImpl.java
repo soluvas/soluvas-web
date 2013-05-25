@@ -483,6 +483,32 @@ public class NavPackageImpl extends EPackageImpl implements NavPackage {
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://www.eclipse.org/emf/2002/GenModel
+		createGenModelAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/GenModel</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createGenModelAnnotations() {
+		String source = "http://www.eclipse.org/emf/2002/GenModel";		
+		addAnnotation
+		  (getMenuItem_ParentId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set, will attach to other Menu.\nIf not set, will attach to the parent (container)."
+		   });		
+		addAnnotation
+		  (getMenuItem_ClientPath(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Path to be used by the Backbone client. The base URI of the web application will be prepended, which will form either a full URI like http://www.wikindonesia.com/process/ or a fragment-based one like http://www.wikindonesia.com/#!/process/\n"
+		   });
 	}
 
 } //NavPackageImpl

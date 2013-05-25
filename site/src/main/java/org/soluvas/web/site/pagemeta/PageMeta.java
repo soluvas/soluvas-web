@@ -2,7 +2,6 @@
  */
 package org.soluvas.web.site.pagemeta;
 
-import org.soluvas.commons.SerializableEObject;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -41,10 +40,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PageMeta extends SerializableEObject {
+public interface PageMeta extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Icon</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

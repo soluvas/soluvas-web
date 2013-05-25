@@ -8,6 +8,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.Term;
+import org.soluvas.web.site.EmfModel;
 
 /**
  * Formats a {@link Term} with associated image or color.
@@ -26,8 +27,7 @@ public class TermLabel extends Label {
 	}
 
 	public TermLabel(String id, Term term) {
-		super(id, term);
-		setRenderBodyOnly(true);
+		this(id, new EmfModel<>(term));
 	}
 	
 	public TermLabel(String id, IModel<Term> model, boolean hideTextIfImageExists) {
@@ -37,9 +37,7 @@ public class TermLabel extends Label {
 	}
 
 	public TermLabel(String id, Term term, boolean hideTextIfImageExists) {
-		super(id, term);
-		this.hideTextIfImageExists = hideTextIfImageExists;
-		setRenderBodyOnly(true);
+		this(id, new EmfModel<>(term), hideTextIfImageExists);
 	}
 	
 	@Override

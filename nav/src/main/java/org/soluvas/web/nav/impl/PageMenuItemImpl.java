@@ -69,7 +69,7 @@ public class PageMenuItemImpl extends MenuItemImpl implements PageMenuItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageMenuItemImpl() {
+	public PageMenuItemImpl() {
 		super();
 	}
 

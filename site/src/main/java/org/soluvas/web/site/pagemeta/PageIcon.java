@@ -2,9 +2,9 @@
  */
 package org.soluvas.web.site.pagemeta;
 
+import org.eclipse.emf.ecore.EObject;
 import javax.annotation.Nonnull;
 
-import org.soluvas.commons.SerializableEObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,10 +30,9 @@ import org.soluvas.commons.SerializableEObject;
  *
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageIcon()
  * @model
- * @extends SerializableEObject
  * @generated
  */
-public interface PageIcon extends SerializableEObject {
+public interface PageIcon extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Branding Bundle Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

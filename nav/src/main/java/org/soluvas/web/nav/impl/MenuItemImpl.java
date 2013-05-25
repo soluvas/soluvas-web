@@ -208,7 +208,7 @@ public class MenuItemImpl extends EObjectImpl implements MenuItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MenuItemImpl() {
+	public MenuItemImpl() {
 		super();
 	}
 

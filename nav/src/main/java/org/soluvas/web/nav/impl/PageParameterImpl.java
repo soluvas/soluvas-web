@@ -75,7 +75,7 @@ public class PageParameterImpl extends EObjectImpl implements BasicEMap.Entry<St
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageParameterImpl() {
+	public PageParameterImpl() {
 		super();
 	}
 
