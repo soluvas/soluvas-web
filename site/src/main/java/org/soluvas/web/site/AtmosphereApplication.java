@@ -43,7 +43,7 @@ public abstract class AtmosphereApplication extends WebApplication {
 			});
 		} catch (Exception e) {
 			// log error, but let application continue without Atmosphere
-			log.error("Cannot initialize Wicket Atmosphere EventBus", e);
+			log.error("Cannot initialize Wicket Atmosphere EventBus, continuing without Atmosphere support", e);
 		}
 	}
 

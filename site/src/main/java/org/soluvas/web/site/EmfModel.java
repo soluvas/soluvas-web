@@ -3,8 +3,10 @@ package org.soluvas.web.site;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -31,6 +33,24 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(EmfModel.class);
 	private static final long serialVersionUID = 1L;
+	public static enum ResourceContainer {
+		XMI,
+		/**
+		 * I tried using BinaryResourceImpl and XMIResource.OPTION_BINARY but never worked:
+		 * 
+		 * <pre>
+		 * Last cause: attributes.base_color for product tuneeca_t_0513039_1072 must not be null (found attributes: [base_color, base_careInstructions, base_size, base_material, base_fabric, base_waistSize, base_motif, base_dressLength, base_shippingPolicy, base_age, base_bustSize, base_origin, base_technique])
+		 * WicketMessage: Method onRequest of interface org.apache.wicket.behavior.IBehaviorListener targeted at org.apache.wicket.ajax.markup.html.form.AjaxButton$1@51de6355 on component [IndicatingAjaxButton [Component id = saveBtn]] threw an exception
+		 * </pre>
+		 * 
+		 * Although might be a bug on my Wicket part.
+		 */
+		BINARY
+	};
+	/**
+	 * Switchable to make it easily debuggable when problems arise.
+	 */
+	public static final ResourceContainer RESOURCE_CONTAINER = ResourceContainer.XMI;
 	private byte[] buf;
 	
 	public EmfModel() {
@@ -44,32 +64,43 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	@Override
 	protected T load() {
 		if (buf != null) {
-			 final XMIResourceImpl res = new XMIResourceImpl();
-//			final BinaryResourceImpl res = new BinaryResourceImpl();
+			final Resource res = new XMIResourceImpl();
 			try {
-				res.load(new ByteArrayInputStream(buf), ImmutableMap.of(XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true));
+				res.load(new ByteArrayInputStream(buf), ImmutableMap.of(
+						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY
+						));
 			} catch (IOException e) {
-				final String hexString = Hex.encodeHexString(buf);
-				throw new RuntimeException("Cannot deserialize EObject from " + buf.length + " bytes: " + hexString, e);
+				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
+					throw new SiteException("Cannot deserialize EObject from " + buf.length + " bytes: " + new String(buf), e);
+				} else {
+					final String hexString = Hex.encodeHexString(buf);
+					throw new SiteException("Cannot deserialize EObject from " + buf.length + " bytes: " + hexString, e);
+				}					
 			}
 			// FIXME: EcoreUtil.copy shouldn't be needed, fix this at Morphia, please:
 			// https://github.com/soluvas/morphia/issues/8
-			final T obj = (T) EcoreUtil.copy(res.getContents().get(0));
-			log.info("De-Serialized {} careInstructions={}", new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
+			final T obj = (T) res.getContents().get(0);
+//			final Iterator<EObject> resContents = res.getContents().iterator();
+//			while (resContents.hasNext()) {
+//				final EObject cur = resContents.next();
+//				log.debug("Removing {}", cur.eClass().getName());
+//				resContents.remove();
+//			}
+			log.trace("De-Serialized {} careInstructions={}", new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
 			return obj;
 		} else {
-			log.info("De-Serialized null");
+			log.trace("De-Serialized null");
 			return null;
 		}
 	}
 	
 	private void addCrossRefs(EObject parent, Resource res) {
-		EList<EObject> crossRefs = parent.eCrossReferences();
-		Iterator<EObject> crossRefIterator = crossRefs.iterator();
+		final EList<EObject> crossRefs = parent.eCrossReferences();
+		final Iterator<EObject> crossRefIterator = crossRefs.iterator();
 		while (crossRefIterator.hasNext()) {
 			final EObject child = crossRefIterator.next();
 //			if (child.eResource() != res) {
-				log.debug("Adding {}", child.eClass().getName());
+				log.trace("Adding crossref {}", child.eClass().getName());
 				res.getContents().add(child);
 //				addCrossRefs(child, res);
 //			}
@@ -79,44 +110,56 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	@Override
 	protected void onDetach() {
 		final T obj = getObject();
-		log.info("Serializing {} careInstructions={}", 
-				new PropertyModel<String>(obj, "eClass.name").getObject(),
-				new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
+		try {
+			log.trace("Serializing {} careInstructions={}", 
+					new PropertyModel<String>(obj, "eClass.name").getObject(),
+					new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
+		} catch (Exception e) {
+			log.trace("Serializing {} careInstructions={}", 
+					new PropertyModel<String>(obj, "eClass.name").getObject(), e );
+		}
 		if (obj != null) {
-			final XMIResourceImpl res = new XMIResourceImpl();
-//			final BinaryResourceImpl res = new BinaryResourceImpl();
+			final Resource res = new XMIResourceImpl();
 			final T copied = EcoreUtil.copy(obj);
 			res.getContents().add(copied);
 			addCrossRefs(copied, res);
-			final TreeIterator<EObject> allContents = copied.eAllContents();
+			final TreeIterator<EObject> allContents = EcoreUtil.getAllContents(res, false);//copied.eAllContents();
+			final List<EObject> objectsToAdd = new ArrayList<>();
 			while (allContents.hasNext()) {
-				EObject child = allContents.next();
-				EList<EReference> refs = child.eClass().getEAllReferences();
+				final EObject child = allContents.next();
+				final EList<EReference> refs = child.eClass().getEAllReferences();
 				for (EReference ref : refs) {
 					if (ref.isContainment()) {
 						continue;
 					}
 					
-					Object refObj = child.eGet(ref, true);
+					final Object refObj = child.eGet(ref, true);
 					if (refObj instanceof EList) {
-						log.debug("Adding {} {} in list", ref.getName(), ((EList) refObj).size());
-						res.getContents().addAll((Collection<? extends EObject>) refObj);
+						log.trace("Adding {} {} in list", ref.getName(), ((EList) refObj).size());
+						objectsToAdd.addAll((Collection<? extends EObject>) refObj);
 					} else if (refObj != null) {
-						log.debug("Adding {} {}", ref.getName(), ((EObject) refObj).eClass().getName());
-						res.getContents().add((EObject) refObj);
+						log.trace("Adding {}#{} {}", child.eClass().getName(), ref.getName(), ((EObject) refObj).eClass().getName());
+						objectsToAdd.add((EObject) refObj);
 					}
 				}
 			}
+			res.getContents().addAll(objectsToAdd);
 			try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-				res.save(out, ImmutableMap.of(XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true));
+				res.save(out, ImmutableMap.of(
+						XMIResource.OPTION_ENCODING, "UTF-8",
+						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY
+//						XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
+						));
 				buf = out.toByteArray();
-				log.debug("Serialized {} to: {}", obj.eClass().getName(),
-						new String(buf));
+				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
+					log.trace("Serialized {} to: {}", obj.eClass().getName(),
+							new String(buf));
+				} else {
+					log.trace("Serialized {} as {} bytes", obj.eClass().getName(), buf.length);
+				}
 			} catch (IOException e) {
-				throw new RuntimeException("Cannot serialize EObject", e);
+				throw new SiteException("Cannot serialize EObject", e);
 			}
-			// log.debug("Serialized {} to {} bytes", obj.eClass().getName(),
-			// buf.length);
 		}
 	}
 
