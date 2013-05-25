@@ -62,7 +62,9 @@ public class EmfListModel<T extends EObject> extends LoadableDetachableModel<Lis
 			savedObjects = ImmutableList.copyOf( Lists.transform(origList, new Function<T, IModel<T>>() {
 				@Override @Nullable
 				public IModel<T> apply(@Nullable T input) {
-					return new EmfModel<>(input);
+					final EmfModel<T> emfModel = new EmfModel<>(input);
+					emfModel.detach();
+					return emfModel;
 				}
 			}));
 		}
