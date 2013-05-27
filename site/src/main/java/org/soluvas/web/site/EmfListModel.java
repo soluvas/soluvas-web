@@ -34,7 +34,7 @@ public class EmfListModel<T extends EObject> extends LoadableDetachableModel<Lis
 	}
 
 	/**
-	 * Wrapps the passed {@link Collection} in an {@link ArrayList}.
+	 * Wraps the passed {@link Collection} in an {@link ArrayList}.
 	 * @param collection
 	 */
 	public EmfListModel(Collection<T> collection) {
