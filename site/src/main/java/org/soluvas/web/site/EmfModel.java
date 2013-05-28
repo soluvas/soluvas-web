@@ -69,8 +69,9 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 			final Resource res = new XMIResourceImpl();
 			try {
 				res.load(new ByteArrayInputStream(buf), ImmutableMap.of(
-						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY
-						));
+						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY,
+						XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
+					));
 			} catch (IOException e) {
 				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
 					throw new SiteException("Cannot deserialize EObject from " + buf.length + " bytes: " + new String(buf), e);
@@ -137,25 +138,26 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 					final Object refObj = child.eGet(ref, true);
 					if (refObj instanceof EList) {
 						log.trace("Adding {} {} in list", ref.getName(), ((EList) refObj).size());
-						objectsToAdd.addAll((Collection<? extends EObject>) refObj);
+						res.getContents().addAll((Collection<? extends EObject>) refObj);
 					} else if (refObj != null) {
 						final EObject refEObj = (EObject) refObj;
-						if (refEObj.eResource() == null) {
+						if (!res.getContents().contains(refEObj)) {
 							EList<EObject> x = refEObj.eCrossReferences();
 							log.trace("Adding {}#{} {} with {} crossrefs", child.eClass().getName(), ref.getName(), refEObj.eClass().getName(),
 									x.size());
-							objectsToAdd.add((EObject) refObj);
+//							objectsToAdd.add((EObject) refObj);
+							res.getContents().add((EObject) refObj);
 							addCrossRefs(refEObj, res);
 						}
 					}
 				}
 			}
-			res.getContents().addAll(objectsToAdd);
+//			res.getContents().addAll(objectsToAdd);
 			try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 				res.save(out, ImmutableMap.of(
 						XMIResource.OPTION_ENCODING, "UTF-8",
-						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY
-//						XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
+						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY,
+						XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
 						));
 				buf = out.toByteArray();
 				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
@@ -164,7 +166,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 				} else {
 					log.trace("Serialized {} as {} bytes", obj.eClass().getName(), buf.length);
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				throw new SiteException("Cannot serialize EObject " + obj.eClass().getName(), e);
 			}
 		}
