@@ -14,7 +14,6 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -25,6 +24,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -125,10 +125,9 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 			final T copied = EcoreUtil.copy(obj);
 			res.getContents().add(copied);
 			addCrossRefs(copied, res);
-			final TreeIterator<EObject> allContents = EcoreUtil.getAllContents(res, false);//copied.eAllContents();
+			final List<EObject> allContents = ImmutableList.copyOf(EcoreUtil.<EObject>getAllContents(res, false));//copied.eAllContents();
 			final List<EObject> objectsToAdd = new ArrayList<>();
-			while (allContents.hasNext()) {
-				final EObject child = allContents.next();
+			for (EObject child : allContents) {
 				final EList<EReference> refs = child.eClass().getEAllReferences();
 				for (EReference ref : refs) {
 					if (ref.isContainment()) {
@@ -140,8 +139,14 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 						log.trace("Adding {} {} in list", ref.getName(), ((EList) refObj).size());
 						objectsToAdd.addAll((Collection<? extends EObject>) refObj);
 					} else if (refObj != null) {
-						log.trace("Adding {}#{} {}", child.eClass().getName(), ref.getName(), ((EObject) refObj).eClass().getName());
-						objectsToAdd.add((EObject) refObj);
+						final EObject refEObj = (EObject) refObj;
+						if (refEObj.eResource() == null) {
+							EList<EObject> x = refEObj.eCrossReferences();
+							log.trace("Adding {}#{} {} with {} crossrefs", child.eClass().getName(), ref.getName(), refEObj.eClass().getName(),
+									x.size());
+							objectsToAdd.add((EObject) refObj);
+							addCrossRefs(refEObj, res);
+						}
 					}
 				}
 			}
@@ -160,7 +165,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 					log.trace("Serialized {} as {} bytes", obj.eClass().getName(), buf.length);
 				}
 			} catch (IOException e) {
-				throw new SiteException("Cannot serialize EObject", e);
+				throw new SiteException("Cannot serialize EObject " + obj.eClass().getName(), e);
 			}
 		}
 	}
