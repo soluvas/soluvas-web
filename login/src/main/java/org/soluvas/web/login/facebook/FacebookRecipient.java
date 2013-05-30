@@ -122,6 +122,7 @@ public class FacebookRecipient extends WebPage {
 				existingPerson = new SocialPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName());
 				existingPerson.setCreationTime(new DateTime());
 				existingPerson.setModificationTime(new DateTime());
+				existingPerson.setCustomerRole("biasa");
 				personLdapRepo.add(existingPerson);
 			}
 
