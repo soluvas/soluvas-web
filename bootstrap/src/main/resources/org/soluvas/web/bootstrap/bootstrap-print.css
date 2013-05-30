@@ -2,6 +2,28 @@
 	display: none;
 }
 
+.submenuNav{
+	display: none;	
+}
+
+.navbar-inner{
+	display: none;
+}
+
+.footer{
+	display: none;
+}
+
+.control-group{
+	display: none;	
+}
+.box-header {
+	display: none;	
+}
+
+hr{
+	display: none;
+}
 
 @page {
 	margin: 0.5cm;
