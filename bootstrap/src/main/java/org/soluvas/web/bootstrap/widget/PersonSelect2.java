@@ -14,6 +14,7 @@ import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
+import org.soluvas.web.site.EmfMapModel;
 
 import scala.actors.threadpool.Arrays;
 
@@ -39,14 +40,14 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		/**
 		 * Preload image URIs to make it quicker to display. 
 		 */
-		private Map<String, DisplayImage> displayImages = ImmutableMap.of();
+		private final IModel<Map<String, DisplayImage>> displayImagesModel = new EmfMapModel<>(ImmutableMap.<String, DisplayImage>of());
 		
 		@Override
 		public void query(final String term, int page, Response<SocialPerson> response) {
 			final List<SocialPerson> matching = personLdapRepo.search(term);
 			response.addAll(matching);
 			// preload image URIs
-			displayImages = imageMgr.getSafeSocialPersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL);
+			displayImagesModel.setObject( imageMgr.getSafeSocialPersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL) );
 		}
 
 		@Override
@@ -67,7 +68,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 				.key("location").value(Optional.fromNullable(choice.getCity()).or(""));
-			final DisplayImage displayImage = displayImages.get(choice.getId());
+			final DisplayImage displayImage = displayImagesModel.getObject().get(choice.getId());
 			if (displayImage != null) {
 				writer.key("photoUri").value(displayImage.getSrc());
 			}

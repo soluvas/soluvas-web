@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -137,8 +136,12 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 					
 					final Object refObj = child.eGet(ref, true);
 					if (refObj instanceof EList) {
-						log.trace("Adding {} {} in list", ref.getName(), ((EList) refObj).size());
-						res.getContents().addAll((Collection<? extends EObject>) refObj);
+						final EList<EObject> grandchildObjs = (EList<EObject>) refObj;
+						log.trace("Adding {} {} in list", ref.getName(), grandchildObjs.size());
+						res.getContents().addAll(grandchildObjs);
+						for (EObject grandchild : grandchildObjs) {
+							addCrossRefs(grandchild, res);
+						}
 					} else if (refObj != null) {
 						final EObject refEObj = (EObject) refObj;
 						if (!res.getContents().contains(refEObj)) {
