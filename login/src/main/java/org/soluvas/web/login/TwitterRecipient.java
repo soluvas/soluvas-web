@@ -121,6 +121,7 @@ public class TwitterRecipient extends WebPage {
 				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
 				existingPerson.setCreationTime(new DateTime());
 				existingPerson.setModificationTime(new DateTime());
+				existingPerson.setCustomerRole("biasa");
 				existingPerson = personLdapRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
 			}
