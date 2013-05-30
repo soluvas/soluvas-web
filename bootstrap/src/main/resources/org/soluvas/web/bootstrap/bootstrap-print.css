@@ -1,7 +1,24 @@
+table { 
+	page-break-inside:auto; 
+}
+tr { 
+	page-break-inside:avoid; 
+	page-break-after:auto;
+}
+td { 
+	page-break-inside:avoid; 
+	page-break-after:auto 
+}
+thead { 
+	display:table-header-group;
+}
+thead th, thead td {
+	position: static; 
+}
+
 .sidebar-categories{
 	display: none;
 }
-
 
 @page {
 	margin: 0.5cm;
