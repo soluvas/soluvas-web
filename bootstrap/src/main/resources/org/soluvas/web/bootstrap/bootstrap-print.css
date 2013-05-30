@@ -1,0 +1,20 @@
+.sidebar-categories{
+	display: none;
+}
+
+
+@page {
+	margin: 0.5cm;
+}
+
+@page :left {
+	margin: 0.5cm;
+}
+
+@page :right {
+	margin: 0.8cm;
+}
+
+@page :first {
+  margin: 1cm 2cm;
+}
