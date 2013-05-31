@@ -50,6 +50,21 @@
 var subscriptions = [];
 </script>
 
+	<script type="text/javascript" > 
+	$(document).ready(function() {
+	$(".styles-open").click(function(){
+	$(".styles, .styles-open").animate({ "left":"-70px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
+	return false;
+	});
+	$(".styles-closed a").click(function(){
+	$(".styles-closed").animate({ "left":"-40px" },1000);
+	$(".styles").animate({ "left":"0" }, 1000);
+	$(".styles-open").animate({ "left":"70" }, 1000);
+	return false;
+	});
+	}); 
+	</script>
+
 </head>
 
 <body>
@@ -87,6 +102,19 @@ var subscriptions = [];
 						</ol>
 					</wicket:child>
 				</div>
+				 <ul class="styles">
+				  <li><p class="skins">Skins</p></li>
+				  <li class="orange"> <a href="" onclick="setActiveStyleSheet('orange'); return false;"> </a></li>
+				  <li class="blue"> <a href="" onclick="setActiveStyleSheet('blue'); return false;"> </a></li>
+				  <li class="green"> <a href="" onclick="setActiveStyleSheet('green'); return false;"> </a></li>
+				  <li class="pink"> <a href="" onclick="setActiveStyleSheet('pink'); return false;"> </a></li>
+				  <li class="purple"> <a href="" onclick="setActiveStyleSheet('purple'); return false;"> </a></li>
+				  <li class="cyan"> <a href="" onclick="setActiveStyleSheet('cyan'); return false;"> </a></li>
+				</ul>
+				<a class="styles-open"  href="#closeoptions">  </a>
+				 <div class="styles-closed " >
+				<a href="#options"> </a>
+				</div>
 			</div><!--/row-->
 				<hr>
 				<footer class="footer" wicket:id="footer">
@@ -107,6 +135,5 @@ var subscriptions = [];
 	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
 
 	<script wicket:id="alexaCertifyScript">[AlexaCertifyScript]</script>
-
 </body>
 </html>
