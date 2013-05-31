@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Allows the use of {@link EObject} {@link IModel} {@link List}s with {@link DataView}.
@@ -60,7 +61,7 @@ public class EmfListDataProvider<T extends EObject> implements IDataProvider<T>
 	@Override
 	public Iterator<? extends T> iterator(final long first, final long count)
 	{
-		final List<T> list = Optional.fromNullable(listModel.getObject()).orNull();
+		final List<T> list = Optional.fromNullable(listModel.getObject()).or(ImmutableList.<T>of());
 
 		long toIndex = first + count;
 		if (toIndex > list.size())
@@ -76,7 +77,7 @@ public class EmfListDataProvider<T extends EObject> implements IDataProvider<T>
 	@Override
 	public long size()
 	{
-		final List<T> list = Optional.fromNullable(listModel.getObject()).orNull();
+		final List<T> list = Optional.fromNullable(listModel.getObject()).or(ImmutableList.<T>of());
 		return list.size();
 	}
 
