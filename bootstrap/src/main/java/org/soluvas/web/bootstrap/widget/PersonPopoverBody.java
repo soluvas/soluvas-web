@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
@@ -7,10 +8,13 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.PersonInfo;
+import org.soluvas.data.EntityLookup;
 import org.soluvas.image.DisplayImage;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
+import org.soluvas.ldap.CustomerRoles;
+import org.soluvas.ldap.SocialPerson;
 import org.soluvas.web.site.PermalinkManager;
 import org.soluvas.web.site.widget.DisplayImageContainer;
 
@@ -27,6 +31,9 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 	private ImageManager imageMgr;
 	@SpringBean
 	private PermalinkManager permalinkMgr;
+	@SpringBean(name="personLookup")
+	private EntityLookup<SocialPerson, String> personLookup;
+	
 
 	public PersonPopoverBody(String id, IModel<PersonInfo> model) {
 		super(id, model);
@@ -53,6 +60,10 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 				super.onConfigure();
 			}
 		});
+		
+		final IModel<SocialPerson> customerModel = new Model<>(personLookup.findOne(model.getObject().getId()));
+		final Model<String> currentCustomerRoleModel = new Model<>(CustomerRoles.DISPLAY_NAMES.get(customerModel.getObject().getCustomerRole()));
+		add(new Label("customerRole", currentCustomerRoleModel));
 	}
 
 }
