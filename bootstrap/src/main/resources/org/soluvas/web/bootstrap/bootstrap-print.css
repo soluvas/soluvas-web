@@ -6,6 +6,7 @@ table {
 tr { 
 	page-break-inside:avoid; 
 	page-break-after:auto;
+	border: 1px solid black;
 }
 
 td { 
@@ -13,6 +14,9 @@ td {
 	page-break-after:auto 
 }
 
+body {
+	margin-top: 0px;
+}
 thead { 
 	display:table-header-group;
 }
@@ -44,6 +48,9 @@ thead th, thead td {
 	display: none;	
 }
 
+.box {
+	box-shadow : none;
+}
 hr{
 	display: none;
 }
@@ -67,7 +74,7 @@ button.btn {
 }
 
 @page :left {
-	margin: 0.5cm;
+	margin: 0.8cm;
 }
 
 @page :right {
@@ -76,4 +83,12 @@ button.btn {
 
 @page :first {
   margin: 1cm 2cm;
+}
+
+#wicketDebugLink {
+	display: none;
+}
+
+.BackendNavbar {
+	display: none;
 }

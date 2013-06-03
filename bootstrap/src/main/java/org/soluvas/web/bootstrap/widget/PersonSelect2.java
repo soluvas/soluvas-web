@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.json.JSONException;
 import org.json.JSONWriter;
@@ -65,6 +67,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		public void toJson(SocialPerson choice, JSONWriter writer)
 				throws JSONException {
 			writer.key("id").value(choice.getId())
+				.key("customerId").value(choice.getId())
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 				.key("location").value(Optional.fromNullable(choice.getCity()).or(""));
@@ -86,6 +89,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
 		setProvider(new PersonChoiceProvider());
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
@@ -94,7 +98,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
 			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(textMarkup.join('')).append('<br>')" +
+			"  .append(textMarkup.join('')).append(' (ID : '+ object.customerId + ') <br>')" +
 			"  .append($('<small>').css({color: '#666'}).text(object.location));" +
 			"container.append(thediv);" +
 			"thediv.css({height: '45px'});" +
@@ -103,7 +107,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 				"function(object, container, query) {" +
 				"container.append($('<img>').attr('src', object.genderIconUri));" +
 				"container.append(' ');" +
-				"container.append(document.createTextNode(object.text));" +
+				"container.append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
 				"}");
 	}
 
