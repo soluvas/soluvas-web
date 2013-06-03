@@ -1,17 +1,22 @@
 table { 
-	page-break-inside:auto; 
+	page-break-inside:auto;
+	border : 1px solid black; 
 }
+
 tr { 
 	page-break-inside:avoid; 
 	page-break-after:auto;
 }
+
 td { 
 	page-break-inside:avoid; 
 	page-break-after:auto 
 }
+
 thead { 
 	display:table-header-group;
 }
+
 thead th, thead td {
 	position: static; 
 }
@@ -41,6 +46,20 @@ thead th, thead td {
 
 hr{
 	display: none;
+}
+
+button.btn {
+	display: none;
+}
+
+.span9 {
+	width: 100%;
+	padding: 0px;
+	border: none;
+}
+
+.box-content {
+	padding: 0px;
 }
 
 @page {
