@@ -25,7 +25,7 @@
     </style>	
 	<link wicket:id="bootstrapResponsiveCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 	<link wicket:id="soluvasCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-patches.css" rel="stylesheet" />
-
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic' rel='stylesheet' type='text/css'>
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -53,12 +53,12 @@ var subscriptions = [];
 	<script type="text/javascript" > 
 	$(document).ready(function() {
 	$(".styles-open").click(function(){
-	$(".styles, .styles-open").animate({ "left":"-70px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
+	$(".styles, .styles-open").animate({ "left":"-95px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
 	return false;
 	});
 	$(".styles-closed a").click(function(){
-	$(".styles-closed").animate({ "left":"-40px" },1000);
-	$(".styles").animate({ "left":"0" }, 1000);
+	$(".styles-closed").animate({ "left":"-45px" },1000);
+	$(".styles").animate({ "left":"-25px" }, 1000);
 	$(".styles-open").animate({ "left":"70" }, 1000);
 	return false;
 	});
@@ -101,18 +101,18 @@ var subscriptions = [];
 						</ol>
 					</wicket:child>
 				</div>
-				 <ul class="styles">
-				  <li><p class="skins">Skins</p></li>
-				  <li class="orange"> <a href="" onclick="setActiveStyleSheet('orange'); return false;">Call center</a></li>
-				  <li class="blue"> <a href="" onclick="setActiveStyleSheet('blue'); return false;">Sms center</a></li>
-				  <li class="green"> <a href="" onclick="setActiveStyleSheet('green'); return false;">Blackberry messenger</a></li>
-				  <li class="pink"> <a href="" onclick="setActiveStyleSheet('pink'); return false;">Yahoo messenger</a></li>
-				  <li class="purple"> <a href="" onclick="setActiveStyleSheet('purple'); return false;"> </a></li>
-				  <li class="cyan"> <a href="" onclick="setActiveStyleSheet('cyan'); return false;"> </a></li>
-				</ul>
-				<a class="styles-open"  href="#closeoptions">  </a>
+				 	<ul class="styles">
+					  <li><p class="skins">Skins</p></li>
+					  <li class="orange"> <a href="" onclick="setActiveStyleSheet('orange'); return false;">Call center</a></li>
+					  <li class="blue"> <a href="" onclick="setActiveStyleSheet('blue'); return false;">Sms center</a></li>
+					  <li class="green"> <a href="" onclick="setActiveStyleSheet('green'); return false;">Blackberry messenger</a></li>
+					  <li class="pink"> <a href="" onclick="setActiveStyleSheet('pink'); return false;">Yahoo messenger</a></li>
+					  <li class="purple"> <a href="" onclick="setActiveStyleSheet('purple'); return false;"> </a></li>
+					  <li class="cyan"> <a href="" onclick="setActiveStyleSheet('cyan'); return false;"> </a></li>
+					</ul>
+					<a class="styles-open"  href="#closeoptions">  </a>
 				 <div class="styles-closed " >
-				<a href="#options"> </a>Contact us!
+					<a href="#options"> </a>
 				</div>
 			</div><!--/row-->
 				<hr>
