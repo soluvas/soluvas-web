@@ -20,7 +20,11 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.web.site</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.category</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.vaynberg.wicket.select2</groupId>
 			<artifactId>wicket-select2</artifactId>

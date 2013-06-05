@@ -1,0 +1,60 @@
+<wicket:head>
+<style>
+.color-box {
+	border: 1px solid #ccc;
+	display: inline-block;
+	width: 1.8em;
+	height: 1.8em;
+	vertical-align: bottom;
+}
+</style>	
+</wicket:head>
+<wicket:panel>
+	<div class="row">
+		<div class="box span9" style="margin-top:0;">
+			<div class="box-header well">
+					<span wicket:id="kind">Colors</span> &gt; <span wicket:id="productReleaseUName">base_red</span>
+			</div>
+			<div class="box-content">
+				<form wicket:id="form" class="form form-horizontal">
+					<div class="control-group" wicket:id="uNameDiv">
+						<label class="control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr></label>	
+						<div class="controls">
+							<div class="input-prepend">
+								<span class="add-on" wicket:id="nsPrefix"></span>
+								<input type="text" wicket:id="name"/>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" wicket:for="displayName">Display Name *</label>
+						<div class="controls">
+							<input type="text" wicket:id="displayName"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" wicket:for="status">Status</label>
+						<div class="controls">
+							<label><input type="checkbox" wicket:id="status"/> Active</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" wicket:for="positioner">Position</label>
+						<div class="controls">
+							<input type="number" wicket:id="positioner" class="input-small"/>
+						</div>
+					</div>
+				</form>
+				<hr>
+				<div class="form-horizontal">
+				<div class="controls">
+					<a wicket:id="backLink" href="#" class="btn">« Back to List</a>
+					<button wicket:id="saveBtn" class="btn btn-info"><i class="icon-ok-sign icon-white"></i> Save</button>
+					<button wicket:id="deleteBtn" class="btn btn-danger"><i class="icon-remove-sign icon-white"></i> Delete</button>
+				</div>
+				</div>
+				<br/>
+			</div>
+		</div>
+	</div>
+</wicket:panel>
