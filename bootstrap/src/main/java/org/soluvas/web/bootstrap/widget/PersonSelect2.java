@@ -71,9 +71,11 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 				.key("location").value(Optional.fromNullable(choice.getCity()).or(""));
-			final DisplayImage displayImage = displayImagesModel.getObject().get(choice.getId());
-			if (displayImage != null) {
-				writer.key("photoUri").value(displayImage.getSrc());
+			if (choice.getId() != null) {
+				final DisplayImage displayImage = displayImagesModel.getObject().get(choice.getId());
+				if (displayImage != null) {
+					writer.key("photoUri").value(displayImage.getSrc());
+				}
 			}
 		}
 	}
