@@ -3,9 +3,7 @@ package org.soluvas.web.site;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -23,16 +21,17 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 /**
+ * TEMPORARY, ENHANCED version of EmfModel that works with Category ("parent") but unfortunately
+ * messed up VariedProduct.
  * Serializes the {@link EObject} using {@link BinaryResourceImpl}.
  * @author haidar
  */
-public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
+public class CategoryEmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 
-	private static final Logger log = LoggerFactory.getLogger(EmfModel.class);
+	private static final Logger log = LoggerFactory.getLogger(CategoryEmfModel.class);
 	private static final long serialVersionUID = 1L;
 	public static enum ResourceContainer {
 		XMI,
@@ -54,11 +53,11 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	public static final ResourceContainer RESOURCE_CONTAINER = ResourceContainer.XMI;
 	private byte[] buf;
 	
-	public EmfModel() {
+	public CategoryEmfModel() {
 		super();
 	}
 
-	public EmfModel(@Nullable T obj) {
+	public CategoryEmfModel(@Nullable T obj) {
 		super(obj);
 	}
 
@@ -96,17 +95,63 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		}
 	}
 	
-	private void addCrossRefs(EObject parent, Resource res) {
+	private void addMissedCrossRefs(EObject parent, Resource res) {
 		final EList<EObject> crossRefs = parent.eCrossReferences();
 		final Iterator<EObject> crossRefIterator = crossRefs.iterator();
 		while (crossRefIterator.hasNext()) {
 			final EObject child = crossRefIterator.next();
-//			if (child.eResource() != res) {
-				log.trace("Adding crossref {}", child.eClass().getName());
+			if (child.eResource() == null) {
+				log.trace("Adding missed crossref {}", child.eClass().getName());
 				res.getContents().add(child);
 //				addCrossRefs(child, res);
-//			}
+			}
 		}
+	}
+	
+	private void checkCrossRefs(EObject parent, Resource res) {
+		final EList<EReference> refs = parent.eClass().getEAllReferences();
+		for (EReference ref : refs) {
+			final Object refObj = parent.eGet(ref, true);
+			if (ref.isContainment()) {
+				if (refObj instanceof EList) {
+					final EList<EObject> grandchildObjs = (EList<EObject>) refObj;
+					log.trace("Check {}#{} containment list of size {}", parent.eClass().getName(), ref.getName(), grandchildObjs.size());
+					for (EObject grandchild : grandchildObjs) {
+						checkCrossRefs(grandchild, res);
+					}
+				} else if (refObj != null) {
+					final EObject refEObj = (EObject) refObj;
+					checkCrossRefs(refEObj, res);
+				}
+			} else {
+				if (refObj instanceof EList) {
+					final EList<EObject> grandchildObjs = (EList<EObject>) refObj;
+					log.trace("Adding {}#{} cross-reference list of size {}", parent.eClass().getName(), ref.getName(), grandchildObjs.size());
+//				res.getContents().addAll(EcoreUtil.copyAll(grandchildObjs));
+					for (EObject grandchild : grandchildObjs) {
+						if (grandchild.eResource() == null) {
+							res.getContents().add(grandchild);
+						}
+						checkCrossRefs(grandchild, res);
+					}
+				} else if (refObj != null) {
+					final EObject refEObj = (EObject) refObj;
+					// somewhat hardcoded
+					if ("parent".equals(ref.getName())) {
+						log.trace("Unsetting {}.{}={} (parent)", parent.eClass().getName(), ref.getName(), refEObj.eClass().getName());
+						parent.eUnset(ref);
+					} else if (refEObj.eResource() == null) {
+						EList<EObject> x = refEObj.eCrossReferences();
+						log.trace("Adding {}#{} {} with {} crossrefs", parent.eClass().getName(), ref.getName(), refEObj.eClass().getName(),
+								x.size());
+//					objectsToAdd.add((EObject) refObj);
+						res.getContents().add(refEObj);
+						checkCrossRefs(refEObj, res);
+					}
+				}
+			}
+		}
+//		addMissedCrossRefs(parent, res);
 	}
 	
 	@Override
@@ -114,47 +159,58 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		final T obj = getObject();
 		if (obj != null) {
 			try {
-				log.trace("Serializing {} careInstructions={}", 
-						new PropertyModel<String>(obj, "eClass.name").getObject(),
-						new PropertyModel<String>(obj, "attributes.map.base_careInstructions.0").getObject());
+//				log.trace("Serializing {} {}", 
+//						new PropertyModel<String>(obj, "eClass.name").getObject(),
+//						new PropertyModel<String>(obj, "id").getObject() );
+				log.trace("Serializing {} {}", 
+						new PropertyModel<String>(obj, "eClass.name").getObject() );
 			} catch (Exception e) {
-				log.trace("Serializing {} careInstructions={}", 
+				log.trace("Serializing " + 
 						new PropertyModel<String>(obj, "eClass.name").getObject(), e );
 			}
 			final Resource res = new XMIResourceImpl();
 			final T copied = EcoreUtil.copy(obj);
 			res.getContents().add(copied);
-			addCrossRefs(copied, res);
-			final List<EObject> allContents = ImmutableList.copyOf(EcoreUtil.<EObject>getAllContents(res, false));//copied.eAllContents();
-			final List<EObject> objectsToAdd = new ArrayList<>();
-			for (EObject child : allContents) {
-				final EList<EReference> refs = child.eClass().getEAllReferences();
-				for (EReference ref : refs) {
-					if (ref.isContainment()) {
-						continue;
-					}
-					
-					final Object refObj = child.eGet(ref, true);
-					if (refObj instanceof EList) {
-						final EList<EObject> grandchildObjs = (EList<EObject>) refObj;
-						log.trace("Adding {} {} in list", ref.getName(), grandchildObjs.size());
-						res.getContents().addAll(grandchildObjs);
-						for (EObject grandchild : grandchildObjs) {
-							addCrossRefs(grandchild, res);
-						}
-					} else if (refObj != null) {
-						final EObject refEObj = (EObject) refObj;
-						if (!res.getContents().contains(refEObj)) {
-							EList<EObject> x = refEObj.eCrossReferences();
-							log.trace("Adding {}#{} {} with {} crossrefs", child.eClass().getName(), ref.getName(), refEObj.eClass().getName(),
-									x.size());
-//							objectsToAdd.add((EObject) refObj);
-							res.getContents().add((EObject) refObj);
-							addCrossRefs(refEObj, res);
-						}
-					}
-				}
-			}
+			checkCrossRefs(copied, res);
+//			for (EObject addedObj : ImmutableList.copyOf(res.getContents())) {
+//				addMissedCrossRefs(addedObj, res);
+//			}
+//			final List<EObject> allContents = ImmutableList.copyOf(EcoreUtil.<EObject>getAllContents(res, false));//copied.eAllContents();
+//			final List<EObject> objectsToAdd = new ArrayList<>();
+//			for (EObject child : allContents) {
+//				final EList<EReference> refs = child.eClass().getEAllReferences();
+//				for (EReference ref : refs) {
+//					if (ref.isContainment()) {
+//						continue;
+//					}
+//					
+//					final Object refObj = child.eGet(ref, true);
+//					if (refObj instanceof EList) {
+//						final EList<EObject> grandchildObjs = (EList<EObject>) refObj;
+//						log.trace("Adding {} {} in list", ref.getName(), grandchildObjs.size());
+////						res.getContents().addAll(EcoreUtil.copyAll(grandchildObjs));
+//						for (EObject grandchild : grandchildObjs) {
+//							if (grandchild.eResource() == null) {
+//								res.getContents().add(grandchild);
+//							}
+//							addCrossRefs(grandchild, res);
+//						}
+//					} else if (refObj != null) {
+//						final EObject refEObj = (EObject) refObj;
+//						if (EcoreUtil.isAncestor(refEObj, child)) {
+//							log.trace("Skipping {}, ancestor of {}", refEObj.eClass().getName(), child.eClass().getName());
+//							child.eUnset(ref);
+//						} else if (refEObj.eResource() == null) {
+//							EList<EObject> x = refEObj.eCrossReferences();
+//							log.trace("Adding {}#{} {} with {} crossrefs", child.eClass().getName(), ref.getName(), refEObj.eClass().getName(),
+//									x.size());
+////							objectsToAdd.add((EObject) refObj);
+//							res.getContents().add(refEObj);
+//							addCrossRefs(refEObj, res);
+//						}
+//					}
+//				}
+//			}
 //			res.getContents().addAll(objectsToAdd);
 			try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 				res.save(out, ImmutableMap.of(
