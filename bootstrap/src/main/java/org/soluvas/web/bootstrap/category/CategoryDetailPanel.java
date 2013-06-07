@@ -27,7 +27,6 @@ import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.impl.CategoryImpl;
-import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
@@ -70,37 +69,37 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	private final Class<? extends Page> backPage;
 	@SpringBean
 	private TenantRef tenant;
-	private final CategoryRepository releaseRepo;
+	private final CategoryRepository categoryRepo;
 	private final EditMode editMode;
 	private final String originalUName;
 
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
 	 * @param id
-	 * @param releaseRepo MUST be Serializable or a Wicket-friendly injection.
+	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param uName
 	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public CategoryDetailPanel(String id, CategoryRepository releaseRepo,
+	public CategoryDetailPanel(String id, CategoryRepository categoryRepo,
 			final Class<? extends Page> backPage) {
 		super(id);
 		this.editMode = EditMode.ADD;
 		this.originalUName = null;
-		this.releaseRepo = releaseRepo;
+		this.categoryRepo = categoryRepo;
 		this.backPage = backPage;
 		
 		// get the topmost position
-		final List<Category> mostRecents = releaseRepo.findAll(new PageRequest(0, 1, Direction.ASC, "positioner")).getContent();
+		final List<Category> mostRecents = categoryRepo.findAll(new PageRequest(0, 1, Direction.ASC, "positioner")).getContent();
 		
 		final CategoryImpl category = new CategoryImpl();
 		category.setNsPrefix(tenant.getTenantId());
 		category.setStatus(CategoryStatus.ACTIVE);
 		if (!mostRecents.isEmpty()) {
-			// subtract 10 so the new release is before the most recent release
-			log.debug("most recent release is {}", mostRecents.get(0).getName());
+			// subtract 10 so the new category is before the most recent category
+			log.debug("most recent category is {}", mostRecents.get(0).getName());
 			category.setPositioner(Optional.fromNullable(mostRecents.get(0).getPositioner()).or(0) - 10);
 		} else {
 			category.setPositioner(0);
@@ -111,21 +110,22 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	/**
 	 * For viewing or editing an existing {@link Category}.
 	 * @param id
-	 * @param releaseRepo MUST be Serializable or a Wicket-friendly injection.
+	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param uName
 	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public CategoryDetailPanel(String id, CategoryRepository releaseRepo, String uName,
+	public CategoryDetailPanel(String id, CategoryRepository categoryRepo, String uName,
 			final Class<? extends Page> backPage) {
+		// FIXME: reference to parent is gone
 		super(id, new EmfModel<>(
-				Preconditions.checkNotNull(releaseRepo.findOne(uName),
-						"Cannot find category %s using %s", uName, releaseRepo)
+				Preconditions.checkNotNull(categoryRepo.findOne(uName),
+						"Cannot find category %s using %s", uName, categoryRepo)
 			));
 		this.editMode = EditMode.MODIFY;
-		this.releaseRepo = releaseRepo;
+		this.categoryRepo = categoryRepo;
 		this.originalUName = uName;
 		this.backPage = backPage;
 	}
@@ -141,13 +141,13 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
 		
-		final Form<Void> form = new Form<Void>("form");
+		final Form<Void> form = new Form<>("form");
 		add(form);
 		
 		final WebMarkupContainer uNameDiv = new WebMarkupContainer("uNameDiv");
 		uNameDiv.setOutputMarkupId(true);
 		uNameDiv.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
-		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "name"));
+		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "id"));
 		nameFld.setEnabled(false);
 		nameFld.add(new OnChangeAjaxBehavior() {
 			@Override
@@ -158,15 +158,24 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		uNameDiv.add(nameFld);
 		form.add(uNameDiv);
 		
-		final TextField<Object> displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName"));
+		final WebMarkupContainer slugPathDiv = new WebMarkupContainer("slugPathDiv");
+		slugPathDiv.setOutputMarkupId(true);
+		final TextField<String> slugPathFld = new TextField<>("slugPath", new PropertyModel<String>(getModel(), "slugPath"));
+		slugPathFld.setEnabled(false);
+		slugPathDiv.add(slugPathFld);
+		form.add(slugPathDiv);
+		
+		final TextField<Object> displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "name"));
 		displayNameFld.setRequired(true);
 		displayNameFld.setEnabled(editable);
 		displayNameFld.add(new OnChangeAjaxBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Category category = CategoryDetailPanel.this.getModelObject();
-				category.setId(SlugUtils.generateId(category.getName()));
-				target.add(uNameDiv);
+				category.setId(null);
+				category.setSlug(null);
+				category.resolve();
+				target.add(uNameDiv, slugPathDiv);
 			}
 		});
 		form.add(displayNameFld);
@@ -181,15 +190,17 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				final Category category = CategoryDetailPanel.this.getModelObject();
-				category.setId(SlugUtils.generateId(category.getName()));
+				category.setId(null);
+				category.setSlug(null);
+				category.resolve();
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
 				switch (editMode) {
 				case ADD:
-					releaseRepo.add(category);
+					categoryRepo.add(category);
 					info("Added category " + category.getNsPrefix() + "_" + category.getName());
 					break;
 				case MODIFY:
-					releaseRepo.modify(originalUName, category);
+					categoryRepo.modify(originalUName, category);
 					info("Modified category " + category.getNsPrefix() + "_" + category.getName());
 					break;
 				}
@@ -215,7 +226,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				final Category category = CategoryDetailPanel.this.getModelObject();
-				releaseRepo.delete(originalUName);
+				categoryRepo.delete(originalUName);
 				warn("Deleted category " + originalUName);
 				setResponsePage(backPage);
 			}
