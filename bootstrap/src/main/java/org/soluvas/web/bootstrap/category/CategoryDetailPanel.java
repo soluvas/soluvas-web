@@ -65,7 +65,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		ADD,
 		MODIFY
 	}
-	private static final String kindDisplayName = "Releases";
+	private static final String kindDisplayName = "Categories";
 	private final Class<? extends Page> backPage;
 	@SpringBean
 	private TenantRef tenant;
@@ -174,7 +174,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				final Category category = CategoryDetailPanel.this.getModelObject();
 				category.setId(null);
 				category.setSlug(null);
-				category.resolve();
+				category.resolve(categoryRepo);
 				target.add(uNameDiv, slugPathDiv);
 			}
 		});
@@ -192,7 +192,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				final Category category = CategoryDetailPanel.this.getModelObject();
 				category.setId(null);
 				category.setSlug(null);
-				category.resolve();
+				category.resolve(categoryRepo);
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
 				switch (editMode) {
 				case ADD:
