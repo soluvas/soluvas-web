@@ -3,7 +3,6 @@ package org.soluvas.web.site;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.annotation.Nullable;
 
@@ -29,9 +28,9 @@ import com.google.common.collect.ImmutableMap;
  * Serializes the {@link EObject} using {@link BinaryResourceImpl}.
  * @author haidar
  */
-public class CategoryEmfModel<T extends EObject> extends LoadableDetachableModel<T> {
+public class CategoryModel<T extends EObject> extends LoadableDetachableModel<T> {
 
-	private static final Logger log = LoggerFactory.getLogger(CategoryEmfModel.class);
+	private static final Logger log = LoggerFactory.getLogger(CategoryModel.class);
 	private static final long serialVersionUID = 1L;
 	public static enum ResourceContainer {
 		XMI,
@@ -53,11 +52,11 @@ public class CategoryEmfModel<T extends EObject> extends LoadableDetachableModel
 	public static final ResourceContainer RESOURCE_CONTAINER = ResourceContainer.XMI;
 	private byte[] buf;
 	
-	public CategoryEmfModel() {
+	public CategoryModel() {
 		super();
 	}
 
-	public CategoryEmfModel(@Nullable T obj) {
+	public CategoryModel(@Nullable T obj) {
 		super(obj);
 	}
 
@@ -95,18 +94,18 @@ public class CategoryEmfModel<T extends EObject> extends LoadableDetachableModel
 		}
 	}
 	
-	private void addMissedCrossRefs(EObject parent, Resource res) {
-		final EList<EObject> crossRefs = parent.eCrossReferences();
-		final Iterator<EObject> crossRefIterator = crossRefs.iterator();
-		while (crossRefIterator.hasNext()) {
-			final EObject child = crossRefIterator.next();
-			if (child.eResource() == null) {
-				log.trace("Adding missed crossref {}", child.eClass().getName());
-				res.getContents().add(child);
-//				addCrossRefs(child, res);
-			}
-		}
-	}
+//	private void addMissedCrossRefs(EObject parent, Resource res) {
+//		final EList<EObject> crossRefs = parent.eCrossReferences();
+//		final Iterator<EObject> crossRefIterator = crossRefs.iterator();
+//		while (crossRefIterator.hasNext()) {
+//			final EObject child = crossRefIterator.next();
+//			if (child.eResource() == null) {
+//				log.trace("Adding missed crossref {}", child.eClass().getName());
+//				res.getContents().add(child);
+////				addCrossRefs(child, res);
+//			}
+//		}
+//	}
 	
 	private void checkCrossRefs(EObject parent, Resource res) {
 		final EList<EReference> refs = parent.eClass().getEAllReferences();

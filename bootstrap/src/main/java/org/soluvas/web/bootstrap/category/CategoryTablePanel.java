@@ -23,7 +23,7 @@ import org.soluvas.category.CategoryStatus;
 import org.soluvas.data.domain.PageOffsetRequest;
 import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
-import org.soluvas.web.site.EmfModel;
+import org.soluvas.web.site.CategoryModel;
 import org.soluvas.web.site.widget.EnumColumn;
 import org.soluvas.web.site.widget.LinkColumn;
 
@@ -77,7 +77,7 @@ public class CategoryTablePanel extends Panel {
 
 			@Override
 			public IModel<Category> model(Category object) {
-				return new EmfModel<>(object);
+				return new CategoryModel<>(object);
 			}
 		};
 		termDp.setSort("positioner", SortOrder.ASCENDING);

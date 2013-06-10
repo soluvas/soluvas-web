@@ -30,7 +30,7 @@ import org.soluvas.category.impl.CategoryImpl;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
-import org.soluvas.web.site.CategoryEmfModel;
+import org.soluvas.web.site.CategoryModel;
 import org.soluvas.web.site.EmfModel;
 
 import com.google.common.base.Optional;
@@ -105,7 +105,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		} else {
 			category.setPositioner(0);
 		}
-		setModel(new CategoryEmfModel<Category>(category));
+		setModel(new CategoryModel<Category>(category));
 	}
 
 	/**
