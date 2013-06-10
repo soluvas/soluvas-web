@@ -31,7 +31,6 @@ import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.CategoryModel;
-import org.soluvas.web.site.EmfModel;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -121,7 +120,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	public CategoryDetailPanel(String id, CategoryRepository categoryRepo, String uName,
 			final Class<? extends Page> backPage) {
 		// FIXME: reference to parent is gone
-		super(id, new EmfModel<>(
+		super(id, new CategoryModel<>(
 				Preconditions.checkNotNull(categoryRepo.findOne(uName),
 						"Cannot find category %s using %s", uName, categoryRepo)
 			));
@@ -173,7 +172,9 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Category category = CategoryDetailPanel.this.getModelObject();
-				category.setId(null);
+				if (editMode == EditMode.ADD) {
+					category.setId(null);
+				}
 				category.setSlug(null);
 				category.resolve(categoryRepo);
 				target.add(uNameDiv, slugPathDiv);
@@ -191,7 +192,9 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				final Category category = CategoryDetailPanel.this.getModelObject();
-				category.setId(null);
+				if (editMode == EditMode.ADD) {
+					category.setId(null);
+				}
 				category.setSlug(null);
 				category.resolve(categoryRepo);
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
