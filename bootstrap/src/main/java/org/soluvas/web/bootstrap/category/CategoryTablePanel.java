@@ -89,6 +89,7 @@ public class CategoryTablePanel extends Panel {
 				CategoryStatus.ICON_MAPPING));
 		columns.add(new PropertyColumn<Category, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 		columns.add(new PropertyColumn<Category, String>(new Model<>("Position"), "positioner", "positioner"));
+		columns.add(new AddChildColumn(new Model<>("New Child Category"), addPage));
 		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
 	}
 	

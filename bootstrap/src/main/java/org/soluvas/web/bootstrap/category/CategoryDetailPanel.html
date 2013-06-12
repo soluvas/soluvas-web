@@ -13,10 +13,16 @@
 	<div class="row">
 		<div class="box span9" style="margin-top:0;">
 			<div class="box-header well">
-					<span wicket:id="kind">Colors</span> &gt; <span wicket:id="categoryUName">base_red</span>
+				<span wicket:id="kind">Colors</span> &gt; <span wicket:id="headerUName">base_red</span>
 			</div>
 			<div class="box-content">
 				<form wicket:id="form" class="form form-horizontal">
+					<div class="control-group">
+						<label class="control-label">Parent</label>	
+						<div class="controls">
+							<wicket:container wicket:id="parentUName">parentUName</wicket:container>
+						</div>
+					</div>
 					<div class="control-group" wicket:id="uNameDiv">
 						<label class="control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr></label>	
 						<div class="controls">

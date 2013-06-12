@@ -1,7 +1,5 @@
 package org.soluvas.web.bootstrap.category;
 
-import java.util.List;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -17,6 +15,7 @@ import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.GenericPanel;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -28,11 +27,8 @@ import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.impl.CategoryImpl;
 import org.soluvas.commons.tenant.TenantRef;
-import org.soluvas.data.domain.PageRequest;
-import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.CategoryModel;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
@@ -77,33 +73,25 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
 	 * @param id
 	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
+	 * @param backPage
+	 * @param parentUName TODO
 	 * @param uName
 	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
-	 * @param backPage
 	 */
 	public CategoryDetailPanel(String id, CategoryRepository categoryRepo,
-			final Class<? extends Page> backPage) {
+			final Class<? extends Page> backPage, String parentUName) {
 		super(id);
 		this.editMode = EditMode.ADD;
 		this.originalUName = null;
 		this.categoryRepo = categoryRepo;
 		this.backPage = backPage;
 		
-		// get the topmost position
-		final List<Category> mostRecents = categoryRepo.findAll(new PageRequest(0, 1, Direction.ASC, "positioner")).getContent();
-		
 		final CategoryImpl category = new CategoryImpl();
 		category.setNsPrefix(tenant.getTenantId());
+		category.setParentUName(parentUName);
 		category.setStatus(CategoryStatus.ACTIVE);
-		if (!mostRecents.isEmpty()) {
-			// subtract 10 so the new category is before the most recent category
-			log.debug("most recent category is {}", mostRecents.get(0).getName());
-			category.setPositioner(Optional.fromNullable(mostRecents.get(0).getPositioner()).or(0) - 10);
-		} else {
-			category.setPositioner(0);
-		}
 		setModel(new CategoryModel<Category>(category));
 	}
 
@@ -137,12 +125,23 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		add(new Label("kind", kindDisplayName));
 		add(new BookmarkablePageLink<>("backLink", backPage));
 		
-		final Label uNameLabel = new Label("categoryUName", new PropertyModel<>(getModel(), "uName"));
-		uNameLabel.setOutputMarkupId(true);
-		add(uNameLabel);
+		final Label headerUNameLabel = new Label("headerUName", new PropertyModel<>(getModel(), "uName"));
+		headerUNameLabel.setOutputMarkupId(true);
+		add(headerUNameLabel);
 		
 		final Form<Void> form = new Form<>("form");
 		add(form);
+		
+		form.add(new Label("parentUName", new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				if (getModelObject().getParentUName() != null) {
+					return getModelObject().getParentUName();
+				} else {
+					return "(root)";
+				}
+			}
+		}));
 		
 		final WebMarkupContainer uNameDiv = new WebMarkupContainer("uNameDiv");
 		uNameDiv.setOutputMarkupId(true);
@@ -152,7 +151,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		nameFld.add(new OnChangeAjaxBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				target.add(uNameLabel);
+				target.add(headerUNameLabel);
 			}
 		});
 		uNameDiv.add(nameFld);
@@ -177,7 +176,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				}
 				category.setSlug(null);
 				category.resolve(categoryRepo);
-				target.add(uNameDiv, slugPathDiv);
+				target.add(headerUNameLabel, uNameDiv, slugPathDiv);
 			}
 		});
 		form.add(displayNameFld);
