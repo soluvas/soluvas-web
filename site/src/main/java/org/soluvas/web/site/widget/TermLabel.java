@@ -58,7 +58,8 @@ public class TermLabel extends Label {
 			} else {
 				final String color = term.getColor();
 				if (color != null) {
-					iconHtml = "<span class=\"img-circle\" style=\"background: " + color + "; width: 17px; height:17px; display: inline-block;\">&nbsp;</span> "; 
+					iconHtml = "<span class=\"img-circle\" style=\"background: " + color + "; width: 17px; height:17px; display: inline-block;" + 
+							(term.isBordered() ? "border:1px solid #eee" : "") + "\">&nbsp;</span> "; 
 				} else {
 					iconHtml = "";
 				}
