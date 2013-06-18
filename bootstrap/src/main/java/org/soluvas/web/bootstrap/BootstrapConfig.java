@@ -180,6 +180,13 @@ public class BootstrapConfig {
 				"org.soluvas.web.bootstrap/jquery.ui.selectmenu",
 				"org.soluvas.web.bootstrap/jquery.ui.selectmenu");
 	}
+	
+//	@Bean
+//	public JavaScriptModule tinynavModule() {
+//		return new JavaScriptModuleImpl("tinynav",
+//				"org.soluvas.web.bootstrap/tinynav",
+//				"org.soluvas.web.bootstrap/tinynav.min");
+//	}
 
 	@Bean
 	public JavaScriptShim selectmenuShim() {
@@ -198,7 +205,7 @@ public class BootstrapConfig {
 				"org.soluvas.web.bootstrap/datatables/jquery.dataTables",
 				"//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min");
 	}
-
+	
 	@Bean
 	public JavaScriptShim datatablesShim() {
 		return new JavaScriptShimImpl("jquery.dataTables",

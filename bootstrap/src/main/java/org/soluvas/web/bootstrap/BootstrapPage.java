@@ -296,6 +296,8 @@ public class BootstrapPage extends ExtensiblePage {
 		for (JavaScriptLink js : sortedJses) {
 			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
 		}
+		
+		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.INSTANCE));
 	}
 
 	protected PageMeta getPageMeta(@Nonnull final TenantRef tenant,
