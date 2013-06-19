@@ -3,14 +3,15 @@ package org.soluvas.web.site;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.PropertyModel;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -130,7 +131,12 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		}
 	}
 
-	private void checkCrossRefs(EObject child, Resource res) {
+	private void checkCrossRefs(EObject child, Resource res, Set<EObject> checkedEObjects) {
+		if (!checkedEObjects.add(child)) {
+			// if already checked, do nothing, to avoid StackOverflowError
+			return;
+		}
+		
 		final EList<EReference> refs = child.eClass().getEAllReferences();
 //		log.trace("{} has {} refs: {}", EOBJECT_TO_STRING.apply(child), refs.size(), refs);
 		for (EReference ref : refs) {
@@ -146,13 +152,13 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 							res.getContents().add(grandchild);
 						}
 	//					addCrossRefs(grandchild, res);
-						checkCrossRefs(grandchild, res);
+						checkCrossRefs(grandchild, res, checkedEObjects);
 					}
 				}
 			} else if (refObj != null) {
 				final EObject refEObj = (EObject) refObj;
 //				if (!res.getContents().contains(refEObj)) {
-				if (refEObj.eResource() != res) {
+				if (!ref.isContainment() && refEObj.eResource() != res) {
 					EList<EObject> x = refEObj.eCrossReferences();
 					log.trace("Adding {} from {}#{} {} (with {} crossrefs)", EOBJECT_TO_STRING.apply(refEObj),
 							EOBJECT_TO_STRING.apply(child), ref.getName(), refEObj.eClass().getName(),
@@ -160,12 +166,11 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 //					objectsToAdd.add((EObject) refObj);
 					res.getContents().add((EObject) refObj);
 //					addCrossRefs(refEObj, res);
-					checkCrossRefs(refEObj, res);
 				} else {
 //					log.trace("{} from {}#{} already in resource {}", 
 //							EOBJECT_TO_STRING.apply(refEObj), EOBJECT_TO_STRING.apply(child), ref.getName(), refEObj.eResource());
-					checkCrossRefs(refEObj, res);
 				}
+				checkCrossRefs(refEObj, res, checkedEObjects);
 			}
 		}
 	}
@@ -174,7 +179,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	protected void onDetach() {
 		final T obj = getObject();
 		if (obj != null) {
-			log.trace("Serializing {}", new PropertyModel<String>(obj, "eClass.name").getObject() );
+			log.trace("Serializing {}", EOBJECT_TO_STRING.apply(obj) );
 			final Resource res = new XMIResourceImpl();
 			final T copied = EcoreUtil.copy(obj);
 			res.getContents().add(copied);
@@ -183,8 +188,9 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 			
 			final List<EObject> allContents = ImmutableList.copyOf(EcoreUtil.<EObject>getAllContents(res, false));//copied.eAllContents();
 //			final List<EObject> objectsToAdd = new ArrayList<>();
+			final Set<EObject> checkedEObjects = new HashSet<>();
 			for (EObject child : allContents) {
-				checkCrossRefs(child, res);
+				checkCrossRefs(child, res, checkedEObjects);
 			}
 //			res.getContents().addAll(objectsToAdd);
 			try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -197,13 +203,13 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 						));
 				buf = out.toByteArray();
 				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
-					log.trace("Serialized {} to: {}", obj.eClass().getName(),
+					log.trace("Serialized {} to: {}", EOBJECT_TO_STRING.apply(obj),
 							new String(buf));
 				} else {
-					log.trace("Serialized {} as {} bytes", obj.eClass().getName(), buf.length);
+					log.trace("Serialized {} as {} bytes", EOBJECT_TO_STRING.apply(obj), buf.length);
 				}
 			} catch (Exception e) {
-				throw new SiteException("Cannot serialize EObject " + obj.eClass().getName(), e);
+				throw new SiteException("Cannot serialize EObject " + EOBJECT_TO_STRING.apply(obj), e);
 			}
 		}
 	}
