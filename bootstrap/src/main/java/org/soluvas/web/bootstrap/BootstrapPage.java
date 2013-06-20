@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.AttributeModifier;
@@ -28,6 +27,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.CssResourceReference;
@@ -42,6 +42,7 @@ import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.nav.PageLink;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
@@ -58,7 +59,6 @@ import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
-import org.soluvas.web.site.osgi.WebUtils;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -209,6 +209,7 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected TransparentWebMarkupContainer sidebarColumn;
 
+	@SpringBean
 	private TenantRef tenant;
 
 	protected final RepeatingView afterHeader;
@@ -218,7 +219,28 @@ public class BootstrapPage extends ExtensiblePage {
 	protected SidebarVisibility sidebarVisibility;
 
 	protected Navbar navbar;
+	
+	protected IModel<List<PageLink>> breadcrumbModel = new ListModel<>(new ArrayList<PageLink>());
 
+	// do NOT use AsyncModel here because we need it to load LAST
+	// (i.e. after all scopes has been attached as page model using
+	// addModelForPageMeta)
+	protected final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
+		@Override
+		protected PageMeta load() {
+			final String currentUri = getRequest().getUrl().toString();
+			final PageRequestContext context = new PageRequestContext(
+					tenant.getClientId(), tenant.getTenantId(),
+					tenant.getTenantEnv(), BootstrapPage.this, currentUri, webAddress,
+					appManifest);
+			// final List<PageRule> pageRules = pageRulesSupplier.get();
+			// final PageMetaSupplier pageSupplier = new
+			// RulesPageMetaSupplier(pageRules, context);
+			final PageMeta pageMeta = pageMetaProvider.get(context);
+			return pageMeta;
+		}
+	};
+	
 	@SuppressWarnings("deprecation")
 	public String smartPrefixUri(String prefix, String uri) {
 		if (uri.startsWith("//") || uri.startsWith("https:")
@@ -300,19 +322,6 @@ public class BootstrapPage extends ExtensiblePage {
 		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.INSTANCE));
 	}
 
-	protected PageMeta getPageMeta(@Nonnull final TenantRef tenant,
-			String currentUri) {
-		final PageRequestContext context = new PageRequestContext(
-				tenant.getClientId(), tenant.getTenantId(),
-				tenant.getTenantEnv(), this, currentUri, webAddress,
-				appManifest);
-		// final List<PageRule> pageRules = pageRulesSupplier.get();
-		// final PageMetaSupplier pageSupplier = new
-		// RulesPageMetaSupplier(pageRules, context);
-		final PageMeta pageMeta = pageMetaProvider.get(context);
-		return pageMeta;
-	}
-
 	@Override
 	protected void renderPlaceholderTag(ComponentTag tag, Response response) {
 		super.renderPlaceholderTag(tag, response);
@@ -345,19 +354,8 @@ public class BootstrapPage extends ExtensiblePage {
 									Url.parse("http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")));
 		}
 
-		tenant = WebUtils.getTenant();
-		final String currentUri = getRequest().getUrl().toString();
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-		// do NOT use AsyncModel here because we need it to load LAST
-		// (i.e. after all scopes has been attached as page model using
-		// addModelForPageMeta)
-		final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
-			@Override
-			protected PageMeta load() {
-				return getPageMeta(tenant, currentUri);
-			}
-		};
 
 		// HTML
 		add(new TransparentWebMarkupContainer("html")
@@ -588,6 +586,14 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		log.debug("Visible sidebarBlocks children: {}", visibleChildren);
 		sidebarColumn.setVisible(!visibleChildren.isEmpty());
+	}
+
+	public IModel<List<PageLink>> getBreadcrumbModel() {
+		return breadcrumbModel;
+	}
+
+	public IModel<PageMeta> getPageMetaModel() {
+		return pageMetaModel;
 	}
 	
 }

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Looks up HTML content from "${dataFolder}/common/content/${slug}.html".
- * Used by {@link ContentPage}.
+ * Used by {@link ContentPanel}.
  * It can be used to load:
  * <ol>
  * <li>Page content, e.g. <b>about</b>.html.</li>

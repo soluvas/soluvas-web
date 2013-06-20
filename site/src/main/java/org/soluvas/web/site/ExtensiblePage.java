@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.Component;
@@ -57,7 +56,7 @@ public class ExtensiblePage extends WebPage {
 	 * @param model
 	 * @todo Find a better name / mechanism.
 	 */
-	protected void addModelForPageMeta(final String name, final IModel<?> model) {
+	public void addModelForPageMeta(final String name, final IModel<?> model) {
 		log.trace("Adding model for PageMeta {} in {}", name, getPageClass().getName());
 		modelsForPageMeta.put(name, model);
 	}

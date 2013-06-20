@@ -22,7 +22,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.osgi.service.blueprint.container.ServiceUnavailableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.web.login.LoginPage;
 import org.soluvas.web.nav.Menu;
 import org.soluvas.web.nav.MenuItem;
 import org.soluvas.web.nav.PageMenuItem;
@@ -109,7 +108,11 @@ public class NavMenu extends Panel {
 				}
 			}
 		} );
-		add(new BookmarkablePageLink<LoginPage>("loginLink", LoginPage.class));
+		
+		// FIXME: support login link but decoupled
+//		add(new BookmarkablePageLink<LoginPage>("loginLink", LoginPage.class));
+		add(new WebMarkupContainer("loginLink"));
+		
 		add(new AjaxLink<Void>("logoutLink") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
