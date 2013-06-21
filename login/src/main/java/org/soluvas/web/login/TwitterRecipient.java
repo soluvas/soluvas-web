@@ -93,15 +93,15 @@ public class TwitterRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", twitterUser);
 			log.debug("Got user {}", JsonUtils.asJson(twitterUser));
 			
-			SocialPerson existingPerson = personLdapRepo.findOneByAttribute("twitterId", String.valueOf(twitterUser.getId()));
-			if (existingPerson == null) {
-				existingPerson = personLdapRepo.findOneByAttribute("twitterScreenName", twitterUser.getScreenName());
+			SocialPerson curPerson = personLdapRepo.findOneByAttribute("twitterId", String.valueOf(twitterUser.getId()));
+			if (curPerson == null) {
+				curPerson = personLdapRepo.findOneByAttribute("twitterScreenName", twitterUser.getScreenName());
 			}
 			
-			if (existingPerson != null) {
+			if (curPerson != null) {
 				// Direct Login
 				log.debug("Person {} from Twitter ID {} (#{}) exists",
-						existingPerson.getId(), twitterUser.getScreenName(), twitterUser.getId());
+						curPerson.getId(), twitterUser.getScreenName(), twitterUser.getId());
 			} else {
 				final String personFullName = Preconditions.checkNotNull(twitterUser.getName(), "Twitter User's Name cannot be empty");
 				final String personId = SlugUtils.generateValidId(personFullName, new Predicate<String>() {
@@ -118,38 +118,40 @@ public class TwitterRecipient extends WebPage {
 					}
 				});
 				final PersonName personName = NameUtils.splitName(personFullName);
-				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
-				existingPerson.setCreationTime(new DateTime());
-				existingPerson.setModificationTime(new DateTime());
-				existingPerson.setCustomerRole("biasa");
-				existingPerson = personLdapRepo.add(newPerson);
+//				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
+				curPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
+				curPerson.setCreationTime(new DateTime());
+				curPerson.setModificationTime(new DateTime());
+				curPerson.setCustomerRole("biasa");
+//				existingPerson = personLdapRepo.add(newPerson);
+				personLdapRepo.add(curPerson);
 				log.debug("person {} is inserted", personId);
 			}
 			
-			if (existingPerson.getValidationTime() == null) {
-				existingPerson.setValidationTime(new DateTime());
+			if (curPerson.getValidationTime() == null) {
+				curPerson.setValidationTime(new DateTime());
 			}
-			if (existingPerson.getAccountStatus() == null ||
-					existingPerson.getAccountStatus() == AccountStatus.DRAFT ||
-					existingPerson.getAccountStatus() == AccountStatus.ACTIVE) {
-				existingPerson.setAccountStatus(AccountStatus.VALIDATED);
+			if (curPerson.getAccountStatus() == null ||
+					curPerson.getAccountStatus() == AccountStatus.DRAFT ||
+					curPerson.getAccountStatus() == AccountStatus.ACTIVE) {
+				curPerson.setAccountStatus(AccountStatus.VALIDATED);
 			}
-			existingPerson.setTwitterScreenName(twitterUser.getScreenName());
-			existingPerson.setTwitterId(Long.valueOf(twitterUser.getId()));
-			existingPerson.setTwitterAccessToken(oAuthAccessToken.getToken());
-			existingPerson.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
-			existingPerson.setTwitterScreenName(twitterUser.getScreenName());
-			if (existingPerson.getPhotoId() == null) {
+			curPerson.setTwitterScreenName(twitterUser.getScreenName());
+			curPerson.setTwitterId(Long.valueOf(twitterUser.getId()));
+			curPerson.setTwitterAccessToken(oAuthAccessToken.getToken());
+			curPerson.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
+			curPerson.setTwitterScreenName(twitterUser.getScreenName());
+			if (curPerson.getPhotoId() == null) {
 				//Set photo from Twitter.
 				try {
 					final String imageId = TwitterUtils.refreshPhotoFromTwitter(
-							existingPerson.getTwitterScreenName(), existingPerson.getName(), personImageRepo);
-					existingPerson.setPhotoId(imageId);
+							curPerson.getTwitterScreenName(), curPerson.getName(), personImageRepo);
+					curPerson.setPhotoId(imageId);
 				} catch (Exception e) {
-					log.error("Cannot refresh photo from Twitter for person " + existingPerson.getId() + " " + existingPerson.getName(), e);
+					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
 			}
-			final SocialPerson modifiedPerson = personLdapRepo.modify(existingPerson);
+			final SocialPerson modifiedPerson = personLdapRepo.modify(curPerson);
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(

@@ -91,18 +91,18 @@ public class FacebookRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", fbUser);
 			log.debug("Got user and user details{}", JsonUtils.asJson(fbUser));
 			
-			SocialPerson existingPerson = personLdapRepo.findOneByAttribute("fbId", fbUser.getId());
-			if (existingPerson == null) {
-				existingPerson = personLdapRepo.findOneByAttribute("fbUser", fbUser.getUsername());
+			SocialPerson curPerson = personLdapRepo.findOneByAttribute("fbId", fbUser.getId());
+			if (curPerson == null) {
+				curPerson = personLdapRepo.findOneByAttribute("fbUser", fbUser.getUsername());
 			}
-			if (existingPerson == null) {
-				existingPerson = personLdapRepo.findOneByAttribute("mail", fbUser.getEmail());
+			if (curPerson == null) {
+				curPerson = personLdapRepo.findOneByAttribute("mail", fbUser.getEmail());
 			}
 			
-			if (existingPerson != null) {
+			if (curPerson != null) {
 				// Direct Login
 				log.debug("Person {} from Facebook ID {} exists",
-						existingPerson.getId(), fbUser.getId());
+						curPerson.getId(), fbUser.getId());
 			} else {
 				Preconditions.checkNotNull(fbUser.getName(), "Facebook User's Name cannot be empty");
 				final String personId = SlugUtils.generateValidId(fbUser.getName(), new Predicate<String>() {
@@ -119,58 +119,58 @@ public class FacebookRecipient extends WebPage {
 					}
 				});
 				
-				existingPerson = new SocialPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName());
-				existingPerson.setCreationTime(new DateTime());
-				existingPerson.setModificationTime(new DateTime());
-				existingPerson.setCustomerRole("biasa");
-				personLdapRepo.add(existingPerson);
+				curPerson = new SocialPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName());
+				curPerson.setCreationTime(new DateTime());
+				curPerson.setModificationTime(new DateTime());
+				curPerson.setCustomerRole("biasa");
+				personLdapRepo.add(curPerson);
 			}
 
-			if (existingPerson.getValidationTime() == null) {
-				existingPerson.setValidationTime(new DateTime());
+			if (curPerson.getValidationTime() == null) {
+				curPerson.setValidationTime(new DateTime());
 			}
-			if (existingPerson.getAccountStatus() == null ||
-					existingPerson.getAccountStatus() == AccountStatus.DRAFT ||
-					existingPerson.getAccountStatus() == AccountStatus.ACTIVE) {
-				existingPerson.setAccountStatus(AccountStatus.VALIDATED);
+			if (curPerson.getAccountStatus() == null ||
+					curPerson.getAccountStatus() == AccountStatus.DRAFT ||
+					curPerson.getAccountStatus() == AccountStatus.ACTIVE) {
+				curPerson.setAccountStatus(AccountStatus.VALIDATED);
 			}
 			if (fbUser.getGender() != null) {
 				try {
 					final Gender gender = Gender.valueOf(fbUser.getGender().toUpperCase());
-					existingPerson.setGender(gender);
+					curPerson.setGender(gender);
 				} catch (Exception e) {
 					log.warn("Invalid gender value {} from Facebook ID {}",
 							fbUser.getGender(), fbUser.getId());
 				}
 			}
-			existingPerson.setFacebookUsername(fbUser.getUsername());
-			existingPerson.setFacebookId(Long.valueOf(fbUser.getId()));
-			existingPerson.setFacebookAccessToken(accessToken);
-			if (existingPerson.getEmails() == null) {
-				existingPerson.setEmails(new HashSet<String>());
+			curPerson.setFacebookUsername(fbUser.getUsername());
+			curPerson.setFacebookId(Long.valueOf(fbUser.getId()));
+			curPerson.setFacebookAccessToken(accessToken);
+			if (curPerson.getEmails() == null) {
+				curPerson.setEmails(new HashSet<String>());
 			}
 			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
 				log.debug("User {} from Facebook ID {} has email {}",
-						existingPerson.getId(), fbUser.getId(), fbUser.getEmail());
-				existingPerson.getEmails().add(fbUser.getEmail());
-				if (existingPerson.getPrimaryEmail() == null) {
-					existingPerson.setPrimaryEmail(fbUser.getEmail());
+						curPerson.getId(), fbUser.getId(), fbUser.getEmail());
+				curPerson.getEmails().add(fbUser.getEmail());
+				if (curPerson.getPrimaryEmail() == null) {
+					curPerson.setPrimaryEmail(fbUser.getEmail());
 				}
 			} else {
 				log.warn("User {} from Facebook ID {} has no email address",
-					existingPerson.getId(), fbUser.getId());
+					curPerson.getId(), fbUser.getId());
 			}
-			if (existingPerson.getPhotoId() == null) {
+			if (curPerson.getPhotoId() == null) {
 				//Set photo from Facebook.
 				try {
 					final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(
-							existingPerson.getFacebookId(), existingPerson.getName(), personImageRepo);
-					existingPerson.setPhotoId(imageId);
+							curPerson.getFacebookId(), curPerson.getName(), personImageRepo);
+					curPerson.setPhotoId(imageId);
 				} catch (Exception e) {
-					log.error("Cannot refresh photo from Facebook for person " + existingPerson.getId() + " " + existingPerson.getName(), e);
+					log.error("Cannot refresh photo from Facebook for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
 			}
-			final SocialPerson modifiedPerson = personLdapRepo.modify(existingPerson); 
+			final SocialPerson modifiedPerson = personLdapRepo.modify(curPerson); 
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
