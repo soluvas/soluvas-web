@@ -123,7 +123,7 @@ public class ResourceImageRepository extends PagingAndSortingRepositoryBase<Imag
 	}
 
 	@Override
-	public String getImageUri(String id, String styleName) {
+	public String getPublicUri(String id, String styleName, String extension) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -267,6 +267,21 @@ public class ResourceImageRepository extends PagingAndSortingRepositoryBase<Imag
 
 	@Override
 	public Page<Image> findAll(Pageable pageable) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void fixExtensionAll() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void fixExtension(Collection<String> imageIds) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getOriginUri(String id, String styleName, String extension) {
 		throw new UnsupportedOperationException();
 	}
 
