@@ -106,9 +106,6 @@ public class ExtensiblePage extends WebPage {
 		return region;
 	}
 
-	/**
-	 * @return the modelsForPageMeta
-	 */
 	public Map<String, IModel<?>> getModelsForPageMeta() {
 		return modelsForPageMeta;
 	}
