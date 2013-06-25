@@ -5,8 +5,6 @@ package org.soluvas.web.site.pagemeta.impl;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import javax.annotation.Nonnull;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EAttribute;
@@ -736,7 +734,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 		final StringWriter writer = new StringWriter();
 		try {
 			tpl.execute(writer, scope);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throw new SiteException(e, "Cannot render mustache for %s.%s: %s",
 					target.eClass().getName(), attr.getName(), template);
 		}

@@ -57,15 +57,20 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 		}
 		log.trace("Mustache template for {}: {}", getPageRelativePath(), template);
 		
-		final MustacheFactory mf = new DefaultMustacheFactory();
-		final Mustache mainMustache = mf.compile(new StringReader(template), "main");
-		
-		final StringWriter writer = new StringWriter();
-		mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
-				ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
-						"nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
-		final String body = writer.toString();
-		replaceComponentTagBody(markupStream, openTag, body);
+		try {
+			final MustacheFactory mf = new DefaultMustacheFactory();
+			final Mustache mainMustache = mf.compile(new StringReader(template), "main");
+			
+			final StringWriter writer = new StringWriter();
+			mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
+					ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
+							"nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
+			final String body = writer.toString();
+			replaceComponentTagBody(markupStream, openTag, body);
+		} catch (Throwable e) {
+			throw new SiteException(e, "Cannot render mustache for %s: %s",
+					getPageRelativePath(), template);
+		}
 	}
 	
 }

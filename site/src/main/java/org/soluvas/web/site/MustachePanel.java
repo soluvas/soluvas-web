@@ -44,16 +44,21 @@ public class MustachePanel extends Panel {
 			public CharSequence transform(Component component, CharSequence output)
 					throws Exception {
 				final CharSequence template = output;
-				log.debug("Compiling Mustache for {}: {}", getPageRelativePath(), template);
-				final MustacheFactory mf = new DefaultMustacheFactory();
-				final Mustache mainMustache = mf.compile(new CharSequenceReader(template), "main");
-				
-				final StringWriter writer = new StringWriter();
-				mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
-						ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
-								"nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
-				final String body = writer.toString();
-				return body;
+				try {
+					log.debug("Compiling Mustache for {}: {}", getPageRelativePath(), template);
+					final MustacheFactory mf = new DefaultMustacheFactory();
+					final Mustache mainMustache = mf.compile(new CharSequenceReader(template), "main");
+					
+					final StringWriter writer = new StringWriter();
+					mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
+							ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
+									"nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
+					final String body = writer.toString();
+					return body;
+				} catch (Throwable e) {
+					throw new SiteException(e, "Cannot render mustache for %s: %s",
+							getPageRelativePath(), template);
+				}
 			}
 		});
 	}
