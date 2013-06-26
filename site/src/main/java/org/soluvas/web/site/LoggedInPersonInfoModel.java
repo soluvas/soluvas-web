@@ -33,7 +33,13 @@ public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo>
 	@Override
 	protected PersonInfo load() {
 		Preconditions.checkNotNull(personLookup, "Person Lookup must not be null.");
-		final String personId = (String) SecurityUtils.getSubject().getPrincipal();
+		final Subject subject = SecurityUtils.getSubject();
+		String personId;
+		try {
+			personId = (String) subject.getPrincipal();
+		} catch (Exception e) {
+			throw new org.soluvas.security.SecurityException(e, "Cannot get principal from subject %s: %s", subject, e);
+		}
 		final Person socialPerson = personId != null ? personLookup.findOne(personId) : null;
 		if (socialPerson == null) {
 			return CommonsFactory.eINSTANCE.createPersonInfo();
