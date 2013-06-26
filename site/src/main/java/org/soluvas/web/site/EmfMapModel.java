@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.eclipse.emf.ecore.EObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
@@ -23,6 +25,8 @@ import com.google.common.collect.Maps;
  *            type of object value inside {@link Map}
  */
 public class EmfMapModel<K extends Serializable, V extends EObject> extends LoadableDetachableModel<Map<K, V>> {
+	private static final Logger log = LoggerFactory
+			.getLogger(EmfMapModel.class);
 	private static final long serialVersionUID = 1L;
 	private Map<K, IModel<V>> savedObjects;
 	
@@ -37,6 +41,7 @@ public class EmfMapModel<K extends Serializable, V extends EObject> extends Load
 	@Override
 	protected Map<K, V> load() {
 		if (savedObjects != null) {
+			log.trace("Loading EmfMapModel from savedObjects: {}", savedObjects.keySet());
 			return new HashMap<>(Maps.transformValues(savedObjects, new Function<IModel<V>, V>() {
 				@Override @Nullable
 				public V apply(@Nullable IModel<V> input) {
@@ -44,6 +49,7 @@ public class EmfMapModel<K extends Serializable, V extends EObject> extends Load
 				}
 			}));
 		} else {
+			log.trace("EmfMapModel has no savedObjects, returning null");
 			return null;
 		}
 	}
@@ -60,6 +66,9 @@ public class EmfMapModel<K extends Serializable, V extends EObject> extends Load
 					return emfModel;
 				}
 			}));
+			log.trace("Saving EmfMapModel to savedObjects: {}", savedObjects.keySet());
+		} else {
+			log.trace("Not saving EmfMapModel because of null original map");
 		}
 		super.onDetach();
 	}
