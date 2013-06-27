@@ -7,6 +7,17 @@
 	height: 1.8em;
 	vertical-align: bottom;
 }
+
+.select2-container {
+	width: 250px;
+	font-family: sans-serif;
+}
+
+.select2-drop {
+	width: 250px;
+	font-family: sans-serif;
+}
+
 </style>	
 </wicket:head>
 <wicket:panel>
@@ -54,6 +65,12 @@
 						<label class="control-label" wicket:for="positioner">Position</label>
 						<div class="controls">
 							<input type="number" wicket:id="positioner" class="input-small"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" wicket:for="defaultMixin">Default Mixin</label>
+						<div class="controls">
+							<input type="hidden" wicket:id="defaultMixin"/>
 						</div>
 					</div>
 				</form>
