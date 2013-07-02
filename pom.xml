@@ -49,7 +49,7 @@
 	</licenses>
 
 	<properties>
-		<wicket.version>6.8.0</wicket.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicket.version>6.9.0</wicket.version><!-- used by wicketstuff e.g. wicket-datetime -->
 	</properties>
 
 	<dependencyManagement>
