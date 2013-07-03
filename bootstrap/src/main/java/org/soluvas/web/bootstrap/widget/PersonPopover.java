@@ -15,9 +15,9 @@ import org.soluvas.commons.PersonInfo;
 import org.soluvas.image.ImageManager;
 import org.soluvas.web.site.widget.IconImageContainer;
 
-import de.agilecoders.wicket.markup.html.bootstrap.components.PopoverBehavior;
-import de.agilecoders.wicket.markup.html.bootstrap.components.PopoverConfig;
-import de.agilecoders.wicket.markup.html.bootstrap.components.TooltipConfig.Placement;
+import de.agilecoders.wicket.core.markup.html.bootstrap.components.PopoverBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.components.PopoverConfig;
+import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig.Placement;
 
 /**
  * Renders {@link PersonInfo} with {@link Gender} image.

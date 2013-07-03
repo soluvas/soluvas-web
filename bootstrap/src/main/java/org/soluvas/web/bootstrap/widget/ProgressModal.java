@@ -3,14 +3,15 @@ package org.soluvas.web.bootstrap.widget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 
-import de.agilecoders.wicket.markup.html.bootstrap.components.ProgressBar;
-import de.agilecoders.wicket.markup.html.bootstrap.dialog.Modal;
+import de.agilecoders.wicket.core.markup.html.bootstrap.components.ProgressBar;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
 
 /**
  * @author rudi
  */
 public class ProgressModal extends Modal {
 
+	private static final long serialVersionUID = 1L;
 	private IModel<String> statusModel;
 
 	/**
