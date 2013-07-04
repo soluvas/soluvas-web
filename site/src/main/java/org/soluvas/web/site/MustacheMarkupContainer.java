@@ -41,7 +41,7 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 	@Override
 	public void onComponentTagBody(MarkupStream markupStream,
 			ComponentTag openTag) {
-		log.debug("Compiling Mustache for {}", getPageRelativePath());
+		log.trace("Compiling Mustache for {}", getPageRelativePath());
 		markupStream.setCurrentIndex(1);
 		String template = "";
 		MarkupElement currentElement = markupStream.get(); //getMarkupFragment().toString(true);
