@@ -47,7 +47,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import com.vaynberg.wicket.select2.Response;
@@ -216,7 +215,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		final IModel<List<Mixin>> sortedMixinsModel = new LoadableDetachableModel<List<Mixin>>() {
 			@Override
 			protected List<Mixin> load() {
-				final List<Mixin> mixins = ImmutableList.copyOf(EcoreUtil.copyAll(mixinMgr.getDataCatalog().getMixins()));
+				final Collection<Mixin> mixins = EcoreUtil.copyAll(mixinMgr.getMixins());
 				final Ordering<Mixin> mixinOrderer = Ordering.from(new Comparator<Mixin>() {
 					@Override
 					public int compare(Mixin o1, Mixin o2) {
