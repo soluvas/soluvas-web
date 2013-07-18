@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.ProgressMonitor;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.Pageable;
+import org.soluvas.data.domain.Sort;
 import org.soluvas.data.repository.PagingAndSortingRepositoryBase;
 import org.soluvas.image.ImageConnector;
 import org.soluvas.image.ImageStyles;
@@ -224,7 +225,8 @@ public class ResourceImageRepository extends PagingAndSortingRepositoryBase<Imag
 	}
 
 	@Override
-	public List<Image> findAll(final Collection<String> ids) {
+	public List<Image> findAll(final Collection<String> ids, Sort sort) {
+		// TODO: support sort
 		final Iterable<Resource> filtered = Iterables.filter(resources, new Predicate<Resource>() {
 			@Override
 			public boolean apply(@Nullable Resource input) {
