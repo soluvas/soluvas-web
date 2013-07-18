@@ -63,7 +63,7 @@ var subscriptions = [];
 			Navbar... (see Navbar.html)
 	</div>
 	<div class="container">
-		<div wicket:id="addedInfo">
+		<div style="display: none;" wicket:id="addedInfo">
 		</div>
  	</div>
 	<div class="clearfix"></div>
@@ -91,19 +91,16 @@ var subscriptions = [];
 						</ol>
 					</wicket:child>
 				</div>
-					<div style="display:none;">
+					<div>
 					 	<ul class="styles">
-						  <li><p class="skins">Skins</p></li>
-						  <li class="orange"> <a href="" onclick="setActiveStyleSheet('orange'); return false;">Call center</a></li>
-						  <li class="blue"> <a href="" onclick="setActiveStyleSheet('blue'); return false;">Sms center</a></li>
-						  <li class="green"> <a href="" onclick="setActiveStyleSheet('green'); return false;">Blackberry messenger</a></li>
-						  <li class="pink"> <a href="" onclick="setActiveStyleSheet('pink'); return false;">Yahoo messenger</a></li>
-						  <li class="purple"> <a href="" onclick="setActiveStyleSheet('purple'); return false;"> </a></li>
-						  <li class="cyan"> <a href="" onclick="setActiveStyleSheet('cyan'); return false;"> </a></li>
+						  <li class="orange"><small><b>Call</b><br/>022-5228987<br/>022-70686080<br/>0815720393259<br/>082119216047<br/>087821353690</small><hr></li>
+					   	  <li class="orange"><small><b>Sms</b><br/>08112225702</small><hr></li>
+					      <li class="orange"><small><b>Bbm</b><br/>24C5DBE3</small><hr></li>
+					      <li class="orange"><small><b>Ym</b><br/>Tuneeca / CS_Tuneeca</small></li>
 						</ul>
 						<a class="styles-open"  href="#closeoptions">  </a>
 						 <div class="styles-closed " >
-							<a href="#options"> </a>
+							<a href="#options"></a>
 						</div>
 					</div>
 			</div><!--/row-->
@@ -131,13 +128,13 @@ var subscriptions = [];
 <script type="text/javascript" > 
 	$(document).ready(function() {
 	$(".styles-open").click(function(){
-	$(".styles, .styles-open").animate({ "left":"-95px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
+	$(".styles, .styles-open").animate({ "left":"-140px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
 	return false;
 	});
 	$(".styles-closed a").click(function(){
 	$(".styles-closed").animate({ "left":"-45px" },1000);
 	$(".styles").animate({ "left":"-25px" }, 1000);
-	$(".styles-open").animate({ "left":"70" }, 1000);
+	$(".styles-open").animate({ "left":"114" }, 1000);
 	return false;
 	});
 	}); 
