@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap;
 
 import java.util.List;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -12,13 +13,13 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.WebAddress;
 import org.soluvas.json.JsonUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 
 /**
  * For Ajax behavior explanation, see:
@@ -28,13 +29,16 @@ import com.google.common.base.Optional;
  * 
  * @author ceefour
  */
-@SuppressWarnings("serial")
 public class GrowlBehavior extends Behavior {
 
+	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(GrowlBehavior.class);
-	
-	@SpringBean
-	private WebAddress webAddress;
+	private static JavaScriptResourceReference GROWL_JS = new JavaScriptResourceReference(GrowlBehavior.class, "jquery.bootstrap-growl-132647f01c.js") {
+		@Override
+		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
+			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
+		};
+	};
 	
 	private final boolean useRequire;
 	
@@ -54,7 +58,7 @@ public class GrowlBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 		if (!useRequire) {
-			response.render(JavaScriptHeaderItem.forUrl(webAddress.getJsUri() + "org.soluvas.web.bootstrap/jquery.bootstrap-growl-132647f01c.js"));
+			response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
 		}
 	}
 	
