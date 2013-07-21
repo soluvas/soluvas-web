@@ -9,6 +9,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.joda.time.base.AbstractInstant;
 
 /**
@@ -18,17 +19,26 @@ import org.joda.time.base.AbstractInstant;
 @SuppressWarnings("serial")
 public class DateTimeLabel extends DateLabel {
 
-	private IModel<? extends AbstractInstant> dateTimeModel;
+	private IModel<?> dateTimeModel;
 
 	public DateTimeLabel(String id, DateConverter converter) {
 		super(id, converter);
 	}
 
-	public DateTimeLabel(String id, final IModel<? extends AbstractInstant> model, DateConverter converter) {
+	public DateTimeLabel(String id, final IModel<?> model, DateConverter converter) {
 		super(id, new AbstractReadOnlyModel<Date>() {
 			@Override
 			public Date getObject() {
-				return model.getObject() != null ? model.getObject().toDate() : null;
+				final Object modelObj = model.getObject();
+				if (modelObj == null) {
+					return null;
+				} else if (modelObj instanceof AbstractInstant) {
+					return ((AbstractInstant) modelObj).toDate();
+				} else if (modelObj instanceof LocalDateTime) {
+					return ((LocalDateTime) modelObj).toDate();
+				} else {
+					return new DateTime(modelObj).toDate();
+				}
 			}
 		}, converter);
 		this.dateTimeModel = model;
