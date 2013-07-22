@@ -62,7 +62,8 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 		});
 		
 		final IModel<SocialPerson> customerModel = new Model<>(personLookup.findOne(model.getObject().getId()));
-		final Model<String> currentCustomerRoleModel = new Model<>(CustomerRoles.DISPLAY_NAMES.get(customerModel.getObject().getCustomerRole()));
+		final Model<String> currentCustomerRoleModel = new Model<>(
+				customerModel.getObject() != null ? CustomerRoles.DISPLAY_NAMES.get(customerModel.getObject().getCustomerRole()) : null);
 		add(new Label("customerRole", currentCustomerRoleModel));
 	}
 
