@@ -54,19 +54,20 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 				return person != null && person.getName() != null ? "<strong>" + Strings.escapeMarkup(person.getName()) + "</strong>" : "";
 			}
 		};
-		final PersonPopoverBody body = new PersonPopoverBody(ComponentRenderer.COMP_ID, getModel());
-		final IModel<String> bodyModel = new AbstractReadOnlyModel<String>() {
-			@Override
-			public String getObject() {
-				final PersonInfo person = getModelObject();
-				if (person != null) {
-					return ComponentRenderer.renderComponent(body).toString();
-				} else {
-					return null;
+		if (getModel().getObject() != null) {
+			final PersonPopoverBody body = new PersonPopoverBody(ComponentRenderer.COMP_ID, getModel());
+			final IModel<String> bodyModel = new AbstractReadOnlyModel<String>() {
+				@Override
+				public String getObject() {
+					final PersonInfo person = getModelObject();
+					if (person != null) {
+						return ComponentRenderer.renderComponent(body).toString();
+					} else {
+						return null;
+					}
 				}
-			}
-		};
-		add(new PopoverBehavior(labelModel, bodyModel, config) {
+			};
+			add(new PopoverBehavior(labelModel, bodyModel, config) {
 //			@Override
 //			protected CharSequence createInitializerScript(Component component,
 //					AbstractConfig config) {
@@ -82,7 +83,8 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 //								"});")))
 //						.get();
 //			}
-		});
+			});
+		}
 		add(new AttributeAppender("style", "cursor: pointer;"));
 	}
 
