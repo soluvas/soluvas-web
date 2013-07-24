@@ -42,7 +42,7 @@ public class MeasureLabel extends Label {
 		this.amountModel = amountModel;
 	}
 
-	public MeasureLabel(String id, Unit unit, BigDecimal amount) {
+	public MeasureLabel(String id, Unit<?> unit, BigDecimal amount) {
 		super(id, unit);
 		this.amountModel = new Model<>(amount);
 	}
