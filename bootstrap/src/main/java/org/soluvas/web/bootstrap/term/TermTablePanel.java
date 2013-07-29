@@ -86,8 +86,8 @@ public class TermTablePanel extends Panel {
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Display Name"), "displayName", "displayName"));
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Image ID"), "imageId", "imageId"));
-		columns.add(new PropertyColumn<Term, String>(new Model<>("HTML Color"), "color", "color"));
-		columns.add(new TermColumn<Term>(Model.of("Color"), "color", "color"));
+//		columns.add(new PropertyColumn<Term, String>(new Model<>("HTML Color"), "color", "color"));
+		columns.add(new TermColumn<Term>(new Model<>("Color"), "color"));
 		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
 	}
 	
