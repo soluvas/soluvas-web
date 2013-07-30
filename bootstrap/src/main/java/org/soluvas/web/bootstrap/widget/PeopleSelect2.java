@@ -1,0 +1,60 @@
+package org.soluvas.web.bootstrap.widget;
+
+import java.util.Collection;
+
+import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.soluvas.image.ImageManager;
+import org.soluvas.ldap.LdapRepository;
+import org.soluvas.ldap.SocialPerson;
+
+import com.vaynberg.wicket.select2.Select2MultiChoice;
+
+/**
+ * @author mahendri
+ *
+ */
+@SuppressWarnings("serial")
+public class PeopleSelect2 extends Select2MultiChoice<SocialPerson> {
+	
+	@SpringBean(name="personLdapRepo")
+	private LdapRepository<SocialPerson> personLdapRepo;
+	@SpringBean
+	private ImageManager imageMgr;
+
+	public PeopleSelect2(String id, IModel<Collection<SocialPerson>> model) {
+		super(id, model);
+	}
+
+	public PeopleSelect2(String id) {
+		super(id);
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
+		setProvider(new PersonChoiceProvider(personLdapRepo, imageMgr));
+		getSettings().getAjax().setQuietMillis(250);
+		getSettings().setFormatResult(
+			"function(object, container, query, escapeMarkup) {" +
+			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
+			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
+			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
+			"  .append(textMarkup.join('')).append(' (ID : '+ object.customerId + ') <br>')" +
+			"  .append($('<small>').css({color: '#666'}).text(object.location));" +
+			"container.append(thediv);" +
+			"thediv.css({height: '45px'});" +
+			"}");
+		getSettings().setFormatSelection(
+				"function(object, container, query) {" +
+				"container.append($('<img>').attr('src', object.genderIconUri));" +
+				"container.append(' ');" +
+				"container.append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
+				"}");
+	}
+
+}
