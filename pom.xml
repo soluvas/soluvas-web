@@ -129,6 +129,18 @@
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-spring</artifactId>
 				<version>${wicket.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>cglib</groupId>
+						<artifactId>cglib</artifactId>
+					</exclusion>
+					<!-- asm 3.3.1 depended by cglib 2.2.2 -->
+					<!-- replaced by asm 4.1 as required by parboiled, note it conflicts with standard jersey -->
+					<exclusion>
+						<groupId>asm</groupId>
+						<artifactId>asm</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
