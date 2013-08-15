@@ -50,6 +50,7 @@
 
 	<properties>
 		<wicket.version>6.9.1</wicket.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicketstuff.version>6.9.0</wicketstuff.version>
 	</properties>
 
 	<dependencyManagement>
@@ -146,6 +147,17 @@
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-extensions</artifactId>
 				<version>${wicket.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.wicketstuff</groupId>
+				<artifactId>wicketstuff-core</artifactId>
+				<version>${wicketstuff.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.wicketstuff</groupId>
+				<artifactId>wicketstuff-annotation</artifactId>
+				<version>${wicketstuff.version}</version>
 			</dependency>
 
 		</dependencies>

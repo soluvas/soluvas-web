@@ -14,13 +14,14 @@ import org.soluvas.ldap.Person;
 import org.soluvas.security.AppSessionManager;
 import org.soluvas.web.bootstrap.BootstrapPage;
 import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author rudi
  *
  */
 @SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="login")
+@MountPath("login") @WicketMountPoint(mountPoint="login")
 public class DedicatedLoginPage extends BootstrapPage {
 	
 	private static final Logger log = LoggerFactory

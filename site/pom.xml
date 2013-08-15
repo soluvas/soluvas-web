@@ -31,6 +31,11 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.image</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-annotation</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.pegdown</groupId>
