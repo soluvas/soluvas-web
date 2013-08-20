@@ -59,6 +59,10 @@ button.btn {
 	display: none;
 }
 
+a.btn {
+	display: none;
+}
+
 .span9 {
 	width: 100%;
 	padding: 0px;
@@ -92,3 +96,4 @@ button.btn {
 .BackendNavbar {
 	display: none;
 }
+
