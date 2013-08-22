@@ -24,7 +24,6 @@ import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.widget.LinkColumn;
-import org.soluvas.web.site.widget.TermColumn;
 
 /**
  * List {@link Term}s for a {@link Kind}.
@@ -85,9 +84,9 @@ public class TermTablePanel extends Panel {
 				"uName", "qName"));
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Display Name"), "displayName", "displayName"));
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
-		columns.add(new PropertyColumn<Term, String>(new Model<>("Image ID"), "imageId", "imageId"));
+//		columns.add(new PropertyColumn<Term, String>(new Model<>("Image ID"), "imageId", "imageId"));
 //		columns.add(new PropertyColumn<Term, String>(new Model<>("HTML Color"), "color", "color"));
-		columns.add(new TermColumn<Term>(new Model<>("Color"), "color"));
+//		columns.add(new TermColumn<Term>(new Model<>("Color"), "color"));
 		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
 	}
 	
