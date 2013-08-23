@@ -6,8 +6,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 import org.soluvas.web.site.widget.AutoDisableAjaxCallListener;
 
-import de.agilecoders.wicket.markup.html.bootstrap.button.BootstrapAjaxButton;
-import de.agilecoders.wicket.markup.html.bootstrap.button.Buttons.Type;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons.Type;
 
 /**
  * {@link BootstrapAjaxButton} that auto-disables during AJAX request.
