@@ -20,6 +20,7 @@ import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
 import org.soluvas.data.impl.TermImpl;
 import org.soluvas.web.site.EmfModel;
+import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
 import com.google.common.base.Preconditions;
 
@@ -172,7 +173,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 //		colorUsedFld.setEnabled(editable);
 //		form.add(colorUsedFld);
 		
-		final IndicatingAjaxButton saveBtn = new IndicatingAjaxButton("saveBtn", form) {
+		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
@@ -196,7 +197,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
 		
-		final IndicatingAjaxButton deleteBtn = new IndicatingAjaxButton("deleteBtn", form) {
+		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 				super.updateAjaxAttributes(attributes);
