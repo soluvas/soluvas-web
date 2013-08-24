@@ -4,8 +4,6 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.apache.felix.gogo.commands.Command;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.shell.ExtCommandSupport;
@@ -17,30 +15,20 @@ import org.soluvas.web.site.compose.Contributor;
 import org.soluvas.web.site.compose.HideContributor;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.compose.ReplaceContributor;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
  * List registered {@link Contributor}s.
  * @author ceefour
  */
-@Service @Lazy
+@Service @Scope("prototype")
 @Command(scope="compose", name="contribls", description="List registered Contributors.")
 public class ComposeContribLsCommand extends ExtCommandSupport {
 	
-	private final CrudRepository<LiveContributor, Integer> contributorRepo;
-
-	@SuppressWarnings({ "rawtypes", "unchecked" }) @Inject
-	public ComposeContribLsCommand(@ContributorRelated CrudRepository contributorRepo) {
-		super();
-		this.contributorRepo = contributorRepo;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
-	 */
 	@Override
 	protected Object doExecute() throws Exception {
+		final CrudRepository<LiveContributor, String> contributorRepo = getBean(CrudRepository.class, ContributorRelated.class);
 		System.out.println(ansi().render("@|negative_on %3s|%-27s|%-25s|%-40s|%-20s|@",
 				"№", "Name", "Page", "Path", "Bundle/Resource"));
 		int i = 0;

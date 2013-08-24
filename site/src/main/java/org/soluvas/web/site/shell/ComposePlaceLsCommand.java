@@ -4,8 +4,6 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.apache.felix.gogo.commands.Command;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.shell.ExtCommandSupport;
@@ -13,30 +11,20 @@ import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.site.annotation.PlaceholderRelated;
 import org.soluvas.web.site.compose.LivePlaceholder;
 import org.soluvas.web.site.compose.Placeholder;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
  * List registered {@link Placeholder}s.
  * @author ceefour
  */
-@Service @Lazy
+@Service @Scope("prototype")
 @Command(scope="compose", name="placels", description="List registered Placeholders.")
 public class ComposePlaceLsCommand extends ExtCommandSupport {
 	
-	private final transient CrudRepository<LivePlaceholder, Integer> placeholderRepo;
-
-	@SuppressWarnings({ "rawtypes", "unchecked" }) @Inject
-	public ComposePlaceLsCommand(@PlaceholderRelated CrudRepository placeholderRepo) {
-		super();
-		this.placeholderRepo = placeholderRepo;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
-	 */
 	@Override
 	protected Object doExecute() throws Exception {
+		final CrudRepository<LivePlaceholder, String> placeholderRepo = getBean(CrudRepository.class, PlaceholderRelated.class);
 		System.out.println(ansi().render("@|negative_on %3s|%-25s|%-40s|%-25s|%-20s|@",
 				"№", "Page", "Path", "IModel", "Bundle"));
 		int i = 0;
