@@ -13,9 +13,15 @@ import com.vaynberg.wicket.select2.Select2MultiChoice;
  */
 public class TermSelect2Multi extends Select2MultiChoice<Term> {
 	
+	private static final long serialVersionUID = 1L;
+	
+	private final TermChoiceProvider choiceProvider;
+
 	public TermSelect2Multi(String id, IModel<? extends Collection<Term>> model,
 			String kindNsPrefix, String kindName) {
-		super(id, (IModel) model, new TermChoiceProvider(kindNsPrefix, kindName));
+		super(id, (IModel) model);
+		choiceProvider = new TermChoiceProvider(kindNsPrefix, kindName);
+		setProvider(choiceProvider);
 //		acColorTerm.add(new OnChangeAjaxBehavior() {
 //			@Override
 //			protected void onUpdate(AjaxRequestTarget target) {
@@ -53,4 +59,11 @@ public class TermSelect2Multi extends Select2MultiChoice<Term> {
 						"container.append(document.createTextNode(object.text));" +
 				"}");
 	}
+	
+	@Override
+	protected void detachModel() {
+		choiceProvider.detach();
+		super.detachModel();
+	}
+	
 }

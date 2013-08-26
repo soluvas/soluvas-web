@@ -12,9 +12,12 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * A {@link Select2Choice} autocomplete component that provides {@link Term} as a choice.
  * @author rudi
  */
-@SuppressWarnings("serial")
 public class TermSelect2 extends Select2Choice<Term> {
 	
+	private static final long serialVersionUID = 1L;
+	
+	private TermChoiceProvider choiceProvider;
+
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName) {
 		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName));
@@ -30,7 +33,9 @@ public class TermSelect2 extends Select2Choice<Term> {
 	 */
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName, final IModel<List<Value<?>>> whitelist) {
-		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName, whitelist));
+		super(id, model);
+		choiceProvider = new TermChoiceProvider(kindNsPrefix, kindName, whitelist);
+		setProvider(choiceProvider);
 	}
 	
 	@Override
@@ -61,6 +66,12 @@ public class TermSelect2 extends Select2Choice<Term> {
 						"}" +
 						"container.append(document.createTextNode(object.text));" +
 				"}");
+	}
+	
+	@Override
+	protected void detachModel() {
+		choiceProvider.detach();
+		super.detachModel();
 	}
 	
 }
