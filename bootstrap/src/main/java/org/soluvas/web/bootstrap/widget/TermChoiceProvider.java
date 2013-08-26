@@ -129,6 +129,7 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	@Override
 	public void detach() {
 		termsModel.detach();
+		super.detach();
 	}
 	
 }

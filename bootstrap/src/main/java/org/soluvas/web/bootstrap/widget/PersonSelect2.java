@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -33,17 +34,23 @@ import com.vaynberg.wicket.select2.Select2Choice;
 @SuppressWarnings("serial")
 public class PersonSelect2 extends Select2Choice<SocialPerson> {
 
-	@SpringBean(name="personLdapRepo")
-	private LdapRepository<SocialPerson> personLdapRepo;
-	@SpringBean
-	private ImageManager imageMgr;
-	
-	private class PersonChoiceProvider extends ChoiceProvider<SocialPerson> {
+	private static class PersonChoiceProvider extends ChoiceProvider<SocialPerson> {
+
 		/**
 		 * Preload image URIs to make it quicker to display. 
 		 */
 		private final IModel<Map<String, DisplayImage>> displayImagesModel = new EmfMapModel<>(ImmutableMap.<String, DisplayImage>of());
+
+		@SpringBean(name="personLdapRepo")
+		private LdapRepository<SocialPerson> personLdapRepo;
+		@SpringBean
+		private ImageManager imageMgr;
 		
+		public PersonChoiceProvider() {
+			super();
+			Injector.get().inject(this);
+		}
+
 		@Override
 		public void query(final String term, int page, Response<SocialPerson> response) {
 			final List<SocialPerson> matching = personLdapRepo.search(term);
@@ -78,21 +85,27 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 				}
 			}
 		}
+		
+		@Override
+		public void detach() {
+			displayImagesModel.detach();
+			super.detach();
+		}
+		
 	}
 
 	public PersonSelect2(String id, IModel<SocialPerson> model) {
-		super(id, model);
+		super(id, model, new PersonChoiceProvider());
 	}
 
 	public PersonSelect2(String id) {
-		super(id);
+		super(id, new Model<SocialPerson>(), new PersonChoiceProvider());
 	}
 	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
-		setProvider(new PersonChoiceProvider());
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
