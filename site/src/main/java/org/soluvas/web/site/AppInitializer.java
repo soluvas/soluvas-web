@@ -1,7 +1,12 @@
 package org.soluvas.web.site;
 
+import org.soluvas.commons.tenant.RequestOrCommandScope;
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Registers {@link WebPropertySource}. Usage:
@@ -43,6 +48,9 @@ public class AppInitializer implements
 	public void initialize(ConfigurableWebApplicationContext applicationContext) {
 		final WebPropertySource webPs = new WebPropertySource("webConfig", applicationContext.getServletContext());
 		applicationContext.getEnvironment().getPropertySources().addLast(webPs);
+		final CustomScopeConfigurer scopeConfigurer = new CustomScopeConfigurer();
+		scopeConfigurer.setScopes(ImmutableMap.<String, Object>of(WebApplicationContext.SCOPE_REQUEST, new RequestOrCommandScope()));
+		applicationContext.addBeanFactoryPostProcessor(scopeConfigurer);
 	}
-
+	
 }
