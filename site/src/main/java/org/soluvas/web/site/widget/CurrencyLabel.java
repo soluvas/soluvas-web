@@ -80,10 +80,4 @@ public class CurrencyLabel extends Label {
 		}
 	}
 	
-//	@Override
-//	protected void onDetach() {
-//		amountModel.detach();
-//		super.onDetach();
-//	}
-	
 }
