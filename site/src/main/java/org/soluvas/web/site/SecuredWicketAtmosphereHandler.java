@@ -25,6 +25,8 @@ import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.cpr.AtmosphereServletProcessor;
 import org.atmosphere.cpr.FrameworkConfig;
 import org.atmosphere.handler.AbstractReflectorAtmosphereHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -60,6 +62,8 @@ import com.google.common.collect.Maps;
  */
 public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereHandler
         implements AtmosphereServletProcessor {
+	private static final Logger log = LoggerFactory
+			.getLogger(SecuredWicketAtmosphereHandler.class);
 
     private CustomFilterChain filterChain;
 
@@ -115,9 +119,9 @@ public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereH
     }
 
     private WebApplication getWebApplication(ServletConfig sc) {
-        WebApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(sc
+        final WebApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(sc
                 .getServletContext());
-        Map<String, WebApplication> beans = BeanFactoryUtils
+        final Map<String, WebApplication> beans = BeanFactoryUtils
                 .beansOfTypeIncludingAncestors(ac, WebApplication.class, false, false);
         if (beans.size() == 0) {
             throw new IllegalStateException("bean of type ["
@@ -127,7 +131,9 @@ public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereH
             throw new IllegalStateException("More than one bean of type ["
                     + WebApplication.class.getName() + "] found, must have only one");
         }
-        return beans.values().iterator().next();
+        final WebApplication webApp = beans.values().iterator().next();
+        log.info("Initializing Wicket application {} for Atmosphere from {} {}", webApp, ac.getId(), ac);
+        return webApp;
     }
 
     @Override

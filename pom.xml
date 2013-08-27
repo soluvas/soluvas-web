@@ -110,6 +110,7 @@
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-atmosphere</artifactId>
 				<version>0.13</version>
+				<!-- Important: Make sure to exclude atmosphere-compat-tomcat7 if you use Tomcat 7.x! -->
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>

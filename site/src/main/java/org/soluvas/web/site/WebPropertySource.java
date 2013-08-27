@@ -37,7 +37,7 @@ public class WebPropertySource extends MapPropertySource {
 	}
 	
 	protected static Map<String, Object> getProperties(ServletContext servletContext) {
-		final String webInf = servletContext.getRealPath("/WEB-INF");
+		final String webInf = servletContext.getRealPath("/WEB-INF"); //"/home/ceefour/git/quikdo-hub/hub.app/src/main/webapp/WEB-INF";
 		final File metaInfInClasses = new File(webInf, "classes/META-INF");
 		// If /WEB-INF/classes/META-INF not found, assume we're running in development
 		final File configFolder = metaInfInClasses.exists() ? metaInfInClasses :

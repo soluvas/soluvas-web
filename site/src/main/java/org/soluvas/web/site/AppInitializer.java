@@ -1,5 +1,7 @@
 package org.soluvas.web.site;
 
+import java.util.UUID;
+
 import org.soluvas.commons.tenant.RequestOrCommandScope;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.ApplicationContextInitializer;
@@ -46,6 +48,7 @@ public class AppInitializer implements
 	 */
 	@Override
 	public void initialize(ConfigurableWebApplicationContext applicationContext) {
+		applicationContext.setId(UUID.randomUUID().toString().substring(0, 8)); // make it easy to identify in logs
 		final WebPropertySource webPs = new WebPropertySource("webConfig", applicationContext.getServletContext());
 		applicationContext.getEnvironment().getPropertySources().addLast(webPs);
 		final CustomScopeConfigurer scopeConfigurer = new CustomScopeConfigurer();
