@@ -3,6 +3,7 @@ package org.soluvas.web.site.widget;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -15,7 +16,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 /**
- * Used by {@link CollectionColumn}.
+ * Used by {@link CollectionColumn}. To create custom {@link Component}
+ * for each item, override {@link #createItemComponent(String, ListItem)}.
  * @author ceefour
  */
 public class CollectionColumnPanel<T> extends GenericPanel<Collection<T>> {
@@ -39,7 +41,7 @@ public class CollectionColumnPanel<T> extends GenericPanel<Collection<T>> {
 		add(new ListView<T>("values", valuesModel) {
 			@Override
 			protected void populateItem(ListItem<T> item) {
-				item.add(new Label("value", item.getModel()));
+				item.add(createItemComponent("value", item));
 			}
 		});
 		add(new Label("more", new LoadableDetachableModel<Integer>() {
@@ -56,6 +58,16 @@ public class CollectionColumnPanel<T> extends GenericPanel<Collection<T>> {
 				setVisible(coll != null && coll.size() > limit);
 			}
 		});
+	}
+	
+	/**
+	 * Create the {@link Component} for the specified item.
+	 * The Component ID must be {@code componentId}.
+	 * The default implementation creates a simple {@link Label}.
+	 * @return
+	 */
+	protected Component createItemComponent(String componentId, ListItem<T> item) {
+		return new Label(componentId, item.getModel());
 	}
 	
 }
