@@ -106,14 +106,14 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 		final String iconStr;
 		if (!iconMapping.isEmpty() && obj != null) {
 			final String icon = iconMapping.containsKey(obj) ? iconMapping.get(obj) : "question-sign";
-			iconStr = "<i class=\"icon-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(Optional.fromNullable(title).or("")) +"\"></i> ";
+			iconStr = "<i class=\"icon-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(Optional.fromNullable(title).or("")) +"\" data-toggle=\"tooltip\"></i> ";
 		} else {
 			iconStr = "";
 		}
 		String enumStr = "";
 		if (enumVisible) {
-			final String titleStr = title != null ? " title=\"" + Strings.escapeMarkup(title) + "\"" : "";
-			enumStr = "<abbr" + titleStr + ">" + Strings.escapeMarkup(enumValue) + "</abbr>";
+			final String titleAttr = title != null ? " title=\"" + Strings.escapeMarkup(title) + "\"" : "";
+			enumStr = "<abbr" + titleAttr + " data-toggle=\"tooltip\">" + Strings.escapeMarkup(enumValue) + "</abbr>";
 		}
 		replaceComponentTagBody(markupStream, openTag, iconStr + enumStr);
 	}
