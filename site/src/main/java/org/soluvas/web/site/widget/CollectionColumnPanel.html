@@ -1,8 +1,16 @@
+<wicket:head>
+<style>
+ol.collection-column {
+	margin: 0;
+	list-style-type: none;
+}
+</style>
+</wicket:head>
 <wicket:panel>
-<ol style="margin-top: 0; margin-bottom: 0">
+<ol class="collection-column">
 	<li wicket:id="values"><wicket:container wicket:id="value">[value]</wicket:container></li>
 	<wicket:enclosure child="more">
-	<li style="list-style-type: none;"><small class="muted"><strong wicket:id="more">25</strong> more</small></li>
+	<li class="more" style="list-style-type: none"><small class="muted"><strong wicket:id="more">25</strong> more</small></li>
 	</wicket:enclosure>
 </ol>
 </wicket:panel>
