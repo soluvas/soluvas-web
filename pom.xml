@@ -50,7 +50,7 @@
 
 	<properties>
 		<wicket.version>6.10.0</wicket.version>
-		<wicketstuff.version>6.9.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicketstuff.version>6.10.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
 	</properties>
 
 	<dependencyManagement>
