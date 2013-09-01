@@ -18,9 +18,8 @@ import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.web.site.EmfMapModel;
 
-import scala.actors.threadpool.Arrays;
-
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
@@ -59,7 +58,7 @@ public class PersonChoiceProvider extends ChoiceProvider<SocialPerson> {
 		final List<SocialPerson> found = personLdapRepo.findAll(ids);
 		// Workaround for Select2Choice "bug": https://github.com/ivaynberg/wicket-select2/issues/56
 		if (!ids.isEmpty() && found.isEmpty()) {
-			return Arrays.asList(new SocialPerson[] { null });
+			return ImmutableList.copyOf(new SocialPerson[] { null });
 		} else {
 			return found;
 		}
