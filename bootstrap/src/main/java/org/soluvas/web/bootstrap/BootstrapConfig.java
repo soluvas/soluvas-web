@@ -266,4 +266,23 @@ public class BootstrapConfig {
 		return new JavaScriptShimImpl("bootstrap-growl", ImmutableSet.of("jquery"));
 	}
 	
+	@Bean
+	public JavaScriptModule easingModule() {
+		return new JavaScriptModuleImpl("easing", "org.soluvas.web.bootstrap/easing.js");
+	}
+	
+	@Bean
+	public JavaScriptModule uiTotopModule() {
+		return new JavaScriptModuleImpl("jquery.ui.totop", "org.soluvas.web.bootstrap/jquery.ui.totop.js");
+	}
+	
+	@Bean
+	public JavaScriptAlias easingAlias() {
+		return new JavaScriptAliasImpl("easing", "org.soluvas.web.bootstrap/easing.js");
+	}
+	
+	@Bean
+	public JavaScriptAlias uiBackTopAlias() {
+		return new JavaScriptAliasImpl("jquery.ui.totop", "org.soluvas.web.bootstrap/jquery.ui.totop.js");
+	}
 }
