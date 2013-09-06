@@ -320,6 +320,8 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		
 		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.INSTANCE));
+		response.render(JavaScriptHeaderItem.forReference(ToTopJs.EASING));
+		response.render(JavaScriptHeaderItem.forReference(ToTopJs.TO_TOP));
 	}
 
 	@Override
