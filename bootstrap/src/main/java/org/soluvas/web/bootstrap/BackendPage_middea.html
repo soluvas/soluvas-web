@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html wicket:id="html" lang="id">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="urn:wicket"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:wicket http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master"
+	wicket:id="html"
+	lang="id">
 <head>
 	<meta charset="utf-8" />
 	<title><span wicket:id="pageTitle"/> <span wicket:id="pageTitleSuffix"/></title>
@@ -26,6 +31,7 @@
 	<link wicket:id="bootstrapResponsiveCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 	<link wicket:id="soluvasCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-patches.css" rel="stylesheet" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -49,7 +55,7 @@
 	<script>define('bootstrap/bootstrap-modal',[],function(){});</script>
 	<script>define('bootstrap',[],function(){});</script>
 	<script>define('bootstrap/bootstrap-dropdown',[],function(){});</script>
-	
+
 <script>
 // TODO: refactor push support (both XHR or StompWeb-powered) to separate AMD module
 var subscriptions = [];
@@ -58,12 +64,13 @@ var subscriptions = [];
 </head>
 
 <body>
+
 	<header wicket:id="header"></header>
-	<div class="" wicket:id="navbar">
+	<div class="BackendNavbar" wicket:id="navbar">
 			Navbar... (see Navbar.html)
 	</div>
-	<div class="container">
-		<div style="display: none;" wicket:id="addedInfo">
+	<div class="span12">
+		<div wicket:id="addedInfo">
 		</div>
  	</div>
 	<div class="clearfix"></div>
@@ -91,40 +98,11 @@ var subscriptions = [];
 						</ol>
 					</wicket:child>
 				</div>
-					<div>
-						<small>
-					 	<ul class="styles">
-					 	  <li><b>Live Chat</b></li>
-					   	  <li><span id="LiveChat_1376906919"></span></li>
-					   	  <hr>
-					   	  <li><b>Sms</b></li>
-					   	  <li>08112225702</li>
-					   	  <hr>
-						  <li><b>Call</b></li>
-						  <li>022-5228987</li>
-						  <li>022-70686080</li>
-						  <li>0815720393259</li>
-						  <li>082119216047</li>
-						  <li>087821353690</li>
-					   	  <hr>
-					      <li><b>Bbm</b></li>
-					      <li>24C5DBE3</li>
-					      <hr>
-					      <li><b>Ym</b></li>
-					      <li>Tuneeca / CS_Tuneeca</li>
-						</ul>
-						</small>
-						<a class="styles-open"  href="#closeoptions">  </a>
-						 <div class="styles-closed " >
-							<a href="#options"></a>
-						</div>
-					</div>
 			</div><!--/row-->
-				
+	</div><!--/.fluid-container-->
 				<footer class="footer" wicket:id="footer">
 					<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small>
 				</footer>
-	</div><!--/.fluid-container-->
 	
 
 	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
@@ -133,50 +111,10 @@ var subscriptions = [];
 	<script type="text/javascript" src="something.js" wicket:id="footerJavaScriptLinks"></script>
 	<script type="text/javascript" wicket:id="footerJavaScriptSources">[footerJavaScriptSources]</script>
 	
-	<script>require(['bootstrap/bootstrap-collapse', 'bootstrap/bootstrap-transition']);</script>
-
 	<script type="text/javascript" src="something.js" wicket:id="pageJavaScriptLinks"></script>
 	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
-	
+
 	<script wicket:id="alexaCertifyScript">[AlexaCertifyScript]</script>
-	
-	<script type="text/javascript">
-	var __lc_buttons = __lc_buttons || [];
-	__lc_buttons.push({
-		elementId: 'LiveChat_1376906919',
-		skill: '0'
-	});
-	</script>
-	
-	
-	<!-- must put at the bottom because requires jQuery -->
-	<script type="text/javascript" > 
-		$(document).ready(function() {
-		$(".styles-open").click(function(){
-		$(".styles, .styles-open").animate({ "left":"-140px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
-		return false;
-		});
-		$(".styles-closed a").click(function(){
-		$(".styles-closed").animate({ "left":"-45px" },1000);
-		$(".styles").animate({ "left":"-25px" }, 1000);
-		$(".styles-open").animate({ "left":"114" }, 1000);
-		return false;
-		});
-		}); 
-	</script>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var defaults = {
-	  			containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-	 		};
-			
-			$().UItoTop({ easingType: 'easeOutQuart' });
-			
-		});
- 	</script>
+
 </body>
 </html>
