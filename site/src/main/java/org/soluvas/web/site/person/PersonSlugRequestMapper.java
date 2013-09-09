@@ -10,6 +10,7 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.Person;
+import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 
 import com.google.common.base.Charsets;
@@ -42,7 +43,8 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 		if (request.getUrl().getSegments().size() == 1) {
 			final String segment1 = request.getUrl().getSegments().get(0);
 			if (SLUG_PATTERN.matcher(segment1).matches()) {
-				if (personRepo.existsBySlug(segment1) != null) {
+				// RAW because it is assumed that the PersonShowPage will then throw appropriate EntityLookupException
+				if (personRepo.existsBySlug(StatusMask.RAW, segment1) != null) {
 					return new UrlInfo(null, personShowPage, 
 							new PageParameters().set("personSlug", segment1));
 				}
