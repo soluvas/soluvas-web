@@ -72,6 +72,8 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
+import de.agilecoders.wicket.markup.html.references.BootstrapJavaScriptReference;
+
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
  * 
@@ -262,6 +264,10 @@ public class BootstrapPage extends ExtensiblePage {
 		response.render(JavaScriptReferenceHeaderItem
 				.forReference(getApplication().getJavaScriptLibrarySettings()
 						.getJQueryReference()));
+		
+		// TODO: workaround before we have proper wicket-bootstrap integration
+		response.render(
+				JavaScriptReferenceHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
 
 		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
 //		if (requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT) {
