@@ -113,6 +113,11 @@
 				<!-- Important: Make sure to exclude atmosphere-compat-tomcat7 if you use Tomcat 7.x! -->
 			</dependency>
 			<dependency>
+				<groupId>org.atmosphere</groupId>
+				<artifactId>atmosphere-runtime</artifactId>
+				<version>1.0.17</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-core</artifactId>
 				<version>${wicket.version}</version>
@@ -170,7 +175,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.0</version>
+					<version>3.1</version>
 					<configuration>
 						<source>1.7</source>
 						<target>1.7</target>
