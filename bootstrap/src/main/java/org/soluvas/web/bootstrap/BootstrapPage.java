@@ -29,7 +29,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.CssResourceReference;
@@ -223,7 +222,20 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected Navbar navbar;
 	
-	protected IModel<List<PageLink>> breadcrumbModel = new ListModel<>(new ArrayList<PageLink>());
+	private final IModel<List<PageLink>> breadcrumbModel = new LoadableDetachableModel<List<PageLink>>() {
+		@Override
+		protected List<PageLink> load() {
+			final ArrayList<PageLink> pageLinks = new ArrayList<>();
+			createPageLinksForBreadcrumb(pageLinks);
+			return pageLinks;
+		}
+	};
+	
+	/**
+	 * @param pageLinks Mutable.
+	 */
+	protected void createPageLinksForBreadcrumb(List<PageLink> pageLinks) {
+	}
 
 	// do NOT use AsyncModel here because we need it to load LAST
 	// (i.e. after all scopes has been attached as page model using
@@ -287,7 +299,7 @@ public class BootstrapPage extends ExtensiblePage {
 					}
 				}));
 
-		log.debug("Page {} has {} CSS links (from {} total)", getClass()
+		log.trace("Page {} has {} CSS links (from {} total)", getClass()
 				.getName(), filteredCsses.size(), cssLinks.size());
 		final Ordering<CssLink> cssOrdering = Ordering
 				.from(new Comparator<CssLink>() {
@@ -311,16 +323,16 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		response.render(CssHeaderItem.forReference(BOOTSTRAP_PRINT_CSS, "print"));
 
-		log.debug("Page {} has {} head JavaScript links", getClass().getName(),
+		log.trace("Page {} has {} head JavaScript links", getClass().getName(),
 				headJavaScripts.size());
-		Ordering<JavaScriptLink> jsOrdering = Ordering
+		final Ordering<JavaScriptLink> jsOrdering = Ordering
 				.from(new Comparator<JavaScriptLink>() {
 					@Override
 					public int compare(JavaScriptLink o1, JavaScriptLink o2) {
 						return o1.getWeight() - o2.getWeight();
 					};
 				});
-		List<JavaScriptLink> sortedJses = jsOrdering
+		final List<JavaScriptLink> sortedJses = jsOrdering
 				.immutableSortedCopy(headJavaScripts);
 		for (JavaScriptLink js : sortedJses) {
 			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
@@ -591,12 +603,18 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn.setVisible(!visibleChildren.isEmpty());
 	}
 
+	public IModel<PageMeta> getPageMetaModel() {
+		return pageMetaModel;
+	}
+	
 	public IModel<List<PageLink>> getBreadcrumbModel() {
 		return breadcrumbModel;
 	}
-
-	public IModel<PageMeta> getPageMetaModel() {
-		return pageMetaModel;
+	
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		breadcrumbModel.detach();
 	}
 	
 }
