@@ -16,8 +16,9 @@ import org.soluvas.web.login.LoginException;
  * {@link ExternalLink} that gets its source from {@link FacebookManager} settings.
  * @author ceefour
  */
-@SuppressWarnings("serial")
 public class FacebookLoginLink extends ExternalLink {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory
 			.getLogger(FacebookLoginLink.class);

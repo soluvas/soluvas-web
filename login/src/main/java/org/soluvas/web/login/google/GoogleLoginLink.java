@@ -1,7 +1,6 @@
 package org.soluvas.web.login.google;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
@@ -15,9 +14,10 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
 import com.google.common.collect.ImmutableList;
 
-@SuppressWarnings("serial")
-public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
+public class GoogleLoginLink extends StatelessLink<Void> {
 			
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleLoginLink.class);
 	
@@ -39,7 +39,7 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 	}
 
 	@Override
-	public void onClick(AjaxRequestTarget target) {
+	public void onClick() {
 		/** just config test **/
 //					final String token_url = "https://api.twitter.com/oauth/request_token ";
 		final String redirectUri = webAddress.getBaseUri() + "google_recipient/";
@@ -55,5 +55,5 @@ public class GoogleLoginLink extends IndicatingAjaxLink<Void> {
 		// .setCredentialStore(
 	    // new JdoCredentialStore(JDOHelper.getPersistenceManagerFactory("transactions-optional")))
 	}
-	
+
 }
