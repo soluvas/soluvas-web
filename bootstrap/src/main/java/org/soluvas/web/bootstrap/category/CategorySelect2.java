@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -47,38 +48,12 @@ public class CategorySelect2 extends Select2Choice<Category> {
 	private CategoryRepository categoryRepo;
 	@SpringBean
 	private ImageManager imageMgr;
+	private IModel<List<Category>> sortedCategoriesModel;
 	
 	private final class CategoryChoiceProvider extends TextChoiceProvider<Category> {
 		
-		private IModel<List<Category>> sortedCategoriesModel;
+		private static final long serialVersionUID = 1L;
 
-		public CategoryChoiceProvider() {
-			super();
-			sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
-				@Override
-				protected List<Category> load() {
-					final List<Category> categoryList = categoryRepo.findAll(new PageRequest(0L, 100L)).getContent();
-//					final List<Category> rootCategories = categoryRepo.findAll(new PageRequest(0L, 100L)).getContent();
-//					final List<Category> categoryList = ImmutableList.copyOf(CategoryUtils.flatten(rootCategories));
-					log.debug("Categories has {} rows: {}", categoryList.size(), categoryList);
-					final List<Category> filteredCategories = ImmutableList.copyOf(Iterables.filter(categoryList, new Predicate<Category>() {
-						@Override
-						public boolean apply(@Nullable Category input) {
-							return input.getCategories().isEmpty();
-						}
-					}));
-					log.debug("Filtered Categories by leaf has {} rows: {}", filteredCategories.size(), filteredCategories);
-					final Ordering<Category> categoryOrderer = Ordering.from(new Comparator<Category>() {
-						@Override
-						public int compare(Category cat1, Category cat2) {
-							return cat1.getSlugPath().compareToIgnoreCase(cat2.getSlugPath());
-						}
-					});
-					return categoryOrderer.sortedCopy(filteredCategories);
-				}
-			};
-		}
-		
 		@Override
 		protected String getDisplayText(Category choice) {
 			return getParentPrefix(choice) + choice.getName();
@@ -150,6 +125,7 @@ public class CategorySelect2 extends Select2Choice<Category> {
 	
 	private class LoadableCategoryModel extends LoadableDetachableModel<Category> {
 
+		private static final long serialVersionUID = 1L;
 		private String categoryUName;
 		
 		public LoadableCategoryModel(@Nullable Category currentCategory) {
@@ -177,14 +153,52 @@ public class CategorySelect2 extends Select2Choice<Category> {
 	public CategorySelect2(String id, @Nullable Category currentCategory) {
 		super(id);
 		setModel(new LoadableCategoryModel(currentCategory));
+		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
+			@Override
+			protected List<Category> load() {
+				final List<Category> categoryList = categoryRepo.findAll(new PageRequest(0L, 100L)).getContent();
+//				final List<Category> rootCategories = categoryRepo.findAll(new PageRequest(0L, 100L)).getContent();
+//				final List<Category> categoryList = ImmutableList.copyOf(CategoryUtils.flatten(rootCategories));
+				log.debug("Categories has {} rows: {}", categoryList.size(), categoryList);
+				final List<Category> filteredCategories = ImmutableList.copyOf(Iterables.filter(categoryList, new Predicate<Category>() {
+					@Override
+					public boolean apply(@Nullable Category input) {
+						return input.getCategories().isEmpty();
+					}
+				}));
+				log.debug("Filtered Categories by leaf has {} rows: {}", filteredCategories.size(), filteredCategories);
+				final Ordering<Category> categoryOrderer = Ordering.from(new Comparator<Category>() {
+					@Override
+					public int compare(Category cat1, Category cat2) {
+						return cat1.getSlugPath().compareToIgnoreCase(cat2.getSlugPath());
+					}
+				});
+				return categoryOrderer.sortedCopy(filteredCategories);
+			}
+		};
+		setProvider(new CategoryChoiceProvider());
+	}
+	
+	public void setCurrentCategory(@Nullable Category currentCategory) {
+		setModel(new LoadableCategoryModel(currentCategory));
 	}
 	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		setProvider(new CategoryChoiceProvider());
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
+		add(new AttributeModifier("placeholder", "Choose Category"));
 		getSettings().getAjax().setQuietMillis(250);
+	}
+	
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		sortedCategoriesModel.detach();
+	}
+	
+	public IModel<List<Category>> getSortedCategoriesModel() {
+		return sortedCategoriesModel;
 	}
 
 }

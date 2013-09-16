@@ -1,11 +1,13 @@
 package org.soluvas.web.bootstrap.category;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -22,6 +24,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.Select2Choice;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
@@ -53,7 +56,7 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 				final String term,
 				int page,
 				Response<Category> response) {
-			final Collection<Category> matching = ImmutableList.copyOf(Collections2.filter(categoriesModel.getObject(), new Predicate<Category>() {
+			final Collection<Category> matching = ImmutableList.copyOf(Collections2.filter(sortedCategoriesModel.getObject(), new Predicate<Category>() {
 				@Override
 				public boolean apply(@Nullable Category input) {
 					return StringUtils.containsIgnoreCase(input.getName(), term);
@@ -67,7 +70,7 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 			return ImmutableList.copyOf(Collections2.filter(Collections2.transform(ids, new Function<String, Category>() {
 				@SuppressWarnings("null") @Override @Nullable
 				public Category apply(@Nullable final String id) {
-					return Iterables.find(categoriesModel.getObject(), new Predicate<Category>() {
+					return Iterables.find(sortedCategoriesModel.getObject(), new Predicate<Category>() {
 						@Override
 						public boolean apply(@Nullable Category input) {
 							return input.getId().equalsIgnoreCase(id);
@@ -81,7 +84,7 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 	@SpringBean
 	private CategoryCatalog categoryCatalog;
 	
-	private IModel<List<Category>> categoriesModel;
+	private IModel<List<Category>> sortedCategoriesModel;
 	
 	/**
 	 * @param id
@@ -89,15 +92,22 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 	 */
 	public TopLevelCategorySelect2(String id, IModel<Category> model) {
 		super(id, model);
-		categoriesModel = new LoadableDetachableModel<List<Category>>() {
+		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
-				return CategoryUtils.flatten(ImmutableList.copyOf(EcoreUtil.copyAll(categoryCatalog.getCategories())));
+				final List<Category> unorderedCategories = CategoryUtils.flatten(ImmutableList.copyOf(EcoreUtil.copyAll(categoryCatalog.getCategories())));
+				final Ordering<Category> orderer = Ordering.from(new Comparator<Category>() {
+					@Override
+					public int compare(Category o1, Category o2) {
+						return o1.getName().compareToIgnoreCase(o2.getName());
+					}
+				});
+				return orderer.immutableSortedCopy(unorderedCategories);
 			}
 		};
 		setProvider(new TopLevelCategoryChoiceProvider());
-		add(new AttributeAppender("placeholder", new Model<>("Choose Category"), " "));
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
+		add(new AttributeModifier("placeholder", "Choose Category"));
 	}
 
 	@Override
@@ -109,7 +119,7 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 	@Override
 	protected void detachModel() {
 		super.detachModel();
-		categoriesModel.detach();
+		sortedCategoriesModel.detach();
 	}
 
 }
