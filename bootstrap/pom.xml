@@ -28,6 +28,10 @@
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.category</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-devutils</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.vaynberg.wicket.select2</groupId>

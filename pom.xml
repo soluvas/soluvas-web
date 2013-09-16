@@ -118,6 +118,11 @@
 				<version>1.0.17</version>
 			</dependency>
 			<dependency>
+				<groupId>org.atmosphere</groupId>
+				<artifactId>atmosphere-runtime</artifactId>
+				<version>1.0.17</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-core</artifactId>
 				<version>${wicket.version}</version>
@@ -164,6 +169,11 @@
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-annotation</artifactId>
 				<version>${wicketstuff.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-devutils</artifactId>
+				<version>${wicket.version}</version>
 			</dependency>
 
 		</dependencies>

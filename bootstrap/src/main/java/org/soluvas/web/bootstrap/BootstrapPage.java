@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
+import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -21,13 +22,13 @@ import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.CssResourceReference;
@@ -202,7 +203,6 @@ public class BootstrapPage extends ExtensiblePage {
 	@SpringBean(name="alexaCertify")
 	protected AlexaCertify alexaCertify;
 
-	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	protected Component feedbackPanel;
 	
 	protected Component contentAddedInfo;
@@ -222,7 +222,20 @@ public class BootstrapPage extends ExtensiblePage {
 
 	protected Navbar navbar;
 	
-	protected IModel<List<PageLink>> breadcrumbModel = new ListModel<>(new ArrayList<PageLink>());
+	private final IModel<List<PageLink>> breadcrumbModel = new LoadableDetachableModel<List<PageLink>>() {
+		@Override
+		protected List<PageLink> load() {
+			final ArrayList<PageLink> pageLinks = new ArrayList<>();
+			createPageLinksForBreadcrumb(pageLinks);
+			return pageLinks;
+		}
+	};
+	
+	/**
+	 * @param pageLinks Mutable.
+	 */
+	protected void createPageLinksForBreadcrumb(List<PageLink> pageLinks) {
+	}
 
 	// do NOT use AsyncModel here because we need it to load LAST
 	// (i.e. after all scopes has been attached as page model using
@@ -286,7 +299,7 @@ public class BootstrapPage extends ExtensiblePage {
 					}
 				}));
 
-		log.debug("Page {} has {} CSS links (from {} total)", getClass()
+		log.trace("Page {} has {} CSS links (from {} total)", getClass()
 				.getName(), filteredCsses.size(), cssLinks.size());
 		final Ordering<CssLink> cssOrdering = Ordering
 				.from(new Comparator<CssLink>() {
@@ -310,16 +323,16 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		response.render(CssHeaderItem.forReference(BOOTSTRAP_PRINT_CSS, "print"));
 
-		log.debug("Page {} has {} head JavaScript links", getClass().getName(),
+		log.trace("Page {} has {} head JavaScript links", getClass().getName(),
 				headJavaScripts.size());
-		Ordering<JavaScriptLink> jsOrdering = Ordering
+		final Ordering<JavaScriptLink> jsOrdering = Ordering
 				.from(new Comparator<JavaScriptLink>() {
 					@Override
 					public int compare(JavaScriptLink o1, JavaScriptLink o2) {
 						return o1.getWeight() - o2.getWeight();
 					};
 				});
-		List<JavaScriptLink> sortedJses = jsOrdering
+		final List<JavaScriptLink> sortedJses = jsOrdering
 				.immutableSortedCopy(headJavaScripts);
 		for (JavaScriptLink js : sortedJses) {
 			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
@@ -352,6 +365,13 @@ public class BootstrapPage extends ExtensiblePage {
 		super();
 		this.sidebarVisibility = sidebarVisibility;
 		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;
+		
+		if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
+			log.trace("Enabling Wicket development utilities: DebugBar");
+			add(new DebugBar("dev"));
+		} else {
+			add(new EmptyPanel("dev").setVisible(false));
+		}
 		
 		// Use CDN jQuery if we're in production
 		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
@@ -491,7 +511,7 @@ public class BootstrapPage extends ExtensiblePage {
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
 		add(beforeFooterJs);
 
-		log.debug("Page {} has {} footer JavaScript links", getClass()
+		log.trace("Page {} has {} footer JavaScript links", getClass()
 				.getName(), footerJavaScripts.size());
 		final List<JavaScriptLink> sortedJsLinks = linkOrdering
 				.immutableSortedCopy(footerJavaScripts);
@@ -504,7 +524,7 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		add(footerJavaScriptLinks);
 
-		log.debug("Page {} has {} footer JavaScript sources", getClass()
+		log.trace("Page {} has {} footer JavaScript sources", getClass()
 				.getName(), footerJavaScriptSources.size());
 		final List<JavaScriptSource> sortedJsSources = sourceOrdering
 				.immutableSortedCopy(footerJavaScriptSources);
@@ -517,19 +537,6 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		add(footerJavaScriptSources);
 
-		log.debug("Page {} has {} page JavaScript links", getClass().getName(),
-				pageJavaScriptLinks.size());
-		final List<JavaScriptLink> sortedPageJsLinks = linkOrdering
-				.immutableSortedCopy(pageJavaScriptLinks);
-		final RepeatingView pageJavaScriptLinksView = new RepeatingView(
-				"pageJavaScriptLinks");
-		for (JavaScriptLink js : sortedPageJsLinks) {
-			pageJavaScriptLinksView.add(new WebMarkupContainer(
-					pageJavaScriptLinksView.newChildId())
-					.add(new AttributeModifier("src", js.getSrc())));
-		}
-		add(pageJavaScriptLinksView);
-
 		final IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
@@ -539,7 +546,7 @@ public class BootstrapPage extends ExtensiblePage {
 						dependencyMap);
 				amdDependencyVisitor.component(BootstrapPage.this, null);
 				visitChildren(amdDependencyVisitor);
-				log.debug("Page {} has {} AMD dependencies: {}", getClass()
+				log.trace("Page {} has {} AMD dependencies: {}", getClass()
 						.getName(), dependencyMap.size(), dependencyMap.keySet());
 
 				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList
@@ -549,7 +556,7 @@ public class BootstrapPage extends ExtensiblePage {
 				jsSourceVisitor.component(BootstrapPage.this, null);
 				visitChildren(jsSourceVisitor);
 				final List<String> pageJsSources = pageJsSourcesBuilder.build();
-				log.debug("Page {} has {} page JavaScript sources", getClass()
+				log.trace("Page {} has {} page JavaScript sources", getClass()
 						.getName(), pageJsSources.size());
 				final String merged = Joiner.on('\n').join(pageJsSources);
 
@@ -596,12 +603,19 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn.setVisible(!visibleChildren.isEmpty());
 	}
 
+	public IModel<PageMeta> getPageMetaModel() {
+		return pageMetaModel;
+	}
+	
 	public IModel<List<PageLink>> getBreadcrumbModel() {
 		return breadcrumbModel;
 	}
-
-	public IModel<PageMeta> getPageMetaModel() {
-		return pageMetaModel;
+	
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		pageMetaModel.detach();
+		breadcrumbModel.detach();
 	}
 	
 }
