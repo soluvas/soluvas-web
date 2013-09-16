@@ -109,5 +109,18 @@ public class ExtensiblePage extends WebPage {
 	public Map<String, IModel<?>> getModelsForPageMeta() {
 		return modelsForPageMeta;
 	}
+	
+	@Override
+	protected void detachModel() {
+		super.detachModel();
+		log.trace("Detaching {} PageMeta models and {} Child models", 
+				modelsForPageMeta.size(), modelsForChild.size());
+		for (final IModel<?> model : modelsForPageMeta.values()) {
+			model.detach();
+		}
+		for (final IModel<?> model : modelsForChild.values()) {
+			model.detach();
+		}
+	}
 
 }
