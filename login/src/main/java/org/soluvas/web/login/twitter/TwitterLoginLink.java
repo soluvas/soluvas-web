@@ -1,8 +1,7 @@
 package org.soluvas.web.login.twitter;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -18,9 +17,10 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
 
-@SuppressWarnings("serial")
-public class TwitterLoginLink extends IndicatingAjaxLink<Void> {
+public class TwitterLoginLink extends StatelessLink<Void> {
 			
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterLoginLink.class);
 	
@@ -41,7 +41,7 @@ public class TwitterLoginLink extends IndicatingAjaxLink<Void> {
 	}
 
 	@Override
-	public void onClick(AjaxRequestTarget target) {
+	public void onClick() {
 //		final String redirectUri = webAddress.getBaseUri() + "twitter_recipient/";
 		final String redirectUri = webAddress.getBaseUri() + 
 				getRequestCycle().mapUrlFor(recipientPage, new PageParameters()).toString();

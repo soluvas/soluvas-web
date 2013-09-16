@@ -33,12 +33,14 @@ import com.vaynberg.wicket.select2.Select2Choice;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
- * Displays a {@link Category} {@link Select2Choice}.
- * @author adri
+ * Displays a {@link Category} {@link Select2Choice} that only allows a leaf category
+ * to be selected.
+ * @author ceefour
+ * @see TopLevelCategorySelect2
  */
-@SuppressWarnings("serial")
 public class CategorySelect2 extends Select2Choice<Category> {
 
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(CategorySelect2.class);
 	@SpringBean

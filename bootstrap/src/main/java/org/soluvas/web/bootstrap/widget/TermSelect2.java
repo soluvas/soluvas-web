@@ -2,7 +2,9 @@ package org.soluvas.web.bootstrap.widget;
 
 import java.util.List;
 
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.soluvas.data.Term;
 import org.soluvas.data.Value;
 
@@ -37,6 +39,7 @@ public class TermSelect2 extends Select2Choice<Term> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
