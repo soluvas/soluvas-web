@@ -21,97 +21,6 @@ import com.google.common.collect.ImmutableSet;
 public class BootstrapConfig {
 	
 	@Bean
-	public JavaScriptAlias affixAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-affix",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias alertAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-alert",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias buttonAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-button",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias carouselAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-carousel",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias collapseAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-collapse",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias dropdownAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-dropdown",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias modalAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-modal",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias popoverAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-popover",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias scrollspyAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-scrollspy",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias tabAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-tab",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias tooltipAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-tooltip",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias transitionAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-transition",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-
-	@Bean
-	public JavaScriptAlias typeaheadAlias() {
-		return new JavaScriptAliasImpl("bootstrap/bootstrap-typeahead",
-				"bootstrap/bootstrap", "bootstrap/bootstrap");
-	}
-	
-	@Bean
-	public JavaScriptModule bootstrapModule() {
-		return new JavaScriptModuleImpl("bootstrap/bootstrap",
-				"org.soluvas.web.bootstrap/bootstrap",
-				"//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min");
-	}
-	
-	@Bean
-	public JavaScriptShim bootstrapShim() {
-		return new JavaScriptShimImpl("bootstrap/bootstrap",
-				ImmutableSet.of("jquery"));
-	}
-	
-	@Bean
 	public JavaScriptAlias uiCoreAlias() {
 		return new JavaScriptAliasImpl("jquery-ui/jquery.ui.core", "jquery-ui.custom");
 	}
@@ -285,4 +194,5 @@ public class BootstrapConfig {
 	public JavaScriptAlias uiBackTopAlias() {
 		return new JavaScriptAliasImpl("jquery.ui.totop", "org.soluvas.web.bootstrap/jquery.ui.totop.js");
 	}
+	
 }
