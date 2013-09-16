@@ -72,7 +72,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
-import de.agilecoders.wicket.markup.html.references.BootstrapJavaScriptReference;
+import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
 
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
