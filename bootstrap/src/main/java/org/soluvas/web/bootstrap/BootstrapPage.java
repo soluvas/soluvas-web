@@ -614,6 +614,7 @@ public class BootstrapPage extends ExtensiblePage {
 	@Override
 	protected void detachModel() {
 		super.detachModel();
+		pageMetaModel.detach();
 		breadcrumbModel.detach();
 	}
 	
