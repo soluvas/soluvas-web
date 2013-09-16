@@ -204,7 +204,6 @@ public class BootstrapPage extends ExtensiblePage {
 	@SpringBean(name="alexaCertify")
 	protected AlexaCertify alexaCertify;
 
-	private final List<JavaScriptLink> pageJavaScriptLinks = new ArrayList<JavaScriptLink>();
 	protected Component feedbackPanel;
 	
 	protected Component contentAddedInfo;
@@ -500,7 +499,7 @@ public class BootstrapPage extends ExtensiblePage {
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
 		add(beforeFooterJs);
 
-		log.debug("Page {} has {} footer JavaScript links", getClass()
+		log.trace("Page {} has {} footer JavaScript links", getClass()
 				.getName(), footerJavaScripts.size());
 		final List<JavaScriptLink> sortedJsLinks = linkOrdering
 				.immutableSortedCopy(footerJavaScripts);
@@ -513,7 +512,7 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		add(footerJavaScriptLinks);
 
-		log.debug("Page {} has {} footer JavaScript sources", getClass()
+		log.trace("Page {} has {} footer JavaScript sources", getClass()
 				.getName(), footerJavaScriptSources.size());
 		final List<JavaScriptSource> sortedJsSources = sourceOrdering
 				.immutableSortedCopy(footerJavaScriptSources);
@@ -526,19 +525,6 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		add(footerJavaScriptSources);
 
-		log.debug("Page {} has {} page JavaScript links", getClass().getName(),
-				pageJavaScriptLinks.size());
-		final List<JavaScriptLink> sortedPageJsLinks = linkOrdering
-				.immutableSortedCopy(pageJavaScriptLinks);
-		final RepeatingView pageJavaScriptLinksView = new RepeatingView(
-				"pageJavaScriptLinks");
-		for (JavaScriptLink js : sortedPageJsLinks) {
-			pageJavaScriptLinksView.add(new WebMarkupContainer(
-					pageJavaScriptLinksView.newChildId())
-					.add(new AttributeModifier("src", js.getSrc())));
-		}
-		add(pageJavaScriptLinksView);
-
 		final IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
@@ -548,7 +534,7 @@ public class BootstrapPage extends ExtensiblePage {
 						dependencyMap);
 				amdDependencyVisitor.component(BootstrapPage.this, null);
 				visitChildren(amdDependencyVisitor);
-				log.debug("Page {} has {} AMD dependencies: {}", getClass()
+				log.trace("Page {} has {} AMD dependencies: {}", getClass()
 						.getName(), dependencyMap.size(), dependencyMap.keySet());
 
 				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList
@@ -558,7 +544,7 @@ public class BootstrapPage extends ExtensiblePage {
 				jsSourceVisitor.component(BootstrapPage.this, null);
 				visitChildren(jsSourceVisitor);
 				final List<String> pageJsSources = pageJsSourcesBuilder.build();
-				log.debug("Page {} has {} page JavaScript sources", getClass()
+				log.trace("Page {} has {} page JavaScript sources", getClass()
 						.getName(), pageJsSources.size());
 				final String merged = Joiner.on('\n').join(pageJsSources);
 
