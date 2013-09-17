@@ -18,6 +18,9 @@ import org.soluvas.web.site.MustacheRenderer;
  * 
  * <p>Page-specific sidebar is located in e.g. {@code common/content/about.sidebar.html}.
  * Fallback sidebar for all content pages is located in {@code common/content/_all.sidebar.html}.
+ * 
+ * <p>Title and meta description is read from {@code head/title} and {@code head/meta} tags.
+ * 
  * @author rudi
  * @todo Merge with Soluvas Content.
  */
