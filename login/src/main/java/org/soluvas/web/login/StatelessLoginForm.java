@@ -3,11 +3,11 @@ package org.soluvas.web.login;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,27 +16,26 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 /**
- * Generic {@link IndicatingAjaxButton} that can be used with any Shiro {@link Realm},
- * provided it accepts {@link UsernamePasswordToken}.
- * It's for stateful login form, if you want stateless use {@link StatelessLoginForm}.
- * You need to override {@link #onLoginSuccess(AjaxRequestTarget, String)}.
+ * It's for stateless login form, combined with a normal {@code input type="submit"},
+ * which can be non-Wicket component, {@link Button}, or even a simple {@link WebMarkupContainer}.
+ * If you want stateful use {@link LoginButton} + normal {@link Form}.
+ * It's usable out-of-the-box because it does a POST-REDIRECT-GET (to avoid the Refresh POST problem) back to the current page,
+ * if you want to replace this behavior or need more you can override {@link #onLoginSuccess(String)}.
  * @author ceefour
- * @see StatelessLoginForm
+ * @see LoginButton
  */
-public class LoginButton extends IndicatingAjaxButton {
+public class StatelessLoginForm extends StatelessForm<LoginToken> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
-			.getLogger(LoginButton.class);
-	private final IModel<LoginToken> loginTokenModel;
+			.getLogger(StatelessLoginForm.class);
 
-	public LoginButton(String id, final IModel<LoginToken> loginTokenModel) {
-		super(id);
-		this.loginTokenModel = loginTokenModel;
+	public StatelessLoginForm(String id, final IModel<LoginToken> model) {
+		super(id, model);
 	}
-
+	
 	@Override
-	protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-		final LoginToken loginData = loginTokenModel.getObject();
+	protected void onSubmit() {
+		final LoginToken loginData = getModelObject();
 		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
 		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
 		final UsernamePasswordToken token = new UsernamePasswordToken(
@@ -51,14 +50,14 @@ public class LoginButton extends IndicatingAjaxButton {
 			log.debug("Current user is now {}", personId);
 			log.debug("{} permitted to edit person? {}",
 					personId, currentUser.isPermitted("person:edit:*"));
-			onLoginSuccess(target, personId);
+			onLoginSuccess(personId);
 		} catch (final AuthenticationException e) {
 			error(String.format("Invalid credentials for %s",
 					token.getUsername()));
 			log.info(String.format("Invalid credentials for %s",
 							token.getUsername()), e);
 		}
-		super.onSubmit(target, form);
+		super.onSubmit();
 	}
 
 	/**
@@ -67,7 +66,8 @@ public class LoginButton extends IndicatingAjaxButton {
 	 * @param target TODO
 	 * @param personId
 	 */
-	protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
+	protected void onLoginSuccess(String personId) {
+		setResponsePage(getPage().getClass(), getPage().getPageParameters());
 	}
-
+	
 }
