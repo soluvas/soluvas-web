@@ -1,5 +1,7 @@
 package org.soluvas.web.site;
 
+import java.nio.charset.Charset;
+
 import javax.inject.Inject;
 
 import org.apache.wicket.Application;
@@ -26,6 +28,8 @@ public abstract class AtmosphereApplication extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
+		log.info("Wicket default markup encoding: {}. defaultCharset={}, LANG={}",
+				getMarkupSettings().getDefaultMarkupEncoding(), Charset.defaultCharset(), System.getenv("LANG"));
 		try {
 			atmosphereEventBus = new org.apache.wicket.atmosphere.EventBus(this);
 			getApplicationListeners().add(new IApplicationListener() {
