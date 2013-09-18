@@ -28,7 +28,7 @@ public abstract class AtmosphereApplication extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
-		log.info("Wicket default markup encoding: {}. defaultCharset={}, LANG={}",
+		log.info("Wicket default markup encoding: {} (usually null). defaultCharset={}, LANG={}",
 				getMarkupSettings().getDefaultMarkupEncoding(), Charset.defaultCharset(), System.getenv("LANG"));
 		try {
 			atmosphereEventBus = new org.apache.wicket.atmosphere.EventBus(this);
@@ -50,7 +50,7 @@ public abstract class AtmosphereApplication extends WebApplication {
 			log.error("Cannot initialize Wicket Atmosphere EventBus, continuing without Atmosphere support", e);
 		}
 	}
-
+	
 	@Subscribe
 	public void bridgeToAtmosphere(Object obj) {
 //		log.trace("Bridging {}", obj.getClass().getName());
