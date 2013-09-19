@@ -44,7 +44,7 @@ public class PagemetaFactoryImpl extends EFactoryImpl implements PagemetaFactory
 	 */
 	public static PagemetaFactory init() {
 		try {
-			PagemetaFactory thePagemetaFactory = (PagemetaFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.site.pagemeta/1.0"); 
+			PagemetaFactory thePagemetaFactory = (PagemetaFactory)EPackage.Registry.INSTANCE.getEFactory(PagemetaPackage.eNS_URI);
 			if (thePagemetaFactory != null) {
 				return thePagemetaFactory;
 			}
