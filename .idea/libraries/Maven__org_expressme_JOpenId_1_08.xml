@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.expressme:JOpenId:1.08">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/expressme/JOpenId/1.08/JOpenId-1.08.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/expressme/JOpenId/1.08/JOpenId-1.08-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/expressme/JOpenId/1.08/JOpenId-1.08-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
