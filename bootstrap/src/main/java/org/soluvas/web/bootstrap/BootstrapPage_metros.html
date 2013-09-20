@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html wicket:id="html" lang="id">
 <head>
-	<meta charset="utf-8" />
-	<title><span wicket:id="pageTitle"/> <span wicket:id="pageTitleSuffix"/></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta wicket:id="metaDescription" name="description" content="Soluvas Starter Web Application" />
-	<meta wicket:id="ogTitle" property="og:title" content="The Rock" />
-	<meta wicket:id="ogType" property="og:type" content="video.movie" />
-	<meta wicket:id="ogUrl" property="og:url" content="http://www.imdb.com/title/tt0117500/" />
-	<meta wicket:id="ogImage" property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" />
-	<meta name="author" content="Soluvas" />
+<meta charset="utf-8" />
+<title><span wicket:id="pageTitle" /> <span
+	wicket:id="pageTitleSuffix" /></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta wicket:id="metaDescription" name="description"
+	content="Soluvas Starter Web Application" />
+<meta wicket:id="ogTitle" property="og:title" content="The Rock" />
+<meta wicket:id="ogType" property="og:type" content="video.movie" />
+<meta wicket:id="ogUrl" property="og:url"
+	content="http://www.imdb.com/title/tt0117500/" />
+<meta wicket:id="ogImage" property="og:image"
+	content="http://ia.media-imdb.com/images/rock.jpg" />
+<meta name="author" content="Soluvas" />
 
-	<!-- Le styles -->
+<!-- Le styles -->
 
-	<link wicket:id="bootstrapCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap.css" rel="stylesheet" />
-	<style type="text/css">
-      body {
-/*         padding-top: 60px; */
-        padding-bottom: 10px;
-      }
+<link wicket:id="bootstrapCss"
+	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap.css"
+	rel="stylesheet" />
+<style type="text/css">
+body {
+	/*         padding-top: 60px; */
+	padding-bottom: 10px;
+}
 /*       .sidebar-nav { */
 /*         padding: 9px 0; */
 /*       } */
-    </style>	
-	<link wicket:id="bootstrapResponsiveCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
-	<link wicket:id="soluvasCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-patches.css" rel="stylesheet" />
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic' rel='stylesheet' type='text/css'>
-	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
+</style>
+<link wicket:id="bootstrapResponsiveCss"
+	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet" />
+<link wicket:id="soluvasCss"
+	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-patches.css"
+	rel="stylesheet" />
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic'
+	rel='stylesheet' type='text/css'>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-	<!-- Le fav and touch icons -->
-	<link wicket:id="faviconLink" rel="shortcut icon" href="/favicon.ico" />
+<!-- Le fav and touch icons -->
+<link wicket:id="faviconLink" rel="shortcut icon" href="/favicon.ico" />
 
 <!-- 	<link rel="apple-touch-icon-precomposed" sizes="114x114" -->
 <!-- 		href="/static/images/ico/apple-touch-icon-114-precomposed.png" /> -->
@@ -40,19 +52,39 @@
 <!-- 		href="/static/images/ico/apple-touch-icon-72-precomposed.png" /> -->
 <!-- 	<link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png" /> -->
 
-	<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
-	<script src="requireConfig" wicket:id="requireConfig"></script>
-	<script wicket:id="requireJs" src="/static/js/org.soluvas.web.bootstrap/require-2.1.4.js"></script>
-	<script>define('jquery',[],function(){return jQuery});</script>
-	<script>define('bootstrap/bootstrap-collapse',[],function(){});</script>
-	<script>define('bootstrap/bootstrap-transition',[],function(){});</script>
-	<script>define('bootstrap/bootstrap-modal',[],function(){});</script>
-	<script>define('bootstrap',[],function(){});</script>
-	<script>define('bootstrap/bootstrap-dropdown',[],function(){});</script>
-	
+<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
+<script src="requireConfig" wicket:id="requireConfig"></script>
+<script wicket:id="requireJs"
+	src="/static/js/org.soluvas.web.bootstrap/require-2.1.4.js"></script>
 <script>
-// TODO: refactor push support (both XHR or StompWeb-powered) to separate AMD module
-var subscriptions = [];
+	define('jquery', [], function() {
+		return jQuery
+	});
+</script>
+<script>
+	define('bootstrap/bootstrap-collapse', [], function() {
+	});
+</script>
+<script>
+	define('bootstrap/bootstrap-transition', [], function() {
+	});
+</script>
+<script>
+	define('bootstrap/bootstrap-modal', [], function() {
+	});
+</script>
+<script>
+	define('bootstrap', [], function() {
+	});
+</script>
+<script>
+	define('bootstrap/bootstrap-dropdown', [], function() {
+	});
+</script>
+
+<script>
+	// TODO: refactor push support (both XHR or StompWeb-powered) to separate AMD module
+	var subscriptions = [];
 </script>
 
 </head>
@@ -61,125 +93,145 @@ var subscriptions = [];
 	<div wicket:id="dev">[DebugBar]</div>
 
 	<header wicket:id="header"></header>
-	<div class="" wicket:id="navbar">
-			Navbar... (see Navbar.html)
-	</div>
+	<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
 	<div class="container">
-		<div style="display: none;" wicket:id="addedInfo">
-		</div>
- 	</div>
+		<div style="display: none;" wicket:id="addedInfo"></div>
+	</div>
 	<div class="clearfix"></div>
 	<div class="container">
-<!-- 		    <ul class="breadcrumb"> -->
-<!-- 			    <li><a href="#">Home</a> <span class="divider">/</span></li> -->
-<!-- 			    <li><a href="#">Library</a> <span class="divider">/</span></li> -->
-<!-- 			    <li class="active">Data</li> -->
-<!-- 		    </ul> -->
-			<div class="row">
-				<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
-					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-				</div><!--/span-->
-				
-				<div class="span9" wicket:id="contentColumn">
-					<div wicket:id="afterHeader" class="afterHeader">
-							<!-- 		Carousel Images is loading.. -->
-					</div>
-					<div wicket:id="feedback" class="feedback"></div>
-					<wicket:child>
-						<ol class="featured-products">
-							<div id="featuredProducts">
-								<li><a href="#">Product name</a></li>
-							</div>
-						</ol>
-					</wicket:child>
+		<!-- 		    <ul class="breadcrumb"> -->
+		<!-- 			    <li><a href="#">Home</a> <span class="divider">/</span></li> -->
+		<!-- 			    <li><a href="#">Library</a> <span class="divider">/</span></li> -->
+		<!-- 			    <li class="active">Data</li> -->
+		<!-- 		    </ul> -->
+		<div class="row">
+			<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
+				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+			</div>
+			<!--/span-->
+
+			<div class="span9" wicket:id="contentColumn">
+				<div wicket:id="afterHeader" class="afterHeader">
+					<!-- 		Carousel Images is loading.. -->
 				</div>
-<!-- 					<div> -->
-<!-- 						<small> -->
-<!-- 					 	<ul class="styles"> -->
-<!-- 					 	  <li><b>Live Chat</b></li> -->
-<!-- 					   	  <li><span id="LiveChat_1376906919"></span></li> -->
-<!-- 					   	  <hr> -->
-<!-- 					   	  <li><b>Sms</b></li> -->
-<!-- 					   	  <li>08112225702</li> -->
-<!-- 					   	  <hr> -->
-<!-- 						  <li><b>Call</b></li> -->
-<!-- 						  <li>022-5228987</li> -->
-<!-- 						  <li>022-70686080</li> -->
-<!-- 						  <li>0815720393259</li> -->
-<!-- 						  <li>082119216047</li> -->
-<!-- 						  <li>087821353690</li> -->
-<!-- 					   	  <hr> -->
-<!-- 					      <li><b>Bbm</b></li> -->
-<!-- 					      <li>24C5DBE3</li> -->
-<!-- 					      <hr> -->
-<!-- 					      <li><b>Ym</b></li> -->
-<!-- 					      <li>Tuneeca / CS_Tuneeca</li> -->
-<!-- 						</ul> -->
-<!-- 						</small> -->
-<!-- 						<a class="styles-open"  href="#closeoptions">  </a> -->
-<!-- 						 <div class="styles-closed " > -->
-<!-- 							<a href="#options"></a> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-			</div><!--/row-->
-				
-				<footer class="footer" wicket:id="footer">
-					<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012</small>
-				</footer>
-	</div><!--/.fluid-container-->
-	
+				<div wicket:id="feedback" class="feedback"></div>
+				<wicket:child>
+					<ol class="featured-products">
+						<div id="featuredProducts">
+							<li><a href="#">Product name</a></li>
+						</div>
+					</ol>
+				</wicket:child>
+			</div>
+			<!-- 					<div> -->
+			<!-- 						<small> -->
+			<!-- 					 	<ul class="styles"> -->
+			<!-- 					 	  <li><b>Live Chat</b></li> -->
+			<!-- 					   	  <li><span id="LiveChat_1376906919"></span></li> -->
+			<!-- 					   	  <hr> -->
+			<!-- 					   	  <li><b>Sms</b></li> -->
+			<!-- 					   	  <li>08112225702</li> -->
+			<!-- 					   	  <hr> -->
+			<!-- 						  <li><b>Call</b></li> -->
+			<!-- 						  <li>022-5228987</li> -->
+			<!-- 						  <li>022-70686080</li> -->
+			<!-- 						  <li>0815720393259</li> -->
+			<!-- 						  <li>082119216047</li> -->
+			<!-- 						  <li>087821353690</li> -->
+			<!-- 					   	  <hr> -->
+			<!-- 					      <li><b>Bbm</b></li> -->
+			<!-- 					      <li>24C5DBE3</li> -->
+			<!-- 					      <hr> -->
+			<!-- 					      <li><b>Ym</b></li> -->
+			<!-- 					      <li>Tuneeca / CS_Tuneeca</li> -->
+			<!-- 						</ul> -->
+			<!-- 						</small> -->
+			<!-- 						<a class="styles-open"  href="#closeoptions">  </a> -->
+			<!-- 						 <div class="styles-closed " > -->
+			<!-- 							<a href="#options"></a> -->
+			<!-- 						</div> -->
+			<!-- 					</div> -->
+		</div>
+		<!--/row-->
+
+		<footer class="footer" wicket:id="footer">
+			<small style="color: #808080;"> &middot; &copy; <a
+				href="http://www.soluvas.com/">Soluvas</a> 2012
+			</small>
+		</footer>
+	</div>
+	<!--/.fluid-container-->
+
 
 	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
- 	
+
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="something.js" wicket:id="footerJavaScriptLinks"></script>
-	<script type="text/javascript" wicket:id="footerJavaScriptSources">[footerJavaScriptSources]</script>
-	
+	<script type="text/javascript" src="something.js"
+		wicket:id="footerJavaScriptLinks"></script>
+	<script type="text/javascript" wicket:id="footerJavaScriptSources">
+		[ footerJavaScriptSources ]
+	</script>
+
 	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
-	
-	<script wicket:id="alexaCertifyScript">[AlexaCertifyScript]</script>
-	
+
+	<script wicket:id="alexaCertifyScript">
+		[AlexaCertifyScript]
+	</script>
+
 	<script type="text/javascript">
-	var __lc_buttons = __lc_buttons || [];
-	__lc_buttons.push({
-		elementId: 'LiveChat_1376906919',
-		skill: '0'
-	});
+		var __lc_buttons = __lc_buttons || [];
+		__lc_buttons.push({
+			elementId : 'LiveChat_1376906919',
+			skill : '0'
+		});
 	</script>
-	
-	
+
+
 	<!-- must put at the bottom because requires jQuery -->
-	<script type="text/javascript" > 
+	<script type="text/javascript">
 		$(document).ready(function() {
-		$(".styles-open").click(function(){
-		$(".styles, .styles-open").animate({ "left":"-140px" }, 1000); $(".styles-closed").animate({ "left":"0" }, 1000);
-		return false;
+			$(".styles-open").click(function() {
+				$(".styles, .styles-open").animate({
+					"left" : "-140px"
+				}, 1000);
+				$(".styles-closed").animate({
+					"left" : "0"
+				}, 1000);
+				return false;
+			});
+			$(".styles-closed a").click(function() {
+				$(".styles-closed").animate({
+					"left" : "-45px"
+				}, 1000);
+				$(".styles").animate({
+					"left" : "-25px"
+				}, 1000);
+				$(".styles-open").animate({
+					"left" : "114"
+				}, 1000);
+				return false;
+			});
 		});
-		$(".styles-closed a").click(function(){
-		$(".styles-closed").animate({ "left":"-45px" },1000);
-		$(".styles").animate({ "left":"-25px" }, 1000);
-		$(".styles-open").animate({ "left":"114" }, 1000);
-		return false;
-		});
-		}); 
 	</script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var defaults = {
-	  			containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-	 		};
-			
-			$().UItoTop({ easingType: 'easeOutQuart' });
-						
+				containerID : 'toTop', // fading element id
+				containerHoverID : 'toTopHover', // fading element hover id
+				scrollSpeed : 1200,
+				easingType : 'linear'
+			};
+
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
 		});
-		
-		$('.pagination ul li a').live('click', function(){
-				$('a#toTop').click();
+
+		$('.pagination ul li a').live('click', function() {
+			$('a#toTop').click();
 		});
- 	</script>
+	</script>
 </body>
 </html>
