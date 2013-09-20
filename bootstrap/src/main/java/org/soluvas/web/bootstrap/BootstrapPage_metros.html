@@ -5,6 +5,7 @@
 	<title><span wicket:id="pageTitle"/> <span wicket:id="pageTitleSuffix"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta wicket:id="metaDescription" name="description" content="Soluvas Starter Web Application" />
+	<meta wicket:id="ogKeywords" name="keywords" content="Soluvas Starter Web Application" />
 	<meta wicket:id="ogTitle" property="og:title" content="The Rock" />
 	<meta wicket:id="ogType" property="og:type" content="video.movie" />
 	<meta wicket:id="ogUrl" property="og:url" content="http://www.imdb.com/title/tt0117500/" />
@@ -174,7 +175,11 @@ var subscriptions = [];
 	 		};
 			
 			$().UItoTop({ easingType: 'easeOutQuart' });
-			
+						
+		});
+		
+		$('.pagination ul li a').live('click', function(){
+				$('a#toTop').click();
 		});
  	</script>
 </body>

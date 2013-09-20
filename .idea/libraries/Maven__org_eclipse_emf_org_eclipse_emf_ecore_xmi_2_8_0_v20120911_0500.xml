@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.eclipse.emf:org.eclipse.emf.ecore.xmi:2.8.0.v20120911-0500">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.8.0.v20120911-0500/org.eclipse.emf.ecore.xmi-2.8.0.v20120911-0500.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.8.0.v20120911-0500/org.eclipse.emf.ecore.xmi-2.8.0.v20120911-0500-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/emf/org.eclipse.emf.ecore.xmi/2.8.0.v20120911-0500/org.eclipse.emf.ecore.xmi-2.8.0.v20120911-0500-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

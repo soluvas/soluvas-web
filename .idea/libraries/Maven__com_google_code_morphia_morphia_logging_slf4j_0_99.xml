@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.google.code.morphia:morphia-logging-slf4j:0.99">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/morphia/morphia-logging-slf4j/0.99/morphia-logging-slf4j-0.99.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/morphia/morphia-logging-slf4j/0.99/morphia-logging-slf4j-0.99-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/morphia/morphia-logging-slf4j/0.99/morphia-logging-slf4j-0.99-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

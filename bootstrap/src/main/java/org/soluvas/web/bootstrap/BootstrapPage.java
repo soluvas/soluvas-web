@@ -419,16 +419,12 @@ public class BootstrapPage extends ExtensiblePage {
 						new PropertyModel<String>(pageMetaModel,
 								"icon.faviconUri")));
 		add(faviconLink);
-		add(new MetaTag("metaDescription", new PropertyModel<String>(
-				pageMetaModel, "description")),
-				new MetaTag("ogTitle", new PropertyModel<String>(
-						pageMetaModel, "openGraph.title")), new MetaTag(
-						"ogType", new PropertyModel<String>(pageMetaModel,
-								"openGraph.type")), new MetaTag("ogUrl",
-						new PropertyModel<String>(pageMetaModel,
-								"openGraph.url")), new MetaTag("ogImage",
-						new PropertyModel<String>(pageMetaModel,
-								"openGraph.image")));
+		add(new MetaTag("metaDescription", new PropertyModel<String>(pageMetaModel, "description")),
+			new MetaTag("ogKeywords", new PropertyModel<String>(pageMetaModel, "keywords")),
+			new MetaTag("ogTitle", new PropertyModel<String>(pageMetaModel, "openGraph.title")),
+			new MetaTag("ogType", new PropertyModel<String>(pageMetaModel,"openGraph.type")),
+			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
+			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
 
 		final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 				.getSkinUri()
