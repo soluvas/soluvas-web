@@ -52,8 +52,9 @@ public class StatelessLoginForm extends StatelessForm<LoginToken> {
 					personId, currentUser.isPermitted("person:edit:*"));
 			onLoginSuccess(personId);
 		} catch (final AuthenticationException e) {
-			error(String.format("Invalid credentials for %s",
-					token.getUsername()));
+//			error(String.format("Invalid credentials for %s",
+//					token.getUsername()));
+			error(String.format("Wrong Username/Email and password combination."));
 			log.info(String.format("Invalid credentials for %s",
 							token.getUsername()), e);
 		}

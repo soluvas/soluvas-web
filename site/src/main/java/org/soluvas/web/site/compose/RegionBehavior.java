@@ -6,6 +6,7 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.ExtensiblePage;
@@ -19,9 +20,16 @@ import com.google.common.base.Preconditions;
  * This provides the same functionality as {@link ExtensiblePage}'s
  * addModelForChild, or even may replace it.
  * @author rio
+ * @deprecated Compose and Regions are not typesafe, i.e. the XMI component paths cannot be statically checked.
+ * 		For programmatic manipulation, please use other mechanism (probably through {@link WebApplication} or interface delegate).
+ * 		However using SoluvasWebApplication#enhanceComponent() isn't exactly cool either,
+ * 		so probably annotation or Spring config (or both) would work.
+ * 		I will revisit this for CMS/declarative purpose.
  */
-@SuppressWarnings("serial")
+@Deprecated
 public class RegionBehavior<T> extends Behavior {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory.getLogger(RegionBehavior.class);
 			
