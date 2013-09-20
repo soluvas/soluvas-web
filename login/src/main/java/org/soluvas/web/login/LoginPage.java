@@ -93,8 +93,9 @@ public class LoginPage extends BootstrapPage {
 					log.info("Permitted to edit person? {}",
 							currentUser.isPermitted("person:edit:*"));
 				} catch (AuthenticationException e) {
-					error(String.format("Invalid credentials for %s",
-							token.getUsername()));
+//					error(String.format("Invalid credentials for %s",
+//							token.getUsername()));
+					error(String.format("Wrong Username/Email and password combination."));
 					log.debug(String.format("Invalid credentials for %s",
 									token.getUsername()), e);
 				}

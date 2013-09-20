@@ -186,7 +186,8 @@ public class FacebookRecipient extends WebPage {
 				log.debug("{} permitted to edit person? {}", personId, currentUser.isPermitted("person:edit:*"));
 //				onLoginSuccess(personId);
 			} catch (final AuthenticationException e) {
-				error(String.format("Invalid credentials for %s", token.getPrincipal()));
+//				error(String.format("Invalid credentials for %s", token.getPrincipal()));
+				error(String.format("Wrong Username/Email and password combination."));
 				log.debug(String.format("Invalid credentials for %s", token.getPrincipal()), e);
 			}
 			
