@@ -80,7 +80,7 @@ public class RegisterPageImpl extends EObjectImpl implements RegisterPage {
 	 * @generated
 	 * @ordered
 	 */
-	protected String mountPoint = MOUNT_POINT_EDEFAULT;
+	protected String mountPoint=MOUNT_POINT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
@@ -148,7 +148,7 @@ public class RegisterPageImpl extends EObjectImpl implements RegisterPage {
 	 */
 	public void setMountPoint(String newMountPoint) {
 		String oldMountPoint = mountPoint;
-		mountPoint = newMountPoint;
+		mountPoint=newMountPoint;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.REGISTER_PAGE__MOUNT_POINT, oldMountPoint, mountPoint));
 	}
