@@ -5,6 +5,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +47,8 @@ public class DedicatedLoginPage extends BootstrapPage {
 		}
 	}
 	
-	public DedicatedLoginPage() {
-		super(SidebarVisibility.HIDDEN);
+	public DedicatedLoginPage(PageParameters params) {
+		super(params, SidebarVisibility.HIDDEN);
 		
 		final IModel<LoginToken> userLoginModel = new LoadableDetachableModel<LoginToken>() {
 			@Override

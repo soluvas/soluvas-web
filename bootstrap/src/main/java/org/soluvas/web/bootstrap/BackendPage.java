@@ -3,16 +3,16 @@ package org.soluvas.web.bootstrap;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-
 /**
  * Only default styling.
  * @author rio
  */
-@SuppressWarnings("serial")
 public class BackendPage extends BootstrapPage {
 
 //	private static final JavaScriptResourceReference bootstrapJs = new JavaScriptResourceReference(BackendPage.class, "bootstrap.js");
 	
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 
 	 */
@@ -24,7 +24,7 @@ public class BackendPage extends BootstrapPage {
 	 * @param sidebarVisible
 	 */
 	public BackendPage(PageParameters params, SidebarVisibility sidebarVisibility) {
-		super(sidebarVisibility);
+		super(params, sidebarVisibility);
 	}
 	
 	@Override
