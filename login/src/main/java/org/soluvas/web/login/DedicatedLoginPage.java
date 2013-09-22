@@ -5,6 +5,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,17 +14,17 @@ import org.soluvas.data.EntityLookup;
 import org.soluvas.ldap.Person;
 import org.soluvas.security.AppSessionManager;
 import org.soluvas.web.bootstrap.BootstrapPage;
-import org.soluvas.web.site.WicketMountPoint;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author rudi
  *
  */
-@SuppressWarnings("serial")
-@MountPath("login") @WicketMountPoint(mountPoint="login")
+@MountPath("login")
 public class DedicatedLoginPage extends BootstrapPage {
 	
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory
 			.getLogger(DedicatedLoginPage.class);
 	
@@ -47,8 +48,8 @@ public class DedicatedLoginPage extends BootstrapPage {
 		}
 	}
 	
-	public DedicatedLoginPage() {
-		super(SidebarVisibility.HIDDEN);
+	public DedicatedLoginPage(PageParameters params) {
+		super(params, SidebarVisibility.HIDDEN);
 		
 		final IModel<LoginToken> userLoginModel = new LoadableDetachableModel<LoginToken>() {
 			@Override

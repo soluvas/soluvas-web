@@ -1,17 +1,19 @@
 package org.soluvas.web.login;
 
 import org.soluvas.web.bootstrap.BootstrapPage;
-import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * @author rudi
  *
  */
-@SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="access_denied/")
+@MountPath("access_denied/")
 public class AccessDeniedPage extends BootstrapPage {
 	
+	private static final long serialVersionUID = 1L;
+
 	public AccessDeniedPage() {
+		super();
 	}
 
 }

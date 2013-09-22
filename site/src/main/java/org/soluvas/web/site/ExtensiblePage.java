@@ -12,6 +12,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.compose.ChildContributor;
@@ -28,14 +29,23 @@ import com.google.common.collect.Maps;
  * 
  * @author ceefour
  */
-@SuppressWarnings("serial")
 public class ExtensiblePage extends WebPage {
 	
+	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory
 			.getLogger(ExtensiblePage.class);
+	
 	private final Map<String, IModel<?>> modelsForChild = Maps.newConcurrentMap();
 	private final Map<String, IModel<?>> modelsForPageMeta = Maps.newHashMap();
 	
+	public ExtensiblePage() {
+		super();
+	}
+
+	public ExtensiblePage(PageParameters parameters) {
+		super(parameters);
+	}
+
 	/**
 	 * Together with Compose {@code child} contribution, this allows {@link ChildContributor}s
 	 * to get a model.

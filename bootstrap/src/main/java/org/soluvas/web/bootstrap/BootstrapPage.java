@@ -31,6 +31,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -80,9 +81,10 @@ import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptRefe
  * 
  * @author ceefour
  */
-@SuppressWarnings("serial")
 public class BootstrapPage extends ExtensiblePage {
 	
+	private static final long serialVersionUID = 1L;
+
 	public static enum SidebarVisibility {
 		VISIBLE,
 		HIDDEN
@@ -358,11 +360,11 @@ public class BootstrapPage extends ExtensiblePage {
 	}
 
 	public BootstrapPage() {
-		this(SidebarVisibility.VISIBLE);
+		this(null, SidebarVisibility.VISIBLE);
 	}
 
-	public BootstrapPage(SidebarVisibility sidebarVisibility) {
-		super();
+	public BootstrapPage(PageParameters params, SidebarVisibility sidebarVisibility) {
+		super(params);
 		this.sidebarVisibility = sidebarVisibility;
 		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;
 		

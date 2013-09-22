@@ -29,7 +29,7 @@ import org.soluvas.web.site.widget.LinkColumn;
  * List {@link Term}s for a {@link Kind}.
  * 
  * <pre>{@literal
- * @WicketMountPoint(mountPoint="term/base/Color/")
+ * @MountPath("term/base/Color/")
  * public class ColorListPage extends AuthorizedMallPage {
  * 	
  * 	@SpringBean(name="colorTermRepo")

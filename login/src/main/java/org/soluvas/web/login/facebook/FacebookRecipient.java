@@ -38,7 +38,7 @@ import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -53,7 +53,7 @@ import com.restfb.types.User;
  *
  */
 @SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="fb_recipient/")
+@MountPath("fb_recipient/")
 public class FacebookRecipient extends WebPage {
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);

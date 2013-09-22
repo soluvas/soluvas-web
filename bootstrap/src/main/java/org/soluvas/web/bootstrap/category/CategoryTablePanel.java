@@ -31,7 +31,7 @@ import org.soluvas.web.site.widget.LinkColumn;
  * List {@link Category}s in a {@link ProductCatalog}.
  * 
  * <pre>{@literal
- * @WicketMountPoint(mountPoint="term/base/Color/")
+ * @MountPath("term/base/Color/")
  * public class ColorListPage extends AuthorizedMallPage {
  * 	
  * 	@SpringBean(name="colorCategoryRepo")
