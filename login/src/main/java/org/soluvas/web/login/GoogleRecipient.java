@@ -19,7 +19,7 @@ import org.soluvas.json.JsonUtils;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.NotLoggedWithGooglePlusException;
-import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -42,7 +42,7 @@ import com.google.common.collect.ImmutableList;
  *
  */
 @SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="google_recipient/")
+@MountPath("google_recipient/")
 public class GoogleRecipient extends WebPage {
 	
 	private static final Logger log = LoggerFactory

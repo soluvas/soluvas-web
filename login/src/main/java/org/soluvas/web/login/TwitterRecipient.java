@@ -27,7 +27,7 @@ import org.soluvas.security.NotLoggedWithTwitterException;
 import org.soluvas.twitter.TwitterManager;
 import org.soluvas.twitter.TwitterUtils;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -45,7 +45,7 @@ import com.google.common.base.Strings;
  *
  */
 @SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="twitter_recipient/")
+@MountPath("twitter_recipient/")
 public class TwitterRecipient extends WebPage {
 	
 	private static final Logger log = LoggerFactory

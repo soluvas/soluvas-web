@@ -145,6 +145,11 @@
 				<artifactId>wicket-devutils</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.wicketstuff</groupId>
+				<artifactId>wicketstuff-annotation</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>

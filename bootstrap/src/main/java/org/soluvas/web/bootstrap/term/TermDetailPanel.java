@@ -34,9 +34,9 @@ import com.google.common.base.Preconditions;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
- * <p>Use e.g. @WicketMountPoint(mountPoint="term/base/Color/${uName}")
+ * <p>Use e.g. @MountPath("term/base/Color/${uName}")
  * <pre>{@literal
- * @WicketMountPoint(mountPoint="term/base/Color/${uName}/")
+ * @MountPath("term/base/Color/${uName}/")
  * public class ColorDetailPage extends AuthorizedMallPage {
  * 	
  * 	@SpringBean(name="colorTermRepo")

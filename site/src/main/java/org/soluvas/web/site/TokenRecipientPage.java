@@ -3,6 +3,7 @@ package org.soluvas.web.site;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.soluvas.commons.Person;
+import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * Plain page for displaying the {@link Person#getClientAccessToken()},
@@ -10,7 +11,7 @@ import org.soluvas.commons.Person;
  * i.e. {@code http://YOUR_REGISTERED_REDIRECT_URI/#access_token=ACCESS_TOKEN}.
  * @author ceefour
  */
-@WicketMountPoint(mountPoint="token_recipient")
+@MountPath("token_recipient")
 public class TokenRecipientPage extends WebPage {
 
 	private static final long serialVersionUID = 1L;

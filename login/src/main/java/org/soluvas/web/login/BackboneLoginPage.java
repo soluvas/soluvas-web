@@ -2,15 +2,16 @@ package org.soluvas.web.login;
 
 import org.apache.wicket.model.Model;
 import org.soluvas.web.bootstrap.BootstrapPage;
-import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * Extensible login and sign up page.
  * @author ceefour
  */
-@SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="login_backbone")
+@MountPath("login_backbone")
 public class BackboneLoginPage extends BootstrapPage {
+
+	private static final long serialVersionUID = 1L;
 
 	public BackboneLoginPage() {
 		super();

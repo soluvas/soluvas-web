@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.web.bootstrap.BootstrapPage;
-import org.soluvas.web.site.WicketMountPoint;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import com.google.common.base.Supplier;
 
@@ -33,7 +33,7 @@ import com.google.common.base.Supplier;
  * @deprecated use {@link DedicatedLoginPage}.
  */
 @SuppressWarnings("serial")
-@WicketMountPoint(mountPoint="login2")
+@MountPath("login2")
 @Deprecated
 public class LoginPage extends BootstrapPage {
 
