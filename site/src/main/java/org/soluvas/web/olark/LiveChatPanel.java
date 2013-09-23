@@ -5,7 +5,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.security.SecurityCatalog;
@@ -20,15 +19,16 @@ public class LiveChatPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	@SpringBean
+	private LiveChatManager liveChatMgr;
+	@SpringBean
 	private SecurityCatalog securityCatalog;
 
 	/**
 	 * @param id
 	 * @param model
 	 */
-	public LiveChatPanel(String id, IModel<LiveChatManager> model) {
-		super(id, model);
-		final LiveChatManager liveChatMgr = model.getObject();
+	public LiveChatPanel(String id) {
+		super(id);
 		// only display live chat if NOT has app/mall role: https://idbippo.atlassian.net/browse/BC-1397
 		boolean displayLiveChat = false;
 		if (liveChatMgr.isEnabled()) {
