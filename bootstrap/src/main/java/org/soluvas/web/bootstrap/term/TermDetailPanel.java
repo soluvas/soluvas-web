@@ -156,7 +156,6 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				setEnabled(editable);
 				final Subject subject = SecurityUtils.getSubject();
 				final boolean isSysadmin = subject.isPermitted("sysadmin");
-				log.debug("Sysadmin: {}", isSysadmin);
 				setVisible( isSysadmin );
 			}
 		});
