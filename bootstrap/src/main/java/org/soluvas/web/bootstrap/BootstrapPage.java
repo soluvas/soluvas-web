@@ -369,8 +369,13 @@ public class BootstrapPage extends ExtensiblePage {
 		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;
 		
 		if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
-			log.trace("Enabling Wicket development utilities: DebugBar");
-			add(new DebugBar("dev"));
+			try {
+				add(new DebugBar("dev"));
+				log.trace("Enabled Wicket development utilities: DebugBar");
+			} catch (NoClassDefFoundError e) {
+				log.debug("Cannot enable DebugBar in development mode, if you want to use it please add 'wicket-devutils' dependency", e);
+				add(new EmptyPanel("dev").setVisible(false));
+			}
 		} else {
 			add(new EmptyPanel("dev").setVisible(false));
 		}
