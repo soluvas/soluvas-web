@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
@@ -17,12 +19,10 @@ import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.ldap.LdapRepository;
 import org.soluvas.ldap.SocialPerson;
-import org.soluvas.web.site.EmfMapModel;
 
 import scala.actors.threadpool.Arrays;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableMap;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.Select2Choice;
@@ -31,15 +31,19 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * @author adri
  *
  */
-@SuppressWarnings("serial")
 public class PersonSelect2 extends Select2Choice<SocialPerson> {
 
+	private static final long serialVersionUID = 1L;
+
 	private static class PersonChoiceProvider extends ChoiceProvider<SocialPerson> {
+
+		private static final long serialVersionUID = 1L;
 
 		/**
 		 * Preload image URIs to make it quicker to display. 
 		 */
-		private final IModel<Map<String, DisplayImage>> displayImagesModel = new EmfMapModel<>(ImmutableMap.<String, DisplayImage>of());
+		@Nullable
+		private transient Map<String, DisplayImage> displayImages;
 
 		@SpringBean(name="personLdapRepo")
 		private LdapRepository<SocialPerson> personLdapRepo;
@@ -56,7 +60,7 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 			final List<SocialPerson> matching = personLdapRepo.search(term);
 			response.addAll(matching);
 			// preload image URIs
-			displayImagesModel.setObject( imageMgr.getSafeSocialPersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL) );
+			displayImages = imageMgr.getSafeSocialPersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL);
 		}
 
 		@Override
@@ -78,8 +82,8 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 				.key("location").value(Optional.fromNullable(choice.getCity()).or(""));
-			if (choice.getId() != null && displayImagesModel.getObject() != null) {
-				final DisplayImage displayImage = displayImagesModel.getObject().get(choice.getId());
+			if (displayImages != null && choice.getId() != null) {
+				final DisplayImage displayImage = displayImages.get(choice.getId());
 				if (displayImage != null) {
 					writer.key("photoUri").value(displayImage.getSrc());
 				}
@@ -88,7 +92,6 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		
 		@Override
 		public void detach() {
-			displayImagesModel.detach();
 			super.detach();
 		}
 		
