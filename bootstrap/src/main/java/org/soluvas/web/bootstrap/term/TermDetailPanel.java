@@ -1,5 +1,7 @@
 package org.soluvas.web.bootstrap.term;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -21,6 +23,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
@@ -55,6 +59,9 @@ import com.google.common.base.Preconditions;
  */
 @SuppressWarnings("serial")
 public class TermDetailPanel extends GenericPanel<Term> {
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(TermDetailPanel.class);
 	
 	private enum EditMode {
 		ADD,
@@ -142,7 +149,16 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		});
 		form.add(nameFld);
 		form.add(new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable));
-		form.add(new TextField<>("imageId", new PropertyModel<>(getModel(), "imageId")).setEnabled(editable));
+		form.add(new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setEnabled(editable);
+				final Subject subject = SecurityUtils.getSubject();
+				final boolean isSysadmin = subject.isPermitted("sysadmin");
+				setVisible( isSysadmin );
+			}
+		});
 		final IModel<Boolean> colorUsed = new Model<>(getModelObject().getColor() != null);
 		final PropertyModel<String> colorModel = new PropertyModel<>(getModel(), "color");
 		final Label colorBox = new Label("colorBox");
