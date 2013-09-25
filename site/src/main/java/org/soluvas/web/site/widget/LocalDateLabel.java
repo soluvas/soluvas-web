@@ -4,35 +4,50 @@ import java.util.Date;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.datetime.DateConverter;
+import org.apache.wicket.datetime.StyleDateConverter;
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.joda.time.DateTime;
-import org.joda.time.base.AbstractInstant;
+import org.joda.time.LocalDate;
 
 /**
- * Wraps a {@link DateTime} model to be usable, it also uses <code>abbr</code>.
+ * Wraps a {@link LocalDate} model to be usable, it also uses <code>abbr</code>.
  * @author ceefour
  */
-public class DateTimeLabel extends DateLabel {
+public class LocalDateLabel extends DateLabel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private IModel<? extends AbstractInstant> dateTimeModel;
+	private IModel<LocalDate> localDateModel;
 
-	public DateTimeLabel(String id, DateConverter converter) {
+	public LocalDateLabel(String id, DateConverter converter) {
 		super(id, converter);
 	}
 
-	public DateTimeLabel(String id, final IModel<? extends AbstractInstant> model, DateConverter converter) {
+	/**
+	 * Uses the "M-" {@link StyleDateConverter}.
+	 * @param id
+	 * @param model
+	 */
+	public LocalDateLabel(String id, final IModel<LocalDate> model) {
+		super(id, new AbstractReadOnlyModel<Date>() {
+			@Override
+			public Date getObject() {
+				return model.getObject() != null ? model.getObject().toDate() : null;
+			}
+		}, new StyleDateConverter("M-", true));
+		this.localDateModel = model;
+	}
+	
+	public LocalDateLabel(String id, final IModel<LocalDate> model, DateConverter converter) {
 		super(id, new AbstractReadOnlyModel<Date>() {
 			@Override
 			public Date getObject() {
 				return model.getObject() != null ? model.getObject().toDate() : null;
 			}
 		}, converter);
-		this.dateTimeModel = model;
+		this.localDateModel = model;
 	}
 	
 	@Override
@@ -41,7 +56,7 @@ public class DateTimeLabel extends DateLabel {
 		add(new AttributeModifier("title", new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				return dateTimeModel.getObject() != null ? dateTimeModel.getObject().toString() : null;
+				return localDateModel.getObject() != null ? localDateModel.getObject().toString() : null;
 			}
 		}));
 	}

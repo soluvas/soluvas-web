@@ -29,11 +29,11 @@ public class TermSelect2 extends Select2Choice<Term> {
 	 * @param model
 	 * @param kindNsPrefix
 	 * @param kindName
-	 * @param whitelist
+	 * @param whitelistModel
 	 */
 	public TermSelect2(String id, IModel<Term> model,
-			String kindNsPrefix, String kindName, final IModel<List<Value<?>>> whitelist) {
-		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName, whitelist));
+			String kindNsPrefix, String kindName, final IModel<List<Value<?>>> whitelistModel) {
+		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName, whitelistModel));
 	}
 	
 	@Override
