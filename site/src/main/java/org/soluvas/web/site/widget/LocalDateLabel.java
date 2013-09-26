@@ -14,6 +14,7 @@ import org.joda.time.LocalDate;
 /**
  * Wraps a {@link LocalDate} model to be usable, it also uses <code>abbr</code>.
  * @author ceefour
+ * @see DateTimeLabel
  */
 public class LocalDateLabel extends DateLabel {
 

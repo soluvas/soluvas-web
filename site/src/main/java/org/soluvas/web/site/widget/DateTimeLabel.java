@@ -15,6 +15,7 @@ import org.joda.time.base.AbstractInstant;
 /**
  * Wraps a {@link DateTime} model to be usable, it also uses <code>abbr</code>.
  * @author ceefour
+ * @see LocalDateLabel
  */
 public class DateTimeLabel extends DateLabel {
 
@@ -26,7 +27,7 @@ public class DateTimeLabel extends DateLabel {
 		super(id, converter);
 	}
 
-	public DateTimeLabel(String id, final IModel<?> model, DateConverter converter) {
+	public DateTimeLabel(String id, final IModel<? extends AbstractInstant> model, DateConverter converter) {
 		super(id, new AbstractReadOnlyModel<Date>() {
 			@Override
 			public Date getObject() {
