@@ -87,10 +87,6 @@
     <orderEntry type="module" module-name="org.soluvas.ldap" />
     <orderEntry type="library" name="Maven: org.picketlink.idm:picketlink-idm-api:1.5.0.Alpha02" level="project" />
     <orderEntry type="library" name="Maven: org.picketlink.idm:picketlink-idm-common:1.5.0.Alpha02" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.jena:jena-arq:2.10.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.jena:jena-core:2.10.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.jena:jena-iri:0.9.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:jcl-over-slf4j:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.directory.api:api-ldap-client-api:1.0.0-M17" level="project" />
     <orderEntry type="library" name="Maven: org.apache.directory.api:api-ldap-schema-data:1.0.0-M17" level="project" />
     <orderEntry type="library" name="Maven: org.apache.directory.api:api-i18n:1.0.0-M17" level="project" />
@@ -134,10 +130,11 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:4.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:4.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.wicket:wicket-datetime:6.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.wicketstuff:wicketstuff-annotation:6.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.wicket:wicket-core:6.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.wicket:wicket-util:6.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.wicket:wicket-request:6.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.wicket:wicket-datetime:6.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.spullara.mustache.java:compiler:0.8.13" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.17.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.wicket:wicket-atmosphere:0.10" level="project" />
@@ -152,8 +149,8 @@
     <orderEntry type="library" name="Maven: org.apache.wicket:wicket-extensions:6.8.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: ch.qos.logback:logback-classic:1.0.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: ch.qos.logback:logback-core:1.0.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:jcl-over-slf4j:1.7.5" level="project" />
     <orderEntry type="module" module-name="org.soluvas.category" />
-    <orderEntry type="library" name="Maven: org.apache.wicket:wicket-devutils:6.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.vaynberg.wicket.select2:wicket-select2:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20090211" level="project" />
     <orderEntry type="library" name="Maven: de.agilecoders.wicket:wicket-bootstrap-core:0.8.1" level="project" />
