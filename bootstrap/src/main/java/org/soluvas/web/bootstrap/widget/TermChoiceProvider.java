@@ -33,11 +33,12 @@ import com.google.common.collect.Lists;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 
-@SuppressWarnings("serial")
 public class TermChoiceProvider extends ChoiceProvider<Term> {
 
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(TermChoiceProvider.class);
+	
 	@SpringBean
 	private TermManager termMgr;
 	@SpringBean
@@ -45,6 +46,11 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	private final IModel<List<Term>> termsModel;
 	private String kindNsPrefix;
 	private String kindName;
+	/**
+	 * May be {@code null}, but we'll detach this.
+	 */
+	@Nullable
+	private IModel<List<Value<?>>> whitelistModel;
 	
 	public TermChoiceProvider(final String kindNsPrefix, final String kindName) {
 		super();
@@ -58,15 +64,16 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	 * Filter only terms which match the values provided by whitelist. The whitelist can be dynamic.
 	 * @param kindNsPrefix
 	 * @param kindName
-	 * @param whitelist
+	 * @param whitelistModel
 	 */
-	public TermChoiceProvider(final String kindNsPrefix, final String kindName, final IModel<List<Value<?>>> whitelist) {
+	public TermChoiceProvider(final String kindNsPrefix, final String kindName, final IModel<List<Value<?>>> whitelistModel) {
 		super();
 		Injector.get().inject(this);
+		this.whitelistModel = whitelistModel;
 		termsModel = new AbstractReadOnlyModel<List<Term>>() {
 			@Override
 			public List<Term> getObject() {
-				final Set<String> whitelistedUNames = ImmutableSet.copyOf(Iterables.transform(whitelist.getObject(), new ValueFunction()));
+				final Set<String> whitelistedUNames = ImmutableSet.copyOf(Iterables.transform(whitelistModel.getObject(), new ValueFunction()));
 				return ImmutableList.copyOf(Iterables.filter(termMgr.findTerms(kindNsPrefix, kindName), new Predicate<Term>() {
 					@Override
 					public boolean apply(@Nullable Term input) {
@@ -129,6 +136,9 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	@Override
 	public void detach() {
 		termsModel.detach();
+		if (whitelistModel != null) {
+			whitelistModel.detach();
+		}
 		super.detach();
 	}
 	

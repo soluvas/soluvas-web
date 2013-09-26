@@ -14,12 +14,13 @@ import org.joda.time.base.AbstractInstant;
 
 /**
  * Wraps a {@link DateTime} model to be usable, it also uses <code>abbr</code>.
- * @author adri
+ * @author ceefour
  */
-@SuppressWarnings("serial")
 public class DateTimeLabel extends DateLabel {
 
-	private IModel<?> dateTimeModel;
+	private static final long serialVersionUID = 1L;
+	
+	private IModel<? extends AbstractInstant> dateTimeModel;
 
 	public DateTimeLabel(String id, DateConverter converter) {
 		super(id, converter);
