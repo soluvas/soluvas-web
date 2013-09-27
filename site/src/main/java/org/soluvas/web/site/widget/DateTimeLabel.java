@@ -15,7 +15,6 @@ import org.joda.time.base.AbstractInstant;
 /**
  * Wraps a {@link DateTime} model to be usable, it also uses <code>abbr</code>.
  * @author ceefour
- * @see LocalDateLabel
  */
 public class DateTimeLabel extends DateLabel {
 
