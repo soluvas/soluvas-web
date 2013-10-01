@@ -702,11 +702,13 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 */
 	@Override
 	public PageMeta toText(final Object context) {
-		if (phase == PageMetaPhase.TEMPLATE) {
+		switch (phase) {
+		case TEMPLATE:
 			final PageMetaImpl result = EcoreUtil.copy(this);
 			final DefaultMustacheFactory mf = new DefaultMustacheFactory();
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Title(), result, context);
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Description(), result, context);
+			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Keywords(), result, context);
 			final OpenGraphMeta openGraph = result.getOpenGraph();
 			if (openGraph != null) {
 				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Title(), openGraph, context);
@@ -715,10 +717,11 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Image(), openGraph, context);
 			}
 			return result;
-		} else if (phase == PageMetaPhase.TEXT) {
+		case TEXT:
 			return EcoreUtil.copy(this);
-		} else
+		default:
 			throw new IllegalStateException("Invalid phase " + phase + " to call toText()");
+		}
 	}
 
 	/**
