@@ -52,14 +52,11 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 		}
 
 		@Override
-		public void query(
-				final String term,
-				int page,
-				Response<Category> response) {
+		public void query(final String term, int page, Response<Category> response) {
 			final Collection<Category> matching = ImmutableList.copyOf(Collections2.filter(sortedCategoriesModel.getObject(), new Predicate<Category>() {
 				@Override
 				public boolean apply(@Nullable Category input) {
-					return StringUtils.containsIgnoreCase(input.getName(), term);
+					return StringUtils.containsIgnoreCase(input.getName(), term.trim());
 				}
 			}));
 			response.addAll(matching);
