@@ -55,7 +55,8 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		}
 
 		@Override
-		public void query(final String term, int page, Response<SocialPerson> response) {
+		public void query(String term, int page, Response<SocialPerson> response) {
+			term = term.trim();
 			final List<SocialPerson> matching = personLdapRepo.search(term);
 			response.addAll(matching);
 			// preload image URIs

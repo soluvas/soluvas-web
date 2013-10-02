@@ -92,7 +92,7 @@ public class CategorySelect2 extends Select2Choice<Category> {
 			final Collection<Category> catList = Collections2.filter(sortedCategoriesModel.getObject(), new Predicate<Category>(){
 				@Override
 				public boolean apply(@Nullable Category input) {
-					return StringUtils.containsIgnoreCase(input.getName(), term);
+					return StringUtils.containsIgnoreCase(input.getName(), term.trim());
 				}
 			});
 			response.addAll(catList);
