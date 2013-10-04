@@ -1,4 +1,7 @@
 .tableFloatingHeaderOriginal {
 	background: #ffffff;
 	border-bottom: 1px solid #dddddd;
+	box-shadow: 0 6px 5px -5px #aaaaaa;
+	-moz-box-shadow: 0 6px 5px -5px #aaaaaa;
+	-webkit-box-shadow: 0 6px 5px -5px #aaaaaa;
 }
