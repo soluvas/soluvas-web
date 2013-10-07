@@ -12,16 +12,16 @@ import org.soluvas.web.site.widget.DateTimeLabel;
 
 /**
  * Renders the {@link SocialPerson}-typed {@link IColumn} as a {@link DateTimeLabel}.
- * @author adri
- *
  * @param <T>
  * @param <S>
+ * @author ceefour
  */
-@SuppressWarnings("serial")
 public class PersonColumn<T> extends PropertyColumn<T, String> {
 
+	private static final long serialVersionUID = 1L;
+
 	public PersonColumn(IModel<String> displayModel, String propertyExpression) {
-		super(displayModel, propertyExpression, propertyExpression);
+		super(displayModel, propertyExpression);
 	}
 
 	@Override
