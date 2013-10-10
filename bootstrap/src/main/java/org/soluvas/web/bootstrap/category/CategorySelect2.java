@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
-import org.soluvas.category.CategoryStatus;
 import org.soluvas.commons.IdFunction;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
@@ -28,7 +27,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -159,8 +157,7 @@ public class CategorySelect2 extends Select2Choice<Category> {
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
-				final List<Category> categoryList = categoryRepo.findAllByStatus(ImmutableSet.of(CategoryStatus.ACTIVE), 
-						new PageRequest(0, 500, Direction.ASC, "name")).getContent();
+				final List<Category> categoryList = categoryRepo.findAll(new PageRequest(0, 500, Direction.ASC, "name")).getContent();
 				log.debug("Categories has {} rows: {}", categoryList.size(), categoryList);
 				final List<Category> filteredCategories = ImmutableList.copyOf(Iterables.filter(categoryList, new Predicate<Category>() {
 					@Override
