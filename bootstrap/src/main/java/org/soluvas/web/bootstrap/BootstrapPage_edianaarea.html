@@ -73,6 +73,9 @@ var subscriptions = [];
 	<div class="clearfix"></div>
 	<div class="container">
 			<div class="row">
+				<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
+					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+				</div>
 				<div class="span9" wicket:id="contentColumn">
 					<div wicket:id="afterHeader" class="afterHeader">
 					</div>
@@ -85,9 +88,6 @@ var subscriptions = [];
 								</div>
 							</ol>
 						</wicket:child>
-						<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
-							<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-						</div>
 					</div>
 				</div>
 			</div><!--/row-->
