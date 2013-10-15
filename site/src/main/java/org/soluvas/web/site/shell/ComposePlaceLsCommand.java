@@ -4,8 +4,6 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.apache.felix.gogo.commands.Command;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.shell.ExtCommandSupport;
@@ -23,11 +21,6 @@ import org.springframework.stereotype.Service;
 @Service @Scope("prototype")
 @Command(scope="compose", name="placels", description="List registered Placeholders.")
 public class ComposePlaceLsCommand extends ExtCommandSupport {
-	
-	@Inject
-	public ComposePlaceLsCommand() {
-		super();
-	}
 	
 	@Override
 	protected Object doExecute() throws Exception {
