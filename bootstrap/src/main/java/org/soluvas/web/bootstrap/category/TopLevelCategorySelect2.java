@@ -13,11 +13,11 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.soluvas.category.Category;
-import org.soluvas.category.CategoryCatalog;
-import org.soluvas.category.util.CategoryUtils;
+import org.soluvas.category.CategoryRepository;
 import org.soluvas.commons.NotNullPredicate;
+import org.soluvas.data.domain.PageRequest;
+import org.soluvas.data.domain.Sort.Direction;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -78,8 +78,10 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 		}
 	}
 
+//	@SpringBean
+//	private CategoryCatalog categoryCatalog;
 	@SpringBean
-	private CategoryCatalog categoryCatalog;
+	private CategoryRepository categoryRepo;
 	
 	private IModel<List<Category>> sortedCategoriesModel;
 	
@@ -92,7 +94,8 @@ public class TopLevelCategorySelect2 extends Select2Choice<Category> {
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
-				final List<Category> unorderedCategories = CategoryUtils.flatten(ImmutableList.copyOf(EcoreUtil.copyAll(categoryCatalog.getCategories())));
+				final List<Category> unorderedCategories = categoryRepo.findAll(new PageRequest(0, 500, Direction.ASC, "name")).getContent();
+//				final List<Category> unorderedCategories = CategoryUtils.flatten(ImmutableList.copyOf(EcoreUtil.copyAll(categoryCatalog.getCategories())));
 				final Ordering<Category> orderer = Ordering.from(new Comparator<Category>() {
 					@Override
 					public int compare(Category o1, Category o2) {
