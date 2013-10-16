@@ -7,6 +7,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.soluvas.commons.Person;
 import org.soluvas.commons.PersonInfo;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.image.DisplayImage;
@@ -14,7 +15,7 @@ import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.ldap.CustomerRoles;
-import org.soluvas.ldap.SocialPerson;
+import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.PermalinkManager;
 import org.soluvas.web.site.widget.DisplayImageContainer;
 
@@ -24,15 +25,16 @@ import com.google.common.base.Strings;
  * Not directly usable. Only used to render the person popover by {@link PersonPopover}.
  * @author adri
  */
-@SuppressWarnings("serial")
 public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 
+	private static final long serialVersionUID = 1L;
+	
 	@SpringBean
 	private ImageManager imageMgr;
 	@SpringBean
 	private PermalinkManager permalinkMgr;
 	@SpringBean(name="personLookup")
-	private EntityLookup<SocialPerson, String> personLookup;
+	private EntityLookup<Person, String> personLookup;
 	
 
 	public PersonPopoverBody(String id, IModel<PersonInfo> model) {
@@ -61,7 +63,7 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 			}
 		});
 		
-		final IModel<SocialPerson> customerModel = new Model<>(personLookup.findOne(model.getObject().getId()));
+		final IModel<Person> customerModel = new EmfModel<>(personLookup.findOne(model.getObject().getId()));
 		final Model<String> currentCustomerRoleModel = new Model<>(
 				customerModel.getObject() != null ? CustomerRoles.DISPLAY_NAMES.get(customerModel.getObject().getCustomerRole()) : null);
 		add(new Label("customerRole", currentCustomerRoleModel));
