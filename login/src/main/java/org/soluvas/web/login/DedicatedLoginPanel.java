@@ -14,9 +14,9 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.Person;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.EntityLookup;
-import org.soluvas.ldap.Person;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.facebook.FacebookRecipient;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
@@ -26,8 +26,9 @@ import org.soluvas.web.site.SoluvasWebSession;
  * @author rudi
  *
  */
-@SuppressWarnings("serial")
 public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
+	
+	private static final long serialVersionUID = 1L;
 	
 	static final Logger log = LoggerFactory
 			.getLogger(DedicatedLoginPanel.class);
