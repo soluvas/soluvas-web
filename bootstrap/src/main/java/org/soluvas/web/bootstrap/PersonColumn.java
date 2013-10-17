@@ -6,12 +6,12 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
-import org.soluvas.ldap.SocialPerson;
+import org.soluvas.commons.Person;
 import org.soluvas.web.bootstrap.widget.PersonPopover;
 import org.soluvas.web.site.widget.DateTimeLabel;
 
 /**
- * Renders the {@link SocialPerson}-typed {@link IColumn} as a {@link DateTimeLabel}.
+ * Renders the {@link Person}-typed {@link IColumn} as a {@link DateTimeLabel}.
  * @param <T>
  * @param <S>
  * @author ceefour
