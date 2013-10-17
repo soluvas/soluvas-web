@@ -6,9 +6,9 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.soluvas.commons.Person;
+import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.ImageManager;
-import org.soluvas.ldap.LdapRepository;
-import org.soluvas.ldap.SocialPerson;
 
 import com.vaynberg.wicket.select2.Select2MultiChoice;
 
@@ -17,14 +17,14 @@ import com.vaynberg.wicket.select2.Select2MultiChoice;
  *
  */
 @SuppressWarnings("serial")
-public class PeopleSelect2 extends Select2MultiChoice<SocialPerson> {
+public class PeopleSelect2 extends Select2MultiChoice<Person> {
 	
-	@SpringBean(name="personLdapRepo")
-	private LdapRepository<SocialPerson> personLdapRepo;
+	@SpringBean
+	private PersonRepository personRepo;
 	@SpringBean
 	private ImageManager imageMgr;
 
-	public PeopleSelect2(String id, IModel<Collection<SocialPerson>> model) {
+	public PeopleSelect2(String id, IModel<Collection<Person>> model) {
 		super(id, model);
 	}
 
@@ -36,7 +36,7 @@ public class PeopleSelect2 extends Select2MultiChoice<SocialPerson> {
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
-		setProvider(new PersonChoiceProvider(personLdapRepo, imageMgr));
+		setProvider(new PersonChoiceProvider(personRepo, imageMgr));
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +

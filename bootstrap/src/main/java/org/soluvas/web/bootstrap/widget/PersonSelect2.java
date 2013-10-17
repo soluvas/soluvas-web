@@ -14,14 +14,18 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.json.JSONException;
 import org.json.JSONWriter;
+import org.soluvas.commons.Person;
+import org.soluvas.data.StatusMask;
+import org.soluvas.data.domain.Page;
+import org.soluvas.data.domain.PageRequest;
+import org.soluvas.data.domain.Sort.Direction;
+import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.DisplayImage;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
-import org.soluvas.ldap.LdapRepository;
-import org.soluvas.ldap.SocialPerson;
+import org.soluvas.web.site.EmfModel;
 
-import com.google.common.base.Optional;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.Select2Choice;
@@ -30,11 +34,11 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * @author adri
  *
  */
-public class PersonSelect2 extends Select2Choice<SocialPerson> {
+public class PersonSelect2 extends Select2Choice<Person> {
 
 	private static final long serialVersionUID = 1L;
 
-	private static class PersonChoiceProvider extends ChoiceProvider<SocialPerson> {
+	private static class PersonChoiceProvider extends ChoiceProvider<Person> {
 
 		private static final long serialVersionUID = 1L;
 
@@ -44,8 +48,8 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		@Nullable
 		private transient Map<String, DisplayImage> displayImages;
 
-		@SpringBean(name="personLdapRepo")
-		private LdapRepository<SocialPerson> personLdapRepo;
+		@SpringBean
+		private PersonRepository personRepo;
 		@SpringBean
 		private ImageManager imageMgr;
 		
@@ -55,33 +59,37 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		}
 
 		@Override
-		public void query(String term, int page, Response<SocialPerson> response) {
+		public void query(String term, int page, Response<Person> response) {
 			term = term.trim();
-			final List<SocialPerson> matching = personLdapRepo.search(term);
-			response.addAll(matching);
+			final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
+			//FIXME: do not hard coded for STATUS
+			final Page<Person> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
+			response.addAll(peoplePage.getContent());
+			response.setHasMore(!peoplePage.isLastPage());
 			// preload image URIs
-			displayImages = imageMgr.getSafeSocialPersonPhotos(ImageTypes.PERSON, matching, ImageStyles.THUMBNAIL);
+			displayImages = imageMgr.getSafePersonPhotos(ImageTypes.PERSON, peoplePage.getContent(), ImageStyles.THUMBNAIL);
 		}
 
 		@Override
-		public Collection<SocialPerson> toChoices(Collection<String> ids) {
-			final List<SocialPerson> found = personLdapRepo.findAll(ids);
+		public Collection<Person> toChoices(Collection<String> ids) {
+			//FIXME: do not hard coded for STATUS
+			final List<Person> found = personRepo.findAll(StatusMask.ACTIVE_ONLY, ids);
 			// Workaround for Select2Choice "bug": https://github.com/ivaynberg/wicket-select2/issues/56
 			if (!ids.isEmpty() && found.isEmpty()) {
-				return Arrays.asList(new SocialPerson[] { null });
+				return Arrays.asList(new Person[] { null });
 			} else {
 				return found;
 			}
 		}
 		
 		@Override
-		public void toJson(SocialPerson choice, JSONWriter writer)
+		public void toJson(Person choice, JSONWriter writer)
 				throws JSONException {
 			writer.key("id").value(choice.getId())
 				.key("customerId").value(choice.getId())
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
-				.key("location").value(Optional.fromNullable(choice.getCity()).or(""));
+				.key("location").value(choice.getPrimaryAddress() != null ? choice.getPrimaryAddress().getCity() : "");
 			if (displayImages != null && choice.getId() != null) {
 				final DisplayImage displayImage = displayImages.get(choice.getId());
 				if (displayImage != null) {
@@ -97,12 +105,12 @@ public class PersonSelect2 extends Select2Choice<SocialPerson> {
 		
 	}
 
-	public PersonSelect2(String id, IModel<SocialPerson> model) {
+	public PersonSelect2(String id, IModel<Person> model) {
 		super(id, model, new PersonChoiceProvider());
 	}
 
 	public PersonSelect2(String id) {
-		super(id, new Model<SocialPerson>(), new PersonChoiceProvider());
+		super(id, new EmfModel<Person>(), new PersonChoiceProvider());
 	}
 	
 	@Override
