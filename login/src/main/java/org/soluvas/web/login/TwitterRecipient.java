@@ -14,14 +14,17 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AccountStatus;
+import org.soluvas.commons.CommonsFactory;
+import org.soluvas.commons.Gender;
 import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.NameUtils.PersonName;
+import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.data.StatusMask;
+import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
-import org.soluvas.ldap.LdapRepository;
-import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithTwitterException;
 import org.soluvas.twitter.TwitterManager;
@@ -44,10 +47,11 @@ import com.google.common.base.Strings;
  * @author haidar
  *
  */
-@SuppressWarnings("serial")
 @MountPath("twitter_recipient/")
 public class TwitterRecipient extends WebPage {
 	
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterRecipient.class);
 	
@@ -55,8 +59,8 @@ public class TwitterRecipient extends WebPage {
 	private TwitterManager twitterManager;
 	@SpringBean
 	private WebAddress webAddress;
-	@SpringBean(name="personLdapRepo")
-	private LdapRepository<SocialPerson> personLdapRepo;
+	@SpringBean
+	private PersonRepository personRepo;
 	@SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	
@@ -93,9 +97,9 @@ public class TwitterRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", twitterUser);
 			log.debug("Got user {}", JsonUtils.asJson(twitterUser));
 			
-			SocialPerson curPerson = personLdapRepo.findOneByAttribute("twitterId", String.valueOf(twitterUser.getId()));
+			Person curPerson = personRepo.findOneByTwitter(Long.valueOf(twitterUser.getId()), null);
 			if (curPerson == null) {
-				curPerson = personLdapRepo.findOneByAttribute("twitterScreenName", twitterUser.getScreenName());
+				curPerson = personRepo.findOneByTwitter(null, twitterUser.getScreenName());
 			}
 			
 			if (curPerson != null) {
@@ -107,24 +111,22 @@ public class TwitterRecipient extends WebPage {
 				final String personId = SlugUtils.generateValidId(personFullName, new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personLdapRepo.exists(input);
+						return !personRepo.exists(input);
 					}
 				});
 				
 				final String personSlug = SlugUtils.generateValidScreenName(personFullName, new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
+						return !personRepo.existsBySlug(StatusMask.RAW, input).isPresent();
 					}
 				});
 				final PersonName personName = NameUtils.splitName(personFullName);
-//				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
-				curPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
+				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName() + " " + personName.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				curPerson.setCustomerRole("biasa");
-//				existingPerson = personLdapRepo.add(newPerson);
-				personLdapRepo.add(curPerson);
+				personRepo.add(curPerson);
 				log.debug("person {} is inserted", personId);
 			}
 			
@@ -151,7 +153,7 @@ public class TwitterRecipient extends WebPage {
 					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
 			}
-			final SocialPerson modifiedPerson = personLdapRepo.modify(curPerson);
+			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(

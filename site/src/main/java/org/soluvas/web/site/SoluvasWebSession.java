@@ -20,16 +20,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.locale.LocaleContext;
-import org.soluvas.data.repository.CrudRepository;
-import org.soluvas.ldap.SocialPerson;
+import org.soluvas.data.person.PersonRepository;
 
 /**
  * @author ceefour
  *
  */
-@SuppressWarnings("serial")
 public class SoluvasWebSession extends WebSession {
 
+	private static final long serialVersionUID = 1L;
+	
 	private static final Logger log = LoggerFactory
 		.getLogger(SoluvasWebSession.class);
 	@Deprecated
@@ -43,10 +43,10 @@ public class SoluvasWebSession extends WebSession {
 	 */
 	private String redirectUri;
 	/**
-	 * Used by token flow. Won't work with {@link SocialPerson}.
+	 * Used by token flow. Won't work with {@link Person}.
 	 */
-	@SpringBean(name="personRepo")
-	private CrudRepository<Person, String> personRepo;
+	@SpringBean
+	private PersonRepository personRepo;
 	
 	public SoluvasWebSession(Request request) {
 		super(request);

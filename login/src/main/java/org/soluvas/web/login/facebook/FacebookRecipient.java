@@ -2,7 +2,6 @@ package org.soluvas.web.login.facebook;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,15 +25,18 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AccountStatus;
+import org.soluvas.commons.CommonsFactory;
+import org.soluvas.commons.Email;
 import org.soluvas.commons.Gender;
+import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.data.StatusMask;
+import org.soluvas.data.person.PersonRepository;
 import org.soluvas.facebook.FacebookManager;
 import org.soluvas.facebook.FacebookUtilsImpl;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
-import org.soluvas.ldap.LdapRepository;
-import org.soluvas.ldap.SocialPerson;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.web.site.SoluvasWebSession;
@@ -52,14 +54,15 @@ import com.restfb.types.User;
  * @author haidar
  *
  */
-@SuppressWarnings("serial")
 @MountPath("fb_recipient/")
 public class FacebookRecipient extends WebPage {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	
-	@SpringBean(name="personLdapRepo")
-	private LdapRepository<SocialPerson> personLdapRepo;
+	@SpringBean
+	private PersonRepository personRepo;
 	@SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
 	@SpringBean(name="facebookMgr")
@@ -91,12 +94,12 @@ public class FacebookRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", fbUser);
 			log.debug("Got user and user details{}", JsonUtils.asJson(fbUser));
 			
-			SocialPerson curPerson = personLdapRepo.findOneByAttribute("fbId", fbUser.getId());
+			Person curPerson = personRepo.findOneByFacebook(Long.valueOf(fbUser.getId()), null);
 			if (curPerson == null) {
-				curPerson = personLdapRepo.findOneByAttribute("fbUser", fbUser.getUsername());
+				curPerson = personRepo.findOneByFacebook(null, fbUser.getUsername());
 			}
 			if (curPerson == null) {
-				curPerson = personLdapRepo.findOneByAttribute("mail", fbUser.getEmail());
+				curPerson = personRepo.findOneByEmail(StatusMask.RAW, fbUser.getEmail());
 			}
 			
 			if (curPerson != null) {
@@ -108,22 +111,22 @@ public class FacebookRecipient extends WebPage {
 				final String personId = SlugUtils.generateValidId(fbUser.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personLdapRepo.exists(input);
+						return !personRepo.exists(input);
 					}
 				});
 				
 				final String personSlug = SlugUtils.generateValidScreenName(fbUser.getName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
+						return !personRepo.existsBySlug(StatusMask.RAW, input).isPresent();
 					}
 				});
 				
-				curPerson = new SocialPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName());
+				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName() + " " + fbUser.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				curPerson.setCustomerRole("biasa");
-				personLdapRepo.add(curPerson);
+				personRepo.add(curPerson);
 			}
 
 			if (curPerson.getValidationTime() == null) {
@@ -146,16 +149,15 @@ public class FacebookRecipient extends WebPage {
 			curPerson.setFacebookUsername(fbUser.getUsername());
 			curPerson.setFacebookId(Long.valueOf(fbUser.getId()));
 			curPerson.setFacebookAccessToken(accessToken);
-			if (curPerson.getEmails() == null) {
-				curPerson.setEmails(new HashSet<String>());
-			}
 			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
 				log.debug("User {} from Facebook ID {} has email {}",
 						curPerson.getId(), fbUser.getId(), fbUser.getEmail());
-				curPerson.getEmails().add(fbUser.getEmail());
-				if (curPerson.getPrimaryEmail() == null) {
-					curPerson.setPrimaryEmail(fbUser.getEmail());
+				final Email email = CommonsFactory.eINSTANCE.createEmail();
+				email.setEmail(fbUser.getEmail());
+				if (Strings.isNullOrEmpty(curPerson.getEmail())) {
+					email.setPrimary(true);
 				}
+				curPerson.getEmails().add(email);
 			} else {
 				log.warn("User {} from Facebook ID {} has no email address",
 					curPerson.getId(), fbUser.getId());
@@ -170,7 +172,7 @@ public class FacebookRecipient extends WebPage {
 					log.error("Cannot refresh photo from Facebook for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
 			}
-			final SocialPerson modifiedPerson = personLdapRepo.modify(curPerson); 
+			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson); 
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(

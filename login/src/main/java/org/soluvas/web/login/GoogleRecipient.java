@@ -1,55 +1,37 @@
 package org.soluvas.web.login;
 
 import java.io.IOException;
-import java.util.HashSet;
-
-import javax.annotation.Nullable;
 
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.NameUtils;
-import org.soluvas.commons.NameUtils.PersonName;
-import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.json.JsonUtils;
-import org.soluvas.ldap.LdapRepository;
-import org.soluvas.ldap.SocialPerson;
-import org.soluvas.security.NotLoggedWithGooglePlusException;
+import org.soluvas.data.person.PersonRepository;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.plus.Plus;
-import com.google.api.services.plus.PlusScopes;
-import com.google.api.services.plus.model.Person;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
 
 /**
+ * FIXME: not complete T.T still bug..
  * Google Recipient 
  * @author haidar
  *
  */
-@SuppressWarnings("serial")
 @MountPath("google_recipient/")
 public class GoogleRecipient extends WebPage {
 	
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleRecipient.class);
 	
-	@SpringBean(name="personLdapRepo")
-	private LdapRepository<SocialPerson> personLdapRepo;
+	@SpringBean
+	private PersonRepository personRepo;
 	@SpringBean(name="googleMgr")
 	private GoogleManager googleManager;
 	@SpringBean
@@ -60,7 +42,8 @@ public class GoogleRecipient extends WebPage {
 
 	public GoogleRecipient(PageParameters params) throws IOException {
 		super();
-		final String myUrl = webAddress.getBaseUri() + "google_recipient/";
+		throw new UnsupportedOperationException("Masih lom jalan + di komen juga code-nya");
+		/*final String myUrl = webAddress.getBaseUri() + "google_recipient/";
 		final String code = params.get("code").toOptionalString();
 
 		final GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
@@ -86,9 +69,9 @@ public class GoogleRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", user);
 			log.debug("Got user {}", JsonUtils.asJson(user));
 			
-			SocialPerson existingPerson = personLdapRepo.findOneByAttribute("googlePlusId", String.valueOf(user.getId()));
+			final Person existingPerson = personRepo.findOneByAttribute("googlePlusId", String.valueOf(user.getId()));
 			if (existingPerson == null) {
-				existingPerson = personLdapRepo.findOneByAttribute("google", user.getName().toString());
+				existingPerson = personRepo.findOneByAttribute("google", user.getName().toString());
 			}
 			
 			if (existingPerson != null) {
@@ -100,19 +83,19 @@ public class GoogleRecipient extends WebPage {
 				final String personId = SlugUtils.generateValidId(user.getDisplayName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personLdapRepo.exists(input);
+						return !personRepo.exists(input);
 					}
 				});
 				
 				final String personSlug = SlugUtils.generateValidScreenName(user.getDisplayName(), new Predicate<String>() {
 					@Override
 					public boolean apply(@Nullable String input) {
-						return !personLdapRepo.existsByAttribute("uniqueIdentifier", input);
+						return !personRepo.existsByAttribute("uniqueIdentifier", input);
 					}
 				});
 				final PersonName personName = NameUtils.splitName(user.getDisplayName());
 				final SocialPerson newPerson = new SocialPerson(personId, personSlug, personName.getFirstName(), personName.getLastName());
-				existingPerson = personLdapRepo.add(newPerson);
+				existingPerson = personRepo.add(newPerson);
 				log.debug("person {} is inserted", personId);
 			}
 
@@ -131,13 +114,13 @@ public class GoogleRecipient extends WebPage {
 			}
 			existingPerson.setGooglePlusId(user.getId());
 			existingPerson.setGoogleAccessToken(accessToken);
-			personLdapRepo.modify(existingPerson);
+			personRepo.modify(existingPerson);
 		} catch (final Exception e) {
 //			info("Error when building a uri using Google Account" + e.getMessage());
 //			log.error("Error when building a uri using Google Account", e);
 //			throw new RestartResponseException(DedicatedLoginPage.class);
 			throw new NotLoggedWithGooglePlusException("Error logging in via Google Account", e);
-		}
+		}*/
 	}
 
 }
