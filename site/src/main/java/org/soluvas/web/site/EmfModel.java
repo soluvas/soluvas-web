@@ -180,33 +180,35 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		final T obj = getObject();
 		if (obj != null) {
 			log.trace("Serializing {}", EOBJECT_TO_STRING.apply(obj) );
-			final Resource res = new XMIResourceImpl();
-			final T copied = EcoreUtil.copy(obj);
-			res.getContents().add(copied);
-			
-			addLegacyCrossRefs(copied, res);
-			
-			final List<EObject> allContents = ImmutableList.copyOf(EcoreUtil.<EObject>getAllContents(res, false));//copied.eAllContents();
-//			final List<EObject> objectsToAdd = new ArrayList<>();
-			final Set<EObject> checkedEObjects = new HashSet<>();
-			for (EObject child : allContents) {
-				checkCrossRefs(child, res, checkedEObjects);
-			}
-//			res.getContents().addAll(objectsToAdd);
-			try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-				log.trace("Serializing {} as {} objects: {}", obj.eClass().getName(), res.getContents().size(),
-						Lists.transform(res.getContents(), EOBJECT_TO_STRING));
-				res.save(out, ImmutableMap.of(
-						XMIResource.OPTION_ENCODING, "UTF-8",
-						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY,
-						XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
-						));
-				buf = out.toByteArray();
-				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
-					log.trace("Serialized {} to: {}", EOBJECT_TO_STRING.apply(obj),
-							new String(buf));
-				} else {
-					log.trace("Serialized {} as {} bytes", EOBJECT_TO_STRING.apply(obj), buf.length);
+			try {
+				final Resource res = new XMIResourceImpl();
+				final T copied = EcoreUtil.copy(obj);
+				res.getContents().add(copied);
+				
+				addLegacyCrossRefs(copied, res);
+				
+				final List<EObject> allContents = ImmutableList.copyOf(EcoreUtil.<EObject>getAllContents(res, false));//copied.eAllContents();
+	//			final List<EObject> objectsToAdd = new ArrayList<>();
+				final Set<EObject> checkedEObjects = new HashSet<>();
+				for (EObject child : allContents) {
+					checkCrossRefs(child, res, checkedEObjects);
+				}
+	//			res.getContents().addAll(objectsToAdd);
+				try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+					log.trace("Serializing {} as {} objects: {}", obj.eClass().getName(), res.getContents().size(),
+							Lists.transform(res.getContents(), EOBJECT_TO_STRING));
+					res.save(out, ImmutableMap.of(
+							XMIResource.OPTION_ENCODING, "UTF-8",
+							XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY,
+							XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
+							));
+					buf = out.toByteArray();
+					if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
+						log.trace("Serialized {} to: {}", EOBJECT_TO_STRING.apply(obj),
+								new String(buf));
+					} else {
+						log.trace("Serialized {} as {} bytes", EOBJECT_TO_STRING.apply(obj), buf.length);
+					}
 				}
 			} catch (Exception e) {
 				throw new SiteException("Cannot serialize EObject " + EOBJECT_TO_STRING.apply(obj), e);

@@ -16,8 +16,9 @@ import com.vaynberg.wicket.select2.Select2MultiChoice;
  * @author mahendri
  *
  */
-@SuppressWarnings("serial")
 public class PeopleSelect2 extends Select2MultiChoice<Person> {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@SpringBean
 	private PersonRepository personRepo;
