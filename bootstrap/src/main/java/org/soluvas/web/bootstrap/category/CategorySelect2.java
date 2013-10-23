@@ -25,6 +25,7 @@ import org.soluvas.image.ImageManager;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -57,27 +58,22 @@ public class CategorySelect2 extends Select2Choice<Category> {
 
 		@Override
 		protected String getDisplayText(Category choice) {
-			return getParentPrefix(choice) + choice.getName();
-////			log.debug("Category is {}", choice);
-//			final Category parent = choice.getParent();
-//			if (parent != null) {
-//				final Category grandParent = parent.getParent();
-//				if (grandParent != null) {
-//					final Category grandGrandParent = grandParent.getParent();
-//					if (grandGrandParent != null) {
-//						return grandGrandParent.getName() + " > " + grandParent.getName() + " > " + parent.getName() + " > " + choice.getName();
-//					}
-//					return grandParent.getName() + " > " + parent.getName() + " > " + choice.getName();
-//				}
-//				return parent.getName() + " > " + choice.getName();
-//			} else {
-//				return choice.getName();
-//			}
+			log.debug("Choice {} has {} - parentUname", choice.getUName(), choice.getParentUName());
+			final String displayTxt = getParentPrefix(choice) + choice.getName();
+			log.debug("Display Text: {}", displayTxt);
+			return displayTxt;
 		}
 		
+		@SuppressWarnings("null")
 		protected String getParentPrefix(Category child) {
-			if (child.getParent() != null) {
-				return getParentPrefix(child.getParent()) + "" + child.getParent().getName() + " > ";
+//			if (child.getParent() != null) {
+			if (!Strings.isNullOrEmpty(child.getParentUName())) {
+				final Category parent = categoryRepo.findOne(child.getParentUName());
+				if (parent != null) {
+					log.debug("Parent of {} is {}", child.getUName(), parent.getUName());
+					return getParentPrefix(parent) + "" + parent.getName() + " > ";
+				}
+				return "";
 			} else {
 				return "";
 			}
