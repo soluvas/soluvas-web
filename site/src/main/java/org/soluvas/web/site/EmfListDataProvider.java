@@ -51,11 +51,12 @@ public class EmfListDataProvider<T extends EObject> implements IDataProvider<T>
 	 *     model, InventoryPackage.Literals.INVENTORY__LINES);
 	 * }</pre>
 	 * 
-	 * @param listModel Usually {@link LoadableDetachableModel}.
+	 * @param parentModel Usually {@link LoadableDetachableModel}.
+	 * @param listReference Usually a containment {@link EReference} with 0..* cardinality.
 	 */
-	public EmfListDataProvider(IModel<? extends EObject> listModel, EReference property) {
+	public EmfListDataProvider(IModel<? extends EObject> parentModel, EReference listReference) {
 		super();
-		this.listModel = new PropertyModel<>(listModel, property.getName());
+		this.listModel = new PropertyModel<>(parentModel, listReference.getName());
 	}
 
 	@Override
