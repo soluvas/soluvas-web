@@ -20,9 +20,6 @@ import com.google.common.base.Preconditions;
  */
 @Deprecated
 public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo> {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@SpringBean(name="personLookup")
 	private EntityLookup<Person, String> personLookup;
