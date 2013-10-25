@@ -15,8 +15,10 @@ import com.google.common.base.Preconditions;
 /**
  * Returns the logged in {@link PersonInfo} using Shiro {@link Subject}
  * then lookup the {@link Person} via {@link EntityLookup} bean named {@code personLookup}.
+ * @deprecated To Bippo: Do not delete yet, still used by Quikdo. Until there's a better replacement.
  * @author mahendri
  */
+@Deprecated
 public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo> {
 	/**
 	 * 
