@@ -40,26 +40,15 @@ public class GrowlBehavior extends Behavior {
 		};
 	};
 	
-	private final boolean useRequire;
-	
 	public GrowlBehavior() {
 		super();
-		this.useRequire = true;
 		Injector.get().inject(this);
 	}
 
-	public GrowlBehavior(boolean useRequire) {
-		super();
-		this.useRequire = useRequire;
-		Injector.get().inject(this);
-	}
-	
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		if (!useRequire) {
-			response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
-		}
+		response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
 	}
 	
 	@Override
@@ -109,13 +98,8 @@ public class GrowlBehavior extends Behavior {
 //						"src=\"" + pathIcon + "\" />')");
 //				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
-				if (useRequire) {
-					target.appendJavaScript("require(['bootstrap-growl'], function(){ $.bootstrapGrowl(" +
-							JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'}); });");					
-				} else {
-					target.appendJavaScript("$.bootstrapGrowl(" +
-							JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'});");					
-				}
+				target.appendJavaScript("$.bootstrapGrowl(" +
+						JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'});");					
 				msg.markRendered();
 			}
 		}

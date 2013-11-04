@@ -161,21 +161,6 @@ public class BootstrapConfig {
 	}
 	
 	@Bean
-	public JavaScriptModule growlModule() {
-//		return new JavaScriptModuleImpl("bootstrap-growl",
-//				"org.soluvas.web.bootstrap/jquery.bootstrap-growl-1.0.0",
-//				"//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min");
-		// 1.0.0 has bug with fixed position
-		return new JavaScriptModuleImpl("bootstrap-growl",
-				"org.soluvas.web.bootstrap/jquery.bootstrap-growl-132647f01c");
-	}
-	
-	@Bean
-	public JavaScriptShim growlShim() {
-		return new JavaScriptShimImpl("bootstrap-growl", ImmutableSet.of("jquery"));
-	}
-	
-	@Bean
 	public JavaScriptModule easingModule() {
 		return new JavaScriptModuleImpl("easing", "org.soluvas.web.bootstrap/easing.js");
 	}
