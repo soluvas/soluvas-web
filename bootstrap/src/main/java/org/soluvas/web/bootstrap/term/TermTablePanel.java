@@ -46,8 +46,9 @@ import org.soluvas.web.site.widget.LinkColumn;
  * 
  * @author ceefour
  */
-@SuppressWarnings("serial")
 public class TermTablePanel extends Panel {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private TermRepository termRepo;
 
