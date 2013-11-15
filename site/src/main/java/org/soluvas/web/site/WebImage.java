@@ -17,8 +17,9 @@ import com.google.common.collect.ImmutableMap;
  * Image component that supports URI templating using {@link WebAddress}.
  * @author rio
  */
-@SuppressWarnings("serial")
 public class WebImage extends WebMarkupContainer {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory.getLogger(WebImage.class);
 	
