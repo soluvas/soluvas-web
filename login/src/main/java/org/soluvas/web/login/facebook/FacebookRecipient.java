@@ -42,9 +42,11 @@ import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.types.User;
@@ -152,12 +154,20 @@ public class FacebookRecipient extends WebPage {
 			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
 				log.debug("User {} from Facebook ID {} has email {}",
 						curPerson.getId(), fbUser.getId(), fbUser.getEmail());
-				final Email email = CommonsFactory.eINSTANCE.createEmail();
-				email.setEmail(fbUser.getEmail());
-				if (Strings.isNullOrEmpty(curPerson.getEmail())) {
-					email.setPrimary(true);
+				final Optional<Email> existingEmail = Iterables.tryFind(curPerson.getEmails(), new Predicate<Email>() {
+					@Override
+					public boolean apply(@Nullable Email input) {
+						return input.getEmail().equals(fbUser.getEmail());
+					}
+				});
+				if (!existingEmail.isPresent()) {
+					final Email email = CommonsFactory.eINSTANCE.createEmail();
+					email.setEmail(fbUser.getEmail());
+					if (Strings.isNullOrEmpty(curPerson.getEmail())) {
+						email.setPrimary(true);
+					}
+					curPerson.getEmails().add(email);
 				}
-				curPerson.getEmails().add(email);
 			} else {
 				log.warn("User {} from Facebook ID {} has no email address",
 					curPerson.getId(), fbUser.getId());
