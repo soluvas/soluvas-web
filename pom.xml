@@ -49,8 +49,8 @@
 	</licenses>
 
 	<properties>
-		<wicket.version>6.11.0</wicket.version>
-		<wicketstuff.version>6.11.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicket.version>6.12.0</wicket.version>
+		<wicketstuff.version>6.12.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
 	</properties>
 
 	<dependencyManagement>
@@ -109,7 +109,7 @@
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-atmosphere</artifactId>
-				<version>0.14</version>
+				<version>0.15</version>
 				<!-- Important: Make sure to exclude atmosphere-compat-tomcat7 if you use Tomcat 7.x! -->
 			</dependency>
 			<dependency>
