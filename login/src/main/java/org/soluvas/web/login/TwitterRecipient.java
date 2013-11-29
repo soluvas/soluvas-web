@@ -133,11 +133,7 @@ public class TwitterRecipient extends WebPage {
 			if (curPerson.getValidationTime() == null) {
 				curPerson.setValidationTime(new DateTime());
 			}
-			if (curPerson.getAccountStatus() == null ||
-					curPerson.getAccountStatus() == AccountStatus.DRAFT ||
-					curPerson.getAccountStatus() == AccountStatus.ACTIVE) {
-				curPerson.setAccountStatus(AccountStatus.VALIDATED);
-			}
+			curPerson.setAccountStatus(AccountStatus.ACTIVE);
 			curPerson.setTwitterScreenName(twitterUser.getScreenName());
 			curPerson.setTwitterId(Long.valueOf(twitterUser.getId()));
 			curPerson.setTwitterAccessToken(oAuthAccessToken.getToken());

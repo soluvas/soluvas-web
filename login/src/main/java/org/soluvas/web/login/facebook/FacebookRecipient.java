@@ -134,11 +134,7 @@ public class FacebookRecipient extends WebPage {
 			if (curPerson.getValidationTime() == null) {
 				curPerson.setValidationTime(new DateTime());
 			}
-			if (curPerson.getAccountStatus() == null ||
-					curPerson.getAccountStatus() == AccountStatus.DRAFT ||
-					curPerson.getAccountStatus() == AccountStatus.ACTIVE) {
-				curPerson.setAccountStatus(AccountStatus.VALIDATED);
-			}
+			curPerson.setAccountStatus(AccountStatus.ACTIVE);
 			if (fbUser.getGender() != null) {
 				try {
 					final Gender gender = Gender.valueOf(fbUser.getGender().toUpperCase());
