@@ -3,9 +3,6 @@ package org.soluvas.web.bootstrap.widget;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
 
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
@@ -20,10 +17,6 @@ import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.data.person.PersonRepository;
-import org.soluvas.image.DisplayImage;
-import org.soluvas.image.ImageManager;
-import org.soluvas.image.ImageStyles;
-import org.soluvas.image.ImageTypes;
 import org.soluvas.web.site.EmfModel;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
@@ -31,10 +24,10 @@ import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.Select2Choice;
 
 /**
- * For without {@link ImageManager} dependency, use {@link TextPersonSelect2}.
- * @author ceefour
+ * @author adri
+ *
  */
-public class PersonSelect2 extends Select2Choice<Person> {
+public class TextPersonSelect2 extends Select2Choice<Person> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,16 +35,8 @@ public class PersonSelect2 extends Select2Choice<Person> {
 
 		private static final long serialVersionUID = 1L;
 
-		/**
-		 * Preload image URIs to make it quicker to display. 
-		 */
-		@Nullable
-		private transient Map<String, DisplayImage> displayImages;
-
 		@SpringBean
 		private PersonRepository personRepo;
-		@SpringBean
-		private ImageManager imageMgr;
 		
 		public PersonChoiceProvider() {
 			super();
@@ -66,8 +51,6 @@ public class PersonSelect2 extends Select2Choice<Person> {
 			final Page<Person> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
 			response.addAll(peoplePage.getContent());
 			response.setHasMore(!peoplePage.isLastPage());
-			// preload image URIs
-			displayImages = imageMgr.getSafePersonPhotos(ImageTypes.PERSON, peoplePage.getContent(), ImageStyles.THUMBNAIL);
 		}
 
 		@Override
@@ -88,14 +71,7 @@ public class PersonSelect2 extends Select2Choice<Person> {
 			writer.key("id").value(choice.getId())
 				.key("customerId").value(choice.getId())
 				.key("text").value(choice.getName())
-				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 				.key("location").value(choice.getPrimaryAddress() != null ? choice.getPrimaryAddress().getCity() : "");
-			if (displayImages != null && choice.getId() != null) {
-				final DisplayImage displayImage = displayImages.get(choice.getId());
-				if (displayImage != null) {
-					writer.key("photoUri").value(displayImage.getSrc());
-				}
-			}
 		}
 		
 		@Override
@@ -105,11 +81,11 @@ public class PersonSelect2 extends Select2Choice<Person> {
 		
 	}
 
-	public PersonSelect2(String id, IModel<Person> model) {
+	public TextPersonSelect2(String id, IModel<Person> model) {
 		super(id, model, new PersonChoiceProvider());
 	}
 
-	public PersonSelect2(String id) {
+	public TextPersonSelect2(String id) {
 		super(id, new EmfModel<Person>(), new PersonChoiceProvider());
 	}
 	
@@ -120,8 +96,6 @@ public class PersonSelect2 extends Select2Choice<Person> {
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
-			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
-			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
 			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
 			"  .append(textMarkup.join('')).append(' (ID : '+ object.customerId + ') <br>')" +
@@ -130,11 +104,9 @@ public class PersonSelect2 extends Select2Choice<Person> {
 			"thediv.css({height: '45px'});" +
 			"}");
 		getSettings().setFormatSelection(
-				"function(object, container, query) {" +
-				"container.append($('<img>').attr('src', object.genderIconUri));" +
-				"container.append(' ');" +
-				"container.append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
-				"}");
+			"function(object, container, query) {" +
+			"container.append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
+			"}");
 	}
 
 }
