@@ -22,6 +22,9 @@ import org.xml.sax.InputSource;
  */
 public class ContentNode implements Serializable {
 	
+//	private static final Logger log = LoggerFactory
+//			.getLogger(ContentNode.class);
+	
 	/**
 	 * 
 	 */
@@ -110,7 +113,9 @@ public class ContentNode implements Serializable {
 			String content = "";
 			for (Node node : bodyContents) {
 				content += node.asXML();
+//				log.debug("content: {}", content);
 			}
+//			log.debug("Content: {}", content);
 			page.setBody( content );
 			return page;
 		} catch (Exception e) {
