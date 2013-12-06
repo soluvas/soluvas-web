@@ -81,6 +81,8 @@ public class TextPersonSelect2 extends Select2Choice<Person> {
 		
 	}
 
+	private String inputSize = "xxlarge";
+
 	public TextPersonSelect2(String id, IModel<Person> model) {
 		super(id, model, new PersonChoiceProvider());
 	}
@@ -89,10 +91,18 @@ public class TextPersonSelect2 extends Select2Choice<Person> {
 		super(id, new EmfModel<Person>(), new PersonChoiceProvider());
 	}
 	
+	public void setInputSize(String inputSize) {
+		this.inputSize = inputSize;
+	}
+	
+	public String getInputSize() {
+		return inputSize;
+	}
+	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
+		add(new AttributeAppender("class", new Model<>("input-" + inputSize), " "));
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
