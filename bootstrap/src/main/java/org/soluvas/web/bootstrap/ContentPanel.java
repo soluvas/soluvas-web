@@ -44,6 +44,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 				final ContentNode contentNode = ContentNode.importHtml(original);
 				log.debug("Content node for '{}': title={} metaDescription={} body={}",
 						slug, contentNode.getTitle(), contentNode.getMetaDescription(), StringUtils.abbreviateMiddle(contentNode.getBody(), "…", 200));
+//				log.debug("Body of contentNode: {}", contentNode.getBody());
 				return contentNode;
 			}
 		});
