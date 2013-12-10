@@ -9,6 +9,7 @@ import org.joda.time.LocalTime;
  * see {@link #getModelObjectAsLocalTime()}.
  * @see #getModelObjectAsLocalTime()
  * @author ceefour
+ * @todo Use {@link LocalTime} model value.
  */
 public class TimeTextField extends TextField<String> {
 
