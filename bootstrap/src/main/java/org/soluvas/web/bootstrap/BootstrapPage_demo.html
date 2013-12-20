@@ -132,5 +132,28 @@ var subscriptions = [];
 		});
 	</script>
 	
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+	
+	<script>
+		$(document).ready(function(){
+			$("ul.accordion a.name").click(function(){
+				
+				var aClick = $(this);
+				var liClick = aClick.parent();
+				var ulChild = liClick.children('ul');
+				
+				if(liClick.hasClass('open')){
+					ulChild.slideUp('slow', function(){
+						liClick.removeClass('open');
+					})
+				}else{
+					liClick.addClass('open');
+					ulChild.slideDown('slow');
+				}
+				
+			});
+		});
+	</script>
+	
 </body>
 </html>
