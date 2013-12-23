@@ -142,13 +142,15 @@ var subscriptions = [];
 				var liClick = aClick.parent();
 				var ulChild = liClick.children('ul');
 				
-				if(liClick.hasClass('open')){
-					ulChild.slideUp('slow', function(){
-						liClick.removeClass('open');
-					})
-				}else{
-					liClick.addClass('open');
-					ulChild.slideDown('slow');
+				if(ulChild.length != 0){
+					if(liClick.hasClass('open')){
+						ulChild.slideUp('slow', function(){
+							liClick.removeClass('open');
+						})
+					}else{
+						liClick.addClass('open');
+						ulChild.slideDown('slow');
+					}
 				}
 				
 			});
