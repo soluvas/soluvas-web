@@ -23,6 +23,10 @@ public class PersonColumn<T> extends PropertyColumn<T, String> {
 	public PersonColumn(IModel<String> displayModel, String propertyExpression) {
 		super(displayModel, propertyExpression);
 	}
+	
+	public PersonColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
+		super(displayModel, sortProperty, propertyExpression);
+	}
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
