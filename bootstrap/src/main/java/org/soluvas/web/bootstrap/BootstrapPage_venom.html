@@ -156,8 +156,26 @@ var subscriptions = [];
 				easingType : 'easeOutQuart'
 			});
 
+			$("ul.accordion a.name").click(function(){
+				
+				var aClick = $(this);
+				var liClick = aClick.parent();
+				var ulChild = liClick.children('ul');
+				
+				if(ulChild.length != 0){
+					if(liClick.hasClass('open')){
+						ulChild.slideUp('slow', function(){
+							liClick.removeClass('open');
+						})
+					}else{
+						liClick.addClass('open');
+						ulChild.slideDown('slow');
+					}
+				}
+				
+			});
 		});
-
+		
 		$('.pagination ul li a').live('click', function() {
 			$('a#toTop').click();
 		});
