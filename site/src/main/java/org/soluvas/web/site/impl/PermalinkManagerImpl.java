@@ -14,7 +14,9 @@ import org.soluvas.web.site.PermalinkManager;
 import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.SitePackage;
 
+import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
+import com.damnhandy.uri.template.VariableExpansionException;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
@@ -70,13 +72,16 @@ public class PermalinkManagerImpl extends EObjectImpl implements PermalinkManage
 					return namespace.equals(input.getNamespace());
 				};
 			});
-			return UriTemplate.fromTemplate(permalink.getTemplate()).expand(
-					ImmutableMap.<String, Object>of("namespace", namespace, "slug", slugPath,
-						"slugPath", slugPath, "baseUri", "/"));
+			try {
+				return UriTemplate.fromTemplate(permalink.getTemplate()).expand(
+						ImmutableMap.<String, Object>of("namespace", namespace, "slug", slugPath,
+							"slugPath", slugPath, "baseUri", "/"));
+			} catch (VariableExpansionException | MalformedUriTemplateException e) {
+				throw new SiteException(e, "Permalink URI template '%' is invalid", permalink.getTemplate());
+			}
 		} catch (NoSuchElementException e) {
 			final Iterable<String> permalinkNamespaces = Iterables.transform(catalog.getPermalinks(), new Function<Permalink, String>() {
-				@Override
-				@Nullable
+				@Override @Nullable
 				public String apply(@Nullable Permalink input) {
 					return input.getNamespace();
 				}

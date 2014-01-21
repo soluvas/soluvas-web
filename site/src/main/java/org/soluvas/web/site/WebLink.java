@@ -13,8 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
 
+import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
-import com.damnhandy.uri.template.impl.ExpressionParseException;
+import com.damnhandy.uri.template.VariableExpansionException;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
@@ -68,7 +69,7 @@ public class WebLink extends ExternalLink {
 		try {
 			final String href = UriTemplate.fromTemplate(hrefTemplate).expand(vars);
 			tag.put("href", href);
-		} catch (ExpressionParseException e) {
+		} catch (VariableExpansionException | MalformedUriTemplateException e) {
 			throw new SiteException(e, "WebLink %'s href is invalid URI template or without variables, please use standard link for non-dynamic URIs: %s",
 					getPageRelativePath(), hrefTemplate);
 		}

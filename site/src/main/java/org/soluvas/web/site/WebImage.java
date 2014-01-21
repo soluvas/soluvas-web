@@ -9,8 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
 
+import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
-import com.damnhandy.uri.template.impl.ExpressionParseException;
+import com.damnhandy.uri.template.VariableExpansionException;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -40,7 +41,7 @@ public class WebImage extends WebMarkupContainer {
 		try {
 			final String src = UriTemplate.fromTemplate(srcTemplate).expand(vars);
 			tag.put("src", src);
-		} catch (ExpressionParseException e) {
+		} catch (VariableExpansionException | MalformedUriTemplateException e) {
 			throw new SiteException(e, "WebImage %'s src invalid URI template or without variables, please use standard img for non-dynamic URIs: %s",
 					getPageRelativePath(), srcTemplate);
 		}
