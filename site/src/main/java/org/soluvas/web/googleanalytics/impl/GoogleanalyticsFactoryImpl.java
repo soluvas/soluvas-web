@@ -27,7 +27,7 @@ public class GoogleanalyticsFactoryImpl extends EFactoryImpl implements Googlean
 	 */
 	public static GoogleanalyticsFactory init() {
 		try {
-			GoogleanalyticsFactory theGoogleanalyticsFactory = (GoogleanalyticsFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.googleanalytics/1.0"); 
+			GoogleanalyticsFactory theGoogleanalyticsFactory = (GoogleanalyticsFactory)EPackage.Registry.INSTANCE.getEFactory(GoogleanalyticsPackage.eNS_URI);
 			if (theGoogleanalyticsFactory != null) {
 				return theGoogleanalyticsFactory;
 			}

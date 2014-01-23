@@ -83,13 +83,22 @@ public interface GoogleanalyticsPackage extends EPackage {
 	int GOOGLE_ANALYTICS_MANAGER__ENABLED = 1;
 
 	/**
+	 * The feature id for the '<em><b>Cookie Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_MANAGER__COOKIE_DOMAIN = 2;
+
+	/**
 	 * The number of structural features of the '<em>Google Analytics Manager</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GOOGLE_ANALYTICS_MANAGER_FEATURE_COUNT = 2;
+	int GOOGLE_ANALYTICS_MANAGER_FEATURE_COUNT = 3;
 
 
 	/**
@@ -123,6 +132,17 @@ public interface GoogleanalyticsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGoogleAnalyticsManager_Enabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.googleanalytics.GoogleAnalyticsManager#getCookieDomain <em>Cookie Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cookie Domain</em>'.
+	 * @see org.soluvas.web.googleanalytics.GoogleAnalyticsManager#getCookieDomain()
+	 * @see #getGoogleAnalyticsManager()
+	 * @generated
+	 */
+	EAttribute getGoogleAnalyticsManager_CookieDomain();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -171,6 +191,14 @@ public interface GoogleanalyticsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_ANALYTICS_MANAGER__ENABLED = eINSTANCE.getGoogleAnalyticsManager_Enabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Cookie Domain</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_ANALYTICS_MANAGER__COOKIE_DOMAIN = eINSTANCE.getGoogleAnalyticsManager_CookieDomain();
 
 	}
 

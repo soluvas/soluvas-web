@@ -119,6 +119,15 @@ public class GoogleanalyticsPackageImpl extends EPackageImpl implements Googlean
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGoogleAnalyticsManager_CookieDomain() {
+		return (EAttribute)googleAnalyticsManagerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GoogleanalyticsFactory getGoogleanalyticsFactory() {
 		return (GoogleanalyticsFactory)getEFactoryInstance();
 	}
@@ -145,6 +154,7 @@ public class GoogleanalyticsPackageImpl extends EPackageImpl implements Googlean
 		googleAnalyticsManagerEClass = createEClass(GOOGLE_ANALYTICS_MANAGER);
 		createEAttribute(googleAnalyticsManagerEClass, GOOGLE_ANALYTICS_MANAGER__TRACKING_ID);
 		createEAttribute(googleAnalyticsManagerEClass, GOOGLE_ANALYTICS_MANAGER__ENABLED);
+		createEAttribute(googleAnalyticsManagerEClass, GOOGLE_ANALYTICS_MANAGER__COOKIE_DOMAIN);
 	}
 
 	/**
@@ -180,6 +190,7 @@ public class GoogleanalyticsPackageImpl extends EPackageImpl implements Googlean
 		initEClass(googleAnalyticsManagerEClass, GoogleAnalyticsManager.class, "GoogleAnalyticsManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGoogleAnalyticsManager_TrackingId(), ecorePackage.getEString(), "trackingId", null, 1, 1, GoogleAnalyticsManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsManager_Enabled(), ecorePackage.getEBoolean(), "enabled", null, 1, 1, GoogleAnalyticsManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleAnalyticsManager_CookieDomain(), ecorePackage.getEString(), "cookieDomain", "auto", 0, 1, GoogleAnalyticsManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

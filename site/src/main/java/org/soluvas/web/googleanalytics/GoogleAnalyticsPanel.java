@@ -49,7 +49,17 @@ public class GoogleAnalyticsPanel extends Panel {
 				add(new EmptyPanel("trackerId"));
 				setVisible(false);
 			} else {
-				String googleAnalyticScript = "_gaq.push([ '_setAccount', '"+ googleAnalyticsMgr.getTrackingId() + "' ]);";
+				// TODO: support specific domain (i.e. non-auto) during ga(create)
+				// https://developers.google.com/analytics/devguides/collection/analyticsjs/
+				String googleAnalyticScript =
+						  "\n"
+						+ "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n"
+						+ "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n"
+						+ "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n"
+						+ "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n"
+						+ "\n"
+						+ "ga('create', '" + googleAnalyticsMgr.getTrackingId() + "', '" + googleAnalyticsMgr.getCookieDomain() + "');\n"
+						+ "ga('send', 'pageview');\n";
 				Label trackingId = new Label("trackerId", googleAnalyticScript);
 				trackingId.setEscapeModelStrings(false);
 				add(trackingId);
