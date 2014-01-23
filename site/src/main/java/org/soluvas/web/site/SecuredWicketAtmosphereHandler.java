@@ -66,6 +66,7 @@ public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereH
 			.getLogger(SecuredWicketAtmosphereHandler.class);
 
     private CustomFilterChain filterChain;
+//    private final AtmosphereFilterChain filterChain = new AtmosphereFilterChain();
 
     public SecuredWicketAtmosphereHandler() {
     	super();
@@ -84,7 +85,7 @@ public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereH
     @Override
 	public void onRequest(AtmosphereResource resource) throws IOException {
         resource.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE, resource);
-        resource.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER, this);
+        resource.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER, this);
         try {
             filterChain.invokeFilterChain(resource.getRequest(), resource.getResponse());
         } catch (Throwable ex) {
@@ -99,19 +100,29 @@ public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereH
         	// Make sure any request you want accessible to Shiro is filtered. /* catches all
         	// requests.  Usually this filter mapping is defined first (before all others) to
         	// ensure that Shiro works in subsequent filters in the filter chain:            
-            FilterConfigImpl shiroFilterConfig = new FilterConfigImpl(servletConfig,
+            final FilterConfigImpl shiroFilterConfig = new FilterConfigImpl(servletConfig,
                     new DelegatingFilterProxy(), "shiroFilter");
-            shiroFilterConfig.addInitParameter("targetFilterLifecycle", Boolean.TRUE.toString());
+        	shiroFilterConfig.addInitParameter("targetFilterLifecycle", Boolean.TRUE.toString()); // I think this is required
+//        	final FilterConfigImpl shiroFilterConfig = new FilterConfigImpl(servletConfig);
+//            shiroFilterConfig.setFilter(new DelegatingFilterProxy());
+//            shiroFilterConfig.setFilterName("shiroFilter");
             
             FilterConfigImpl wicketFilterConfig = new FilterConfigImpl(servletConfig,
                     new WicketFilter(getWebApplication(servletConfig)),
                     "wicketFilter");
-//            wicketFilterConfig.addInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/app/*");
+//            final FilterConfigImpl wicketFilterConfig = new FilterConfigImpl(servletConfig);
+//            wicketFilterConfig.setFilter(new WicketFilter(getWebApplication(servletConfig)));
+//            wicketFilterConfig.setFilterName("wicketFilter");
+//            wicketFilterConfig.addInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/app/*"); // NOT needed: please set this in web.xml
 
 //            filterChain = new CustomFilterChain(ImmutableList.of(
 //                    wicketFilterConfig), servletConfig.getServletContext());
+            
             filterChain = new CustomFilterChain(ImmutableList.of(shiroFilterConfig,
                     wicketFilterConfig), servletConfig.getServletContext());
+            
+//            log.info("Installing filter {}", shiroFilterConfig.getFilterName());
+//            filterChain.addFilter(shiroFilterConfig);
         } catch (Exception ex) {
             throw new ServletException(ex);
         }

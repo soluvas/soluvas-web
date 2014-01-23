@@ -3,6 +3,7 @@ package org.soluvas.web.site;
 import java.nio.charset.Charset;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.IApplicationListener;
@@ -21,8 +22,8 @@ public abstract class AtmosphereApplication extends WebApplication {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(AtmosphereApplication.class);
-	@Inject
-	private EventBus eventBus;
+	@Inject @Named("appEventBus")
+	private EventBus appEventBus;
 	private org.apache.wicket.atmosphere.EventBus atmosphereEventBus;
 	
 	@Override
@@ -35,14 +36,14 @@ public abstract class AtmosphereApplication extends WebApplication {
 			getApplicationListeners().add(new IApplicationListener() {
 				@Override
 				public void onBeforeDestroyed(Application application) {
-					log.info("Unregistering {} from EventBus {}", application, eventBus);
-					eventBus.unregister(AtmosphereApplication.this);
+					log.info("Unregistering {} from EventBus {}", application, appEventBus);
+					appEventBus.unregister(AtmosphereApplication.this);
 				}
 				
 				@Override
 				public void onAfterInitialized(Application application) {
-					log.info("Registering {} to EventBus {}", application, eventBus);
-					eventBus.register(AtmosphereApplication.this);
+					log.info("Registering {} to EventBus {}", application, appEventBus);
+					appEventBus.register(AtmosphereApplication.this);
 				}
 			});
 		} catch (Exception e) {
