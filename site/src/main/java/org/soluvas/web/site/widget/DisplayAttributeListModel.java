@@ -25,9 +25,9 @@ import com.google.common.collect.ImmutableList;
  * 
  * @author haidar
  */
-@SuppressWarnings("serial")
 public class DisplayAttributeListModel extends AbstractReadOnlyModel<List<DisplayAttribute>> {
 	
+	private static final long serialVersionUID = 1L;
 	private final IModel<EMap<String, EList<Value<?>>>> sourceModel;
 	
 	public DisplayAttributeListModel(

@@ -2,6 +2,8 @@ package org.soluvas.web.bootstrap.widget;
 
 import java.text.NumberFormat;
 
+import javax.annotation.Nullable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.breadcrumb.BreadCrumbLink;
 import org.apache.wicket.extensions.breadcrumb.IBreadCrumbModel;
@@ -28,7 +30,8 @@ public abstract class NavbarBreadCrumbLink<P extends IBreadCrumbParticipant> ext
 	private final IBreadCrumbModel breadCrumbModel;
 	private final IBreadCrumbParticipant root;
 	private final P participant;
-	private IconType iconType = IconType.NULL;
+	@Nullable
+	private IconType iconType = null;
 	private Class<P> participantClass;
 	private IModel<?> badgeModel = new Model<>();
 
@@ -53,7 +56,7 @@ public abstract class NavbarBreadCrumbLink<P extends IBreadCrumbParticipant> ext
 	@Override
 	public void onComponentTagBody(MarkupStream markupStream,
 			ComponentTag openTag) {
-		if (iconType != IconType.NULL) {
+		if (iconType != null) {
 			getResponse().write("<i class=\"" + iconType.cssClassName() + "\"></i> ");
 		}
 		super.onComponentTagBody(markupStream, openTag);
