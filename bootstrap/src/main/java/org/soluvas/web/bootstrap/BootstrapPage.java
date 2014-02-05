@@ -435,7 +435,11 @@ public class BootstrapPage extends ExtensiblePage {
 
 		final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 				.getSkinUri()
-				+ "org.soluvas.web.bootstrap/css/bootstrap.css"
+				+ "org.soluvas.web.bootstrap/css/bootstrap3.min.css"
+				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
+		final String bootstrapThemeCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
+				.getSkinUri()
+				+ "org.soluvas.web.bootstrap/css/bootstrap3-theme.min.css"
 				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
 		final String bootstrapResponsiveCssUri = requireMgr
 				.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
@@ -444,6 +448,8 @@ public class BootstrapPage extends ExtensiblePage {
 				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
 		add(new WebMarkupContainer("bootstrapCss")
 				.add(new AttributeModifier("href", bootstrapCssUri)));
+		add(new WebMarkupContainer("bootstrapThemeCss")
+		.add(new AttributeModifier("href", bootstrapThemeCssUri)));
 		add(new WebMarkupContainer("bootstrapResponsiveCss")
 				.add(new AttributeModifier("href",
 						bootstrapResponsiveCssUri)));
