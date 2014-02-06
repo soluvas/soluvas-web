@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -433,10 +434,15 @@ public class BootstrapPage extends ExtensiblePage {
 			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
 			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
 
+		final String bootstrapCss; 
+		if (StringUtils.containsIgnoreCase(appManifest.getDomain(), "dedagangan")) {
+			bootstrapCss = "org.soluvas.web.bootstrap/css/bootstrap3.min.css";
+		} else {
+			bootstrapCss = "org.soluvas.web.bootstrap/css/bootstrap.css"; 
+		}
 		final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 				.getSkinUri()
-//				+ "org.soluvas.web.bootstrap/css/bootstrap3.min.css"
-				+ "org.soluvas.web.bootstrap/css/bootstrap.css"
+				+ bootstrapCss
 				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
 		final String bootstrapThemeCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 				.getSkinUri()
