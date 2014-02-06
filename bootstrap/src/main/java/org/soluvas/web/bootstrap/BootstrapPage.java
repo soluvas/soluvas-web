@@ -435,7 +435,8 @@ public class BootstrapPage extends ExtensiblePage {
 
 		final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 				.getSkinUri()
-				+ "org.soluvas.web.bootstrap/css/bootstrap3.min.css"
+//				+ "org.soluvas.web.bootstrap/css/bootstrap3.min.css"
+				+ "org.soluvas.web.bootstrap/css/bootstrap.css"
 				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
 		final String bootstrapThemeCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
 				.getSkinUri()
