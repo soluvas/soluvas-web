@@ -2,8 +2,11 @@ package org.soluvas.web.bootstrap;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
@@ -13,19 +16,38 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.json.JsonUtils;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 
 /**
- * For Ajax behavior explanation, see:
+ * <a href="https://github.com/ifightcrime/bootstrap-growl">bootstrap-growl</a> based {@link FeedbackMessage} notifier.
  * 
- * http://www.wexoo.net/20110831/building-a-custom-feedbackpanel-in-wicket-with-js
- * http://javathoughts.capesugarbird.com/2009/06/replacing-wickets-feedbackpanel-with.html
+ * <p><a href="http://cdnjs.com/libraries/bootstrap-growl/">CDNJS</a> URIs:
+ * <ul>
+ * 	<li>//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.js
+ * 	<li>//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js
+ * </ul>
+ * 
+ * <p>This also checks the {@link FeedbackMessage} during page render. To use it during page redirect,
+ * use {@link Session#info(java.io.Serializable)} / {@link Session#warn(java.io.Serializable)} / {@link Session#error(java.io.Serializable)}
+ * instead of {@link Component#info(java.io.Serializable)}'s variants.
+ * Note that if you already have a {@link FeedbackPanel} in your {@link Page}, the panel will consume {@link FeedbackMessage}s before
+ * {@link GrowlBehavior}.
+ * 
+ * <p>(Obsolete) <del>For Ajax behavior explanation, see:
+ * 
+ * <ul>
+ * 	<li>http://www.wexoo.net/20110831/building-a-custom-feedbackpanel-in-wicket-with-js</li>
+ * 	<li>http://javathoughts.capesugarbird.com/2009/06/replacing-wickets-feedbackpanel-with.html</li>
+ * </ul></del>
  * 
  * @author ceefour
  */
@@ -34,6 +56,8 @@ public class GrowlBehavior extends Behavior {
 	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(GrowlBehavior.class);
 	private static JavaScriptResourceReference GROWL_JS = new JavaScriptResourceReference(GrowlBehavior.class, "jquery.bootstrap-growl-132647f01c.js") {
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
 			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
@@ -49,6 +73,10 @@ public class GrowlBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 		response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
+		final String script = getNotifyScript("renderHead", component.getPage());
+		if (script != null) {
+			response.render(OnLoadHeaderItem.forScript(script));
+		}
 	}
 	
 	@Override
@@ -56,14 +84,24 @@ public class GrowlBehavior extends Behavior {
 		super.onEvent(component, event);
 //		log.debug("We get event {}", event.getPayload());
 		if (event.getPayload() instanceof AjaxRequestTarget) {
-			createNotify((AjaxRequestTarget) event.getPayload());
+			final AjaxRequestTarget target = (AjaxRequestTarget) event.getPayload();
+			final String script = getNotifyScript("AjaxRequestTarget", target.getPage());
+			if (script != null) {
+				target.appendJavaScript(script);
+			}
 		}
 	}
 
-	protected void createNotify(AjaxRequestTarget target) {
-		final List<FeedbackMessage> feedbackMessages = new FeedbackCollector(target.getPage()).collect();
+	/**
+	 * Gets the bootstrap growl notify popup script for FeedbackMessages for the specified Page.
+	 * @return String Script, or {@code null} if no message needs to be displayed.
+	 */
+	@Nullable
+	protected String getNotifyScript(String purpose, Page page) {
+		final List<FeedbackMessage> feedbackMessages = new FeedbackCollector(page).collect();
 		if (!feedbackMessages.isEmpty()) {
-			log.debug("{} got {} feedback messages", Session.get(), feedbackMessages.size());
+			log.debug("{} got {} feedback messages for {}", Session.get(), feedbackMessages.size(), purpose);
+			String script = "";
 			for (final FeedbackMessage msg : feedbackMessages) {
 				// FeedbackMessage.getMessage() can return:
 				// 1. String
@@ -98,10 +136,13 @@ public class GrowlBehavior extends Behavior {
 //						"src=\"" + pathIcon + "\" />')");
 //				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
-				target.appendJavaScript("$.bootstrapGrowl(" +
-						JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'});");					
 				msg.markRendered();
+				script += "$.bootstrapGrowl(" +
+					JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'});\n";					
 			}
+			return Strings.emptyToNull(script);
+		} else {
+			return null;
 		}
 	}
 
