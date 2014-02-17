@@ -502,9 +502,7 @@ public class BootstrapPage extends ExtensiblePage {
 		// CONTENT
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
 		add(contentColumn);
-		feedbackPanel = new FeedbackPanel("feedback")
-				.setOutputMarkupId(true);
-		add(feedbackPanel);
+		add(new FeedbackPanel("feedback").setVisible(false));
 
 		// FOOTER
 		add(new Footer("© " + new DateTime().toString("yyyy") + " " + appManifest.getTitle()));
