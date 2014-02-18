@@ -32,6 +32,8 @@ import com.google.common.collect.Lists;
 
 /**
  * Serializes the {@link EObject} using {@link BinaryResourceImpl}.
+ * @todo Deal with "org.eclipse.emf.ecore.xmi.PackageNotFoundException: Package with uri 'http://www.bippo.co.id/schema/cart/1.0' not found. (, 3, 68)"
+ *		by also serializing the identity of the EPackage, and making sure it's loaded before parsing the serialized buf. 
  * @author haidar
  */
 public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
