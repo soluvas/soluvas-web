@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -19,6 +18,7 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
+import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -75,6 +75,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
 
 /**
@@ -381,6 +382,9 @@ public class BootstrapPage extends ExtensiblePage {
 			add(new EmptyPanel("dev").setVisible(false));
 		}
 		
+		add(new BootstrapBaseBehavior());
+		add(new HeaderResponseContainer("footer-container", "footer-container"));
+		
 		// Use CDN jQuery if we're in production
 		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
 			getApplication()
@@ -434,32 +438,6 @@ public class BootstrapPage extends ExtensiblePage {
 			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
 			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
 
-		final String bootstrapCss; 
-		if (StringUtils.containsIgnoreCase(appManifest.getDomain(), "dedagangan")) {
-			bootstrapCss = "org.soluvas.web.bootstrap/css/bootstrap3.min.css";
-		} else {
-			bootstrapCss = "org.soluvas.web.bootstrap/css/bootstrap.css"; 
-		}
-		final String bootstrapCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
-				.getSkinUri()
-				+ bootstrapCss
-				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
-		final String bootstrapThemeCssUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
-				.getSkinUri()
-				+ "org.soluvas.web.bootstrap/css/bootstrap3-theme.min.css"
-				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css";
-		final String bootstrapResponsiveCssUri = requireMgr
-				.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ? webAddress
-				.getSkinUri()
-				+ "org.soluvas.web.bootstrap/css/bootstrap-responsive.css"
-				: "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css";
-		add(new WebMarkupContainer("bootstrapCss")
-				.add(new AttributeModifier("href", bootstrapCssUri)));
-		add(new WebMarkupContainer("bootstrapThemeCss")
-		.add(new AttributeModifier("href", bootstrapThemeCssUri)));
-		add(new WebMarkupContainer("bootstrapResponsiveCss")
-				.add(new AttributeModifier("href",
-						bootstrapResponsiveCssUri)));
 		add(new WebMarkupContainer("soluvasCss")
 				.add(new AttributeModifier(
 						"href",

@@ -13,10 +13,6 @@
 	<meta name="author" content="Soluvas" />
 <!-- Le styles -->
 
-<link wicket:id="bootstrapCss"
-	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap.css"
-	rel="stylesheet" />
-	<link wicket:id="bootstrapThemeCss" href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap3-theme.min.css" rel="stylesheet" />
 <style type="text/css">
 body {
 	/*         padding-top: 60px; */
@@ -26,9 +22,6 @@ body {
 /*         padding: 9px 0; */
 /*       } */
 </style>
-<link wicket:id="bootstrapResponsiveCss"
-	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-responsive.css"
-	rel="stylesheet" />
 <link wicket:id="soluvasCss"
 	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-patches.css"
 	rel="stylesheet" />
@@ -102,12 +95,12 @@ body {
 		<!-- 			    <li class="active">Data</li> -->
 		<!-- 		    </ul> -->
 		<div class="row">
-			<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
+			<div class="col-md-3 sidebar-categories" wicket:id="sidebarColumn">
 				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
 			</div>
 			<!--/span-->
 
-			<div class="span9" wicket:id="contentColumn">
+			<div class="col-md-9" wicket:id="contentColumn">
 				<div wicket:id="afterHeader" class="afterHeader">
 					<!-- 		Carousel Images is loading.. -->
 				</div>
@@ -183,6 +176,7 @@ body {
 		});
 	</script>
 
+	<wicket:container wicket:id="footer-container"/>
 
 	<!-- must put at the bottom because requires jQuery -->
 	<script type="text/javascript">
@@ -231,5 +225,6 @@ body {
 // 			$('a#toTop').click();
 // 		});
 	</script>
+
 </body>
 </html>
