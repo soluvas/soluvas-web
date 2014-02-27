@@ -100,25 +100,27 @@ body {
 	<header id="header" class="container">
 		<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
 	</header>
+	<div class="jumbotron">
+	</div>
 	<div class="container">
-			<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
-				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-			</div>
-			<!--/span-->
+		<div class="span3 sidebar-categories" wicket:id="sidebarColumn">
+			<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+		</div>
+		<!--/span-->
 
-			<div class="span9" wicket:id="contentColumn">
-				<div wicket:id="afterHeader" class="afterHeader">
-					<!-- 		Carousel Images is loading.. -->
-				</div>
-				<div wicket:id="feedback" class="feedback"></div>
-				<wicket:child>
-					<ol class="featured-products">
-						<div id="featuredProducts">
-							<li><a href="#">Product name</a></li>
-						</div>
-					</ol>
-				</wicket:child>
+		<div class="span9" wicket:id="contentColumn">
+			<div wicket:id="afterHeader" class="afterHeader">
+				<!-- 		Carousel Images is loading.. -->
 			</div>
+			<div wicket:id="feedback" class="feedback"></div>
+			<wicket:child>
+				<ol class="featured-products">
+					<div id="featuredProducts">
+						<li><a href="#">Product name</a></li>
+					</div>
+				</ol>
+			</wicket:child>
+		</div>
 		<!--/row-->
 	</div>
 	<!--/.fluid-container-->
