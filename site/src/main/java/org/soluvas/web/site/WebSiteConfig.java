@@ -1,19 +1,21 @@
 package org.soluvas.web.site;
 
+import org.soluvas.web.olark.LiveChatConfig;
 import org.soluvas.web.site.JavaScriptModule.Base;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 
 import com.google.common.collect.ImmutableSet;
 
 /**
  * @author agus
- *
  */
 @Configuration @Lazy
-@ComponentScan({"org.soluvas.web.site", "org.soluvas.web.olark",
+@Import(LiveChatConfig.class)
+@ComponentScan({"org.soluvas.web.site",
 		"org.soluvas.web.googleanalytics",
 		"org.soluvas.web.bootstrap"})
 public class WebSiteConfig {
