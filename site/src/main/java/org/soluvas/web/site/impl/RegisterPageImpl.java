@@ -148,7 +148,7 @@ public class RegisterPageImpl extends EObjectImpl implements RegisterPage {
 	 */
 	public void setMountPoint(String newMountPoint) {
 		String oldMountPoint = mountPoint;
-		mountPoint=newMountPoint;
+		mountPoint = newMountPoint;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.REGISTER_PAGE__MOUNT_POINT, oldMountPoint, mountPoint));
 	}
@@ -172,7 +172,7 @@ public class RegisterPageImpl extends EObjectImpl implements RegisterPage {
 	 */
 	public Section getSection() {
 		if (eContainerFeatureID() != SitePackage.REGISTER_PAGE__SECTION) return null;
-		return (Section)eContainer();
+		return (Section)eInternalContainer();
 	}
 
 	/**

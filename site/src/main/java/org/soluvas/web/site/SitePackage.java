@@ -1127,6 +1127,70 @@ public interface SitePackage extends EPackage {
 	int REQUIRE_MANAGER_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.AlexaCertifySysConfig <em>Alexa Certify Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getAlexaCertifySysConfig()
+	 * @generated
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG = 22;
+
+	/**
+	 * The feature id for the '<em><b>Alexa Certify Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ENABLED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Alexa Certify Account</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ACCOUNT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Alexa Certify Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_DOMAIN = 2;
+
+	/**
+	 * The feature id for the '<em><b>Alexa Certify Js Cdn</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_JS_CDN = 3;
+
+	/**
+	 * The feature id for the '<em><b>Alexa Certify Image Cdn</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN = 4;
+
+	/**
+	 * The number of structural features of the '<em>Alexa Certify Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALEXA_CERTIFY_SYS_CONFIG_FEATURE_COUNT = 5;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1134,7 +1198,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 22;
+	int JAVA_SCRIPT_MODE = 23;
 
 
 	/**
@@ -1545,6 +1609,71 @@ public interface SitePackage extends EPackage {
 	EAttribute getRequireManager_CacheBust();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.AlexaCertifySysConfig <em>Alexa Certify Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alexa Certify Sys Config</em>'.
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig
+	 * @generated
+	 */
+	EClass getAlexaCertifySysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyEnabled <em>Alexa Certify Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alexa Certify Enabled</em>'.
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyEnabled()
+	 * @see #getAlexaCertifySysConfig()
+	 * @generated
+	 */
+	EAttribute getAlexaCertifySysConfig_AlexaCertifyEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyAccount <em>Alexa Certify Account</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alexa Certify Account</em>'.
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyAccount()
+	 * @see #getAlexaCertifySysConfig()
+	 * @generated
+	 */
+	EAttribute getAlexaCertifySysConfig_AlexaCertifyAccount();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyDomain <em>Alexa Certify Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alexa Certify Domain</em>'.
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyDomain()
+	 * @see #getAlexaCertifySysConfig()
+	 * @generated
+	 */
+	EAttribute getAlexaCertifySysConfig_AlexaCertifyDomain();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyJsCdn <em>Alexa Certify Js Cdn</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alexa Certify Js Cdn</em>'.
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyJsCdn()
+	 * @see #getAlexaCertifySysConfig()
+	 * @generated
+	 */
+	EAttribute getAlexaCertifySysConfig_AlexaCertifyJsCdn();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyImageCdn <em>Alexa Certify Image Cdn</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alexa Certify Image Cdn</em>'.
+	 * @see org.soluvas.web.site.AlexaCertifySysConfig#getAlexaCertifyImageCdn()
+	 * @see #getAlexaCertifySysConfig()
+	 * @generated
+	 */
+	EAttribute getAlexaCertifySysConfig_AlexaCertifyImageCdn();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1931,6 +2060,56 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REQUIRE_MANAGER__CACHE_BUST = eINSTANCE.getRequireManager_CacheBust();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.AlexaCertifySysConfig <em>Alexa Certify Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.AlexaCertifySysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getAlexaCertifySysConfig()
+		 * @generated
+		 */
+		EClass ALEXA_CERTIFY_SYS_CONFIG = eINSTANCE.getAlexaCertifySysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Alexa Certify Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ENABLED = eINSTANCE.getAlexaCertifySysConfig_AlexaCertifyEnabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Alexa Certify Account</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ACCOUNT = eINSTANCE.getAlexaCertifySysConfig_AlexaCertifyAccount();
+
+		/**
+		 * The meta object literal for the '<em><b>Alexa Certify Domain</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_DOMAIN = eINSTANCE.getAlexaCertifySysConfig_AlexaCertifyDomain();
+
+		/**
+		 * The meta object literal for the '<em><b>Alexa Certify Js Cdn</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_JS_CDN = eINSTANCE.getAlexaCertifySysConfig_AlexaCertifyJsCdn();
+
+		/**
+		 * The meta object literal for the '<em><b>Alexa Certify Image Cdn</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN = eINSTANCE.getAlexaCertifySysConfig_AlexaCertifyImageCdn();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

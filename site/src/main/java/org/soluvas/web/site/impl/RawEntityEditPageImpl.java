@@ -170,7 +170,7 @@ public class RawEntityEditPageImpl extends EObjectImpl implements RawEntityEditP
 	 */
 	public void setMountPoint(String newMountPoint) {
 		String oldMountPoint = mountPoint;
-		mountPoint=newMountPoint;
+		mountPoint = newMountPoint;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.RAW_ENTITY_EDIT_PAGE__MOUNT_POINT, oldMountPoint, mountPoint));
 	}
@@ -194,7 +194,7 @@ public class RawEntityEditPageImpl extends EObjectImpl implements RawEntityEditP
 	 */
 	public Section getSection() {
 		if (eContainerFeatureID() != SitePackage.RAW_ENTITY_EDIT_PAGE__SECTION) return null;
-		return (Section)eContainer();
+		return (Section)eInternalContainer();
 	}
 
 	/**
