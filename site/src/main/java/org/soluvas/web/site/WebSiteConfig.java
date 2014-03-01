@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableSet;
  */
 @Configuration @Lazy
 @Import({LiveChatConfig.class, GoogleAnalyticsConfig.class})
-@ComponentScan({"org.soluvas.web.bootstrap"})
+@ComponentScan({"org.soluvas.web.site.rs", "org.soluvas.web.site.shell", "org.soluvas.web.bootstrap"})
 public class WebSiteConfig {
 
 	@Bean
