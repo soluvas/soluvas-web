@@ -11,8 +11,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.googleanalytics.GoogleAnalyticsManager;
 import org.soluvas.web.googleanalytics.GoogleanalyticsPackage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +27,6 @@ import org.springframework.stereotype.Service;
  *
  * @generated
  */
-@Service("googleAnalyticsMgr") @Scope("prototype")
 public class GoogleAnalyticsManagerImpl extends EObjectImpl implements GoogleAnalyticsManager {
 	/**
 	 * The default value of the '{@link #getTrackingId() <em>Tracking Id</em>}' attribute.
