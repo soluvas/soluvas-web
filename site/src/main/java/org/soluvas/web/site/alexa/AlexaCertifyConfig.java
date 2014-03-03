@@ -51,7 +51,5 @@ public class AlexaCertifyConfig {
 	public AlexaCertify alexaCertify() {
 		return alexaCertifyBeanRepo().get(tenantSelector.tenantRef().getTenantId());
 	}
-
-	
 	
 }
