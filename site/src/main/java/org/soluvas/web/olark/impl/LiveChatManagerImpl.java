@@ -12,8 +12,6 @@ import org.soluvas.web.olark.LiveChatManager;
 import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.olark.OlarkPackage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +28,6 @@ import org.springframework.stereotype.Service;
  *
  * @generated
  */
-@Service("olarkMgr") @Lazy
 public class LiveChatManagerImpl extends EObjectImpl implements LiveChatManager {
 	/**
 	 * The default value of the '{@link #getSiteId() <em>Site Id</em>}' attribute.

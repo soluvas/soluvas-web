@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,7 @@ import org.soluvas.web.site.PermalinkCatalog;
 import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.SiteException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
@@ -60,14 +59,10 @@ import com.google.common.collect.Ordering;
 
 /**
  * Provides {@link WebAddress}.
- * @author ceefour
+ * @author ceefour, agus
  */
 //@Path("org.soluvas.web.site")
-/**
- * @author agus
- *
- */
-@Service @Lazy
+@Service @Scope("request")
 public class SiteResource {
 	
 	public static class WebTemplate {

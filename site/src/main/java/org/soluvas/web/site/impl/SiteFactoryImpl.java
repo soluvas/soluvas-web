@@ -28,7 +28,7 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	 */
 	public static SiteFactory init() {
 		try {
-			SiteFactory theSiteFactory = (SiteFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.site/1.0"); 
+			SiteFactory theSiteFactory = (SiteFactory)EPackage.Registry.INSTANCE.getEFactory(SitePackage.eNS_URI);
 			if (theSiteFactory != null) {
 				return theSiteFactory;
 			}

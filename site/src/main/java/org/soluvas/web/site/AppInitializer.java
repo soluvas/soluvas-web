@@ -39,6 +39,7 @@ import com.google.common.collect.ImmutableMap;
  * }</pre>
  * 
  * @author ceefour
+ * @see WebPropertySource
  */
 public class AppInitializer implements
 		ApplicationContextInitializer<ConfigurableWebApplicationContext> {

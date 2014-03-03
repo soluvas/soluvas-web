@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
  * Configuration for Alexa certify.
  * @author rudi
  */
-@SuppressWarnings("serial")
 @Component("alexaCertify") @Scope("prototype")
 public class AlexaCertifyImpl implements AlexaCertify {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private final boolean enabled;
 	/**

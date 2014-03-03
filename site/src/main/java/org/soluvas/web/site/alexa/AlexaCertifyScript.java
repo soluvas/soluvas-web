@@ -1,5 +1,6 @@
 package org.soluvas.web.site.alexa;
 
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.model.IModel;
 import org.soluvas.web.site.MustachePanel;
 
@@ -17,11 +18,13 @@ import org.soluvas.web.site.MustachePanel;
  * <noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=QB0hh1a0k700Eo" style="display:none" height="1" width="1" alt="" /></noscript>
  * <!-- End Alexa Certify Javascript -->
  * }</code> 
- * 
+ *
+ * <p>We can't replace this with {@link Behavior}, because there's {@code noscript}. However we can move the JavaScript part using renderHead.
  * @author rudi
  */
-@SuppressWarnings("serial")
 public class AlexaCertifyScript extends MustachePanel {
+
+	private static final long serialVersionUID = 1L;
 
 	public AlexaCertifyScript(String id, IModel<AlexaCertify> model) {
 		super(id, model);

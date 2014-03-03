@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableMap;
  * Provides the following properties:
  * 
  * <ol>
- * 	<li>{@code configFolder}. the expanded webapp {@code /WEB-INF/classes/META-INF} (production) or
+ * 	<li>{@code configDir}. the expanded webapp {@code /WEB-INF/classes/META-INF} (production) or
  * 		{@code ~/git/projectname/app/src/main/resources/META-INF} (development).</li>
  * </ol>
  * @todo Check 1. the servlet config, then 2. environment variable, then 3. either {@code $HOME} subfolder or the expanded webapp {@code /WEB-INF/classes/META-INF}.
@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableMap;
  * 		although during development the actual path will never be {@code /WEB-INF/classes/META-INF} but {@code ~/git/projectname/app/src/main/resources/META-INF} instead.
  * 		Yet we probably should just auto-create the configurations in {@code $HOME} subfolder so initial setup is very easy.
  * @author ceefour
+ * @see AppInitializer
  */
 public class WebPropertySource extends MapPropertySource {
 	
@@ -40,10 +41,10 @@ public class WebPropertySource extends MapPropertySource {
 		final String webInf = servletContext.getRealPath("/WEB-INF"); //"/home/ceefour/git/quikdo-hub/hub.app/src/main/webapp/WEB-INF";
 		final File metaInfInClasses = new File(webInf, "classes/META-INF");
 		// If /WEB-INF/classes/META-INF not found, assume we're running in development
-		final File configFolder = metaInfInClasses.exists() ? metaInfInClasses :
+		final File configDir = metaInfInClasses.exists() ? metaInfInClasses :
 			new File(new File(webInf).getParentFile().getParentFile(), "resources/META-INF");
-		log.debug("Web configFolder: {}", configFolder);
-		return ImmutableMap.<String, Object>of("configFolder", configFolder.getPath());
+		log.debug("Web configDir: {}", configDir);
+		return ImmutableMap.<String, Object>of("configDir", configDir.getPath());
 	}
 	
 }

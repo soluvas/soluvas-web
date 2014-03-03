@@ -148,7 +148,7 @@ public class GenericPageImpl extends EObjectImpl implements GenericPage {
 	 */
 	public void setMountPoint(String newMountPoint) {
 		String oldMountPoint = mountPoint;
-		mountPoint=newMountPoint;
+		mountPoint = newMountPoint;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.GENERIC_PAGE__MOUNT_POINT, oldMountPoint, mountPoint));
 	}
@@ -172,7 +172,7 @@ public class GenericPageImpl extends EObjectImpl implements GenericPage {
 	 */
 	public Section getSection() {
 		if (eContainerFeatureID() != SitePackage.GENERIC_PAGE__SECTION) return null;
-		return (Section)eContainer();
+		return (Section)eInternalContainer();
 	}
 
 	/**

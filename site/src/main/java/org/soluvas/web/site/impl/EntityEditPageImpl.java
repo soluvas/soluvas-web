@@ -170,7 +170,7 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 	 */
 	public void setMountPoint(String newMountPoint) {
 		String oldMountPoint = mountPoint;
-		mountPoint=newMountPoint;
+		mountPoint = newMountPoint;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.ENTITY_EDIT_PAGE__MOUNT_POINT, oldMountPoint, mountPoint));
 	}
@@ -194,7 +194,7 @@ public class EntityEditPageImpl extends EObjectImpl implements EntityEditPage {
 	 */
 	public Section getSection() {
 		if (eContainerFeatureID() != SitePackage.ENTITY_EDIT_PAGE__SECTION) return null;
-		return (Section)eContainer();
+		return (Section)eInternalContainer();
 	}
 
 	/**

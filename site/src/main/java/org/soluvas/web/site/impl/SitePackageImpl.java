@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.soluvas.commons.StyleConfiguration;
+import org.soluvas.web.site.AlexaCertifySysConfig;
 import org.soluvas.web.site.ContentPage;
 import org.soluvas.web.site.DashboardPage;
 import org.soluvas.web.site.EntityEditPage;
@@ -196,6 +197,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass requireManagerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alexaCertifySysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -660,6 +668,60 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAlexaCertifySysConfig() {
+		return alexaCertifySysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlexaCertifySysConfig_AlexaCertifyEnabled() {
+		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlexaCertifySysConfig_AlexaCertifyAccount() {
+		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlexaCertifySysConfig_AlexaCertifyDomain() {
+		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlexaCertifySysConfig_AlexaCertifyJsCdn() {
+		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlexaCertifySysConfig_AlexaCertifyImageCdn() {
+		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -754,6 +816,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		requireManagerEClass = createEClass(REQUIRE_MANAGER);
 		createEAttribute(requireManagerEClass, REQUIRE_MANAGER__JAVA_SCRIPT_MODE);
 		createEAttribute(requireManagerEClass, REQUIRE_MANAGER__CACHE_BUST);
+
+		alexaCertifySysConfigEClass = createEClass(ALEXA_CERTIFY_SYS_CONFIG);
+		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ENABLED);
+		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ACCOUNT);
+		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_DOMAIN);
+		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_JS_CDN);
+		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -886,6 +955,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEClass(requireManagerEClass, RequireManager.class, "RequireManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRequireManager_JavaScriptMode(), this.getJavaScriptMode(), "javaScriptMode", null, 1, 1, RequireManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRequireManager_CacheBust(), ecorePackage.getEString(), "cacheBust", null, 0, 1, RequireManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(alexaCertifySysConfigEClass, AlexaCertifySysConfig.class, "AlexaCertifySysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyEnabled(), ecorePackage.getEBooleanObject(), "alexaCertifyEnabled", "false", 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyAccount(), ecorePackage.getEString(), "alexaCertifyAccount", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyDomain(), ecorePackage.getEString(), "alexaCertifyDomain", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyJsCdn(), ecorePackage.getEString(), "alexaCertifyJsCdn", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyImageCdn(), ecorePackage.getEString(), "alexaCertifyImageCdn", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
@@ -1088,6 +1164,36 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "A string used to bust CDN cache, e.g. \"2013-02-16 18:43:22+07:00\".\n\nThis will be appended as a query string to \"relative\" js, skin, and img URIs. Relative here in reference to webAddres URIs. Absolute URIs won\'t be cache-busted."
+		   });		
+		addAnnotation
+		  (getAlexaCertifySysConfig_AlexaCertifyEnabled(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Whether Alexa Certify feature is enabled."
+		   });		
+		addAnnotation
+		  (getAlexaCertifySysConfig_AlexaCertifyAccount(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Account ID for Alexa Certify."
+		   });		
+		addAnnotation
+		  (getAlexaCertifySysConfig_AlexaCertifyDomain(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Domain for Alexa Certify, e.g. \"berbatik.com\"."
+		   });		
+		addAnnotation
+		  (getAlexaCertifySysConfig_AlexaCertifyJsCdn(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Alexa Certify JavaScript CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d31qbv1cthcecs.cloudfront.net\""
+		   });		
+		addAnnotation
+		  (getAlexaCertifySysConfig_AlexaCertifyImageCdn(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Alexa Certify Image CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d5nxst8fruw4z.cloudfront.net\""
 		   });
 	}
 	

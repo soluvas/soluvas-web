@@ -2,11 +2,7 @@
  */
 package org.soluvas.web.site.impl;
 
-import javax.annotation.Nonnull;
-
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.RequireManager;
@@ -26,7 +22,6 @@ import org.soluvas.web.site.SitePackage;
  *
  * @generated
  */
-@SuppressWarnings("serial")
 public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 	/**
 	 * The default value of the '{@link #getJavaScriptMode() <em>Java Script Mode</em>}' attribute.
