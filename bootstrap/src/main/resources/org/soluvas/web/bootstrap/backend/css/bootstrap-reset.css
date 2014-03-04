@@ -22,6 +22,12 @@ a:hover {
     padding: 15px;
 }
 
+.panel-heading h3{
+	color: #1fb5ad;
+	margin: 0;
+	display: inline-block;
+}
+
 .panel-title {
     color: #32323A;
     font-size: 14px;
