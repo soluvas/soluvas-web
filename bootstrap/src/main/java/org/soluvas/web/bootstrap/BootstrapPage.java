@@ -49,6 +49,7 @@ import org.soluvas.web.nav.PageLink;
 import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
+import org.soluvas.web.site.FaviconResourceReference;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptSource;
@@ -424,12 +425,16 @@ public class BootstrapPage extends ExtensiblePage {
 		add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
 		add(new Label("pageTitleSuffix", titleSuffixModel)
 				.setRenderBodyOnly(true));
+		// Get favicon from FaviconResourceReference if set, otherwise use PageMetaModel
 		final WebMarkupContainer faviconLink = new WebMarkupContainer(
 				"faviconLink");
-		faviconLink
-				.add(new AttributeModifier("href",
-						new PropertyModel<String>(pageMetaModel,
-								"icon.faviconUri")));
+		final IModel<String> faviconUriModel;
+		if (FaviconResourceReference.INSTANCE != null) {
+			faviconUriModel = new Model<>(urlFor(FaviconResourceReference.INSTANCE, null).toString());
+		} else {
+			faviconUriModel = new PropertyModel<>(pageMetaModel, "icon.faviconUri");
+		}
+		faviconLink.add(new AttributeModifier("href", faviconUriModel));
 		add(faviconLink);
 		add(new MetaTag("metaDescription", new PropertyModel<String>(pageMetaModel, "description")),
 			new MetaTag("metaKeywords", new PropertyModel<String>(pageMetaModel, "keywords")),
