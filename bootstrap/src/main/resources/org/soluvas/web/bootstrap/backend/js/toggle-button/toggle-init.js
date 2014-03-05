@@ -1,6 +1,6 @@
 $(function() {
     // initialize all the inputs
-    $('input[type="checkbox"],[type="radio"]').not('#create-switch').bootstrapSwitch();
+//    $('input[type="checkbox"],[type="radio"]').not('#create-switch').bootstrapSwitch();
 
     // dimension
     $('#btn-size-regular-switch').on('click', function () {

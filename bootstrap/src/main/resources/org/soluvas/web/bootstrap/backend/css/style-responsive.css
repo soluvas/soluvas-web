@@ -85,4 +85,7 @@ body{
     .notify-row{
         float: none;
     }
+    .position-center{
+    	width: 100%;
+    }
 }
