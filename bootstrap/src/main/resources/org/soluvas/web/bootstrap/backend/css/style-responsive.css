@@ -1,3 +1,9 @@
+@media(min-width: 767px){
+	.mini-panel-body{
+	height: 200px;
+	}
+}
+
 @media (min-width: 480px) and (max-width: 767px) {
 body{
     margin-top: 80px ! important;
