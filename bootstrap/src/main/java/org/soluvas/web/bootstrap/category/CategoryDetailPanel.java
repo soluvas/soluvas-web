@@ -13,7 +13,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
-import org.apache.wicket.core.util.string.JavaScriptUtils;
+import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -315,7 +315,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				attributes.getAjaxCallListeners().add(new AjaxCallListener() {
 					@Override
 					public CharSequence getPrecondition(Component component) {
-						return "return confirm(\"Do you want to delete category '" + JavaScriptUtils.escapeQuotes(originalUName) + "'?\")";
+						return "return confirm('Do you want to delete category ' + " + JSONObject.quote(originalUName) + " + '?')";
 					}
 				});
 			}
