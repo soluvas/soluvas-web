@@ -1,5 +1,6 @@
 package org.soluvas.web.googleanalytics;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,8 +12,10 @@ import org.soluvas.commons.config.MultiTenantConfig;
 import org.soluvas.commons.config.SysConfigMapHolder;
 import org.soluvas.commons.config.TenantSelector;
 import org.soluvas.commons.tenant.TenantBeanRepository;
+import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantUtils;
 import org.soluvas.web.googleanalytics.impl.GoogleAnalyticsManagerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -35,10 +38,12 @@ public class GoogleAnalyticsConfig {
 	private EventBus appEventBus;
 	@Inject
 	private SysConfigMapHolder<EObject> sysConfigMapHolder;
+	@Autowired(required=false) @Nullable
+	private TenantRepository<?> tenantRepo;
 	
 	@Bean(destroyMethod="destroy")
 	public TenantBeanRepository<GoogleAnalyticsManager> googleAnalyticsMgrBeanRepo() {
-		return new TenantBeanRepository<GoogleAnalyticsManager>(GoogleAnalyticsManagerImpl.class, tenantConfig.tenantMap(), appEventBus) {
+		return new TenantBeanRepository<GoogleAnalyticsManager>(GoogleAnalyticsManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
 			@Override
 			protected GoogleAnalyticsManagerImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {

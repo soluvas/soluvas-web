@@ -1,5 +1,6 @@
 package org.soluvas.web.site.alexa;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -9,8 +10,10 @@ import org.soluvas.commons.config.MultiTenantConfig;
 import org.soluvas.commons.config.SysConfigMapHolder;
 import org.soluvas.commons.config.TenantSelector;
 import org.soluvas.commons.tenant.TenantBeanRepository;
+import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantUtils;
 import org.soluvas.web.site.AlexaCertifySysConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -33,10 +36,12 @@ public class AlexaCertifyConfig {
 	private EventBus appEventBus;
 	@Inject
 	private SysConfigMapHolder<AlexaCertifySysConfig> sysConfigMapHolder;
+	@Autowired(required=false) @Nullable
+	private TenantRepository<?> tenantRepo;
 	
 	@Bean(destroyMethod="destroy")
 	public TenantBeanRepository<AlexaCertify> alexaCertifyBeanRepo() {
-		return new TenantBeanRepository<AlexaCertify>(AlexaCertifyImpl.class, tenantConfig.tenantMap(), appEventBus) {
+		return new TenantBeanRepository<AlexaCertify>(AlexaCertifyImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
 			@Override
 			protected AlexaCertifyImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {
