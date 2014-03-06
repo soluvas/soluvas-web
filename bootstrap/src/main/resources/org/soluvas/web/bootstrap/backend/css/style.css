@@ -5300,6 +5300,10 @@ div.tagsinput span.tag {
 	height: 32px;
 	line-height: 27px;
 }
+.select2-container{
+	padding-left: 0;
+	padding-right: 0;
+}
 
 .bs-callout {
     border-left: 3px solid #EEEEEE;
