@@ -5291,3 +5291,7 @@ div.tagsinput span.tag {
 .input-group span.yui-skin-sam{
 	display: none;
 }
+
+.mini-panel-body{
+	background-color: #F1F2F7;
+}
