@@ -5295,3 +5295,46 @@ div.tagsinput span.tag {
 .mini-panel-body{
 	background-color: #F1F2F7;
 }
+
+.select2-container .select2-choice{
+	height: 32px;
+	line-height: 27px;
+}
+
+.bs-callout {
+    border-left: 3px solid #EEEEEE;
+    margin: 20px 0;
+    padding: 20px;
+}
+.bs-callout h4 {
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    background-color: #FFFFFF;
+    border-radius: 3px;
+}
+.bs-callout-danger {
+    background-color: #FDF7F7;
+    border-color: #D9534F;
+}
+.bs-callout-danger h4 {
+    color: #D9534F;
+}
+.bs-callout-warning {
+    background-color: #FCF8F2;
+    border-color: #F0AD4E;
+}
+.bs-callout-warning h4 {
+    color: #F0AD4E;
+}
+.bs-callout-info {
+    background-color: #F4F8FA;
+    border-color: #5BC0DE;
+}
+.bs-callout-info h4 {
+    color: #5BC0DE;
+}

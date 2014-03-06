@@ -39,7 +39,7 @@ public class CurrencyTextField extends NumberTextField<BigDecimal> {
 		} else {
 			currencyHtml = "";
 		}
-		getResponse().write("<div class=\"input-prepend\"><span class=\"add-on\">" + currencyHtml + "</span>");
+		getResponse().write("<div class=\"input-group\"><span class=\"input-group-addon btn-info\">" + currencyHtml + "</span>");
 		super.onRender();
 		getResponse().write("</div>");
 	}
