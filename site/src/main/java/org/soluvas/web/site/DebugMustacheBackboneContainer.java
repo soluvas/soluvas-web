@@ -4,7 +4,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 
-import org.apache.wicket.core.util.string.JavaScriptUtils;
+import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.WebComponent;
@@ -64,7 +64,7 @@ public class DebugMustacheBackboneContainer extends WebComponent {
 	
 	protected String renderTemplateJs(MarkupStream markupStream) {
 		String template = markupStream.get().toString();
-		return "var " + getJsTemplateName() + " = '" + Strings.replaceAll(JavaScriptUtils.escapeQuotes(template), "\n", "\\\n") + "';\n";
+		return "var " + getJsTemplateName() + " = " + Strings.replaceAll(JSONObject.quote(template), "\n", "\\\n") + ";\n";
 	}
 	
 	protected String renderViewJs(MarkupStream markupStream, ComponentTag openTag) {
