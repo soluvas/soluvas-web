@@ -106,18 +106,8 @@ var subscriptions = [];
 	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
 
 	<script wicket:id="alexaCertifyScript">[AlexaCertifyScript]</script>
-	<!-- 	live chat code -->
-	<script type="text/javascript">
-	var __lc = {};
-	__lc.license = 3894791;
-	
-	(function() {
-	var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-	lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-	})();
-	</script>
-
+	<!-- 	purechat code -->
+	<script type='text/javascript'>(function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://widget.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({ c: 'fc4aedbb-64dd-479a-bc81-aa9c6670b476', f: true }); done = true; } }; })();</script>
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
