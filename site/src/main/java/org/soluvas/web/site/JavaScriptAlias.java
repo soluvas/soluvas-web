@@ -2,6 +2,11 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+/**
+ * @deprecated Use Wicket's renderHead() mechanism.
+ * @author ceefour
+ */
+@Deprecated
 public interface JavaScriptAlias extends Serializable {
 
 	/**

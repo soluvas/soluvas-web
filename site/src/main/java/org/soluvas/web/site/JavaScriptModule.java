@@ -2,6 +2,11 @@ package org.soluvas.web.site;
 
 import java.io.Serializable;
 
+/**
+ * @author ceefour
+ * @deprecated Use Wicket's renderHead() mechanism.
+ */
+@Deprecated
 public interface JavaScriptModule extends Serializable, Comparable<JavaScriptModule> {
 	
 	/**
@@ -33,8 +38,10 @@ public interface JavaScriptModule extends Serializable, Comparable<JavaScriptMod
 	 */
 	public abstract Base getBase();
 
+	@Override
 	public abstract String toString();
 
+	@Override
 	public abstract int compareTo(JavaScriptModule o);
 
 }

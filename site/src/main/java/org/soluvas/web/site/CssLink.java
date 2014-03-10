@@ -20,7 +20,9 @@ import org.soluvas.commons.WebAddress;
  * </pre>
  * 
  * @author ceefour
+ * @deprecated Use Wicket's renderHead() mechanism.
  */
+@Deprecated
 public interface CssLink extends Serializable {
 
 	/**
