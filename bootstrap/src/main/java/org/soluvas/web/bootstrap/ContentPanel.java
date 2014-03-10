@@ -9,6 +9,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.site.MustacheRenderer;
 
@@ -33,10 +34,14 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	
 	@SpringBean(name="contentLookup")
 	private EntityLookup<String, String> contentLookup;
+	@SpringBean
+	private AppManifest appManifest;
 	
 	public ContentPanel(String id) {
 		super(id);
 		setModel(new LoadableDetachableModel<ContentNode>() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected ContentNode load() {
 				final String slug = getPage().getPageParameters().get("slug").toString();
@@ -54,6 +59,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	protected void onInitialize() {
 		super.onInitialize();
 		final String slug = getPage().getPageParameters().get("slug").toString();
+		// MustacheRenderer already includes AppManifest, WebAddress as default scope
 		final MustacheRenderer contentRenderer = new MustacheRenderer("content", new Model<>(), new PropertyModel<String>(getModel(), "body"));
 		add(contentRenderer);
 		final IModel<String> sidebarModel = new LoadableDetachableModel<String>() {
