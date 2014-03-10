@@ -5342,3 +5342,6 @@ div.tagsinput span.tag {
 .bs-callout-info h4 {
     color: #5BC0DE;
 }
+.label-size{
+	font-size: 13px;
+}
