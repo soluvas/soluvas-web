@@ -47,7 +47,7 @@ public class BackendPage extends WebPage {
 	private static final JavaScriptResourceReference bootstrapDateTimePickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js");
 	private static final JavaScriptResourceReference momentJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-daterangepicker/moment.min.js");
 	private static final JavaScriptResourceReference dateRangePickerJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-daterangepicker/daterangepicker.js");
-	private static final JavaScriptResourceReference bootstrapColorPickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js");
+//	private static final JavaScriptResourceReference bootstrapColorPickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js");
 	private static final JavaScriptResourceReference bootstrapTImePickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-timepicker/js/bootstrap-timepicker.js");
 	private static final JavaScriptResourceReference jqueryMultiSelectJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/jquery-multi-select/js/jquery.multi-select.js");
 	private static final JavaScriptResourceReference jqueryQuickSearchJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/jquery-multi-select/js/jquery.quicksearch.js");
@@ -90,7 +90,7 @@ public class BackendPage extends WebPage {
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-datepicker/css/datepicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-timepicker/compiled/timepicker.css")));
-		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/css/colorpicker.css")));
+//		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/css/colorpicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-daterangepicker/daterangepicker-bs3.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-datetimepicker/css/datetimepicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jquery-multi-select/css/multi-select.css")));
@@ -117,7 +117,7 @@ public class BackendPage extends WebPage {
 		response.render(JavaScriptHeaderItem.forReference(bootstrapDateTimePickerJs));
 		response.render(JavaScriptHeaderItem.forReference(momentJs));
 		response.render(JavaScriptHeaderItem.forReference(dateRangePickerJs));
-		response.render(JavaScriptHeaderItem.forReference(bootstrapColorPickerJs));
+//		response.render(JavaScriptHeaderItem.forReference(bootstrapColorPickerJs));
 		response.render(JavaScriptHeaderItem.forReference(bootstrapTImePickerJs));
 		response.render(JavaScriptHeaderItem.forReference(jqueryMultiSelectJs));
 		response.render(JavaScriptHeaderItem.forReference(jqueryQuickSearchJs));

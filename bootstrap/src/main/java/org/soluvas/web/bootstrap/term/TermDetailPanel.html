@@ -2,63 +2,80 @@
 <style>
 .color-box {
 	border: 1px solid #ccc;
-	display: inline-block;
+	display: block;
 	width: 1.8em;
 	height: 1.8em;
 	vertical-align: bottom;
+	margin: 10px 0;
 }
 </style>	
 </wicket:head>
+
 <wicket:panel>
 	<div class="row">
-		<div class="span9" style="margin-top:0;">
-			<h4 class="MarginTopClear">
-					<span wicket:id="kind">Colors</span> &gt; <span wicket:id="termUName">base_red</span>
-			</h4>
-			<div class="box-content-border">
-				<form wicket:id="form" class="form form-horizontal">
-					<div class="control-group">
-						<label class="control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr> *</label>	
-						<div class="controls">
-							<div class="input-prepend">
-								<span class="add-on" wicket:id="nsPrefix"></span>
-								<input type="text" wicket:id="name"/>
-							</div>
-						</div>
+		<div class="col-sm-12">
+	    	<section class="panel">
+	        	<header class="panel-heading">
+	          		<h3>
+	          			<span wicket:id="kind">Colors</span> &gt; <span wicket:id="termUName">base_red</span>
+	          		</h3>
+	               	<span class="tools pull-right">
+	                   	<a href="javascript:;" class="fa fa-chevron-down"></a>
+	                </span>
+				</header>
+				<div class="panel-body">
+					<form class="form-horizontal position-center" role="form" wicket:id="form" >
+						<div class="form-group">
+							<label class="col-lg-2 control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr> :</label>
+                            <div class="col-lg-6 col-xs-12">
+                            	<div class="input-group m-bot15">
+	                                <span class="input-group-addon btn-primary" wicket:id="nsPrefix"></span>
+	                                <input wicket:id="name" class="form-control" placeholder="Name">
+	                            </div>
+                            </div>
+                        </div>			
+                          					
+						<div class="form-group">
+							<label class="col-lg-2 control-label" wicket:for="displayName">Display Name :</label>
+                            <div class="col-lg-6 col-xs-12">
+								<input wicket:id="displayName" class="form-control">
+                            </div>
+                        </div>			
+                          					
+						<wicket:enclosure child="imageId">
+							<div class="form-group">
+								<label class="col-lg-2 control-label" wicket:for="imageId">Image ID :</label>
+	                            <div class="col-lg-2 col-xs-12">
+									<input wicket:id="imageId" class="form-control">
+	                            </div>
+	                        </div>			
+						</wicket:enclosure>
+					
+                          					
+						<div class="form-group">
+							<label class="col-lg-2 control-label">HTML Color :</label>
+                            <div class="col-lg-2 col-xs-12">
+								<input type="checkbox" wicket:id="colorUsed"/>
+								<span wicket:id="colorBox" class="color-box" style="background-color: #ff0000">&nbsp;</span>
+								<input wicket:id="color" class="form-control"/>
+                            </div>
+                        </div>			
+                          					
+					</form>
+					
+					<hr>
+					<div class="form-horizontal position-center">
+						<div class="form-group">
+							<label class="col-lg-2 control-label"></label>
+                            <div class="col-lg-8 col-xs-12">
+								<button wicket:id="saveBtn" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+								<button wicket:id="deleteBtn" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+								<a wicket:id="backLink" href="#" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i> Back to List</a>
+                            </div>
+                        </div>			
 					</div>
-					<div class="control-group">
-						<label class="control-label" wicket:for="displayName">Display Name *</label>
-						<div class="controls">
-							<input type="text" wicket:id="displayName"/>
-						</div>
-					</div>
-					<wicket:enclosure child="imageId">
-					<div class="control-group">
-						<label class="control-label" wicket:for="imageId">Image ID</label>	
-						<div class="controls">
-							<input type="text" wicket:id="imageId"/>
-						</div>
-					</div>
-					</wicket:enclosure>
-					<div class="control-group">
-						<label class="control-label" wicket:for="color">HTML Color</label>	
-						<div class="controls">
-							<input type="checkbox" wicket:id="colorUsed"/>
-							<span wicket:id="colorBox" class="color-box" style="background-color: #ff0000">&nbsp;</span>
-							<input type="text" wicket:id="color"/>
-						</div>
-					</div>
-				</form>
-				<hr>
-				<div class="form-horizontal">
-				<div class="controls">
-					<button wicket:id="saveBtn" class="btn btn-info"><i class="icon-ok-sign icon-white"></i> Save</button>
-					<button wicket:id="deleteBtn" class="btn btn-danger"><i class="icon-remove-sign icon-white"></i> Delete</button>
-					<a wicket:id="backLink" href="#" class="btn">« Back to List</a>
 				</div>
-				</div>
-				<br/>
-			</div>
+			</section>
 		</div>
 	</div>
 </wicket:panel>
