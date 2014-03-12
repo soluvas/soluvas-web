@@ -8,6 +8,7 @@
     .notify-row{
 	    position: relative;
 	    z-index: 2000;
+	    width: 80%;
     }
 	
 }
