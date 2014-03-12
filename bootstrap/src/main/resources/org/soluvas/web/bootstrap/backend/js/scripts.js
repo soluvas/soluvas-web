@@ -142,3 +142,8 @@ var Script = function () {
 
 }();
 
+$(document).ready(function () {
+    $("#btnPrint").click(function () {
+       window.print();
+    });
+});
