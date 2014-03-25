@@ -28,7 +28,7 @@ public class ShiroPrincipalsServletFilter implements Filter {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(ShiroPrincipalsServletFilter.class);
-	public static final String MDC_KEY = "principals";
+	public static final String MDC_PRINCIPALS = "principals";
 	
 	public ShiroPrincipalsServletFilter() {
 	}
@@ -46,7 +46,7 @@ public class ShiroPrincipalsServletFilter implements Filter {
 			if (principalCollection != null) {
 				final List<?> principals = principalCollection.asList();
 				try {
-					MDC.put(MDC_KEY, Joiner.on(", ").join(principals));
+					MDC.put(MDC_PRINCIPALS, Joiner.on(' ').join(principals));
 				} catch (Exception e) {
 					log.warn("Cannot register 'principals' MDC: " + principals, e);
 				}
@@ -58,7 +58,7 @@ public class ShiroPrincipalsServletFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} finally {
-			MDC.remove(MDC_KEY);
+			MDC.remove(MDC_PRINCIPALS);
 		}
 	}
 
