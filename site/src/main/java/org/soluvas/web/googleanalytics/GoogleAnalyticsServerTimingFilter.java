@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.response.filter.AjaxServerAndClientTimeFilter;
 import org.apache.wicket.response.filter.IResponseFilter;
@@ -15,8 +16,15 @@ import com.google.common.base.Optional;
 
 /**
  * Sends the server request processing time (response time) via <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings">Google Analytics User Timings</a>.
- * Note that your pages must have Google Analytics enabled, otherwise you'll get JavaScript error.
- * Also logs warn if page processing is slow.
+ * 
+ * <p>Note that your pages must have Google Analytics enabled, otherwise you'll get JavaScript error.
+ * 
+ * <p>Also logs warn if page processing is slow.
+ * 
+ * <p>Usage in {@link WebApplication#init()}:
+ * 
+ * <pre>getRequestCycleSettings().addResponseFilter(new GoogleAnalyticsServerTimingFilter());</pre>
+ * 
  * @author ceefour
  * @see AjaxServerAndClientTimeFilter
  */
