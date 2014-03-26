@@ -19,14 +19,18 @@ public class AutoDisableAjaxCallListener extends AjaxCallListener {
 	@Override
 	public CharSequence getPrecondition(Component component) {
 //		return "console.log('PRE', $(this).attr('disabled')); if ($(this).attr('disabled') != undefined) return false;\n" + super.getPrecondition(component);
-		return "if ($(this).attr('disabled') != undefined) return false;\n" + super.getPrecondition(component);
+//		return "if ($(this).attr('disabled') != undefined) return false;\n" + super.getPrecondition(component);
+		String event = "if (Wicket.Event.keyCode(attrs.event) !== 13) {$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component) + "}";
+		return event;
 	}
 	
 	@Override
 	public CharSequence getBeforeSendHandler(
 			Component component) {
 //		return "console.log('beforeSEND');$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component);
-		return "$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component);
+		String event = "if (Wicket.Event.keyCode(attrs.event) !== 13) {$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component) + "}";
+//		return "$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component);
+		return event;
 	}
 
 	@Override

@@ -37,4 +37,6 @@ public class AutoDisableAjaxButton extends IndicatingAjaxButton {
 		attributes.getAjaxCallListeners().add(new AutoDisableAjaxCallListener());
 	}
 	
+	
+	
 }
