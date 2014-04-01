@@ -142,44 +142,5 @@ var subscriptions = [];
   });
 </script>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var defaults = {
-				containerID : 'toTop', // fading element id
-				containerHoverID : 'toTopHover', // fading element hover id
-				scrollSpeed : 1200,
-				easingType : 'linear'
-			};
-
-			$().UItoTop({
-				easingType : 'easeOutQuart'
-			});
-
-			$("ul.accordion a.name").click(function(){
-				
-				var aClick = $(this);
-				var liClick = aClick.parent();
-				var ulChild = liClick.children('ul');
-				
-				if(ulChild.length != 0){
-					if(liClick.hasClass('open')){
-						ulChild.slideUp('slow', function(){
-							liClick.removeClass('open');
-						})
-					}else{
-						liClick.addClass('open');
-						ulChild.slideDown('slow');
-					}
-				}
-				
-			});
-		});
-
-		//Kate Mahendri
-// 		$('.pagination ul li a').live('click', function() {
-// 			$('a#toTop').click();
-// 		});
-	</script>
-
 </body>
 </html>
