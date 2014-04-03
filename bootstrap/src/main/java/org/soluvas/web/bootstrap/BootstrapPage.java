@@ -315,7 +315,7 @@ public class BootstrapPage extends ExtensiblePage {
 				});
 		final List<CssLink> sortedCsses = cssOrdering
 				.immutableSortedCopy(filteredCsses);
-		for (CssLink css : sortedCsses) {
+		for (final CssLink css : sortedCsses) {
 			if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT
 					&& css.getMinifiedPath() != null) {
 				response.render(CssHeaderItem.forUrl(smartPrefixUri(
