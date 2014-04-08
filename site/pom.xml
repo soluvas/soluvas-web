@@ -78,11 +78,6 @@
 			<artifactId>compiler</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-core</artifactId>
-			<version>1.17.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-atmosphere</artifactId>
 		</dependency>
