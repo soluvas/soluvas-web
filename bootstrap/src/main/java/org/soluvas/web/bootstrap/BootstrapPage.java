@@ -485,10 +485,6 @@ public class BootstrapPage extends ExtensiblePage {
 		add(new WebMarkupContainer("requireConfig")
 				.add(new AttributeModifier("src", requireConfigPath)));
 
-		// ADDED INFO
-		contentAddedInfo = new WebMarkupContainer("addedInfo");
-		add(contentAddedInfo);
-		
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
 		add(sidebarColumn);
@@ -499,6 +495,10 @@ public class BootstrapPage extends ExtensiblePage {
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
 		add(contentColumn);
 		add(new FeedbackPanel("feedback").setVisible(false));
+		
+		// ADDED INFO
+		contentAddedInfo = new WebMarkupContainer("addedInfo");
+		add(contentAddedInfo);
 
 		// FOOTER
 		add(new Footer("© " + new DateTime().toString("yyyy") + " " + appManifest.getTitle()));
@@ -581,9 +581,7 @@ public class BootstrapPage extends ExtensiblePage {
 		// compose other components
 		ComposeUtils.compose(this, contributors.findAll());
 		
-		if (addedInfoVisibility == AddedInfoVisibility.VISIBLE) {
-			contentAddedInfo.setVisible(true);
-		}
+		contentAddedInfo.setVisible(addedInfoVisibility == AddedInfoVisibility.VISIBLE);
 	}
 
 	@Override
