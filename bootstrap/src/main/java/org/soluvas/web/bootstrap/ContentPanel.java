@@ -63,6 +63,8 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 		final MustacheRenderer contentRenderer = new MustacheRenderer("content", new Model<>(), new PropertyModel<String>(getModel(), "body"));
 		add(contentRenderer);
 		final IModel<String> sidebarModel = new LoadableDetachableModel<String>() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected String load() {
 				try {
