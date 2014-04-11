@@ -9,8 +9,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.tenant.TenantRef;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -28,6 +30,9 @@ public class LoginButton extends IndicatingAjaxButton {
 	private static final Logger log = LoggerFactory
 			.getLogger(LoginButton.class);
 	private final IModel<LoginToken> loginTokenModel;
+	
+	@SpringBean
+	private TenantRef tenant;
 
 	public LoginButton(String id, final IModel<LoginToken> loginTokenModel) {
 		super(id);
@@ -40,22 +45,22 @@ public class LoginButton extends IndicatingAjaxButton {
 		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
 		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
 		final UsernamePasswordToken token = new UsernamePasswordToken(
-				upUsername, upPassword.toCharArray());
-		log.debug("Logging in using {}", upUsername);
+				upUsername, upPassword.toCharArray(), tenant.getTenantId());
+		log.debug("Logging in using '{}' tenant '{}'", upUsername, tenant.getTenantId());
 		try {
 			final Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);
 			final String personId = Preconditions.checkNotNull((String) currentUser.getPrincipal(),
 					"Cannot get current user as person ID");
 			info(String.format("You are now logged in as %s", personId));
-			log.debug("Current user is now {}", personId);
-			log.debug("{} permitted to edit person? {}",
-					personId, currentUser.isPermitted("person:edit:*"));
+			log.debug("Current user is now '{}' tenant '{}'. Has permission to edit all person data? {}",
+					personId, tenant.getTenantId(), currentUser.isPermitted("person:edit:*"));
 			onLoginSuccess(target, personId);
 		} catch (final AuthenticationException e) {
 //			error(String.format("Invalid credentials for %s", token.getUsername()));
 			error(String.format("Wrong Username/Email and password combination."));
-			log.info(String.format("Invalid credentials for %s", token.getUsername()), e);
+			log.info(String.format("Invalid credentials for '%s' tenant '%s'",
+					token.getUsername(), token.getHost()), e);
 		}
 		super.onSubmit(target, form);
 	}
