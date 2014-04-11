@@ -59,7 +59,8 @@ public class LoginButton extends IndicatingAjaxButton {
 		} catch (final AuthenticationException e) {
 //			error(String.format("Invalid credentials for %s", token.getUsername()));
 			error(String.format("Wrong Username/Email and password combination."));
-			log.info(String.format("Invalid credentials for '%s' tenant '%s'", token.getUsername(), token.getHost()), e);
+			log.info(String.format("Invalid credentials for '%s' tenant '%s'",
+					token.getUsername(), token.getHost()), e);
 		}
 		super.onSubmit(target, form);
 	}
