@@ -28,7 +28,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 
 /**
- * <a href="https://github.com/ifightcrime/bootstrap-growl">bootstrap-growl</a> based {@link FeedbackMessage} notifier.
+ * <a href="https://github.com/ifightcrime/bootstrap-growl">bootstrap-growl</a> based {@link FeedbackMessage} notifier
+ * for Bootstrap 3.x.
  * 
  * <p><a href="http://cdnjs.com/libraries/bootstrap-growl/">CDNJS</a> URIs:
  * <ul>
@@ -55,7 +56,7 @@ public class GrowlBehavior extends Behavior {
 
 	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(GrowlBehavior.class);
-	private static JavaScriptResourceReference GROWL_JS = new JavaScriptResourceReference(GrowlBehavior.class, "jquery.bootstrap-growl-132647f01c.js") {
+	private static JavaScriptResourceReference GROWL_JS = new JavaScriptResourceReference(GrowlBehavior.class, "jquery.bootstrap-growl-20e918de.js") {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -120,9 +121,9 @@ public class GrowlBehavior extends Behavior {
 				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
 				String growlType = "info";
 				if (msg.isError()) {
-					growlType = "error";
+					growlType = "danger";
 				} else if (msg.isWarning()) {
-					growlType = "error";
+					growlType = "warning";
 				} else if (msg.isInfo()) {
 					growlType = "success";
 				} else if (msg.isDebug()) {

@@ -11,7 +11,11 @@ import org.soluvas.security.SecurityCatalog;
 import com.google.common.base.Strings;
 
 /**
- * @todo AFTER DECEMBER 2013 : Only use Google Analytics tracking if NOT has app/mall role: https://idbippo.atlassian.net/browse/BC-1397
+ * Google Analytics tracking was not enabled on app/mall role: https://idbippo.atlassian.net/browse/BC-1397
+ * 
+ * <p>However, Google Analytics is useful for other things, including server response time tracking,
+ * so it should be enabled on all pages including backend pages.
+ * 
  * @author ceefour
  */
 public class GoogleAnalyticsPanel extends Panel {
