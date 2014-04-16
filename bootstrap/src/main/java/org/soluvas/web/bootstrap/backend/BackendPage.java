@@ -14,6 +14,8 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.AfterJQueryJavaScriptResourceReference;
+import org.soluvas.web.bootstrap.GrowlBehavior;
+import org.soluvas.web.googleanalytics.GoogleAnalyticsPanel;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
@@ -67,6 +69,9 @@ public class BackendPage extends WebPage {
 		add(new HtmlTag("html", getLocale(), true));
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
+		add(new GrowlBehavior());
+		
+		add(new GoogleAnalyticsPanel("googleanalytics"));
 		
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");

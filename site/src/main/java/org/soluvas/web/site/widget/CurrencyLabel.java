@@ -21,9 +21,10 @@ import org.joda.money.format.MoneyFormatterBuilder;
  * optionally with a {@link BigDecimal} amount.
  * @author agus
  */
-@SuppressWarnings("serial")
 public class CurrencyLabel extends Label {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Nullable
 	private IModel<BigDecimal> amountModel;
 
