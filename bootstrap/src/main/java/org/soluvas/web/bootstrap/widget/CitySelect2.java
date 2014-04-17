@@ -34,7 +34,7 @@ public class CitySelect2 extends Select2Choice<City> {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(CitySelect2.CityProvider.class);
+			.getLogger(CitySelect2.class);
 	
 	private static class CityProvider extends ChoiceProvider<City> {
 		
@@ -68,6 +68,7 @@ public class CitySelect2 extends Select2Choice<City> {
 			return FluentIterable.from(ids).transform(new Function<String, City>() {
 				@Override @Nullable
 				public City apply(@Nullable String input) {
+					log.debug("Looking for city by: {}", input);
 					return cityRepo.getCity(input);
 				}
 			}).toSet();
