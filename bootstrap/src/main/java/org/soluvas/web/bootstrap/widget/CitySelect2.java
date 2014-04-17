@@ -68,7 +68,6 @@ public class CitySelect2 extends Select2Choice<City> {
 			return FluentIterable.from(ids).transform(new Function<String, City>() {
 				@Override @Nullable
 				public City apply(@Nullable String input) {
-					log.debug("Looking for city by: {}", input);
 					return cityRepo.getCity(input);
 				}
 			}).toSet();
