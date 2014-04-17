@@ -34,7 +34,7 @@ public class CitySelect2 extends Select2Choice<City> {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(CitySelect2.CityProvider.class);
+			.getLogger(CitySelect2.class);
 	
 	private static class CityProvider extends ChoiceProvider<City> {
 		

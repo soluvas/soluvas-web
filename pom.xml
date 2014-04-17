@@ -51,8 +51,7 @@
 	<properties>
 		<wicket.version>6.14.0</wicket.version>
 		<wicket-atmosphere.version>0.17</wicket-atmosphere.version><!-- linked to wicket.version -->
-		<atmosphere.version>2.0.7</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version -->
-		<wicketstuff.version>6.14.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<atmosphere.version>2.1.3</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version -->
 	</properties>
 
 	<dependencyManagement>
