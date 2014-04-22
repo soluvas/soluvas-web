@@ -5,7 +5,7 @@ templates['org.soluvas.web.login.LoginForm.mustache'] = template(function (Handl
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<!-- To generate:\nceefour@annafi:~/git/bippo-commerce5/app/src/main/resources$ handlebars templates_web/*.mustache --amd --output js/templates.js\n-->\n	<div class=\"control-group\">\n		<label class=\"control-label\" for=\"username\">Username</label>\n		<div class=\"controls\"><input type=\"text\" id=\"username\" value=\"";
+  buffer += "<!-- To generate:\nceefour@annafi:~/git/bippo-commerce/app/src/main/resources$ handlebars templates_web/*.mustache --amd --output js/templates.js\n-->\n	<div class=\"control-group\">\n		<label class=\"control-label\" for=\"username\">Username</label>\n		<div class=\"controls\"><input type=\"text\" id=\"username\" value=\"";
   foundHelper = helpers.username;
   if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.username; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
