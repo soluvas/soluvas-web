@@ -576,7 +576,6 @@ public class BootstrapPage extends ExtensiblePage {
 		// sidebar visibility
 		if (sidebarVisibility == SidebarVisibility.HIDDEN) {
 			sidebarColumn.setVisible(false);
-			contentColumn.add(new AttributeModifier("class", "span12"));
 		}
 		// compose other components
 		ComposeUtils.compose(this, contributors.findAll());
