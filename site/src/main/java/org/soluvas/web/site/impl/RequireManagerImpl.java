@@ -28,6 +28,9 @@ import org.soluvas.web.site.SitePackage;
  */
 @SuppressWarnings("serial")
 public class RequireManagerImpl extends EObjectImpl implements RequireManager {
+	
+	public static final String CURRENT_TIME = "__CURRENT_TIME__";
+	
 	/**
 	 * The default value of the '{@link #getJavaScriptMode() <em>Java Script Mode</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -76,11 +79,15 @@ public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 		throw new UnsupportedOperationException("Please use constructor with arguments.");
 	}
 	
+	/**
+	 * @param javaScriptMode
+	 * @param cacheBust Use {@link #CURRENT_TIME} for dynamic {@code cacheBust}.
+	 */
 	public RequireManagerImpl(final JavaScriptMode javaScriptMode,
 			final String cacheBust) {
 		super();
 		this.javaScriptMode = javaScriptMode;
-		this.cacheBust = cacheBust;
+		this.cacheBust = CURRENT_TIME.equals(cacheBust) ? String.valueOf(System.currentTimeMillis()) : cacheBust;
 	}
 
 	/**
