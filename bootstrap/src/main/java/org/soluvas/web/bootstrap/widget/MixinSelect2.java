@@ -88,7 +88,7 @@ public class MixinSelect2 extends Select2Choice<Mixin> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
+		add(new AttributeAppender("class", new Model<>("col-sm-4")));
 		getSettings().getAjax().setQuietMillis(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
