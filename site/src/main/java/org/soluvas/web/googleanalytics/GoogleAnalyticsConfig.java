@@ -11,7 +11,7 @@ import org.soluvas.commons.config.CommonsWebConfig;
 import org.soluvas.commons.config.MultiTenantConfig;
 import org.soluvas.commons.config.SysConfigMapHolder;
 import org.soluvas.commons.config.TenantSelector;
-import org.soluvas.commons.tenant.TenantBeanRepository;
+import org.soluvas.commons.tenant.TenantBeans;
 import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantUtils;
 import org.soluvas.web.googleanalytics.impl.GoogleAnalyticsManagerImpl;
@@ -42,8 +42,8 @@ public class GoogleAnalyticsConfig {
 	private TenantRepository<?> tenantRepo;
 	
 	@Bean(destroyMethod="destroy")
-	public TenantBeanRepository<GoogleAnalyticsManager> googleAnalyticsMgrBeanRepo() {
-		return new TenantBeanRepository<GoogleAnalyticsManager>(GoogleAnalyticsManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
+	public TenantBeans<GoogleAnalyticsManager> googleAnalyticsMgrBeanRepo() {
+		return new TenantBeans<GoogleAnalyticsManager>(GoogleAnalyticsManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
 			@Override
 			protected GoogleAnalyticsManagerImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {

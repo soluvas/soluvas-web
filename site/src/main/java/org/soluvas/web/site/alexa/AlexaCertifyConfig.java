@@ -9,14 +9,13 @@ import org.soluvas.commons.config.CommonsWebConfig;
 import org.soluvas.commons.config.MultiTenantConfig;
 import org.soluvas.commons.config.SysConfigMapHolder;
 import org.soluvas.commons.config.TenantSelector;
-import org.soluvas.commons.tenant.TenantBeanRepository;
+import org.soluvas.commons.tenant.TenantBeans;
 import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantUtils;
 import org.soluvas.web.site.AlexaCertifySysConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import com.google.common.eventbus.EventBus;
@@ -25,7 +24,7 @@ import com.google.common.eventbus.EventBus;
  * {@link Configuration} for {@link AlexaCertify}.
  * @author ceefour
  */
-@Configuration @Lazy
+@Configuration
 public class AlexaCertifyConfig {
 	
 	@Inject
@@ -40,8 +39,8 @@ public class AlexaCertifyConfig {
 	private TenantRepository<?> tenantRepo;
 	
 	@Bean(destroyMethod="destroy")
-	public TenantBeanRepository<AlexaCertify> alexaCertifyBeanRepo() {
-		return new TenantBeanRepository<AlexaCertify>(AlexaCertifyImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
+	public TenantBeans<AlexaCertify> alexaCertifyBeans() {
+		return new TenantBeans<AlexaCertify>(AlexaCertifyImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
 			@Override
 			protected AlexaCertifyImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {
@@ -54,7 +53,7 @@ public class AlexaCertifyConfig {
 	
 	@Bean @Scope("prototype")
 	public AlexaCertify alexaCertify() {
-		return alexaCertifyBeanRepo().get(tenantSelector.tenantRef().getTenantId());
+		return alexaCertifyBeans().get(tenantSelector.tenantRef().getTenantId());
 	}
 	
 }

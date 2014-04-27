@@ -11,7 +11,7 @@ import org.soluvas.commons.config.CommonsWebConfig;
 import org.soluvas.commons.config.MultiTenantConfig;
 import org.soluvas.commons.config.SysConfigMapHolder;
 import org.soluvas.commons.config.TenantSelector;
-import org.soluvas.commons.tenant.TenantBeanRepository;
+import org.soluvas.commons.tenant.TenantBeans;
 import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantUtils;
 import org.soluvas.web.olark.impl.LiveChatManagerImpl;
@@ -42,8 +42,8 @@ public class LiveChatConfig {
 	private TenantRepository<?> tenantRepo;
 	
 	@Bean(destroyMethod="destroy")
-	public TenantBeanRepository<LiveChatManager> liveChatMgrBeanRepo() {
-		return new TenantBeanRepository<LiveChatManager>(LiveChatManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
+	public TenantBeans<LiveChatManager> liveChatMgrBeanRepo() {
+		return new TenantBeans<LiveChatManager>(LiveChatManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
 			@Override
 			protected LiveChatManagerImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {
