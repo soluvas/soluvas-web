@@ -6,18 +6,18 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.util.time.Duration;
 
 /**
- * {@link OnChangeThrottledBehavior} with {@link ThrottlingSettings} (default 250ms).
+ * {@link OnChangeThrottledBehavior} with {@link ThrottlingSettings} (default 400ms).
  * @author ceefour
  */
 public abstract class OnChangeThrottledBehavior extends OnChangeAjaxBehavior {
 
 	private static final long serialVersionUID = 1L;
 	public static final ThrottlingSettings DEFAULT_THROTTLING =
-			new ThrottlingSettings("OnChangeThrottledBehavior_250", Duration.milliseconds(250), true);
+			new ThrottlingSettings("OnChangeThrottledBehavior_400ms", Duration.milliseconds(400), true);
 	private final ThrottlingSettings throttlingSettings;
 	
 	/**
-	 * Uses {@link #DEFAULT_THROTTLING} of 250ms. 
+	 * Uses {@link #DEFAULT_THROTTLING}. 
 	 */
 	public OnChangeThrottledBehavior() {
 		super();
