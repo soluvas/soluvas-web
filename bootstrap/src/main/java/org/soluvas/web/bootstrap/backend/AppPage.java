@@ -40,7 +40,7 @@ public class AppPage extends WebPage {
 	private static final JavaScriptResourceReference underscoreJs = new AfterJQueryJavaScriptResourceReference(AppPage.class, "js/underscore-min.js");
 	private static final JavaScriptResourceReference gaugeJs = new AfterJQueryJavaScriptResourceReference(AppPage.class, "assets/gauge/gauge.js");
 	private static final JavaScriptResourceReference customSelectJs = new AfterJQueryJavaScriptResourceReference(AppPage.class, "js/custom-select/jquery.customSelect.min.js");
-	private static final JavaScriptResourceReference bootstrapSwitchJs = new AfterBootstrapJavaScriptResourceReference(AppPage.class, "assets/bootstrap-switch-master/build/js/bootstrap-switch.js");
+//	private static final JavaScriptResourceReference bootstrapSwitchJs = new AfterBootstrapJavaScriptResourceReference(AppPage.class, "assets/bootstrap-switch-master/build/js/bootstrap-switch.js");
 	private static final JavaScriptResourceReference spinnerJs = new AfterJQueryJavaScriptResourceReference(AppPage.class, "assets/fuelux/js/spinner.min.js");
 	private static final JavaScriptResourceReference bootstrapFileUploadJs = new AfterBootstrapJavaScriptResourceReference(AppPage.class, "assets/bootstrap-fileupload/bootstrap-fileupload.js");
 	private static final JavaScriptResourceReference wysiHtml5Js = new AfterJQueryJavaScriptResourceReference(AppPage.class, "assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js");
@@ -90,12 +90,10 @@ public class AppPage extends WebPage {
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "css/clndr.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/css3clock/css/style.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/morris-chart/morris.css")));
-		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-switch-master/build/css/bootstrap3/bootstrap-switch.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-fileupload/bootstrap-fileupload.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-datepicker/css/datepicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-timepicker/compiled/timepicker.css")));
-//		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/css/colorpicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-daterangepicker/daterangepicker-bs3.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/bootstrap-datetimepicker/css/datetimepicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/jquery-multi-select/css/multi-select.css")));
@@ -113,7 +111,6 @@ public class AppPage extends WebPage {
 		response.render(JavaScriptHeaderItem.forReference(underscoreJs));
 		response.render(JavaScriptHeaderItem.forReference(gaugeJs));
 		response.render(JavaScriptHeaderItem.forReference(customSelectJs));
-		response.render(JavaScriptHeaderItem.forReference(bootstrapSwitchJs));
 		response.render(JavaScriptHeaderItem.forReference(spinnerJs));
 		response.render(JavaScriptHeaderItem.forReference(bootstrapFileUploadJs));
 		response.render(JavaScriptHeaderItem.forReference(wysiHtml5Js));
@@ -122,7 +119,6 @@ public class AppPage extends WebPage {
 		response.render(JavaScriptHeaderItem.forReference(bootstrapDateTimePickerJs));
 		response.render(JavaScriptHeaderItem.forReference(momentJs));
 		response.render(JavaScriptHeaderItem.forReference(dateRangePickerJs));
-//		response.render(JavaScriptHeaderItem.forReference(bootstrapColorPickerJs));
 		response.render(JavaScriptHeaderItem.forReference(bootstrapTImePickerJs));
 		response.render(JavaScriptHeaderItem.forReference(jqueryMultiSelectJs));
 		response.render(JavaScriptHeaderItem.forReference(jqueryQuickSearchJs));
