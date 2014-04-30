@@ -92,7 +92,7 @@ body {
 
 <body>
 	<div wicket:id="dev">[DebugBar]</div>
-	<div class="container">
+
 		<header wicket:id="header"></header>
 		<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
 		<div class="sidebar-categories" wicket:id="sidebarColumn">
@@ -119,7 +119,6 @@ body {
 				href="http://www.soluvas.com/">Soluvas</a> 2012
 			</small>
 		</footer>
-	</div>
 	<!--/.fluid-container-->
 	<div class="clearfix"></div>
 
@@ -182,40 +181,6 @@ body {
 
 			});
 		});
-	</script>
-
-	<script>
-		(function($) {
-			"use strict";
-			$('#menuMega').menu3d();
-			$('#iview').iView({
-				pauseTime : 10000,
-				pauseOnHover : true,
-				directionNavHoverOpacity : 0.6,
-				timer : "360Bar",
-				timerBg : '#2da5da',
-				timerColor : '#fff',
-				timerOpacity : 0.9,
-				timerDiameter : 20,
-				timerPadding : 1,
-				touchNav : true,
-				timerStroke : 2,
-				timerBarStrokeColor : '#fff'
-			});
-
-			$('.quickbox').carousel({
-				interval : 10000
-			});
-			$('#monthly-deals').carousel({
-				interval : 3000
-			});
-			$('#productc2').carousel({
-				interval : 4000
-			});
-			$('#tweets').carousel({
-				interval : 5000
-			});
-		})(jQuery);
 	</script>
 
 </body>
