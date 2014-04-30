@@ -40,7 +40,6 @@ public class BackendPage extends WebPage {
 	private static final JavaScriptResourceReference underscoreJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "js/underscore-min.js");
 	private static final JavaScriptResourceReference gaugeJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/gauge/gauge.js");
 	private static final JavaScriptResourceReference customSelectJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "js/custom-select/jquery.customSelect.min.js");
-	private static final JavaScriptResourceReference bootstrapSwitchJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-switch-master/build/js/bootstrap-switch.js");
 	private static final JavaScriptResourceReference spinnerJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/fuelux/js/spinner.min.js");
 	private static final JavaScriptResourceReference bootstrapFileUploadJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-fileupload/bootstrap-fileupload.js");
 	private static final JavaScriptResourceReference wysiHtml5Js = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js");
@@ -49,7 +48,6 @@ public class BackendPage extends WebPage {
 	private static final JavaScriptResourceReference bootstrapDateTimePickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js");
 	private static final JavaScriptResourceReference momentJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-daterangepicker/moment.min.js");
 	private static final JavaScriptResourceReference dateRangePickerJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-daterangepicker/daterangepicker.js");
-//	private static final JavaScriptResourceReference bootstrapColorPickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js");
 	private static final JavaScriptResourceReference bootstrapTImePickerJs = new AfterBootstrapJavaScriptResourceReference(BackendPage.class, "assets/bootstrap-timepicker/js/bootstrap-timepicker.js");
 	private static final JavaScriptResourceReference jqueryMultiSelectJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/jquery-multi-select/js/jquery.multi-select.js");
 	private static final JavaScriptResourceReference jqueryQuickSearchJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/jquery-multi-select/js/jquery.quicksearch.js");
@@ -90,7 +88,7 @@ public class BackendPage extends WebPage {
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/clndr.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/css3clock/css/style.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/morris-chart/morris.css")));
-		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-switch-master/build/css/bootstrap3/bootstrap-switch.css")));
+//		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-switch-master/build/css/bootstrap3/bootstrap-switch.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-fileupload/bootstrap-fileupload.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-datepicker/css/datepicker.css")));
@@ -113,7 +111,7 @@ public class BackendPage extends WebPage {
 		response.render(JavaScriptHeaderItem.forReference(underscoreJs));
 		response.render(JavaScriptHeaderItem.forReference(gaugeJs));
 		response.render(JavaScriptHeaderItem.forReference(customSelectJs));
-		response.render(JavaScriptHeaderItem.forReference(bootstrapSwitchJs));
+//		response.render(JavaScriptHeaderItem.forReference(bootstrapSwitchJs));
 		response.render(JavaScriptHeaderItem.forReference(spinnerJs));
 		response.render(JavaScriptHeaderItem.forReference(bootstrapFileUploadJs));
 		response.render(JavaScriptHeaderItem.forReference(wysiHtml5Js));
