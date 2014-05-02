@@ -60,8 +60,10 @@ import com.google.common.collect.Ordering;
 /**
  * Provides {@link WebAddress}.
  * @author ceefour, agus
+ * @deprecated use either Wicket or AngularJS
  */
-//@Path("org.soluvas.web.site")
+@Deprecated
+@Path("org.soluvas.web.site")
 @Service @Scope("request")
 public class SiteResource {
 	
