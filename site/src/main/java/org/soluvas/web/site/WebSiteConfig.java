@@ -7,16 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Lazy;
 
 import com.google.common.collect.ImmutableSet;
 
 /**
  * @author agus
  */
-@Configuration @Lazy
+@Configuration
 @Import({LiveChatConfig.class, GoogleAnalyticsConfig.class})
-@ComponentScan({"org.soluvas.web.site.rs", "org.soluvas.web.site.shell", "org.soluvas.web.bootstrap"})
+@ComponentScan({"org.soluvas.web.site.rs", "org.soluvas.web.site.shell"})
 public class WebSiteConfig {
 
 	@Bean
