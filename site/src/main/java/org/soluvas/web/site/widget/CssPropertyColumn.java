@@ -9,11 +9,12 @@ import org.apache.wicket.model.Model;
 
 /**
  * {@link PropertyColumn} with CSS class.
- * @author adri
+ * @author ceefour
  */
-@SuppressWarnings("serial")
 public class CssPropertyColumn<T, S> extends PropertyColumn<T, S> {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final String cssClass;
 
 	public CssPropertyColumn(IModel<String> displayModel, S sortProperty,

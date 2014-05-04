@@ -18,6 +18,7 @@ import com.google.common.base.Preconditions;
 
 /**
  * {@link PropertyColumn} that links to {@link Page}, just like {@link BookmarkablePageLink}.
+ * Supports {@link #cssClass(String)}.
  *
  * @param <T>
  * @param <S>
@@ -89,7 +90,12 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		this.paramExpression = paramExpression;
 	}
 	
-	public LinkColumn cssClass(String cssClass) {
+	/**
+	 * Set CSS class name, <em>a la</em> {@link CssPropertyColumn}. 
+	 * @param cssClass
+	 * @return
+	 */
+	public LinkColumn<T, S> cssClass(String cssClass) {
 		this.cssClass = cssClass;
 		return this;
 	}
