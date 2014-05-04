@@ -5,14 +5,16 @@ import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulato
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
  * {@link PropertyColumn} with CSS class.
- * @author adri
+ * @author ceefour
  */
-@SuppressWarnings("serial")
 public class CssPropertyColumn<T, S> extends PropertyColumn<T, S> {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final String cssClass;
 
 	public CssPropertyColumn(IModel<String> displayModel, S sortProperty,
@@ -31,7 +33,7 @@ public class CssPropertyColumn<T, S> extends PropertyColumn<T, S> {
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId,
 			IModel<T> rowModel) {
 		super.populateItem(item, componentId, rowModel);
-		item.add(new AttributeAppender("class", cssClass));
+		item.add(new AttributeAppender("class", new Model<>(cssClass), " "));
 	}
 
 }

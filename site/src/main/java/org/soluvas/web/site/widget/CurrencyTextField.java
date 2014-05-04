@@ -8,6 +8,8 @@ import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
 import org.joda.money.CurrencyUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extends {@link NumberTextField} for amount, and prepended with a fixed
@@ -23,6 +25,8 @@ public class CurrencyTextField extends NumberTextField<BigDecimal> {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final IModel<CurrencyUnit> currencyModel;
+	private static final Logger log = LoggerFactory
+			.getLogger(CurrencyTextField.class);
 	
 	public CurrencyTextField(String id, IModel<BigDecimal> model, IModel<CurrencyUnit> currencyModel) {
 		super(id, model, BigDecimal.class);
@@ -31,6 +35,7 @@ public class CurrencyTextField extends NumberTextField<BigDecimal> {
 	
 	@Override
 	protected void onRender() {
+		log.info("{}", getModelObject());
 		final CurrencyUnit currency = currencyModel.getObject();
 		final Locale locale = getLocale();
 		final String currencyHtml;
