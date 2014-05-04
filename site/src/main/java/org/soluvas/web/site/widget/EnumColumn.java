@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableMap;
 
 /**
  * Renders a regular {@link Enum} or an EMF {@link Enumerator}.
- * @author adri
+ * @author ceefour
  *
  * @param <T>
  * @param <S>

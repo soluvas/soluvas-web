@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 
 /**
  * Renders the {@link DateTime}-typed {@link IColumn} as a {@link DateTimeLabel}.
- * @author adri
+ * @author ceefour
  *
  * @param <T>
  * @param <S>

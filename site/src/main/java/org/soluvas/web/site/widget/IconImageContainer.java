@@ -11,7 +11,7 @@ import org.soluvas.commons.PersonInfo;
 import org.soluvas.image.ImageManager;
 
 /**
- * @author adri
+ * @author ceefour
  *
  */
 @SuppressWarnings("serial")

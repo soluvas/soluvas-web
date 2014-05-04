@@ -15,7 +15,7 @@ import org.apache.wicket.model.PropertyModel;
 /**
  * Renders the {@link BigDecimal}-typed {@link IColumn} and {@link Unit}
  * as a {@link MeasureLabel}, with CSS class <code>measure</code>.
- * @author adri
+ * @author ceefour
  *
  * @param <T>
  * @param <S>

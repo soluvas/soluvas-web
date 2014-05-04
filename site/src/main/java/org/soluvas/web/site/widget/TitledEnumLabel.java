@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableMap;
  * Renders {@link Enumerator} with genmodel annotation as <code>abbr title</code>.
  * If resource message is missing, will simply humanize the enum's <code>toString()</code>.
  * Optionally provides icon if mapping is provided.
- * @author adri
+ * @author ceefour
  */
 @SuppressWarnings("serial")
 public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {

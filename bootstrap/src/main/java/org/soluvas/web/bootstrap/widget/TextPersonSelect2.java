@@ -24,7 +24,7 @@ import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.Select2Choice;
 
 /**
- * @author adri
+ * @author ceefour
  *
  */
 public class TextPersonSelect2 extends Select2Choice<Person> {
