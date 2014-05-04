@@ -12,9 +12,14 @@ import org.apache.wicket.model.IModel;
 /**
  * Renders the {@link BigDecimal}/{@link Double}/{@link Float}/{@link Integer}/{@link Long}-typed {@link IColumn}
  * plus "%" sign, with CSS class <code>measure</code>.
+ * 
+ * @param <T>
+ * @param <S>
  * @author ceefour
  */
 public class PercentColumn<T, S> extends PropertyColumn<T, S> {
+
+	private static final long serialVersionUID = 1L;
 
 	public PercentColumn(IModel<String> displayModel, S sortProperty,
 			String propertyExpression) {
@@ -25,27 +30,10 @@ public class PercentColumn<T, S> extends PropertyColumn<T, S> {
 		super(displayModel, propertyExpression);
 	}
 	
-	
-	
-//	
-//
-//	private final String unitExpression;
-//
-//	public PercentColumn(IModel<String> displayModel, String unitExpression, String amountExpression) {
-//		super(displayModel, amountExpression, amountExpression);
-//		this.unitExpression = unitExpression;
-//	}
-	
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-//		super.populateItem(item, componentId, model);
 		item.add(new PercentColumnPanel(componentId, getDataModel(model)));
-//		item.add(new Label(componentId, getDataModel(model)));
-//		item.add(new Label(item."percent", "%"));
-//		final MeasureLabel label = new MeasureLabel(componentId,
-//				new PropertyModel<>(model, unitExpression),
-//				(IModel) getDataModel(model));
-//		item.add(label);
 		item.add(new AttributeAppender("class", "measure"));
 	}
+
 }
