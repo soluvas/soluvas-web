@@ -12,7 +12,7 @@ import org.soluvas.data.Value;
 /**
  * Renders the {@link Value}-typed {@link IColumn}
  * using {@link ValueLabel}, with CSS class <code>value</code>.
- * @author adri
+ * @author ceefour
  *
  * @param <T>
  * @param <S>

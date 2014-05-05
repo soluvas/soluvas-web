@@ -8,7 +8,7 @@ import org.apache.wicket.model.IModel;
 
 /**
  * {@link Label} that can change its tag.
- * @author adri
+ * @author ceefour
  */
 @SuppressWarnings("serial")
 public class TagLabel extends Label {

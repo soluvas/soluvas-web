@@ -24,7 +24,7 @@ import com.google.common.base.Strings;
 
 /**
  * Not directly usable. Only used to render the person popover by {@link PersonPopover}.
- * @author adri
+ * @author ceefour
  */
 public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 

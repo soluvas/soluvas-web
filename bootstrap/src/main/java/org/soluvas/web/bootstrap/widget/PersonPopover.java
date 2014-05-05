@@ -21,7 +21,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig
 
 /**
  * Renders {@link PersonInfo} with {@link Gender} image.
- * @author adri
+ * @author ceefour
  */
 public class PersonPopover extends GenericPanel<PersonInfo> {
 	

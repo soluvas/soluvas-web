@@ -2,7 +2,7 @@ package org.soluvas.web.site.widget;
 
 /**
  * Used by {@link TagLabel}.
- * @author adri
+ * @author ceefour
  */
 public enum TagType {
 	NONE,

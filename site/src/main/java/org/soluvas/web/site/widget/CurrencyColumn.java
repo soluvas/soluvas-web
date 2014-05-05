@@ -13,7 +13,7 @@ import org.apache.wicket.model.PropertyModel;
 /**
  * Renders the {@link BigDecimal}-typed {@link IColumn} (and currency)
  * as a {@link CurrencyLabel}, with CSS class <code>currency</code>.
- * @author adri
+ * @author ceefour
  *
  * @param <T>
  * @param <S>
