@@ -106,9 +106,9 @@
 					}
 					
 					// Write cookie if save state is on
-					if(defaults.saveState == true){
+					/*if(defaults.saveState == true){
 						createCookie(defaults.cookie, obj);
-					}
+					}*/
 				});
 			}
 
@@ -210,7 +210,7 @@
 		}
 
 		// Write cookie
-		function createCookie(cookieId, obj){
+		/*function createCookie(cookieId, obj){
 			var activeIndex = [];
 			// Create array of active items index value
 			$('li a.'+defaults.classActive,obj).each(function(i){
@@ -220,6 +220,6 @@
 				});
 			// Store in cookie
 			$.cookie(cookieId, activeIndex, { path: '/' });
-		}
+		}*/
 	};
 })(jQuery);

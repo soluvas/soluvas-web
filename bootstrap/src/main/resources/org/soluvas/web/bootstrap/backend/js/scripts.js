@@ -117,7 +117,7 @@ var Script = function () {
 
     // popovers
 
-    $('.popovers').popover();
+//    $('.popovers').popover(); --> support bootstrap v. 3.1.x
 
     $(function() {
         $('.widget-head').click(function(e){
