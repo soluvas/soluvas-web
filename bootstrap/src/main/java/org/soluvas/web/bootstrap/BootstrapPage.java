@@ -3,9 +3,7 @@ package org.soluvas.web.bootstrap;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -46,7 +44,6 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.nav.PageLink;
-import org.soluvas.web.site.AmdJavaScriptSource;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.FaviconResourceReference;
@@ -59,14 +56,12 @@ import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.alexa.AlexaCertify;
 import org.soluvas.web.site.alexa.AlexaCertifyScript;
-import org.soluvas.web.site.client.AmdDependency;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -115,41 +110,6 @@ public class BootstrapPage extends ExtensiblePage {
 			setVisible(!Strings.isNullOrEmpty(getDefaultModelObjectAsString()));
 		}
 
-	}
-
-	/**
-	 * Usage:
-	 * 
-	 * <pre>
-	 * {
-	 * 	&#064;code
-	 * 	final Builder&lt;String, String&gt; dependencies = ImmutableMap.builder();
-	 * 	new AmdDependencyVisitor(dependencies).component(BootstrapPage.this, null);
-	 * 	visitChildren(new AmdDependencyVisitor(dependencies));
-	 * 	final Map&lt;String, String&gt; dependencyMap = dependencies.build();
-	 * 	log.debug(&quot;Page {} has {} AMD dependencies: {}&quot;, getClass().getName(),
-	 * 			dependencyMap.size(), dependencyMap.keySet());
-	 * }
-	 * </pre>
-	 * 
-	 * @author ceefour
-	 */
-	public static final class AmdDependencyVisitor implements
-			IVisitor<Component, Void> {
-		private final Map<String, String> dependencies;
-
-		public AmdDependencyVisitor(Map<String, String> dependencyMap) {
-			this.dependencies = dependencyMap;
-		}
-
-		@Override
-		public void component(Component component, IVisit<Void> visit) {
-			final List<AmdDependency> amdDeps = component
-					.getBehaviors(AmdDependency.class);
-			for (AmdDependency dep : amdDeps) {
-				dependencies.put(dep.getPath(), dep.getName());
-			}
-		}
 	}
 
 	public static final class JsSourceVisitor implements
@@ -480,10 +440,11 @@ public class BootstrapPage extends ExtensiblePage {
 		});
 
 		add(new Header());
-		final String requireConfigPath = webAddress.getApiPath()
-				+ "org.soluvas.web.site/requireConfig.js";
-		add(new WebMarkupContainer("requireConfig")
-				.add(new AttributeModifier("src", requireConfigPath)));
+		// deprecated
+//		final String requireConfigPath = webAddress.getApiPath()
+//				+ "org.soluvas.web.site/requireConfig.js";
+//		add(new WebMarkupContainer("requireConfig")
+//				.add(new AttributeModifier("src", requireConfigPath)));
 
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
@@ -534,37 +495,6 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		add(footerJavaScriptSources);
 
-		final IModel<String> pageJavaScriptSourcesModel = new LoadableDetachableModel<String>() {
-			@Override
-			protected String load() {
-				// cannot use ImmutableMap, because AMD dependencies can be duplicated
-				final Map<String, String> dependencyMap = new HashMap<>();
-				final AmdDependencyVisitor amdDependencyVisitor = new AmdDependencyVisitor(
-						dependencyMap);
-				amdDependencyVisitor.component(BootstrapPage.this, null);
-				visitChildren(amdDependencyVisitor);
-				log.trace("Page {} has {} AMD dependencies: {}", getClass()
-						.getName(), dependencyMap.size(), dependencyMap.keySet());
-
-				final ImmutableList.Builder<String> pageJsSourcesBuilder = ImmutableList
-						.builder();
-				final JsSourceVisitor jsSourceVisitor = new JsSourceVisitor(
-						pageJsSourcesBuilder);
-				jsSourceVisitor.component(BootstrapPage.this, null);
-				visitChildren(jsSourceVisitor);
-				final List<String> pageJsSources = pageJsSourcesBuilder.build();
-				log.trace("Page {} has {} page JavaScript sources", getClass()
-						.getName(), pageJsSources.size());
-				final String merged = Joiner.on('\n').join(pageJsSources);
-
-				JavaScriptSource js = new AmdJavaScriptSource(merged,
-						dependencyMap);
-				return js.getScript();
-			};
-		};
-		add(new Label("pageJavaScriptSources", pageJavaScriptSourcesModel)
-				.setEscapeModelStrings(false));
-		
 		add(new AlexaCertifyScript("alexaCertifyScript", new Model<>(alexaCertify)));
 		
 		add(new GrowlBehavior());

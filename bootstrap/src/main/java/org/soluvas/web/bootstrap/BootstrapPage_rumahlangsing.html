@@ -40,7 +40,6 @@
 <!-- 	<link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png" /> -->
 
 	<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
-	<script src="requireConfig" wicket:id="requireConfig"></script>
 	<script wicket:id="requireJs" src="/static/js/org.soluvas.web.bootstrap/require-2.1.4.js"></script>
 	<script>define('jquery',[],function(){return jQuery});</script>
 	<script>define('bootstrap/bootstrap-collapse',[],function(){});</script>
@@ -99,8 +98,6 @@ var subscriptions = [];
 	<script type="text/javascript" src="something.js" wicket:id="footerJavaScriptLinks"></script>
 	<script type="text/javascript" wicket:id="footerJavaScriptSources">[footerJavaScriptSources]</script>
 	
-	<script wicket:id="pageJavaScriptSources" type="text/javascript"></script>
-
 	<script wicket:id="alexaCertifyScript">[AlexaCertifyScript]</script>
 	
 	<wicket:container wicket:id="footer-container"/>

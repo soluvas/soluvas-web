@@ -10,8 +10,9 @@ import org.soluvas.web.site.Page;
  * Ideally, this can be added to any {@link Component}, not just to {@link Page}s.
  * Should be doable using {@link MarkupContainer#visitChildren(org.apache.wicket.util.visit.IVisitor)}.
  * @author ceefour
+ * @deprecated Use Wicket's {@link Component#renderHead(org.apache.wicket.markup.head.IHeaderResponse)} mechanism.
  */
-@SuppressWarnings("serial")
+@Deprecated
 public class AmdDependency extends Behavior {
 	
 	private final String path;
