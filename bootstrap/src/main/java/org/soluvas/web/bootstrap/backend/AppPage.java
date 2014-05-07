@@ -1,5 +1,7 @@
 package org.soluvas.web.bootstrap.backend;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -66,6 +68,9 @@ public class AppPage extends WebPage {
 
 	public AppPage(PageParameters params) {
 		super(params);
+		final Subject subject = SecurityUtils.getSubject();
+		subject.checkRole("sysadmin");
+		
 		add(new HtmlTag("html", getLocale(), true));
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
