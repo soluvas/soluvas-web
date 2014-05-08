@@ -20,6 +20,11 @@ body, .body-bucket-admin{
 ul li {
     list-style:none;
 }
+
+.form-control {
+    color: #767676;
+}
+
 a,a:hover,a:focus {
     text-decoration:none;
     outline:none;

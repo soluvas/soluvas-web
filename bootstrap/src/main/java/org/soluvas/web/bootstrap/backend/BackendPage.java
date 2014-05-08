@@ -82,6 +82,7 @@ public class BackendPage extends WebPage {
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jquery-ui/jquery-ui-1.10.1.custom.min.css")));
+		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/style.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/bootstrap-reset.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/font-awesome/css/font-awesome.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jvector-map/jquery-jvectormap-1.2.2.css")));
@@ -98,7 +99,6 @@ public class BackendPage extends WebPage {
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-datetimepicker/css/datetimepicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jquery-multi-select/css/multi-select.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jquery-tags-input/jquery.tagsinput.css")));
-		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/style.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/style-responsive.css")));
 		
 		response.render(JavaScriptHeaderItem.forReference(jqueryUiJs));
