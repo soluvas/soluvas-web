@@ -105,12 +105,13 @@ __lc.license = 4370791;
 	<div class="container">
 		<header wicket:id="header"></header>
 		<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
-		<div class="sidebar-categories" wicket:id="sidebarColumn">
+		<div class="row">
+		<div class="sidebar-categories col-lg-3 row" wicket:id="sidebarColumn">
 			<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
 		</div>
 		<!--/span-->
 
-		<div wicket:id="contentColumn">
+		<div wicket:id="contentColumn" class="content-column col-lg-9">
 			<div wicket:id="afterHeader" class="afterHeader">
 				<!-- 		Carousel Images is loading.. -->
 			</div>
@@ -123,6 +124,7 @@ __lc.license = 4370791;
 					</div>
 				</ol>
 			</wicket:child>
+		</div>
 		</div>
 		<footer class="footer" wicket:id="footer">
 			<small style="color: #808080;"> &middot; &copy; <a
