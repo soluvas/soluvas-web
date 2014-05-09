@@ -55,16 +55,16 @@ public class CurrencyUnitSelect2 extends Select2Choice<CurrencyUnit> {
 			final PageRequest pageable = new PageRequest(page, 20);
 			final List<CurrencyUnit> sorted = CurrencyUnit.registeredCurrencies();
 //			final ImmutableList<CurrencyUnit> sorted = CurrencyUnitOrdering.INSTANCE.immutableSortedCopy(Arrays.asList(CurrencyUnit.getAvailableCurrencyUnits()));
-			final FluentIterable<CurrencyUnit> currenciesPlus = FluentIterable.from(sorted)
+			final FluentIterable<CurrencyUnit> filtered = FluentIterable.from(sorted)
 				.filter(new Predicate<CurrencyUnit>() {
 					@Override
 					public boolean apply(@Nullable CurrencyUnit currency) {
 						final String searchable = currency + " " + currency.getSymbol();
 						return StringUtils.containsIgnoreCase(searchable, trimmedTerm);
 					}
-				}).skip((int) pageable.getOffset());
-			response.addAll(currenciesPlus.limit(20).toList());
-			response.setHasMore(currenciesPlus.limit(21).size() > 20);
+				});
+			response.addAll(filtered.skip((int) pageable.getOffset()).limit((int) pageable.getPageSize()).toList());
+			response.setHasMore(!filtered.skip((int) ((page + 1) * pageable.getPageSize())).isEmpty());
 		}
 
 		@Override
@@ -117,16 +117,6 @@ public class CurrencyUnitSelect2 extends Select2Choice<CurrencyUnit> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setQuietMillis(400);
-//		 <span class="flag flag-cz" title="Czech Republic" />
-//		getSettings().setFormatResult(
-//			"function(object, container, query, escapeMarkup) {" +
-//			"container.append($('<span>').attr('class', 'flag flag-' + object.toLowerCase()).attr('title', object.text));" +		
-//			"container.append(' ');" +
-//			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
-//			"var thediv = $('<span>')" +
-//			"  .append(textMarkup.join(''));" +
-//			"container.append(thediv);" +
-//			"}");
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text}));" +

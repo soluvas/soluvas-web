@@ -101,17 +101,7 @@ public class CountrySelect2 extends Select2Choice<Country> {
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
-		getSettings().getAjax().setQuietMillis(250);
-//		 <span class="flag flag-cz" title="Czech Republic" />
-//		getSettings().setFormatResult(
-//			"function(object, container, query, escapeMarkup) {" +
-//			"container.append($('<span>').attr('class', 'flag flag-' + object.toLowerCase()).attr('title', object.text));" +		
-//			"container.append(' ');" +
-//			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
-//			"var thediv = $('<span>')" +
-//			"  .append(textMarkup.join(''));" +
-//			"container.append(thediv);" +
-//			"}");
+		getSettings().getAjax().setQuietMillis(400);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text}));" +

@@ -1,7 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -12,6 +11,7 @@ import org.apache.wicket.model.Model;
 import org.joda.time.DateTimeZone;
 import org.json.JSONException;
 import org.json.JSONWriter;
+import org.soluvas.data.domain.PageRequest;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -32,28 +32,24 @@ public class DateTimeZoneSelect2 extends Select2Choice<DateTimeZone> {
 
 		private static final long serialVersionUID = 1L;
 
-		public DateTimeZoneChoiceProvider() {
-			super();
-		}
-
 		@Override
 		public void query(String term, int page, Response<DateTimeZone> response) {
+			final PageRequest pageable = new PageRequest(page, 20);
 			final String trimmedTerm = term.trim();
-			final List<DateTimeZone> limited = FluentIterable.from(DateTimeZone.getAvailableIDs())
+			final FluentIterable<DateTimeZone> filtered = FluentIterable.from(DateTimeZone.getAvailableIDs())
 					.filter(new Predicate<String>() {
 				@Override
 				public boolean apply(@Nullable String input) {
 					return StringUtils.containsIgnoreCase(input, trimmedTerm);
 				}
-			}).limit(100)
-			.transform(new Function<String, DateTimeZone>() {
+			}).transform(new Function<String, DateTimeZone>() {
 				@Override @Nullable
 				public DateTimeZone apply(@Nullable String input) {
 					return DateTimeZone.forID(input);
 				}
-			}).toList();
-			response.addAll(limited);
-//			response.setHasMore(!peoplePage.isLastPage());
+			});
+			response.addAll(filtered.skip((int) pageable.getOffset()).limit((int) pageable.getPageSize()).toList());
+			response.setHasMore(!filtered.skip((int) ((page + 1) * pageable.getPageSize())).isEmpty());
 		}
 
 		@Override
