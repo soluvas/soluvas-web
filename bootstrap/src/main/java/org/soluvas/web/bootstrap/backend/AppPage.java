@@ -11,13 +11,10 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.soluvas.commons.WebAddress;
 import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.AfterJQueryJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
-import org.soluvas.web.googleanalytics.GoogleAnalyticsPanel;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
@@ -28,9 +25,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
  */
 public class AppPage extends WebPage {
 	
-	@SpringBean
-	protected WebAddress webAddress;
-
 	private static final JavaScriptResourceReference jqueryUiJs = 
 			new AfterJQueryJavaScriptResourceReference(AppPage.class, "assets/jquery-ui/jquery-ui-1.10.1.custom.min.js");
 	private static final JavaScriptResourceReference accordionMenuJs = new AfterJQueryJavaScriptResourceReference(AppPage.class, "js/accordion-menu/jquery.dcjqaccordion.2.7.js");
@@ -69,14 +63,16 @@ public class AppPage extends WebPage {
 	public AppPage(PageParameters params) {
 		super(params);
 		final Subject subject = SecurityUtils.getSubject();
-		subject.checkRole("sysadmin");
+		// FIXME: please implement hotel's Manage login page!
+		//subject.checkRole("sysadmin");
 		
 		add(new HtmlTag("html", getLocale(), true));
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
 		add(new GrowlBehavior());
 		
-		add(new GoogleAnalyticsPanel("googleanalytics"));
+		// TODO: hotel's google analytics
+//		add(new GoogleAnalyticsPanel("googleanalytics"));
 		
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
