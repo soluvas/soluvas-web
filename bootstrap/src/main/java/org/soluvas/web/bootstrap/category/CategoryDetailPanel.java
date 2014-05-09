@@ -56,9 +56,9 @@ import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
- * <p>Use e.g. @MountPath("category/base/Color/${uName}")
+ * <p>Use e.g. @ManageMountPath("category/base/Color/${uName}")
  * <pre>{@literal
- * @MountPath("category/base/Color/${uName}/")
+ * @ManageMountPath("category/base/Color/${uName}/")
  * public class ColorDetailPage extends AuthorizedMallPage {
  * 	
  * 	@SpringBean(name="colorCategoryRepo")
