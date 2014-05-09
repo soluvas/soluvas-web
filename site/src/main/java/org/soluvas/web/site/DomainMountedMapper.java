@@ -106,7 +106,7 @@ public class DomainMountedMapper extends MountedMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		log.info("{} {}", request.getUrl().getHost(), request.getUrl());
+		log.trace("{} {}", request.getUrl().getHost(), request.getUrl());
 		return super.parseRequest(request);
 	}
 
