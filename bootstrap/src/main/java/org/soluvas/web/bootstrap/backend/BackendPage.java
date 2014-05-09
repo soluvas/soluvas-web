@@ -100,6 +100,7 @@ public class BackendPage extends WebPage {
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jquery-multi-select/css/multi-select.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/jquery-tags-input/jquery.tagsinput.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/style-responsive.css")));
+		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "css/custom-backend.css")));
 		
 		response.render(JavaScriptHeaderItem.forReference(jqueryUiJs));
 		response.render(JavaScriptHeaderItem.forReference(accordionMenuJs));
