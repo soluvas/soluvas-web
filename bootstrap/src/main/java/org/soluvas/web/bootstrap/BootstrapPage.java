@@ -59,6 +59,7 @@ import org.soluvas.web.site.alexa.AlexaCertifyScript;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
+import org.soluvas.web.site.masonry.Masonry;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -73,7 +74,6 @@ import com.google.common.collect.Ordering;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
-
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
  * 
@@ -246,6 +246,10 @@ public class BootstrapPage extends ExtensiblePage {
 		// TODO: workaround before we have proper wicket-bootstrap integration
 		response.render(
 				JavaScriptReferenceHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
+		
+		response.render(CssHeaderItem.forReference(Masonry.CSS_TRANSITIONS));
+		response.render(JavaScriptReferenceHeaderItem.forReference(Masonry.JS_LIBRARY));
+		
 
 		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
 //		if (requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT) {
