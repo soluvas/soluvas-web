@@ -59,7 +59,7 @@ import org.soluvas.web.site.alexa.AlexaCertifyScript;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
-import org.soluvas.web.site.masonry.Masonry;
+import org.soluvas.web.site.masonry.JQueryMasonry;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -247,8 +247,8 @@ public class BootstrapPage extends ExtensiblePage {
 		response.render(
 				JavaScriptReferenceHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
 		
-		response.render(CssHeaderItem.forReference(Masonry.CSS_TRANSITIONS));
-		response.render(JavaScriptReferenceHeaderItem.forReference(Masonry.JS_LIBRARY));
+		response.render(CssHeaderItem.forReference(JQueryMasonry.TRANSITIONS_CSS));
+		response.render(JavaScriptReferenceHeaderItem.forReference(JQueryMasonry.JS));
 		
 
 		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
@@ -407,19 +407,19 @@ public class BootstrapPage extends ExtensiblePage {
 			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
 			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
 
-		add(new WebMarkupContainer("soluvasCss")
-				.add(new AttributeModifier(
-						"href",
-						webAddress.getSkinUri()
-								+ "org.soluvas.web.bootstrap/css/soluvas.css")));
+//		add(new WebMarkupContainer("soluvasCss")
+//				.add(new AttributeModifier(
+//						"href",
+//						webAddress.getSkinUri()
+//								+ "org.soluvas.web.bootstrap/css/soluvas.css")));
 		// For now we use soluvas's fork of RequireJS.
 		// See https://github.com/jrburke/requirejs/issues/376 for reasons.
 		// too bad we can't use "//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js";
-		final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
-				webAddress .getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.js" :
-				webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.min.js";
-		add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
-				"src", requireJsUri)));
+//		final String requireJsUri = requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT ?
+//				webAddress .getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.js" :
+//				webAddress.getJsUri() + "org.soluvas.web.bootstrap/require-2.1.5-soluvas.min.js";
+//		add(new WebMarkupContainer("requireJs").add(new AttributeModifier(
+//				"src", requireJsUri)));
 
 		// Carousel
 		add(afterHeader = new RepeatingView("afterHeader"));

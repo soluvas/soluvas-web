@@ -13,9 +13,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
-import org.soluvas.web.bootstrap.AfterJQueryJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
 import org.soluvas.web.googleanalytics.GoogleAnalyticsPanel;
+import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;

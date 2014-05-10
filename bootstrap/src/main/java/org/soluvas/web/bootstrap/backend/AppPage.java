@@ -13,8 +13,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
-import org.soluvas.web.bootstrap.AfterJQueryJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
+import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;

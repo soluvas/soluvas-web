@@ -1,4 +1,4 @@
-package org.soluvas.web.bootstrap;
+package org.soluvas.web.site;
 
 import java.util.Locale;
 

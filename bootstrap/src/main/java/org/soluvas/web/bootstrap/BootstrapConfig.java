@@ -1,17 +1,6 @@
 package org.soluvas.web.bootstrap;
 
-import org.soluvas.web.site.CssLink;
-import org.soluvas.web.site.CssLinkImpl;
-import org.soluvas.web.site.JavaScriptAlias;
-import org.soluvas.web.site.JavaScriptAliasImpl;
-import org.soluvas.web.site.JavaScriptModule;
-import org.soluvas.web.site.JavaScriptModuleImpl;
-import org.soluvas.web.site.JavaScriptShim;
-import org.soluvas.web.site.JavaScriptShimImpl;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.google.common.collect.ImmutableSet;
 
 /**
  * @author agus
@@ -19,7 +8,7 @@ import com.google.common.collect.ImmutableSet;
  */
 @Configuration
 public class BootstrapConfig {
-	
+/*	
 	@Bean
 	public JavaScriptAlias uiCoreAlias() {
 		return new JavaScriptAliasImpl("jquery-ui/jquery.ui.core", "jquery-ui.custom");
@@ -60,12 +49,9 @@ public class BootstrapConfig {
 				ImmutableSet.of("jquery-ui/jquery.ui.widget"));
 	}
 
-	/**
-	 * jquery-ui.custom is always served via Google CDN
-	 * @return
-	 */
 	@Bean
 	public JavaScriptModule uiCustomModule() {
+		// jquery-ui.custom is always served via Google CDN
 		return new JavaScriptModuleImpl("jquery-ui.custom",
 				"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min",
 				"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min");
@@ -179,5 +165,6 @@ public class BootstrapConfig {
 	public JavaScriptAlias uiBackTopAlias() {
 		return new JavaScriptAliasImpl("jquery.ui.totop", "org.soluvas.web.bootstrap/jquery.ui.totop.js");
 	}
-	
+*/
+
 }

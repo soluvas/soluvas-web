@@ -29,9 +29,6 @@ body {
 /*         padding: 9px 0; */
 /*       } */
 </style>
-<link wicket:id="soluvasCss"
-	href="/static/skin/org.soluvas.web.bootstrap/css/bootstrap-patches.css"
-	rel="stylesheet" />
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic'
 	rel='stylesheet' type='text/css'>
@@ -52,51 +49,6 @@ body {
 <!-- 	<link rel="apple-touch-icon-precomposed" sizes="72x72" -->
 <!-- 		href="/static/images/ico/apple-touch-icon-72-precomposed.png" /> -->
 <!-- 	<link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png" /> -->
-
-<!-- Make it possible to rapid develop hybrid Wicket components without precompiling Backbone JS sources / Mustache templates -->
-<script wicket:id="requireJs"
-	src="/static/js/org.soluvas.web.bootstrap/require-2.1.4.js"></script>
-<script>
-	define('jquery', [], function() {
-		return jQuery
-	});
-</script>
-<script>
-	define('bootstrap/bootstrap-collapse', [], function() {
-	});
-</script>
-<script>
-	define('bootstrap/bootstrap-transition', [], function() {
-	});
-</script>
-<script>
-	define('bootstrap/bootstrap-modal', [], function() {
-	});
-</script>
-<script>
-	define('bootstrap', [], function() {
-	});
-</script>
-<script>
-	define('bootstrap/bootstrap-dropdown', [], function() {
-	});
-</script>
-
-<script>
-	// TODO: refactor push support (both XHR or StompWeb-powered) to separate AMD module
-	var subscriptions = [];
-</script>
-
-<script type="text/javascript">
-var __lc = {};
-__lc.license = 4370791;
-
-(function() {
-	var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-	lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-})();
-</script>
 
 </head>
 
