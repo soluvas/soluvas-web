@@ -36,6 +36,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 
 	@Nullable
 	private String cssClass;
+	@Nullable
+	private TagType tagType;
 
 	public LinkColumn(IModel<String> displayModel, S sortProperty,
 			String propertyExpression, 
@@ -100,6 +102,15 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		return this;
 	}
 
+	/**
+	 * Set {@link TagType}, e.g. {@code span} or {@code tt},
+	 * default is {@link TagType#SPAN}. 
+	 */
+	public LinkColumn<T, S> tag(TagType tagType) {
+		this.tagType = tagType;
+		return this;
+	}
+
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
 		final Object paramValue = Preconditions.checkNotNull(new PropertyModel<>(model, paramExpression).getObject(),
@@ -108,7 +119,7 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		final PageParameters params = new PageParameters(paramsTemplate)
 			.add(paramName, paramValue);
 		item.add(new LinkPanel<T, S>(componentId, pageClass, params,
-				labelModel.or((IModel) getDataModel(model))));
+				labelModel.or((IModel) getDataModel(model)), tagType));
 		if (cssClass != null) {
 			item.add(new AttributeAppender("class", new Model<>(cssClass), " "));
 		}

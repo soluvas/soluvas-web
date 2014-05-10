@@ -67,7 +67,7 @@ public class EnumColumn<T> extends PropertyColumn<T, String> {
 	@Override
 	public Component getHeader(String componentId) {
 		if (headerIcon != null) {
-			return new Label(componentId, "<i class=\"icon-" + headerIcon + "\" title=\"" + 
+			return new Label(componentId, "<i class=\"fa fa-" + headerIcon + "\" title=\"" + 
 					Strings.escapeMarkup(getDisplayModel().getObject()) + "\"></i>")
 						.setEscapeModelStrings(false);
 		} else {
@@ -76,7 +76,8 @@ public class EnumColumn<T> extends PropertyColumn<T, String> {
 	}
 	
 	/**
-	 * The glyphicon name (in Bootstrap) to use for the {@link DataTable} header icon, e.g. {@code download}.
+	 * The <a href="http://fortawesome.github.io/Font-Awesome/icons/">FontAwesome</a> name 
+	 * to use for the {@link DataTable} header icon, e.g. {@code download}.
 	 * @param headerIcon
 	 * @return
 	 */
