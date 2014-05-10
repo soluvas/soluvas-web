@@ -105,8 +105,8 @@ public class TitledEnumLabel<T extends Enum<T>> extends EnumLabel<T> {
 		final String title = docs.get(obj);
 		final String iconStr;
 		if (!iconMapping.isEmpty() && obj != null) {
-			final String icon = iconMapping.containsKey(obj) ? iconMapping.get(obj) : "question-sign";
-			iconStr = "<i class=\"icon-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(Optional.fromNullable(title).or("")) +"\" data-toggle=\"tooltip\"></i> ";
+			final String icon = iconMapping.containsKey(obj) ? iconMapping.get(obj) : "question-circle";
+			iconStr = "<i class=\"fa fa-" + icon + "\" title=\"" + Strings.escapeMarkup(enumValue) + ". " + Strings.escapeMarkup(Optional.fromNullable(title).or("")) +"\" data-toggle=\"tooltip\"></i> ";
 		} else {
 			iconStr = "";
 		}
