@@ -15,6 +15,8 @@ import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.format.MoneyFormatter;
 import org.joda.money.format.MoneyFormatterBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Formats a {@link CurrencyUnit} code as symbol in current {@link Locale},
@@ -22,12 +24,17 @@ import org.joda.money.format.MoneyFormatterBuilder;
  * @author agus
  */
 public class CurrencyLabel extends Label {
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(CurrencyLabel.class);
 
 	private static final long serialVersionUID = 1L;
 	
 	@Nullable
 	private IModel<BigDecimal> amountModel;
 
+	private int scale = 2;
+	
 	public CurrencyLabel(String id, IModel<?> model) {
 		super(id, model);
 	}
@@ -45,6 +52,12 @@ public class CurrencyLabel extends Label {
 		super(id, currencyModel);
 		this.amountModel = amountModel;
 	}
+	
+	public CurrencyLabel(String id, IModel<?> currencyModel, IModel<BigDecimal> amountModel, int scale) {
+		super(id, currencyModel);
+		this.amountModel = amountModel;
+		this.scale = scale;
+	}
 
 	public CurrencyLabel(String id, CurrencyUnit currency, BigDecimal amount) {
 		super(id, currency);
@@ -59,7 +72,16 @@ public class CurrencyLabel extends Label {
 
 	private String getDefaultModelObjectAsFormattedString() {
 		final Object currencyObj = getDefaultModelObject();
-		final BigDecimal amount = amountModel != null ? amountModel.getObject() : null;
+		final BigDecimal amount; 
+		if (amountModel != null) {
+			if (amountModel.getObject() != null) {
+				amount = amountModel.getObject().setScale(scale);
+			} else {
+				amount = null;
+			}
+		} else {
+			amount = null;
+		}
 		final Locale locale = getLocale();
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
