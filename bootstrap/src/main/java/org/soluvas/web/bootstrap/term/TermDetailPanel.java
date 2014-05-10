@@ -1,5 +1,7 @@
 package org.soluvas.web.bootstrap.term;
 
+import javax.annotation.Nullable;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.AttributeModifier;
@@ -25,16 +27,19 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
 import org.soluvas.data.impl.TermImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.EmfModel;
+import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -140,17 +145,30 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		
 		form.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
 		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "name"));
-		nameFld.setRequired(true);
-		nameFld.setEnabled(editable);
-		nameFld.add(new OnChangeAjaxBehavior() {
+		nameFld.setEnabled(false);
+		nameFld.setOutputMarkupId(true);
+		form.add(nameFld);
+		final Component displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable);
+		displayNameFld.add(new OnChangeThrottledBehavior() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				target.add(uNameLabel);
+				final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
+						new Predicate<String>() {
+							@Override
+							public boolean apply(@Nullable String input) {
+								return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
+							}
+						});
+				getModelObject().setName(id);
+				target.add(nameFld, uNameLabel);
 			}
 		});
-		form.add(nameFld);
-		form.add(new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable));
+		form.add(displayNameFld);
 		form.add(new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -208,6 +226,14 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				}
 				switch (editMode) {
 				case ADD:
+					final String id = SlugUtils.generateValidId(term.getDisplayName(),
+							new Predicate<String>() {
+								@Override
+								public boolean apply(@Nullable String input) {
+									return !termRepo.exists(term.getNsPrefix() + "_" + input);
+								}
+							});
+					term.setName(id);
 					termRepo.add(term);
 					info("Added term " + term.getQName());
 					break;
@@ -223,6 +249,8 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		add(saveBtn);
 		
 		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 				super.updateAjaxAttributes(attributes);
