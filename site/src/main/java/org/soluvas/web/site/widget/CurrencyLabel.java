@@ -28,7 +28,7 @@ public class CurrencyLabel extends Label {
 	@Nullable
 	private IModel<BigDecimal> amountModel;
 
-	private int scale;
+	private int scale = 2;
 	
 	public CurrencyLabel(String id, IModel<?> model) {
 		super(id, model);
@@ -46,7 +46,6 @@ public class CurrencyLabel extends Label {
 	public CurrencyLabel(String id, IModel<?> currencyModel, IModel<BigDecimal> amountModel) {
 		super(id, currencyModel);
 		this.amountModel = amountModel;
-		this.scale = 2;
 	}
 	
 	public CurrencyLabel(String id, IModel<?> currencyModel, IModel<BigDecimal> amountModel, int scale, int roundingMode) {
@@ -68,7 +67,7 @@ public class CurrencyLabel extends Label {
 
 	private String getDefaultModelObjectAsFormattedString() {
 		final Object currencyObj = getDefaultModelObject();
-		final BigDecimal amount = (amountModel != null ? amountModel.getObject() : null).setScale(scale);
+		final BigDecimal amount = amountModel != null ? amountModel.getObject().setScale(scale) : null;
 		final Locale locale = getLocale();
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
