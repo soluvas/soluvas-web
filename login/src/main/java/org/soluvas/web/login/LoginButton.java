@@ -9,10 +9,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.security.impl.StaticAppRealm;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -30,13 +30,18 @@ public class LoginButton extends IndicatingAjaxButton {
 	private static final Logger log = LoggerFactory
 			.getLogger(LoginButton.class);
 	private final IModel<LoginToken> loginTokenModel;
+	private final String host;
 	
-	@SpringBean
-	private TenantRef tenant;
-
-	public LoginButton(String id, final IModel<LoginToken> loginTokenModel) {
+	/**
+	 * @param id
+	 * @param loginTokenModel
+	 * @param host To be used for {@link UsernamePasswordToken#setHost(String)}, usually {@link TenantRef#getTenantId()} for tenant logins
+	 * 		and {@link StaticAppRealm#HOST} for app login.
+	 */
+	public LoginButton(String id, final IModel<LoginToken> loginTokenModel, String host) {
 		super(id);
 		this.loginTokenModel = loginTokenModel;
+		this.host = host;
 	}
 
 	@Override
@@ -45,16 +50,16 @@ public class LoginButton extends IndicatingAjaxButton {
 		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
 		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
 		final UsernamePasswordToken token = new UsernamePasswordToken(
-				upUsername, upPassword.toCharArray(), tenant.getTenantId());
-		log.debug("Logging in using '{}' tenant '{}'", upUsername, tenant.getTenantId());
+				upUsername, upPassword.toCharArray(), host);
+		log.debug("Logging in using '{}' host '{}'", upUsername, host);
 		try {
 			final Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);
 			final String personId = Preconditions.checkNotNull((String) currentUser.getPrincipal(),
 					"Cannot get current user as person ID");
 			info(String.format("You are now logged in as %s", personId));
-			log.debug("Current user is now '{}' tenant '{}'. Has permission to edit all person data? {}",
-					personId, tenant.getTenantId(), currentUser.isPermitted("person:edit:*"));
+			log.debug("Current user is now '{}' host '{}'. Has permission to edit all person data? {}",
+					personId, host, currentUser.isPermitted("person:edit:*"));
 			onLoginSuccess(target, personId);
 		} catch (final AuthenticationException e) {
 //			error(String.format("Invalid credentials for %s", token.getUsername()));
@@ -64,14 +69,48 @@ public class LoginButton extends IndicatingAjaxButton {
 		}
 		super.onSubmit(target, form);
 	}
+	
+	@Override
+	public void onSubmit() {
+		final LoginToken loginData = loginTokenModel.getObject();
+		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
+		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
+		final UsernamePasswordToken token = new UsernamePasswordToken(
+				upUsername, upPassword.toCharArray(), host);
+		log.debug("Logging in using '{}' host '{}'", upUsername, host);
+		try {
+			final Subject currentUser = SecurityUtils.getSubject();
+			currentUser.login(token);
+			final String personId = Preconditions.checkNotNull((String) currentUser.getPrincipal(),
+					"Cannot get current user as person ID");
+			info(String.format("You are now logged in as %s", personId));
+			log.debug("Current user is now '{}' host '{}'. Has permission to edit all person data? {}",
+					personId, host, currentUser.isPermitted("person:edit:*"));
+			onLoginSuccessStateless(personId);
+		} catch (final AuthenticationException e) {
+//			error(String.format("Invalid credentials for %s", token.getUsername()));
+			error(String.format("Wrong Username/Email and password combination."));
+			log.info(String.format("Invalid credentials for '%s' tenant '%s'",
+					token.getUsername(), token.getHost()), e);
+		}
+		super.onSubmit();
+	}
 
 	/**
-	 * Override this method to, for example, redirect to original page
+	 * Override this method to handle Ajax submit <b>only</b>, for example, redirect to original page
 	 * (if using {@link DedicatedLoginPage}).
 	 * @param target TODO
 	 * @param personId
 	 */
 	protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
+	}
+
+	/**
+	 * Override this method to handle <b>non</b>-Ajax submit, for example, redirect to original page
+	 * (if using {@link DedicatedLoginPage}).
+	 * @param personId
+	 */
+	protected void onLoginSuccessStateless(String personId) {
 	}
 
 }

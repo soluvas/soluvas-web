@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.facebook.FacebookRecipient;
@@ -63,6 +64,8 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 		private WebAddress webAddress;
 		@SpringBean(name="personLookup")
 		private EntityLookup<Person, String> personLookup;
+		@SpringBean
+		private TenantRef tenant;
 		
 		@SuppressWarnings("unused")
 		public FormSignIn(final String id, final IModel<LoginToken> userLoginModel,
@@ -75,7 +78,7 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 			add(new PasswordTextField("password", new PropertyModel<String>(userLoginModel, "password")));
 			add(new CheckBox("rememberMe", new PropertyModel<Boolean>(userLoginModel, "rememberMe")));
 			
-			final LoginButton ldapLoginBtn = new LoginButton("login", userLoginModel) {
+			final LoginButton ldapLoginBtn = new LoginButton("login", userLoginModel, tenant.getTenantId()) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
 					((SoluvasWebSession) getSession()).postLoginSuccess();

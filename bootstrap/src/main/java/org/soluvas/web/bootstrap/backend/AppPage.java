@@ -64,7 +64,7 @@ public class AppPage extends WebPage {
 		super(params);
 		final Subject subject = SecurityUtils.getSubject();
 		// FIXME: please implement hotel's Manage login page!
-		//subject.checkRole("sysadmin");
+		subject.checkRole("sysadmin");
 		
 		add(new HtmlTag("html", getLocale(), true));
 		add(new BootstrapBaseBehavior());
