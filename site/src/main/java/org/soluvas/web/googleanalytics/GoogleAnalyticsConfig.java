@@ -43,7 +43,7 @@ public class GoogleAnalyticsConfig {
 	
 	@Bean(destroyMethod="destroy")
 	public TenantBeans<GoogleAnalyticsManager> googleAnalyticsMgrBeanRepo() {
-		return new TenantBeans<GoogleAnalyticsManager>(GoogleAnalyticsManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
+		return new TenantBeans<GoogleAnalyticsManager>(GoogleAnalyticsManagerImpl.class) {
 			@Override
 			protected GoogleAnalyticsManagerImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {

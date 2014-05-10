@@ -40,7 +40,7 @@ public class AlexaCertifyConfig {
 	
 	@Bean(destroyMethod="destroy")
 	public TenantBeans<AlexaCertify> alexaCertifyBeans() {
-		return new TenantBeans<AlexaCertify>(AlexaCertifyImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
+		return new TenantBeans<AlexaCertify>(AlexaCertifyImpl.class) {
 			@Override
 			protected AlexaCertifyImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {
