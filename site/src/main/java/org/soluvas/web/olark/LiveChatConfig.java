@@ -43,7 +43,7 @@ public class LiveChatConfig {
 	
 	@Bean(destroyMethod="destroy")
 	public TenantBeans<LiveChatManager> liveChatMgrBeanRepo() {
-		return new TenantBeans<LiveChatManager>(LiveChatManagerImpl.class, tenantConfig.tenantMap(), appEventBus, tenantRepo) {
+		return new TenantBeans<LiveChatManager>(LiveChatManagerImpl.class) {
 			@Override
 			protected LiveChatManagerImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {
