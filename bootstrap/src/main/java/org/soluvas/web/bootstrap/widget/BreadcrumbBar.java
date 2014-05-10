@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap.widget;
 
 import java.util.List;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -34,7 +35,8 @@ public class BreadcrumbBar extends GenericPanel<List<PageLink>> {
 		@Override
 		protected void populateItem(ListItem<PageLink> item) {
 //			new ExternalLink("crumbUri", href);
-			final BookmarkablePageLink crumbLink = new BookmarkablePageLink("crumbLink", item.getModelObject().getPage(), item.getModelObject().getParams());
+			final BookmarkablePageLink<Page> crumbLink = new BookmarkablePageLink(
+					"crumbLink", item.getModelObject().getPage(), item.getModelObject().getParams());
 			crumbLink.add(new Label("crumbLabel", new PropertyModel<>(item.getModel(), "title")));
 			item.add(crumbLink);
 		}
