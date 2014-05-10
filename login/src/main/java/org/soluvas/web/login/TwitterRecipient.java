@@ -125,7 +125,6 @@ public class TwitterRecipient extends WebPage {
 				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName() + " " + personName.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
-				curPerson.setCustomerRole("biasa");
 				personRepo.add(curPerson);
 				log.debug("person {} is inserted", personId);
 			}
