@@ -18,7 +18,6 @@ import org.soluvas.web.olark.impl.LiveChatManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import com.google.common.eventbus.EventBus;
@@ -27,7 +26,7 @@ import com.google.common.eventbus.EventBus;
  * {@link Configuration} for {@link LiveChatManager}.
  * @author ceefour
  */
-@Configuration @Lazy
+@Configuration
 public class LiveChatConfig {
 
 	@Inject
