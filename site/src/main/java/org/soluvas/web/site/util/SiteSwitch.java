@@ -224,6 +224,18 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SitePackage.LIVE_CHAT_SYS_CONFIG: {
+				LiveChatSysConfig liveChatSysConfig = (LiveChatSysConfig)theEObject;
+				T result = caseLiveChatSysConfig(liveChatSysConfig);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.GOOGLE_ANALYTICS_SYS_CONFIG: {
+				GoogleAnalyticsSysConfig googleAnalyticsSysConfig = (GoogleAnalyticsSysConfig)theEObject;
+				T result = caseGoogleAnalyticsSysConfig(googleAnalyticsSysConfig);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -570,6 +582,36 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAlexaCertifySysConfig(AlexaCertifySysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Live Chat Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Live Chat Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLiveChatSysConfig(LiveChatSysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Google Analytics Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Google Analytics Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGoogleAnalyticsSysConfig(GoogleAnalyticsSysConfig object) {
 		return null;
 	}
 

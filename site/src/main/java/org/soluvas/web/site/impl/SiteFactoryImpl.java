@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.site.*;
 
 /**
@@ -92,6 +93,8 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 		switch (eDataType.getClassifierID()) {
 			case SitePackage.JAVA_SCRIPT_MODE:
 				return createJavaScriptModeFromString(eDataType, initialValue);
+			case SitePackage.LIVE_CHAT_PROVIDER:
+				return createLiveChatProviderFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -107,6 +110,8 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 		switch (eDataType.getClassifierID()) {
 			case SitePackage.JAVA_SCRIPT_MODE:
 				return convertJavaScriptModeToString(eDataType, instanceValue);
+			case SitePackage.LIVE_CHAT_PROVIDER:
+				return convertLiveChatProviderToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -330,6 +335,24 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	 */
 	public String convertJavaScriptModeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LiveChatProvider createLiveChatProviderFromString(EDataType eDataType, String initialValue) {
+		return (LiveChatProvider)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLiveChatProviderToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

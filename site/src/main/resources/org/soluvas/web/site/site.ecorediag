@@ -463,6 +463,38 @@
     <element xmi:type="ecore:EClass" href="site.ecore#//AlexaCertifySysConfig"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I8MP8qE9EeOZBalEbA0-9w" x="36" y="408"/>
   </children>
+  <children xmi:type="notation:Node" xmi:id="_IO9tcNkrEeOk-PBtxQc-zg" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_IO_ioNkrEeOk-PBtxQc-zg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_IO_iodkrEeOk-PBtxQc-zg" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_IO_iotkrEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_IO_io9krEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_IO_ipNkrEeOk-PBtxQc-zg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_IPAJsNkrEeOk-PBtxQc-zg" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_IPAJsdkrEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_IPAJstkrEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_IPAJs9krEeOk-PBtxQc-zg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_IO9tcdkrEeOk-PBtxQc-zg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//LiveChatSysConfig"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_IO9tctkrEeOk-PBtxQc-zg" x="534" y="474"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_OEVlYNkrEeOk-PBtxQc-zg" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_OEWMcNkrEeOk-PBtxQc-zg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_OEWMcdkrEeOk-PBtxQc-zg" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_OEWMctkrEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_OEWMc9krEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_OEWMdNkrEeOk-PBtxQc-zg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_OEWMddkrEeOk-PBtxQc-zg" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_OEWMdtkrEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_OEWMd9krEeOk-PBtxQc-zg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_OEWMeNkrEeOk-PBtxQc-zg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_OEVlYdkrEeOk-PBtxQc-zg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//GoogleAnalyticsSysConfig"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_OEVlYtkrEeOk-PBtxQc-zg" x="644" y="397"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Wj8eYRbUEeK-u5Qj8_PKYg"/>
   <element xmi:type="ecore:EPackage" href="site.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_tj44ABldEeKZi_5YjoJxfA" type="3002" source="_sH3l8BldEeKZi_5YjoJxfA" target="_Zn0yMRldEeKZi_5YjoJxfA">

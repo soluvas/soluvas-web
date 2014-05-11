@@ -161,6 +161,14 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createAlexaCertifySysConfigAdapter();
 			}
 			@Override
+			public Adapter caseLiveChatSysConfig(LiveChatSysConfig object) {
+				return createLiveChatSysConfigAdapter();
+			}
+			@Override
+			public Adapter caseGoogleAnalyticsSysConfig(GoogleAnalyticsSysConfig object) {
+				return createGoogleAnalyticsSysConfigAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -499,6 +507,34 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAlexaCertifySysConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.LiveChatSysConfig <em>Live Chat Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.LiveChatSysConfig
+	 * @generated
+	 */
+	public Adapter createLiveChatSysConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig
+	 * @generated
+	 */
+	public Adapter createGoogleAnalyticsSysConfigAdapter() {
 		return null;
 	}
 

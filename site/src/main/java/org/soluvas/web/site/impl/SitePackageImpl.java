@@ -4,12 +4,14 @@ package org.soluvas.web.site.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.soluvas.commons.StyleConfiguration;
+import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.site.AlexaCertifySysConfig;
 import org.soluvas.web.site.ContentPage;
 import org.soluvas.web.site.DashboardPage;
@@ -18,7 +20,9 @@ import org.soluvas.web.site.EntityNewPage;
 import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
+import org.soluvas.web.site.GoogleAnalyticsSysConfig;
 import org.soluvas.web.site.JavaScriptMode;
+import org.soluvas.web.site.LiveChatSysConfig;
 import org.soluvas.web.site.LoginPage;
 import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageParam;
@@ -210,7 +214,28 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass liveChatSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass googleAnalyticsSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum javaScriptModeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType liveChatProviderEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -722,9 +747,90 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLiveChatSysConfig() {
+		return liveChatSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLiveChatSysConfig_LiveChatEnabled() {
+		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLiveChatSysConfig_LiveChatProvider() {
+		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLiveChatSysConfig_LiveChatSiteId() {
+		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGoogleAnalyticsSysConfig() {
+		return googleAnalyticsSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled() {
+		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId() {
+		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain() {
+		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getLiveChatProvider() {
+		return liveChatProviderEDataType;
 	}
 
 	/**
@@ -824,8 +930,21 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_JS_CDN);
 		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN);
 
+		liveChatSysConfigEClass = createEClass(LIVE_CHAT_SYS_CONFIG);
+		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED);
+		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER);
+		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID);
+
+		googleAnalyticsSysConfigEClass = createEClass(GOOGLE_ANALYTICS_SYS_CONFIG);
+		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_ENABLED);
+		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID);
+		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN);
+
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
+
+		// Create data types
+		liveChatProviderEDataType = createEDataType(LIVE_CHAT_PROVIDER);
 	}
 
 	/**
@@ -963,11 +1082,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyJsCdn(), ecorePackage.getEString(), "alexaCertifyJsCdn", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyImageCdn(), ecorePackage.getEString(), "alexaCertifyImageCdn", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(liveChatSysConfigEClass, LiveChatSysConfig.class, "LiveChatSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLiveChatSysConfig_LiveChatEnabled(), ecorePackage.getEBooleanObject(), "liveChatEnabled", "false", 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveChatSysConfig_LiveChatProvider(), this.getLiveChatProvider(), "liveChatProvider", null, 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveChatSysConfig_LiveChatSiteId(), ecorePackage.getEString(), "liveChatSiteId", null, 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(googleAnalyticsSysConfigEClass, GoogleAnalyticsSysConfig.class, "GoogleAnalyticsSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled(), ecorePackage.getEBooleanObject(), "googleAnalyticsEnabled", "false", 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId(), ecorePackage.getEString(), "googleAnalyticsTrackingId", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain(), ecorePackage.getEString(), "googleAnalyticsCookieDomain", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.DEVELOPMENT);
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.MINIFIED);
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.AGGREGATED_MINIFIED);
+
+		// Initialize data types
+		initEDataType(liveChatProviderEDataType, LiveChatProvider.class, "LiveChatProvider", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1194,6 +1326,42 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Alexa Certify Image CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d5nxst8fruw4z.cloudfront.net\""
+		   });		
+		addAnnotation
+		  (getLiveChatSysConfig_LiveChatEnabled(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Whether live chat feature is enabled."
+		   });		
+		addAnnotation
+		  (getLiveChatSysConfig_LiveChatProvider(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Live chat provider, if enabled. Available choices: OLARK, LIVECHATINC."
+		   });		
+		addAnnotation
+		  (getLiveChatSysConfig_LiveChatSiteId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Live chat site ID, if enabled. This is provider-specific."
+		   });		
+		addAnnotation
+		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Whether Google Analytics is enabled."
+		   });		
+		addAnnotation
+		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Google Analytics Tracking ID, which is mandatory if enabled."
+		   });		
+		addAnnotation
+		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Cookie domain for Google Analytics, if different than the default settings (usually the \"www\" subdomain)."
 		   });
 	}
 	

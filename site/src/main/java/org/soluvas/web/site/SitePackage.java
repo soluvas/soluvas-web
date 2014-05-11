@@ -4,6 +4,7 @@ package org.soluvas.web.site;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -1191,6 +1192,98 @@ public interface SitePackage extends EPackage {
 	int ALEXA_CERTIFY_SYS_CONFIG_FEATURE_COUNT = 5;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.LiveChatSysConfig <em>Live Chat Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.LiveChatSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatSysConfig()
+	 * @generated
+	 */
+	int LIVE_CHAT_SYS_CONFIG = 23;
+
+	/**
+	 * The feature id for the '<em><b>Live Chat Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Live Chat Provider</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER = 1;
+
+	/**
+	 * The feature id for the '<em><b>Live Chat Site Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID = 2;
+
+	/**
+	 * The number of structural features of the '<em>Live Chat Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHAT_SYS_CONFIG_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleAnalyticsSysConfig()
+	 * @generated
+	 */
+	int GOOGLE_ANALYTICS_SYS_CONFIG = 24;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_ENABLED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Tracking Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID = 1;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Cookie Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN = 2;
+
+	/**
+	 * The number of structural features of the '<em>Google Analytics Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_SYS_CONFIG_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1198,7 +1291,18 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 23;
+	int JAVA_SCRIPT_MODE = 25;
+
+
+	/**
+	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.olark.LiveChatProvider
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
+	 * @generated
+	 */
+	int LIVE_CHAT_PROVIDER = 26;
 
 
 	/**
@@ -1674,6 +1778,92 @@ public interface SitePackage extends EPackage {
 	EAttribute getAlexaCertifySysConfig_AlexaCertifyImageCdn();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.LiveChatSysConfig <em>Live Chat Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Live Chat Sys Config</em>'.
+	 * @see org.soluvas.web.site.LiveChatSysConfig
+	 * @generated
+	 */
+	EClass getLiveChatSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatEnabled <em>Live Chat Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Live Chat Enabled</em>'.
+	 * @see org.soluvas.web.site.LiveChatSysConfig#getLiveChatEnabled()
+	 * @see #getLiveChatSysConfig()
+	 * @generated
+	 */
+	EAttribute getLiveChatSysConfig_LiveChatEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProvider <em>Live Chat Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Live Chat Provider</em>'.
+	 * @see org.soluvas.web.site.LiveChatSysConfig#getLiveChatProvider()
+	 * @see #getLiveChatSysConfig()
+	 * @generated
+	 */
+	EAttribute getLiveChatSysConfig_LiveChatProvider();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatSiteId <em>Live Chat Site Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Live Chat Site Id</em>'.
+	 * @see org.soluvas.web.site.LiveChatSysConfig#getLiveChatSiteId()
+	 * @see #getLiveChatSysConfig()
+	 * @generated
+	 */
+	EAttribute getLiveChatSysConfig_LiveChatSiteId();
+
+	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Google Analytics Sys Config</em>'.
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig
+	 * @generated
+	 */
+	EClass getGoogleAnalyticsSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsEnabled <em>Google Analytics Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Analytics Enabled</em>'.
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsEnabled()
+	 * @see #getGoogleAnalyticsSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsTrackingId <em>Google Analytics Tracking Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Analytics Tracking Id</em>'.
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsTrackingId()
+	 * @see #getGoogleAnalyticsSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsCookieDomain <em>Google Analytics Cookie Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Analytics Cookie Domain</em>'.
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsCookieDomain()
+	 * @see #getGoogleAnalyticsSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1682,6 +1872,17 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getJavaScriptMode();
+
+	/**
+	 * Returns the meta object for data type '{@link org.soluvas.web.olark.LiveChatProvider <em>Live Chat Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Live Chat Provider</em>'.
+	 * @see org.soluvas.web.olark.LiveChatProvider
+	 * @model instanceClass="org.soluvas.web.olark.LiveChatProvider"
+	 * @generated
+	 */
+	EDataType getLiveChatProvider();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2112,6 +2313,74 @@ public interface SitePackage extends EPackage {
 		EAttribute ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN = eINSTANCE.getAlexaCertifySysConfig_AlexaCertifyImageCdn();
 
 		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.LiveChatSysConfig <em>Live Chat Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.LiveChatSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatSysConfig()
+		 * @generated
+		 */
+		EClass LIVE_CHAT_SYS_CONFIG = eINSTANCE.getLiveChatSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Live Chat Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED = eINSTANCE.getLiveChatSysConfig_LiveChatEnabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Live Chat Provider</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER = eINSTANCE.getLiveChatSysConfig_LiveChatProvider();
+
+		/**
+		 * The meta object literal for the '<em><b>Live Chat Site Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID = eINSTANCE.getLiveChatSysConfig_LiveChatSiteId();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleAnalyticsSysConfig()
+		 * @generated
+		 */
+		EClass GOOGLE_ANALYTICS_SYS_CONFIG = eINSTANCE.getGoogleAnalyticsSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Analytics Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_ENABLED = eINSTANCE.getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Analytics Tracking Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID = eINSTANCE.getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Analytics Cookie Domain</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN = eINSTANCE.getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain();
+
+		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2120,6 +2389,16 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum JAVA_SCRIPT_MODE = eINSTANCE.getJavaScriptMode();
+
+		/**
+		 * The meta object literal for the '<em>Live Chat Provider</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.olark.LiveChatProvider
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
+		 * @generated
+		 */
+		EDataType LIVE_CHAT_PROVIDER = eINSTANCE.getLiveChatProvider();
 
 	}
 
