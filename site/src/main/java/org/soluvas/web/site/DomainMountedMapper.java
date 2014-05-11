@@ -106,8 +106,10 @@ public class DomainMountedMapper extends MountedMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		log.trace("Host: {} for {}", request.getUrl().getHost(), request.getUrl());
-		if (domains.contains(request.getUrl().getHost())) {
+		final String origHost = request.getUrl().getHost();
+		final String canonicalHost = origHost.startsWith("www.") ? origHost.substring(4) : origHost;
+		log.trace("Canonical Host: {} (from {}) for {}", canonicalHost, origHost, request.getUrl());
+		if (domains.contains(canonicalHost)) {
 			return super.parseRequest(request);
 		} else {
 			return null;
