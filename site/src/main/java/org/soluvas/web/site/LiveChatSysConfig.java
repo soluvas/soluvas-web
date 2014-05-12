@@ -15,6 +15,7 @@ import org.soluvas.web.olark.LiveChatProvider;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatEnabled <em>Live Chat Enabled</em>}</li>
+ *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProviderId <em>Live Chat Provider Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProvider <em>Live Chat Provider</em>}</li>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatSiteId <em>Live Chat Site Id</em>}</li>
  * </ul>
@@ -52,6 +53,31 @@ public interface LiveChatSysConfig extends EObject {
 	void setLiveChatEnabled(Boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Live Chat Provider Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Live chat provider, if enabled. Available choices: OLARK, LIVECHATINC.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Live Chat Provider Id</em>' attribute.
+	 * @see #setLiveChatProviderId(String)
+	 * @see org.soluvas.web.site.SitePackage#getLiveChatSysConfig_LiveChatProviderId()
+	 * @model
+	 * @generated
+	 */
+	String getLiveChatProviderId();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProviderId <em>Live Chat Provider Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Live Chat Provider Id</em>' attribute.
+	 * @see #getLiveChatProviderId()
+	 * @generated
+	 */
+	void setLiveChatProviderId(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Live Chat Provider</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -59,22 +85,11 @@ public interface LiveChatSysConfig extends EObject {
 	 * Live chat provider, if enabled. Available choices: OLARK, LIVECHATINC.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Live Chat Provider</em>' attribute.
-	 * @see #setLiveChatProvider(LiveChatProvider)
 	 * @see org.soluvas.web.site.SitePackage#getLiveChatSysConfig_LiveChatProvider()
-	 * @model dataType="org.soluvas.web.site.LiveChatProvider"
+	 * @model dataType="org.soluvas.web.site.LiveChatProvider" required="true" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	LiveChatProvider getLiveChatProvider();
-
-	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProvider <em>Live Chat Provider</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Live Chat Provider</em>' attribute.
-	 * @see #getLiveChatProvider()
-	 * @generated
-	 */
-	void setLiveChatProvider(LiveChatProvider value);
 
 	/**
 	 * Returns the value of the '<em><b>Live Chat Site Id</b></em>' attribute.

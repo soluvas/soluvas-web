@@ -1211,13 +1211,22 @@ public interface SitePackage extends EPackage {
 	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED = 0;
 
 	/**
+	 * The feature id for the '<em><b>Live Chat Provider Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER_ID = 1;
+
+	/**
 	 * The feature id for the '<em><b>Live Chat Provider</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER = 1;
+	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Live Chat Site Id</b></em>' attribute.
@@ -1226,7 +1235,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID = 2;
+	int LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID = 3;
 
 	/**
 	 * The number of structural features of the '<em>Live Chat Sys Config</em>' class.
@@ -1235,7 +1244,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIVE_CHAT_SYS_CONFIG_FEATURE_COUNT = 3;
+	int LIVE_CHAT_SYS_CONFIG_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}' class.
@@ -1799,6 +1808,17 @@ public interface SitePackage extends EPackage {
 	EAttribute getLiveChatSysConfig_LiveChatEnabled();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProviderId <em>Live Chat Provider Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Live Chat Provider Id</em>'.
+	 * @see org.soluvas.web.site.LiveChatSysConfig#getLiveChatProviderId()
+	 * @see #getLiveChatSysConfig()
+	 * @generated
+	 */
+	EAttribute getLiveChatSysConfig_LiveChatProviderId();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProvider <em>Live Chat Provider</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2329,6 +2349,14 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED = eINSTANCE.getLiveChatSysConfig_LiveChatEnabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Live Chat Provider Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER_ID = eINSTANCE.getLiveChatSysConfig_LiveChatProviderId();
 
 		/**
 		 * The meta object literal for the '<em><b>Live Chat Provider</b></em>' attribute feature.

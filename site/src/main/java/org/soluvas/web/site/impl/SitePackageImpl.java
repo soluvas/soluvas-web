@@ -765,7 +765,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLiveChatSysConfig_LiveChatProvider() {
+	public EAttribute getLiveChatSysConfig_LiveChatProviderId() {
 		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -774,8 +774,17 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLiveChatSysConfig_LiveChatSiteId() {
+	public EAttribute getLiveChatSysConfig_LiveChatProvider() {
 		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLiveChatSysConfig_LiveChatSiteId() {
+		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -932,6 +941,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		liveChatSysConfigEClass = createEClass(LIVE_CHAT_SYS_CONFIG);
 		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED);
+		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER_ID);
 		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_PROVIDER);
 		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID);
 
@@ -1084,7 +1094,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		initEClass(liveChatSysConfigEClass, LiveChatSysConfig.class, "LiveChatSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLiveChatSysConfig_LiveChatEnabled(), ecorePackage.getEBooleanObject(), "liveChatEnabled", "false", 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLiveChatSysConfig_LiveChatProvider(), this.getLiveChatProvider(), "liveChatProvider", null, 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveChatSysConfig_LiveChatProviderId(), ecorePackage.getEString(), "liveChatProviderId", null, 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLiveChatSysConfig_LiveChatProvider(), this.getLiveChatProvider(), "liveChatProvider", null, 1, 1, LiveChatSysConfig.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLiveChatSysConfig_LiveChatSiteId(), ecorePackage.getEString(), "liveChatSiteId", null, 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(googleAnalyticsSysConfigEClass, GoogleAnalyticsSysConfig.class, "GoogleAnalyticsSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1332,6 +1343,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Whether live chat feature is enabled."
+		   });		
+		addAnnotation
+		  (getLiveChatSysConfig_LiveChatProviderId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Live chat provider, if enabled. Available choices: OLARK, LIVECHATINC."
 		   });		
 		addAnnotation
 		  (getLiveChatSysConfig_LiveChatProvider(), 

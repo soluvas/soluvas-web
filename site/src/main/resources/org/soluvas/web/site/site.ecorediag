@@ -466,6 +466,22 @@
   <children xmi:type="notation:Node" xmi:id="_IO9tcNkrEeOk-PBtxQc-zg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_IO_ioNkrEeOk-PBtxQc-zg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_IO_iodkrEeOk-PBtxQc-zg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_LtHtkNmzEeOVRPDe9mTMlA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//LiveChatSysConfig/liveChatEnabled"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_LtHtkdmzEeOVRPDe9mTMlA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_P0WBoNmzEeOVRPDe9mTMlA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//LiveChatSysConfig/liveChatProviderId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_P0WBodmzEeOVRPDe9mTMlA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_LtI7sNmzEeOVRPDe9mTMlA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//LiveChatSysConfig/liveChatProvider"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_LtI7sdmzEeOVRPDe9mTMlA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_LtJiwNmzEeOVRPDe9mTMlA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//LiveChatSysConfig/liveChatSiteId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_LtJiwdmzEeOVRPDe9mTMlA"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_IO_iotkrEeOk-PBtxQc-zg"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_IO_io9krEeOk-PBtxQc-zg"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_IO_ipNkrEeOk-PBtxQc-zg"/>
