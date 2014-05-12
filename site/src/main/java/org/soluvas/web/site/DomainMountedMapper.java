@@ -106,6 +106,7 @@ public class DomainMountedMapper extends MountedMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
+		// Note: "www.subdomain" hosts are NOT recommended because it's not covered by SSL wildcards nor DNS record wildcards 
 		final String origHost = request.getUrl().getHost();
 		final String canonicalHost = origHost.startsWith("www.") ? origHost.substring(4) : origHost;
 		log.trace("Canonical Host: {} (from {}) for {}", canonicalHost, origHost, request.getUrl());

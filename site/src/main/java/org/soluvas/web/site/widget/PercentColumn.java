@@ -32,7 +32,7 @@ public class PercentColumn<T, S> extends PropertyColumn<T, S> {
 	
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-		item.add(new PercentColumnPanel(componentId, getDataModel(model)));
+		item.add(new PercentLabel(componentId, getDataModel(model)));
 		item.add(new AttributeAppender("class", "measure"));
 	}
 

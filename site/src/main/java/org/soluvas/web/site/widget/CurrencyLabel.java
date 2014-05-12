@@ -64,6 +64,10 @@ public class CurrencyLabel extends Label {
 		this.amountModel = new Model<>(amount);
 	}
 	
+	public void setAmountModel(IModel<BigDecimal> amountModel) {
+		this.amountModel = amountModel;
+	}
+	
 	@Override
 	public void onComponentTagBody(final MarkupStream markupStream, final ComponentTag openTag)
 	{
@@ -86,7 +90,7 @@ public class CurrencyLabel extends Label {
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
 					(CurrencyUnit) currencyObj : CurrencyUnit.of((String) currencyObj);
-			final String currencyHtml = amount != null ? "<small class=\"muted\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
+			final String currencyHtml = amount != null ? "<small class=\"text-muted\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
 			if (amount != null) {
 				final MoneyFormatter formatter = new MoneyFormatterBuilder()
 					.appendAmountLocalized().toFormatter(locale);
@@ -96,7 +100,7 @@ public class CurrencyLabel extends Label {
 			}
 		} else {
 			if (amount != null) {
-				return "<small class=\"muted\">?</small> " + DecimalFormat.getInstance(locale).format(amount.doubleValue());
+				return "<small class=\"text-muted\">?</small> " + DecimalFormat.getInstance(locale).format(amount.doubleValue());
 			} else {
 				return "";
 			}
