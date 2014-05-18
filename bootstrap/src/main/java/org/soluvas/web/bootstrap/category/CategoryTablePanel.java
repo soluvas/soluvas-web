@@ -48,8 +48,9 @@ import org.soluvas.web.site.widget.LinkColumn;
  * 
  * @author ceefour
  */
-@SuppressWarnings("serial")
 public class CategoryTablePanel extends Panel {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private CategoryRepository categoryRepo;
 
@@ -61,6 +62,8 @@ public class CategoryTablePanel extends Panel {
 		add(new BookmarkablePageLink<>("addLink", addPage));
 		
 		final SortableDataProvider<Category, String> termDp = new SortableDataProvider<Category, String>() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Iterator<? extends Category> iterator(long first, long count) {
 				final SortParam<String> sortParam = getSort();
@@ -82,11 +85,12 @@ public class CategoryTablePanel extends Panel {
 		};
 		termDp.setSort("positioner", SortOrder.ASCENDING);
 		final List<IColumn<Category, String>> columns = new ArrayList<>();
+		columns.add(new EnumColumn<Category>(new Model<>("Status"), "status", CategoryPackage.Literals.CATEGORY_STATUS,
+				CategoryStatus.ICON_MAPPING).enumVisible(false).headerIcon("cog"));
 		columns.add(new LinkColumn<Category, String>(new Model<>("Name"), "name", "name", detailPage,
 				"uName", "uName"));
 		columns.add(new PropertyColumn<Category, String>(new Model<>("Slug Path"), "slugPath", "slugPath"));
-		columns.add(new EnumColumn<Category>(new Model<>("Status"), "status", CategoryPackage.Literals.CATEGORY_STATUS,
-				CategoryStatus.ICON_MAPPING));
+		columns.add(new PropertyColumn<Category, String>(new Model<>("Default Mixin"), "defaultMixin", "defaultMixin"));
 		columns.add(new PropertyColumn<Category, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 		columns.add(new PropertyColumn<Category, String>(new Model<>("Position"), "positioner", "positioner"));
 		columns.add(new AddChildColumn(new Model<>("New Child Category"), addPage));

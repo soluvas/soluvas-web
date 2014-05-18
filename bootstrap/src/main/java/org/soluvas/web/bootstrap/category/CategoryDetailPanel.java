@@ -12,7 +12,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -20,6 +19,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.GenericPanel;
@@ -37,11 +37,13 @@ import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.impl.CategoryImpl;
 import org.soluvas.commons.NotNullPredicate;
+import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
 import org.soluvas.web.site.CategoryModel;
 import org.soluvas.web.site.EmfModel;
+import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
 import com.google.common.base.Function;
@@ -99,14 +101,13 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	 * @param id
 	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param backPage
-	 * @param parentUName TODO
-	 * @param uName
-	 * @param kindNsPrefix
-	 * @param kindName
-	 * @param kindDisplayName
+	 * @param parentUName Parent {@link Category#getUName()} (non-editable).
+	 * @param defaultMixinUName Default {@link Category#setDefaultMixin(String)}, this is app specific e.g. {@code base_Apparel}.
+	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
+	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
 	public CategoryDetailPanel(String id, CategoryRepository categoryRepo,
-			final Class<? extends Page> backPage, String parentUName) {
+			final Class<? extends Page> backPage, @Nullable String parentUName, String defaultMixinUName) {
 		super(id);
 		this.editMode = EditMode.ADD;
 		this.originalUName = null;
@@ -115,7 +116,14 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		
 		final CategoryImpl category = new CategoryImpl();
 		category.setNsPrefix(tenant.getTenantId());
-		category.setParentUName(parentUName);
+		if (parentUName != null) {
+			category.setParentUName(parentUName);
+			final Category parent = Preconditions.checkNotNull(categoryRepo.findOne(parentUName),
+					"Cannot find parent category '%s' using %s", parentUName, categoryRepo);
+			category.setDefaultMixin(parent.getDefaultMixin());
+		} else {
+			category.setDefaultMixin(defaultMixinUName);
+		}
 		category.setStatus(CategoryStatus.ACTIVE);
 		setModel(new CategoryModel<Category>(category));
 	}
@@ -147,6 +155,12 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		if (editMode == EditMode.ADD) {
+			final String mixinUName = getModelObject().getDefaultMixin();
+			Preconditions.checkNotNull(mixinMgr.findMixin(mixinUName),
+					"Mixin '%s' referred by new category must exist.", mixinUName);
+		}
+		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
 		add(new BookmarkablePageLink<>("backLink", backPage));
@@ -173,13 +187,13 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		uNameDiv.setOutputMarkupId(true);
 		uNameDiv.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
 		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "id"));
-		nameFld.setEnabled(false);
-		nameFld.add(new OnChangeAjaxBehavior() {
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				target.add(headerUNameLabel);
-			}
-		});
+		nameFld.setEnabled(false); // don't allow changes to ID attribute, users will mess it up!
+//		nameFld.add(new OnChangeThrottledBehavior() {
+//			@Override
+//			protected void onUpdate(AjaxRequestTarget target) {
+//				target.add(headerUNameLabel);
+//			}
+//		});
 		uNameDiv.add(nameFld);
 		form.add(uNameDiv);
 		
@@ -190,15 +204,21 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		slugPathDiv.add(slugPathFld);
 		form.add(slugPathDiv);
 		
-		final TextField<Object> displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "name"));
+		final TextField<String> displayNameFld = new TextField<>("displayName", new PropertyModel<String>(getModel(), "name"));
 		displayNameFld.setRequired(true);
 		displayNameFld.setEnabled(editable);
-		displayNameFld.add(new OnChangeAjaxBehavior() {
+		displayNameFld.add(new OnChangeThrottledBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Category category = CategoryDetailPanel.this.getModelObject();
 				if (editMode == EditMode.ADD) {
-					category.setId(null);
+					final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
+						@Override
+						public boolean apply(@Nullable String input) {
+							return !categoryRepo.exists(tenant.getTenantId() + "_" + input);
+						}
+					});
+					category.setId(id);
 				}
 				category.setSlug(null);
 				category.resolve(categoryRepo);
@@ -206,6 +226,10 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 			}
 		});
 		form.add(displayNameFld);
+		
+		final TextArea<String> descriptionFld = new TextArea<>("description", new PropertyModel<String>(getModel(), "description"));
+		descriptionFld.setEnabled(editable);
+		form.add(descriptionFld);
 		
 		final IModel<Boolean> statusModel = new Model<>( getModelObject().getStatus() == CategoryStatus.ACTIVE );
 		form.add(new CheckBox("status", statusModel));
@@ -228,8 +252,8 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				return sortedMixins;
 			}
 		};
-		final String curDefaultMixin = getModel().getObject().getDefaultMixin();
-		log.debug("Got curMixin from Category is {}", curDefaultMixin);
+		final String curDefaultMixin = getModelObject().getDefaultMixin();
+		log.debug("Got curMixin from Category {} is {}", getModelObject().getUName(), curDefaultMixin);
 		final Mixin curMixin = mixinMgr.findMixin(curDefaultMixin);
 		final IModel<Mixin> curMixinModel = new EmfModel<>(curMixin);
 		final Select2Choice<Mixin> mixinChoices = new Select2Choice<>("defaultMixin", curMixinModel, new TextChoiceProvider<Mixin>() {
@@ -272,13 +296,6 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				return matchedChoices;
 			}
 		});
-		mixinChoices.add(new OnChangeAjaxBehavior() {
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-//				info("updating default mixin");
-				getModel().getObject().setDefaultMixin(curMixinModel.getObject().getQName());
-			}
-		});
 		form.add(mixinChoices);
 		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
@@ -287,11 +304,18 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				super.onSubmit(target, form);
 				final Category category = CategoryDetailPanel.this.getModelObject();
 				if (editMode == EditMode.ADD) {
-					category.setId(null);
+					final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
+						@Override
+						public boolean apply(@Nullable String input) {
+							return !categoryRepo.exists(tenant.getTenantId() + "_" + input);
+						}
+					});
+					category.setId(id);
 				}
 				category.setSlug(null);
 				category.resolve(categoryRepo);
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
+				category.setDefaultMixin(curMixinModel.getObject().getQName());
 				switch (editMode) {
 				case ADD:
 					categoryRepo.add(category);
