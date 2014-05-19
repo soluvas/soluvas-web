@@ -4,6 +4,8 @@ import org.apache.wicket.request.resource.CssResourceReference;
 
 /**
  * <a href="http://fortawesome.github.io/Font-Awesome/icons/">Font Awesome</a> CSS reference.
+ * @todo Just use {@link de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCssReference} instead?
+ * @see de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCssReference
  * @author ceefour
  */
 public class FontAwesomeResourceReference extends CssResourceReference {
@@ -16,7 +18,7 @@ public class FontAwesomeResourceReference extends CssResourceReference {
 	 * @param name
 	 */
 	private FontAwesomeResourceReference() {
-		super(FontAwesomeResourceReference.class, "font-awesome/css/font-awesome.css");
+		super(FontAwesomeResourceReference.class, "font-awesome/css/font-awesome.min.css");
 	}
 
 }
