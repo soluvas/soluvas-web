@@ -21,6 +21,7 @@ import org.soluvas.commons.NameUtils.PersonName;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.store.ImageRepository;
@@ -63,6 +64,8 @@ public class TwitterRecipient extends WebPage {
 	private PersonRepository personRepo;
 	@SpringBean(name="personImageRepo")
 	private ImageRepository personImageRepo;
+	@SpringBean
+	private TenantRef tenant;
 	
 	public TwitterRecipient(final PageParameters params) {
 		super();
@@ -152,7 +155,7 @@ public class TwitterRecipient extends WebPage {
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
-					Strings.nullToEmpty(modifiedPerson.getId()));
+					Strings.nullToEmpty(modifiedPerson.getId()), tenant.getTenantId());
 			log.debug("Logging in using AutologinToken {}", token.getPrincipal() );
 			try {
 				final Subject currentUser = SecurityUtils.getSubject();

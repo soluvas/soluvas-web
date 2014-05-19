@@ -31,6 +31,7 @@ import org.soluvas.commons.Gender;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.facebook.FacebookManager;
@@ -71,6 +72,8 @@ public class FacebookRecipient extends WebPage {
 	private FacebookManager facebookMgr;
 	@SpringBean
 	private WebAddress webAddress;
+	@SpringBean
+	private TenantRef tenant;
 	
 	public FacebookRecipient(final PageParameters params) {
 		super();
@@ -181,7 +184,7 @@ public class FacebookRecipient extends WebPage {
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
-					Strings.nullToEmpty(modifiedPerson.getId()));
+					Strings.nullToEmpty(modifiedPerson.getId()), tenant.getTenantId());
 			log.debug("Logging in using AutologinToken {}", token.getPrincipal() );
 			try {
 				final Subject currentUser = SecurityUtils.getSubject();
