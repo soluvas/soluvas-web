@@ -122,7 +122,7 @@ public class TwitterRecipient extends WebPage {
 					}
 				});
 				final PersonName personName = NameUtils.splitName(personFullName);
-				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName() + " " + personName.getLastName(), null, Gender.UNKNOWN);
+				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				curPerson.setCustomerRole("biasa");
