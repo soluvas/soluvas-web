@@ -15,6 +15,7 @@ import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
 import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
+import org.soluvas.web.site.FontAwesomeResourceReference;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
@@ -86,7 +87,7 @@ public class AppPage extends WebPage {
 		super.renderHead(response);
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/jquery-ui/jquery-ui-1.10.1.custom.min.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "css/bootstrap-reset.css")));
-		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/font-awesome/css/font-awesome.css")));
+		response.render(CssHeaderItem.forReference(FontAwesomeResourceReference.INSTANCE));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/jvector-map/jquery-jvectormap-1.2.2.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "css/clndr.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(AppPage.class, "assets/css3clock/css/style.css")));

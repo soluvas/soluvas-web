@@ -13,19 +13,23 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EEnum;
+import org.soluvas.web.site.FontAwesomeResourceReference;
 
 import com.google.common.collect.ImmutableMap;
 
 /**
  * Renders a regular {@link Enum} or an EMF {@link Enumerator}.
- * @author ceefour
- *
+ * 
+ * <p>Requires {@link FontAwesomeResourceReference}.
+ * 
  * @param <T>
  * @param <S>
+ * @author ceefour
  */
-@SuppressWarnings("serial")
 public class EnumColumn<T> extends PropertyColumn<T, String> {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final Map<? extends Enum<?>, String> iconMapping;
 	private boolean enumVisible = true;
 	private String headerIcon = null;
