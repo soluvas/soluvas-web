@@ -6,6 +6,7 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
@@ -16,6 +17,7 @@ import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
 import org.soluvas.web.googleanalytics.GoogleAnalyticsPanel;
 import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
+import org.soluvas.web.site.WebImage;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
@@ -65,6 +67,11 @@ public class BackendPage extends WebPage {
 	public BackendPage(PageParameters params) {
 		super(params);
 		add(new HtmlTag("html", getLocale(), true));
+		
+		final ExternalLink homePageLink = new ExternalLink("homePageLink", webAddress.getBaseUri());
+		homePageLink.add(new WebImage("logoImg"));
+		add(homePageLink);
+		
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
 		add(new GrowlBehavior());
