@@ -127,7 +127,7 @@ public class FacebookRecipient extends WebPage {
 					}
 				});
 				
-				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName() + " " + fbUser.getLastName(), null, Gender.UNKNOWN);
+				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				personRepo.add(curPerson);
