@@ -18,8 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.Person;
+import org.soluvas.commons.config.MultiTenantConfig;
 import org.soluvas.commons.locale.LocaleContext;
 import org.soluvas.data.person.PersonRepository;
+import org.springframework.beans.factory.BeanCreationException;
 
 /**
  * @author ceefour
@@ -46,15 +48,25 @@ public class SoluvasWebSession extends WebSession {
 	 */
 	@SpringBean
 	private PersonRepository personRepo;
-	@SpringBean
+	@SpringBean(required=false)
 	private AppManifest appManifest;
+	@SpringBean
+	private MultiTenantConfig tenantConfig;
 	
 	public SoluvasWebSession(Request request) {
 		super(request);
 		Injector.get().inject(this);
-		setLocale(appManifest.getDefaultLocale());
-		if (getClientInfo().getProperties().getTimeZone() == null) {
-			getClientInfo().getProperties().setTimeZone(appManifest.getDefaultTimeZone().toTimeZone());
+		try {
+			setLocale(appManifest.getDefaultLocale());
+			if (getClientInfo().getProperties().getTimeZone() == null) {
+				getClientInfo().getProperties().setTimeZone(appManifest.getDefaultTimeZone().toTimeZone());
+			}
+		} catch (BeanCreationException e) {
+			log.debug("Using application defaults, we're probably not in tenant page", e);
+			setLocale(tenantConfig.getDefaultLocale());
+			if (getClientInfo().getProperties().getTimeZone() == null) {
+				getClientInfo().getProperties().setTimeZone(tenantConfig.getDefaultTimeZone().toTimeZone());
+			}
 		}
 	}
 	
