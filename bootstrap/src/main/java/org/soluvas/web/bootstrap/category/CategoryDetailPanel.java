@@ -296,6 +296,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				return matchedChoices;
 			}
 		});
+		mixinChoices.setRequired(true);
 		form.add(mixinChoices);
 		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
