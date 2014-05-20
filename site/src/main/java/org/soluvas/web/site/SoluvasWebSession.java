@@ -1,6 +1,5 @@
 package org.soluvas.web.site;
 
-import java.util.Locale;
 import java.util.UUID;
 
 import org.apache.shiro.SecurityUtils;
@@ -15,9 +14,9 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.locale.LocaleContext;
 import org.soluvas.data.person.PersonRepository;
@@ -47,15 +46,15 @@ public class SoluvasWebSession extends WebSession {
 	 */
 	@SpringBean
 	private PersonRepository personRepo;
+	@SpringBean
+	private AppManifest appManifest;
 	
 	public SoluvasWebSession(Request request) {
 		super(request);
 		Injector.get().inject(this);
-		// TODO: do not hardcode
-		setLocale(Locale.forLanguageTag("id-ID"));
+		setLocale(appManifest.getDefaultLocale());
 		if (getClientInfo().getProperties().getTimeZone() == null) {
-			// TODO: do not hardcode
-			getClientInfo().getProperties().setTimeZone(DateTimeZone.forID("Asia/Jakarta").toTimeZone());
+			getClientInfo().getProperties().setTimeZone(appManifest.getDefaultTimeZone().toTimeZone());
 		}
 	}
 	
