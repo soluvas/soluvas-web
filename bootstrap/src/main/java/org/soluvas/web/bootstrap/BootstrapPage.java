@@ -386,7 +386,7 @@ public class BootstrapPage extends ExtensiblePage {
 					.getJavaScriptLibrarySettings()
 					.setJQueryReference(
 							new UrlResourceReference(
-									Url.parse("http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")));
+									Url.parse("http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")));
 		}
 
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
