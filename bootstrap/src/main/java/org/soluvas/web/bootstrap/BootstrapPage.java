@@ -29,10 +29,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Response;
-import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
@@ -350,15 +348,6 @@ public class BootstrapPage extends ExtensiblePage {
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
 		
-		// Use CDN jQuery if we're in production
-		if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT) {
-			getApplication()
-					.getJavaScriptLibrarySettings()
-					.setJQueryReference(
-							new UrlResourceReference(
-									Url.parse("http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")));
-		}
-
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
 

@@ -20,8 +20,9 @@ import org.soluvas.web.site.SitePackage;
  * </ul>
  * </p>
  *
- * @generated
+ * @deprecated Since 5.4 we don't use require.js.
  */
+@Deprecated
 public class RequireManagerImpl extends EObjectImpl implements RequireManager {
 	
 	public static final String CURRENT_TIME = "__CURRENT_TIME__";

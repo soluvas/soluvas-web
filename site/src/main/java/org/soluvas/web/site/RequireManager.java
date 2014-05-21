@@ -19,8 +19,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.SitePackage#getRequireManager()
  * @model
- * @generated
+ * @deprecated Since 5.4 we don't use require.js.
  */
+@Deprecated
 public interface RequireManager extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Java Script Mode</b></em>' attribute.
