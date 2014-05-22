@@ -5350,3 +5350,12 @@ div.tagsinput span.tag {
 .label-size{
 	font-size: 13px;
 }
+
+.bs-callout-help{
+	margin-top: 0;
+	padding: 10px;
+}
+
+.bs-callout-help h3{
+	margin-top: 0;
+}
