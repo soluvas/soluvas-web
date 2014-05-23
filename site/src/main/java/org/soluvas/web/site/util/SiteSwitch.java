@@ -236,6 +236,12 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SitePackage.THEME_PREF: {
+				ThemePref themePref = (ThemePref)theEObject;
+				T result = caseThemePref(themePref);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -612,6 +618,21 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGoogleAnalyticsSysConfig(GoogleAnalyticsSysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Theme Pref</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Theme Pref</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThemePref(ThemePref object) {
 		return null;
 	}
 
