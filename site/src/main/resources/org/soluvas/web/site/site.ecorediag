@@ -98,7 +98,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_dEhOYRoUEeKc0rCF4dDcbw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="site.ecore#//GenericPage"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dEhOYhoUEeKc0rCF4dDcbw" x="24" y="288"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dEhOYhoUEeKc0rCF4dDcbw" x="24" y="324"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_3xC7YBoUEeKc0rCF4dDcbw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_3xC7YxoUEeKc0rCF4dDcbw" type="4001"/>
@@ -210,7 +210,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_sSMLERoXEeKc0rCF4dDcbw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="site.ecore#//ContentPage"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sSMLEhoXEeKc0rCF4dDcbw" x="192" y="288"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sSMLEhoXEeKc0rCF4dDcbw" x="192" y="324"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_0Mr8cBoXEeKc0rCF4dDcbw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_0MsjgBoXEeKc0rCF4dDcbw" type="4001"/>
@@ -510,6 +510,38 @@
     <styles xmi:type="notation:ShapeStyle" xmi:id="_OEVlYdkrEeOk-PBtxQc-zg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="site.ecore#//GoogleAnalyticsSysConfig"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_OEVlYtkrEeOk-PBtxQc-zg" x="644" y="397"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_pY1lsOJdEeOfQ_3MiAABQg" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_pY2z0OJdEeOfQ_3MiAABQg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_pY3a4OJdEeOfQ_3MiAABQg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_1nlagOJdEeOfQ_3MiAABQg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/twitterLinkVisible"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_1nlageJdEeOfQ_3MiAABQg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_3xqscOJdEeOfQ_3MiAABQg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/facebookLinkVisible"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_3xqsceJdEeOfQ_3MiAABQg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_4yl98OJdEeOfQ_3MiAABQg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/youTubeLinkVisible"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4yl98eJdEeOfQ_3MiAABQg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_PBDkMOJeEeOfQ_3MiAABQg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/footnoteVisible"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_PBDkMeJeEeOfQ_3MiAABQg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_pY3a4eJdEeOfQ_3MiAABQg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_pY3a4uJdEeOfQ_3MiAABQg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_pY3a4-JdEeOfQ_3MiAABQg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_pY4B8OJdEeOfQ_3MiAABQg" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_pY4B8eJdEeOfQ_3MiAABQg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_pY4B8uJdEeOfQ_3MiAABQg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_pY4B8-JdEeOfQ_3MiAABQg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_pY1lseJdEeOfQ_3MiAABQg" fontColor="4210752" fontName="OxygenSans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//ThemePref"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pY1lsuJdEeOfQ_3MiAABQg" x="60" y="156"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Wj8eYRbUEeK-u5Qj8_PKYg"/>
   <element xmi:type="ecore:EPackage" href="site.ecore#/"/>

@@ -40,6 +40,7 @@ import org.soluvas.web.site.SectionCollection;
 import org.soluvas.web.site.SiteCatalog;
 import org.soluvas.web.site.SiteFactory;
 import org.soluvas.web.site.SitePackage;
+import org.soluvas.web.site.ThemePref;
 
 /**
  * <!-- begin-user-doc -->
@@ -222,6 +223,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass googleAnalyticsSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass themePrefEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -828,6 +836,51 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getThemePref() {
+		return themePrefEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_TwitterLinkVisible() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_FacebookLinkVisible() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_YouTubeLinkVisible() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_FootnoteVisible() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -949,6 +1002,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_ENABLED);
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID);
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN);
+
+		themePrefEClass = createEClass(THEME_PREF);
+		createEAttribute(themePrefEClass, THEME_PREF__TWITTER_LINK_VISIBLE);
+		createEAttribute(themePrefEClass, THEME_PREF__FACEBOOK_LINK_VISIBLE);
+		createEAttribute(themePrefEClass, THEME_PREF__YOU_TUBE_LINK_VISIBLE);
+		createEAttribute(themePrefEClass, THEME_PREF__FOOTNOTE_VISIBLE);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1102,6 +1161,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled(), ecorePackage.getEBooleanObject(), "googleAnalyticsEnabled", "false", 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId(), ecorePackage.getEString(), "googleAnalyticsTrackingId", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain(), ecorePackage.getEString(), "googleAnalyticsCookieDomain", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(themePrefEClass, ThemePref.class, "ThemePref", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getThemePref_TwitterLinkVisible(), ecorePackage.getEBoolean(), "twitterLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_FacebookLinkVisible(), ecorePackage.getEBoolean(), "facebookLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_YouTubeLinkVisible(), ecorePackage.getEBoolean(), "youTubeLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_FootnoteVisible(), ecorePackage.getEBoolean(), "footnoteVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
@@ -1379,6 +1444,18 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Cookie domain for Google Analytics, if different than the default settings (usually the \"www\" subdomain)."
+		   });		
+		addAnnotation
+		  (themePrefEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Theme Preference, usable by App, Tenant, Shop, Person, and possibly Article/Category/Product.\n\n<p>Should be extended, e.g. {@link id.co.bippo.common.BippoThemePref} contains bippo-specific theme preferences in additional to Soluvas Web\'s.\n\n<p><b>Notes:</b> These may be disabled for a tenant by FeatureSet, which has veto power.\nA ThemePref feature usually requires data from AppManifest/Mall/SysConfig, so without the data, the theme won\'t be able to show it anyway.\nNot all Themes support all ThemePref features."
+		   });		
+		addAnnotation
+		  (getThemePref_FootnoteVisible(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Displays the footnote specified in {@link org.soluvas.commons.AppManifest#getFootnote()}.\nThe footnote is shown on all frontend pages, usually positioned below the main content, but above the footer."
 		   });
 	}
 	

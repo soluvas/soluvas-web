@@ -1293,6 +1293,61 @@ public interface SitePackage extends EPackage {
 	int GOOGLE_ANALYTICS_SYS_CONFIG_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.ThemePref <em>Theme Pref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.ThemePref
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getThemePref()
+	 * @generated
+	 */
+	int THEME_PREF = 25;
+
+	/**
+	 * The feature id for the '<em><b>Twitter Link Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__TWITTER_LINK_VISIBLE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Facebook Link Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__FACEBOOK_LINK_VISIBLE = 1;
+
+	/**
+	 * The feature id for the '<em><b>You Tube Link Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__YOU_TUBE_LINK_VISIBLE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Footnote Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__FOOTNOTE_VISIBLE = 3;
+
+	/**
+	 * The number of structural features of the '<em>Theme Pref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1300,7 +1355,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 25;
+	int JAVA_SCRIPT_MODE = 26;
 
 
 	/**
@@ -1311,7 +1366,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 26;
+	int LIVE_CHAT_PROVIDER = 27;
 
 
 	/**
@@ -1884,6 +1939,60 @@ public interface SitePackage extends EPackage {
 	EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.ThemePref <em>Theme Pref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Theme Pref</em>'.
+	 * @see org.soluvas.web.site.ThemePref
+	 * @generated
+	 */
+	EClass getThemePref();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#isTwitterLinkVisible <em>Twitter Link Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Twitter Link Visible</em>'.
+	 * @see org.soluvas.web.site.ThemePref#isTwitterLinkVisible()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_TwitterLinkVisible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#isFacebookLinkVisible <em>Facebook Link Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Facebook Link Visible</em>'.
+	 * @see org.soluvas.web.site.ThemePref#isFacebookLinkVisible()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_FacebookLinkVisible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#isYouTubeLinkVisible <em>You Tube Link Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>You Tube Link Visible</em>'.
+	 * @see org.soluvas.web.site.ThemePref#isYouTubeLinkVisible()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_YouTubeLinkVisible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#isFootnoteVisible <em>Footnote Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Footnote Visible</em>'.
+	 * @see org.soluvas.web.site.ThemePref#isFootnoteVisible()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_FootnoteVisible();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2407,6 +2516,48 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN = eINSTANCE.getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.ThemePref <em>Theme Pref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.ThemePref
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getThemePref()
+		 * @generated
+		 */
+		EClass THEME_PREF = eINSTANCE.getThemePref();
+
+		/**
+		 * The meta object literal for the '<em><b>Twitter Link Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__TWITTER_LINK_VISIBLE = eINSTANCE.getThemePref_TwitterLinkVisible();
+
+		/**
+		 * The meta object literal for the '<em><b>Facebook Link Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__FACEBOOK_LINK_VISIBLE = eINSTANCE.getThemePref_FacebookLinkVisible();
+
+		/**
+		 * The meta object literal for the '<em><b>You Tube Link Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__YOU_TUBE_LINK_VISIBLE = eINSTANCE.getThemePref_YouTubeLinkVisible();
+
+		/**
+		 * The meta object literal for the '<em><b>Footnote Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__FOOTNOTE_VISIBLE = eINSTANCE.getThemePref_FootnoteVisible();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
