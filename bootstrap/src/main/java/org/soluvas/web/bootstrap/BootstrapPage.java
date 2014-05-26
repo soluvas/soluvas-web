@@ -24,6 +24,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -71,6 +72,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
@@ -441,13 +443,26 @@ public class BootstrapPage extends ExtensiblePage {
 
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
-		add(sidebarColumn);
+		sidebarColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-md-3" : "";
+			}
+		}));
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
 		sidebarColumn.add(sidebarBlocks);
+		add(sidebarColumn);
 
 		// CONTENT
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
+		contentColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-md-9" : "col-md-12";
+			}
+		}));
 		add(contentColumn);
+
 		add(new FeedbackPanel("feedback").setVisible(false));
 		
 		// ADDED INFO
@@ -517,7 +532,7 @@ public class BootstrapPage extends ExtensiblePage {
 			}
 		}
 		log.debug("Visible sidebarBlocks children: {}", visibleChildren);
-		sidebarColumn.setVisible(!visibleChildren.isEmpty());
+		sidebarColumn.setVisible(sidebarVisibility == SidebarVisibility.VISIBLE && !visibleChildren.isEmpty());
 	}
 
 	public IModel<PageMeta> getPageMetaModel() {
