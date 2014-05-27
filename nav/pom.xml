@@ -10,7 +10,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>org.soluvas.web.nav</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Soluvas Web Nav</name>
 	<description>Soluvas Web Nav.</description>
 
@@ -128,23 +128,6 @@
 				</excludes>
 			</testResource>
 		</testResources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<Import-Package>
-							org.apache.felix.service.command;resolution:=optional,
-							org.apache.felix.gogo.commands;resolution:=optional,
-							org.apache.karaf.shell.console;resolution:=optional,
-							*
-						</Import-Package>
-						<Export-Package>org.soluvas.web.nav.*</Export-Package>
-					</instructions>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 	
 </project>
