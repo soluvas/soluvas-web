@@ -49,6 +49,10 @@
 	</licenses>
 
 	<properties>
+		<!-- http://stackoverflow.com/a/3018152 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    	
 		<wicket.version>6.15.0</wicket.version>
 		<wicketstuff.version>6.15.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
 		<wicket-atmosphere.version>0.18</wicket-atmosphere.version><!-- linked to wicket.version -->
@@ -191,16 +195,12 @@
 					<configuration>
 						<source>1.7</source>
 						<target>1.7</target>
-						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>2.9.1</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
 				</plugin>
 				<!-- prevent Maven from checking the net and slowing down builds -->
 				<plugin>
