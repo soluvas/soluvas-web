@@ -1,0 +1,22 @@
+<wicket:panel>
+<button wicket:id="dateRangeDropdown" type="button"
+	class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	<span class="glyphicon glyphicon-calendar"></span>
+	<span wicket:id="dateRangeLabel">16 Jul - 18 Jul 2013</span> <span class="caret"></span>
+</button>
+
+<ul wicket:id="dateRangeMenu" class="dropdown-menu" role="menu">
+	<li><a href="#" wicket:id="todayLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; Today</a></li>
+	<li><a href="#" wicket:id="yesterdayLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; Yesterday</a></li>
+	<li><a href="#" wicket:id="thisWeekLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; This week</a></li>
+	<li><a href="#" wicket:id="lastWeekLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; Last week</a></li>
+	<li><a href="#" wicket:id="thisMonthLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; This month</a></li>
+	<li><a href="#" wicket:id="lastMonthLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; Last month</a></li>
+	<li><a href="#" wicket:id="thisYearLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; This year</a></li>
+	<li><a href="#" wicket:id="lastYearLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; Last year</a></li>
+	<li><a href="#" wicket:id="customLink"><span class="glyphicon glyphicon-ok" wicket:id="icon"></span>&nbsp; Custom...</a></li>
+</ul>
+<form wicket:id="form">
+	<div wicket:id="dateRangeModal">[dateRangeModal]</div>
+</form>
+</wicket:panel>
