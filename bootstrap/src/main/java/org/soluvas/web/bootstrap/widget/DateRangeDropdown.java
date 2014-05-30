@@ -23,6 +23,22 @@ import com.google.common.collect.Range;
  * can be from predefined ranges or custom user-defined range.
  * 
  * <p>To update your components when date range changes, use {@link #onDateRangeChanged(AjaxRequestTarget)}.
+ * 
+ * <p>Usage:
+ * 
+ * <pre>
+ * selectedRangeChoiceModel = new Model&lt;>(RangeChoice.TODAY);
+ * dateRangeModel = new Model&lt;>(Range.singleton(new LocalDate(appManifest.getDefaultTimeZone())));
+ * final DateRangeDropdown dateRangeDropdown = new DateRangeDropdown("dateRangeDropdown", dateRangeModel, selectedRangeChoiceModel,
+ * 		appManifest.getDefaultTimeZone()) {
+ * 	&commat;Override
+ * 	protected void onDateRangeChanged(AjaxRequestTarget target) {
+ * 		renderPanels(target);
+ * 	}
+ * };
+ * add(dateRangeDropdown);
+ * </pre>
+ * 
  * @author ceefour
  */
 public class DateRangeDropdown extends GenericPanel<Range<LocalDate>> {
@@ -235,6 +251,12 @@ public class DateRangeDropdown extends GenericPanel<Range<LocalDate>> {
 			}
 		});
 		add(dateRangeMenu);
+	}
+	
+	@Override
+	protected void onDetach() {
+		selectedRangeChoiceModel.detach();
+		super.onDetach();
 	}
 	
 	/**
