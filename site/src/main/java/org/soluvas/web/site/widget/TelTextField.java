@@ -6,6 +6,7 @@ import org.apache.wicket.model.IModel;
 /**
  * Define a field for entering a telephone number ({@code <input type="tel">}).
  * @author ceefour
+ * @see TelLink
  */
 public class TelTextField extends TextField<String> {
 

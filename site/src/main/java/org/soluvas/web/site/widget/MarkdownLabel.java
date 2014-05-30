@@ -44,6 +44,7 @@ import com.google.common.base.Strings;
  * 
  * Otherwise you'll get <a href="https://github.com/sirthias/pegdown/issues/66">java.lang.IncompatibleClassChangeError</a>
  * 
+ * @todo Another component to support <a href="http://asciidoc.org/">AsciiDoc</a>
  * @author ceefour
  */
 public class MarkdownLabel extends Label {
