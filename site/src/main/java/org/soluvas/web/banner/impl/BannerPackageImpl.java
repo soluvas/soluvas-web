@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.soluvas.web.banner.Banner;
 import org.soluvas.web.banner.BannerCatalog;
 import org.soluvas.web.banner.BannerCollection;
@@ -354,6 +355,12 @@ public class BannerPackageImpl extends EPackageImpl implements BannerPackage {
 
 	public static BannerPackage getInstance() {
 		return eINSTANCE;
+	}
+
+	@Override
+	protected Resource createResource(String uri) {
+		// assume accessed from bipporeg-model
+		return super.createResource("../../../org.soluvas.web.site/src/main/resources/org/soluvas/web/banner/banner.ecore");
 	}
 
 } //BannerPackageImpl
