@@ -99,7 +99,10 @@ public class BackendPage extends WebPage {
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/morris-chart/morris.css")));
 //		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-switch-master/build/css/bootstrap3/bootstrap-switch.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-fileupload/bootstrap-fileupload.css")));
+		
+		// bootstrap-wysihtml5 is activated by advanced-form.js
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css")));
+		
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-datepicker/css/datepicker.css")));
 		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-timepicker/compiled/timepicker.css")));
 //		response.render(CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(BackendPage.class, "assets/bootstrap-colorpicker/css/colorpicker.css")));

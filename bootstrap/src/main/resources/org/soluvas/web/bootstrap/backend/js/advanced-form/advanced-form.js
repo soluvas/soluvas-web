@@ -163,7 +163,9 @@ $('#spinner4').spinner({value:0, step: 5, min: 0, max: 200});
 
 //wysihtml5 start
 
-$('.wysihtml5').wysihtml5();
+// Bippo hack to workaround missing CSS since JavaScript doesn't know the (WicketResource) location of the CSS file
+$('.wysihtml5').wysihtml5({color: true,
+	stylesheets: ['/wicket/resource/org.soluvas.web.bootstrap.backend.BackendPage/assets/bootstrap-wysihtml5/wysiwyg-color.css']});
 
 //wysihtml5 end
 
