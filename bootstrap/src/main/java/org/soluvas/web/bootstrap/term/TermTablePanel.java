@@ -24,6 +24,8 @@ import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.widget.LinkColumn;
+import org.soluvas.web.site.widget.TagType;
+import org.soluvas.web.site.widget.TermColumn;
 
 /**
  * List {@link Term}s for a {@link Kind}.
@@ -81,9 +83,10 @@ public class TermTablePanel extends Panel {
 		};
 		termDp.setSort("name", SortOrder.ASCENDING);
 		final List<IColumn<Term, String>> columns = new ArrayList<>();
-		columns.add(new LinkColumn<Term, String>(new Model<>("Name"), "name", "name", detailPage,
-				"uName", "qName"));
-		columns.add(new PropertyColumn<Term, String>(new Model<>("Display Name"), "displayName", "displayName"));
+		columns.add(new LinkColumn<Term, String>(new Model<>("ID"), "name", "name", detailPage,
+				"uName", "qName").tag(TagType.TT));
+//		columns.add(new PropertyColumn<Term, String>(new Model<>("Display Name"), "displayName", "displayName"));
+		columns.add(new TermColumn<Term>(new Model<>("Display Name"), null));
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 //		columns.add(new PropertyColumn<Term, String>(new Model<>("Image ID"), "imageId", "imageId"));
 //		columns.add(new PropertyColumn<Term, String>(new Model<>("HTML Color"), "color", "color"));

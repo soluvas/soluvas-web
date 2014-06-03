@@ -17,9 +17,9 @@ import org.soluvas.data.Value;
  * @param <T>
  * @param <S>
  */
-@SuppressWarnings("serial")
 public class TermColumn<T> extends PropertyColumn<T, String> {
 
+	private static final long serialVersionUID = 1L;
 	private final boolean hideTextIfImageExists;
 
 	public TermColumn(IModel<String> displayModel, String termExpression) {

@@ -7,16 +7,20 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.web.site.EmfModel;
 
 /**
  * Formats a {@link Term} with associated image or color.
- * @author agus
+ * Only usable inside {@link TenantRef}.
+ * @todo It's possible to use app-scoped {@link WebAddress#getImagesUri()} or customize.
+ * @author ceefour
  */
-@SuppressWarnings("serial")
 public class TermLabel extends Label {
 
+	private static final long serialVersionUID = 1L;
+	
 	@SpringBean
 	private WebAddress webAddress;
 	private boolean hideTextIfImageExists = false;
@@ -51,9 +55,8 @@ public class TermLabel extends Label {
 //		final Locale locale = getLocale();
 		if (term != null) {
 			final String iconHtml;
-			if (term.getImageId() != null) {
-				final String bundleName = "base".equals(term.getNsPrefix()) ? "org.soluvas.data" : "tenant_common";
-				final String uri = webAddress.getImagesUri() + bundleName + "/" + term.getKindNsPrefix() + "_" + term.getKindName() +"/" + term.getImageId() + ".png";
+			final String uri = term.getImageUri(webAddress.getImagesUri());
+			if (uri != null) {
 				iconHtml = "<img class=\"img-circle\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\"/> ";
 			} else {
 				final String color = term.getColor();
