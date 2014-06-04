@@ -8,7 +8,14 @@ import org.apache.wicket.model.IModel;
 
 /**
  * {@link IndicatingAjaxButton} which auto-disables during AJAX request.
+ * 
+ * <p>It uses {@link AjaxChannel.Type#ACTIVE} to prevent duplicate AJAX requests on the Wicket-Ajax level.
+ * It also uses the same channel name {@code "0"} to prevent
+ * <a href="http://apache-wicket.1842946.n4.nabble.com/ListenerInvocationNotAllowedException-and-EmptyRequestHandler-td4663618.html#a4666112">ListenerInvocationNotAllowedException</a>.
+ * 
  * @author rudi
+ * @see AutoDisableAjaxButton
+ * @see AutoDisableAjaxCallListener
  */
 public class AutoDisableAjaxButton extends IndicatingAjaxButton {
 	
@@ -33,10 +40,8 @@ public class AutoDisableAjaxButton extends IndicatingAjaxButton {
 	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 		super.updateAjaxAttributes(attributes);
-		attributes.setChannel(new AjaxChannel("autodisable", AjaxChannel.Type.ACTIVE));
+		attributes.setChannel(new AjaxChannel("0", AjaxChannel.Type.ACTIVE));
 		attributes.getAjaxCallListeners().add(new AutoDisableAjaxCallListener());
 	}
-	
-	
 	
 }
