@@ -3,6 +3,7 @@ package org.soluvas.web.site.widget;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -36,6 +37,15 @@ public class LinkPanel<T, S> extends Panel {
 			link.add(new Label("label", labelModel));
 		}
 		add(link);
+		add(new WebMarkupContainer("lock") {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setVisible(!isEnabledInHierarchy());
+			}
+		});
 	}
 	
 }

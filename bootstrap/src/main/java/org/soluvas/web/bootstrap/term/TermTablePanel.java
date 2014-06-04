@@ -84,7 +84,7 @@ public class TermTablePanel extends Panel {
 		termDp.setSort("name", SortOrder.ASCENDING);
 		final List<IColumn<Term, String>> columns = new ArrayList<>();
 		columns.add(new LinkColumn<Term, String>(new Model<>("ID"), "name", "name", detailPage,
-				"uName", "qName").tag(TagType.TT));
+				"uName", "qName").tag(TagType.CODE));
 //		columns.add(new PropertyColumn<Term, String>(new Model<>("Display Name"), "displayName", "displayName"));
 		columns.add(new TermColumn<Term>(new Model<>("Display Name"), null));
 		columns.add(new PropertyColumn<Term, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));

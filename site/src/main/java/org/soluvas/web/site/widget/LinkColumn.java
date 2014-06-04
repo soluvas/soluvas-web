@@ -15,6 +15,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 
 /**
  * {@link PropertyColumn} that links to {@link Page}, just like {@link BookmarkablePageLink}.
@@ -38,6 +39,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	private String cssClass;
 	@Nullable
 	private TagType tagType;
+	@Nullable
+	private Predicate<T> enabled;
 
 	public LinkColumn(IModel<String> displayModel, S sortProperty,
 			String propertyExpression, 
@@ -110,6 +113,16 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		this.tagType = tagType;
 		return this;
 	}
+	
+	/**
+	 * {@link Predicate} for conditional enabling of link.
+	 * @param predicate
+	 * @return
+	 */
+	public LinkColumn<T, S> enabled(Predicate<T> predicate) {
+		this.enabled = predicate;
+		return this;
+	}
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
@@ -118,8 +131,12 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 				paramName, paramExpression, model.getObject());
 		final PageParameters params = new PageParameters(paramsTemplate)
 			.add(paramName, paramValue);
-		item.add(new LinkPanel<T, S>(componentId, pageClass, params,
-				labelModel.or((IModel) getDataModel(model)), tagType));
+		final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClass, params,
+				labelModel.or((IModel) getDataModel(model)), tagType);
+		if (enabled != null) {
+			linkPanel.setEnabled(enabled.apply(model.getObject()));
+		}
+		item.add(linkPanel);
 		if (cssClass != null) {
 			item.add(new AttributeAppender("class", new Model<>(cssClass), " "));
 		}

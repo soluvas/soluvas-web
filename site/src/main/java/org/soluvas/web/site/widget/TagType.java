@@ -7,6 +7,12 @@ package org.soluvas.web.site.widget;
 public enum TagType {
 	NONE,
 	SPAN,
-	TT,
+	/**
+	 * Use this for formal IDs such as SKU.
+	 */
+	KBD,
+	/**
+	 * Use this for actual machine IDs.
+	 */
 	CODE
 }
