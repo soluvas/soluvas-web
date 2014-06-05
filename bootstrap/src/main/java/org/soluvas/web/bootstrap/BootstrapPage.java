@@ -15,7 +15,6 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -58,7 +57,6 @@ import org.soluvas.web.site.alexa.AlexaCertifyScript;
 import org.soluvas.web.site.client.JsSource;
 import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
-import org.soluvas.web.site.masonry.JQueryMasonry;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -73,7 +71,6 @@ import com.google.common.collect.Ordering;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
-import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
  * 
@@ -238,17 +235,6 @@ public class BootstrapPage extends ExtensiblePage {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-
-		response.render(JavaScriptReferenceHeaderItem
-				.forReference(getApplication().getJavaScriptLibrarySettings()
-						.getJQueryReference()));
-		
-		// TODO: workaround before we have proper wicket-bootstrap integration
-		response.render(
-				JavaScriptReferenceHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
-		
-		response.render(CssHeaderItem.forReference(JQueryMasonry.TRANSITIONS_CSS));
-		response.render(JavaScriptReferenceHeaderItem.forReference(JQueryMasonry.JS));
 
 		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
 //		if (requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT) {

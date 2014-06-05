@@ -8,7 +8,7 @@ import org.apache.wicket.resource.JQueryResourceReference;
 
 import com.google.common.collect.ImmutableList;
 
-import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptReference;
+import de.agilecoders.wicket.core.Bootstrap;
 
 /**
  * A {@link JavaScriptResourceReference} that depends on {@link JQueryResourceReference}.
@@ -48,7 +48,7 @@ public class AfterBootstrapJavaScriptResourceReference extends
 
 	@Override
 	public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
-		return ImmutableList.of( JavaScriptHeaderItem.forReference(BootstrapJavaScriptReference.instance()) );
+		return ImmutableList.of( JavaScriptHeaderItem.forReference(Bootstrap.getSettings().getJsResourceReference()) );
 	};
 
 }
