@@ -18,9 +18,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.apache.wicket.request.resource.UrlResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.json.JsonUtils;
@@ -76,12 +74,12 @@ public class GrowlBehavior extends Behavior {
 			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
 		};
 	};
-	private static UrlResourceReference GROWL_CDN = new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js")) {
-		@Override
-		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
-			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
-		};
-	};
+//	private static UrlResourceReference GROWL_CDN = new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js")) {
+//		@Override
+//		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
+//			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
+//		};
+//	};
 	
 //	private final String soundThemeId;
 	
