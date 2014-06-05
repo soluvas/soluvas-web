@@ -38,7 +38,7 @@ public class AutoDisableBootstrapAjaxButton extends BootstrapAjaxButton {
 	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 		super.updateAjaxAttributes(attributes);
-		attributes.setChannel(new AjaxChannel("autodisable", AjaxChannel.Type.ACTIVE));
+		attributes.setChannel(new AjaxChannel("0", AjaxChannel.Type.ACTIVE));
 		attributes.getAjaxCallListeners().add(new AutoDisableAjaxCallListener());
 	}
 
