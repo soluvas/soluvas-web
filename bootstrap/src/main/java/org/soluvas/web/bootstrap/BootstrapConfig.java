@@ -4,8 +4,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author agus
- *
+ * @deprecated Use Wicket's
  */
+@Deprecated
 @Configuration
 public class BootstrapConfig {
 /*	

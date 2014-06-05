@@ -307,8 +307,6 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		
 		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.INSTANCE));
-		response.render(JavaScriptHeaderItem.forReference(RequireJs.INSTANCE));
-//		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapPage.class, "require-2.1.5-soluvas.min.js")));
 		response.render(JavaScriptHeaderItem.forReference(ToTopJs.EASING));
 		response.render(JavaScriptHeaderItem.forReference(ToTopJs.TO_TOP));
 	}
