@@ -13,6 +13,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.web.site.Interaction;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -51,14 +52,14 @@ public class StatelessLoginForm extends StatelessForm<LoginToken> {
 			currentUser.login(token);
 			final String personId = Preconditions.checkNotNull((String) currentUser.getPrincipal(),
 					"Cannot get current user as person ID");
-			info(String.format("You are now logged in as %s", personId));
+			Interaction.LOGIN.info("You are now logged in as %s", personId);
 			log.debug("Current user is now '{}' tenant '{}'. Has permission to edit all person data? {}",
 					personId, tenant.getTenantId(), currentUser.isPermitted("person:edit:*"));
 			onLoginSuccess(personId);
 		} catch (final AuthenticationException e) {
 //			error(String.format("Invalid credentials for %s",
 //					token.getUsername()));
-			error(String.format("Wrong Username/Email and password combination."));
+			getSession().error(String.format("Wrong Username/Email and password combination."));
 			log.info(String.format("Invalid credentials for '%s' tenant '%s'",
 					token.getUsername(), token.getHost()), e);
 		}

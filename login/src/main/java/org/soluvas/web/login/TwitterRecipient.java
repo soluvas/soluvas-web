@@ -30,6 +30,7 @@ import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithTwitterException;
 import org.soluvas.twitter.TwitterManager;
 import org.soluvas.twitter.TwitterUtils;
+import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -162,13 +163,12 @@ public class TwitterRecipient extends WebPage {
 				currentUser.login(token);
 				final String personId = Preconditions.checkNotNull(modifiedPerson.getId(),
 						"Cannot get current user as person ID");
-				info(String.format("You are now logged in as %s", personId));
-				log.debug("Current user is now {}", personId);
-				log.debug("{} permitted to edit person? {}", personId, currentUser.isPermitted("person:edit:*"));
+				Interaction.LOGIN.info("You are now logged in as %s", personId);
+				log.debug("Current user is now {}, permitted to edit person? {}", personId, currentUser.isPermitted("person:edit:*"));
 //							onLoginSuccess(personId);
 			} catch (final AuthenticationException e) {
 //				error(String.format("Invalid credentials for %s", token.getPrincipal()));
-				error(String.format("Wrong Username/Email and password combination."));
+				getSession().error(String.format("Wrong Username/Email and password combination."));
 				log.debug(String.format("Invalid credentials for %s", token.getPrincipal()), e);
 			}
 						

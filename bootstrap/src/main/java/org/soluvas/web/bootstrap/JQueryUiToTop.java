@@ -22,7 +22,10 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 @SuppressWarnings("serial")
 public class JQueryUiToTop {
 
-	private static final CssResourceReference TOTOP_CSS = new CssResourceReference(JQueryUiToTop.class, "jquery.ui.totop-1.2/ui.totop.css");
+	/**
+	 * references {@literal ../img/ui.totop.png}
+	 */
+	private static final CssResourceReference TOTOP_CSS = new CssResourceReference(JQueryUiToTop.class, "jquery.ui.totop-1.2/css/ui.totop.css");
 	private static final JavaScriptResourceReference TOTOP = new JavaScriptResourceReference(JQueryUiToTop.class, "jquery.ui.totop-1.2/jquery.ui.totop.js") {
 		@Override
 		public Iterable<? extends HeaderItem> getDependencies() {

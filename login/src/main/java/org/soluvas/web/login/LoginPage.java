@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.web.bootstrap.BootstrapPage;
+import org.soluvas.web.site.Interaction;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.google.common.base.Supplier;
@@ -86,16 +87,13 @@ public class LoginPage extends BootstrapPage {
 				log.debug("Logging in using {}", token);
 				try {
 					currentUser.login(token);
-					info(String.format("Current user is now %s",
-							currentUser.getPrincipal()));
-					log.debug("Current user is now {}",
-							currentUser.getPrincipal());
-					log.info("Permitted to edit person? {}",
-							currentUser.isPermitted("person:edit:*"));
+					Interaction.LOGIN.info("Current user is now %s", currentUser.getPrincipal());
+					log.debug("Current user is now {}. Permitted to edit person? {}",
+							currentUser.getPrincipal(), currentUser.isPermitted("person:edit:*"));
 				} catch (AuthenticationException e) {
 //					error(String.format("Invalid credentials for %s",
 //							token.getUsername()));
-					error(String.format("Wrong Username/Email and password combination."));
+					getSession().error(String.format("Wrong Username/Email and password combination."));
 					log.debug(String.format("Invalid credentials for %s",
 									token.getUsername()), e);
 				}
