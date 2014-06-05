@@ -1,5 +1,7 @@
 package org.soluvas.web.site.widget;
 
+import java.util.Objects;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -12,32 +14,36 @@ import org.apache.wicket.ajax.attributes.AjaxCallListener;
  * @see AutoDisableAjaxButton
  * @author rudi
  */
+@SuppressWarnings("serial")
 public class AutoDisableAjaxCallListener extends AjaxCallListener {
-
-	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * FIXME: Used by Howler. better way to do this 
+	 */
+	public static String beforeHook = "";
+	/**
+	 * FIXME: Used by Howler. better way to do this 
+	 */
+	public static String completeHook = "";
 
 	@Override
 	public CharSequence getPrecondition(Component component) {
-//		return "console.log('PRE', $(this).attr('disabled')); if ($(this).attr('disabled') != undefined) return false;\n" + super.getPrecondition(component);
-//		return "if ($(this).attr('disabled') != undefined) return false;\n" + super.getPrecondition(component);
-		String event = "if (Wicket.Event.keyCode(attrs.event) !== 13) {$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component) + "}";
-		return event;
+		return "if (Wicket.Event.keyCode(attrs.event) !== 13) {$(this).attr('disabled', 'disabled');\n" + 
+				Objects.toString(super.getBeforeSendHandler(component), "") + "}";
 	}
 	
 	@Override
 	public CharSequence getBeforeSendHandler(
 			Component component) {
-//		return "console.log('beforeSEND');$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component);
-		String event = "if (Wicket.Event.keyCode(attrs.event) !== 13) {$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component) + "}";
-//		return "$(this).attr('disabled', 'disabled');\n" + super.getBeforeSendHandler(component);
-		return event;
+		return beforeHook + "if (Wicket.Event.keyCode(attrs.event) !== 13) {$(this).attr('disabled', 'disabled');\n" +
+				Objects.toString(super.getBeforeSendHandler(component), "") + "}";
 	}
 
 	@Override
 	public CharSequence getCompleteHandler(
 			Component component) {
-//		return super.getCompleteHandler(component) + "\nconsole.log('AFTER');$(this).attr('disabled', " + (component.isEnabledInHierarchy() ? "null" : "'disabled'") + ");";
-		return super.getCompleteHandler(component) + "\n$(this).attr('disabled', " + (component.isEnabledInHierarchy() ? "null" : "'disabled'") + ");";
+		return Objects.toString(super.getCompleteHandler(component), "") +
+				completeHook + "\n$(this).attr('disabled', " + (component.isEnabledInHierarchy() ? "null" : "'disabled'") + ");";
 	}
 
 }
