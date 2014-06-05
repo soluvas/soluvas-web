@@ -104,11 +104,11 @@ public class GrowlBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 		final IBootstrapSettings settings = Bootstrap.getSettings(component.getApplication());
-		if (settings.useCdnResources()) {
-			response.render(JavaScriptHeaderItem.forReference(GROWL_CDN));
-		} else {
+//		if (settings.useCdnResources()) { // BC-1940
+//			response.render(JavaScriptHeaderItem.forReference(GROWL_CDN));
+//		} else {
 			response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
-		}
+//		}
 //		Howler.renderHead(component, response, Howler.get(soundThemeId));
 		Howler.renderHead(component, response, Howler.getActive());
 		
