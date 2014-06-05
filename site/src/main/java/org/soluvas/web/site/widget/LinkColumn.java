@@ -115,13 +115,12 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	}
 	
 	/**
-	 * {@link Predicate} for conditional enabling of link.
-	 * @param predicate
+	 * Override this for conditional enabling of link.
+	 * @param Model
 	 * @return
 	 */
-	public LinkColumn<T, S> enabled(Predicate<T> predicate) {
-		this.enabled = predicate;
-		return this;
+	protected boolean isLinkEnabled(IModel<T> model) {
+		return true;
 	}
 
 	@Override
