@@ -127,9 +127,8 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 	}
 
-	private static final Logger log = LoggerFactory
-			.getLogger(BootstrapPage.class);
-	public static final CssResourceReference BOOTSTRAP_PRINT_CSS = new CssResourceReference(BootstrapPage.class, "bootstrap-print.css");
+	private static final Logger log = LoggerFactory.getLogger(BootstrapPage.class);
+	public static final CssResourceReference PRINT_CSS = new CssResourceReference(BootstrapPage.class, "soluvas-web-print.css");
 	
 	@SpringBean(name="jacksonMapperFactory")
 	private Supplier<ObjectMapper> jacksonMapperFactory;
@@ -275,7 +274,7 @@ public class BootstrapPage extends ExtensiblePage {
 			}
 		}
 		
-		response.render(CssHeaderItem.forReference(BOOTSTRAP_PRINT_CSS, "print"));
+		response.render(CssHeaderItem.forReference(PRINT_CSS, "print"));
 
 		log.trace("Page {} has {} head JavaScript links", getClass().getName(),
 				headJavaScripts.size());
@@ -292,9 +291,8 @@ public class BootstrapPage extends ExtensiblePage {
 			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
 		}
 		
-		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.INSTANCE));
-		response.render(JavaScriptHeaderItem.forReference(ToTopJs.EASING));
-		response.render(JavaScriptHeaderItem.forReference(ToTopJs.TO_TOP));
+		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.instance()));
+		response.render(JavaScriptHeaderItem.forReference(JQueryUiToTop.instance()));
 	}
 
 	@Override

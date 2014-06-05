@@ -6,18 +6,17 @@ import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.apache.wicket.resource.JQueryResourceReference;
+import org.apache.wicket.settings.def.JavaScriptLibrarySettings;
 
 import com.google.common.collect.ImmutableList;
 
 /**
- * A {@link JavaScriptResourceReference} that depends on {@link JQueryResourceReference}.
+ * A {@link JavaScriptResourceReference} that depends on {@link JavaScriptLibrarySettings#getJQueryReference()}.
  * @author mahendri
  */
+@SuppressWarnings("serial")
 public class AfterJQueryJavaScriptResourceReference extends
 		JavaScriptResourceReference {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param key

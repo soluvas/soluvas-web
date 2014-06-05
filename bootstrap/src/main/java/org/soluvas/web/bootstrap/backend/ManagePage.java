@@ -14,6 +14,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
+import org.soluvas.web.bootstrap.JQueryEasing;
 import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
 import org.soluvas.web.site.FontAwesomeResourceReference;
 
@@ -33,7 +34,6 @@ public class ManagePage extends WebPage {
 	private static final JavaScriptResourceReference niceScrollJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "js/nicescroll/jquery.nicescroll.js");
 	private static final JavaScriptResourceReference slimScroll = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "assets/jQuery-slimScroll-1.3.0/jquery.slimscroll.js");
 	private static final JavaScriptResourceReference skyconsJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "assets/skycons/skycons.js");
-	private static final JavaScriptResourceReference jqueryEasingJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "js/jquery.easing.min.js");
 	private static final JavaScriptResourceReference underscoreJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "js/underscore-min.js");
 	private static final JavaScriptResourceReference gaugeJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "assets/gauge/gauge.js");
 	private static final JavaScriptResourceReference customSelectJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "js/custom-select/jquery.customSelect.min.js");
@@ -109,7 +109,7 @@ public class ManagePage extends WebPage {
 		response.render(JavaScriptHeaderItem.forReference(niceScrollJs));
 		response.render(JavaScriptHeaderItem.forReference(slimScroll));
 		response.render(JavaScriptHeaderItem.forReference(skyconsJs));
-		response.render(JavaScriptHeaderItem.forReference(jqueryEasingJs));
+		response.render(JavaScriptHeaderItem.forReference(JQueryEasing.instance()));
 		response.render(JavaScriptHeaderItem.forReference(underscoreJs));
 		response.render(JavaScriptHeaderItem.forReference(gaugeJs));
 		response.render(JavaScriptHeaderItem.forReference(customSelectJs));
