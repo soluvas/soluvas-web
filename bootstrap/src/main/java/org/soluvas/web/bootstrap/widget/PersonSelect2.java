@@ -28,13 +28,12 @@ import org.soluvas.web.site.EmfModel;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
 
 /**
  * For without {@link ImageManager} dependency, use {@link TextPersonSelect2}.
  * @author ceefour
  */
-public class PersonSelect2 extends Select2Choice<Person> {
+public class PersonSelect2 extends InteractiveSelect2Choice<Person> {
 
 	private static final long serialVersionUID = 1L;
 

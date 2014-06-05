@@ -75,7 +75,7 @@ public abstract class Sounds {
 	}
 	
 	public static QName parse(String spriteRef, String defaultNsPrefix) {
-		final ImmutableList<String> split = ImmutableList.copyOf(Splitter.on(';').split(spriteRef));
+		final ImmutableList<String> split = ImmutableList.copyOf(Splitter.on(':').split(spriteRef));
 		switch (split.size()) {
 		case 1:
 			return new QName("urn:sound:" + defaultNsPrefix + "#", spriteRef, defaultNsPrefix);

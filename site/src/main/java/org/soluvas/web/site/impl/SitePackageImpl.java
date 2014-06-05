@@ -1208,6 +1208,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		addEEnumLiteral(interactionEEnum, Interaction.LOADING_HEAVY);
 		addEEnumLiteral(interactionEEnum, Interaction.MESSAGE_SENT);
 		addEEnumLiteral(interactionEEnum, Interaction.MESSAGE_RECEIVED);
+		addEEnumLiteral(interactionEEnum, Interaction.IM_RECEIVED);
+		addEEnumLiteral(interactionEEnum, Interaction.IM_SENT);
 		addEEnumLiteral(interactionEEnum, Interaction.LIKED);
 		addEEnumLiteral(interactionEEnum, Interaction.UNLIKED);
 
@@ -1588,16 +1590,28 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		  (interactionEEnum.getELiterals().get(14), 
 		   source, 
 		   new String[] {
-			 "documentation", "Message or comment received."
+			 "documentation", "Message or comment (long, non-private) received."
 		   });		
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(15), 
 		   source, 
 		   new String[] {
-			 "documentation", "Liked or starred or watched."
+			 "documentation", "Short/private instant message received."
 		   });		
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(16), 
+		   source, 
+		   new String[] {
+			 "documentation", "Short/private instant message sent."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(17), 
+		   source, 
+		   new String[] {
+			 "documentation", "Liked or starred or watched."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(18), 
 		   source, 
 		   new String[] {
 			 "documentation", "Unliked or unstarred or unwatched."

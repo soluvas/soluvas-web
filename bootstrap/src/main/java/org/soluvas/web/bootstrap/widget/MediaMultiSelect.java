@@ -17,14 +17,13 @@ import org.soluvas.image.MediaRepository;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2MultiChoice;
 
 /**
  * Quickly choose {@link Media}.
  * @todo Preview capability for {@code image/*} content types.
  * @author ceefour
  */
-public class MediaMultiSelect extends Select2MultiChoice<Media> {
+public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
 
 	private static final long serialVersionUID = 1L;
 

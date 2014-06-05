@@ -83,20 +83,22 @@ public class GrowlBehavior extends Behavior {
 		};
 	};
 	
-	private final String soundThemeId;
+//	private final String soundThemeId;
 	
 	/**
 	 * Use {@link Cleanus1Sounds} theme.
 	 */
 	public GrowlBehavior() {
-		this(Cleanus1Sounds.ID); 
-	}
-
-	public GrowlBehavior(String soundThemeId) {
 		super();
 		Injector.get().inject(this);
-		this.soundThemeId = soundThemeId;
+//		this(Cleanus1Sounds.ID); 
 	}
+
+//	public GrowlBehavior(String soundThemeId) {
+//		super();
+//		Injector.get().inject(this);
+//		this.soundThemeId = soundThemeId;
+//	}
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
@@ -107,7 +109,8 @@ public class GrowlBehavior extends Behavior {
 		} else {
 			response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
 		}
-		Howler.renderHead(component, response, Howler.get(soundThemeId));
+//		Howler.renderHead(component, response, Howler.get(soundThemeId));
+		Howler.renderHead(component, response, Howler.getActive());
 		
 		final String script = getNotifyScript("renderHead", component.getPage());
 		if (script != null) {
@@ -160,7 +163,8 @@ public class GrowlBehavior extends Behavior {
 				final Optional<Interaction> interaction = msg.getMessage() instanceof InteractionMessage ? 
 						Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
 				log.trace("{} message: {}", interaction, msg.getMessage());
-				final Sounds sounds = Howler.get(soundThemeId);
+//				final Sounds sounds = Howler.get(soundThemeId);
+				final Sounds sounds = Howler.getActive();
 				if (msg.isError()) {
 					growlType = "danger";
 					howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);

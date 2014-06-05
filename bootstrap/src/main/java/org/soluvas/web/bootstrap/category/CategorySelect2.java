@@ -21,6 +21,7 @@ import org.soluvas.commons.IdFunction;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.image.ImageManager;
+import org.soluvas.web.bootstrap.widget.InteractiveSelect2Choice;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -41,7 +42,7 @@ import com.vaynberg.wicket.select2.TextChoiceProvider;
  * @author ceefour
  * @see TopLevelCategorySelect2
  */
-public class CategorySelect2 extends Select2Choice<Category> {
+public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory

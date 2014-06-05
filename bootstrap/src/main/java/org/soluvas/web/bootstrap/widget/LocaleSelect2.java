@@ -33,7 +33,7 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * {@link Select2Choice} UI component for {@link Locale}.
  * @author ceefour
  */
-public class LocaleSelect2 extends Select2Choice<Locale> {
+public class LocaleSelect2 extends InteractiveSelect2Choice<Locale> {
 
 	private static final long serialVersionUID = 1L;
 	

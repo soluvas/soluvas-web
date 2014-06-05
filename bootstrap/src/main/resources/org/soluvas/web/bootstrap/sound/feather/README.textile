@@ -1,15 +1,15 @@
-h1. Cleanus 1 sound theme for Soluvas Web
+h1. Feather sound theme for Soluvas Web
 
 Steps to build from sources
 
 1. sudo aptitude install ffmpeg nodejs
 2. sudo npm install -g audiosprite
 3. Patch here: https://github.com/tonistiigi/audiosprite/pull/17
-4. BTW, these are actually MP3 sources, I don't know why he uses .ogg extension
+4. 
 
 bc. mkdir sprite
 cd sprite
-audiosprite -e mp3,ogg -f howler -g 0.3 -o cleanus1 ../KDE_Logout.ogg ../KDE_Startup.ogg ../KDE_Error.ogg ../KDE_Event.ogg ../KDE_Event2.ogg ../KDE_Window_Open.ogg
+audiosprite -e mp3,ogg -f howler -g 0.3 -o feather ../loading.wav ../loading_2.wav ../opening.wav ../ending.wav ../critical.wav ../fail.wav ../beep.wav ../popup.wav ../IM_notification.wav ../new_mail_notification.wav
 
 h2. Credits
 

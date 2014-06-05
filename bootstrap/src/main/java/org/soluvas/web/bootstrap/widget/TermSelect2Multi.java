@@ -5,13 +5,11 @@ import java.util.Collection;
 import org.apache.wicket.model.IModel;
 import org.soluvas.data.Term;
 
-import com.vaynberg.wicket.select2.Select2MultiChoice;
-
 /**
  * @author rudi
  *
  */
-public class TermSelect2Multi extends Select2MultiChoice<Term> {
+public class TermSelect2Multi extends InteractiveSelect2MultiChoice<Term> {
 	
 	private static final long serialVersionUID = 1L;
 	

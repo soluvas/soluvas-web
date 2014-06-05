@@ -365,7 +365,17 @@
     </eLiterals>
     <eLiterals name="message_received" value="13">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Message or comment received."/>
+        <details key="documentation" value="Message or comment (long, non-private) received."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="im_received" value="18">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Short/private instant message received."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="im_sent" value="17">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Short/private instant message sent."/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="liked" value="14">

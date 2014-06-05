@@ -7,13 +7,11 @@ import org.apache.wicket.model.Model;
 import org.soluvas.commons.CustomerRole;
 import org.soluvas.web.site.EmfModel;
 
-import com.vaynberg.wicket.select2.Select2Choice;
-
 /**
  * @author rudi
  *
  */
-public class CustomerRoleSelect2 extends Select2Choice<CustomerRole> {
+public class CustomerRoleSelect2 extends InteractiveSelect2Choice<CustomerRole> {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -23,13 +23,12 @@ import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
 
 /**
  * @author rudi
  *
  */
-public class CitySelect2 extends Select2Choice<City> {
+public class CitySelect2 extends InteractiveSelect2Choice<City> {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -21,13 +21,12 @@ import org.soluvas.web.site.EmfModel;
 
 import com.vaynberg.wicket.select2.ChoiceProvider;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
 
 /**
  * @author ceefour
  *
  */
-public class TextPersonSelect2 extends Select2Choice<Person> {
+public class TextPersonSelect2 extends InteractiveSelect2Choice<Person> {
 
 	private static final long serialVersionUID = 1L;
 

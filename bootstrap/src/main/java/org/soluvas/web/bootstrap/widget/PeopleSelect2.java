@@ -10,13 +10,11 @@ import org.soluvas.commons.Person;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.ImageManager;
 
-import com.vaynberg.wicket.select2.Select2MultiChoice;
-
 /**
  * @author mahendri
  *
  */
-public class PeopleSelect2 extends Select2MultiChoice<Person> {
+public class PeopleSelect2 extends InteractiveSelect2MultiChoice<Person> {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -33,7 +33,7 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * {@link Select2Choice} UI component for {@link CurrencyUnit}.
  * @author ceefour
  */
-public class CurrencyUnitSelect2 extends Select2Choice<CurrencyUnit> {
+public class CurrencyUnitSelect2 extends InteractiveSelect2Choice<CurrencyUnit> {
 
 	private static final long serialVersionUID = 1L;
 	

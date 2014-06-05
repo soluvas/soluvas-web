@@ -29,7 +29,7 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * {@link Select2Choice} UI component for Joda {@link Country}.
  * @author ceefour
  */
-public class CountrySelect2 extends Select2Choice<Country> {
+public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 
 	private static final long serialVersionUID = 1L;
 	

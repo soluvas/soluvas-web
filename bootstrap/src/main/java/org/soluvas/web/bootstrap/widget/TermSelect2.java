@@ -14,7 +14,7 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * A {@link Select2Choice} autocomplete component that provides {@link Term} as a choice.
  * @author rudi
  */
-public class TermSelect2 extends Select2Choice<Term> {
+public class TermSelect2 extends InteractiveSelect2Choice<Term> {
 	
 	private static final long serialVersionUID = 1L;
 	

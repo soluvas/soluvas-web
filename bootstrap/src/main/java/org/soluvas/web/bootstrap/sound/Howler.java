@@ -17,7 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.bootstrap.GrowlBehavior;
 import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
+import org.soluvas.web.bootstrap.sound.feather.FeatherSounds;
 import org.soluvas.web.site.Interaction;
+import org.soluvas.web.site.SoluvasWebSession;
+import org.soluvas.web.site.widget.AutoDisableAjaxCallListener;
 
 import com.google.common.base.Optional;
 
@@ -43,7 +46,11 @@ public class Howler {
 	private static ConcurrentHashMap<String, Sounds> themes = new ConcurrentHashMap<>();
 	
 	static {
+		themes.put(FeatherSounds.ID, new FeatherSounds());
 		themes.put(Cleanus1Sounds.ID, new Cleanus1Sounds());
+		// FIXME: better way to do this
+		AutoDisableAjaxCallListener.beforeHook = play(Interaction.LOADING_HEAVY, getActive());
+		AutoDisableAjaxCallListener.completeHook = stopLoop();
 	}
 	
 	public static Sounds get(String soundThemeId) {
@@ -51,6 +58,15 @@ public class Howler {
 				"Unknown sound theme '%s'. %s available: %s",
 				soundThemeId, themes.size(), themes.keySet());
 		return themes.get(soundThemeId);
+	}
+	
+	/**
+	 * Get active {@link Sounds} theme based on {@link SoluvasWebSession}.
+	 * @todo Implement dynamic behavior.
+	 * @return
+	 */
+	public static Sounds getActive() {
+		return get(Cleanus1Sounds.ID);
 	}
 	
 	/**
@@ -64,7 +80,7 @@ public class Howler {
 			return play(sprite.get(), looped);
 		} else {
 			log.debug("No sound for {} in {}", interaction, sounds);
-			return "";
+			return stopLoop();
 		}
 	}
 
@@ -72,16 +88,15 @@ public class Howler {
 	 * Low-level method to play a sprite with or without looping.
 	 * 
 	 * <p>For non-loop:
-	 * 
 	 * <pre>
-	 * cleanus1_loop.stop();
+	 * if (typeof lastLoop != 'undefined') { lastLoop.stop(); lastLoop = undefined; }
 	 * cleanus1_fx.play('KDE_Event');
 	 * </pre>
 	 * 
 	 * <p>For loop:
-	 * 
 	 * <pre>
-	 * cleanus1_loop.stop().play('KDE_Event');
+	 * if (typeof lastLoop != 'undefined') { lastLoop.stop(); lastLoop = undefined; }
+	 * cleanus1_loop.play('KDE_Event');
 	 * </pre>
 	 * 
 	 * @param target
@@ -91,12 +106,16 @@ public class Howler {
 	public static String play(QName sprite, boolean loop) {
 		final String script;
 		if (loop) {
-			script = sprite.getPrefix() + "_loop.stop().play(" + JSONObject.quote(sprite.getLocalPart()) + ");";
+			script = stopLoop() + "\n" + sprite.getPrefix() + "_loop.play(" + JSONObject.quote(sprite.getLocalPart()) + ");\nlastLoop = " + sprite.getPrefix() + "_loop;";
 		} else {
-			script = sprite.getPrefix() + "_loop.stop();\n" + sprite.getPrefix() + "_fx.play(" + JSONObject.quote(sprite.getLocalPart()) + ");";
+			script = stopLoop() + "\n" + sprite.getPrefix() + "_fx.play(" + JSONObject.quote(sprite.getLocalPart()) + ");";
 		}
 		log.debug("Play {} loop={} with: {}", script);
 		return script;
+	}
+	
+	public static String stopLoop() {
+		return "if (typeof lastLoop != 'undefined') { lastLoop.stop(); lastLoop = undefined; }";
 	}
 	
 	public static Set<String> mergeDependencies(Sounds sounds) {
@@ -116,7 +135,7 @@ public class Howler {
 	public static void renderHead(Component component, IHeaderResponse response, Sounds sounds) {
 		HowlerJavaScriptReference.renderHead(component, response);
 		final Set<String> deps = mergeDependencies(sounds);
-		log.trace("Sound theme '{}' has {} merged dependencies: {}",
+		log.debug("Sound theme '{}' has {} merged dependencies: {}",
 				sounds.getId(), deps.size(), deps);
 		for (String cur : deps) {
 			doRenderHead(component, response, get(cur));

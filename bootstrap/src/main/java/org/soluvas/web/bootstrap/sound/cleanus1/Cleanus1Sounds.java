@@ -16,12 +16,17 @@ public class Cleanus1Sounds extends Sounds {
 	
 	public Cleanus1Sounds() {
 		super(ID, ImmutableMap.<Interaction, String>builder()
-				.put(Interaction.INFO, "KDE_pop")
+				.put(Interaction.INFO, "KDE_Window_Open")
 				.put(Interaction.QUESTION, "KDE_Event")
 				.put(Interaction.WARNING, "KDE_Event2")
 				.put(Interaction.ERROR, "KDE_Error")
 				.put(Interaction.LOGIN, "KDE_Startup")
 				.put(Interaction.LOGOUT, "KDE_Logout")
+				// Feather
+				.put(Interaction.LOADING_LIGHT, "feather:loading_2")
+				.put(Interaction.LOADING_HEAVY, "feather:loading")
+				.put(Interaction.MESSAGE_RECEIVED, "feather:new_mail_notification")
+				.put(Interaction.IM_RECEIVED, "feather:IM_notification")
 				.build());
 	}
 

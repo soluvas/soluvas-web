@@ -24,7 +24,7 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * {@link Select2Choice} UI component for Joda {@link DateTimeZone}.
  * @author ceefour
  */
-public class DateTimeZoneSelect2 extends Select2Choice<DateTimeZone> {
+public class DateTimeZoneSelect2 extends InteractiveSelect2Choice<DateTimeZone> {
 
 	private static final long serialVersionUID = 1L;
 

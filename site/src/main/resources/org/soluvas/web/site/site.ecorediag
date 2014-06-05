@@ -606,6 +606,14 @@
         <element xmi:type="ecore:EEnumLiteral" href="site.ecore#//Interaction/message_received"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_9jyk0exdEeOHfNuoiQKY7g"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_tR23gOyWEeOpy7UFxSoNeA" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="site.ecore#//Interaction/im_received"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_tR23geyWEeOpy7UFxSoNeA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_s5A5sOyWEeOpy7UFxSoNeA" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="site.ecore#//Interaction/im_sent"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_s5A5seyWEeOpy7UFxSoNeA"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="__6eIUOxdEeOHfNuoiQKY7g" type="2006">
         <element xmi:type="ecore:EEnumLiteral" href="site.ecore#//Interaction/liked"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="__6eIUexdEeOHfNuoiQKY7g"/>

@@ -184,6 +184,22 @@ public enum Interaction implements Enumerator {
 	MESSAGE_RECEIVED(13, "message_received", "message_received"),
 
 	/**
+	 * The '<em><b>Im received</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #IM_RECEIVED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	IM_RECEIVED(18, "im_received", "im_received"), /**
+	 * The '<em><b>Im sent</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #IM_SENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	IM_SENT(17, "im_sent", "im_sent"), /**
 	 * The '<em><b>Liked</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -404,7 +420,7 @@ public enum Interaction implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Message or comment received.
+	 * Message or comment (long, non-private) received.
 	 * <!-- end-model-doc -->
 	 * @see #MESSAGE_RECEIVED
 	 * @model name="message_received"
@@ -412,6 +428,34 @@ public enum Interaction implements Enumerator {
 	 * @ordered
 	 */
 	public static final int MESSAGE_RECEIVED_VALUE = 13;
+
+	/**
+	 * The '<em><b>Im received</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Short/private instant message received.
+	 * <!-- end-model-doc -->
+	 * @see #IM_RECEIVED
+	 * @model name="im_received"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int IM_RECEIVED_VALUE = 18;
+
+	/**
+	 * The '<em><b>Im sent</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Short/private instant message sent.
+	 * <!-- end-model-doc -->
+	 * @see #IM_SENT
+	 * @model name="im_sent"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int IM_SENT_VALUE = 17;
 
 	/**
 	 * The '<em><b>Liked</b></em>' literal value.
@@ -464,6 +508,8 @@ public enum Interaction implements Enumerator {
 			LOADING_HEAVY,
 			MESSAGE_SENT,
 			MESSAGE_RECEIVED,
+			IM_RECEIVED,
+			IM_SENT,
 			LIKED,
 			UNLIKED,
 		};
@@ -531,6 +577,8 @@ public enum Interaction implements Enumerator {
 			case LOADING_HEAVY_VALUE: return LOADING_HEAVY;
 			case MESSAGE_SENT_VALUE: return MESSAGE_SENT;
 			case MESSAGE_RECEIVED_VALUE: return MESSAGE_RECEIVED;
+			case IM_RECEIVED_VALUE: return IM_RECEIVED;
+			case IM_SENT_VALUE: return IM_SENT;
 			case LIKED_VALUE: return LIKED;
 			case UNLIKED_VALUE: return UNLIKED;
 		}
