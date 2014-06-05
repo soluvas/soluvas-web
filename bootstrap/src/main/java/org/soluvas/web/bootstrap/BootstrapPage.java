@@ -249,7 +249,6 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		response.render(CssHeaderItem.forReference(JQueryMasonry.TRANSITIONS_CSS));
 		response.render(JavaScriptReferenceHeaderItem.forReference(JQueryMasonry.JS));
-		
 
 		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
 //		if (requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT) {

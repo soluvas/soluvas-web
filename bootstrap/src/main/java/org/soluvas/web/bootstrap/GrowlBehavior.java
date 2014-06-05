@@ -18,14 +18,24 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.UrlResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.json.JsonUtils;
+import org.soluvas.web.bootstrap.sound.Howler;
+import org.soluvas.web.bootstrap.sound.Sounds;
+import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
+import org.soluvas.web.site.Interaction;
+import org.soluvas.web.site.InteractionMessage;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 /**
  * <a href="https://github.com/ifightcrime/bootstrap-growl">bootstrap-growl</a> based {@link FeedbackMessage} notifier
@@ -43,6 +53,10 @@ import com.google.common.collect.ImmutableList;
  * Note that if you already have a {@link FeedbackPanel} in your {@link Page}, the panel will consume {@link FeedbackMessage}s before
  * {@link GrowlBehavior}.
  * 
+ * <p>If you want to <a href="http://apache-wicket.1842946.n4.nabble.com/setResponsePage-swallows-my-session-feedback-messages-td4650274.html">preserve {@link FeedbackMessage} across page redirects</a>,
+ *  please use {@link Session#info(java.io.Serializable)}
+ * or {@link Interaction#info(String, Object...)}, not from {@link Component#info(java.io.Serializable)}.
+ * 
  * <p>(Obsolete) <del>For Ajax behavior explanation, see:
  * 
  * <ul>
@@ -52,30 +66,52 @@ import com.google.common.collect.ImmutableList;
  * 
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class GrowlBehavior extends Behavior {
 
-	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(GrowlBehavior.class);
 	private static JavaScriptResourceReference GROWL_JS = new JavaScriptResourceReference(GrowlBehavior.class, "jquery.bootstrap-growl-20e918de.js") {
-		private static final long serialVersionUID = 1L;
-
+		@Override
+		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
+			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
+		};
+	};
+	private static UrlResourceReference GROWL_CDN = new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js")) {
 		@Override
 		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
 			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
 		};
 	};
 	
+	private final String soundThemeId;
+	
+	/**
+	 * Use {@link Cleanus1Sounds} theme.
+	 */
 	public GrowlBehavior() {
+		this(Cleanus1Sounds.ID); 
+	}
+
+	public GrowlBehavior(String soundThemeId) {
 		super();
 		Injector.get().inject(this);
+		this.soundThemeId = soundThemeId;
 	}
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
+		final IBootstrapSettings settings = Bootstrap.getSettings(component.getApplication());
+		if (settings.useCdnResources()) {
+			response.render(JavaScriptHeaderItem.forReference(GROWL_CDN));
+		} else {
+			response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
+		}
+		Howler.renderHead(component, response, Howler.get(soundThemeId));
+		
 		final String script = getNotifyScript("renderHead", component.getPage());
 		if (script != null) {
+			log.trace("onLoad FeedbackMessages: {}", script);
 			response.render(OnLoadHeaderItem.forScript(script));
 		}
 	}
@@ -101,7 +137,7 @@ public class GrowlBehavior extends Behavior {
 	protected String getNotifyScript(String purpose, Page page) {
 		final List<FeedbackMessage> feedbackMessages = new FeedbackCollector(page).collect();
 		if (!feedbackMessages.isEmpty()) {
-			log.debug("{} got {} feedback messages for {}", Session.get(), feedbackMessages.size(), purpose);
+			log.debug("{} got {} feedback messages during {}", Session.get(), feedbackMessages.size(), purpose);
 			String script = "";
 			for (final FeedbackMessage msg : feedbackMessages) {
 				// FeedbackMessage.getMessage() can return:
@@ -119,15 +155,27 @@ public class GrowlBehavior extends Behavior {
 //						"  jQuery('#notify-container').notify('create', {text: \"" +
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
 				// Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
-				String growlType = "info";
+				final String growlType;
+				final String howlerScript;
+				final Optional<Interaction> interaction = msg.getMessage() instanceof InteractionMessage ? 
+						Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
+				log.trace("{} message: {}", interaction, msg.getMessage());
+				final Sounds sounds = Howler.get(soundThemeId);
 				if (msg.isError()) {
 					growlType = "danger";
+					howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);
 				} else if (msg.isWarning()) {
 					growlType = "warning";
+					howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);
 				} else if (msg.isInfo()) {
 					growlType = "success";
+					howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
 				} else if (msg.isDebug()) {
 					growlType = "info";
+					howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+				} else {
+					growlType = "info";
+					howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
 				}
 				
 //				log.debug("Path Icon is: {}", pathIcon);
@@ -138,6 +186,7 @@ public class GrowlBehavior extends Behavior {
 //				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
 				msg.markRendered();
+				script += howlerScript;
 				script += "$.bootstrapGrowl(" +
 					JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'});\n";					
 			}

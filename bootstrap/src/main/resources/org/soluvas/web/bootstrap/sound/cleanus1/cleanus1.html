@@ -1,0 +1,159 @@
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="howler/howler.js"></script>
+</head>
+<body>
+
+<script>
+var cleanus1data = {
+  "urls": [
+    "cleanus1.mp3",
+    "cleanus1.ogg"
+  ],
+  "sprite": {
+    "Battery_Charging": [
+      0,
+      1044.671201814059
+    ],
+    "K3B_Error": [
+      2300,
+      2141.8140589569157
+    ],
+    "K3B_Success": [
+      5600,
+      1749.977324263039
+    ],
+    "KDE_Desktop10": [
+      7900,
+      574.4671201814065
+    ],
+    "KDE_Desktop1": [
+      9200.000000000002,
+      548.3446712018143
+    ],
+    "KDE_Desktop2": [
+      10500.000000000002,
+      548.3446712018143
+    ],
+    "KDE_Desktop3": [
+      11800.000000000002,
+      548.3446712018143
+    ],
+    "KDE_Desktop4": [
+      13100.000000000004,
+      548.3446712018143
+    ],
+    "KDE_Desktop5": [
+      14400.000000000004,
+      548.3446712018143
+    ],
+    "KDE_Desktop6": [
+      15700.000000000005,
+      548.3446712018125
+    ],
+    "KDE_Desktop7": [
+      17000.000000000004,
+      548.3446712018143
+    ],
+    "KDE_Desktop8": [
+      18300.000000000004,
+      548.3446712018143
+    ],
+    "KDE_Desktop9": [
+      19600.000000000004,
+      626.7120181405908
+    ],
+    "KDE_Device_Connected": [
+      20900.000000000007,
+      1044.6712018140581
+    ],
+    "KDE_Device_Disconnected": [
+      23200.000000000007,
+      1018.5487528344659
+    ],
+    "KDE_Error": [
+      25500.000000000004,
+      731.2018140589557
+    ],
+    "KDE_Event2": [
+      26800.000000000004,
+      809.5691609977323
+    ],
+    "KDE_Event": [
+      28100.000000000004,
+      809.5691609977323
+    ],
+    "KDE_Logout": [
+      29400.000000000007,
+      2820.9977324263064
+    ],
+    "KDE_pop": [
+      32700.00000000001,
+      496.09977324263355
+    ],
+    "KDE_Startup": [
+      34000.000000000015,
+      5589.977324263039
+    ],
+    "KDE_Window_Close": [
+      40300.000000000015,
+      548.3446712018108
+    ],
+    "KDE_Window_Open": [
+      41600.00000000001,
+      156.5079365079356
+    ],
+    "KDE_Window_Shade_Down": [
+      42900.00000000001,
+      365.4875283446728
+    ],
+    "KDE_Window_Shade_Up": [
+      44200.00000000001,
+      313.2426303854885
+    ],
+    "Kopete_Event": [
+      45500.000000000015,
+      1279.7732426303837
+    ],
+    "Kopete_Received": [
+      47800.000000000015,
+      940.1814058956929
+    ],
+    "Kopete_Sent": [
+      49100.000000000015,
+      757.324263038548
+    ],
+    "Kopete_User_is_Online": [
+      50400.000000000015,
+      861.8140589569166
+    ],
+    "LowBatteryAlarm": [
+      51700.00000000001,
+      1227.5283446711996
+    ],
+    "Window_Iconify": [
+      54000.00000000001,
+      443.85487528344925
+    ]
+  }
+}
+var cleanus1 = new Howl(cleanus1data);
+</script>
+
+<button onclick="cleanus1.stop().loop(false).play('KDE_Event')">Event</button>
+<button onclick="cleanus1.stop().loop(true).play('KDE_Event')">Event + loop</button>
+<button onclick="cleanus1.stop()">Stop</button>
+
+<script>
+$(function() {
+setTimeout(function() {
+console.info('playing sound!');
+cleanus1.stop().loop(false).play('KDE_Event');
+}, 1000);
+});
+</script>
+
+</body>
+</html>
+

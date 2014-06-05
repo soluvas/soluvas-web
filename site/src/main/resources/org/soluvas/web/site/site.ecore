@@ -289,4 +289,94 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Interaction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Used for providing sound effects (themeable) during or after interactions.&#xA;&#xA;&lt;p>&lt;b>Note&lt;/b>: Sound effects are generally only playable during user actions, so for example we can't play sound on page load.&#xA;&#xA;&lt;p>A sound theme depend on other themes, so it can use sounds from them.&#xA;&#xA;&lt;p>See &lt;a href=&quot;https://idbippo.atlassian.net/browse/BC-1811&quot;>BC-1811: Integrasi growl / Wicket feedback dengan sound effect&lt;/a>.&#xA;"/>
+    </eAnnotations>
+    <eLiterals name="login">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Tenant user logs in to tenant."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="logout" value="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Tenant user logs out from tenant."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="info" value="2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="General notification."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="question" value="16">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Question or confirmation box, usually a modal."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="warning" value="3">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Warning notification."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="error" value="4">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Error notification."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="deleted" value="5">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="One or more entities have been deleted."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="added" value="6">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="One or more entities have been added."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="modified" value="7">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="One or more entities have been modified."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="searched" value="8">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Search results have been shown."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="filtered" value="9">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Filtered results have been shown."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="loading_light" value="10">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Loading loop for light/short operations, usually without progress bar. e.g. {@link com.vaynberg.wicket.select2.Select2Choice}."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="loading_heavy" value="11">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Loading loop for heavy/long operations, usually with either AJAX spinner or progress bar. e.g. {@link org.soluvas.web.site.widget.AutoDisableAjaxButton}."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="message_sent" value="12">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Message or comment sent."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="message_received" value="13">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Message or comment received."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="liked" value="14">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Liked or starred or watched."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="unliked" value="15">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Unliked or unstarred or unwatched."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
 </ecore:EPackage>

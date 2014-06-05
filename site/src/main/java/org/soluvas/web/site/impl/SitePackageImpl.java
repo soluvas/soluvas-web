@@ -21,6 +21,7 @@ import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
+import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.LiveChatSysConfig;
 import org.soluvas.web.site.LoginPage;
@@ -237,6 +238,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EEnum javaScriptModeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum interactionEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -891,6 +899,15 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getInteraction() {
+		return interactionEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getLiveChatProvider() {
 		return liveChatProviderEDataType;
 	}
@@ -1011,6 +1028,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
+		interactionEEnum = createEEnum(INTERACTION);
 
 		// Create data types
 		liveChatProviderEDataType = createEDataType(LIVE_CHAT_PROVIDER);
@@ -1173,6 +1191,25 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.DEVELOPMENT);
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.MINIFIED);
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.AGGREGATED_MINIFIED);
+
+		initEEnum(interactionEEnum, Interaction.class, "Interaction");
+		addEEnumLiteral(interactionEEnum, Interaction.LOGIN);
+		addEEnumLiteral(interactionEEnum, Interaction.LOGOUT);
+		addEEnumLiteral(interactionEEnum, Interaction.INFO);
+		addEEnumLiteral(interactionEEnum, Interaction.QUESTION);
+		addEEnumLiteral(interactionEEnum, Interaction.WARNING);
+		addEEnumLiteral(interactionEEnum, Interaction.ERROR);
+		addEEnumLiteral(interactionEEnum, Interaction.DELETED);
+		addEEnumLiteral(interactionEEnum, Interaction.ADDED);
+		addEEnumLiteral(interactionEEnum, Interaction.MODIFIED);
+		addEEnumLiteral(interactionEEnum, Interaction.SEARCHED);
+		addEEnumLiteral(interactionEEnum, Interaction.FILTERED);
+		addEEnumLiteral(interactionEEnum, Interaction.LOADING_LIGHT);
+		addEEnumLiteral(interactionEEnum, Interaction.LOADING_HEAVY);
+		addEEnumLiteral(interactionEEnum, Interaction.MESSAGE_SENT);
+		addEEnumLiteral(interactionEEnum, Interaction.MESSAGE_RECEIVED);
+		addEEnumLiteral(interactionEEnum, Interaction.LIKED);
+		addEEnumLiteral(interactionEEnum, Interaction.UNLIKED);
 
 		// Initialize data types
 		initEDataType(liveChatProviderEDataType, LiveChatProvider.class, "LiveChatProvider", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1456,6 +1493,114 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Displays the footnote specified in {@link org.soluvas.commons.AppManifest#getFootnote()}.\nThe footnote is shown on all frontend pages, usually positioned below the main content, but above the footer."
+		   });		
+		addAnnotation
+		  (interactionEEnum, 
+		   source, 
+		   new String[] {
+			 "documentation", "Used for providing sound effects (themeable) during or after interactions.\n\n<p><b>Note</b>: Sound effects are generally only playable during user actions, so for example we can\'t play sound on page load.\n\n<p>A sound theme depend on other themes, so it can use sounds from them.\n\n<p>See <a href=\"https://idbippo.atlassian.net/browse/BC-1811\">BC-1811: Integrasi growl / Wicket feedback dengan sound effect</a>.\n"
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(0), 
+		   source, 
+		   new String[] {
+			 "documentation", "Tenant user logs in to tenant."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Tenant user logs out from tenant."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(2), 
+		   source, 
+		   new String[] {
+			 "documentation", "General notification."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(3), 
+		   source, 
+		   new String[] {
+			 "documentation", "Question or confirmation box, usually a modal."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(4), 
+		   source, 
+		   new String[] {
+			 "documentation", "Warning notification."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(5), 
+		   source, 
+		   new String[] {
+			 "documentation", "Error notification."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(6), 
+		   source, 
+		   new String[] {
+			 "documentation", "One or more entities have been deleted."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(7), 
+		   source, 
+		   new String[] {
+			 "documentation", "One or more entities have been added."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(8), 
+		   source, 
+		   new String[] {
+			 "documentation", "One or more entities have been modified."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(9), 
+		   source, 
+		   new String[] {
+			 "documentation", "Search results have been shown."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(10), 
+		   source, 
+		   new String[] {
+			 "documentation", "Filtered results have been shown."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(11), 
+		   source, 
+		   new String[] {
+			 "documentation", "Loading loop for light/short operations, usually without progress bar. e.g. {@link com.vaynberg.wicket.select2.Select2Choice}."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(12), 
+		   source, 
+		   new String[] {
+			 "documentation", "Loading loop for heavy/long operations, usually with either AJAX spinner or progress bar. e.g. {@link org.soluvas.web.site.widget.AutoDisableAjaxButton}."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(13), 
+		   source, 
+		   new String[] {
+			 "documentation", "Message or comment sent."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(14), 
+		   source, 
+		   new String[] {
+			 "documentation", "Message or comment received."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(15), 
+		   source, 
+		   new String[] {
+			 "documentation", "Liked or starred or watched."
+		   });		
+		addAnnotation
+		  (interactionEEnum.getELiterals().get(16), 
+		   source, 
+		   new String[] {
+			 "documentation", "Unliked or unstarred or unwatched."
 		   });
 	}
 	

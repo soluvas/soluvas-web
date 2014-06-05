@@ -1359,6 +1359,16 @@ public interface SitePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.Interaction <em>Interaction</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.Interaction
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
+	 * @generated
+	 */
+	int INTERACTION = 27;
+
+	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1366,7 +1376,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 27;
+	int LIVE_CHAT_PROVIDER = 28;
 
 
 	/**
@@ -2003,6 +2013,16 @@ public interface SitePackage extends EPackage {
 	EEnum getJavaScriptMode();
 
 	/**
+	 * Returns the meta object for enum '{@link org.soluvas.web.site.Interaction <em>Interaction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Interaction</em>'.
+	 * @see org.soluvas.web.site.Interaction
+	 * @generated
+	 */
+	EEnum getInteraction();
+
+	/**
 	 * Returns the meta object for data type '{@link org.soluvas.web.olark.LiveChatProvider <em>Live Chat Provider</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2568,6 +2588,16 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum JAVA_SCRIPT_MODE = eINSTANCE.getJavaScriptMode();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.Interaction <em>Interaction</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.Interaction
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
+		 * @generated
+		 */
+		EEnum INTERACTION = eINSTANCE.getInteraction();
 
 		/**
 		 * The meta object literal for the '<em>Live Chat Provider</em>' data type.

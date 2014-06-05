@@ -93,6 +93,8 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 		switch (eDataType.getClassifierID()) {
 			case SitePackage.JAVA_SCRIPT_MODE:
 				return createJavaScriptModeFromString(eDataType, initialValue);
+			case SitePackage.INTERACTION:
+				return createInteractionFromString(eDataType, initialValue);
 			case SitePackage.LIVE_CHAT_PROVIDER:
 				return createLiveChatProviderFromString(eDataType, initialValue);
 			default:
@@ -110,6 +112,8 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 		switch (eDataType.getClassifierID()) {
 			case SitePackage.JAVA_SCRIPT_MODE:
 				return convertJavaScriptModeToString(eDataType, instanceValue);
+			case SitePackage.INTERACTION:
+				return convertInteractionToString(eDataType, instanceValue);
 			case SitePackage.LIVE_CHAT_PROVIDER:
 				return convertLiveChatProviderToString(eDataType, instanceValue);
 			default:
@@ -334,6 +338,26 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	 * @generated
 	 */
 	public String convertJavaScriptModeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Interaction createInteractionFromString(EDataType eDataType, String initialValue) {
+		Interaction result = Interaction.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertInteractionToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
