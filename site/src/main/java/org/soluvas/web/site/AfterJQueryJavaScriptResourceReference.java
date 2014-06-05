@@ -3,6 +3,7 @@ package org.soluvas.web.site;
 import java.util.Locale;
 
 import org.apache.wicket.Application;
+import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.resource.JQueryResourceReference;
@@ -46,7 +47,7 @@ public class AfterJQueryJavaScriptResourceReference extends
 	}
 
 	@Override
-	public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
+	public Iterable<? extends HeaderItem> getDependencies() {
 		return ImmutableList.of( JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()) );
 	};
 
