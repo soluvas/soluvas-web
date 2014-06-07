@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.soluvas.commons.StyleConfiguration;
 import org.soluvas.web.olark.LiveChatProvider;
-import org.soluvas.web.site.AlexaCertifySysConfig;
+import org.soluvas.web.site.AlexaSysConfig;
 import org.soluvas.web.site.ContentPage;
 import org.soluvas.web.site.DashboardPage;
 import org.soluvas.web.site.EntityEditPage;
@@ -209,7 +209,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass alexaCertifySysConfigEClass = null;
+	private EClass alexaSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -709,8 +709,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAlexaCertifySysConfig() {
-		return alexaCertifySysConfigEClass;
+	public EClass getAlexaSysConfig() {
+		return alexaSysConfigEClass;
 	}
 
 	/**
@@ -718,8 +718,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlexaCertifySysConfig_AlexaCertifyEnabled() {
-		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(0);
+	public EAttribute getAlexaSysConfig_AlexaVerifyId() {
+		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -727,8 +727,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlexaCertifySysConfig_AlexaCertifyAccount() {
-		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(1);
+	public EAttribute getAlexaSysConfig_AlexaCertifyEnabled() {
+		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -736,8 +736,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlexaCertifySysConfig_AlexaCertifyDomain() {
-		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(2);
+	public EAttribute getAlexaSysConfig_AlexaCertifyAccount() {
+		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -745,8 +745,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlexaCertifySysConfig_AlexaCertifyJsCdn() {
-		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(3);
+	public EAttribute getAlexaSysConfig_AlexaCertifyDomain() {
+		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -754,8 +754,17 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlexaCertifySysConfig_AlexaCertifyImageCdn() {
-		return (EAttribute)alexaCertifySysConfigEClass.getEStructuralFeatures().get(4);
+	public EAttribute getAlexaSysConfig_AlexaCertifyJsCdn() {
+		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlexaSysConfig_AlexaCertifyImageCdn() {
+		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1002,12 +1011,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(requireManagerEClass, REQUIRE_MANAGER__JAVA_SCRIPT_MODE);
 		createEAttribute(requireManagerEClass, REQUIRE_MANAGER__CACHE_BUST);
 
-		alexaCertifySysConfigEClass = createEClass(ALEXA_CERTIFY_SYS_CONFIG);
-		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ENABLED);
-		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_ACCOUNT);
-		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_DOMAIN);
-		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_JS_CDN);
-		createEAttribute(alexaCertifySysConfigEClass, ALEXA_CERTIFY_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN);
+		alexaSysConfigEClass = createEClass(ALEXA_SYS_CONFIG);
+		createEAttribute(alexaSysConfigEClass, ALEXA_SYS_CONFIG__ALEXA_VERIFY_ID);
+		createEAttribute(alexaSysConfigEClass, ALEXA_SYS_CONFIG__ALEXA_CERTIFY_ENABLED);
+		createEAttribute(alexaSysConfigEClass, ALEXA_SYS_CONFIG__ALEXA_CERTIFY_ACCOUNT);
+		createEAttribute(alexaSysConfigEClass, ALEXA_SYS_CONFIG__ALEXA_CERTIFY_DOMAIN);
+		createEAttribute(alexaSysConfigEClass, ALEXA_SYS_CONFIG__ALEXA_CERTIFY_JS_CDN);
+		createEAttribute(alexaSysConfigEClass, ALEXA_SYS_CONFIG__ALEXA_CERTIFY_IMAGE_CDN);
 
 		liveChatSysConfigEClass = createEClass(LIVE_CHAT_SYS_CONFIG);
 		createEAttribute(liveChatSysConfigEClass, LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_ENABLED);
@@ -1162,12 +1172,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getRequireManager_JavaScriptMode(), this.getJavaScriptMode(), "javaScriptMode", null, 1, 1, RequireManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRequireManager_CacheBust(), ecorePackage.getEString(), "cacheBust", null, 0, 1, RequireManager.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(alexaCertifySysConfigEClass, AlexaCertifySysConfig.class, "AlexaCertifySysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyEnabled(), ecorePackage.getEBooleanObject(), "alexaCertifyEnabled", "false", 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyAccount(), ecorePackage.getEString(), "alexaCertifyAccount", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyDomain(), ecorePackage.getEString(), "alexaCertifyDomain", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyJsCdn(), ecorePackage.getEString(), "alexaCertifyJsCdn", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlexaCertifySysConfig_AlexaCertifyImageCdn(), ecorePackage.getEString(), "alexaCertifyImageCdn", null, 0, 1, AlexaCertifySysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(alexaSysConfigEClass, AlexaSysConfig.class, "AlexaSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlexaSysConfig_AlexaVerifyId(), ecorePackage.getEString(), "alexaVerifyId", null, 0, 1, AlexaSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaSysConfig_AlexaCertifyEnabled(), ecorePackage.getEBooleanObject(), "alexaCertifyEnabled", "false", 0, 1, AlexaSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaSysConfig_AlexaCertifyAccount(), ecorePackage.getEString(), "alexaCertifyAccount", null, 0, 1, AlexaSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaSysConfig_AlexaCertifyDomain(), ecorePackage.getEString(), "alexaCertifyDomain", null, 0, 1, AlexaSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaSysConfig_AlexaCertifyJsCdn(), ecorePackage.getEString(), "alexaCertifyJsCdn", null, 0, 1, AlexaSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlexaSysConfig_AlexaCertifyImageCdn(), ecorePackage.getEString(), "alexaCertifyImageCdn", null, 0, 1, AlexaSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(liveChatSysConfigEClass, LiveChatSysConfig.class, "LiveChatSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLiveChatSysConfig_LiveChatEnabled(), ecorePackage.getEBooleanObject(), "liveChatEnabled", "false", 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1413,31 +1424,43 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 			 "documentation", "A string used to bust CDN cache, e.g. \"2013-02-16 18:43:22+07:00\".\n\nThis will be appended as a query string to \"relative\" js, skin, and img URIs. Relative here in reference to webAddres URIs. Absolute URIs won\'t be cache-busted."
 		   });		
 		addAnnotation
-		  (getAlexaCertifySysConfig_AlexaCertifyEnabled(), 
+		  (alexaSysConfigEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "SysConfig for Alexa Verify and Alexa Certify.\n\n<p>Note: Alexa Certify is paid, Verify is free by <a href=\"http://www.alexa.com/siteowners/claim\">claiming your site</a>."
+		   });		
+		addAnnotation
+		  (getAlexaSysConfig_AlexaVerifyId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Note: Alexa Certify is paid, Verify is free by <a href=\"http://www.alexa.com/siteowners/claim\">claiming your site</a>."
+		   });		
+		addAnnotation
+		  (getAlexaSysConfig_AlexaCertifyEnabled(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Whether Alexa Certify feature is enabled."
 		   });		
 		addAnnotation
-		  (getAlexaCertifySysConfig_AlexaCertifyAccount(), 
+		  (getAlexaSysConfig_AlexaCertifyAccount(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Account ID for Alexa Certify."
 		   });		
 		addAnnotation
-		  (getAlexaCertifySysConfig_AlexaCertifyDomain(), 
+		  (getAlexaSysConfig_AlexaCertifyDomain(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Domain for Alexa Certify, e.g. \"berbatik.com\"."
 		   });		
 		addAnnotation
-		  (getAlexaCertifySysConfig_AlexaCertifyJsCdn(), 
+		  (getAlexaSysConfig_AlexaCertifyJsCdn(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Alexa Certify JavaScript CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d31qbv1cthcecs.cloudfront.net\""
 		   });		
 		addAnnotation
-		  (getAlexaCertifySysConfig_AlexaCertifyImageCdn(), 
+		  (getAlexaSysConfig_AlexaCertifyImageCdn(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Alexa Certify Image CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d5nxst8fruw4z.cloudfront.net\""

@@ -430,24 +430,28 @@
   <children xmi:type="notation:Node" xmi:id="_I8MP8KE9EeOZBalEbA0-9w" type="1001">
     <children xmi:type="notation:Node" xmi:id="_I8NeEKE9EeOZBalEbA0-9w" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_I8OFIKE9EeOZBalEbA0-9w" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_18UOcO4QEeOUMdF4PsEElw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaSysConfig/alexaVerifyId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_18UOce4QEeOUMdF4PsEElw"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_KNTSgKE9EeOZBalEbA0-9w" type="2001">
-        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaCertifySysConfig/alexaCertifyEnabled"/>
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaSysConfig/alexaCertifyEnabled"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_KNTSgaE9EeOZBalEbA0-9w"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_LB8bgKE9EeOZBalEbA0-9w" type="2001">
-        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaCertifySysConfig/alexaCertifyAccount"/>
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaSysConfig/alexaCertifyAccount"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_LB8bgaE9EeOZBalEbA0-9w"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_LoF1gKE9EeOZBalEbA0-9w" type="2001">
-        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaCertifySysConfig/alexaCertifyDomain"/>
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaSysConfig/alexaCertifyDomain"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_LoF1gaE9EeOZBalEbA0-9w"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_MOFegKE9EeOZBalEbA0-9w" type="2001">
-        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaCertifySysConfig/alexaCertifyJsCdn"/>
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaSysConfig/alexaCertifyJsCdn"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_MOFegaE9EeOZBalEbA0-9w"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_M_-1gKE9EeOZBalEbA0-9w" type="2001">
-        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaCertifySysConfig/alexaCertifyImageCdn"/>
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//AlexaSysConfig/alexaCertifyImageCdn"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_M_-1gaE9EeOZBalEbA0-9w"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_I8OFIaE9EeOZBalEbA0-9w"/>
@@ -460,7 +464,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_I8OsM6E9EeOZBalEbA0-9w"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_I8MP8aE9EeOZBalEbA0-9w" fontColor="4210752" fontName="OxygenSans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="site.ecore#//AlexaCertifySysConfig"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//AlexaSysConfig"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I8MP8qE9EeOZBalEbA0-9w" x="1488" y="24"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_IO9tcNkrEeOk-PBtxQc-zg" type="1001">

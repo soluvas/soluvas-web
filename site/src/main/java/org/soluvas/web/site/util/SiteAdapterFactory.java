@@ -157,8 +157,8 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createRequireManagerAdapter();
 			}
 			@Override
-			public Adapter caseAlexaCertifySysConfig(AlexaCertifySysConfig object) {
-				return createAlexaCertifySysConfigAdapter();
+			public Adapter caseAlexaSysConfig(AlexaSysConfig object) {
+				return createAlexaSysConfigAdapter();
 			}
 			@Override
 			public Adapter caseLiveChatSysConfig(LiveChatSysConfig object) {
@@ -501,16 +501,16 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.AlexaCertifySysConfig <em>Alexa Certify Sys Config</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.AlexaSysConfig <em>Alexa Sys Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.soluvas.web.site.AlexaCertifySysConfig
+	 * @see org.soluvas.web.site.AlexaSysConfig
 	 * @generated
 	 */
-	public Adapter createAlexaCertifySysConfigAdapter() {
+	public Adapter createAlexaSysConfigAdapter() {
 		return null;
 	}
 

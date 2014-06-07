@@ -218,9 +218,9 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case SitePackage.ALEXA_CERTIFY_SYS_CONFIG: {
-				AlexaCertifySysConfig alexaCertifySysConfig = (AlexaCertifySysConfig)theEObject;
-				T result = caseAlexaCertifySysConfig(alexaCertifySysConfig);
+			case SitePackage.ALEXA_SYS_CONFIG: {
+				AlexaSysConfig alexaSysConfig = (AlexaSysConfig)theEObject;
+				T result = caseAlexaSysConfig(alexaSysConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -577,17 +577,17 @@ public class SiteSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Alexa Certify Sys Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Alexa Sys Config</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Alexa Certify Sys Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Alexa Sys Config</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAlexaCertifySysConfig(AlexaCertifySysConfig object) {
+	public T caseAlexaSysConfig(AlexaSysConfig object) {
 		return null;
 	}
 

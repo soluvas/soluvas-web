@@ -12,7 +12,7 @@ import org.soluvas.commons.config.TenantSelector;
 import org.soluvas.commons.tenant.TenantBeans;
 import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantUtils;
-import org.soluvas.web.site.AlexaCertifySysConfig;
+import org.soluvas.web.site.AlexaSysConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@ import com.google.common.eventbus.EventBus;
  * @author ceefour
  */
 @Configuration
-public class AlexaCertifyConfig {
+public class AlexaConfig {
 	
 	@Inject
 	private TenantSelector tenantSelector;
@@ -34,7 +34,7 @@ public class AlexaCertifyConfig {
 	@Inject @Named(CommonsWebConfig.APP_EVENT_BUS)
 	private EventBus appEventBus;
 	@Inject
-	private SysConfigMapHolder<AlexaCertifySysConfig> sysConfigMapHolder;
+	private SysConfigMapHolder<AlexaSysConfig> sysConfigMapHolder;
 	@Autowired(required=false) @Nullable
 	private TenantRepository<?> tenantRepo;
 	
@@ -44,7 +44,7 @@ public class AlexaCertifyConfig {
 			@Override
 			protected AlexaCertifyImpl create(String tenantId, AppManifest appManifest)
 					throws Exception {
-				final AlexaCertifySysConfig sysConfig = TenantUtils.selectBean(tenantId, sysConfigMapHolder.sysConfigMap(), AlexaCertifySysConfig.class);
+				final AlexaSysConfig sysConfig = TenantUtils.selectBean(tenantId, sysConfigMapHolder.sysConfigMap(), AlexaSysConfig.class);
 				return new AlexaCertifyImpl(sysConfig.getAlexaCertifyEnabled(), sysConfig.getAlexaCertifyAccount(), 
 						sysConfig.getAlexaCertifyDomain(), sysConfig.getAlexaCertifyJsCdn(), sysConfig.getAlexaCertifyImageCdn());
 			}

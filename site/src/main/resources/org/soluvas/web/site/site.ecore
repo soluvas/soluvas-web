@@ -195,8 +195,15 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AlexaCertifySysConfig" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="AlexaSysConfig" abstract="true" interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="SysConfig for Alexa Verify and Alexa Certify.&#xA;&#xA;&lt;p>Note: Alexa Certify is paid, Verify is free by &lt;a href=&quot;http://www.alexa.com/siteowners/claim&quot;>claiming your site&lt;/a>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alexaVerifyId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Note: Alexa Certify is paid, Verify is free by &lt;a href=&quot;http://www.alexa.com/siteowners/claim&quot;>claiming your site&lt;/a>."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alexaCertifyEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
         defaultValueLiteral="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
