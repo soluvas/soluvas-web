@@ -25,6 +25,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
  * Only default styling.
  * @author rio
  */
+@SuppressWarnings("serial")
 public class ManagePage extends WebPage {
 	
 	private static final JavaScriptResourceReference jqueryUiJs = 
@@ -55,8 +56,6 @@ public class ManagePage extends WebPage {
 	private static final JavaScriptResourceReference scriptsJs = new AfterBootstrapJavaScriptResourceReference(ManagePage.class, "js/scripts.js");
 	private static final JavaScriptResourceReference toggleInitJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "js/toggle-button/toggle-init.js");
 	private static final JavaScriptResourceReference advancedFormJs = new AfterJQueryJavaScriptResourceReference(ManagePage.class, "js/advanced-form/advanced-form.js");
-	
-	private static final long serialVersionUID = 1L;
 	
 	protected final RepeatingView sidebarBlocks;
 	protected TransparentWebMarkupContainer sidebarColumn;
