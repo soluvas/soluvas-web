@@ -9,9 +9,10 @@ import org.apache.wicket.model.IModel;
 /**
  * {@link IndicatingAjaxButton} which auto-disables during AJAX request.
  * 
- * <p>It uses {@link AjaxChannel.Type#ACTIVE} to prevent duplicate AJAX requests on the Wicket-Ajax level.
+ * <p>It used to use {@link AjaxChannel.Type#ACTIVE} to prevent duplicate AJAX requests on the Wicket-Ajax level.
  * It also uses the same channel name {@code "0"} to prevent
  * <a href="http://apache-wicket.1842946.n4.nabble.com/ListenerInvocationNotAllowedException-and-EmptyRequestHandler-td4663618.html#a4666112">ListenerInvocationNotAllowedException</a>.
+ * But: https://issues.apache.org/jira/browse/WICKET-5611?focusedCommentId=14020693&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14020693
  * 
  * @author rudi
  * @see AutoDisableAjaxButton
@@ -40,7 +41,8 @@ public class AutoDisableAjaxButton extends IndicatingAjaxButton {
 	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 		super.updateAjaxAttributes(attributes);
-		attributes.setChannel(new AjaxChannel("0", AjaxChannel.Type.ACTIVE));
+		// https://issues.apache.org/jira/browse/WICKET-5611?focusedCommentId=14020693&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14020693
+		// attributes.setChannel(new AjaxChannel("0", AjaxChannel.Type.ACTIVE));
 		attributes.getAjaxCallListeners().add(new AutoDisableAjaxCallListener());
 	}
 	

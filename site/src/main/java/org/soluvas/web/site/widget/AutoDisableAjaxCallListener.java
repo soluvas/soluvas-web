@@ -8,8 +8,10 @@ import org.apache.wicket.ajax.attributes.AjaxCallListener;
 
 /**
  * Disables the component via JavaScript before AJAX, and re-enables it again after AJAX success or failure.
- * Note that you still need to use a {@link AjaxChannel.Type#ACTIVE} {@link AjaxChannel} for {@code "0"}, because the default
+ * 
+ * <p>I used to think that you still need to use a {@link AjaxChannel.Type#ACTIVE} {@link AjaxChannel} for {@code "0"}, because the default
  * is {@link AjaxChannel.Type#QUEUE}.
+ * But: https://issues.apache.org/jira/browse/WICKET-5611?focusedCommentId=14020693&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14020693
  * 
  * @see AutoDisableAjaxButton
  * @author rudi
