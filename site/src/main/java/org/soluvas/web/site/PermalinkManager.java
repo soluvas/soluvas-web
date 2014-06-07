@@ -3,6 +3,7 @@
 package org.soluvas.web.site;
 
 import org.eclipse.emf.ecore.EObject;
+import org.soluvas.image.ImageType;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +16,12 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface PermalinkManager extends EObject {
+	
+	/**
+	 * @todo change to enum {@code PermalinkType} later, just like {@link ImageType}
+	 */
+	public static final String PRODUCT_TYPE = "product";
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

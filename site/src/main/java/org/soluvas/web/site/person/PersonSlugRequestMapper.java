@@ -1,15 +1,21 @@
 package org.soluvas.web.site.person;
 
-import java.util.regex.Pattern;
-
 import org.apache.wicket.Page;
+import org.apache.wicket.core.request.handler.PageProvider;
+import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
+import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
 import org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper;
 import org.apache.wicket.injection.Injector;
+import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
+import org.soluvas.commons.SlugUtils;
+import org.soluvas.data.Existence;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 
@@ -26,12 +32,17 @@ import com.google.common.collect.ImmutableList;
  * @author ceefour
  */
 public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(PersonSlugRequestMapper.class);
 
 	@SpringBean
 	private PersonRepository personRepo;
 	private final Class<? extends Page> personShowPage;
-	private static final Pattern SLUG_PATTERN = Pattern.compile("[a-z0-9][a-z0-9\\.-]+");
 	
+	/**
+	 * @param personShowPage Page with {@code slug} parameter.
+	 */
 	public PersonSlugRequestMapper(Class<? extends Page> personShowPage) {
 		super();
 		this.personShowPage = personShowPage;
@@ -42,11 +53,18 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 	protected UrlInfo parseRequest(Request request) {
 		if (request.getUrl().getSegments().size() == 1) {
 			final String segment1 = request.getUrl().getSegments().get(0);
-			if (SLUG_PATTERN.matcher(segment1).matches()) {
-				// RAW because it is assumed that the PersonShowPage will then throw appropriate EntityLookupException
-				if (personRepo.existsBySlug(StatusMask.RAW, segment1) != null) {
-					return new UrlInfo(null, personShowPage, 
-							new PageParameters().set("personSlug", segment1));
+			log.trace("segments: {}", request.getUrl().getSegments());
+			if (SlugUtils.SLUG_PATTERN.matcher(segment1).matches()) {
+				// RAW because we can detect mismatch
+				final Existence<String> existence = personRepo.existsBySlug(StatusMask.RAW, segment1);
+				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
+				switch (existence.getState()) {
+				case MATCHED:
+					return new UrlInfo(null, personShowPage, new PageParameters().set("slug", segment1));
+				case MISMATCHED:
+					// canonical URI
+					throw new MapperRedirectException(new PageProvider(personShowPage, new PageParameters().set("slug", segment1)));
+				default:
 				}
 			}
 		}
@@ -64,7 +82,7 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
-			final String personSlug = info.getPageParameters().get("personSlug").toString();
+			final String personSlug = info.getPageParameters().get("slug").toString();
 			if (personSlug != null) {
 				return new Url(ImmutableList.of(personSlug), 
 					Charsets.UTF_8);
@@ -73,6 +91,16 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 			}
 		} else {
 			return null;
+		}
+	}
+
+	@Override
+	public IRequestHandler mapRequest(Request request) {
+		try {
+			return super.mapRequest(request);
+		} catch (MapperRedirectException e) {
+			log.debug("Redirecting '{}' to canonical page: {}", request.getUrl(), e.getPageProvider());
+			return new RenderPageRequestHandler(e.getPageProvider(), RedirectPolicy.ALWAYS_REDIRECT);
 		}
 	}
 
