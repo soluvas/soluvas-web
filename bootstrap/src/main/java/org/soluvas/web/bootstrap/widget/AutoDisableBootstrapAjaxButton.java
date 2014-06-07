@@ -1,6 +1,5 @@
 package org.soluvas.web.bootstrap.widget;
 
-import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
@@ -38,7 +37,8 @@ public class AutoDisableBootstrapAjaxButton extends BootstrapAjaxButton {
 	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 		super.updateAjaxAttributes(attributes);
-		attributes.setChannel(new AjaxChannel("0", AjaxChannel.Type.ACTIVE));
+		// https://issues.apache.org/jira/browse/WICKET-5611?focusedCommentId=14020693&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14020693
+		// attributes.setChannel(new AjaxChannel("0", AjaxChannel.Type.ACTIVE)); 
 		attributes.getAjaxCallListeners().add(new AutoDisableAjaxCallListener());
 	}
 
