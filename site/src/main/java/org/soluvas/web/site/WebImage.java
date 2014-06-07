@@ -2,8 +2,10 @@ package org.soluvas.web.site;
 
 import java.util.Map;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,17 +20,26 @@ import com.google.common.collect.ImmutableMap;
  * Image component that supports URI templating using {@link WebAddress}.
  * @author rio
  */
+@SuppressWarnings("serial")
 public class WebImage extends WebMarkupContainer {
-
-	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory.getLogger(WebImage.class);
 	
 	@SpringBean
 	private WebAddress webAddress;
-	
+
 	public WebImage(String id) {
 		super(id);
+	}
+	
+	/**
+	 * @param id
+	 * @param altTitleModel Used for both {@code alt} and {@code title} attributes.
+	 */
+	public WebImage(String id, IModel<String> altTitleModel) {
+		this(id);
+		add(new AttributeModifier("alt", altTitleModel));
+		add(new AttributeModifier("title", altTitleModel));
 	}
 	
 	@Override

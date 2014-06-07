@@ -8,9 +8,11 @@ import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
@@ -28,11 +30,9 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
  * Only default styling.
  * @author rio
  */
+@SuppressWarnings("serial")
 public class BackendPage extends WebPage {
 	
-	@SpringBean
-	protected WebAddress webAddress;
-
 	private static final JavaScriptResourceReference jqueryUiJs = 
 			new AfterJQueryJavaScriptResourceReference(BackendPage.class, "assets/jquery-ui/jquery-ui-1.10.1.custom.min.js");
 	private static final JavaScriptResourceReference accordionMenuJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "js/accordion-menu/jquery.dcjqaccordion.2.7.js");
@@ -60,17 +60,20 @@ public class BackendPage extends WebPage {
 	private static final JavaScriptResourceReference toggleInitJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "js/toggle-button/toggle-init.js");
 	private static final JavaScriptResourceReference advancedFormJs = new AfterJQueryJavaScriptResourceReference(BackendPage.class, "js/advanced-form/advanced-form.js");
 	
-	private static final long serialVersionUID = 1L;
-	
 	protected final RepeatingView sidebarBlocks;
 	protected TransparentWebMarkupContainer sidebarColumn;
+
+	@SpringBean
+	protected AppManifest appManifest;
+	@SpringBean
+	protected WebAddress webAddress;
 
 	public BackendPage(PageParameters params) {
 		super(params);
 		add(new HtmlTag("html", getLocale(), true));
 		
 		final ExternalLink homePageLink = new ExternalLink("homePageLink", webAddress.getBaseUri());
-		homePageLink.add(new WebImage("logoImg"));
+		homePageLink.add(new WebImage("logoImg", new Model<>(appManifest.getTitle())));
 		add(homePageLink);
 		
 		add(new BootstrapBaseBehavior());
