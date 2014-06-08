@@ -1,11 +1,12 @@
 package org.soluvas.web.bootstrap.widget;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.CustomerRole;
 import org.soluvas.commons.Person;
@@ -17,7 +18,7 @@ import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.web.site.EmfModel;
-import org.soluvas.web.site.PermalinkManager;
+import org.soluvas.web.site.SocialApplication;
 import org.soluvas.web.site.widget.DisplayImageContainer;
 
 import com.google.common.base.Strings;
@@ -26,19 +27,15 @@ import com.google.common.base.Strings;
  * Not directly usable. Only used to render the person popover by {@link PersonPopover}.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 
-	private static final long serialVersionUID = 1L;
-	
 	@SpringBean
 	private ImageManager imageMgr;
-	@SpringBean
-	private PermalinkManager permalinkMgr;
 	@SpringBean(name="personLookup")
 	private EntityLookup<Person, String> personLookup;
 	@SpringBean
 	private CustomerRoleRepository customerRoleRepo;
-	
 
 	public PersonPopoverBody(String id, IModel<PersonInfo> model) {
 		super(id, model);
@@ -54,18 +51,14 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 			}
 		};
 		add(new DisplayImageContainer("photo", displayImage));
-		add(new ExternalLink("profileLink", new Model<String>()) {
-			@Override
-			protected void onConfigure() {
-				if (getModelObject() != null && !Strings.isNullOrEmpty(getModelObject().getSlug())) {
-					setDefaultModelObject(permalinkMgr.relative("person", getModelObject().getSlug()));
-				} else {
-					setVisible(false);
-				}
-				super.onConfigure();
-			}
-		});
-		
+		if (getModelObject() != null && !Strings.isNullOrEmpty(getModelObject().getSlug())) {
+			add(new BookmarkablePageLink<>("profileLink",
+					((SocialApplication) getApplication()).getPersonShowPage(),
+					new PageParameters().set("slug", getModelObject().getSlug())));
+		} else {
+			add(new EmptyPanel("profileLink"));
+		}
+
 		final IModel<Person> customerModel = new EmfModel<>(personLookup.findOne(model.getObject().getId()));
 		final IModel<String> currentCustomerRoleModel = new LoadableDetachableModel<String>() {
 			@Override

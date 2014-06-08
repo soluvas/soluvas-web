@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.soluvas.web.site/src/main/java" modelPluginID="org.soluvas.web.site"
     modelName="Site" importerID="org.eclipse.emf.importer.ecore" bundleManifest="false"
     complianceLevel="7.0" suppressGenModelAnnotations="false" copyrightFields="false"
-    publicConstructors="true">
+    publicConstructors="true" usedGenPackages="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.genmodel#//commons">
   <foreignModel>site.ecore</foreignModel>
   <genPackages prefix="Site" basePackage="org.soluvas.web" disposableProviderFactory="true"
       ecorePackage="site.ecore#/">
@@ -11,6 +11,27 @@
       <genEnumLiterals ecoreEnumLiteral="site.ecore#//JavaScriptMode/development"/>
       <genEnumLiterals ecoreEnumLiteral="site.ecore#//JavaScriptMode/minified"/>
       <genEnumLiterals ecoreEnumLiteral="site.ecore#//JavaScriptMode/aggregated_minified"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="site.ecore#//Interaction">
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/login"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/logout"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/info"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/question"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/warning"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/error"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/deleted"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/added"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/modified"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/searched"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/filtered"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/loading_light"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/loading_heavy"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/message_sent"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/message_received"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/im_received"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/im_sent"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/liked"/>
+      <genEnumLiterals ecoreEnumLiteral="site.ecore#//Interaction/unliked"/>
     </genEnums>
     <genDataTypes ecoreDataType="site.ecore#//LiveChatProvider"/>
     <genClasses ecoreClass="site.ecore#//Section">
@@ -59,19 +80,22 @@
     </genClasses>
     <genClasses ecoreClass="site.ecore#//PermalinkManager">
       <genOperations ecoreOperation="site.ecore#//PermalinkManager/relative">
-        <genParameters ecoreParameter="site.ecore#//PermalinkManager/relative/namespace"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/relative/kind"/>
         <genParameters ecoreParameter="site.ecore#//PermalinkManager/relative/slugPath"/>
       </genOperations>
       <genOperations ecoreOperation="site.ecore#//PermalinkManager/absolute">
-        <genParameters ecoreParameter="site.ecore#//PermalinkManager/absolute/namespace"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/absolute/webHost"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/absolute/kind"/>
         <genParameters ecoreParameter="site.ecore#//PermalinkManager/absolute/slugPath"/>
       </genOperations>
       <genOperations ecoreOperation="site.ecore#//PermalinkManager/unsecureAbsolute">
-        <genParameters ecoreParameter="site.ecore#//PermalinkManager/unsecureAbsolute/namespace"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/unsecureAbsolute/webHost"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/unsecureAbsolute/kind"/>
         <genParameters ecoreParameter="site.ecore#//PermalinkManager/unsecureAbsolute/slugPath"/>
       </genOperations>
       <genOperations ecoreOperation="site.ecore#//PermalinkManager/secureAbsolute">
-        <genParameters ecoreParameter="site.ecore#//PermalinkManager/secureAbsolute/namespace"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/secureAbsolute/webHost"/>
+        <genParameters ecoreParameter="site.ecore#//PermalinkManager/secureAbsolute/kind"/>
         <genParameters ecoreParameter="site.ecore#//PermalinkManager/secureAbsolute/slugPath"/>
       </genOperations>
     </genClasses>
@@ -79,15 +103,17 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//RequireManager/javaScriptMode"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//RequireManager/cacheBust"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="site.ecore#//AlexaCertifySysConfig">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaCertifySysConfig/alexaCertifyEnabled"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaCertifySysConfig/alexaCertifyAccount"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaCertifySysConfig/alexaCertifyDomain"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaCertifySysConfig/alexaCertifyJsCdn"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaCertifySysConfig/alexaCertifyImageCdn"/>
+    <genClasses image="false" ecoreClass="site.ecore#//AlexaSysConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaSysConfig/alexaVerifyId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaSysConfig/alexaCertifyEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaSysConfig/alexaCertifyAccount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaSysConfig/alexaCertifyDomain"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaSysConfig/alexaCertifyJsCdn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//AlexaSysConfig/alexaCertifyImageCdn"/>
     </genClasses>
     <genClasses image="false" ecoreClass="site.ecore#//LiveChatSysConfig">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//LiveChatSysConfig/liveChatEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//LiveChatSysConfig/liveChatProviderId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//LiveChatSysConfig/liveChatProvider"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//LiveChatSysConfig/liveChatSiteId"/>
     </genClasses>
@@ -95,6 +121,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsEnabled"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsTrackingId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsCookieDomain"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="site.ecore#//ThemePref">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ThemePref/twitterLinkVisible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ThemePref/facebookLinkVisible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ThemePref/youTubeLinkVisible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute site.ecore#//ThemePref/footnoteVisible"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

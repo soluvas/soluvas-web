@@ -141,30 +141,33 @@
   <eClassifiers xsi:type="ecore:EClass" name="PermalinkManager">
     <eOperations name="relative" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Get permalink URI relative to current website."/>
+        <details key="documentation" value="Get permalink URI relative to current website, no switch of HTTP(S) protocol."/>
       </eAnnotations>
-      <eParameters name="namespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="kind" eType="ecore:EEnum ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//EntityKind"/>
       <eParameters name="slugPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eOperations name="absolute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Get absolute permalink URI, considering plain HTTP vs secure HTTPS."/>
+        <details key="documentation" value="Get absolute permalink URI, considering the recommended protocol for the entity show page, e.g. plain HTTP vs secure HTTPS."/>
       </eAnnotations>
-      <eParameters name="namespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="webHost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="kind" eType="ecore:EEnum ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//EntityKind"/>
       <eParameters name="slugPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eOperations name="unsecureAbsolute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Get absolute permalink URI, plain HTTP only."/>
       </eAnnotations>
-      <eParameters name="namespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="webHost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="kind" eType="ecore:EEnum ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//EntityKind"/>
       <eParameters name="slugPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eOperations name="secureAbsolute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Get absolute permalink URI, secure HTTPS."/>
       </eAnnotations>
-      <eParameters name="namespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="webHost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="kind" eType="ecore:EEnum ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//EntityKind"/>
       <eParameters name="slugPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
   </eClassifiers>

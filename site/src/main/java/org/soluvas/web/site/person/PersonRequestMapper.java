@@ -18,23 +18,24 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.data.Existence;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
+import org.soluvas.web.site.MapperRedirectException;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Match request to a {@code PersonShowPage} {@link Page}, with {@code personSlug} parameter
+ * Match request to a {@code PersonShow}{@link Page}, with {@code slug} parameter
  * based on {@link Person#getSlug()}, using {@link PersonRepository}.
  * <p>Usage:
- * <pre>{@literal
- * mount(new PersonSlugRequestMapper(PersonShowPage.class));
- * }</pre>
+ * <pre>
+ * mount(new PersonRequestMapper(PersonShowPage.class));
+ * </pre>
  * @author ceefour
  */
-public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
+public class PersonRequestMapper extends AbstractBookmarkableMapper {
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(PersonSlugRequestMapper.class);
+			.getLogger(PersonRequestMapper.class);
 
 	@SpringBean
 	private PersonRepository personRepo;
@@ -43,7 +44,7 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 	/**
 	 * @param personShowPage Page with {@code slug} parameter.
 	 */
-	public PersonSlugRequestMapper(Class<? extends Page> personShowPage) {
+	public PersonRequestMapper(Class<? extends Page> personShowPage) {
 		super();
 		this.personShowPage = personShowPage;
 		Injector.get().inject(this);
@@ -60,10 +61,10 @@ public class PersonSlugRequestMapper extends AbstractBookmarkableMapper {
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
 				switch (existence.getState()) {
 				case MATCHED:
-					return new UrlInfo(null, personShowPage, new PageParameters().set("slug", segment1));
+					return new UrlInfo(null, personShowPage, new PageParameters().set("slug", existence.get()));
 				case MISMATCHED:
 					// canonical URI
-					throw new MapperRedirectException(new PageProvider(personShowPage, new PageParameters().set("slug", segment1)));
+					throw new MapperRedirectException(new PageProvider(personShowPage, new PageParameters().set("slug", existence.get())));
 				default:
 				}
 			}

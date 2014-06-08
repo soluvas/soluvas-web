@@ -10,7 +10,8 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.soluvas.commons.StyleConfiguration;
+import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.impl.CommonsPackageImpl;
 import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.site.AlexaSysConfig;
 import org.soluvas.web.site.ContentPage;
@@ -298,6 +299,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		SitePackageImpl theSitePackage = (SitePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SitePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SitePackageImpl());
 
 		isInited = true;
+
+		// Initialize simple dependencies
+		CommonsPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSitePackage.createPackageContents();
@@ -709,6 +713,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlexaSysConfig() {
 		return alexaSysConfigEClass;
 	}
@@ -718,6 +723,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlexaSysConfig_AlexaVerifyId() {
 		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -727,6 +733,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlexaSysConfig_AlexaCertifyEnabled() {
 		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -736,6 +743,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlexaSysConfig_AlexaCertifyAccount() {
 		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -745,6 +753,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlexaSysConfig_AlexaCertifyDomain() {
 		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -754,6 +763,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlexaSysConfig_AlexaCertifyJsCdn() {
 		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(4);
 	}
@@ -763,6 +773,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlexaSysConfig_AlexaCertifyImageCdn() {
 		return (EAttribute)alexaSysConfigEClass.getEStructuralFeatures().get(5);
 	}
@@ -772,6 +783,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiveChatSysConfig() {
 		return liveChatSysConfigEClass;
 	}
@@ -781,6 +793,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiveChatSysConfig_LiveChatEnabled() {
 		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -790,6 +803,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiveChatSysConfig_LiveChatProviderId() {
 		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -799,6 +813,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiveChatSysConfig_LiveChatProvider() {
 		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -808,6 +823,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiveChatSysConfig_LiveChatSiteId() {
 		return (EAttribute)liveChatSysConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -817,6 +833,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGoogleAnalyticsSysConfig() {
 		return googleAnalyticsSysConfigEClass;
 	}
@@ -826,6 +843,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled() {
 		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -835,6 +853,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId() {
 		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -844,6 +863,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain() {
 		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -853,6 +873,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getThemePref() {
 		return themePrefEClass;
 	}
@@ -862,6 +883,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_TwitterLinkVisible() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(0);
 	}
@@ -871,6 +893,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_FacebookLinkVisible() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(1);
 	}
@@ -880,6 +903,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_YouTubeLinkVisible() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(2);
 	}
@@ -889,6 +913,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_FootnoteVisible() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(3);
 	}
@@ -908,6 +933,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getInteraction() {
 		return interactionEEnum;
 	}
@@ -917,6 +943,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getLiveChatProvider() {
 		return liveChatProviderEDataType;
 	}
@@ -1067,6 +1094,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		CommonsPackage theCommonsPackage = (CommonsPackage)EPackage.Registry.INSTANCE.getEPackage(CommonsPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -1153,19 +1183,22 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEClass(permalinkManagerEClass, PermalinkManager.class, "PermalinkManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		EOperation op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "relative", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theCommonsPackage.getEntityKind(), "kind", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "absolute", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "webHost", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theCommonsPackage.getEntityKind(), "kind", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "unsecureAbsolute", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "webHost", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theCommonsPackage.getEntityKind(), "kind", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(permalinkManagerEClass, ecorePackage.getEString(), "secureAbsolute", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "namespace", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "webHost", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theCommonsPackage.getEntityKind(), "kind", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "slugPath", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(requireManagerEClass, RequireManager.class, "RequireManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1379,13 +1412,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		  (permalinkManagerEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "documentation", "Get permalink URI relative to current website."
+			 "documentation", "Get permalink URI relative to current website, no switch of HTTP(S) protocol."
 		   });		
 		addAnnotation
 		  (permalinkManagerEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "documentation", "Get absolute permalink URI, considering plain HTTP vs secure HTTPS."
+			 "documentation", "Get absolute permalink URI, considering the recommended protocol for the entity show page, e.g. plain HTTP vs secure HTTPS."
 		   });		
 		addAnnotation
 		  (permalinkManagerEClass.getEOperations().get(2), 

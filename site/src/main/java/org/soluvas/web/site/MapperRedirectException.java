@@ -1,4 +1,4 @@
-package org.soluvas.web.site.person;
+package org.soluvas.web.site;
 
 import org.apache.wicket.core.request.handler.IPageProvider;
 
