@@ -58,7 +58,7 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 		} else if (request.getUrl().getSegments().size() == 1) {
 			log.trace("segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
-			if (SlugUtils.SLUG_PATH_PATTERN.matcher(segments).matches()) {
+			if (SlugUtils.SEGMENT_PATH_PATTERN.matcher(segments).matches()) {
 				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final EntityLookup<String, String> contentLookup = appCtx.getBean("contentLookup", EntityLookup.class); 
