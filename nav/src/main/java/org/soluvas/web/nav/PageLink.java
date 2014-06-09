@@ -2,6 +2,7 @@ package org.soluvas.web.nav;
 
 import java.io.Serializable;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
@@ -15,21 +16,21 @@ public class PageLink implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String title;
-	private final Class<?> page;
+	private final Class<? extends Page> page;
 	private final PageParameters params;
 	
-	public PageLink(String title, Class<?> page, PageParameters params) {
+	public PageLink(String title, Class<? extends Page> page, PageParameters params) {
 		super();
 		this.title = title;
 		this.page = page;
 		this.params = params;
 	}
 	
-	public PageLink(String title, Class<?> page) {
+	public PageLink(String title, Class<? extends Page> page) {
 		this(title, page, new PageParameters());
 	}
 	
-	public PageLink(String title, Class<?> page, String paramName, String paramValue) {
+	public PageLink(String title, Class<? extends Page> page, String paramName, String paramValue) {
 		this(title, page, new PageParameters().add(paramName, paramValue));
 	}
 
@@ -37,7 +38,7 @@ public class PageLink implements Serializable {
 		return title;
 	}
 
-	public Class<?> getPage() {
+	public Class<? extends Page> getPage() {
 		return page;
 	}
 

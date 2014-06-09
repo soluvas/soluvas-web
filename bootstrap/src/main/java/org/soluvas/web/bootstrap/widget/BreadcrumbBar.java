@@ -35,7 +35,7 @@ public class BreadcrumbBar extends GenericPanel<List<PageLink>> {
 		@Override
 		protected void populateItem(ListItem<PageLink> item) {
 //			new ExternalLink("crumbUri", href);
-			final BookmarkablePageLink<Page> crumbLink = new BookmarkablePageLink(
+			final BookmarkablePageLink<Page> crumbLink = new BookmarkablePageLink<>(
 					"crumbLink", item.getModelObject().getPage(), item.getModelObject().getParams());
 			crumbLink.add(new Label("crumbLabel", new PropertyModel<>(item.getModel(), "title")));
 			item.add(crumbLink);
