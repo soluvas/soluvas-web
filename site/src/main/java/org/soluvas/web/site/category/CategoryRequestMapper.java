@@ -56,13 +56,13 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 	protected UrlInfo parseRequest(Request request) {
 		if (request.getUrl().getSegments().size() >= 2 && "category".equals(request.getUrl().getSegments().get(0))) {
 			// legacy URIs: shouldn't be needed after Bippo 7.0
-			log.debug("legacy segments: {}", request.getUrl().getSegments());
+			log.trace("legacy segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(FluentIterable.from(request.getUrl().getSegments()).skip(1));
 			throw new MapperRedirectException(new PageProvider(categoryShowPage, new PageParameters().set("slugPath", segments)));
 		} else if (request.getUrl().getSegments().size() >= 1) {
-			log.debug("segments: {}", request.getUrl().getSegments());
+			log.trace("segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
-			if (SlugUtils.SLUG_PATTERN.matcher(segments).matches()) {
+			if (SlugUtils.SLUG_PATH_PATTERN.matcher(segments).matches()) {
 				// RAW because we can detect mismatch
 				final Existence<String> existence = categoryRepo.existsBySlugPath(StatusMask.RAW, segments);
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
