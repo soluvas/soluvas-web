@@ -1,16 +1,16 @@
 package org.soluvas.web.site.category;
 
+import javax.servlet.ServletRequest;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
 import org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper;
-import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
@@ -19,6 +19,8 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.data.Existence;
 import org.soluvas.data.StatusMask;
 import org.soluvas.web.site.MapperRedirectException;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
@@ -39,8 +41,6 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 	private static final Logger log = LoggerFactory
 			.getLogger(CategoryRequestMapper.class);
 
-	@SpringBean
-	private CategoryRepository categoryRepo;
 	private final Class<? extends Page> categoryShowPage;
 	
 	/**
@@ -49,7 +49,6 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 	public CategoryRequestMapper(Class<? extends Page> categoryShowPage) {
 		super();
 		this.categoryShowPage = categoryShowPage;
-		Injector.get().inject(this);
 	}
 	
 	@Override
@@ -63,6 +62,9 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 			log.trace("segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
 			if (SlugUtils.SLUG_PATH_PATTERN.matcher(segments).matches()) {
+				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
+						((ServletRequest) request.getContainerRequest()).getServletContext());
+				final CategoryRepository categoryRepo = appCtx.getBean(CategoryRepository.class);
 				// RAW because we can detect mismatch
 				final Existence<String> existence = categoryRepo.existsBySlugPath(StatusMask.RAW, segments);
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);

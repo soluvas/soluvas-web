@@ -1,16 +1,16 @@
 package org.soluvas.web.site.person;
 
+import javax.servlet.ServletRequest;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
 import org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper;
-import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
@@ -19,6 +19,8 @@ import org.soluvas.data.Existence;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.web.site.MapperRedirectException;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
@@ -37,8 +39,6 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 	private static final Logger log = LoggerFactory
 			.getLogger(PersonRequestMapper.class);
 
-	@SpringBean
-	private PersonRepository personRepo;
 	private final Class<? extends Page> personShowPage;
 	
 	/**
@@ -47,7 +47,6 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 	public PersonRequestMapper(Class<? extends Page> personShowPage) {
 		super();
 		this.personShowPage = personShowPage;
-		Injector.get().inject(this);
 	}
 	
 	@Override
@@ -56,6 +55,9 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 			final String segment1 = request.getUrl().getSegments().get(0);
 			log.trace("segments: {}", request.getUrl().getSegments());
 			if (SlugUtils.SLUG_PATTERN.matcher(segment1).matches()) {
+				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
+						((ServletRequest) request.getContainerRequest()).getServletContext());
+				final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
 				// RAW because we can detect mismatch
 				final Existence<String> existence = personRepo.existsBySlug(StatusMask.RAW, segment1);
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);

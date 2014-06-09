@@ -1,21 +1,22 @@
 package org.soluvas.web.bootstrap.content;
 
+import javax.servlet.ServletRequest;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
 import org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper;
-import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.site.MapperRedirectException;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
@@ -37,8 +38,6 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 	private static final Logger log = LoggerFactory
 			.getLogger(ContentRequestMapper.class);
 
-	@SpringBean(name="contentLookup")
-	private EntityLookup<String, String> contentLookup;
 	private final Class<? extends Page> contentShowPage;
 	
 	/**
@@ -47,7 +46,6 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 	public ContentRequestMapper(Class<? extends Page> contentShowPage) {
 		super();
 		this.contentShowPage = contentShowPage;
-		Injector.get().inject(this);
 	}
 	
 	@Override
@@ -56,20 +54,24 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 			// legacy URIs: shouldn't be needed after Bippo 7.0
 			log.trace("legacy segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(FluentIterable.from(request.getUrl().getSegments()).skip(1));
-			throw new MapperRedirectException(new PageProvider(contentShowPage, new PageParameters().set("slugPath", segments)));
+			throw new MapperRedirectException(new PageProvider(contentShowPage, ContentPanel.bySlugPath(segments)));
 		} else if (request.getUrl().getSegments().size() == 1) {
 			log.trace("segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
 			if (SlugUtils.SLUG_PATH_PATTERN.matcher(segments).matches()) {
+				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
+						((ServletRequest) request.getContainerRequest()).getServletContext());
+				final EntityLookup<String, String> contentLookup = appCtx.getBean("contentLookup", EntityLookup.class); 
 				try {
 					final String found = contentLookup.findOne(segments);
 					log.trace("match segments: {} {}", segments, found != null);
 					if (found != null) {
-						return new UrlInfo(null, contentShowPage, new PageParameters().set("slugPath", segments));
+						return new UrlInfo(null, contentShowPage, ContentPanel.bySlugPath(segments));
 					}
 				} catch (Exception e) {
-					log.trace("Content not found for '" + segments + "' using " + contentLookup, e);
 					// does not match
+					log.trace("Content not found for '" + segments + "' using " + 
+							contentLookup, e);
 				}
 				// TODO: content system should support existsBySlugPath
 //				// RAW because we can detect mismatch

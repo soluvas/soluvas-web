@@ -34,6 +34,10 @@ public class CommonFolderContentLookup implements EntityLookup<String, String> {
 		super();
 		this.dataDir = dataDir;
 	}
+	
+	public File getDataDir() {
+		return dataDir;
+	}
 
 	@SuppressWarnings("unchecked") @Override
 	public <S extends String> S findOne(String id) {
@@ -47,6 +51,11 @@ public class CommonFolderContentLookup implements EntityLookup<String, String> {
 		}
 		log.debug("Read {} ({} bytes) in {}", file.getName(), content.length(), file.getParent());
 		return (S) content;
+	}
+
+	@Override
+	public String toString() {
+		return "CommonFolderContentLookup [dataDir=" + dataDir + "]";
 	}
 
 }

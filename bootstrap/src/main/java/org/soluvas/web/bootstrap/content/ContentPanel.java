@@ -41,7 +41,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 
 	private RepeatingView sidebarBlocks;
 	
-	public static PageParameters params(String slugPath) {
+	public static PageParameters bySlugPath(String slugPath) {
 		return new PageParameters().set("slugPath", slugPath);
 	}
 	
