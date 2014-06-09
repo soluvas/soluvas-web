@@ -518,6 +518,10 @@
   <children xmi:type="notation:Node" xmi:id="_pY1lsOJdEeOfQ_3MiAABQg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_pY2z0OJdEeOfQ_3MiAABQg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_pY3a4OJdEeOfQ_3MiAABQg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_J5Bo0O-jEeOqgqB2VeSvgQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/galleryLinkNavbarVisible"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_J5Bo0e-jEeOqgqB2VeSvgQ"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_1nlagOJdEeOfQ_3MiAABQg" type="2001">
         <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/twitterLinkVisible"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_1nlageJdEeOfQ_3MiAABQg"/>

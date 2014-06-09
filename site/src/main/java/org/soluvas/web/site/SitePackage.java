@@ -1348,13 +1348,22 @@ public interface SitePackage extends EPackage {
 	int THEME_PREF__FOOTNOTE_VISIBLE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Gallery Link Navbar Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__GALLERY_LINK_NAVBAR_VISIBLE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Theme Pref</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THEME_PREF_FEATURE_COUNT = 4;
+	int THEME_PREF_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
@@ -2023,6 +2032,17 @@ public interface SitePackage extends EPackage {
 	EAttribute getThemePref_FootnoteVisible();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#isGalleryLinkNavbarVisible <em>Gallery Link Navbar Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Gallery Link Navbar Visible</em>'.
+	 * @see org.soluvas.web.site.ThemePref#isGalleryLinkNavbarVisible()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_GalleryLinkNavbarVisible();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2606,6 +2626,14 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute THEME_PREF__FOOTNOTE_VISIBLE = eINSTANCE.getThemePref_FootnoteVisible();
+
+		/**
+		 * The meta object literal for the '<em><b>Gallery Link Navbar Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__GALLERY_LINK_NAVBAR_VISIBLE = eINSTANCE.getThemePref_GalleryLinkNavbarVisible();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
