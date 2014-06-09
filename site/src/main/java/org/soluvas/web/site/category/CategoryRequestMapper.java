@@ -62,7 +62,7 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 		} else if (request.getUrl().getSegments().size() >= 1) {
 			log.debug("segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
-			if (SlugUtils.SLUG_PATTERN.matcher(segments).matches()) {
+			if (SlugUtils.SLUG_PATH_PATTERN.matcher(segments).matches()) {
 				// RAW because we can detect mismatch
 				final Existence<String> existence = categoryRepo.existsBySlugPath(StatusMask.RAW, segments);
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
