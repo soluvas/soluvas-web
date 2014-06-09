@@ -10,4 +10,5 @@
   <permalinks namespace="category" template="{+baseUri}{slugPath}"/>
   <permalinks namespace="product_release" template="{+baseUri}{slugPath}"/>
   <permalinks namespace="tag" template="{+baseUri}{slugPath}"/>
+  <permalinks namespace="page" template="{+baseUri}{slugPath}"/>
 </site:PermalinkCatalog>
