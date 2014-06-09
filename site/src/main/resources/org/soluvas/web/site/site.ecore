@@ -298,6 +298,8 @@
         <details key="documentation" value="Displays the footnote specified in {@link org.soluvas.commons.AppManifest#getFootnote()}.&#xA;The footnote is shown on all frontend pages, usually positioned below the main content, but above the footer."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="galleryLinkNavbarVisible"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Interaction">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

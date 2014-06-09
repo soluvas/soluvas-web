@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.site.ThemePref#isFacebookLinkVisible <em>Facebook Link Visible</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#isYouTubeLinkVisible <em>You Tube Link Visible</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#isFootnoteVisible <em>Footnote Visible</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ThemePref#isGalleryLinkNavbarVisible <em>Gallery Link Navbar Visible</em>}</li>
  * </ul>
  * </p>
  *
@@ -141,5 +142,32 @@ public interface ThemePref extends EObject {
 	 * @generated
 	 */
 	void setFootnoteVisible(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Gallery Link Navbar Visible</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Gallery Link Navbar Visible</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Gallery Link Navbar Visible</em>' attribute.
+	 * @see #setGalleryLinkNavbarVisible(boolean)
+	 * @see org.soluvas.web.site.SitePackage#getThemePref_GalleryLinkNavbarVisible()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isGalleryLinkNavbarVisible();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ThemePref#isGalleryLinkNavbarVisible <em>Gallery Link Navbar Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Gallery Link Navbar Visible</em>' attribute.
+	 * @see #isGalleryLinkNavbarVisible()
+	 * @generated
+	 */
+	void setGalleryLinkNavbarVisible(boolean value);
 
 } // ThemePref
