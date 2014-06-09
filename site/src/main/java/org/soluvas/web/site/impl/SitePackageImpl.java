@@ -923,15 +923,6 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getThemePref_GalleryLinkNavbarVisible() {
-		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1071,7 +1062,6 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(themePrefEClass, THEME_PREF__FACEBOOK_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__YOU_TUBE_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__FOOTNOTE_VISIBLE);
-		createEAttribute(themePrefEClass, THEME_PREF__GALLERY_LINK_NAVBAR_VISIBLE);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1239,7 +1229,6 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getThemePref_FacebookLinkVisible(), ecorePackage.getEBoolean(), "facebookLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_YouTubeLinkVisible(), ecorePackage.getEBoolean(), "youTubeLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_FootnoteVisible(), ecorePackage.getEBoolean(), "footnoteVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getThemePref_GalleryLinkNavbarVisible(), ecorePackage.getEBoolean(), "galleryLinkNavbarVisible", "false", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
