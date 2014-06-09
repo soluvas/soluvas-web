@@ -76,10 +76,9 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameApp
  * 
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class BootstrapPage extends ExtensiblePage {
 	
-	private static final long serialVersionUID = 1L;
-
 	public static enum SidebarVisibility {
 		VISIBLE,
 		HIDDEN
