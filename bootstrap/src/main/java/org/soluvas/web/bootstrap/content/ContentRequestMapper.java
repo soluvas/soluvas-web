@@ -61,10 +61,15 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 			log.trace("segments: {}", request.getUrl().getSegments());
 			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
 			if (SlugUtils.SLUG_PATH_PATTERN.matcher(segments).matches()) {
-				final String found = contentLookup.findOne(segments);
-				log.trace("match segments: {} {}", segments, found != null);
-				if (found != null) {
-					return new UrlInfo(null, contentShowPage, new PageParameters().set("slugPath", segments));
+				try {
+					final String found = contentLookup.findOne(segments);
+					log.trace("match segments: {} {}", segments, found != null);
+					if (found != null) {
+						return new UrlInfo(null, contentShowPage, new PageParameters().set("slugPath", segments));
+					}
+				} catch (Exception e) {
+					log.trace("Content not found for '" + segments + "' using " + contentLookup, e);
+					// does not match
 				}
 				// TODO: content system should support existsBySlugPath
 //				// RAW because we can detect mismatch
