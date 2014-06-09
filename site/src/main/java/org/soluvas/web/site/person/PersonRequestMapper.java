@@ -63,7 +63,8 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
 				switch (existence.getState()) {
 				case MATCHED:
-					return new UrlInfo(null, personShowPage, new PageParameters().set("slug", existence.get()));
+					return new UrlInfo(getPageComponentInfo(request.getUrl()),
+							personShowPage, new PageParameters().set("slug", existence.get()));
 				case MISMATCHED:
 					// canonical URI
 					throw new MapperRedirectException(new PageProvider(personShowPage, new PageParameters().set("slug", existence.get())));
@@ -87,8 +88,9 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
 			final String personSlug = info.getPageParameters().get("slug").toString();
 			if (personSlug != null) {
-				return new Url(ImmutableList.of(personSlug), 
-					Charsets.UTF_8);
+				final Url url = new Url(ImmutableList.of(personSlug), Charsets.UTF_8);
+				encodePageComponentInfo(url, info.getPageComponentInfo());
+				return url;
 			} else {
 				return null;
 			}

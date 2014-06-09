@@ -70,7 +70,8 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
 				switch (existence.getState()) {
 				case MATCHED:
-					return new UrlInfo(null, categoryShowPage, new PageParameters().set("slugPath", existence.get()));
+					return new UrlInfo(getPageComponentInfo(request.getUrl()), 
+							categoryShowPage, new PageParameters().set("slugPath", existence.get()));
 				case MISMATCHED:
 					// canonical URI
 					throw new MapperRedirectException(new PageProvider(categoryShowPage, new PageParameters().set("slugPath", existence.get())));
@@ -94,7 +95,9 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 		if (info.getPageClass() == categoryShowPage && info.getPageParameters() != null) {
 			final String categorySlugPath = info.getPageParameters().get("slugPath").toString();
 			if (categorySlugPath != null) {
-				return new Url(Splitter.on('/').splitToList(categorySlugPath), Charsets.UTF_8);
+				final Url url = new Url(Splitter.on('/').splitToList(categorySlugPath), Charsets.UTF_8);
+				encodePageComponentInfo(url, info.getPageComponentInfo());
+				return url;
 			} else {
 				return null;
 			}

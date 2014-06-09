@@ -66,7 +66,8 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 					final String found = contentLookup.findOne(segments);
 					log.trace("match segments: {} {}", segments, found != null);
 					if (found != null) {
-						return new UrlInfo(null, contentShowPage, ContentPanel.bySlugPath(segments));
+						return new UrlInfo(getPageComponentInfo(request.getUrl()),
+								contentShowPage, ContentPanel.bySlugPath(segments));
 					}
 				} catch (Exception e) {
 					// does not match
@@ -103,7 +104,9 @@ public class ContentRequestMapper extends AbstractBookmarkableMapper {
 		if (info.getPageClass() == contentShowPage && info.getPageParameters() != null) {
 			final String contentSlugPath = info.getPageParameters().get("slugPath").toString();
 			if (contentSlugPath != null) {
-				return new Url(Splitter.on('/').splitToList(contentSlugPath), Charsets.UTF_8);
+				final Url url = new Url(Splitter.on('/').splitToList(contentSlugPath), Charsets.UTF_8);
+				encodePageComponentInfo(url, info.getPageComponentInfo());
+				return url;
 			} else {
 				return null;
 			}

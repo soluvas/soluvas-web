@@ -78,7 +78,8 @@ public class AlexaVerifyRequestMapper implements IRequestMapper {
 			final Url url = new Url(request.getUrl());
 			final String alexaVerifyPath = sysConfig.getAlexaVerifyId() + ".html";
 			if (alexaVerifyPath.equals(url.getPath())) {
-				return new ResourceReferenceRequestHandler(resourceReference, new PageParameters().set("alexaVerifyId", sysConfig.getAlexaVerifyId()));
+				return new ResourceReferenceRequestHandler(resourceReference, 
+						new PageParameters().set("alexaVerifyId", sysConfig.getAlexaVerifyId()));
 			} else {
 				return null;
 			}
