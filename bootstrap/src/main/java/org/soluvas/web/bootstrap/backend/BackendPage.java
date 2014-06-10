@@ -18,7 +18,7 @@ import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
 import org.soluvas.web.bootstrap.JQueryEasing;
-import org.soluvas.web.googleanalytics.GoogleAnalyticsPanel;
+import org.soluvas.web.googleanalytics.GoogleAnalyticsBehavior;
 import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
 import org.soluvas.web.site.FontAwesomeResourceReference;
 import org.soluvas.web.site.WebImage;
@@ -79,8 +79,8 @@ public class BackendPage extends WebPage {
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
 		add(new GrowlBehavior());
-		
-		add(new GoogleAnalyticsPanel("googleanalytics"));
+
+		add(new GoogleAnalyticsBehavior());
 		
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");

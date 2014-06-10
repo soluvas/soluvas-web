@@ -1,6 +1,5 @@
 package org.soluvas.web.site;
 
-import org.soluvas.web.googleanalytics.GoogleAnalyticsConfig;
 import org.soluvas.web.olark.LiveChatConfig;
 import org.soluvas.web.site.JavaScriptModule.Base;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
  * @author agus
  */
 @Configuration
-@Import({LiveChatConfig.class, GoogleAnalyticsConfig.class})
+@Import({LiveChatConfig.class})
 @ComponentScan({"org.soluvas.web.site.rs", "org.soluvas.web.site.shell"})
 public class WebSiteConfig {
 

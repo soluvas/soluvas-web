@@ -72,7 +72,7 @@ public class ManagePage extends WebPage {
 		add(new GrowlBehavior());
 		
 		// TODO: hotel's google analytics
-//		add(new GoogleAnalyticsPanel("googleanalytics"));
+//		add(new GoogleAnalyticsBehavior("googleanalytics"));
 		
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
