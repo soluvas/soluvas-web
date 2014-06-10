@@ -12,18 +12,19 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.facebook.FacebookManager;
 import org.soluvas.web.login.LoginException;
 
+import com.google.common.base.Strings;
+
 /**
  * {@link ExternalLink} that gets its source from {@link FacebookManager} settings.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class FacebookLoginLink extends ExternalLink {
-
-	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory
 			.getLogger(FacebookLoginLink.class);
 
-	@SpringBean(name="facebookMgr")
+	@SpringBean(name="facebookMgr", required=false)
 	private FacebookManager facebookMgr;
 	@SpringBean
 	private WebAddress webAddress;
@@ -60,6 +61,16 @@ public class FacebookLoginLink extends ExternalLink {
 			setDefaultModelObject(fbLoginUri);
 		} catch (final Exception ex) {
 			throw new LoginException("Error building Facebook URI", ex);
+		}
+	}
+	
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+		if (facebookMgr == null || Strings.isNullOrEmpty(facebookMgr.getAppId()) || 
+				Strings.isNullOrEmpty(facebookMgr.getAppSecret())) {
+			log.debug("Disabling Facebook login because facebookAppId/facebookAppSecret is empty");
+			setVisible(false);
 		}
 	}
 	

@@ -12,12 +12,12 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 
+@SuppressWarnings("serial")
 public class GoogleLoginLink extends StatelessLink<Void> {
 			
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleLoginLink.class);
 	
@@ -33,9 +33,11 @@ public class GoogleLoginLink extends StatelessLink<Void> {
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
-//		setVisible( googleMgr != null );
-		// TODO: always disabled for now. enable if Google login (ClientLogin, not Plus?) is working properly
-		setVisible( false );
+		if (googleMgr == null || Strings.isNullOrEmpty(googleMgr.getClientId()) ||
+				Strings.isNullOrEmpty(googleMgr.getClientSecret())) {
+			log.debug("Disabling Google+ login because googleClientId/googleClientSecret is empty");
+			setVisible(false);
+		}
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class GoogleLoginLink extends StatelessLink<Void> {
 				.setAccessType("offline")
 		        .build();
 		final String authorizationUri = authorizationCodeFlow.newAuthorizationUrl().setRedirectUri(redirectUri).build();
-		log.debug("Google Autorize url {}", authorizationUri);
+		log.debug("Google Authorize url {}", authorizationUri);
 		throw new RedirectToUrlException(authorizationUri);
 		// .setCredentialStore(
 	    // new JdoCredentialStore(JDOHelper.getPersistenceManagerFactory("transactions-optional")))

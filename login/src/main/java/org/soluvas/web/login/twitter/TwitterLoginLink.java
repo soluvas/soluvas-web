@@ -17,14 +17,15 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
 
+import com.google.common.base.Strings;
+
+@SuppressWarnings("serial")
 public class TwitterLoginLink extends StatelessLink<Void> {
 			
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterLoginLink.class);
 	
-	@SpringBean(name="twitterMgr")
+	@SpringBean(name="twitterMgr", required=false)
 	private TwitterManager twitterMgr;
 	@SpringBean
 	private WebAddress webAddress;
@@ -38,6 +39,16 @@ public class TwitterLoginLink extends StatelessLink<Void> {
 	public TwitterLoginLink(String id, Class<? extends Page> recipientPage) {
 		super(id);
 		this.recipientPage = recipientPage;
+	}
+	
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+		if (twitterMgr == null || Strings.isNullOrEmpty(twitterMgr.getAppAccessToken()) ||
+				Strings.isNullOrEmpty(twitterMgr.getAppAccessTokenSecret())) {
+			log.debug("Disabling Twitter login because appAccessToken/appAccessTokenSecret is empty");
+			setVisible(false);
+		}
 	}
 
 	@Override
