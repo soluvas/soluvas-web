@@ -3,4 +3,4 @@
  *
  */
 @javax.annotation.ParametersAreNonnullByDefault
-package org.soluvas.web.site.googlewebmasters;
+package org.soluvas.web.site.google;

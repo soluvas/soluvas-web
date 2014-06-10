@@ -1357,32 +1357,59 @@ public interface SitePackage extends EPackage {
 	int THEME_PREF_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
-	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleWebmastersSysConfig()
+	 * @see org.soluvas.web.site.GoogleSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleSysConfig()
 	 * @generated
 	 */
-	int GOOGLE_WEBMASTERS_SYS_CONFIG = 26;
+	int GOOGLE_SYS_CONFIG = 26;
 
 	/**
-	 * The feature id for the '<em><b>Google Webmasters Verify Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Google Api Key</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GOOGLE_WEBMASTERS_SYS_CONFIG__GOOGLE_WEBMASTERS_VERIFY_ID = 0;
+	int GOOGLE_SYS_CONFIG__GOOGLE_API_KEY = 0;
 
 	/**
-	 * The number of structural features of the '<em>Google Webmasters Sys Config</em>' class.
+	 * The feature id for the '<em><b>Google Client Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GOOGLE_WEBMASTERS_SYS_CONFIG_FEATURE_COUNT = 1;
+	int GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_ID = 1;
+
+	/**
+	 * The feature id for the '<em><b>Google Client Secret</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_SECRET = 2;
+
+	/**
+	 * The feature id for the '<em><b>Google Verify Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_SYS_CONFIG__GOOGLE_VERIFY_ID = 3;
+
+	/**
+	 * The number of structural features of the '<em>Google Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_SYS_CONFIG_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
@@ -2051,25 +2078,58 @@ public interface SitePackage extends EPackage {
 	EAttribute getThemePref_FootnoteVisible();
 
 	/**
-	 * Returns the meta object for class '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}'.
+	 * Returns the meta object for class '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Google Webmasters Sys Config</em>'.
-	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
+	 * @return the meta object for class '<em>Google Sys Config</em>'.
+	 * @see org.soluvas.web.site.GoogleSysConfig
 	 * @generated
 	 */
-	EClass getGoogleWebmastersSysConfig();
+	EClass getGoogleSysConfig();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleWebmastersSysConfig#getGoogleWebmastersVerifyId <em>Google Webmasters Verify Id</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleSysConfig#getGoogleApiKey <em>Google Api Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Google Webmasters Verify Id</em>'.
-	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig#getGoogleWebmastersVerifyId()
-	 * @see #getGoogleWebmastersSysConfig()
+	 * @return the meta object for the attribute '<em>Google Api Key</em>'.
+	 * @see org.soluvas.web.site.GoogleSysConfig#getGoogleApiKey()
+	 * @see #getGoogleSysConfig()
 	 * @generated
 	 */
-	EAttribute getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId();
+	EAttribute getGoogleSysConfig_GoogleApiKey();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleSysConfig#getGoogleClientId <em>Google Client Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Client Id</em>'.
+	 * @see org.soluvas.web.site.GoogleSysConfig#getGoogleClientId()
+	 * @see #getGoogleSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleSysConfig_GoogleClientId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleSysConfig#getGoogleClientSecret <em>Google Client Secret</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Client Secret</em>'.
+	 * @see org.soluvas.web.site.GoogleSysConfig#getGoogleClientSecret()
+	 * @see #getGoogleSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleSysConfig_GoogleClientSecret();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleSysConfig#getGoogleVerifyId <em>Google Verify Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Verify Id</em>'.
+	 * @see org.soluvas.web.site.GoogleSysConfig#getGoogleVerifyId()
+	 * @see #getGoogleSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleSysConfig_GoogleVerifyId();
 
 	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
@@ -2657,22 +2717,46 @@ public interface SitePackage extends EPackage {
 		EAttribute THEME_PREF__FOOTNOTE_VISIBLE = eINSTANCE.getThemePref_FootnoteVisible();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
-		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleWebmastersSysConfig()
+		 * @see org.soluvas.web.site.GoogleSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleSysConfig()
 		 * @generated
 		 */
-		EClass GOOGLE_WEBMASTERS_SYS_CONFIG = eINSTANCE.getGoogleWebmastersSysConfig();
+		EClass GOOGLE_SYS_CONFIG = eINSTANCE.getGoogleSysConfig();
 
 		/**
-		 * The meta object literal for the '<em><b>Google Webmasters Verify Id</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Google Api Key</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute GOOGLE_WEBMASTERS_SYS_CONFIG__GOOGLE_WEBMASTERS_VERIFY_ID = eINSTANCE.getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId();
+		EAttribute GOOGLE_SYS_CONFIG__GOOGLE_API_KEY = eINSTANCE.getGoogleSysConfig_GoogleApiKey();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Client Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_ID = eINSTANCE.getGoogleSysConfig_GoogleClientId();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Client Secret</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_SECRET = eINSTANCE.getGoogleSysConfig_GoogleClientSecret();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Verify Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_SYS_CONFIG__GOOGLE_VERIFY_ID = eINSTANCE.getGoogleSysConfig_GoogleVerifyId();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

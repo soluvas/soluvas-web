@@ -6,13 +6,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.web.login.GoogleManager;
+import org.soluvas.web.site.GoogleSysConfig;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 
 @SuppressWarnings("serial")
@@ -21,8 +20,8 @@ public class GoogleLoginLink extends StatelessLink<Void> {
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleLoginLink.class);
 	
-	@SpringBean(name="googleMgr", required=false)
-	private GoogleManager googleMgr;
+	@SpringBean(required=false)
+	private GoogleSysConfig sysConfig;
 	@SpringBean
 	private WebAddress webAddress;
 
@@ -33,11 +32,13 @@ public class GoogleLoginLink extends StatelessLink<Void> {
 	@Override
 	protected void onConfigure() {
 		super.onConfigure();
-		if (googleMgr == null || Strings.isNullOrEmpty(googleMgr.getClientId()) ||
-				Strings.isNullOrEmpty(googleMgr.getClientSecret())) {
-			log.debug("Disabling Google+ login because googleClientId/googleClientSecret is empty");
-			setVisible(false);
-		}
+		// FIXME: org.soluvas.web.login.GoogleRecipient is not yet working
+		setVisible(false);
+//		if (Strings.isNullOrEmpty(sysConfig.getGoogleClientId()) ||
+//				Strings.isNullOrEmpty(sysConfig.getGoogleClientSecret())) {
+//			log.debug("Disabling Google+ login because googleClientId/googleClientSecret is empty");
+//			setVisible(false);
+//		}
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class GoogleLoginLink extends StatelessLink<Void> {
 		final String redirectUri = webAddress.getBaseUri() + "google_recipient/";
 		final GoogleAuthorizationCodeFlow authorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(
 				new NetHttpTransport(), new JacksonFactory(),
-				googleMgr.getClientId(), googleMgr.getClientSecret(),
+				sysConfig.getGoogleClientId(), sysConfig.getGoogleClientSecret(),
 				ImmutableList.of(PlusScopes.PLUS_ME))
 				.setAccessType("offline")
 		        .build();

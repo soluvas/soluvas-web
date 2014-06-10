@@ -1,4 +1,4 @@
-package org.soluvas.web.googleanalytics;
+package org.soluvas.web.site.google;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;

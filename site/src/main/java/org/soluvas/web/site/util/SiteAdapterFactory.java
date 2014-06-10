@@ -173,8 +173,8 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 				return createThemePrefAdapter();
 			}
 			@Override
-			public Adapter caseGoogleWebmastersSysConfig(GoogleWebmastersSysConfig object) {
-				return createGoogleWebmastersSysConfigAdapter();
+			public Adapter caseGoogleSysConfig(GoogleSysConfig object) {
+				return createGoogleSysConfigAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -561,16 +561,16 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
+	 * @see org.soluvas.web.site.GoogleSysConfig
 	 * @generated
 	 */
-	public Adapter createGoogleWebmastersSysConfigAdapter() {
+	public Adapter createGoogleSysConfigAdapter() {
 		return null;
 	}
 

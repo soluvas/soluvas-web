@@ -18,10 +18,10 @@ import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
 import org.soluvas.web.bootstrap.GrowlBehavior;
 import org.soluvas.web.bootstrap.JQueryEasing;
-import org.soluvas.web.googleanalytics.GoogleAnalyticsBehavior;
 import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
 import org.soluvas.web.site.FontAwesomeResourceReference;
 import org.soluvas.web.site.WebImage;
+import org.soluvas.web.site.google.GoogleAnalyticsBehavior;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;

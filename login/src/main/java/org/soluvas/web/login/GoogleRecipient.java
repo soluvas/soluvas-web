@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.person.PersonRepository;
+import org.soluvas.web.site.GoogleSysConfig;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.google.api.client.http.HttpTransport;
@@ -32,8 +33,8 @@ public class GoogleRecipient extends WebPage {
 	
 	@SpringBean
 	private PersonRepository personRepo;
-	@SpringBean(name="googleMgr")
-	private GoogleManager googleManager;
+	@SpringBean
+	private GoogleSysConfig sysConfig;
 	@SpringBean
 	private WebAddress webAddress;
 

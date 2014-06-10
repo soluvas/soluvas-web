@@ -399,15 +399,28 @@
       </eAnnotations>
     </eLiterals>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GoogleWebmastersSysConfig" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GoogleSysConfig" abstract="true" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="SysConfig for &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;>Google Webmasters Toolkit&lt;/a>."/>
+      <details key="documentation" value="SysConfig for &lt;a href=&quot;https://developers.google.com/+/&quot;>Google+ Sign-in&lt;/a> and &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;>Google Webmasters Toolkit&lt;/a>."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="googleWebmastersVerifyId"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="googleApiKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Google site verification ID, e.g. {@code google187974e610426105}."/>
+        <details key="documentation" value="&lt;a href=&quot;https://developers.google.com/console/help/using-keys&quot;>Public API access&lt;/a>&#xA;&#xA;&lt;p>Use of this key does not require any user action or consent, does not grant access to any account information, and is not used for authorization.&#xA;&#xA;&lt;p>Get this from &lt;a href=&quot;https://console.developers.google.com/&quot;>Google Developers Console&lt;/a> - API Project - APIs &amp; auth - Credentials - Public API access."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="googleClientId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;a href=&quot;https://developers.google.com/console/help/generating-oauth2&quot;>OAuth 2.0 Client ID&lt;/a>&#xA;&#xA;&lt;p>OAuth 2.0 allows users to share specific data with you (for example, contact lists) while keeping their usernames, passwords, and other information private.&#xA;&#xA;&lt;p>Get this from &lt;a href=&quot;https://console.developers.google.com/&quot;>Google Developers Console&lt;/a> - API Project - APIs &amp; auth - Credentials - OAuth."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="googleClientSecret" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;a href=&quot;https://developers.google.com/console/help/generating-oauth2&quot;>OAuth 2.0 Client Secret&lt;/a>&#xA;&#xA;&lt;p>OAuth 2.0 allows users to share specific data with you (for example, contact lists) while keeping their usernames, passwords, and other information private.&#xA;&#xA;&lt;p>Get this from &lt;a href=&quot;https://console.developers.google.com/&quot;>Google Developers Console&lt;/a> - API Project - APIs &amp; auth - Credentials - OAuth."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="googleVerifyId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Google site verification ID provided by &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;>Google Webmasters Toolkit&lt;/a>, e.g. {@code google187974e610426105}."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

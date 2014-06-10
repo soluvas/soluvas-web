@@ -1,4 +1,4 @@
-package org.soluvas.web.site.googlewebmasters;
+package org.soluvas.web.site.google;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ByteArrayResource;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.ResourceReference;
-import org.soluvas.web.site.GoogleWebmastersSysConfig;
+import org.soluvas.web.site.GoogleSysConfig;
 import org.soluvas.web.site.SiteException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -30,10 +30,10 @@ import com.google.common.base.Strings;
  * @author ceefour
  *
  */
-public class GoogleWebmastersVerifyRequestMapper implements IRequestMapper {
+public class GoogleVerifyRequestMapper implements IRequestMapper {
 
-	private static final DefaultMustacheFactory MF = new DefaultMustacheFactory("org/soluvas/web/site/googlewebmasters");
-	private static final Mustache MUSTACHE = MF.compile("googlewebmastersverify.html.mustache");
+	private static final DefaultMustacheFactory MF = new DefaultMustacheFactory("org/soluvas/web/site/google");
+	private static final Mustache MUSTACHE = MF.compile("googleverify.html.mustache");
 
 	private ResourceReference resourceReference;
 	
@@ -42,9 +42,9 @@ public class GoogleWebmastersVerifyRequestMapper implements IRequestMapper {
 	 * @param resourceReference
 	 */
 	@SuppressWarnings("serial")
-	public GoogleWebmastersVerifyRequestMapper() {
+	public GoogleVerifyRequestMapper() {
 		super();
-		this.resourceReference = new ResourceReference("googlewebmastersverify.html") {
+		this.resourceReference = new ResourceReference("googleverify.html") {
 			@Override
 			public IResource getResource() {
 				return new ByteArrayResource("text/html") {
@@ -52,8 +52,8 @@ public class GoogleWebmastersVerifyRequestMapper implements IRequestMapper {
 					protected byte[] getData(Attributes attributes) {
 						final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 								((ServletRequest) attributes.getRequest().getContainerRequest()).getServletContext());
-						final GoogleWebmastersSysConfig sysConfig = appCtx.getBean(GoogleWebmastersSysConfig.class);
-						Preconditions.checkState(!Strings.isNullOrEmpty(sysConfig.getGoogleWebmastersVerifyId()),
+						final GoogleSysConfig sysConfig = appCtx.getBean(GoogleSysConfig.class);
+						Preconditions.checkState(!Strings.isNullOrEmpty(sysConfig.getGoogleVerifyId()),
 								"This site has no Google Webmasters Verify ID");
 						try (final ByteArrayOutputStream ostream = new ByteArrayOutputStream()) {
 							try (final OutputStreamWriter writer = new OutputStreamWriter(ostream)) {
@@ -73,13 +73,13 @@ public class GoogleWebmastersVerifyRequestMapper implements IRequestMapper {
 	public IRequestHandler mapRequest(Request request) {
 		final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 				((ServletRequest) request.getContainerRequest()).getServletContext());
-		final GoogleWebmastersSysConfig sysConfig = appCtx.getBean(GoogleWebmastersSysConfig.class);
-		if (!Strings.isNullOrEmpty(sysConfig.getGoogleWebmastersVerifyId())) {
+		final GoogleSysConfig sysConfig = appCtx.getBean(GoogleSysConfig.class);
+		if (!Strings.isNullOrEmpty(sysConfig.getGoogleVerifyId())) {
 			final Url url = new Url(request.getUrl());
-			final String alexaVerifyPath = sysConfig.getGoogleWebmastersVerifyId() + ".html";
-			if (alexaVerifyPath.equals(url.getPath())) {
+			final String googleVerifyPath = sysConfig.getGoogleVerifyId() + ".html";
+			if (googleVerifyPath.equals(url.getPath())) {
 				return new ResourceReferenceRequestHandler(resourceReference, 
-						new PageParameters().set("googleWebmastersVerifyId", sysConfig.getGoogleWebmastersVerifyId()));
+						new PageParameters().set("googleVerifyId", sysConfig.getGoogleVerifyId()));
 			} else {
 				return null;
 			}
@@ -97,11 +97,11 @@ public class GoogleWebmastersVerifyRequestMapper implements IRequestMapper {
 	public Url mapHandler(IRequestHandler requestHandler) {
 		if (requestHandler instanceof ResourceReferenceRequestHandler) {
 			if (((ResourceReferenceRequestHandler) requestHandler).getResourceReference() == resourceReference) {
-				final String googleWebmastersVerifyId = ((ResourceReferenceRequestHandler) requestHandler)
-						.getPageParameters().get("googleWebmastersVerifyId").toString();
-				if (!Strings.isNullOrEmpty(googleWebmastersVerifyId)) {
-					final String googleWebmastersVerifyPath = googleWebmastersVerifyId + ".html";
-					return Url.parse(googleWebmastersVerifyPath);
+				final String googleVerifyId = ((ResourceReferenceRequestHandler) requestHandler)
+						.getPageParameters().get("googleVerifyId").toString();
+				if (!Strings.isNullOrEmpty(googleVerifyId)) {
+					final String googleVerifyPath = googleVerifyId + ".html";
+					return Url.parse(googleVerifyPath);
 				}
 			}
 		}

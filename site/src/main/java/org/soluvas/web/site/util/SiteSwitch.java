@@ -242,9 +242,9 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case SitePackage.GOOGLE_WEBMASTERS_SYS_CONFIG: {
-				GoogleWebmastersSysConfig googleWebmastersSysConfig = (GoogleWebmastersSysConfig)theEObject;
-				T result = caseGoogleWebmastersSysConfig(googleWebmastersSysConfig);
+			case SitePackage.GOOGLE_SYS_CONFIG: {
+				GoogleSysConfig googleSysConfig = (GoogleSysConfig)theEObject;
+				T result = caseGoogleSysConfig(googleSysConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -643,17 +643,17 @@ public class SiteSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Google Webmasters Sys Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Google Sys Config</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Google Webmasters Sys Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Google Sys Config</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseGoogleWebmastersSysConfig(GoogleWebmastersSysConfig object) {
+	public T caseGoogleSysConfig(GoogleSysConfig object) {
 		return null;
 	}
 

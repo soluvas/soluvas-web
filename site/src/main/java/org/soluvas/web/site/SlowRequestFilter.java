@@ -11,7 +11,7 @@ import org.apache.wicket.response.filter.IResponseFilter;
 import org.apache.wicket.util.string.AppendingStringBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.web.googleanalytics.GoogleAnalyticsServerTimingFilter;
+import org.soluvas.web.site.google.GoogleAnalyticsServerTimingFilter;
 
 import com.google.common.base.Optional;
 

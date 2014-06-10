@@ -1,4 +1,4 @@
-package org.soluvas.web.googleanalytics;
+package org.soluvas.web.site.google;
 
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;

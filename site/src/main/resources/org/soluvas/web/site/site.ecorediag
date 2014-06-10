@@ -637,8 +637,20 @@
   <children xmi:type="notation:Node" xmi:id="_2gfwAPB1EeOJRrsIWjFJsQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_2ghlMPB1EeOJRrsIWjFJsQ" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_2giMQPB1EeOJRrsIWjFJsQ" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_SFUwcPCWEeOMLaF2nbLW1g" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleSysConfig/googleApiKey"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_SFUwcfCWEeOMLaF2nbLW1g"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_QRbJ4PCWEeOMLaF2nbLW1g" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleSysConfig/googleClientId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QRbJ4fCWEeOMLaF2nbLW1g"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Q3Ro8PCWEeOMLaF2nbLW1g" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleSysConfig/googleClientSecret"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3Ro8fCWEeOMLaF2nbLW1g"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_XnCywPB5EeOdJsFsJ0WLJQ" type="2001">
-        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleWebmastersSysConfig/googleWebmastersVerifyId"/>
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleSysConfig/googleVerifyId"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_XnCywfB5EeOdJsFsJ0WLJQ"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_2giMQfB1EeOJRrsIWjFJsQ"/>
@@ -651,7 +663,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_2giMR_B1EeOJRrsIWjFJsQ"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_2gfwAfB1EeOJRrsIWjFJsQ" fontColor="4210752" fontName="OxygenSans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="site.ecore#//GoogleWebmastersSysConfig"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//GoogleSysConfig"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2gfwAvB1EeOJRrsIWjFJsQ" x="2131" y="164"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Wj8eYRbUEeK-u5Qj8_PKYg"/>

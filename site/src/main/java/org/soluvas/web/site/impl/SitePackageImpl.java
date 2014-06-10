@@ -22,7 +22,7 @@ import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
-import org.soluvas.web.site.GoogleWebmastersSysConfig;
+import org.soluvas.web.site.GoogleSysConfig;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.LiveChatSysConfig;
@@ -239,7 +239,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass googleWebmastersSysConfigEClass = null;
+	private EClass googleSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -931,8 +931,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getGoogleWebmastersSysConfig() {
-		return googleWebmastersSysConfigEClass;
+	public EClass getGoogleSysConfig() {
+		return googleSysConfigEClass;
 	}
 
 	/**
@@ -940,8 +940,35 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId() {
-		return (EAttribute)googleWebmastersSysConfigEClass.getEStructuralFeatures().get(0);
+	public EAttribute getGoogleSysConfig_GoogleApiKey() {
+		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleSysConfig_GoogleClientId() {
+		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleSysConfig_GoogleClientSecret() {
+		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleSysConfig_GoogleVerifyId() {
+		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1089,8 +1116,11 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(themePrefEClass, THEME_PREF__YOU_TUBE_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__FOOTNOTE_VISIBLE);
 
-		googleWebmastersSysConfigEClass = createEClass(GOOGLE_WEBMASTERS_SYS_CONFIG);
-		createEAttribute(googleWebmastersSysConfigEClass, GOOGLE_WEBMASTERS_SYS_CONFIG__GOOGLE_WEBMASTERS_VERIFY_ID);
+		googleSysConfigEClass = createEClass(GOOGLE_SYS_CONFIG);
+		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_API_KEY);
+		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_ID);
+		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_SECRET);
+		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_VERIFY_ID);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1259,8 +1289,11 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getThemePref_YouTubeLinkVisible(), ecorePackage.getEBoolean(), "youTubeLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_FootnoteVisible(), ecorePackage.getEBoolean(), "footnoteVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(googleWebmastersSysConfigEClass, GoogleWebmastersSysConfig.class, "GoogleWebmastersSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId(), ecorePackage.getEString(), "googleWebmastersVerifyId", null, 0, 1, GoogleWebmastersSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(googleSysConfigEClass, GoogleSysConfig.class, "GoogleSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGoogleSysConfig_GoogleApiKey(), ecorePackage.getEString(), "googleApiKey", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleSysConfig_GoogleClientId(), ecorePackage.getEString(), "googleClientId", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleSysConfig_GoogleClientSecret(), ecorePackage.getEString(), "googleClientSecret", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleSysConfig_GoogleVerifyId(), ecorePackage.getEString(), "googleVerifyId", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
@@ -1705,16 +1738,34 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 			 "documentation", "Unliked or unstarred or unwatched."
 		   });		
 		addAnnotation
-		  (googleWebmastersSysConfigEClass, 
+		  (googleSysConfigEClass, 
 		   source, 
 		   new String[] {
-			 "documentation", "SysConfig for <a href=\"https://www.google.com/webmasters/tools/home\">Google Webmasters Toolkit</a>."
+			 "documentation", "SysConfig for <a href=\"https://developers.google.com/+/\">Google+ Sign-in</a> and <a href=\"https://www.google.com/webmasters/tools/home\">Google Webmasters Toolkit</a>."
 		   });		
 		addAnnotation
-		  (getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId(), 
+		  (getGoogleSysConfig_GoogleApiKey(), 
 		   source, 
 		   new String[] {
-			 "documentation", "Google site verification ID, e.g. {@code google187974e610426105}."
+			 "documentation", "<a href=\"https://developers.google.com/console/help/using-keys\">Public API access</a>\n\n<p>Use of this key does not require any user action or consent, does not grant access to any account information, and is not used for authorization.\n\n<p>Get this from <a href=\"https://console.developers.google.com/\">Google Developers Console</a> - API Project - APIs & auth - Credentials - Public API access."
+		   });		
+		addAnnotation
+		  (getGoogleSysConfig_GoogleClientId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "<a href=\"https://developers.google.com/console/help/generating-oauth2\">OAuth 2.0 Client ID</a>\n\n<p>OAuth 2.0 allows users to share specific data with you (for example, contact lists) while keeping their usernames, passwords, and other information private.\n\n<p>Get this from <a href=\"https://console.developers.google.com/\">Google Developers Console</a> - API Project - APIs & auth - Credentials - OAuth."
+		   });		
+		addAnnotation
+		  (getGoogleSysConfig_GoogleClientSecret(), 
+		   source, 
+		   new String[] {
+			 "documentation", "<a href=\"https://developers.google.com/console/help/generating-oauth2\">OAuth 2.0 Client Secret</a>\n\n<p>OAuth 2.0 allows users to share specific data with you (for example, contact lists) while keeping their usernames, passwords, and other information private.\n\n<p>Get this from <a href=\"https://console.developers.google.com/\">Google Developers Console</a> - API Project - APIs & auth - Credentials - OAuth."
+		   });		
+		addAnnotation
+		  (getGoogleSysConfig_GoogleVerifyId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Google site verification ID provided by <a href=\"https://www.google.com/webmasters/tools/home\">Google Webmasters Toolkit</a>, e.g. {@code google187974e610426105}."
 		   });
 	}
 	
