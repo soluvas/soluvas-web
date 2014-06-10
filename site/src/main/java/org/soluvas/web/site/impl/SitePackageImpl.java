@@ -22,6 +22,7 @@ import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
+import org.soluvas.web.site.GoogleWebmastersSysConfig;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.LiveChatSysConfig;
@@ -232,6 +233,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass themePrefEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass googleWebmastersSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -923,6 +931,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGoogleWebmastersSysConfig() {
+		return googleWebmastersSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId() {
+		return (EAttribute)googleWebmastersSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1062,6 +1088,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(themePrefEClass, THEME_PREF__FACEBOOK_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__YOU_TUBE_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__FOOTNOTE_VISIBLE);
+
+		googleWebmastersSysConfigEClass = createEClass(GOOGLE_WEBMASTERS_SYS_CONFIG);
+		createEAttribute(googleWebmastersSysConfigEClass, GOOGLE_WEBMASTERS_SYS_CONFIG__GOOGLE_WEBMASTERS_VERIFY_ID);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1229,6 +1258,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getThemePref_FacebookLinkVisible(), ecorePackage.getEBoolean(), "facebookLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_YouTubeLinkVisible(), ecorePackage.getEBoolean(), "youTubeLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_FootnoteVisible(), ecorePackage.getEBoolean(), "footnoteVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(googleWebmastersSysConfigEClass, GoogleWebmastersSysConfig.class, "GoogleWebmastersSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId(), ecorePackage.getEString(), "googleWebmastersVerifyId", null, 0, 1, GoogleWebmastersSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
@@ -1671,6 +1703,18 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Unliked or unstarred or unwatched."
+		   });		
+		addAnnotation
+		  (googleWebmastersSysConfigEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "SysConfig for <a href=\"https://www.google.com/webmasters/tools/home\">Google Webmasters Toolkit</a>."
+		   });		
+		addAnnotation
+		  (getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Google site verification ID, e.g. {@code google187974e610426105}."
 		   });
 	}
 	

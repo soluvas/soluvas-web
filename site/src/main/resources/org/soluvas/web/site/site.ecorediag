@@ -634,6 +634,26 @@
     <element xmi:type="ecore:EEnum" href="site.ecore#//Interaction"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_11yMwuxcEeOHfNuoiQKY7g" x="2748" y="24"/>
   </children>
+  <children xmi:type="notation:Node" xmi:id="_2gfwAPB1EeOJRrsIWjFJsQ" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_2ghlMPB1EeOJRrsIWjFJsQ" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_2giMQPB1EeOJRrsIWjFJsQ" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_XnCywPB5EeOdJsFsJ0WLJQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleWebmastersSysConfig/googleWebmastersVerifyId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_XnCywfB5EeOdJsFsJ0WLJQ"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_2giMQfB1EeOJRrsIWjFJsQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_2giMQvB1EeOJRrsIWjFJsQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_2giMQ_B1EeOJRrsIWjFJsQ"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_2giMRPB1EeOJRrsIWjFJsQ" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_2giMRfB1EeOJRrsIWjFJsQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_2giMRvB1EeOJRrsIWjFJsQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_2giMR_B1EeOJRrsIWjFJsQ"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_2gfwAfB1EeOJRrsIWjFJsQ" fontColor="4210752" fontName="OxygenSans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="site.ecore#//GoogleWebmastersSysConfig"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2gfwAvB1EeOJRrsIWjFJsQ" x="2131" y="164"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Wj8eYRbUEeK-u5Qj8_PKYg"/>
   <element xmi:type="ecore:EPackage" href="site.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_tj44ABldEeKZi_5YjoJxfA" type="3002" source="_sH3l8BldEeKZi_5YjoJxfA" target="_Zn0yMRldEeKZi_5YjoJxfA">

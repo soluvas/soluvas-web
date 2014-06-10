@@ -1357,6 +1357,34 @@ public interface SitePackage extends EPackage {
 	int THEME_PREF_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleWebmastersSysConfig()
+	 * @generated
+	 */
+	int GOOGLE_WEBMASTERS_SYS_CONFIG = 26;
+
+	/**
+	 * The feature id for the '<em><b>Google Webmasters Verify Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_WEBMASTERS_SYS_CONFIG__GOOGLE_WEBMASTERS_VERIFY_ID = 0;
+
+	/**
+	 * The number of structural features of the '<em>Google Webmasters Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_WEBMASTERS_SYS_CONFIG_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1364,7 +1392,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 26;
+	int JAVA_SCRIPT_MODE = 27;
 
 
 	/**
@@ -1375,7 +1403,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 27;
+	int INTERACTION = 28;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1385,7 +1413,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 28;
+	int LIVE_CHAT_PROVIDER = 29;
 
 
 	/**
@@ -2023,6 +2051,27 @@ public interface SitePackage extends EPackage {
 	EAttribute getThemePref_FootnoteVisible();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Google Webmasters Sys Config</em>'.
+	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
+	 * @generated
+	 */
+	EClass getGoogleWebmastersSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleWebmastersSysConfig#getGoogleWebmastersVerifyId <em>Google Webmasters Verify Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Webmasters Verify Id</em>'.
+	 * @see org.soluvas.web.site.GoogleWebmastersSysConfig#getGoogleWebmastersVerifyId()
+	 * @see #getGoogleWebmastersSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2606,6 +2655,24 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute THEME_PREF__FOOTNOTE_VISIBLE = eINSTANCE.getThemePref_FootnoteVisible();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleWebmastersSysConfig <em>Google Webmasters Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.GoogleWebmastersSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleWebmastersSysConfig()
+		 * @generated
+		 */
+		EClass GOOGLE_WEBMASTERS_SYS_CONFIG = eINSTANCE.getGoogleWebmastersSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Webmasters Verify Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_WEBMASTERS_SYS_CONFIG__GOOGLE_WEBMASTERS_VERIFY_ID = eINSTANCE.getGoogleWebmastersSysConfig_GoogleWebmastersVerifyId();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
