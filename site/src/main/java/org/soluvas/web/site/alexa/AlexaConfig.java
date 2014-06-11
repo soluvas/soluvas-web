@@ -34,7 +34,7 @@ public class AlexaConfig {
 	@Inject @Named(CommonsWebConfig.APP_EVENT_BUS)
 	private EventBus appEventBus;
 	@Inject
-	private SysConfigMapHolder<AlexaSysConfig> sysConfigMapHolder;
+	private SysConfigMapHolder<? extends AlexaSysConfig> sysConfigMapHolder;
 	@Autowired(required=false) @Nullable
 	private TenantRepository<?> tenantRepo;
 	

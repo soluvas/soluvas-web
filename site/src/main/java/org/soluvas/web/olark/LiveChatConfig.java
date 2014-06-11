@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Scope;
 public class LiveChatConfig {
 
 	@Inject
-	private SysConfigMapHolder<LiveChatSysConfig> sysConfigMapHolder;
+	private SysConfigMapHolder<? extends LiveChatSysConfig> sysConfigMapHolder;
 	
 	@Bean(destroyMethod="destroy")
 	public TenantBeans<LiveChatManager> liveChatMgrBeanRepo() {
