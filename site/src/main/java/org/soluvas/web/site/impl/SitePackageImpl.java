@@ -881,6 +881,15 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures() {
+		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EClass getThemePref() {
 		return themePrefEClass;
@@ -1109,6 +1118,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_ENABLED);
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID);
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN);
+		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES);
 
 		themePrefEClass = createEClass(THEME_PREF);
 		createEAttribute(themePrefEClass, THEME_PREF__TWITTER_LINK_VISIBLE);
@@ -1282,6 +1292,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled(), ecorePackage.getEBooleanObject(), "googleAnalyticsEnabled", "false", 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId(), ecorePackage.getEString(), "googleAnalyticsTrackingId", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain(), ecorePackage.getEString(), "googleAnalyticsCookieDomain", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures(), ecorePackage.getEBoolean(), "googleAnalyticsDisplayFeatures", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(themePrefEClass, ThemePref.class, "ThemePref", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getThemePref_TwitterLinkVisible(), ecorePackage.getEBoolean(), "twitterLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1604,6 +1615,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Cookie domain for Google Analytics, if different than the default settings (usually the \"www\" subdomain)."
+		   });		
+		addAnnotation
+		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures(), 
+		   source, 
+		   new String[] {
+			 "documentation", "<a href=\"https://support.google.com/analytics/answer/2700409\">Google Analytics Advertising Features</a> allow you to enable features in Analytics that aren\'t available through standard implementations. Advertising Features include:\n\n<ol>\n<li>Remarketing with Google Analytics</li>\n<li>Google Display Network Impression Reporting</li>\n<li>DoubleClick Platform integrations</li>\n<li>Google Analytics Demographics and Interest Reporting</li>\n</ol>\n\n<p>By enabling these advertising features, you enable Google Analytics to collect data about your traffic via Google advertising cookies and anonymous identifiers, in addition to data collected through a standard Google Analytics implementation. Regardless of how you send data to Google Analytics (for example, via the Google Analytics tracking code, Google Analytics SDK, or the Measurement Protocol), if you use Google Analytics Advertising Features, you must adhere to this policy.\n\n<p>You will not facilitate the merging of personally-identifiable information with non-personally identifiable information collected through any Google advertising product or feature unless you have robust notice of, and the user\'s prior affirmative (i.e., opt-in) consent to, that merger.\n\n<p>If you\'ve enabled any Google Analytics Advertising Features, you are required to notify your visitors by disclosing the following information in your privacy policy:\n\n<ol>\n<li>The Google Analytics Advertising Features you\'ve implemented.</li>\n<li>How you and third-party vendors use first-party cookies (such as the Google Analytics cookie) or other first-party identifiers, and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together.</li>\n<li>How visitors can opt-out of the Google Analytics Advertising Features you use, including through Ads Settings, Ad Settings for mobile apps, or any other available means (for example, the NAI\'s consumer opt-out).</li>\n</ol>\n\n<p>We also encourage you to point users to Google Analytics\' <a href=\"https://tools.google.com/dlpage/gaoptout/\">currently available opt-outs</a> for the web.\n\n<p>Because laws across countries and territories vary, and because Google Analytics can be used in many ways, Google is unable to provide the exact language you need to include in your privacy policy. Only you understand the unique aspects and special considerations of your business, and your privacy policy should account for this information that only you can provide."
 		   });		
 		addAnnotation
 		  (themePrefEClass, 

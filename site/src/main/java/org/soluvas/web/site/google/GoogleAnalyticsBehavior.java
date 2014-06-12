@@ -41,18 +41,20 @@ public class GoogleAnalyticsBehavior extends Behavior {
 				// TODO: support specific domain (i.e. non-auto) during ga(create)
 				// https://developers.google.com/analytics/devguides/collection/analyticsjs/
 				final String realCookieDomain = Optional.fromNullable(sysConfig.getGoogleAnalyticsCookieDomain()).or("auto");
-				final String googleAnalyticScript =
-						  "\n"
-						+ "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n"
+				String googleAnalyticScript =
+						  "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n"
 						+ "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n"
 						+ "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n"
 						+ "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n"
 						+ "\n"
-						+ "ga('create', '" + sysConfig.getGoogleAnalyticsTrackingId() + "', '" + realCookieDomain + "');\n"
-						+ "ga('send', 'pageview');\n";
+						+ "ga('create', '" + sysConfig.getGoogleAnalyticsTrackingId() + "', '" + realCookieDomain + "');\n";
+				if (sysConfig.isGoogleAnalyticsDisplayFeatures()) {
+					googleAnalyticScript += "ga('require', 'displayfeatures');\n";
+				}
+				googleAnalyticScript += "ga('send', 'pageview');\n";
 				// do not put in footer-container, so we use StringHeaderItem instead of JavaScriptHeaderItem
 				// to "fool" de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator
-				response.render(StringHeaderItem.forString("<script>" + googleAnalyticScript + "</script>\n"));
+				response.render(StringHeaderItem.forString("<script>\n" + googleAnalyticScript + "</script>\n"));
 			}
 		}
 	}

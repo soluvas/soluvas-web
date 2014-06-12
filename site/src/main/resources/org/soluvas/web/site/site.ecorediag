@@ -502,6 +502,22 @@
   <children xmi:type="notation:Node" xmi:id="_OEVlYNkrEeOk-PBtxQc-zg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_OEWMcNkrEeOk-PBtxQc-zg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_OEWMcdkrEeOk-PBtxQc-zg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_HYq9MPIaEeO4wOSEqCr2sQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsEnabled"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_HYq9MfIaEeO4wOSEqCr2sQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_HYuAgPIaEeO4wOSEqCr2sQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsTrackingId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_HYuAgfIaEeO4wOSEqCr2sQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_HYunkPIaEeO4wOSEqCr2sQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsCookieDomain"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_HYunkfIaEeO4wOSEqCr2sQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Hue1IPIaEeO4wOSEqCr2sQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//GoogleAnalyticsSysConfig/googleAnalyticsDisplayFeatures"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Hue1IfIaEeO4wOSEqCr2sQ"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_OEWMctkrEeOk-PBtxQc-zg"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_OEWMc9krEeOk-PBtxQc-zg"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_OEWMdNkrEeOk-PBtxQc-zg"/>

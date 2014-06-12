@@ -1293,13 +1293,22 @@ public interface SitePackage extends EPackage {
 	int GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN = 2;
 
 	/**
+	 * The feature id for the '<em><b>Google Analytics Display Features</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES = 3;
+
+	/**
 	 * The number of structural features of the '<em>Google Analytics Sys Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GOOGLE_ANALYTICS_SYS_CONFIG_FEATURE_COUNT = 3;
+	int GOOGLE_ANALYTICS_SYS_CONFIG_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.ThemePref <em>Theme Pref</em>}' class.
@@ -2024,6 +2033,17 @@ public interface SitePackage extends EPackage {
 	EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#isGoogleAnalyticsDisplayFeatures <em>Google Analytics Display Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Analytics Display Features</em>'.
+	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig#isGoogleAnalyticsDisplayFeatures()
+	 * @see #getGoogleAnalyticsSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures();
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.ThemePref <em>Theme Pref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2673,6 +2693,14 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN = eINSTANCE.getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Analytics Display Features</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES = eINSTANCE.getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.ThemePref <em>Theme Pref</em>}' class.
