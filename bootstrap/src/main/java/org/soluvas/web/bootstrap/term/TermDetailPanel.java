@@ -25,6 +25,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.PatternValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
@@ -68,6 +69,8 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(TermDetailPanel.class);
+	
+	private static final String IMAGE_ID_PATTERN = "[^\\s]{1,7}";
 	
 	private enum EditMode {
 		ADD,
@@ -166,7 +169,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			}
 		});
 		form.add(displayNameFld);
-		form.add(new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
+		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -177,7 +180,9 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				final boolean isSysadmin = subject.isPermitted("sysadmin");
 				setVisible( isSysadmin );
 			}
-		});
+		};
+		imageId.add(new PatternValidator(IMAGE_ID_PATTERN));
+		form.add(imageId);
 		final IModel<Boolean> colorUsed = new Model<>(getModelObject().getColor() != null);
 		final PropertyModel<String> colorModel = new PropertyModel<>(getModel(), "color");
 		final Label colorBox = new Label("colorBox");
