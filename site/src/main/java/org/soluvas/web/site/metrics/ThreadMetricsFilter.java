@@ -1,6 +1,8 @@
 package org.soluvas.web.site.metrics;
 
 import java.lang.management.ManagementFactory;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,6 +50,8 @@ public class ThreadMetricsFilter implements IResponseFilter {
 	 */
 	public static long ALLOCATED_THRESHOLD_KIB = 100 * 1024;
 	
+	private static NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance(Locale.ENGLISH);
+	
 	/* (non-Javadoc)
 	 * @see org.apache.wicket.response.filter.IResponseFilter#filter(org.apache.wicket.util.string.AppendingStringBuffer)
 	 */
@@ -82,7 +86,8 @@ public class ThreadMetricsFilter implements IResponseFilter {
 			log.warn("Too much memory usage: Thread {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
 					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
 					threadId, Thread.currentThread().getName(),
-					allocatedKib, cpuTimeMs, userTimeMs, elapsedTimeMs);
+					NUMBER_FORMAT.format(allocatedKib), 
+					NUMBER_FORMAT.format(cpuTimeMs), NUMBER_FORMAT.format(userTimeMs), NUMBER_FORMAT.format(elapsedTimeMs));
 		} else {
 			log.debug("Thread {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
 					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
