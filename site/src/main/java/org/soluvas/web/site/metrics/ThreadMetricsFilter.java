@@ -43,6 +43,11 @@ public class ThreadMetricsFilter implements IResponseFilter {
 	private static final Logger log = LoggerFactory
 			.getLogger(ThreadMetricsFilter.class);
 	
+	/**
+	 * {@link Logger#warn(String)} if thread memory usage is equal or above this KiB.
+	 */
+	public static long ALLOCATED_THRESHOLD_KIB = 100 * 1024;
+	
 	/* (non-Javadoc)
 	 * @see org.apache.wicket.response.filter.IResponseFilter#filter(org.apache.wicket.util.string.AppendingStringBuffer)
 	 */
@@ -72,25 +77,40 @@ public class ThreadMetricsFilter implements IResponseFilter {
 		final long cpuTimeMs = (curCpuTime - startCpuTime) / 1000000;
 		final long userTimeMs = (curUserTime - startUserTime) / 1000000;
 		final long allocatedKib = (curAllocatedBytes - startAllocatedBytes) / 1024;
-		log.debug("Thread {} #{} {} cputime={}ms usertime={}ms mem={}KiB", 
-				((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
-				threadId, Thread.currentThread().getName(),
-				cpuTimeMs, userTimeMs, allocatedKib);
+		final long elapsedTimeMs = System.currentTimeMillis() - RequestCycle.get().getStartTime();
+		if (allocatedKib >= ALLOCATED_THRESHOLD_KIB) {
+			log.warn("Too much memory usage: Thread {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
+					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
+					threadId, Thread.currentThread().getName(),
+					allocatedKib, cpuTimeMs, userTimeMs, elapsedTimeMs);
+		} else {
+			log.debug("Thread {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
+					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
+					threadId, Thread.currentThread().getName(),
+					allocatedKib, cpuTimeMs, userTimeMs, elapsedTimeMs);
+		}
 		
 		int analyticsIndex = responseBuffer.indexOf("//www.google-analytics.com/analytics.js");
 		if (analyticsIndex >= 0) {
 			int bodyIndex = responseBuffer.lastIndexOf("</body>");
 			if (bodyIndex >= 0) {
 				String script = "\n<script>\n";
-				script += "ga('set', 'metric1', " + cpuTimeMs / 1000.0 + ");\n";
-				script += "ga('set', 'metric2', " + userTimeMs / 1000.0 + ");\n";
-				script += "ga('set', 'metric3', " + allocatedKib + ");\n";
 				script += "ga('send', 'timing', 'cputime', 'CPU Time', " + cpuTimeMs + ");\n";
 				script += "ga('send', 'timing', 'usertime', 'User Time', " + userTimeMs + ");\n";
-				script += "ga('send', 'event', 'server', 'cputime', 'CPU Time (ms)', " + cpuTimeMs + ", {'nonInteraction': 1});\n" +
-						"ga('send', 'event', 'server', 'usertime', 'User Time (ms)', " + userTimeMs + ", {'nonInteraction': 1});\n" +
-						"ga('send', 'event', 'server', 'mem', 'Memory Allocated (KiB)', " + allocatedKib + ", {'nonInteraction': 1});\n" +
-						"</script>\n";
+				script += "ga('send', 'event', 'server', 'mem', 'Memory Allocated (KiB)', " + allocatedKib + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'cputime', 'CPU Time (ms)', " + cpuTimeMs + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'usertime', 'User Time (ms)', " + userTimeMs + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'elapsedtime', 'Elapsed (ms)', " + elapsedTimeMs + ", {nonInteraction: 1});\n";
+				// Note: Custom metrics are not (yet?) average-able :( http://stackoverflow.com/a/19460632/122441
+				// Metric 1: Allocated (KiB). 0..2000000
+				script += "ga('set', 'metric1', " + allocatedKib + ");\n";
+				// Metric 2: CPU Time (ms) 0..30000
+				script += "ga('set', 'metric2', " + cpuTimeMs + ");\n";
+				// Metric 3: User Time (ms) 0..30000
+				script += "ga('set', 'metric3', " + userTimeMs + ");\n";
+				// Metric 4: Elapsed Time (ms) 0..30000
+				script += "ga('set', 'metric4', " + elapsedTimeMs + ");\n";
+				script += "</script>\n";
 				responseBuffer.insert(bodyIndex - 1, script);
 			}
 		} else {
