@@ -59,6 +59,7 @@ public class GoogleAnalyticsPanel extends Panel {
 						+ "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n"
 						+ "\n"
 						+ "ga('create', '" + googleAnalyticsMgr.getTrackingId() + "', '" + googleAnalyticsMgr.getCookieDomain() + "');\n"
+						+ "ga('require', 'displayfeatures');\n" // BC-1974 : in 5.3.x displayfeatures is always enabled
 						+ "ga('send', 'pageview');\n";
 				Label trackingId = new Label("trackerId", googleAnalyticScript);
 				trackingId.setEscapeModelStrings(false);
