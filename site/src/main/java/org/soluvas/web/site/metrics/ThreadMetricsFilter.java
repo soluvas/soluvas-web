@@ -4,8 +4,10 @@ import java.lang.management.ManagementFactory;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.response.filter.IResponseFilter;
@@ -42,14 +44,13 @@ import org.springframework.context.annotation.Import;
  */
 public class ThreadMetricsFilter implements IResponseFilter {
 	
-	private static final Logger log = LoggerFactory
-			.getLogger(ThreadMetricsFilter.class);
-	
 	/**
 	 * {@link Logger#warn(String)} if thread memory usage is equal or above this KiB.
 	 */
 	public static long ALLOCATED_THRESHOLD_KIB = 100 * 1024;
 	
+	private static final Logger log = LoggerFactory
+			.getLogger(ThreadMetricsFilter.class);
 	private static NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance(Locale.ENGLISH);
 	
 	/* (non-Javadoc)
@@ -81,20 +82,40 @@ public class ThreadMetricsFilter implements IResponseFilter {
 		final long cpuTimeMs = (curCpuTime - startCpuTime) / 1000000;
 		final long userTimeMs = (curUserTime - startUserTime) / 1000000;
 		final long allocatedKib = (curAllocatedBytes - startAllocatedBytes) / 1024;
-		final long elapsedTimeMs = System.currentTimeMillis() - RequestCycle.get().getStartTime();
+		final RequestCycle cycle = RequestCycle.get();
+		final long elapsedTimeMs = System.currentTimeMillis() - cycle.getStartTime();
+		final String requestUri = ((HttpServletRequest) cycle.getRequest().getContainerRequest()).getRequestURI();
+		@Nullable
+		final String path = cycle.getRequest().getUrl() != null ? cycle.getRequest().getUrl().getPath() : null;
+		final String eventLabel;
+		if (path != null && ThreadMetricsRequestCycleListener.pageClassForPath.containsKey(path)) {
+			eventLabel = ThreadMetricsRequestCycleListener.pageClassForPath.get(path).getSimpleName()
+					.replaceFirst("Page$", "");
+		} else {
+			eventLabel = "(N/A)";
+		}
+//		final String eventLabel = ThreadMetricsRequestCycleListener.handlerOrPageClass.get() != null ?
+//				ThreadMetricsRequestCycleListener.handlerOrPageClass.get().getName() : "null";
 		if (allocatedKib >= ALLOCATED_THRESHOLD_KIB) {
-			log.warn("Too much memory usage: Thread {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
-					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
+			log.warn("Too much memory usage: Thread {} {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
+					eventLabel, requestUri,
 					threadId, Thread.currentThread().getName(),
 					NUMBER_FORMAT.format(allocatedKib), 
 					NUMBER_FORMAT.format(cpuTimeMs), NUMBER_FORMAT.format(userTimeMs), NUMBER_FORMAT.format(elapsedTimeMs));
 		} else {
-			log.debug("Thread {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
-					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getRequestURI(),
+			log.debug("Thread {} {} #{} {} mem={}KiB cputime={}ms usertime={}ms elapsed={}ms", 
+					eventLabel, requestUri,
 					threadId, Thread.currentThread().getName(),
 					allocatedKib, cpuTimeMs, userTimeMs, elapsedTimeMs);
 		}
 		
+		// cleanup
+		ThreadMetricsRequestCycleListener.startCpuTime.remove();
+		ThreadMetricsRequestCycleListener.startUserTime.remove();
+		ThreadMetricsRequestCycleListener.startAllocatedBytes.remove();
+//		ThreadMetricsRequestCycleListener.handlerOrPageClass.remove();
+
+		// send to Google Analytics
 		int analyticsIndex = responseBuffer.indexOf("//www.google-analytics.com/analytics.js");
 		if (analyticsIndex >= 0) {
 			int bodyIndex = responseBuffer.lastIndexOf("</body>");
@@ -102,10 +123,10 @@ public class ThreadMetricsFilter implements IResponseFilter {
 				String script = "\n<script>\n";
 				script += "ga('send', 'timing', 'cputime', 'CPU Time', " + cpuTimeMs + ");\n";
 				script += "ga('send', 'timing', 'usertime', 'User Time', " + userTimeMs + ");\n";
-				script += "ga('send', 'event', 'server', 'mem', 'Memory Allocated (KiB)', " + allocatedKib + ", {nonInteraction: 1});\n";
-				script += "ga('send', 'event', 'server', 'cputime', 'CPU Time (ms)', " + cpuTimeMs + ", {nonInteraction: 1});\n";
-				script += "ga('send', 'event', 'server', 'usertime', 'User Time (ms)', " + userTimeMs + ", {nonInteraction: 1});\n";
-				script += "ga('send', 'event', 'server', 'elapsedtime', 'Elapsed (ms)', " + elapsedTimeMs + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'mem', " + JSONObject.quote(eventLabel) + ", " + allocatedKib + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'cputime', " + JSONObject.quote(eventLabel) + ", " + cpuTimeMs + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'usertime', " + JSONObject.quote(eventLabel) + ", " + userTimeMs + ", {nonInteraction: 1});\n";
+				script += "ga('send', 'event', 'server', 'elapsedtime', " + JSONObject.quote(eventLabel) + ", " + elapsedTimeMs + ", {nonInteraction: 1});\n";
 				// Note: Custom metrics are not (yet?) average-able :( http://stackoverflow.com/a/19460632/122441
 				// Metric 1: Allocated (KiB). 0..2000000
 				script += "ga('set', 'metric1', " + allocatedKib + ");\n";
@@ -121,7 +142,7 @@ public class ThreadMetricsFilter implements IResponseFilter {
 		} else {
 			log.debug("Google Analytics not detected in HTML response, skipping Google Analytics thread metrics reporting");
 		}
-
+		
 		return responseBuffer;
 	}
 
