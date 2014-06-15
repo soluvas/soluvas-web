@@ -15,9 +15,8 @@ import org.apache.wicket.model.IModel;
  * Renders a {@link Map}.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class CollectionColumn<T> extends PropertyColumn<T, String> {
-
-	private static final long serialVersionUID = 1L;
 
 	public CollectionColumn(IModel<String> displayModel,
 			String propertyExpression) {
