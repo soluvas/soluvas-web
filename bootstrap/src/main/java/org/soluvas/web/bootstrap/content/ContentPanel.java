@@ -1,6 +1,8 @@
 package org.soluvas.web.bootstrap.content;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
@@ -70,8 +72,18 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	protected void onInitialize() {
 		super.onInitialize();
 		final String slugPath = getPage().getPageParameters().get("slugPath").toString();
-		// MustacheRenderer already includes AppManifest, WebAddress as default scope
-		final MustacheRenderer contentRenderer = new MustacheRenderer("content", new Model<>(), new PropertyModel<String>(getModel(), "body"));
+		final Component contentRenderer;
+		switch (getModelObject().getTemplateSystem()) {
+		case NONE:
+			contentRenderer = new Label("content", new PropertyModel<String>(getModel(), "body"));
+			break;
+		case MUSTACHE:
+			// MustacheRenderer already includes AppManifest, WebAddress as default scope
+			contentRenderer = new MustacheRenderer("content", new Model<>(), new PropertyModel<String>(getModel(), "body"));
+			break;
+		default:
+			throw new RuntimeException("Unknown soluvas:templateSystem: " + getModelObject().getTemplateSystem());
+		}
 		add(contentRenderer);
 		final IModel<String> sidebarModel = new LoadableDetachableModel<String>() {
 			@Override
