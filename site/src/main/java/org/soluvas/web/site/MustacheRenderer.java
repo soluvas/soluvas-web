@@ -26,9 +26,11 @@ public class MustacheRenderer extends WebComponent {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(MustacheRenderer.class);
+	private static final DefaultMustacheFactory MF = new DefaultMustacheFactory();
+	
 	@SpringBean
 	private WebAddress webAddress;
-	@SpringBean(name="appManifest")
+	@SpringBean
 	private AppManifest appManifest;
 	private final IModel<String> templateModel;
 	
@@ -42,8 +44,7 @@ public class MustacheRenderer extends WebComponent {
 			ComponentTag openTag) {
 		final String template = templateModel.getObject();
 		try {
-			final DefaultMustacheFactory mf = new DefaultMustacheFactory();
-			final Mustache mainMustache = mf.compile(new StringReader(template), "main");
+			final Mustache mainMustache = MF.compile(new StringReader(template), "main");
 			final StringWriter writer = new StringWriter();
 			mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
 					ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
