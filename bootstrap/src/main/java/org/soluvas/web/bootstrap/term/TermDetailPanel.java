@@ -63,9 +63,8 @@ import com.google.common.base.Predicate;
  * 
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class TermDetailPanel extends GenericPanel<Term> {
-	
-	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(TermDetailPanel.class);
