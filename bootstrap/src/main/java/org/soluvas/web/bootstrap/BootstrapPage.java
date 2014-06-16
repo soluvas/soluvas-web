@@ -440,7 +440,7 @@ public class BootstrapPage extends ExtensiblePage {
 		contentColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-md-9" : "col-md-12";
+				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-sm-9 col-md-9" : "col-md-12";
 			}
 		}));
 		add(contentColumn);
