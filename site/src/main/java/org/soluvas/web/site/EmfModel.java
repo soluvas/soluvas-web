@@ -166,7 +166,14 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 							EOBJECT_TO_STRING.apply(child), ref.getName(), refEObj.eClass().getName(),
 							x.size());
 //					objectsToAdd.add((EObject) refObj);
-					res.getContents().add((EObject) refObj);
+					try {
+						res.getContents().add((EObject) refObj);
+					} catch (Exception e) {
+						throw new SiteException(e, "Cannot add %s from %s#%s %s (with %s crossrefs)", 
+								EOBJECT_TO_STRING.apply(refEObj),
+								EOBJECT_TO_STRING.apply(child), ref.getName(), refEObj.eClass().getName(),
+								x.size());
+					}
 //					addCrossRefs(refEObj, res);
 				} else {
 //					log.trace("{} from {}#{} already in resource {}", 
