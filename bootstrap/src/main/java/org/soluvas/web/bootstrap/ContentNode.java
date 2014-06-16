@@ -25,6 +25,11 @@ public class ContentNode implements Serializable {
 //	private static final Logger log = LoggerFactory
 //			.getLogger(ContentNode.class);
 	
+	public static enum TemplateSystem {
+		NONE,
+		MUSTACHE;
+	}
+	
 	/**
 	 * 
 	 */
@@ -32,6 +37,7 @@ public class ContentNode implements Serializable {
 	private String title;
 	private String metaDescription;
 	private String body;
+	private TemplateSystem templateSystem = TemplateSystem.NONE;
 	
 	public ContentNode() {
 		super();
@@ -58,6 +64,14 @@ public class ContentNode implements Serializable {
 
 	public void setMetaDescription(String metaDescription) {
 		this.metaDescription = metaDescription;
+	}
+	
+	public TemplateSystem getTemplateSystem() {
+		return templateSystem;
+	}
+	
+	public void setTemplateSystem(TemplateSystem templateSystem) {
+		this.templateSystem = templateSystem;
 	}
 
 	public String getBody() {
@@ -94,6 +108,11 @@ public class ContentNode implements Serializable {
 			
 			final Attribute descriptionAttribute = (Attribute)doc.selectSingleNode("//meta[@name='description']/@content");
 			page.setMetaDescription( descriptionAttribute != null ? descriptionAttribute.getText() : null );
+
+			final Attribute templateSystemAttribute = (Attribute)doc.selectSingleNode("//meta[@property='soluvas:templateSystem']/@content");
+			if (templateSystemAttribute != null) {
+				page.setTemplateSystem(TemplateSystem.valueOf(templateSystemAttribute.getText()));
+			}
 			
 //			final Attribute headingAttr = (Attribute)doc.selectSingleNode("//meta[@name='content:heading']/@content");
 //			page.setContentHeading( headingAttr != null ? headingAttr.getText() : null );

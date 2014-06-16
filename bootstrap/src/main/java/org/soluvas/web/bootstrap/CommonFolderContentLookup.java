@@ -14,14 +14,20 @@ import org.soluvas.web.site.SiteException;
 /**
  * Looks up HTML content from "${dataFolder}/common/content/${slug}.html".
  * Used by {@link ContentPanel}.
- * It can be used to load:
+ * 
+ * <p>It can be used to load:
+ * 
  * <ol>
  * <li>Page content, e.g. <b>about</b>.html.</li>
  * <li>Sidebar content, e.g. <b>about.sidebar</b>.html</li>
  * </ol>
- * To load sidebar, use e.g. "about.sidebar" as slug.
+ * 
+ * <p>To load sidebar, use e.g. "about.sidebar" as slug.
+ * 
  * @author rudi
  * @see ContentRelated
+ * @see ContentNode
+ * @see ContentPanel
  */
 public class CommonFolderContentLookup implements EntityLookup<String, String> {
 	

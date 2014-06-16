@@ -28,6 +28,7 @@ import com.google.common.collect.Lists;
  * @deprecated Use {@link OsgiMenuTracker}. 
  * @author ceefour
  */
+@SuppressWarnings("rawtypes")
 @Deprecated
 public class InMemoryMenuTracker implements BundleTrackerCustomizer {
 

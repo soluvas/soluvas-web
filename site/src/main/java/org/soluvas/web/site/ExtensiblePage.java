@@ -12,6 +12,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,9 @@ import com.google.common.collect.Maps;
  * 
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class ExtensiblePage extends WebPage {
 	
-	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory
 			.getLogger(ExtensiblePage.class);
 	
@@ -64,8 +65,10 @@ public class ExtensiblePage extends WebPage {
 	 * to get the {@literal scope}.
 	 * @param name
 	 * @param model
-	 * @todo Find a better name / mechanism.
+	 * @deprecated Please override {@link org.soluvas.web.bootstrap.BootstrapPage#getPageMetaModel()} instead and use {@code MustachePageMetaModel} for common cases
+	 * 		or your own {@link LoadableDetachableModel} for dynamic cases.
 	 */
+	@Deprecated
 	public void addModelForPageMeta(final String name, final IModel<?> model) {
 		log.trace("Adding model for PageMeta {} in {}", name, getPageClass().getName());
 		modelsForPageMeta.put(name, model);

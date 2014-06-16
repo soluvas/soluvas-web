@@ -190,6 +190,7 @@ public class BootstrapPage extends ExtensiblePage {
 			return pageLinks;
 		}
 	};
+	private IModel<PageMeta> pageMetaModel;
 	
 	/**
 	 * @param pageLinks Mutable.
@@ -197,25 +198,6 @@ public class BootstrapPage extends ExtensiblePage {
 	protected void createPageLinksForBreadcrumb(List<PageLink> pageLinks) {
 	}
 
-	// do NOT use AsyncModel here because we need it to load LAST
-	// (i.e. after all scopes has been attached as page model using
-	// addModelForPageMeta)
-	protected final IModel<PageMeta> pageMetaModel = new LoadableDetachableModel<PageMeta>() {
-		@Override
-		protected PageMeta load() {
-			final String currentUri = getRequest().getUrl().toString();
-			final PageRequestContext context = new PageRequestContext(
-					tenant.getClientId(), tenant.getTenantId(),
-					tenant.getTenantEnv(), BootstrapPage.this, currentUri, webAddress,
-					appManifest);
-			// final List<PageRule> pageRules = pageRulesSupplier.get();
-			// final PageMetaSupplier pageSupplier = new
-			// RulesPageMetaSupplier(pageRules, context);
-			final PageMeta pageMeta = pageMetaProvider.get(context);
-			return pageMeta;
-		}
-	};
-	
 	@SuppressWarnings("deprecation")
 	public String smartPrefixUri(String prefix, String uri) {
 		if (uri.startsWith("//") || uri.startsWith("https:")
@@ -334,52 +316,7 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
-
-		// HTML
-		add(new TransparentWebMarkupContainer("html")
-				.add(new AttributeModifier("lang", new PropertyModel<String>(
-						pageMetaModel, "languageCode"))));
-
-		// HEAD
-		// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-		// do NOT use AsyncModel here, because it depends on PageMeta model
-		// loading last
-		final IModel<String> titleModel = new LoadableDetachableModel<String>() {
-			@Override
-			protected String load() {
-				return Optional
-						.fromNullable(getTitle())
-						.or(Optional.fromNullable(pageMetaModel.getObject()
-								.getTitle())).orNull();
-			}
-		};
-		final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
-			@Override
-			protected String load() {
-				return " | " + appManifest.getTitle();
-			}
-		};
-		add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
-		add(new Label("pageTitleSuffix", titleSuffixModel)
-				.setRenderBodyOnly(true));
-		// Get favicon from FaviconResourceReference if set, otherwise use PageMetaModel
-		final WebMarkupContainer faviconLink = new WebMarkupContainer(
-				"faviconLink");
-		final IModel<String> faviconUriModel;
-		if (FaviconResourceReference.INSTANCE != null) {
-			faviconUriModel = new Model<>(urlFor(FaviconResourceReference.INSTANCE, null).toString());
-		} else {
-			faviconUriModel = new PropertyModel<>(pageMetaModel, "icon.faviconUri");
-		}
-		faviconLink.add(new AttributeModifier("href", faviconUriModel));
-		add(faviconLink);
-		add(new MetaTag("metaDescription", new PropertyModel<String>(pageMetaModel, "description")),
-			new MetaTag("metaKeywords", new PropertyModel<String>(pageMetaModel, "keywords")),
-			new MetaTag("ogTitle", new PropertyModel<String>(pageMetaModel, "openGraph.title")),
-			new MetaTag("ogType", new PropertyModel<String>(pageMetaModel,"openGraph.type")),
-			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
-			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
-
+		
 //		add(new WebMarkupContainer("soluvasCss")
 //				.add(new AttributeModifier(
 //						"href",
@@ -501,6 +438,53 @@ public class BootstrapPage extends ExtensiblePage {
 		ComposeUtils.compose(this, contributors.findAll());
 		
 		contentAddedInfo.setVisible(addedInfoVisibility == AddedInfoVisibility.VISIBLE);
+		
+		pageMetaModel = createPageMetaModel();
+
+		// HTML
+		add(new TransparentWebMarkupContainer("html")
+				.add(new AttributeModifier("lang", new PropertyModel<String>(
+						pageMetaModel, "languageCode"))));
+
+		// HEAD
+		// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
+		// do NOT use AsyncModel here, because it depends on PageMeta model
+		// loading last
+		final IModel<String> titleModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				return Optional
+						.fromNullable(getTitle())
+						.or(Optional.fromNullable(pageMetaModel.getObject()
+								.getTitle())).orNull();
+			}
+		};
+		final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				return " | " + appManifest.getTitle();
+			}
+		};
+		add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
+		add(new Label("pageTitleSuffix", titleSuffixModel)
+				.setRenderBodyOnly(true));
+		// Get favicon from FaviconResourceReference if set, otherwise use PageMetaModel
+		final WebMarkupContainer faviconLink = new WebMarkupContainer(
+				"faviconLink");
+		final IModel<String> faviconUriModel;
+		if (FaviconResourceReference.INSTANCE != null) {
+			faviconUriModel = new Model<>(urlFor(FaviconResourceReference.INSTANCE, null).toString());
+		} else {
+			faviconUriModel = new PropertyModel<>(pageMetaModel, "icon.faviconUri");
+		}
+		faviconLink.add(new AttributeModifier("href", faviconUriModel));
+		add(faviconLink);
+		add(new MetaTag("metaDescription", new PropertyModel<String>(pageMetaModel, "description")),
+			new MetaTag("metaKeywords", new PropertyModel<String>(pageMetaModel, "keywords")),
+			new MetaTag("ogTitle", new PropertyModel<String>(pageMetaModel, "openGraph.title")),
+			new MetaTag("ogType", new PropertyModel<String>(pageMetaModel,"openGraph.type")),
+			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
+			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
 	}
 
 	@Override
@@ -517,18 +501,47 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn.setVisible(sidebarVisibility == SidebarVisibility.VISIBLE && !visibleChildren.isEmpty());
 	}
 
-	public IModel<PageMeta> getPageMetaModel() {
+	/**
+	 * Most of the times you'll want to override this,
+	 * use {@code MustachePageMetaModel} (TODO) for common cases
+	 * or your own {@link LoadableDetachableModel} for dynamic cases.
+	 * Will be called during {@link #onInitialize()} so make sure any dependencies
+	 * you need are already available. 
+	 * @return
+	 */
+	protected IModel<PageMeta> createPageMetaModel() {
+		// do NOT use AsyncModel here because we need it to load LAST
+		// (i.e. after all scopes has been attached as page model using
+		// addModelForPageMeta)
+		return new LoadableDetachableModel<PageMeta>() {
+			@Override
+			protected PageMeta load() {
+				final String currentUri = getRequest().getUrl().toString();
+				final PageRequestContext context = new PageRequestContext(
+						tenant.getClientId(), tenant.getTenantId(),
+						tenant.getTenantEnv(), BootstrapPage.this, currentUri, webAddress,
+						appManifest);
+				// final List<PageRule> pageRules = pageRulesSupplier.get();
+				// final PageMetaSupplier pageSupplier = new
+				// RulesPageMetaSupplier(pageRules, context);
+				final PageMeta pageMeta = pageMetaProvider.get(context);
+				return pageMeta;
+			}
+		};
+	}
+	
+	public final IModel<PageMeta> getPageMetaModel() {
 		return pageMetaModel;
 	}
 	
-	public IModel<List<PageLink>> getBreadcrumbModel() {
+	public final IModel<List<PageLink>> getBreadcrumbModel() {
 		return breadcrumbModel;
 	}
 	
 	@Override
 	protected void detachModel() {
 		super.detachModel();
-		pageMetaModel.detach();
+		createPageMetaModel().detach();
 		breadcrumbModel.detach();
 	}
 	
