@@ -10,7 +10,6 @@ import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osgi.framework.Bundle;
@@ -188,7 +187,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 					public Component create(String id,
 							IModel<Serializable> model) {
 						try {
-							log.debug("Creating {} using {} for contributor {}/{} from {}", getClassName(), constructor,
+							log.trace("Creating {} using {} for contributor {}/{} from {}", getClassName(), constructor,
 									getPageClassName(), getTargetPath(), resourceContainer);
 							return (Component) constructor.newInstance(id, model);
 						} catch (Exception e) {
@@ -206,7 +205,7 @@ public class LiveReplaceContributorImpl extends ReplaceContributorImpl implement
 					getPageClassName(), getTargetPath(), resourceContainer);
 			final String factoryClassName = getClassName() + "Factory";
 			try {
-				log.debug("Creating {} as factory for contributor {}/{} from {}", factoryClassName,
+				log.trace("Creating {} as factory for contributor {}/{} from {}", factoryClassName,
 						getPageClassName(), getTargetPath(), resourceContainer);
 				final Class<?> factoryClass = bundle != null ? bundle.loadClass(factoryClassName) :
 					LiveChildContributorImpl.class.getClassLoader().loadClass(factoryClassName);

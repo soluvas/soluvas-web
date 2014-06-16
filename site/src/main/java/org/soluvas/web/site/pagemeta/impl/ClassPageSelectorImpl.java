@@ -104,7 +104,7 @@ public class ClassPageSelectorImpl extends EObjectImpl implements ClassPageSelec
 	public boolean matches(PageRequestContext context) {
 		final Class<? extends Page> pageClass = context.getPage().getClass();
 		if (getClassName().equals(pageClass.getName())) {
-			log.debug("Page {} matches selector {} because className is {}", context, this, getClassName());
+			log.trace("Page {} matches selector {} because className is {}", context, this, getClassName());
 			return true;
 		}
 		final List<Class<?>> superclasses = ClassUtils.getAllSuperclasses(pageClass);

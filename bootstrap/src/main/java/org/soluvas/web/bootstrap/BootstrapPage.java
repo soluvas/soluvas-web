@@ -81,10 +81,9 @@ import de.agilecoders.wicket.core.markup.html.references.BootstrapJavaScriptRefe
  * 
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class BootstrapPage extends ExtensiblePage {
 	
-	private static final long serialVersionUID = 1L;
-
 	public static enum SidebarVisibility {
 		VISIBLE,
 		HIDDEN
@@ -363,7 +362,7 @@ public class BootstrapPage extends ExtensiblePage {
 		this(null, SidebarVisibility.VISIBLE);
 	}
 
-	public BootstrapPage(PageParameters params, SidebarVisibility sidebarVisibility) {
+	public BootstrapPage(@Nullable PageParameters params, SidebarVisibility sidebarVisibility) {
 		super(params);
 		this.sidebarVisibility = sidebarVisibility;
 		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;
@@ -600,7 +599,7 @@ public class BootstrapPage extends ExtensiblePage {
 				visibleChildren.add(child.getPageRelativePath());
 			}
 		}
-		log.debug("Visible sidebarBlocks children: {}", visibleChildren);
+		log.trace("Visible sidebarBlocks children: {}", visibleChildren);
 		sidebarColumn.setVisible(!visibleChildren.isEmpty());
 	}
 

@@ -41,7 +41,7 @@ public class GoogleAnalyticsServerTimingFilter implements IResponseFilter {
 				responseBuffer.insert(bodyIndex - 1, script);
 			}
 		} else {
-			log.debug("Google Analytics not detected in HTML response, skipping Google Analytics server timing reporting");
+			log.trace("Google Analytics not detected in HTML response, skipping Google Analytics server timing reporting");
 		}
 		return responseBuffer;
 	}

@@ -109,7 +109,7 @@ public class ComposeUtils {
 					Preconditions.checkNotNull(parent, "parent must not be null. Probably path %s is invalid for page %s.",
 							contrib.getTargetPath(), page.getClass());
 					final Component componentToAdd = replaceContrib.getFactory().create(compId, new Model<Serializable>(null)); // TODO: need model!
-					log.debug("Replacing {} with {} to {} in {}", contrib.getTargetPath(), componentToAdd, parent, page);
+					log.trace("Replacing {} with {} to {} in {}", contrib.getTargetPath(), componentToAdd, parent, page);
 					parent.replace(componentToAdd);
 					replaceContributors.add(((LiveReplaceContributor) contrib).getClassName());
 				}
@@ -117,7 +117,7 @@ public class ComposeUtils {
 				throw new SiteException("Unknown contributor " + contrib.getClass().getName() + " requested by " + contrib);
 			}
 		}
-		log.debug("Contributed {} children ({}) and {} replacements ({}) out of {} for page {}",
+		log.trace("Contributed {} children ({}) and {} replacements ({}) out of {} for page {}",
 				childContributors.size(), childContributors, replaceContributors.size(), replaceContributors,
 				sortedContributors.size(), page.getClass().getName());
 	}
