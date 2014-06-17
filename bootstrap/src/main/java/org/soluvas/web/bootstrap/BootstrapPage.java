@@ -294,7 +294,7 @@ public class BootstrapPage extends ExtensiblePage {
 		this(null, SidebarVisibility.VISIBLE);
 	}
 
-	public BootstrapPage(PageParameters params, SidebarVisibility sidebarVisibility) {
+	public BootstrapPage(@Nullable PageParameters params, SidebarVisibility sidebarVisibility) {
 		super(params);
 		this.sidebarVisibility = sidebarVisibility;
 		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;

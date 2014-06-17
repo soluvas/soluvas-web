@@ -88,9 +88,15 @@ public class ThreadMetricsFilter implements IResponseFilter {
 		@Nullable
 		final String path = cycle.getRequest().getUrl() != null ? cycle.getRequest().getUrl().getPath() : null;
 		final String eventLabel;
-		if (path != null && ThreadMetricsRequestCycleListener.pageClassForPath.containsKey(path)) {
-			eventLabel = ThreadMetricsRequestCycleListener.pageClassForPath.get(path).getSimpleName()
-					.replaceFirst("Page$", "");
+		if (path != null) {
+			@Nullable
+			final Class<?> pageClassForPath = ThreadMetricsRequestCycleListener.pageClassForPath.get(path);
+			if (pageClassForPath != null) {
+				eventLabel = pageClassForPath.getSimpleName()
+						.replaceFirst("Page$", "");
+			} else {
+				eventLabel = "(N/A)";
+			}
 		} else {
 			eventLabel = "(N/A)";
 		}
@@ -140,7 +146,7 @@ public class ThreadMetricsFilter implements IResponseFilter {
 				responseBuffer.insert(bodyIndex - 1, script);
 			}
 		} else {
-			log.debug("Google Analytics not detected in HTML response, skipping Google Analytics thread metrics reporting");
+			log.trace("Google Analytics not detected in HTML response, skipping Google Analytics thread metrics reporting");
 		}
 		
 		return responseBuffer;

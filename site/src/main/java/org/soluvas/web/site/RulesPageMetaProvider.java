@@ -71,7 +71,7 @@ public class RulesPageMetaProvider implements PageMetaProvider {
 		
 		// copy it, so even in dynamic environments, the list won't change during processing
 		final List<PageRule> immutableRules = ImmutableList.copyOf(ruleSource);
-		log.debug("Considering {} pageMeta rules with context: {}", immutableRules.size(), context);
+		log.trace("Considering {} pageMeta rules with context: {}", immutableRules.size(), context);
 		for (final PageRule rule : immutableRules) {
 			if (!rule.getSelector().matches(context)) {
 				continue;
