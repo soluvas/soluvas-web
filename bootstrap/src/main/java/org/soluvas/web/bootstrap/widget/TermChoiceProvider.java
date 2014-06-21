@@ -57,7 +57,7 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 		Injector.get().inject(this);
 		this.kindNsPrefix = kindNsPrefix;
 		this.kindName = kindName;
-		termsModel = new TermListModel(kindNsPrefix, kindName);
+		termsModel = new TermListModel(kindName);
 	}
 	
 	/**
