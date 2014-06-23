@@ -113,7 +113,7 @@
 				<version>${wicket.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.wicket</groupId>
+				<groupId>org.apache.wicket.experimental.wicket6</groupId>
 				<artifactId>wicket-atmosphere</artifactId>
 				<version>${wicket-atmosphere.version}</version>
 				<!-- Important: Make sure to exclude atmosphere-compat-tomcat7 if you use Tomcat 7.x! -->
