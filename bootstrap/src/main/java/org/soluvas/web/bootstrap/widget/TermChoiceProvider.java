@@ -18,11 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.QNameFunction;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.Term;
-import org.soluvas.data.TermRepository;
+import org.soluvas.data.TermManager;
 import org.soluvas.data.Value;
 import org.soluvas.data.ValueFunction;
-import org.soluvas.data.domain.Sort;
-import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.TermListModel;
 
 import com.google.common.base.Function;
@@ -40,14 +38,13 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(TermChoiceProvider.class);
-
-	@SpringBean(name="colorTermRepo")
-	private TermRepository colorTermRepo;
-	@SpringBean(name="sizeTermRepo")
-	private TermRepository sizeTermRepo;
+	
+	@SpringBean
+	private TermManager termMgr;
 	@SpringBean
 	private WebAddress webAddress;
 	private final IModel<List<Term>> termsModel;
+	private String kindNsPrefix;
 	private String kindName;
 	/**
 	 * May be {@code null}, but we'll detach this.
@@ -55,19 +52,21 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	@Nullable
 	private IModel<List<Value<?>>> whitelistModel;
 	
-	public TermChoiceProvider(final String kindName) {
+	public TermChoiceProvider(final String kindNsPrefix, final String kindName) {
 		super();
 		Injector.get().inject(this);
+		this.kindNsPrefix = kindNsPrefix;
 		this.kindName = kindName;
-		termsModel = new TermListModel(kindName);
+		termsModel = new TermListModel(kindNsPrefix, kindName);
 	}
 	
 	/**
 	 * Filter only terms which match the values provided by whitelist. The whitelist can be dynamic.
+	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param whitelistModel
 	 */
-	public TermChoiceProvider(final String kindName, final IModel<List<Value<?>>> whitelistModel) {
+	public TermChoiceProvider(final String kindNsPrefix, final String kindName, final IModel<List<Value<?>>> whitelistModel) {
 		super();
 		Injector.get().inject(this);
 		this.whitelistModel = whitelistModel;
@@ -75,24 +74,12 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 			@Override
 			public List<Term> getObject() {
 				final Set<String> whitelistedUNames = ImmutableSet.copyOf(Iterables.transform(whitelistModel.getObject(), new ValueFunction()));
-				switch (kindName) {
-				case "Color":
-					return ImmutableList.copyOf(Iterables.filter(colorTermRepo.findAll(new Sort(Direction.ASC, "positioner")), new Predicate<Term>() {
-						@Override
-						public boolean apply(@Nullable Term input) {
-							return whitelistedUNames.contains(input.getQName());
-						}
-					}));
-				case "Size":
-					return ImmutableList.copyOf(Iterables.filter(sizeTermRepo.findAll(new Sort(Direction.ASC, "positioner")), new Predicate<Term>() {
-						@Override
-						public boolean apply(@Nullable Term input) {
-							return whitelistedUNames.contains(input.getQName());
-						}
-					}));
-				default:
-					throw new UnsupportedOperationException("Unsupported for kindName " + kindName);
-				}
+				return ImmutableList.copyOf(Iterables.filter(termMgr.findTerms(kindNsPrefix, kindName), new Predicate<Term>() {
+					@Override
+					public boolean apply(@Nullable Term input) {
+						return whitelistedUNames.contains(input.getQName());
+					}
+				}));
 			}
 		};
 	}
@@ -122,8 +109,8 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 						}
 					}, null);
 				} catch (Exception e) {
-					log.warn("Invalid term UName '{}' for , {} valid terms are: {}",
-							id, kindName, terms.size(), Lists.transform(terms, new QNameFunction()));
+					log.warn("Invalid term UName '{}' for kind {}_{}, {} valid terms are: {}",
+							id, kindNsPrefix, kindName, terms.size(), Lists.transform(terms, new QNameFunction()));
 					return null;
 				}
 			}
