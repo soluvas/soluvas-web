@@ -53,10 +53,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     	
-		<wicket.version>6.15.0</wicket.version>
-		<wicketstuff.version>6.15.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
-		<wicket-atmosphere.version>0.18</wicket-atmosphere.version><!-- linked to wicket.version -->
-		<atmosphere.version>2.1.3</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version -->
+		<wicket.version>6.16.0</wicket.version>
+		<wicketstuff.version>6.16.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicket-atmosphere.version>0.19</wicket-atmosphere.version><!-- linked to wicket.version -->
+		<atmosphere.version>2.1.6</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version -->
 	</properties>
 
 	<dependencyManagement>
