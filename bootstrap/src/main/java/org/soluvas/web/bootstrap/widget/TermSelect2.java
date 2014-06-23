@@ -20,7 +20,7 @@ public class TermSelect2 extends InteractiveSelect2Choice<Term> {
 	
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName) {
-		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName));
+		super(id, model, new TermChoiceProvider(kindName));
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class TermSelect2 extends InteractiveSelect2Choice<Term> {
 	 */
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName, final IModel<List<Value<?>>> whitelistModel) {
-		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName, whitelistModel));
+		super(id, model, new TermChoiceProvider(kindName, whitelistModel));
 	}
 	
 	@Override

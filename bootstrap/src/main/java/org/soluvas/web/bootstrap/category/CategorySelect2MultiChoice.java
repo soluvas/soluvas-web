@@ -47,7 +47,7 @@ public class CategorySelect2MultiChoice extends
 	
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
-			.getLogger(CategorySelect2.class);
+			.getLogger(CategorySelect2MultiChoice.class);
 	@SpringBean
 	private CategoryRepository categoryRepo;
 	@SpringBean
@@ -61,9 +61,9 @@ public class CategorySelect2MultiChoice extends
 
 		@Override
 		protected String getDisplayText(Category choice) {
-			log.debug("Choice {} has {} - parentUname", choice.getUName(), choice.getParentUName());
+//			log.debug("Choice {} has {} - parentUname", choice.getUName(), choice.getParentUName());
 			final String displayTxt = getParentPrefix(choice) + choice.getName();
-			log.debug("Display Text: {}", displayTxt);
+//			log.debug("Display Text: {}", displayTxt);
 			return displayTxt;
 		}
 		
@@ -148,8 +148,8 @@ public class CategorySelect2MultiChoice extends
 	
 	
 	public CategorySelect2MultiChoice(String id,
-			IModel<Collection<Category>> currentCateogorymodel) {
-		super(id, currentCateogorymodel);
+			IModel<? extends Collection<Category>> currentCateogorymodel) {
+		super(id, (IModel) currentCateogorymodel);
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
@@ -172,6 +172,10 @@ public class CategorySelect2MultiChoice extends
 			}
 		};
 		setProvider(new CategoryChoiceProvider());
+	}
+	
+	public IModel<List<Category>> getSortedCategoriesModel() {
+		return sortedCategoriesModel;
 	}
 	
 	@Override

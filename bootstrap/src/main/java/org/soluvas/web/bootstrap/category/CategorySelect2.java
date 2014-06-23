@@ -59,9 +59,9 @@ public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
 
 		@Override
 		protected String getDisplayText(Category choice) {
-			log.debug("Choice {} has {} - parentUname", choice.getUName(), choice.getParentUName());
+//			log.debug("Choice {} has {} - parentUname", choice.getUName(), choice.getParentUName());
 			final String displayTxt = getParentPrefix(choice) + choice.getName();
-			log.debug("Display Text: {}", displayTxt);
+//			log.debug("Display Text: {}", displayTxt);
 			return displayTxt;
 		}
 		
