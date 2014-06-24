@@ -52,7 +52,7 @@ public class CategorySelect2MultiChoice extends
 	@SpringBean
 	private ImageManager imageMgr;
 	private IModel<List<Category>> sortedCategoriesModel;
-	private final IModel<List<Category>> selectedCategoryModel;
+//	private final IModel<List<Category>> selectedCategoryModel;
 	
 	private final class CategoryChoiceProvider extends TextChoiceProvider<Category> {
 		
@@ -122,34 +122,9 @@ public class CategorySelect2MultiChoice extends
 		
 	}
 	
-//	private class LoadableCategoryModel extends LoadableDetachableModel<Category> {
-//
-//		private static final long serialVersionUID = 1L;
-//		private String categoryUName;
-//		
-//		public LoadableCategoryModel(@Nullable Category currentCategory) {
-//			super();
-//			this.categoryUName = currentCategory != null ? currentCategory.getUName() : null;
-//		}
-//
-//		@Override
-//		protected Category load() {
-//			return categoryUName != null ? categoryRepo.findOne(categoryUName) : null;
-//		}
-//		
-//		@Override
-//		public void detach() {
-//			categoryUName = getObject() != null ? getObject().getId() : null;
-//			super.detach();
-//		}
-//		
-//	}
-	
-	
 	public CategorySelect2MultiChoice(String id,
-			IModel<List<Category>> selectedCategorymodel) {
-		super(id);
-		this.selectedCategoryModel = selectedCategorymodel;
+			IModel<? extends Collection<Category>> model) {
+		super(id, (IModel) model);
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
