@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
+import org.soluvas.category.CategoryStatus;
 import org.soluvas.commons.IdFunction;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
@@ -129,7 +130,7 @@ public class CategorySelect2MultiChoice extends
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
-				final List<Category> categoryList = categoryRepo.findAll(new PageRequest(0, 500, Direction.ASC, "name")).getContent();
+				final List<Category> categoryList = categoryRepo.findAllByStatus(ImmutableList.of(CategoryStatus.ACTIVE), new PageRequest(0, 500, Direction.ASC, "name")).getContent();
 				log.debug("Categories has {} rows: {}", categoryList.size(), categoryList);
 				final List<Category> filteredCategories = ImmutableList.copyOf(Iterables.filter(categoryList, new Predicate<Category>() {
 					@Override
