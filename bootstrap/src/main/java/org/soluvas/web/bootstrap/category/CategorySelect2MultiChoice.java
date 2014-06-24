@@ -10,7 +10,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -53,7 +52,7 @@ public class CategorySelect2MultiChoice extends
 	@SpringBean
 	private ImageManager imageMgr;
 	private IModel<List<Category>> sortedCategoriesModel;
-	
+	private final IModel<List<Category>> selectedCategoryModel;
 	
 	private final class CategoryChoiceProvider extends TextChoiceProvider<Category> {
 		
@@ -123,33 +122,34 @@ public class CategorySelect2MultiChoice extends
 		
 	}
 	
-	private class LoadableCategoryModel extends LoadableDetachableModel<Category> {
-
-		private static final long serialVersionUID = 1L;
-		private String categoryUName;
-		
-		public LoadableCategoryModel(@Nullable Category currentCategory) {
-			super();
-			this.categoryUName = currentCategory != null ? currentCategory.getUName() : null;
-		}
-
-		@Override
-		protected Category load() {
-			return categoryUName != null ? categoryRepo.findOne(categoryUName) : null;
-		}
-		
-		@Override
-		public void detach() {
-			categoryUName = getObject() != null ? getObject().getId() : null;
-			super.detach();
-		}
-		
-	}
+//	private class LoadableCategoryModel extends LoadableDetachableModel<Category> {
+//
+//		private static final long serialVersionUID = 1L;
+//		private String categoryUName;
+//		
+//		public LoadableCategoryModel(@Nullable Category currentCategory) {
+//			super();
+//			this.categoryUName = currentCategory != null ? currentCategory.getUName() : null;
+//		}
+//
+//		@Override
+//		protected Category load() {
+//			return categoryUName != null ? categoryRepo.findOne(categoryUName) : null;
+//		}
+//		
+//		@Override
+//		public void detach() {
+//			categoryUName = getObject() != null ? getObject().getId() : null;
+//			super.detach();
+//		}
+//		
+//	}
 	
 	
 	public CategorySelect2MultiChoice(String id,
-			IModel<? extends Collection<Category>> currentCateogorymodel) {
-		super(id, (IModel) currentCateogorymodel);
+			IModel<List<Category>> selectedCategorymodel) {
+		super(id);
+		this.selectedCategoryModel = selectedCategorymodel;
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
@@ -171,6 +171,7 @@ public class CategorySelect2MultiChoice extends
 				return categoryOrderer.sortedCopy(filteredCategories);
 			}
 		};
+//		log.debug("sortedCategoriesModel has {} rows ", sortedCategoriesModel.getObject().size());
 		setProvider(new CategoryChoiceProvider());
 	}
 	
@@ -182,8 +183,9 @@ public class CategorySelect2MultiChoice extends
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
-		add(new AttributeModifier("placeholder", "Choose Category"));
+//		add(new AttributeModifier("placeholder", "Choose Category"));
 		getSettings().getAjax().setQuietMillis(250);
+		log.debug("current selected category {} item", getModel().getObject().size());
 	}
 	
 	
