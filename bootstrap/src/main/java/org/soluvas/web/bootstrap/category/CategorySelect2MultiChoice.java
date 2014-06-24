@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package org.soluvas.web.bootstrap.category;
 
 import java.util.Collection;
@@ -21,7 +24,7 @@ import org.soluvas.commons.IdFunction;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.image.ImageManager;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2Choice;
+import org.soluvas.web.bootstrap.widget.InteractiveSelect2MultiChoice;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -33,25 +36,24 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
- * Displays a {@link Category} {@link Select2Choice} that only allows a leaf category
- * to be selected.
- * @author ceefour
- * @see TopLevelCategorySelect2
+ * @author atang
+ *
  */
-public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
-
+public class CategorySelect2MultiChoice extends
+		InteractiveSelect2MultiChoice<Category> {
+	
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
-			.getLogger(CategorySelect2.class);
+			.getLogger(CategorySelect2MultiChoice.class);
 	@SpringBean
 	private CategoryRepository categoryRepo;
 	@SpringBean
 	private ImageManager imageMgr;
 	private IModel<List<Category>> sortedCategoriesModel;
+//	private final IModel<List<Category>> selectedCategoryModel;
 	
 	private final class CategoryChoiceProvider extends TextChoiceProvider<Category> {
 		
@@ -121,36 +123,9 @@ public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
 		
 	}
 	
-	private class LoadableCategoryModel extends LoadableDetachableModel<Category> {
-
-		private static final long serialVersionUID = 1L;
-		private String categoryUName;
-		
-		public LoadableCategoryModel(@Nullable Category currentCategory) {
-			super();
-			this.categoryUName = currentCategory != null ? currentCategory.getUName() : null;
-		}
-
-		@Override
-		protected Category load() {
-			return categoryUName != null ? categoryRepo.findOne(categoryUName) : null;
-		}
-		
-		@Override
-		public void detach() {
-			categoryUName = getObject() != null ? getObject().getId() : null;
-			super.detach();
-		}
-		
-	}
-
-	/**
-	 * @param id
-	 * @param model
-	 */
-	public CategorySelect2(String id, @Nullable Category currentCategory) {
-		super(id);
-		setModel(new LoadableCategoryModel(currentCategory));
+	public CategorySelect2MultiChoice(String id,
+			IModel<? extends Collection<Category>> model) {
+		super(id, (IModel) model);
 		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
 			@Override
 			protected List<Category> load() {
@@ -172,11 +147,12 @@ public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
 				return categoryOrderer.sortedCopy(filteredCategories);
 			}
 		};
+//		log.debug("sortedCategoriesModel has {} rows ", sortedCategoriesModel.getObject().size());
 		setProvider(new CategoryChoiceProvider());
 	}
 	
-	public void setCurrentCategory(@Nullable Category currentCategory) {
-		setModel(new LoadableCategoryModel(currentCategory));
+	public IModel<List<Category>> getSortedCategoriesModel() {
+		return sortedCategoriesModel;
 	}
 	
 	@Override
@@ -187,14 +163,5 @@ public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
 		getSettings().getAjax().setQuietMillis(250);
 	}
 	
-	@Override
-	protected void detachModel() {
-		super.detachModel();
-		sortedCategoriesModel.detach();
-	}
 	
-	public IModel<List<Category>> getSortedCategoriesModel() {
-		return sortedCategoriesModel;
-	}
-
 }

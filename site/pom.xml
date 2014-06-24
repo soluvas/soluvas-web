@@ -77,7 +77,7 @@
 			<artifactId>compiler</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.wicket</groupId>
+			<groupId>org.apache.wicket.experimental.wicket6</groupId>
 			<artifactId>wicket-atmosphere</artifactId>
 		</dependency>
 		<dependency>
