@@ -4,24 +4,24 @@ import java.util.Locale;
 
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.request.resource.CssResourceReference;
 
 import com.google.common.collect.ImmutableList;
 
 import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapCssReference;
+import de.agilecoders.wicket.less.LessResourceReference;
 
 /**
- * A {@link CssResourceReference} that requires {@link BootstrapCssReference}.
+ * A {@link LessResourceReference} that requires {@link BootstrapCssReference}.
  * @author mahendri
  */
-public class AfterBootstrapCssResourceReference extends CssResourceReference {
+public class AfterBootstrapLessResourceReference extends LessResourceReference {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param key
 	 */
-	public AfterBootstrapCssResourceReference(Key key) {
+	public AfterBootstrapLessResourceReference(Key key) {
 		super(key);
 	}
 
@@ -29,7 +29,7 @@ public class AfterBootstrapCssResourceReference extends CssResourceReference {
 	 * @param scope
 	 * @param name
 	 */
-	public AfterBootstrapCssResourceReference(Class<?> scope, String name) {
+	public AfterBootstrapLessResourceReference(Class<?> scope, String name) {
 		super(scope, name);
 	}
 
@@ -40,7 +40,7 @@ public class AfterBootstrapCssResourceReference extends CssResourceReference {
 	 * @param style
 	 * @param variation
 	 */
-	public AfterBootstrapCssResourceReference(Class<?> scope, String name,
+	public AfterBootstrapLessResourceReference(Class<?> scope, String name,
 			Locale locale, String style, String variation) {
 		super(scope, name, locale, style, variation);
 	}
@@ -50,7 +50,7 @@ public class AfterBootstrapCssResourceReference extends CssResourceReference {
 	public Iterable<? extends HeaderItem> getDependencies() {
 		return ImmutableList.of(CssHeaderItem.forReference(BootstrapCssReference.instance()));
 	}
-
+	
 	public CssHeaderItem asHeaderItem() {
 		return CssHeaderItem.forReference(this);
 	}
