@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -158,9 +159,8 @@ public class CategorySelect2MultiChoice extends
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
-//		add(new AttributeModifier("placeholder", "Choose Category"));
+		add(new AttributeModifier("placeholder", "Choose Category"));
 		getSettings().getAjax().setQuietMillis(250);
-		log.debug("current selected category {} item", getModel().getObject().size());
 	}
 	
 	
