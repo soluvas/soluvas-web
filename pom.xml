@@ -181,11 +181,11 @@
 				<artifactId>wicketstuff-gmap3</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.wicketstuff</groupId>
-				<artifactId>wicketstuff-tinymce</artifactId>
-				<version>${wicket.version}</version>
-			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.wicketstuff</groupId> -->
+<!-- 				<artifactId>wicketstuff-tinymce</artifactId> -->
+<!-- 				<version>${wicket.version}</version> -->
+<!-- 			</dependency> -->
 
 		</dependencies>
 	</dependencyManagement>
