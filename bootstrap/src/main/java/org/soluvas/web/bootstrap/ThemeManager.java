@@ -3,6 +3,8 @@ package org.soluvas.web.bootstrap;
 import java.io.File;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.soluvas.web.site.ThemePref;
@@ -21,7 +23,13 @@ public interface ThemeManager {
 	void renderThemeStyle(String tenantId, String style,
 			IHeaderResponse response);
 
-	Optional<File> generateThemeStyle(String tenantId, String style,
+	/**
+	 * @param tenantId
+	 * @param style User provided style if exists. If {@code null}, will use {@link #getDefaultTheme()}.
+	 * @param themePref
+	 * @return
+	 */
+	Optional<File> generateThemeStyle(String tenantId, @Nullable String style,
 			ThemePref themePref);
 
 	Map<String, SoluvasTheme> getThemes();

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -79,7 +80,8 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 		LinkedHashMap<String, File> generateds = new LinkedHashMap<>();
 		for (Map.Entry<String, AppManifest> tenant : initialTenantIds.entrySet()) {
 			final String tenantId = tenant.getKey();
-			Optional<File> generated = doGenerateThemeStyle(tenantId, tenant.getValue().getDefaultStyle(), themePrefs.getExpanded(tenantId));
+			final String realStyle = Optional.fromNullable(tenant.getValue().getDefaultStyle()).or(defaultTheme.name());
+			Optional<File> generated = doGenerateThemeStyle(tenantId, realStyle, themePrefs.getExpanded(tenantId));
 			generateds.put(tenantId, generated.orNull());
 		}
 		log.info("Generated {} tenant theme style files: {}", generateds.size(), generateds);
@@ -99,6 +101,9 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 	 * @return TODO
 	 */
 	protected Optional<File> doGenerateThemeStyle(String tenantId, String style, ThemePref themePref) {
+		Preconditions.checkArgument(themes.containsKey(style),
+				"Theme '%s' for tenant '%s' not available. %s available themes: %s",
+				style, tenantId, themes.size(), themes.keySet());
 		final SoluvasTheme theme = themes.get(style);
 		if (theme.getStyleFormat() != SoluvasTheme.Format.LESS) {
 			log.debug("Theme '{}' for tenant '{}' is {} format, no need to regenerate",
@@ -138,11 +143,12 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 	}
 	
 	@Override
-	public Optional<File> generateThemeStyle(String tenantId, String style, ThemePref themePref) {
-		Optional<File> out = doGenerateThemeStyle(tenantId, style, themePref);
+	public Optional<File> generateThemeStyle(String tenantId, @Nullable String upStyle, ThemePref themePref) {
+		final String realStyle = Optional.fromNullable(upStyle).or(defaultTheme.name());
+		Optional<File> out = doGenerateThemeStyle(tenantId, realStyle, themePref);
 		if (out.isPresent()) {
 			log.info("{}» Generated theme '{}' LESS '{}'",
-					tenantId, style, out.get());
+					tenantId, realStyle, out.get());
 		}
 		return out;
 	}
