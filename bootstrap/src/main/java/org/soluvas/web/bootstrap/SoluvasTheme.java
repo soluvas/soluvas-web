@@ -1,6 +1,10 @@
 package org.soluvas.web.bootstrap;
 
+import java.util.List;
+
 import org.soluvas.web.site.ThemePref;
+
+import com.google.common.collect.ImmutableList;
 
 import de.agilecoders.wicket.core.settings.ITheme;
 import de.agilecoders.wicket.core.settings.Theme;
@@ -30,6 +34,7 @@ public class SoluvasTheme extends Theme {
 	private final Format styleFormat;
 	private final String path;
 	private final Class<?> scope;
+	private final ImmutableList<String> lessDependencies;
 
 	/**
 	 * @param name
@@ -37,11 +42,25 @@ public class SoluvasTheme extends Theme {
 	 * 		The main LESS file must be put under <code>{scopePackage}/{themeName}/css/theme-style.less.st</code>. 
 	 * @param resourceReferences
 	 */
-	public SoluvasTheme(String name, Class<?> scope, Format styleFormat) {
+	public SoluvasTheme(String name, Class<?> scope, Format format) {
+		this(name, scope, format, ImmutableList.<String>of());
+	}
+	
+	/**
+	 * @param name
+	 * @param scope The scope {@link Class} of the theme.
+	 * 		The main LESS file must be put under <code>{scopePackage}/{themeName}/css/theme-style.less.st</code>. 
+	 * @param resourceReferences
+	 * @param lessDependencies LESS files that are import-ed from {@code theme-syle.less.st}.
+	 * 		They must be declared because <a href="https://github.com/l0rdn1kk0n/wicket-bootstrap/issues/390">Less4j needs them to be in the same location, i.e. filesystem</a>.
+	 * 		They will be copied to be filesystem also by {@link ThemeManagerImpl#doGenerateThemeStyle(String, String, ThemePref)}.
+	 */
+	public SoluvasTheme(String name, Class<?> scope, Format format, List<String> lessDependencies) {
 		super(name);
 		this.scope = scope;
 		this.path = scope.getPackage().getName().replace('.', '/') + "/" + name;
-		this.styleFormat = styleFormat;
+		this.styleFormat = format;
+		this.lessDependencies = ImmutableList.copyOf(lessDependencies);
 	}
 	
 	/**
@@ -68,4 +87,8 @@ public class SoluvasTheme extends Theme {
 		return styleFormat;
 	}
 
+	public ImmutableList<String> getLessDependencies() {
+		return lessDependencies;
+	}
+	
 }
