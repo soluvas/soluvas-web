@@ -31,7 +31,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
@@ -275,7 +274,8 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.instance()));
 		response.render(JavaScriptHeaderItem.forReference(JQueryUiToTop.instance()));
-		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BootstrapPage.class, "require-2.1.5-soluvas.js")));		
+//		response.render(JavaScriptHeaderItem.forReference(
+//				new JavaScriptResourceReference(BootstrapPage.class, "require-2.1.5-soluvas.js")));		
 	}
 
 	@Override

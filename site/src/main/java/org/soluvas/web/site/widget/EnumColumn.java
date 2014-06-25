@@ -13,14 +13,13 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EEnum;
-import org.soluvas.web.site.FontAwesomeResourceReference;
 
 import com.google.common.collect.ImmutableMap;
 
 /**
  * Renders a regular {@link Enum} or an EMF {@link Enumerator}.
  * 
- * <p>Requires {@link FontAwesomeResourceReference}.
+ * <p>Requires {@link org.soluvas.web.bootstrap.FontAwesome}.
  * 
  * @param <T>
  * @param <S>
