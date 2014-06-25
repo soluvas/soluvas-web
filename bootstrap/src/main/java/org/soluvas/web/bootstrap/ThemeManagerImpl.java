@@ -115,7 +115,7 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 		Preconditions.checkNotNull(themeStUrl, "Cannot find LESS template '%s' using '%s' for style '%s' tenant '%s'",
 				themeStPath, theme.getScope(), style, tenantId);
 		// You cannot derive from Class.getResource URL, because in WAR you need to use WEB-INF/classes
-		File tenantLessFile = new File(classesDir, theme.getPath());
+		File tenantLessFile = new File(classesDir, theme.getPath() + "/css/theme-style.less.st");
 		log.debug("{}» Generating theme '{}' LESS '{}' from '{}'",
 				tenantId, style, tenantLessFile, themeStUrl);
 		try {
