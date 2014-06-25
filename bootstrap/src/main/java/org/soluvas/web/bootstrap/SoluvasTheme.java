@@ -40,7 +40,7 @@ public class SoluvasTheme extends Theme {
 	public SoluvasTheme(String name, Class<?> scope, Format styleFormat) {
 		super(name);
 		this.scope = scope;
-		this.path = scope.getPackage().getName().replace('.', '/') + name;
+		this.path = scope.getPackage().getName().replace('.', '/') + "/" + name;
 		this.styleFormat = styleFormat;
 	}
 	
