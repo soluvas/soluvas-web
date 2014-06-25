@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
 import org.soluvas.commons.IdFunction;
@@ -83,13 +82,13 @@ class CategoryChoiceProvider extends TextChoiceProvider<Category> {
 			public Category apply(@Nullable final String id) {
 				CategorySelect2MultiChoice.log.debug("id is {}. Sorted category has {} records", id, sortedCategoriesModel.getObject().size());
 				try {
-					return EcoreUtil.copy( Iterables.find(sortedCategoriesModel.getObject(), new Predicate<Category>() {
+					return Iterables.find(sortedCategoriesModel.getObject(), new Predicate<Category>() {
 						@SuppressWarnings("null") @Override
 						public boolean apply(@Nullable Category cat) {
 							CategorySelect2MultiChoice.log.debug("cat is {}", cat);
 							return Objects.equal(cat.getId(), id);
 						}
-					}, null) );
+					}, null);
 				} catch (Exception e) {
 					CategorySelect2MultiChoice.log.warn("Invalid category ID '{}', {} valid categories are: {}",
 							id, sortedCategoriesModel.getObject().size(), Lists.transform(sortedCategoriesModel.getObject(), new IdFunction()));
