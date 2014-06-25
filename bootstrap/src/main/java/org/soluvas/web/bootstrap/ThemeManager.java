@@ -1,57 +1,31 @@
 package org.soluvas.web.bootstrap;
 
+import java.io.File;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
-import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.tenant.TenantRepository;
-import org.soluvas.commons.tenant.TenantRepositoryListener;
-import org.soluvas.commons.tenant.TenantsStarting;
-import org.soluvas.commons.tenant.TenantsStopping;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.soluvas.web.site.ThemePref;
-import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Manage Themes and {@link ThemePref} for all tenants.
- * {@link TenantRepository} is supported but not required.
- * @author anton
- */
-public class ThemeManager implements TenantRepositoryListener {
+import com.google.common.base.Optional;
 
-	private final Map<String, AppManifest> initialTenantIds;
-	
-	@Autowired(required=false)
-	private TenantRepository<?> tenantRepo;
+public interface ThemeManager {
 
-	public ThemeManager(Map<String, AppManifest> initialTenantIds) {
-		super();
-		this.initialTenantIds = initialTenantIds;
-	}
-	
-	@PostConstruct
-	public void init() {
-		
-	}
-	
 	/**
-	 * Regenerates <code>theme-style-{tenantId}.less</code> in classpath.
+	 * Renders the {@link CssHeaderItem} for the theme of the specified {@code tenantId}.
+	 * Only affects {@link SoluvasTheme.Format#LESS}, otherwise noop.
 	 * @param tenantId
+	 * @param style
+	 * @param response
 	 */
-	protected void regenerateThemeStyle(String tenantId) {
-		
-	}
+	void renderThemeStyle(String tenantId, String style,
+			IHeaderResponse response);
 
-	@Override
-	public void onTenantsStarting(TenantsStarting starting) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	Optional<File> generateThemeStyle(String tenantId, String style,
+			ThemePref themePref);
 
-	@Override
-	public void onTenantsStopping(TenantsStopping stopping) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	Map<String, SoluvasTheme> getThemes();
+
+	SoluvasTheme getDefaultTheme();
 
 }

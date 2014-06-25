@@ -8,7 +8,7 @@ import de.agilecoders.wicket.less.LessResourceReference;
 /**
  * A {@link LessResourceReference} that requires {@link BootstrapCssReference}.
  * @author mahendri
- * @deprecated kayanya gak jadi, pake {@link ThemeManager} aja
+ * @deprecated kayanya gak jadi, pake {@link ThemeManagerImpl} aja
  */
 @Deprecated
 public class DynamicLessResourceReference extends AfterBootstrapLessResourceReference {

@@ -22,6 +22,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.soluvas.web.site.ThemePref#getNavbarColor <em>Navbar Color</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ThemePref#getNavbarTextColor <em>Navbar Text Color</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ThemePref#getOutlineColor <em>Outline Color</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ThemePref#getBackgroundColor <em>Background Color</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ThemePref#getHighlightColor <em>Highlight Color</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#isTwitterLinkVisible <em>Twitter Link Visible</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#isFacebookLinkVisible <em>Facebook Link Visible</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#isYouTubeLinkVisible <em>You Tube Link Visible</em>}</li>
@@ -34,6 +39,106 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ThemePref extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Navbar Text Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * HTML color that is usually used for the navbar text color (color 2), but depends on theme.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Navbar Text Color</em>' attribute.
+	 * @see #setNavbarTextColor(String)
+	 * @see org.soluvas.web.site.SitePackage#getThemePref_NavbarTextColor()
+	 * @model
+	 * @generated
+	 */
+	String getNavbarTextColor();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ThemePref#getNavbarTextColor <em>Navbar Text Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Navbar Text Color</em>' attribute.
+	 * @see #getNavbarTextColor()
+	 * @generated
+	 */
+	void setNavbarTextColor(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Outline Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * HTML color usually used for link or button outlines (color 3), but it depends on theme.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Outline Color</em>' attribute.
+	 * @see #setOutlineColor(String)
+	 * @see org.soluvas.web.site.SitePackage#getThemePref_OutlineColor()
+	 * @model
+	 * @generated
+	 */
+	String getOutlineColor();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ThemePref#getOutlineColor <em>Outline Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Outline Color</em>' attribute.
+	 * @see #getOutlineColor()
+	 * @generated
+	 */
+	void setOutlineColor(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Background Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * HTML color usually used for the overall page background color (color 4), but it depends on theme.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Background Color</em>' attribute.
+	 * @see #setBackgroundColor(String)
+	 * @see org.soluvas.web.site.SitePackage#getThemePref_BackgroundColor()
+	 * @model
+	 * @generated
+	 */
+	String getBackgroundColor();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ThemePref#getBackgroundColor <em>Background Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Background Color</em>' attribute.
+	 * @see #getBackgroundColor()
+	 * @generated
+	 */
+	void setBackgroundColor(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Highlight Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * HTML color usually used for highlight background color selected/active elements (color 5), but it depends on theme.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Highlight Color</em>' attribute.
+	 * @see #setHighlightColor(String)
+	 * @see org.soluvas.web.site.SitePackage#getThemePref_HighlightColor()
+	 * @model
+	 * @generated
+	 */
+	String getHighlightColor();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ThemePref#getHighlightColor <em>Highlight Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Highlight Color</em>' attribute.
+	 * @see #getHighlightColor()
+	 * @generated
+	 */
+	void setHighlightColor(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Twitter Link Visible</b></em>' attribute.
 	 * The default value is <code>"true"</code>.
@@ -141,5 +246,30 @@ public interface ThemePref extends EObject {
 	 * @generated
 	 */
 	void setFootnoteVisible(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Navbar Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * HTML color that is usually used for the navbar background color (color 1), but depends on theme.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Navbar Color</em>' attribute.
+	 * @see #setNavbarColor(String)
+	 * @see org.soluvas.web.site.SitePackage#getThemePref_NavbarColor()
+	 * @model
+	 * @generated
+	 */
+	String getNavbarColor();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ThemePref#getNavbarColor <em>Navbar Color</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Navbar Color</em>' attribute.
+	 * @see #getNavbarColor()
+	 * @generated
+	 */
+	void setNavbarColor(String value);
 
 } // ThemePref

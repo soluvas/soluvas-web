@@ -8,7 +8,7 @@ import de.agilecoders.wicket.less.LessResourceStream;
 /**
  * A {@link LessResourceStream} that passes through {@link ST}.
  * @author anton
- * @deprecated kayanya gak jadi, pake {@link ThemeManager} aja
+ * @deprecated kayanya gak jadi, pake {@link ThemeManagerImpl} aja
  */
 @Deprecated
 public class StringTemplateLessResourceStream extends LessResourceStream {

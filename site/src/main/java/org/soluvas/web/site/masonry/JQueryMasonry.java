@@ -6,7 +6,7 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.UrlResourceReference;
-import org.soluvas.web.site.AfterJQueryJavaScriptResourceReference;
+import org.apache.wicket.resource.JQueryPluginResourceReference;
 
 import com.google.common.collect.ImmutableList;
 
@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableList;
 public class JQueryMasonry {
 
 	public static final JavaScriptResourceReference JS = 
-			new AfterJQueryJavaScriptResourceReference(JQueryMasonry.class, "jquery.masonry-2.1.08.js");
+			new JQueryPluginResourceReference(JQueryMasonry.class, "jquery.masonry-2.1.08.js");
 	public static final UrlResourceReference JS_CDN =
 			new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js")) {
 		@Override

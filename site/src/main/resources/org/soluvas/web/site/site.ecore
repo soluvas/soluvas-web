@@ -292,6 +292,31 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Theme Preference, usable by App, Tenant, Shop, Person, and possibly Article/Category/Product.&#xA;&#xA;&lt;p>Should be extended, e.g. {@link id.co.bippo.common.BippoThemePref} contains bippo-specific theme preferences in additional to Soluvas Web's.&#xA;&#xA;&lt;p>&lt;b>Notes:&lt;/b> These may be disabled for a tenant by FeatureSet, which has veto power.&#xA;A ThemePref feature usually requires data from AppManifest/Mall/SysConfig, so without the data, the theme won't be able to show it anyway.&#xA;Not all Themes support all ThemePref features."/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="navbarColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="HTML color that is usually used for the navbar background color (color 1), but depends on theme."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="navbarTextColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="HTML color that is usually used for the navbar text color (color 2), but depends on theme."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outlineColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="HTML color usually used for link or button outlines (color 3), but it depends on theme."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backgroundColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="HTML color usually used for the overall page background color (color 4), but it depends on theme."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highlightColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="HTML color usually used for highlight background color selected/active elements (color 5), but it depends on theme."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="twitterLinkVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="facebookLinkVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

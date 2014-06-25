@@ -9,7 +9,7 @@ import de.agilecoders.wicket.less.LessPackageResource;
 /**
  * A package resource that uses a custom IResourceStream to
  * load Less content but return CSS content generated out of it.
- * @deprecated kayanya gak jadi, pake {@link ThemeManager} aja
+ * @deprecated kayanya gak jadi, pake {@link ThemeManagerImpl} aja
  */
 @Deprecated
 public class DynamicLessPackageResource extends LessPackageResource {

@@ -1321,13 +1321,58 @@ public interface SitePackage extends EPackage {
 	int THEME_PREF = 25;
 
 	/**
+	 * The feature id for the '<em><b>Navbar Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__NAVBAR_COLOR = 0;
+
+	/**
+	 * The feature id for the '<em><b>Navbar Text Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__NAVBAR_TEXT_COLOR = 1;
+
+	/**
+	 * The feature id for the '<em><b>Outline Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__OUTLINE_COLOR = 2;
+
+	/**
+	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__BACKGROUND_COLOR = 3;
+
+	/**
+	 * The feature id for the '<em><b>Highlight Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THEME_PREF__HIGHLIGHT_COLOR = 4;
+
+	/**
 	 * The feature id for the '<em><b>Twitter Link Visible</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THEME_PREF__TWITTER_LINK_VISIBLE = 0;
+	int THEME_PREF__TWITTER_LINK_VISIBLE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Facebook Link Visible</b></em>' attribute.
@@ -1336,7 +1381,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THEME_PREF__FACEBOOK_LINK_VISIBLE = 1;
+	int THEME_PREF__FACEBOOK_LINK_VISIBLE = 6;
 
 	/**
 	 * The feature id for the '<em><b>You Tube Link Visible</b></em>' attribute.
@@ -1345,7 +1390,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THEME_PREF__YOU_TUBE_LINK_VISIBLE = 2;
+	int THEME_PREF__YOU_TUBE_LINK_VISIBLE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Footnote Visible</b></em>' attribute.
@@ -1354,7 +1399,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THEME_PREF__FOOTNOTE_VISIBLE = 3;
+	int THEME_PREF__FOOTNOTE_VISIBLE = 8;
 
 	/**
 	 * The number of structural features of the '<em>Theme Pref</em>' class.
@@ -1363,7 +1408,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THEME_PREF_FEATURE_COUNT = 4;
+	int THEME_PREF_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.
@@ -2054,6 +2099,50 @@ public interface SitePackage extends EPackage {
 	EClass getThemePref();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#getNavbarTextColor <em>Navbar Text Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Navbar Text Color</em>'.
+	 * @see org.soluvas.web.site.ThemePref#getNavbarTextColor()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_NavbarTextColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#getOutlineColor <em>Outline Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Outline Color</em>'.
+	 * @see org.soluvas.web.site.ThemePref#getOutlineColor()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_OutlineColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#getBackgroundColor <em>Background Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Color</em>'.
+	 * @see org.soluvas.web.site.ThemePref#getBackgroundColor()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_BackgroundColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#getHighlightColor <em>Highlight Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Highlight Color</em>'.
+	 * @see org.soluvas.web.site.ThemePref#getHighlightColor()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_HighlightColor();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#isTwitterLinkVisible <em>Twitter Link Visible</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2096,6 +2185,17 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getThemePref_FootnoteVisible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ThemePref#getNavbarColor <em>Navbar Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Navbar Color</em>'.
+	 * @see org.soluvas.web.site.ThemePref#getNavbarColor()
+	 * @see #getThemePref()
+	 * @generated
+	 */
+	EAttribute getThemePref_NavbarColor();
 
 	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}'.
@@ -2713,6 +2813,38 @@ public interface SitePackage extends EPackage {
 		EClass THEME_PREF = eINSTANCE.getThemePref();
 
 		/**
+		 * The meta object literal for the '<em><b>Navbar Text Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__NAVBAR_TEXT_COLOR = eINSTANCE.getThemePref_NavbarTextColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Outline Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__OUTLINE_COLOR = eINSTANCE.getThemePref_OutlineColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Background Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__BACKGROUND_COLOR = eINSTANCE.getThemePref_BackgroundColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Highlight Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__HIGHLIGHT_COLOR = eINSTANCE.getThemePref_HighlightColor();
+
+		/**
 		 * The meta object literal for the '<em><b>Twitter Link Visible</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2743,6 +2875,14 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute THEME_PREF__FOOTNOTE_VISIBLE = eINSTANCE.getThemePref_FootnoteVisible();
+
+		/**
+		 * The meta object literal for the '<em><b>Navbar Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THEME_PREF__NAVBAR_COLOR = eINSTANCE.getThemePref_NavbarColor();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.

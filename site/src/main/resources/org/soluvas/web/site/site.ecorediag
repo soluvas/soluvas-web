@@ -534,6 +534,26 @@
   <children xmi:type="notation:Node" xmi:id="_pY1lsOJdEeOfQ_3MiAABQg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_pY2z0OJdEeOfQ_3MiAABQg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_pY3a4OJdEeOfQ_3MiAABQg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_47JlEPwcEeOlNZEdUftIhw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/navbarColor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_47JlEfwcEeOlNZEdUftIhw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_FoZ60PwdEeOlNZEdUftIhw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/navbarTextColor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_FoZ60fwdEeOlNZEdUftIhw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_PvzBkPwdEeOlNZEdUftIhw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/outlineColor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_PvzBkfwdEeOlNZEdUftIhw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_WyDjYPwdEeOlNZEdUftIhw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/backgroundColor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WyDjYfwdEeOlNZEdUftIhw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gkzP0PwdEeOlNZEdUftIhw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/highlightColor"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_gkzP0fwdEeOlNZEdUftIhw"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_1nlagOJdEeOfQ_3MiAABQg" type="2001">
         <element xmi:type="ecore:EAttribute" href="site.ecore#//ThemePref/twitterLinkVisible"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_1nlageJdEeOfQ_3MiAABQg"/>

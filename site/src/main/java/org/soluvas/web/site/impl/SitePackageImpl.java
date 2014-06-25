@@ -900,9 +900,45 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getThemePref_NavbarTextColor() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_OutlineColor() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_BackgroundColor() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_HighlightColor() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EAttribute getThemePref_TwitterLinkVisible() {
-		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -912,7 +948,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 */
 	@Override
 	public EAttribute getThemePref_FacebookLinkVisible() {
-		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -922,7 +958,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 */
 	@Override
 	public EAttribute getThemePref_YouTubeLinkVisible() {
-		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -932,7 +968,16 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 */
 	@Override
 	public EAttribute getThemePref_FootnoteVisible() {
-		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThemePref_NavbarColor() {
+		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1121,6 +1166,11 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(googleAnalyticsSysConfigEClass, GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES);
 
 		themePrefEClass = createEClass(THEME_PREF);
+		createEAttribute(themePrefEClass, THEME_PREF__NAVBAR_COLOR);
+		createEAttribute(themePrefEClass, THEME_PREF__NAVBAR_TEXT_COLOR);
+		createEAttribute(themePrefEClass, THEME_PREF__OUTLINE_COLOR);
+		createEAttribute(themePrefEClass, THEME_PREF__BACKGROUND_COLOR);
+		createEAttribute(themePrefEClass, THEME_PREF__HIGHLIGHT_COLOR);
 		createEAttribute(themePrefEClass, THEME_PREF__TWITTER_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__FACEBOOK_LINK_VISIBLE);
 		createEAttribute(themePrefEClass, THEME_PREF__YOU_TUBE_LINK_VISIBLE);
@@ -1295,6 +1345,11 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures(), ecorePackage.getEBoolean(), "googleAnalyticsDisplayFeatures", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(themePrefEClass, ThemePref.class, "ThemePref", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getThemePref_NavbarColor(), ecorePackage.getEString(), "navbarColor", null, 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_NavbarTextColor(), ecorePackage.getEString(), "navbarTextColor", null, 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_OutlineColor(), ecorePackage.getEString(), "outlineColor", null, 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getThemePref_HighlightColor(), ecorePackage.getEString(), "highlightColor", null, 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_TwitterLinkVisible(), ecorePackage.getEBoolean(), "twitterLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_FacebookLinkVisible(), ecorePackage.getEBoolean(), "facebookLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_YouTubeLinkVisible(), ecorePackage.getEBoolean(), "youTubeLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1627,6 +1682,36 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Theme Preference, usable by App, Tenant, Shop, Person, and possibly Article/Category/Product.\n\n<p>Should be extended, e.g. {@link id.co.bippo.common.BippoThemePref} contains bippo-specific theme preferences in additional to Soluvas Web\'s.\n\n<p><b>Notes:</b> These may be disabled for a tenant by FeatureSet, which has veto power.\nA ThemePref feature usually requires data from AppManifest/Mall/SysConfig, so without the data, the theme won\'t be able to show it anyway.\nNot all Themes support all ThemePref features."
+		   });		
+		addAnnotation
+		  (getThemePref_NavbarColor(), 
+		   source, 
+		   new String[] {
+			 "documentation", "HTML color that is usually used for the navbar background color (color 1), but depends on theme."
+		   });		
+		addAnnotation
+		  (getThemePref_NavbarTextColor(), 
+		   source, 
+		   new String[] {
+			 "documentation", "HTML color that is usually used for the navbar text color (color 2), but depends on theme."
+		   });		
+		addAnnotation
+		  (getThemePref_OutlineColor(), 
+		   source, 
+		   new String[] {
+			 "documentation", "HTML color usually used for link or button outlines (color 3), but it depends on theme."
+		   });		
+		addAnnotation
+		  (getThemePref_BackgroundColor(), 
+		   source, 
+		   new String[] {
+			 "documentation", "HTML color usually used for the overall page background color (color 4), but it depends on theme."
+		   });		
+		addAnnotation
+		  (getThemePref_HighlightColor(), 
+		   source, 
+		   new String[] {
+			 "documentation", "HTML color usually used for highlight background color selected/active elements (color 5), but it depends on theme."
 		   });		
 		addAnnotation
 		  (getThemePref_FootnoteVisible(), 
