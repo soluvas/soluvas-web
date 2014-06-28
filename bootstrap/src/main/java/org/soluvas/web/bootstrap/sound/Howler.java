@@ -6,10 +6,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.html.IPackageResourceGuard;
+import org.apache.wicket.markup.html.SecurePackageResourceGuard;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.parboiled.common.Preconditions;
@@ -30,11 +33,7 @@ import com.google.common.base.Optional;
  * <p>{@link WebApplication#init()}:
  * 
  * <pre>
- * final SecurePackageResourceGuard packageResourceGuard = new SecurePackageResourceGuard();
- * packageResourceGuard.addPattern("+*.map"); // bootstrap 3 map
- * packageResourceGuard.addPattern("+*.mp3"); // howler
- * packageResourceGuard.addPattern("+*.ogg"); // howler
- * getResourceSettings().setPackageResourceGuard(packageResourceGuard);
+ * Howler.install(this);
  * </pre>
  * 
  * @author ceefour
@@ -146,6 +145,16 @@ public class Howler {
 	protected static void doRenderHead(Component component, IHeaderResponse response, Sounds sounds) {
 		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(
 				sounds.getClass(), sounds.getId() + ".js")));
+	}
+	
+	public static void install(Application app) {
+        IPackageResourceGuard resourceGuard = app.getResourceSettings().getPackageResourceGuard();
+        if (resourceGuard instanceof SecurePackageResourceGuard) {
+            SecurePackageResourceGuard securePackageResourceGuard = (SecurePackageResourceGuard) resourceGuard;
+            securePackageResourceGuard.addPattern("+*.map"); // bootstrap 3 map
+            securePackageResourceGuard.addPattern("+*.mp3"); // howler
+            securePackageResourceGuard.addPattern("+*.ogg"); // howler
+        }
 	}
 
 }
