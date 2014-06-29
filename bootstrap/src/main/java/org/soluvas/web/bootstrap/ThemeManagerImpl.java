@@ -1,7 +1,6 @@
 package org.soluvas.web.bootstrap;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -115,22 +114,12 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 		URL themeStUrl = theme.getScope().getResource(themeStPath);
 		Preconditions.checkNotNull(themeStUrl, "Cannot find LESS template '%s' using '%s' for style '%s' tenant '%s'",
 				themeStPath, theme.getScope(), style, tenantId);
-		// You cannot derive from Class.getResource URL, because in WAR you need to use WEB-INF/classes,
-		// and you can't cross classpath boundaries: https://github.com/l0rdn1kk0n/wicket-bootstrap/issues/390
+		// For @import-ing LESS files, please use absolute `classpath!`, see
+		// https://github.com/l0rdn1kk0n/wicket-bootstrap/issues/390#issuecomment-47447065
 		File tenantCssDir = new File(classesDir, theme.getPath() + "/css");
-		for (String lessDep : theme.getLessDependencies()) {
-			final String depSourceName = theme.name() + "/css/" + lessDep;
-			File depTarget = new File(tenantCssDir, lessDep);
-			try {
-				FileUtils.copyURLToFile(theme.getScope().getResource(depSourceName), depTarget);
-			} catch (IOException e) {
-				throw new SiteException(e, "%s» Cannot copy LESS dependency '%s:%s' to '%s' for preparing theme '%s' from '%s'",
-						tenantId, theme.getScope().getName(), depSourceName, depTarget, style, themeStUrl);
-			}
-		}
 		File tenantLessFile = new File(tenantCssDir, "theme-style-" + tenantId + ".less");
-		log.debug("{}» Generating theme '{}' LESS '{}' from '{}' with {} dependencies: {}",
-				tenantId, style, tenantLessFile, themeStUrl, theme.getLessDependencies().size(), theme.getLessDependencies());
+		log.debug("{}» Generating theme '{}' LESS '{}' from '{}'",
+				tenantId, style, tenantLessFile, themeStUrl);
 		try {
 			ST st = new ST(IOUtils.toString(themeStUrl), '$', '$');
 			st.add("tenantId", tenantId);
