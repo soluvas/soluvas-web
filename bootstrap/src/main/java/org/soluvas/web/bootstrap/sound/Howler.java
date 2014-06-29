@@ -88,15 +88,17 @@ public class Howler {
 	 * 
 	 * <p>For non-loop:
 	 * <pre>
-	 * if (typeof lastLoop != 'undefined') { lastLoop.stop(); lastLoop = undefined; }
+	 * if (typeof window.lastLoop != 'undefined') { window.lastLoop.stop(); window.lastLoop = undefined; }
 	 * cleanus1_fx.play('KDE_Event');
 	 * </pre>
 	 * 
 	 * <p>For loop:
 	 * <pre>
-	 * if (typeof lastLoop != 'undefined') { lastLoop.stop(); lastLoop = undefined; }
+	 * if (typeof window.lastLoop != 'undefined') { window.lastLoop.stop(); window.lastLoop = undefined; }
 	 * cleanus1_loop.play('KDE_Event');
 	 * </pre>
+	 * 
+	 * <p>The {@code window.} part is required due to <a href="https://github.com/soluvas/soluvas-web/issues/39">an issue with Bootstrap-Modal</a>.
 	 * 
 	 * @param target
 	 * @param sprite must contain {@link QName#getPrefix()}.
@@ -105,7 +107,8 @@ public class Howler {
 	public static String play(QName sprite, boolean loop) {
 		final String script;
 		if (loop) {
-			script = stopLoop() + "\n" + sprite.getPrefix() + "_loop.play(" + JSONObject.quote(sprite.getLocalPart()) + ");\nlastLoop = " + sprite.getPrefix() + "_loop;";
+			script = stopLoop() + "\n" + sprite.getPrefix() + "_loop.play(" + JSONObject.quote(sprite.getLocalPart()) + ");\n" +
+					"window.lastLoop = " + sprite.getPrefix() + "_loop;";
 		} else {
 			script = stopLoop() + "\n" + sprite.getPrefix() + "_fx.play(" + JSONObject.quote(sprite.getLocalPart()) + ");";
 		}
@@ -114,7 +117,7 @@ public class Howler {
 	}
 	
 	public static String stopLoop() {
-		return "if (typeof lastLoop != 'undefined') { lastLoop.stop(); lastLoop = undefined; }";
+		return "if (typeof window.lastLoop != 'undefined') { window.lastLoop.stop(); window.lastLoop = undefined; }";
 	}
 	
 	public static Set<String> mergeDependencies(Sounds sounds) {
