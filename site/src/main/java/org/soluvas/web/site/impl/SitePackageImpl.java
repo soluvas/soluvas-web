@@ -22,6 +22,7 @@ import org.soluvas.web.site.EntityPage;
 import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
+import org.soluvas.web.site.GooglePlusSysConfig;
 import org.soluvas.web.site.GoogleSysConfig;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.JavaScriptMode;
@@ -240,6 +241,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass googleSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass googlePlusSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1030,6 +1038,51 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGooglePlusSysConfig() {
+		return googlePlusSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGooglePlusSysConfig_GooglePlusId() {
+		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGooglePlusSysConfig_GooglePlusKind() {
+		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGooglePlusSysConfig_GooglePlusUrl() {
+		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGooglePlusSysConfig_GooglePlusDisplayName() {
+		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1181,6 +1234,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_ID);
 		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_CLIENT_SECRET);
 		createEAttribute(googleSysConfigEClass, GOOGLE_SYS_CONFIG__GOOGLE_VERIFY_ID);
+
+		googlePlusSysConfigEClass = createEClass(GOOGLE_PLUS_SYS_CONFIG);
+		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_ID);
+		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_KIND);
+		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_URL);
+		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_DISPLAY_NAME);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1360,6 +1419,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getGoogleSysConfig_GoogleClientId(), ecorePackage.getEString(), "googleClientId", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleSysConfig_GoogleClientSecret(), ecorePackage.getEString(), "googleClientSecret", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleSysConfig_GoogleVerifyId(), ecorePackage.getEString(), "googleVerifyId", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(googlePlusSysConfigEClass, GooglePlusSysConfig.class, "GooglePlusSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGooglePlusSysConfig_GooglePlusId(), ecorePackage.getEString(), "googlePlusId", null, 0, 1, GooglePlusSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGooglePlusSysConfig_GooglePlusKind(), ecorePackage.getEString(), "googlePlusKind", null, 0, 1, GooglePlusSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGooglePlusSysConfig_GooglePlusUrl(), ecorePackage.getEString(), "googlePlusUrl", null, 0, 1, GooglePlusSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGooglePlusSysConfig_GooglePlusDisplayName(), ecorePackage.getEString(), "googlePlusDisplayName", null, 0, 1, GooglePlusSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
