@@ -87,12 +87,12 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="og:image - An image URL which should represent your object within the graph.&#xA;"/>
+        <details key="documentation" value="og:image - An image URL which should represent your object within the graph.&#xA;The 'og:image' property should be explicitly provided, even if a value can be inferred from other tags."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="og:url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., &quot;http://www.imdb.com/title/tt0117500/&quot;."/>
+        <details key="documentation" value="og:url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., &quot;http://www.imdb.com/title/tt0117500/&quot;.&#xA;The 'og:url' property should be explicitly provided, even if a value can be inferred from other tags."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="audio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -102,7 +102,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="og:description - A one to two sentence description of your object."/>
+        <details key="documentation" value="og:description - A one to two sentence description of your object.&#xA;The 'og:description' property should be explicitly provided, even if a value can be inferred from other tags."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="determiner" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
