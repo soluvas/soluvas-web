@@ -1411,6 +1411,16 @@ public interface SitePackage extends EPackage {
 	int THEME_PREF_FEATURE_COUNT = 9;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.GooglePlusSysConfig <em>Google Plus Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.GooglePlusSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGooglePlusSysConfig()
+	 * @generated
+	 */
+	int GOOGLE_PLUS_SYS_CONFIG = 27;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1466,6 +1476,51 @@ public interface SitePackage extends EPackage {
 	int GOOGLE_SYS_CONFIG_FEATURE_COUNT = 4;
 
 	/**
+	 * The feature id for the '<em><b>Google Plus Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Google Plus Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_KIND = 1;
+
+	/**
+	 * The feature id for the '<em><b>Google Plus Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_URL = 2;
+
+	/**
+	 * The feature id for the '<em><b>Google Plus Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_DISPLAY_NAME = 3;
+
+	/**
+	 * The number of structural features of the '<em>Google Plus Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_PLUS_SYS_CONFIG_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1473,7 +1528,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 27;
+	int JAVA_SCRIPT_MODE = 28;
 
 
 	/**
@@ -1484,7 +1539,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 28;
+	int INTERACTION = 29;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1494,7 +1549,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 29;
+	int LIVE_CHAT_PROVIDER = 30;
 
 
 	/**
@@ -2252,6 +2307,60 @@ public interface SitePackage extends EPackage {
 	EAttribute getGoogleSysConfig_GoogleVerifyId();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.GooglePlusSysConfig <em>Google Plus Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Google Plus Sys Config</em>'.
+	 * @see org.soluvas.web.site.GooglePlusSysConfig
+	 * @generated
+	 */
+	EClass getGooglePlusSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusId <em>Google Plus Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Plus Id</em>'.
+	 * @see org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusId()
+	 * @see #getGooglePlusSysConfig()
+	 * @generated
+	 */
+	EAttribute getGooglePlusSysConfig_GooglePlusId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusKind <em>Google Plus Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Plus Kind</em>'.
+	 * @see org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusKind()
+	 * @see #getGooglePlusSysConfig()
+	 * @generated
+	 */
+	EAttribute getGooglePlusSysConfig_GooglePlusKind();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusUrl <em>Google Plus Url</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Plus Url</em>'.
+	 * @see org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusUrl()
+	 * @see #getGooglePlusSysConfig()
+	 * @generated
+	 */
+	EAttribute getGooglePlusSysConfig_GooglePlusUrl();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusDisplayName <em>Google Plus Display Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Plus Display Name</em>'.
+	 * @see org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusDisplayName()
+	 * @see #getGooglePlusSysConfig()
+	 * @generated
+	 */
+	EAttribute getGooglePlusSysConfig_GooglePlusDisplayName();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2925,6 +3034,48 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_SYS_CONFIG__GOOGLE_VERIFY_ID = eINSTANCE.getGoogleSysConfig_GoogleVerifyId();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.GooglePlusSysConfig <em>Google Plus Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.GooglePlusSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGooglePlusSysConfig()
+		 * @generated
+		 */
+		EClass GOOGLE_PLUS_SYS_CONFIG = eINSTANCE.getGooglePlusSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Plus Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_ID = eINSTANCE.getGooglePlusSysConfig_GooglePlusId();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Plus Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_KIND = eINSTANCE.getGooglePlusSysConfig_GooglePlusKind();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Plus Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_URL = eINSTANCE.getGooglePlusSysConfig_GooglePlusUrl();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Plus Display Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_DISPLAY_NAME = eINSTANCE.getGooglePlusSysConfig_GooglePlusDisplayName();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
