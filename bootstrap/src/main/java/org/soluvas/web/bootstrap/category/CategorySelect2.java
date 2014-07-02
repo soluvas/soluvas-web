@@ -95,6 +95,36 @@ public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
 		};
 		setProvider(new CategoryChoiceProvider(sortedCategoriesModel));
 	}
+	/**
+	 * @param id
+	 * @param model
+	 */
+	public CategorySelect2(String id, IModel<Category> model) {
+		super(id, model);
+		sortedCategoriesModel = new LoadableDetachableModel<List<Category>>() {
+			@Override
+			protected List<Category> load() {
+				final List<Category> categoryList = categoryRepo.findAll(new PageRequest(0, 500, Direction.ASC, "name")).getContent();
+				log.debug("Categories has {} rows: {}", categoryList.size(), categoryList);
+				final List<Category> filteredCategories = ImmutableList.copyOf(Iterables.filter(categoryList, new Predicate<Category>() {
+					@Override
+					public boolean apply(@Nullable Category input) {
+						return input.getCategories().isEmpty();
+					}
+				}));
+				log.debug("Filtered Categories by leaf has {} rows: {}", filteredCategories.size(), filteredCategories);
+				final Ordering<Category> categoryOrderer = Ordering.from(new Comparator<Category>() {
+					@Override
+					public int compare(Category cat1, Category cat2) {
+						return cat1.getSlugPath().compareToIgnoreCase(cat2.getSlugPath());
+					}
+				});
+				return categoryOrderer.sortedCopy(filteredCategories);
+			}
+		};
+		setProvider(new CategoryChoiceProvider(sortedCategoriesModel));
+	}
+	
 	
 	public void setCurrentCategory(@Nullable Category currentCategory) {
 		setModel(new LoadableCategoryModel(currentCategory));
