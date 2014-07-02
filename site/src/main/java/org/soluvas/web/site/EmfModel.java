@@ -92,6 +92,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 						XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY,
 						XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
 					));
+				buf = null; // since already loaded, no need to keep it in memory. also to make setObject(null) work as intended
 			} catch (IOException e) {
 				if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
 					throw new SiteException("Cannot deserialize EObject from " + buf.length + " bytes: " + new String(buf), e);
