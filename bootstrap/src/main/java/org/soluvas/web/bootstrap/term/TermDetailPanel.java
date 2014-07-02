@@ -279,7 +279,8 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			}
 		};
 		deleteBtn.setEnabled(editable);
-		deleteBtn.setVisible(editMode == EditMode.MODIFY);
+//		deleteBtn.setVisible(editMode == EditMode.MODIFY);
+		deleteBtn.setVisible(false);
 		add(deleteBtn);
 		
 	}
