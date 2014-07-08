@@ -13,5 +13,5 @@ public interface SocialApplication {
 	Class<? extends Page> getPersonShowPage();
 	
 	Class<? extends Page> getCategoryShowPage();
-	
+
 }

@@ -18,10 +18,9 @@ import org.apache.wicket.model.IModel;
  * @see AutoDisableAjaxButton
  * @see AutoDisableAjaxCallListener
  */
+@SuppressWarnings("serial")
 public class AutoDisableAjaxButton extends IndicatingAjaxButton {
 	
-	private static final long serialVersionUID = 1L;
-
 	public AutoDisableAjaxButton(String id, Form<?> form) {
 		super(id, form);
 	}

@@ -10,9 +10,8 @@ import org.apache.wicket.model.IModel;
  * Same in spirit as {@link GenericPanel} but for {@link RepeatingView}.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class GenericRepeatingView<T> extends RepeatingView {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param id
