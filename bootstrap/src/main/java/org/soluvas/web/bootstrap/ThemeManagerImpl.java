@@ -162,8 +162,8 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 		}
 		String tenantLessPath = theme.name() + "/css/theme-style-" + tenantId + ".less";
 		final AfterBootstrapLessResourceReference resourceRef = new AfterBootstrapLessResourceReference(theme.getScope(), tenantLessPath);
+		response.render(resourceRef.asHeaderItem());
 		if (log.isDebugEnabled()) {
-			response.render(resourceRef.asHeaderItem());
 			LessResourceStream stream = (LessResourceStream) resourceRef.getResource().getResourceStream();
 			Time modificationTime = stream.lastModifiedTime();
 			log.debug("Last modified for {}: {}", tenantLessPath, modificationTime);
