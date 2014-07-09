@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-core</artifactId>
-			<version>0.9.4</version>
+			<version>0.9.5</version>
 			<!-- won't be needed after reflections 0.9.9 -->
 			<exclusions>
 				<exclusion>
@@ -65,17 +65,17 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-extensions</artifactId>
-			<version>0.9.4</version>
+			<version>0.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-themes</artifactId>
-			<version>0.9.4</version>
+			<version>0.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-less</artifactId>
-			<version>0.9.4</version>
+			<version>0.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
@@ -89,6 +89,7 @@
 		</dependency>
 
 		<dependency>
+			<!-- TODO: tagsoup or jsoup? last tagsoup is 2011, last jsoup is 2013 -->
 			<groupId>org.ccil.cowan.tagsoup</groupId>
 			<artifactId>tagsoup</artifactId>
 			<version>1.2.1</version>
