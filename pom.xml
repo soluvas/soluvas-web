@@ -116,12 +116,24 @@
 				<groupId>org.apache.wicket.experimental.wicket6</groupId>
 				<artifactId>wicket-atmosphere</artifactId>
 				<version>${wicket-atmosphere.version}</version>
-				<!-- Important: Make sure to exclude atmosphere-compat-tomcat7 if you use Tomcat 7.x! -->
 			</dependency>
 			<dependency>
 				<groupId>org.atmosphere</groupId>
 				<artifactId>atmosphere-runtime</artifactId>
 				<version>${atmosphere.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.atmosphere</groupId>
+				<artifactId>atmosphere-runtime-native</artifactId>
+				<version>${atmosphere.version}</version>
+				<!-- Please remember to exclude atmosphere-compat-tomcat7 inside atmosphere-runtime-native, e.g.:
+				<exclusions>
+					<exclusion>
+						<groupId>org.atmosphere</groupId>
+						<artifactId>atmosphere-compat-tomcat7</artifactId>
+					</exclusion>
+				</exclusions>
+				-->
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
