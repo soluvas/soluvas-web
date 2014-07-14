@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap;
 
+import org.apache.wicket.request.resource.ResourceReference;
 import org.soluvas.web.site.ThemePref;
 
 import de.agilecoders.wicket.core.settings.ITheme;
@@ -38,8 +39,8 @@ public class SoluvasTheme extends Theme {
 	 * 		For import-ing LESS files, <a href="https://github.com/l0rdn1kk0n/wicket-bootstrap/issues/390#issuecomment-47447065">please use absolute <code>classpath!</code></a>. 
 	 * @param resourceReferences
 	 */
-	public SoluvasTheme(String name, Class<?> scope, Format format) {
-		super(name);
+	public SoluvasTheme(String name, Class<?> scope, Format format, final ResourceReference... resourceReferences) {
+		super(name, resourceReferences);
 		this.scope = scope;
 		this.path = scope.getPackage().getName().replace('.', '/') + "/" + name;
 		this.styleFormat = format;
