@@ -21,6 +21,7 @@ import org.soluvas.data.TermRepository;
 import org.soluvas.data.Value;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Used to convert between EMap<String, EList<Value<?>>> to
@@ -48,7 +49,7 @@ public class DisplayAttributeListModel extends AbstractReadOnlyModel<List<Displa
 	public DisplayAttributeListModel(IModel<EMap<String, EList<Value<?>>>> sourceModel) {
 		super();
 		this.sourceModel = sourceModel;
-		this.sourceStrModel.setObject(null);
+		this.sourceStrModel.setObject(ImmutableMap.<String, String>of());
 		
 		Injector.get().inject(this);
 	}
