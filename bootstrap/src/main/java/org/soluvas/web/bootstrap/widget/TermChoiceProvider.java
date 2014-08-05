@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.QNameFunction;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.Term;
-import org.soluvas.data.TermManager;
+import org.soluvas.data.TermRepository;
 import org.soluvas.data.Value;
 import org.soluvas.data.ValueFunction;
 import org.soluvas.web.site.TermListModel;
@@ -39,8 +40,12 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	private static final Logger log = LoggerFactory
 			.getLogger(TermChoiceProvider.class);
 	
-	@SpringBean
-	private TermManager termMgr;
+//	@SpringBean
+//	private TermManager termMgr;
+	@SpringBean(name="colorTermRepo")
+	private TermRepository colorTermRepo;
+	@SpringBean(name="sizeTermRepo")
+	private TermRepository sizeTermRepo;
 	@SpringBean
 	private WebAddress webAddress;
 	private final IModel<List<Term>> termsModel;
@@ -74,7 +79,25 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 			@Override
 			public List<Term> getObject() {
 				final Set<String> whitelistedUNames = ImmutableSet.copyOf(Iterables.transform(whitelistModel.getObject(), new ValueFunction()));
-				return ImmutableList.copyOf(Iterables.filter(termMgr.findTerms(kindNsPrefix, kindName), new Predicate<Term>() {
+				List<Term> terms = new ArrayList<Term>();
+				switch (kindName) {
+				case "Color" :
+					log.debug("kindName is color, so we are going to find all color");
+//					terms = colorTermRepo.findAll();
+					break;
+				case "Size" :
+					log.debug("kindName is size, so we are going to find all size");
+//					terms = sizeTermRepo.findAll();
+				default :
+					throw new RuntimeException(String.format("%s not supported", kindName));
+				}
+//				return ImmutableList.copyOf(Iterables.filter(termMgr.findTerms(kindNsPrefix, kindName), new Predicate<Term>() {
+//					@Override
+//					public boolean apply(@Nullable Term input) {
+//						return whitelistedUNames.contains(input.getQName());
+//					}
+//				}));
+				return ImmutableList.copyOf(Iterables.filter(terms, new Predicate<Term>() {
 					@Override
 					public boolean apply(@Nullable Term input) {
 						return whitelistedUNames.contains(input.getQName());

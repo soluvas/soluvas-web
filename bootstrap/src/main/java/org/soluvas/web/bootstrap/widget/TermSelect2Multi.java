@@ -3,6 +3,8 @@ package org.soluvas.web.bootstrap.widget;
 import java.util.Collection;
 
 import org.apache.wicket.model.IModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.data.Term;
 
 /**
@@ -12,6 +14,9 @@ import org.soluvas.data.Term;
 public class TermSelect2Multi extends InteractiveSelect2MultiChoice<Term> {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(TermSelect2Multi.class);
 	
 	public TermSelect2Multi(String id, IModel<? extends Collection<Term>> model,
 			String kindNsPrefix, String kindName) {
@@ -52,6 +57,12 @@ public class TermSelect2Multi extends InteractiveSelect2MultiChoice<Term> {
 						"}" +
 						"container.append(document.createTextNode(object.text));" +
 				"}");
+	}
+	
+	@Override
+	protected void onConfigure() {
+		log.debug("TermSelect2Multi was called ");
+		super.onConfigure();
 	}
 	
 }
