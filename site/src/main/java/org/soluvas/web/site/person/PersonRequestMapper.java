@@ -53,10 +53,8 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 	protected UrlInfo parseRequest(Request request) {
 		if (request.getUrl().getSegments().size() == 1) {
 			final String segment1 = request.getUrl().getSegments().get(0);
-			log.debug("segment1 person request mapper {}", segment1);
 			log.trace("segments: {}", request.getUrl().getSegments());
 			if (SlugUtils.SEGMENT_PATTERN.matcher(segment1).matches()) {
-				log.debug("masuk person request mapper");
 				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
