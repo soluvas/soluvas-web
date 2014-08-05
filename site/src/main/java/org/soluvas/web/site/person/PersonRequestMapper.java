@@ -53,8 +53,10 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 	protected UrlInfo parseRequest(Request request) {
 		if (request.getUrl().getSegments().size() == 1) {
 			final String segment1 = request.getUrl().getSegments().get(0);
+			log.debug("segment1 person request mapper {}", segment1);
 			log.trace("segments: {}", request.getUrl().getSegments());
-			if (SlugUtils.SCREEN_NAME_PATTERN.matcher(segment1).matches()) {
+			if (SlugUtils.SEGMENT_PATTERN.matcher(segment1).matches()) {
+				log.debug("masuk person request mapper");
 				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
@@ -68,6 +70,8 @@ public class PersonRequestMapper extends AbstractBookmarkableMapper {
 				case MISMATCHED:
 					// canonical URI
 					throw new MapperRedirectException(new PageProvider(personShowPage, new PageParameters().set("slug", existence.get())));
+					
+//					throw new MapperRedirectException(new PageProvider(PersonPubViewPage.class, PersonPubViewPage.bySlug(existence.get())));
 				default:
 				}
 			}
