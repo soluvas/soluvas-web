@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.Person;
-import org.soluvas.commons.config.MultiTenantConfig;
+import org.soluvas.commons.config.DefaultsConfig;
 import org.soluvas.commons.locale.LocaleContext;
 import org.soluvas.data.person.PersonRepository;
 import org.springframework.beans.factory.BeanCreationException;
@@ -51,7 +51,7 @@ public class SoluvasWebSession extends WebSession {
 	@SpringBean(required=false)
 	private AppManifest appManifest;
 	@SpringBean
-	private MultiTenantConfig tenantConfig;
+	private DefaultsConfig defaultsConfig;
 	
 	public SoluvasWebSession(Request request) {
 		super(request);
@@ -63,10 +63,12 @@ public class SoluvasWebSession extends WebSession {
 			}
 		} catch (BeanCreationException e) {
 			log.debug("Using application defaults, we're probably not in tenant page", e);
-			setLocale(tenantConfig.getDefaultLocale());
+			setLocale(defaultsConfig.getDefaultLocale());
 			if (getClientInfo().getProperties().getTimeZone() == null) {
-				getClientInfo().getProperties().setTimeZone(tenantConfig.getDefaultTimeZone().toTimeZone());
+				getClientInfo().getProperties().setTimeZone(defaultsConfig.getDefaultTimeZone().toTimeZone());
 			}
+		} catch (NullPointerException e) {
+			throw new IllegalStateException("appManifest bean is required, please configure MultiTenantWebConfig/SingleTenantWebConfig properly");
 		}
 	}
 	

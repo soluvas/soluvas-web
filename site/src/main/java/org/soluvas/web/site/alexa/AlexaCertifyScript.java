@@ -19,12 +19,11 @@ import org.soluvas.web.site.MustachePanel;
  * <!-- End Alexa Certify Javascript -->
  * }</code> 
  *
- * <p>We can't replace this with {@link Behavior}, because there's {@code noscript}. However we can move the JavaScript part using renderHead.
+ * <p>We can't replace this with {@link Behavior}, because there's {@code noscript}. However we can move the JavaScript part using {@link #renderHead(org.apache.wicket.markup.head.IHeaderResponse)}.
  * @author rudi
  */
+@SuppressWarnings("serial")
 public class AlexaCertifyScript extends MustachePanel {
-
-	private static final long serialVersionUID = 1L;
 
 	public AlexaCertifyScript(String id, IModel<AlexaCertify> model) {
 		super(id, model);

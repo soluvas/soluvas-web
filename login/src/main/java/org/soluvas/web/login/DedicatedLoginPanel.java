@@ -86,9 +86,15 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 			};
 			add(ldapLoginBtn);
 			
-			add(new FacebookLoginLink("btnLoginWithFb", facebookRecipientPage));
-			add(new TwitterLoginLink("btnLoginWithTwitter", twitterRecipientPage));
-			add(new WebMarkupContainer("btnLoginWithGoogle").setVisible(false));
+			final FacebookLoginLink facebookLoginLink = new FacebookLoginLink("btnLoginWithFb", facebookRecipientPage);
+			add(facebookLoginLink);
+			final TwitterLoginLink twitterLoginLink = new TwitterLoginLink("btnLoginWithTwitter", twitterRecipientPage);
+			add(twitterLoginLink);
+			final Component googleLoginLink = new WebMarkupContainer("btnLoginWithGoogle").setVisible(false);
+			add(googleLoginLink);
+			final WebMarkupContainer socialLoginLabel = new WebMarkupContainer("socialLoginLabel");
+			socialLoginLabel.setVisible(facebookLoginLink.isVisible() || twitterLoginLink.isVisible() || googleLoginLink.isVisible());
+			add(socialLoginLabel);
 			// TODO: enable Google when it's actually working with Google accounts, not Google+
 //			final GoogleLoginLink googleLoginLink = new GoogleLoginLink("btnLoginWithGoogle");
 //			add(googleLoginLink);

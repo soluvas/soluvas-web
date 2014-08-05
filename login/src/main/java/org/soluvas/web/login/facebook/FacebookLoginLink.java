@@ -24,7 +24,7 @@ public class FacebookLoginLink extends ExternalLink {
 	private static final Logger log = LoggerFactory
 			.getLogger(FacebookLoginLink.class);
 
-	@SpringBean(name="facebookMgr", required=false)
+	@SpringBean(required=false)
 	private FacebookManager facebookMgr;
 	@SpringBean
 	private WebAddress webAddress;
@@ -36,39 +36,35 @@ public class FacebookLoginLink extends ExternalLink {
 	public FacebookLoginLink(String id, Class<? extends Page> recipientPage) {
 		super(id, new Model<String>());
 		
-		// final String token_url =
-		// "https://graph.facebook.com/oauth/access_token?";
-		// must use webAddress.baseUri since we need actual external URI, not
-		// 'localhost'
-//		final String redirectUri = webAddress.getBaseUri() + "fb_recipient/";
-		final String redirectUri = webAddress.getBaseUri() + 
-				getRequestCycle().mapUrlFor(recipientPage, new PageParameters()).toString();
-		final String appId = facebookMgr.getAppId();
-		// final String appSecret = facebookMgr.getAppSecret();
-		// UUID state = UUID.randomUUID();
-		final String facebookRedirectUri = "https://www.facebook.com/dialog/oauth";
-		try {
-			final URIBuilder fbLoginUriBuilder = new URIBuilder(
-					facebookRedirectUri);
-			fbLoginUriBuilder.addParameter("client_id", appId);
-			fbLoginUriBuilder.addParameter("redirect_uri", redirectUri);
-			fbLoginUriBuilder
-					.addParameter(
-							"scope",
-							"read_stream,email,user_birthday,user_hometown,user_about_me,user_photos,user_religion_politics,user_relationships,user_work_history,user_education_history,user_website,offline_access,publish_stream,publish_actions,share_item");
-			final String fbLoginUri = fbLoginUriBuilder.toString();
-			log.trace("Facebook login URI {}", fbLoginUri);
-			setDefaultModelObject(fbLoginUri);
-		} catch (final Exception ex) {
-			throw new LoginException("Error building Facebook URI", ex);
-		}
-	}
-	
-	@Override
-	protected void onConfigure() {
-		super.onConfigure();
-		if (facebookMgr == null || Strings.isNullOrEmpty(facebookMgr.getAppId()) || 
-				Strings.isNullOrEmpty(facebookMgr.getAppSecret())) {
+		if (facebookMgr != null && !Strings.isNullOrEmpty(facebookMgr.getAppId()) && 
+				!Strings.isNullOrEmpty(facebookMgr.getAppSecret())) {
+			// final String token_url =
+			// "https://graph.facebook.com/oauth/access_token?";
+			// must use webAddress.baseUri since we need actual external URI, not
+			// 'localhost'
+//			final String redirectUri = webAddress.getBaseUri() + "fb_recipient/";
+			final String redirectUri = webAddress.getBaseUri() + 
+					getRequestCycle().mapUrlFor(recipientPage, new PageParameters()).toString();
+			final String appId = facebookMgr.getAppId();
+			// final String appSecret = facebookMgr.getAppSecret();
+			// UUID state = UUID.randomUUID();
+			final String facebookRedirectUri = "https://www.facebook.com/dialog/oauth";
+			try {
+				final URIBuilder fbLoginUriBuilder = new URIBuilder(
+						facebookRedirectUri);
+				fbLoginUriBuilder.addParameter("client_id", appId);
+				fbLoginUriBuilder.addParameter("redirect_uri", redirectUri);
+				fbLoginUriBuilder
+						.addParameter(
+								"scope",
+								"read_stream,email,user_birthday,user_hometown,user_about_me,user_photos,user_religion_politics,user_relationships,user_work_history,user_education_history,user_website,offline_access,publish_stream,publish_actions,share_item");
+				final String fbLoginUri = fbLoginUriBuilder.toString();
+				log.trace("Facebook login URI {}", fbLoginUri);
+				setDefaultModelObject(fbLoginUri);
+			} catch (final Exception ex) {
+				throw new LoginException("Error building Facebook URI", ex);
+			}
+		} else {
 			log.debug("Disabling Facebook login because facebookAppId/facebookAppSecret is empty");
 			setVisible(false);
 		}

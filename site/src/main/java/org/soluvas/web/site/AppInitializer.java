@@ -11,7 +11,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.google.common.collect.ImmutableMap;
 
 /**
- * Registers {@link WebPropertySource}. Usage:
+ * Registers {@link WebPropertySource}, which provides {@code configDir}. Usage:
  * 
  * <pre>{@literal
  * 	<context-param>

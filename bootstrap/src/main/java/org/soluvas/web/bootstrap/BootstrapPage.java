@@ -1,6 +1,5 @@
 package org.soluvas.web.bootstrap;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -46,11 +45,9 @@ import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.FaviconResourceReference;
 import org.soluvas.web.site.JavaScriptLink;
-import org.soluvas.web.site.JavaScriptMode;
 import org.soluvas.web.site.JavaScriptSource;
 import org.soluvas.web.site.PageMetaProvider;
 import org.soluvas.web.site.PageRequestContext;
-import org.soluvas.web.site.RequireManager;
 import org.soluvas.web.site.Site;
 import org.soluvas.web.site.alexa.AlexaCertify;
 import org.soluvas.web.site.alexa.AlexaCertifyScript;
@@ -136,16 +133,14 @@ public class BootstrapPage extends ExtensiblePage {
 	 */
 	// @Deprecated
 	// private Site site;
-	@SpringBean(name="cssLinks")
+	@SpringBean(required=false)
 	private List<CssLink> cssLinks;
-	@SpringBean(name="headJavaScripts")
+	@SpringBean(required=false)
 	private List<JavaScriptLink> headJavaScripts;
-	@SpringBean(name="requireMgr")
-	protected RequireManager requireMgr;
 
-	@SpringBean(name="footerJavaScripts")
+	@SpringBean(required=false)
 	private List<JavaScriptLink> footerJavaScripts;
-	@SpringBean(name="footerJavaScriptSources")
+	@SpringBean(required=false)
 	private List<JavaScriptSource> footerJavaScriptSources;
 
 	protected final RepeatingView sidebarBlocks;
@@ -158,9 +153,9 @@ public class BootstrapPage extends ExtensiblePage {
 	protected WebAddress webAddress;
 	@SpringBean(name="appManifest")
 	protected AppManifest appManifest;
-	@SpringBean(name="contributorRepo")
-	private CrudRepository<LiveContributor, Integer> contributors;
-	@SpringBean(name="alexaCertify")
+	@SpringBean(required=false)
+	private CrudRepository<LiveContributor, Integer> contributorRepo;
+	@SpringBean(required=false)
 	protected AlexaCertify alexaCertify;
 
 	protected Component feedbackPanel;
@@ -198,17 +193,13 @@ public class BootstrapPage extends ExtensiblePage {
 	protected void createPageLinksForBreadcrumb(List<PageLink> pageLinks) {
 	}
 
-	@SuppressWarnings("deprecation")
 	public String smartPrefixUri(String prefix, String uri) {
 		if (uri.startsWith("//") || uri.startsWith("https:")
 				|| uri.startsWith("http:")) {
 			return uri;
 		} else {
-			// cache bust for relative CSS URIs
-			final String suffix = Strings.isNullOrEmpty(requireMgr
-					.getCacheBust()) ? "" : "?"
-					+ URLEncoder.encode(requireMgr.getCacheBust());
-			return prefix + uri + suffix;
+			// no more cache bust for relative CSS URIs
+			return prefix + uri;
 		}
 	}
 
@@ -223,53 +214,57 @@ public class BootstrapPage extends ExtensiblePage {
 //		}
 
 		final String currentStyle = getStyle();
-		final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
-				.filter(cssLinks, new Predicate<CssLink>() {
-					@Override
-					public boolean apply(@Nullable CssLink input) {
-						return Strings.isNullOrEmpty(input.getStyle())
-								|| "*".equals(input.getStyle())
-								|| Objects.equal(currentStyle, input.getStyle());
-					}
-				}));
-
-		log.trace("Page {} has {} CSS links (from {} total)", getClass()
-				.getName(), filteredCsses.size(), cssLinks.size());
-		final Ordering<CssLink> cssOrdering = Ordering
-				.from(new Comparator<CssLink>() {
-					@Override
-					public int compare(CssLink o1, CssLink o2) {
-						return o1.getWeight() - o2.getWeight();
-					};
-				});
-		final List<CssLink> sortedCsses = cssOrdering
-				.immutableSortedCopy(filteredCsses);
-		for (final CssLink css : sortedCsses) {
-			if (requireMgr.getJavaScriptMode() != JavaScriptMode.DEVELOPMENT
-					&& css.getMinifiedPath() != null) {
-				response.render(CssHeaderItem.forUrl(smartPrefixUri(
-						webAddress.getSkinUri(), css.getMinifiedPath())));
-			} else {
-				response.render(CssHeaderItem.forUrl(smartPrefixUri(
-						webAddress.getSkinUri(), css.getPath())));
+		
+		if (cssLinks != null) {
+			final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
+					.filter(cssLinks, new Predicate<CssLink>() {
+						@Override
+						public boolean apply(@Nullable CssLink input) {
+							return Strings.isNullOrEmpty(input.getStyle())
+									|| "*".equals(input.getStyle())
+									|| Objects.equal(currentStyle, input.getStyle());
+						}
+					}));
+	
+			log.trace("Page {} has {} CSS links (from {} total)", getClass()
+					.getName(), filteredCsses.size(), cssLinks.size());
+			final Ordering<CssLink> cssOrdering = Ordering
+					.from(new Comparator<CssLink>() {
+						@Override
+						public int compare(CssLink o1, CssLink o2) {
+							return o1.getWeight() - o2.getWeight();
+						};
+					});
+			final List<CssLink> sortedCsses = cssOrdering
+					.immutableSortedCopy(filteredCsses);
+			for (final CssLink css : sortedCsses) {
+				if (getApplication().usesDeploymentConfig() && css.getMinifiedPath() != null) {
+					response.render(CssHeaderItem.forUrl(smartPrefixUri(
+							webAddress.getSkinUri(), css.getMinifiedPath())));
+				} else {
+					response.render(CssHeaderItem.forUrl(smartPrefixUri(
+							webAddress.getSkinUri(), css.getPath())));
+				}
 			}
 		}
 		
 		response.render(CssHeaderItem.forReference(PRINT_CSS, "print"));
 
-		log.trace("Page {} has {} head JavaScript links", getClass().getName(),
-				headJavaScripts.size());
-		final Ordering<JavaScriptLink> jsOrdering = Ordering
-				.from(new Comparator<JavaScriptLink>() {
-					@Override
-					public int compare(JavaScriptLink o1, JavaScriptLink o2) {
-						return o1.getWeight() - o2.getWeight();
-					};
-				});
-		final List<JavaScriptLink> sortedJses = jsOrdering
-				.immutableSortedCopy(headJavaScripts);
-		for (JavaScriptLink js : sortedJses) {
-			response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
+		if (headJavaScripts != null) {
+			log.trace("Page {} has {} head JavaScript links", getClass().getName(),
+					headJavaScripts.size());
+			final Ordering<JavaScriptLink> jsOrdering = Ordering
+					.from(new Comparator<JavaScriptLink>() {
+						@Override
+						public int compare(JavaScriptLink o1, JavaScriptLink o2) {
+							return o1.getWeight() - o2.getWeight();
+						};
+					});
+			final List<JavaScriptLink> sortedJses = jsOrdering
+					.immutableSortedCopy(headJavaScripts);
+			for (JavaScriptLink js : sortedJses) {
+				response.render(JavaScriptHeaderItem.forUrl(js.getSrc()));
+			}
 		}
 		
 		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.instance()));
@@ -399,31 +394,35 @@ public class BootstrapPage extends ExtensiblePage {
 		final RepeatingView beforeFooterJs = new RepeatingView("beforeFooterJs");
 		add(beforeFooterJs);
 
-		log.trace("Page {} has {} footer JavaScript links", getClass()
-				.getName(), footerJavaScripts.size());
-		final List<JavaScriptLink> sortedJsLinks = linkOrdering
-				.immutableSortedCopy(footerJavaScripts);
 		final RepeatingView footerJavaScriptLinks = new RepeatingView(
 				"footerJavaScriptLinks");
-		for (JavaScriptLink js : sortedJsLinks) {
-			footerJavaScriptLinks.add(new WebMarkupContainer(
-					footerJavaScriptLinks.newChildId())
-					.add(new AttributeModifier("src", js.getSrc())));
+		if (footerJavaScripts != null) {
+			log.trace("Page {} has {} footer JavaScript links", getClass()
+					.getName(), footerJavaScripts.size());
+			final List<JavaScriptLink> sortedJsLinks = linkOrdering
+					.immutableSortedCopy(footerJavaScripts);
+			for (JavaScriptLink js : sortedJsLinks) {
+				footerJavaScriptLinks.add(new WebMarkupContainer(
+						footerJavaScriptLinks.newChildId())
+						.add(new AttributeModifier("src", js.getSrc())));
+			}
 		}
 		add(footerJavaScriptLinks);
 
-		log.trace("Page {} has {} footer JavaScript sources", getClass()
-				.getName(), footerJavaScriptSources.size());
-		final List<JavaScriptSource> sortedJsSources = sourceOrdering
-				.immutableSortedCopy(footerJavaScriptSources);
-		final RepeatingView footerJavaScriptSources = new RepeatingView(
+		final RepeatingView footerJavaScriptSourcesView = new RepeatingView(
 				"footerJavaScriptSources");
-		for (JavaScriptSource js : sortedJsSources) {
-			footerJavaScriptSources
-					.add(new Label(footerJavaScriptSources.newChildId(), js
-							.getScript()).setEscapeModelStrings(false));
+		if (footerJavaScriptSources != null) {
+			log.trace("Page {} has {} footer JavaScript sources", getClass()
+					.getName(), footerJavaScriptSources.size());
+			final List<JavaScriptSource> sortedJsSources = sourceOrdering
+					.immutableSortedCopy(footerJavaScriptSources);
+			for (JavaScriptSource js : sortedJsSources) {
+				footerJavaScriptSourcesView
+						.add(new Label(footerJavaScriptSourcesView.newChildId(), js
+								.getScript()).setEscapeModelStrings(false));
+			}
 		}
-		add(footerJavaScriptSources);
+		add(footerJavaScriptSourcesView);
 
 		add(new AlexaCertifyScript("alexaCertifyScript", new Model<>(alexaCertify)));
 		
@@ -438,7 +437,9 @@ public class BootstrapPage extends ExtensiblePage {
 			sidebarColumn.setVisible(false);
 		}
 		// compose other components
-		ComposeUtils.compose(this, contributors.findAll());
+		if (contributorRepo != null) {
+			ComposeUtils.compose(this, contributorRepo.findAll());
+		}
 		
 		contentAddedInfo.setVisible(addedInfoVisibility == AddedInfoVisibility.VISIBLE);
 		

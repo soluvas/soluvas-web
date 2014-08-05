@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.EntityLookup;
-import org.soluvas.security.AppSessionManager;
 import org.soluvas.web.bootstrap.BootstrapPage;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -20,11 +19,10 @@ import org.wicketstuff.annotation.mount.MountPath;
  * @author rudi
  *
  */
+@SuppressWarnings("serial")
 @MountPath("login")
 public class DedicatedLoginPage extends BootstrapPage {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger log = LoggerFactory
 			.getLogger(DedicatedLoginPage.class);
 	
@@ -32,8 +30,6 @@ public class DedicatedLoginPage extends BootstrapPage {
 	private WebAddress webAddress;
 	@SpringBean(name="personLookup")
 	private EntityLookup<Person, String> personLookup;
-	@SpringBean(name="appSessionMgr")
-	private AppSessionManager appSessionMgr;
 	
 	@Override
 	protected void onConfigure() {
@@ -41,8 +37,7 @@ public class DedicatedLoginPage extends BootstrapPage {
 		
 		final Subject subject = SecurityUtils.getSubject();
 		if (subject.getPrincipal() != null) {
-			final Person userSession = appSessionMgr.requirePerson(subject);
-			log.info("{} has logged in..", userSession.getId());
+			log.info("{} is already logged in.", subject.getPrincipal());
 			final Class<? extends Page> homePage = getApplication().getHomePage();
 			getRequestCycle().setResponsePage(homePage);
 		}
