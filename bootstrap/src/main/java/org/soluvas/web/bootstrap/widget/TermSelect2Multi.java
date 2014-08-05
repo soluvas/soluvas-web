@@ -12,7 +12,7 @@ import org.soluvas.data.Term;
 public class TermSelect2Multi extends InteractiveSelect2MultiChoice<Term> {
 	
 	private static final long serialVersionUID = 1L;
-	
+		
 	public TermSelect2Multi(String id, IModel<? extends Collection<Term>> model,
 			String kindNsPrefix, String kindName) {
 		super(id, (IModel) model, new TermChoiceProvider(kindNsPrefix, kindName));
