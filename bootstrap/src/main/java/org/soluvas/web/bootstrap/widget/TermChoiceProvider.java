@@ -22,6 +22,7 @@ import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
 import org.soluvas.data.Value;
 import org.soluvas.data.ValueFunction;
+import org.soluvas.data.domain.PageRequest;
 import org.soluvas.web.site.TermListModel;
 
 import com.google.common.base.Function;
@@ -82,12 +83,10 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 				List<Term> terms = new ArrayList<Term>();
 				switch (kindName) {
 				case "Color" :
-					log.debug("kindName is color, so we are going to find all color");
-//					terms = colorTermRepo.findAll();
+					terms = colorTermRepo.findAll(new PageRequest(0, 5000)).getContent();
 					break;
 				case "Size" :
-					log.debug("kindName is size, so we are going to find all size");
-//					terms = sizeTermRepo.findAll();
+					terms = sizeTermRepo.findAll(new PageRequest(0, 5000)).getContent();
 				default :
 					throw new RuntimeException(String.format("%s not supported", kindName));
 				}
