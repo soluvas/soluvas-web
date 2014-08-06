@@ -133,14 +133,14 @@ public class BootstrapPage extends ExtensiblePage {
 	 */
 	// @Deprecated
 	// private Site site;
-	@SpringBean(required=false)
+	@SpringBean(name="cssLinks", required=false)
 	private List<CssLink> cssLinks;
-	@SpringBean(required=false)
+	@SpringBean(name="headJavaScripts", required=false)
 	private List<JavaScriptLink> headJavaScripts;
 
-	@SpringBean(required=false)
+	@SpringBean(name="footerJavaScripts", required=false)
 	private List<JavaScriptLink> footerJavaScripts;
-	@SpringBean(required=false)
+	@SpringBean(name="footerJavaScriptSources", required=false)
 	private List<JavaScriptSource> footerJavaScriptSources;
 
 	protected final RepeatingView sidebarBlocks;
@@ -153,7 +153,7 @@ public class BootstrapPage extends ExtensiblePage {
 	protected WebAddress webAddress;
 	@SpringBean(name="appManifest")
 	protected AppManifest appManifest;
-	@SpringBean(required=false)
+	@SpringBean(name="contributorRepo", required=false)
 	private CrudRepository<LiveContributor, Integer> contributorRepo;
 	@SpringBean(required=false)
 	protected AlexaCertify alexaCertify;

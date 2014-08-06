@@ -8,6 +8,7 @@ import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.base.AbstractInstant;
@@ -43,6 +44,14 @@ public class DateTimeLabel extends DateLabel {
 			}
 		}, converter);
 		this.dateTimeModel = model;
+	}
+	
+	public DateTimeLabel(String id, DateTime model, DateConverter converter) {
+		super(id, new Model(model), converter);
+	}
+	
+	public DateTimeLabel(String id, LocalDateTime model, DateConverter converter) {
+		super(id, new Model(model), converter);
 	}
 	
 	@Override
