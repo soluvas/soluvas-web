@@ -1,5 +1,7 @@
 package org.soluvas.web.login;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -27,12 +29,12 @@ import org.soluvas.web.site.SoluvasWebSession;
  * @author rudi
  *
  */
+@SuppressWarnings("serial")
 public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 	
-	private static final long serialVersionUID = 1L;
-	
-	static final Logger log = LoggerFactory
+	private static final Logger log = LoggerFactory
 			.getLogger(DedicatedLoginPanel.class);
+	
 	private final Class<? extends Page> facebookRecipientPage;
 	private final Class<? extends Page> twitterRecipientPage;
 
@@ -55,6 +57,14 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		
+		final Subject subject = SecurityUtils.getSubject();
+		if (subject.getPrincipal() != null) {
+			log.info("{} is already logged in.", subject.getPrincipal());
+			final Class<? extends Page> homePage = getApplication().getHomePage();
+			getRequestCycle().setResponsePage(homePage);
+		}
+		
 		add(new FormSignIn("formSignIn", getModel(), this));		
 	}
 	
@@ -67,10 +77,15 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 		@SpringBean
 		private TenantRef tenant;
 		
-		@SuppressWarnings("unused")
 		public FormSignIn(final String id, final IModel<LoginToken> userLoginModel,
 				final Component dedicatedLoginPanelComponent) {
 			super(id, userLoginModel);
+			
+			Subject subject = SecurityUtils.getSubject();
+			if (subject.isRemembered()) {
+				userLoginModel.getObject().setUsername((String) subject.getPrincipal());
+				userLoginModel.getObject().setRememberMe(true);
+			}
 			
 			setOutputMarkupId(true);
 			
