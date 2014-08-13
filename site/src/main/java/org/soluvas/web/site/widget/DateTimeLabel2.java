@@ -6,6 +6,7 @@ import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -19,6 +20,10 @@ public class DateTimeLabel2 extends Label {
 
 	public DateTimeLabel2(String id, final IModel<DateTime> model) {
 		super(id, model);
+	}
+	
+	public DateTimeLabel2(String id, final DateTime dateTime) {
+		super(id, new Model<>(dateTime));
 	}
 	
 	@Override
