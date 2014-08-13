@@ -17,15 +17,8 @@ import org.joda.time.format.DateTimeFormatter;
 @SuppressWarnings("serial")
 public class DateTimeLabel2 extends Label {
 
-	private final DateTimeFormatter format;
-	private final DateTimeFormatter zoneFormat;
-
 	public DateTimeLabel2(String id, final IModel<DateTime> model) {
 		super(id, model);
-		format = DateTimeFormat.forStyle("MS")
-			.withLocale(getLocale())
-			.withPivotYear(2000);
-		zoneFormat = DateTimeFormat.forPattern("ZZ").withLocale(getLocale());
 	}
 	
 	@Override
@@ -49,6 +42,10 @@ public class DateTimeLabel2 extends Label {
 	public void onComponentTagBody(final MarkupStream markupStream, final ComponentTag openTag) {
 		final DateTime dateTime = (DateTime) getDefaultModelObject();
 		if (dateTime != null) {
+			DateTimeFormatter format = DateTimeFormat.forStyle("MS")
+					.withLocale(getLocale())
+					.withPivotYear(2000);
+			DateTimeFormatter zoneFormat = DateTimeFormat.forPattern("ZZ").withLocale(getLocale());
 			String str = format.print(dateTime) + " " + zoneFormat.print(dateTime);
 			replaceComponentTagBody(markupStream, openTag, str);
 		}
