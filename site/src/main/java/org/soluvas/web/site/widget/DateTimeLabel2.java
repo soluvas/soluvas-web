@@ -12,18 +12,27 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
- * Wraps a {@link DateTime} model to be usable, it also uses <code>abbr</code>.
+ * Displays a {@link DateTime} model, by default with time zone (for safety), and also uses <code>abbr</code>.
+ * 
+ * <p>Time zone can be hidden by calling {@link #zone(boolean)}.
  * @author ceefour
  */
 @SuppressWarnings("serial")
 public class DateTimeLabel2 extends Label {
 
+	boolean displayZone = true;
+	
 	public DateTimeLabel2(String id, final IModel<DateTime> model) {
 		super(id, model);
 	}
 	
 	public DateTimeLabel2(String id, final DateTime dateTime) {
 		super(id, new Model<>(dateTime));
+	}
+	
+	public DateTimeLabel2 zone(boolean displayZone) {
+		this.displayZone = displayZone;
+		return this;
 	}
 	
 	@Override
@@ -50,8 +59,13 @@ public class DateTimeLabel2 extends Label {
 			DateTimeFormatter format = DateTimeFormat.forStyle("MS")
 					.withLocale(getLocale())
 					.withPivotYear(2000);
-			DateTimeFormatter zoneFormat = DateTimeFormat.forPattern("ZZ").withLocale(getLocale());
-			String str = format.print(dateTime) + " " + zoneFormat.print(dateTime);
+			final String str;
+			if (displayZone) {
+				DateTimeFormatter zoneFormat = DateTimeFormat.forPattern("ZZ").withLocale(getLocale());
+				str = format.print(dateTime) + " " + zoneFormat.print(dateTime);
+			} else {
+				str = format.print(dateTime);
+			}
 			replaceComponentTagBody(markupStream, openTag, str);
 		}
 	}
