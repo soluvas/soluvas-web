@@ -55,54 +55,69 @@ body {
 </head>
 
 <body>
-	<div wicket:id="dev">[DebugBar]</div>
-	<header wicket:id="header"></header>
-	<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
-	<div wicket:id="afterHeader" class="afterHeader">
-		<!-- 		Carousel Images is loading.. -->
-	</div>
-	<section id="content">
-		<div class="container">
-			<div class="row">
-				<div class="sidebar" wicket:id="sidebarColumn">
-					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-				</div>
-				<div wicket:id="contentColumn" class="content-column">
-					<div wicket:id="addedInfo"></div>
-					<div wicket:id="feedback" class="feedback"></div>
-					<wicket:child>
-						<ol class="featured-products">
-							<div id="featuredProducts">
-								<li><a href="#">Product name</a></li>
-							</div>
-						</ol>
-					</wicket:child>
-				</div>
+
+<!-- PRELOADER -->
+<div id="preloader"><img src="images/preloader.gif" alt="" /></div>
+<!-- //PRELOADER -->
+
+	<div class="preloader_hide">
+	
+		<!-- PAGE -->
+		<div id="page">
+			
+		<!-- HEADER -->
+			
+			<div wicket:id="dev">[DebugBar]</div>
+			<header wicket:id="header"></header>
+			<header>
+				<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
+			</header><!-- //HEADER -->			
+			<div wicket:id="afterHeader" class="afterHeader">
+				<!-- 		Carousel Images is loading.. -->
 			</div>
+			<section id="content">
+				<div class="container">
+					<div class="row">
+						<div class="sidebar" wicket:id="sidebarColumn">
+							<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+						</div>
+						<div wicket:id="contentColumn" class="content-column">
+							<div wicket:id="addedInfo"></div>
+							<div wicket:id="feedback" class="feedback"></div>
+							<wicket:child>
+								<ol class="featured-products">
+									<div id="featuredProducts">
+										<li><a href="#">Product name</a></li>
+									</div>
+								</ol>
+							</wicket:child>
+						</div>
+					</div>
+				</div>
+			</section>
+			<footer class="footer" wicket:id="footer">
+				<small style="color: #808080;"> &middot; &copy; <a
+					href="http://www.soluvas.com/">Soluvas</a> 2012
+				</small>
+			</footer>
+			<!--/.fluid-container-->
+			<div class="clearfix"></div>
+		
+			<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
+		
+			<!-- Placed at the end of the document so the pages load faster -->
+			<script type="text/javascript" src="something.js"
+				wicket:id="footerJavaScriptLinks"></script>
+			<script type="text/javascript" wicket:id="footerJavaScriptSources">
+				[ footerJavaScriptSources ]
+			</script>
+		
+			<script wicket:id="alexaCertifyScript">
+				[AlexaCertifyScript]
+			</script>
+		
+			<wicket:container wicket:id="footer-container" />
 		</div>
-	</section>
-	<footer class="footer" wicket:id="footer">
-		<small style="color: #808080;"> &middot; &copy; <a
-			href="http://www.soluvas.com/">Soluvas</a> 2012
-		</small>
-	</footer>
-	<!--/.fluid-container-->
-	<div class="clearfix"></div>
-
-	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
-
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="something.js"
-		wicket:id="footerJavaScriptLinks"></script>
-	<script type="text/javascript" wicket:id="footerJavaScriptSources">
-		[ footerJavaScriptSources ]
-	</script>
-
-	<script wicket:id="alexaCertifyScript">
-		[AlexaCertifyScript]
-	</script>
-
-	<wicket:container wicket:id="footer-container" />
-
+	</div>
 </body>
 </html>
