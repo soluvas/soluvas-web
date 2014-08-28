@@ -16,9 +16,9 @@ import org.joda.money.CurrencyUnit;
  * If you need to, you must wrap it inside a {@code <div>} then target the div.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class CurrencyTextField extends NumberTextField<BigDecimal> {
 
-	private static final long serialVersionUID = 1L;
 	private final IModel<CurrencyUnit> currencyModel;
 	
 	public CurrencyTextField(String id, IModel<BigDecimal> model, IModel<CurrencyUnit> currencyModel) {
@@ -32,11 +32,12 @@ public class CurrencyTextField extends NumberTextField<BigDecimal> {
 		final Locale locale = getLocale();
 		final String currencyHtml;
 		if (currency != null) {
-			currencyHtml = Strings.escapeMarkup(currency.getSymbol(locale)).toString();
+			final String sym = currency.getSymbol(locale);
+			currencyHtml = Strings.escapeMarkup(com.google.common.base.Strings.isNullOrEmpty(sym) ? currency.getCode() : sym).toString();
 		} else {
-			currencyHtml = "";
+			currencyHtml = "??";
 		}
-		getResponse().write("<div class=\"input-group\"><span class=\"input-group-addon btn-info\">" + currencyHtml + "</span>");
+		getResponse().write("<div class=\"input-group\"><span class=\"input-group-addon aneh\">" + currencyHtml + "</span>");
 		super.onRender();
 		getResponse().write("</div>");
 	}
