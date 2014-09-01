@@ -37,7 +37,7 @@ public class CurrencyTextField extends NumberTextField<BigDecimal> {
 		} else {
 			currencyHtml = "??";
 		}
-		getResponse().write("<div class=\"input-group\"><span class=\"input-group-addon aneh\">" + currencyHtml + "</span>");
+		getResponse().write("<div class=\"input-group\"><span class=\"input-group-addon\">" + currencyHtml + "</span>");
 		super.onRender();
 		getResponse().write("</div>");
 	}
