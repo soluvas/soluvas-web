@@ -116,50 +116,11 @@ body {
 
 	<!-- must put at the bottom because requires jQuery -->
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".styles-open").click(function() {
-				$(".styles, .styles-open").animate({
-					"left" : "-140px"
-				}, 1000);
-				$(".styles-closed").animate({
-					"left" : "0"
-				}, 1000);
-				return false;
-			});
-			$(".styles-closed a").click(function() {
-				$(".styles-closed").animate({
-					"left" : "-45px"
-				}, 1000);
-				$(".styles").animate({
-					"left" : "-25px"
-				}, 1000);
-				$(".styles-open").animate({
-					"left" : "114"
-				}, 1000);
-				return false;
-			});
-		});
+
 	</script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var defaults = {
-				containerID : 'toTop', // fading element id
-				containerHoverID : 'toTopHover', // fading element hover id
-				scrollSpeed : 1200,
-				easingType : 'linear'
-			};
-
-			$().UItoTop({
-				easingType : 'easeOutQuart'
-			});
-
-		});
-
-// 		Kate Mahendri
-				$('.pagination ul li a').live('click', function() {
-					$('a#toTop').click();
-				});
+		
 	</script>
 
 	<!-- Google Code for Remarketing Tag -->
