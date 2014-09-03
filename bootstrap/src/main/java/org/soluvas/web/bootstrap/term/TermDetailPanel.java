@@ -1,5 +1,7 @@
 package org.soluvas.web.bootstrap.term;
 
+import java.util.UUID;
+
 import javax.annotation.Nullable;
 
 import org.apache.shiro.SecurityUtils;
@@ -32,6 +34,9 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
+import org.soluvas.data.event.AddedTermEvent;
+import org.soluvas.data.event.ModifiedTermEvent;
+import org.soluvas.data.event.RemovedTermEvent;
 import org.soluvas.data.impl.TermImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.EmfModel;
@@ -41,6 +46,7 @@ import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.eventbus.EventBus;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -79,6 +85,8 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	private final Class<? extends Page> backPage;
 	@SpringBean
 	private TenantRef tenant;
+	@SpringBean
+	private EventBus ev;
 	private final TermRepository termRepo;
 	private final EditMode editMode;
 	private final String originalUName;
@@ -239,10 +247,12 @@ public class TermDetailPanel extends GenericPanel<Term> {
 							});
 					term.setName(id);
 					termRepo.add(term);
+					ev.post(new AddedTermEvent(term, UUID.randomUUID().toString()));
 					info("Added term " + term.getQName());
 					break;
 				case MODIFY:
 					termRepo.modify(originalUName, term);
+					ev.post(new ModifiedTermEvent(originalUName, term, UUID.randomUUID().toString()));
 					info("Modified term " + term.getQName());
 					break;
 				}
@@ -274,6 +284,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 					term.setColor(null);
 //				}
 				termRepo.delete(originalUName);
+				ev.post(new RemovedTermEvent(term, UUID.randomUUID().toString()));
 				warn("Deleted term " + originalUName);
 				setResponsePage(backPage);
 			}
