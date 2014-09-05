@@ -1,6 +1,7 @@
 package org.soluvas.web.bootstrap;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -160,7 +161,7 @@ public class GrowlBehavior extends Behavior {
 				final String howlerScript;
 				final Optional<Interaction> interaction = msg.getMessage() instanceof InteractionMessage ? 
 						Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
-				log.trace("{} message: {}", interaction, msg.getMessage());
+				log.trace("{} message: {}", interaction, msg);
 //				final Sounds sounds = Howler.get(soundThemeId);
 				final Sounds sounds = Howler.getActive();
 				if (msg.isError()) {
@@ -182,7 +183,8 @@ public class GrowlBehavior extends Behavior {
 				
 //				log.debug("Path Icon is: {}", pathIcon);
 				
-				final String messageText = Optional.fromNullable(msg.getMessage()).or("").toString();
+				final String messageText = !Strings.isNullOrEmpty(Objects.toString(msg.getMessage(), null)) ?
+						msg.getMessage().toString() : "Unknown error: " + msg.getReporter().getPageRelativePath().replace(":", " > ");
 //				target.appendJavaScript("jQuery('#notify-container').prepend('<img id=\"icon\"" +
 //						"src=\"" + pathIcon + "\" />')");
 //				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
