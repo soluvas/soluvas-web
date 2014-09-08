@@ -57,11 +57,11 @@ public class TermLabel extends Label {
 			final String iconHtml;
 			final String uri = term.getImageUri(webAddress.getImagesUri());
 			if (uri != null) {
-				iconHtml = "<img class=\"img-circle\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\"/> ";
+				iconHtml = "<img class=\"img-color-badge\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\"/> ";
 			} else {
 				final String color = term.getColor();
 				if (color != null) {
-					iconHtml = "<span class=\"img-circle\" style=\"background: " + color + "; width: 17px; height:17px; display: inline-block;" + 
+					iconHtml = "<span class=\"color-badge\" style=\"background: " + color + ";" + 
 							(term.isBordered() ? "border:1px solid #eee" : "") + "\">&nbsp;</span> "; 
 				} else {
 					iconHtml = "";
