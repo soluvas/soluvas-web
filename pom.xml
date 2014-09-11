@@ -116,6 +116,19 @@
 				<groupId>org.apache.wicket.experimental.wicket6</groupId>
 				<artifactId>wicket-atmosphere</artifactId>
 				<version>${wicket-atmosphere.version}</version>
+				<exclusions>
+					<!-- TODO: only required before wicket-webjars upgrades to reflections 0.9.9 which uses javassist 3.18.2-GA natively -->
+					<exclusion>
+						<artifactId>javassist</artifactId>
+						<groupId>javassist</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>de.agilecoders.wicket.webjars</groupId>
+				<artifactId>wicket-webjars</artifactId>
+				<!-- only required until wicket-atmosphere uses proper wicket-webjars version -->
+				<version>0.4.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.atmosphere</groupId>
