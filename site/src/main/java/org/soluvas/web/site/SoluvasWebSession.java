@@ -2,6 +2,9 @@ package org.soluvas.web.site;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
@@ -22,6 +25,8 @@ import org.soluvas.commons.config.DefaultsConfig;
 import org.soluvas.commons.locale.LocaleContext;
 import org.soluvas.data.person.PersonRepository;
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * @author ceefour
@@ -30,9 +35,9 @@ import org.springframework.beans.factory.BeanCreationException;
 public class SoluvasWebSession extends WebSession {
 
 	private static final long serialVersionUID = 1L;
-	
 	private static final Logger log = LoggerFactory
-		.getLogger(SoluvasWebSession.class);
+			.getLogger(SoluvasWebSession.class);
+	
 	@Deprecated
 	private String userId;
 	private String twitterRequestToken;
@@ -43,14 +48,9 @@ public class SoluvasWebSession extends WebSession {
 	 * Used by token flow authentication.
 	 */
 	private String redirectUri;
-	/**
-	 * Used by token flow. Won't work with {@link Person}.
-	 */
-	@SpringBean
-	private PersonRepository personRepo;
 	@SpringBean(required=false)
 	private AppManifest appManifest;
-	@SpringBean
+	@Inject
 	private DefaultsConfig defaultsConfig;
 	
 	public SoluvasWebSession(Request request) {
@@ -146,6 +146,11 @@ public class SoluvasWebSession extends WebSession {
 		final RequestCycle requestCycle = RequestCycle.get();
 		if (isTokenFlow()) {
 			// get or create access token
+			// Used by token flow. Won't work with {@link Person}.
+			// http://stackoverflow.com/a/9823467/1343587
+			WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext( 
+					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getServletContext() ); 
+			final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
 			final Person person = personRepo.findOne((String) SecurityUtils.getSubject().getPrincipal());
 			if (person.getClientAccessToken() == null) {
 				person.setClientAccessToken(UUID.randomUUID().toString());
