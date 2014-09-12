@@ -160,7 +160,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		nameFld.setOutputMarkupId(true);
 		form.add(nameFld);
 		final Component displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable);
-		displayNameFld.add(new OnChangeThrottledBehavior() {
+		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
 			private static final long serialVersionUID = 1L;
 
 			@Override

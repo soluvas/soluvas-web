@@ -207,7 +207,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		final TextField<String> displayNameFld = new TextField<>("displayName", new PropertyModel<String>(getModel(), "name"));
 		displayNameFld.setRequired(true);
 		displayNameFld.setEnabled(editable);
-		displayNameFld.add(new OnChangeThrottledBehavior() {
+		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Category category = CategoryDetailPanel.this.getModelObject();
