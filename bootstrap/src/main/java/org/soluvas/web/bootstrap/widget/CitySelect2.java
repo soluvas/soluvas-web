@@ -28,9 +28,8 @@ import com.vaynberg.wicket.select2.Response;
  * @author rudi
  *
  */
+@SuppressWarnings("serial")
 public class CitySelect2 extends InteractiveSelect2Choice<City> {
-	
-	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(CitySelect2.class);
