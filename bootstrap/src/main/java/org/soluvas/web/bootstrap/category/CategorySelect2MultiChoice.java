@@ -47,14 +47,14 @@ public class CategorySelect2MultiChoice extends
 	private ImageManager imageMgr;
 	private LoadableDetachableModel<List<Category>> sortedCategoriesModel;
 //	private final IModel<List<Category>> selectedCategoryModel;
-
+	
 	private class LoadableCategoriesModel extends LoadableDetachableModel<Collection<Category>> {
 
 		private final ArrayList<String> categoryUNames = new ArrayList<>();
 		
 		public LoadableCategoriesModel(@Nullable Collection<Category> currentCategories) {
 			super();
-			for (Category category : currentCategories) {
+			for (final Category category : currentCategories) {
 				categoryUNames.add(category.getUName());
 			}
 		}
@@ -71,8 +71,8 @@ public class CategorySelect2MultiChoice extends
 				for (Category category : getObject()) {
 					categoryUNames.add(category.getUName());
 				}
+				super.detach();
 			}
-			super.detach();
 		}
 		
 	}
@@ -119,7 +119,8 @@ public class CategorySelect2MultiChoice extends
 	
 	@Override
 	protected void detachModel() {
-		super.detachModel();
+//		getModel().detach();
+//		super.detachModel();
 		sortedCategoriesModel.detach();
 	}
 	
