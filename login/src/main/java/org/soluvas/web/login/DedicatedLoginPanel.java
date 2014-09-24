@@ -96,6 +96,7 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 			final LoginButton ldapLoginBtn = new LoginButton("login", userLoginModel, tenant.getTenantId()) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
+					log.debug("LoginButton has logged in '{}', redirecting to original page...", personId);
 					((SoluvasWebSession) getSession()).postLoginSuccess();
 				}
 			};

@@ -143,6 +143,7 @@ public class SoluvasWebSession extends WebSession {
 	 * </ol>
 	 */
 	public void postLoginSuccess() {
+		log.debug("postLoginSuccess() will redirect to token or to original URI or to home page");
 		final RequestCycle requestCycle = RequestCycle.get();
 		if (isTokenFlow()) {
 			// get or create access token
