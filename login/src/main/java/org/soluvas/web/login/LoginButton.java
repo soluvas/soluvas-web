@@ -26,10 +26,9 @@ import com.google.common.base.Strings;
  * @author ceefour
  * @see StatelessLoginForm
  */
+@SuppressWarnings("serial")
 public class LoginButton extends IndicatingAjaxButton {
-	private static final long serialVersionUID = 1L;
-	private static final Logger log = LoggerFactory
-			.getLogger(LoginButton.class);
+	private static final Logger log = LoggerFactory.getLogger(LoginButton.class);
 	private final IModel<LoginToken> loginTokenModel;
 	private final String host;
 	
