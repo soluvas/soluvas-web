@@ -9,6 +9,34 @@ import org.apache.wicket.model.IModel;
 
 /**
  * Choose models inside a {@link DataTable}.
+ * 
+ * <p>You have to wrap the DataTable inside a CheckGroup.
+ * 
+ * <p>HTML Markup:
+ * 
+ * <pre>{@literal
+ * <div wicket:id="productTableCtr">
+ * 	<div wicket:id="productTableCg">
+ * 		<table class="table table-bordered table-striped" wicket:id="productTable">
+ * 		</table>
+ * 	</div>
+ * </div>
+ * }</pre>
+ * 
+ * <p>Java:
+ * 
+ * <pre>
+ * final EmfListModel&lt;Product> selectedProductsModel = new EmfListModel<>(new ArrayList&lt;Product>());
+ * final WebMarkupContainer productTableCtr = new WebMarkupContainer("productTableCtr");
+ * productTableCtr.setOutputMarkupId(true);
+ * final CheckGroup&lt;Product> productTableCg = new CheckGroup<>("productTableCg", selectedProductsModel);
+ * log.debug("First Count Paging is {}", countPagingModel.getObject());
+ * final AjaxFallbackDefaultDataTable<Product, String> productTable = new AjaxFallbackDefaultDataTable<>("productTable", columns, sdpProduct, countPagingModel.getObject());
+ * productTableCg.add(productTable);
+ * productTableCtr.add(productTableCg);
+ * add(productTableCtr);
+ * </pre>
+ * 
  * @author rudi
  */
 @SuppressWarnings("serial")
