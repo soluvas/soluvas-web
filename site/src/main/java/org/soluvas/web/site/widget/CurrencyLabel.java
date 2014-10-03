@@ -1,6 +1,7 @@
 package org.soluvas.web.site.widget;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
@@ -21,26 +22,29 @@ import org.slf4j.LoggerFactory;
 /**
  * Formats a {@link CurrencyUnit} code as symbol in current {@link Locale},
  * optionally with a {@link BigDecimal} amount.
+ * The {@link BigDecimal#setScale(int, java.math.RoundingMode)} will be set to either {@link #scale}
+ * or {@link CurrencyUnit#getDecimalPlaces()} using {@link RoundingMode#HALF_EVEN} if available, or left as is.
  * @author agus
  */
+@SuppressWarnings("serial")
 public class CurrencyLabel extends Label {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(CurrencyLabel.class);
 
-	private static final long serialVersionUID = 1L;
-	
 	@Nullable
 	private IModel<BigDecimal> amountModel;
-
-	private int scale = 2;
+	@Nullable
+	private final Integer scale;
 	
 	public CurrencyLabel(String id, IModel<?> model) {
 		super(id, model);
+		this.scale = null;
 	}
 
 	public CurrencyLabel(String id, CurrencyUnit currency) {
 		super(id, currency);
+		this.scale = null;
 	}
 	
 	/**
@@ -51,6 +55,7 @@ public class CurrencyLabel extends Label {
 	public CurrencyLabel(String id, IModel<?> currencyModel, IModel<BigDecimal> amountModel) {
 		super(id, currencyModel);
 		this.amountModel = amountModel;
+		this.scale = null;
 	}
 	
 	public CurrencyLabel(String id, IModel<?> currencyModel, IModel<BigDecimal> amountModel, int scale) {
@@ -62,6 +67,7 @@ public class CurrencyLabel extends Label {
 	public CurrencyLabel(String id, CurrencyUnit currency, BigDecimal amount) {
 		super(id, currency);
 		this.amountModel = new Model<>(amount);
+		this.scale = null;
 	}
 	
 	public void setAmountModel(IModel<BigDecimal> amountModel) {
@@ -76,31 +82,29 @@ public class CurrencyLabel extends Label {
 
 	private String getDefaultModelObjectAsFormattedString() {
 		final Object currencyObj = getDefaultModelObject();
-		final BigDecimal amount; 
-		if (amountModel != null) {
-			if (amountModel.getObject() != null) {
-				amount = amountModel.getObject().setScale(scale);
-			} else {
-				amount = null;
-			}
-		} else {
-			amount = null;
-		}
+		final BigDecimal amount = amountModel != null ? amountModel.getObject() : null;
 		final Locale locale = getLocale();
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
 					(CurrencyUnit) currencyObj : CurrencyUnit.of((String) currencyObj);
 			final String currencyHtml = amount != null ? "<small class=\"text-muted\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
 			if (amount != null) {
+				final BigDecimal scaled;
+				if (scale != null) {
+					scaled = amount.setScale(scale, RoundingMode.HALF_EVEN);
+				} else {
+					scaled = amount.setScale(currency.getDecimalPlaces(), RoundingMode.HALF_EVEN);
+				}
 				final MoneyFormatter formatter = new MoneyFormatterBuilder()
 					.appendAmountLocalized().toFormatter(locale);
-				return currencyHtml + formatter.print(BigMoney.of(currency, amount));
+				return currencyHtml + formatter.print(BigMoney.of(currency, scaled));
 			} else {
 				return currencyHtml;
 			}
 		} else {
 			if (amount != null) {
-				return "<small class=\"text-muted\">?</small> " + DecimalFormat.getInstance(locale).format(amount.doubleValue());
+				final BigDecimal scaled = scale != null ? amount.setScale(scale, RoundingMode.HALF_EVEN) : amount;
+				return "<small class=\"text-muted\">?</small> " + DecimalFormat.getInstance(locale).format(scaled.doubleValue());
 			} else {
 				return "";
 			}
