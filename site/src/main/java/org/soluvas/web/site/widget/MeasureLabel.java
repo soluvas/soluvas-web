@@ -104,7 +104,7 @@ public class MeasureLabel extends Label {
 			unit = Unit.ONE;
 		}
 		if (amountModel != null && amountModel.getObject() != null) {
-			BigDecimal scaled; 
+			BigDecimal scaled;
 			if (scale != null) {
 				scaled = amountModel.getObject().setScale(scale, RoundingMode.HALF_EVEN);
 			} else {
