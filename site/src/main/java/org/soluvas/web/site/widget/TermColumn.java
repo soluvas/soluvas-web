@@ -8,6 +8,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.soluvas.data.Term;
 import org.soluvas.data.Value;
+import org.soluvas.web.site.widget.TermLabel.TermDisplay;
 
 /**
  * Renders the {@link Value}-typed {@link IColumn}
@@ -20,22 +21,22 @@ import org.soluvas.data.Value;
 public class TermColumn<T> extends PropertyColumn<T, String> {
 
 	private static final long serialVersionUID = 1L;
-	private final boolean hideTextIfImageExists;
+	private final TermDisplay termDisplay;
 
 	public TermColumn(IModel<String> displayModel, String termExpression) {
 		super(displayModel, termExpression + ".term", termExpression);
-		this.hideTextIfImageExists = false;
+		this.termDisplay = TermDisplay.IMAGE_AND_TEXT;
 	}
 	
-	public TermColumn(IModel<String> displayModel, String termExpression, boolean hideTextIfImageExists) {
+	public TermColumn(IModel<String> displayModel, String termExpression, TermDisplay termDisplay) {
 		super(displayModel, termExpression + ".term", termExpression);
-		this.hideTextIfImageExists = hideTextIfImageExists;
+		this.termDisplay = termDisplay;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-		final TermLabel label = new TermLabel(componentId, (IModel<Term>) model, hideTextIfImageExists);
+		final TermLabel label = new TermLabel(componentId, (IModel<Term>) model, termDisplay);
 		item.add(label);
 		item.add(new AttributeAppender("class", "term"));
 	}

@@ -18,12 +18,19 @@ import org.soluvas.web.site.EmfModel;
  * @author ceefour
  */
 public class TermLabel extends Label {
+	
+	public enum TermDisplay {
+		IMAGE_ONLY,
+		TEXT_ONLY,
+		IMAGE_AND_TEXT,
+	}
 
 	private static final long serialVersionUID = 1L;
 	
 	@SpringBean
 	private WebAddress webAddress;
-	private boolean hideTextIfImageExists = false;
+
+	private TermDisplay termDisplay = TermDisplay.IMAGE_ONLY;
 
 	public TermLabel(String id, IModel<Term> model) {
 		super(id, model);
@@ -34,14 +41,14 @@ public class TermLabel extends Label {
 		this(id, new EmfModel<>(term));
 	}
 	
-	public TermLabel(String id, IModel<Term> model, boolean hideTextIfImageExists) {
+	public TermLabel(String id, IModel<Term> model, TermDisplay termDisplay) {
 		super(id, model);
-		this.hideTextIfImageExists = hideTextIfImageExists;
+		this.termDisplay = termDisplay;
 		setRenderBodyOnly(true);
 	}
 
-	public TermLabel(String id, Term term, boolean hideTextIfImageExists) {
-		this(id, new EmfModel<>(term), hideTextIfImageExists);
+	public TermLabel(String id, Term term, TermDisplay termDisplay) {
+		this(id, new EmfModel<>(term), termDisplay);
 	}
 	
 	@Override
@@ -67,11 +74,25 @@ public class TermLabel extends Label {
 					iconHtml = "";
 				}
 			}
-			if (hideTextIfImageExists && !"".equals(iconHtml)) {
+			switch (termDisplay) {
+			case IMAGE_ONLY:
+				if (!"".equals(iconHtml)) {
+					return iconHtml;
+				} else {
+					return "" + Strings.escapeMarkup(term.getDisplayName());
+				}
+			case TEXT_ONLY:
+				return "" + Strings.escapeMarkup(term.getDisplayName());
+			case IMAGE_AND_TEXT:
+				return iconHtml + Strings.escapeMarkup(term.getDisplayName());
+			default:
+				throw new RuntimeException("Unrecognize for termDisplay " + termDisplay);
+			}
+			/*if (hideTextIfImageExists && !"".equals(iconHtml)) {
 				return iconHtml;
 			} else {
 				return iconHtml + Strings.escapeMarkup(term.getDisplayName());
-			}
+			}*/
 		} else {
 			return "";
 		}
