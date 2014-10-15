@@ -27,8 +27,9 @@ import com.google.common.base.Strings;
  * @author ceefour
  * @see LoginButton
  */
+@SuppressWarnings("serial")
 public class StatelessLoginForm extends StatelessForm<LoginToken> {
-	private static final long serialVersionUID = 1L;
+	
 	private static final Logger log = LoggerFactory
 			.getLogger(StatelessLoginForm.class);
 
