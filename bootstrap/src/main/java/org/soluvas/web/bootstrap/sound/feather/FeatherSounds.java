@@ -22,8 +22,9 @@ public class FeatherSounds extends Sounds {
 				.put(Interaction.ERROR, "fail")
 				.put(Interaction.LOGIN, "opening")
 				.put(Interaction.LOGOUT, "ending")
-				.put(Interaction.LOADING_LIGHT, "loading_2")
-				.put(Interaction.LOADING_HEAVY, "loading")
+				// Hervin doesn't like it. And it's flaky anyway. :(
+//				.put(Interaction.LOADING_LIGHT, "loading_2")
+//				.put(Interaction.LOADING_HEAVY, "loading")
 				.put(Interaction.MESSAGE_RECEIVED, "new_mail_notification")
 				.put(Interaction.IM_RECEIVED, "IM_notification")
 				.build());

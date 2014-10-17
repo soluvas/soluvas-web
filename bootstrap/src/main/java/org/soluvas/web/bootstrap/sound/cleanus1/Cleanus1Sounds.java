@@ -23,8 +23,9 @@ public class Cleanus1Sounds extends Sounds {
 				.put(Interaction.LOGIN, "KDE_Startup")
 				.put(Interaction.LOGOUT, "KDE_Logout")
 				// Feather
-				.put(Interaction.LOADING_LIGHT, "feather:loading_2")
-				.put(Interaction.LOADING_HEAVY, "feather:loading")
+				// Hervin doesn't like it. And it's flaky anyway. :(
+//				.put(Interaction.LOADING_LIGHT, "feather:loading_2")
+//				.put(Interaction.LOADING_HEAVY, "feather:loading")
 				.put(Interaction.MESSAGE_RECEIVED, "feather:new_mail_notification")
 				.put(Interaction.IM_RECEIVED, "feather:IM_notification")
 				.build());
