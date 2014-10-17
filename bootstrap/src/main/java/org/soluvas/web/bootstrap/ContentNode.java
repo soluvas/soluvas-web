@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.util.List;
 
-import javax.xml.stream.XMLInputFactory;
-
 import org.apache.commons.lang3.StringUtils;
 import org.ccil.cowan.tagsoup.Parser;
 import org.dom4j.Attribute;
@@ -88,7 +86,7 @@ public class ContentNode implements Serializable {
 	 * @return
 	 */
 	public static ContentNode importHtml(String html) {
-		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		// TODO: replace tagsoup with jsoup. last tagsoup is Aug 2011, last jsoup is Sep 2014
 		Parser parser = new Parser();
 		final SAXContentHandler handler = new SAXContentHandler();
 		parser.setContentHandler(handler);
