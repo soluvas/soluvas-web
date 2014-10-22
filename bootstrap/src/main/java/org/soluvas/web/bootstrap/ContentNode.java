@@ -1,18 +1,10 @@
 package org.soluvas.web.bootstrap;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ccil.cowan.tagsoup.Parser;
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.Node;
-import org.dom4j.io.SAXContentHandler;
+import org.jsoup.Jsoup;
 import org.soluvas.web.site.SiteException;
-import org.xml.sax.InputSource;
 
 /**
  * @author atang
@@ -81,35 +73,28 @@ public class ContentNode implements Serializable {
 	}
 
 	/**
-	 * From Soluvas Content's ContentUtils#importHtml().
+	 * From Soluvas Content's ContentUtils#importHtml(), but now using JSoup.
 	 * @param html
 	 * @return
 	 */
 	public static ContentNode importHtml(String html) {
-		// TODO: replace tagsoup with jsoup. last tagsoup is Aug 2011, last jsoup is Sep 2014
-		Parser parser = new Parser();
-		final SAXContentHandler handler = new SAXContentHandler();
-		parser.setContentHandler(handler);
+		ContentNode page = new ContentNode();
 		try {
-			parser.setFeature(Parser.CDATAElementsFeature, false);
-			parser.setFeature(Parser.namespacesFeature, false);
-			parser.parse(new InputSource(new StringReader(html)));
-			Document doc = handler.getDocument();
-			ContentNode page = new ContentNode();
-			final Element titleEl = (Element)doc.selectSingleNode("//title");
-			page.setTitle( titleEl != null ? titleEl.getText() : null );
+			org.jsoup.nodes.Document doc = Jsoup.parse(html);
+			org.jsoup.nodes.Element titleEl = doc.select("head title").first();
+			page.setTitle( titleEl != null ? titleEl.text() : null );
 			
 //			final Attribute slugAttr = (Attribute)doc.selectSingleNode("//meta[@name='slug']/@content");
 //			page.setSlug( slugAttr != null ? slugAttr.getText() : null );
 //			final Attribute keywordsAttr = (Attribute)doc.selectSingleNode("//meta[@name='keywords']/@content");
 //			page.setMetaKeywords( keywordsAttr != null ? keywordsAttr.getText() : null );
 			
-			final Attribute descriptionAttribute = (Attribute)doc.selectSingleNode("//meta[@name='description']/@content");
-			page.setMetaDescription( descriptionAttribute != null ? descriptionAttribute.getText() : null );
+			final org.jsoup.nodes.Element descriptionEl = doc.select("head meta[name=description]").first();
+			page.setMetaDescription( descriptionEl != null ? descriptionEl.attr("content") : null );
 
-			final Attribute templateSystemAttribute = (Attribute)doc.selectSingleNode("//meta[@property='soluvas:templateSystem']/@content");
-			if (templateSystemAttribute != null) {
-				page.setTemplateSystem(TemplateSystem.valueOf(templateSystemAttribute.getText()));
+			final org.jsoup.nodes.Element templateSystemEl = doc.select("head meta[property=soluvas:templateSystem]").first();
+			if (templateSystemEl != null) {
+				page.setTemplateSystem(TemplateSystem.valueOf(templateSystemEl.attr("content")));
 			}
 			
 //			final Attribute headingAttr = (Attribute)doc.selectSingleNode("//meta[@name='content:heading']/@content");
@@ -126,14 +111,9 @@ public class ContentNode implements Serializable {
 //			final Element layoutUpdateEl = (Element)doc.selectSingleNode("//script[@type='text/magento-layout+xml']");
 //			page.setLayoutUpdateXml( layoutUpdateEl != null ? layoutUpdateEl.getStringValue() : null );
 			
-			final List<Node> bodyContents = doc.selectNodes("//body/*");
-			String content = "";
-			for (Node node : bodyContents) {
-				content += node.asXML();
-//				log.debug("content: {}", content);
-			}
+			final String bodyContents = doc.body().html();
 //			log.debug("Content: {}", content);
-			page.setBody( content );
+			page.setBody( bodyContents );
 			return page;
 		} catch (Exception e) {
 			throw new SiteException(e, "Cannot import HTML to ContentNode from: %s", StringUtils.abbreviateMiddle(html, "…", 200));
