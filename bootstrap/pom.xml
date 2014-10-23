@@ -89,10 +89,8 @@
 		</dependency>
 
 		<dependency>
-			<!-- TODO: replace tagsoup with jsoup. last tagsoup is Aug 2011, last jsoup is Sep 2014 -->
-			<groupId>org.ccil.cowan.tagsoup</groupId>
-			<artifactId>tagsoup</artifactId>
-			<version>1.2.1</version>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>jaxen</groupId>
