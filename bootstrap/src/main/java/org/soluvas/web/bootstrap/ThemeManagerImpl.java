@@ -2,8 +2,10 @@ package org.soluvas.web.bootstrap;
 
 import java.io.File;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
@@ -55,6 +57,8 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 	private final SoluvasTheme defaultTheme;
 	private final File classesDir;
 	private final Map<String, AppManifest> initialTenantIds;
+	
+	private final Set<String> styles = new HashSet<>();;
 
 	/**
 	 * @param classesDir The filesystem path that corresponds to <code>$CATALINA_HOME/webapps/{context}/WEB-INF/classes</code>.
@@ -83,6 +87,7 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 			final String realStyle = Optional.fromNullable(tenant.getValue().getDefaultStyle()).or(defaultTheme.name());
 			Optional<File> generated = doGenerateThemeStyle(tenantId, realStyle, themePrefs.getExpanded(tenantId));
 			generateds.put(tenantId, generated.orNull());
+			styles.add(realStyle);
 		}
 		log.info("Generated {} tenant theme style files: {}", generateds.size(), generateds);
 	}
@@ -198,6 +203,11 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 	@Override
 	public SoluvasTheme getDefaultTheme() {
 		return defaultTheme;
+	}
+
+	@Override
+	public Set<String> getStyles() {
+		return this.styles;
 	}
 
 }
