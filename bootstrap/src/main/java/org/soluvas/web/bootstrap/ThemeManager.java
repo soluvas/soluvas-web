@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -35,5 +36,7 @@ public interface ThemeManager {
 	Map<String, SoluvasTheme> getThemes();
 
 	SoluvasTheme getDefaultTheme();
+	
+	Set<String> getStyles();
 
 }
