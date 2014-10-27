@@ -17,10 +17,9 @@ import com.google.common.base.Strings;
  * Displays a {@link DisplayImage}.
  * @author rio
  */
+@SuppressWarnings("serial")
 public class DisplayImageContainer extends WebMarkupContainer {
 
-	private static final long serialVersionUID = 1L;
-	
 	@SpringBean
 	private WebAddress webAddress;
 	private final IModel<String> titleModel;
