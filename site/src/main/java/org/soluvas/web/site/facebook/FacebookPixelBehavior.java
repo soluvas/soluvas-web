@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.socmed.FacebookSysConfig;
 
+import com.google.common.base.Optional;
+
 /**
  * <p>If you want to track the conversions that happen on your website as a result of ads that you're running on Facebook, you can create a conversion tracking pixel to put on your website.
  * 
@@ -32,7 +34,7 @@ public class FacebookPixelBehavior extends Behavior {
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		if (facebookSysConfig.getFacebookPixelEnabled()) {
+		if (Optional.fromNullable(facebookSysConfig.getFacebookPixelEnabled()).or(false)) {
 			// Google Analytics is required for server timing
 			if (facebookSysConfig.getFacebookPixelId() != null) {
 				final String script =
