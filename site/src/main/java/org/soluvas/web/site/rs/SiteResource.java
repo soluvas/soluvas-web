@@ -40,6 +40,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -59,6 +60,7 @@ import com.google.common.collect.Ordering;
 
 /**
  * Provides {@link WebAddress}.
+ * @todo FIXME: Migrate to Spring {@link RestController}, see {@link ProductPubResource} for example.
  * @author ceefour, agus
  * @deprecated use either Wicket or AngularJS
  */
