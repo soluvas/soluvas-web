@@ -2,16 +2,13 @@ package org.soluvas.web.site;
 
 import java.util.UUID;
 
-import org.soluvas.commons.tenant.RequestOrCommandScope;
-import org.springframework.beans.factory.config.CustomScopeConfigurer;
-import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-
-import com.google.common.collect.ImmutableMap;
 
 /**
- * Registers {@link WebPropertySource}, which provides {@code configDir}. Usage:
+ * For {@link ConfigurableWebApplicationContext} only, registers {@link WebPropertySource} which provides {@code configDir}.
+ * 
+ * <p>Usage:
  * 
  * <pre>{@literal
  * 	<context-param>
@@ -40,21 +37,19 @@ import com.google.common.collect.ImmutableMap;
  * 
  * @author ceefour
  * @see WebPropertySource
+ * @see RequestOrCommandAppInitializer
  */
-public class AppInitializer implements
-		ApplicationContextInitializer<ConfigurableWebApplicationContext> {
+public class AppInitializer extends RequestOrCommandAppInitializer {
 
 	/* (non-Javadoc)
 	 * @see org.springframework.context.ApplicationContextInitializer#initialize(org.springframework.context.ConfigurableApplicationContext)
 	 */
 	@Override
-	public void initialize(ConfigurableWebApplicationContext applicationContext) {
+	public void initialize(ConfigurableApplicationContext applicationContext) {
+		super.initialize(applicationContext);
 		applicationContext.setId(UUID.randomUUID().toString().substring(0, 8)); // make it easy to identify in logs
-		final WebPropertySource webPs = new WebPropertySource("webConfig", applicationContext.getServletContext());
+		final WebPropertySource webPs = new WebPropertySource("webConfig", ((ConfigurableWebApplicationContext) applicationContext).getServletContext());
 		applicationContext.getEnvironment().getPropertySources().addLast(webPs);
-		final CustomScopeConfigurer scopeConfigurer = new CustomScopeConfigurer();
-		scopeConfigurer.setScopes(ImmutableMap.<String, Object>of(WebApplicationContext.SCOPE_REQUEST, new RequestOrCommandScope()));
-		applicationContext.addBeanFactoryPostProcessor(scopeConfigurer);
 	}
 	
 }
