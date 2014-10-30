@@ -56,12 +56,10 @@ import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.base.Supplier;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
@@ -126,8 +124,8 @@ public class BootstrapPage extends ExtensiblePage {
 	private static final Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	public static final CssResourceReference PRINT_CSS = new CssResourceReference(BootstrapPage.class, "soluvas-web-print.css");
 	
-	@SpringBean(name="jacksonMapperFactory")
-	private Supplier<ObjectMapper> jacksonMapperFactory;
+//	@SpringBean(name="jacksonMapperFactory")
+//	private Supplier<ObjectMapper> jacksonMapperFactory;
 	/**
 	 * Should not use {@link Site} directly!
 	 */
