@@ -12,16 +12,20 @@ import org.apache.wicket.model.Model;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.base.AbstractInstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Wraps a {@link DateTime} model to be usable, it also uses <code>abbr</code>.
  * @author ceefour
  * @see DateTimeLabel2
  */
+@SuppressWarnings("serial")
 public class DateTimeLabel extends DateLabel {
-
-	private static final long serialVersionUID = 1L;
 	
+	private static final Logger log = LoggerFactory
+			.getLogger(DateTimeLabel.class);
+
 	private IModel<? extends AbstractInstant> dateTimeModel;
 
 	public DateTimeLabel(String id, DateConverter converter) {
