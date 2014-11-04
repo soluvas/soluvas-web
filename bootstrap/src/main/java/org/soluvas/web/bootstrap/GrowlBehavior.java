@@ -190,9 +190,10 @@ public class GrowlBehavior extends Behavior {
 //				target.appendJavaScript("jQuery('#notify-container').notify('create', {text: " +
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
 				msg.markRendered();
+				
 				script += howlerScript;
 				script += "$.bootstrapGrowl(" +
-					JsonUtils.asJson(messageText) + ", {type: '" + growlType + "'});\n";					
+					JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 3000});\n";					
 			}
 			return Strings.emptyToNull(script);
 		} else {
