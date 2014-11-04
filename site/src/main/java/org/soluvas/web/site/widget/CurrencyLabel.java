@@ -87,7 +87,7 @@ public class CurrencyLabel extends Label {
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
 					(CurrencyUnit) currencyObj : CurrencyUnit.of((String) currencyObj);
-			final String currencyHtml = amount != null ? "<small class=\"text-muted\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
+			final String currencyHtml = amount != null ? "<small class=\"text-muted currency\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
 			if (amount != null) {
 				final BigDecimal scaled;
 				if (scale != null) {
@@ -104,7 +104,7 @@ public class CurrencyLabel extends Label {
 		} else {
 			if (amount != null) {
 				final BigDecimal scaled = scale != null ? amount.setScale(scale, RoundingMode.HALF_EVEN) : amount;
-				return "<small class=\"text-muted\">?</small> " + DecimalFormat.getInstance(locale).format(scaled.doubleValue());
+				return "<small class=\"text-muted currency\">?</small> " + DecimalFormat.getInstance(locale).format(scaled.doubleValue());
 			} else {
 				return "";
 			}
