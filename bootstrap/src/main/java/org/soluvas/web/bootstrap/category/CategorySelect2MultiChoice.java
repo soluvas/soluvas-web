@@ -132,6 +132,33 @@ public class CategorySelect2MultiChoice extends
 		setProvider(new CategoryChoiceProvider(sortedActiveCategoriesModel));
 	}
 	
+	public CategorySelect2MultiChoice(String id, IModel<Collection<Category>> model) {
+		super(id, model);
+		sortedActiveCategoriesModel = new LoadableDetachableModel<List<Category>>() {
+			@Override
+			protected List<Category> load() {
+				final List<Category> categoryList = categoryRepo.findAllByStatus(ImmutableList.of(CategoryStatus.ACTIVE), new PageRequest(0, 500, Direction.ASC, "name")).getContent();
+				log.debug("Categories has {} rows: {}", categoryList.size(), categoryList);
+				final List<Category> filteredCategories = ImmutableList.copyOf(Iterables.filter(categoryList, new Predicate<Category>() {
+					@Override
+					public boolean apply(@Nullable Category input) {
+						return input.getCategories().isEmpty();
+					}
+				}));
+				log.debug("Filtered Categories by leaf has {} rows: {}", filteredCategories.size(), filteredCategories);
+				final Ordering<Category> categoryOrderer = Ordering.from(new Comparator<Category>() {
+					@Override
+					public int compare(Category cat1, Category cat2) {
+						return cat1.getSlugPath().compareToIgnoreCase(cat2.getSlugPath());
+					}
+				});
+				return categoryOrderer.sortedCopy(filteredCategories);
+			}
+		};
+//		log.debug("sortedCategoriesModel has {} rows ", sortedCategoriesModel.getObject().size());
+		setProvider(new CategoryChoiceProvider(sortedActiveCategoriesModel));
+	}
+	
 	public IModel<List<Category>> getSortedCategoriesModel() {
 		return sortedActiveCategoriesModel;
 	}
