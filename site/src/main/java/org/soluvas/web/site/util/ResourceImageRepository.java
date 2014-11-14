@@ -37,6 +37,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+import com.google.common.util.concurrent.ListenableFuture;
 
 /**
  * Serves static images from classpath resources using Wicket {@link SharedResourceReference} mechanism.
@@ -284,6 +285,11 @@ public class ResourceImageRepository extends PagingAndSortingRepositoryBase<Imag
 
 	@Override
 	public String getOriginUri(String id, String styleName, String extension) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public <S extends Image> List<ListenableFuture<S>> addAsync(Collection<S> newImages, ProgressMonitor monitor) {
 		throw new UnsupportedOperationException();
 	}
 
