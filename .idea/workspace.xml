@@ -2,37 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc7a98af-4ccb-4131-9e4d-bcc09ae57239" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/category/org.soluvas.category.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/commons/org.soluvas.commons.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/data/org.soluvas.data.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/email/org.soluvas.email.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/folder/org.soluvas.folder.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/image/org.soluvas.image.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/jaxrs/org.soluvas.jaxrs.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/ldap/org.soluvas.ldap.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/mongo/org.soluvas.mongo.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/org.soluvas.parent.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/security/org.soluvas.security.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/social/org.soluvas.social.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/socmed/org.soluvas.socmed.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../soluvas-framework/taxonomy/org.soluvas.taxonomy.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bootstrap/org.soluvas.web.bootstrap.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/login/org.soluvas.web.login.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/nav/org.soluvas.web.nav.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/org.soluvas.web.parent.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/site/org.soluvas.web.site.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/misc.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/modules.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="soluvas-web.iws" />
@@ -408,7 +377,13 @@
       <option name="project" value="LOCAL" />
       <updated>1379566328606</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="IntelliJ IDEA project files">
+      <created>1415944980337</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1415944980337</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -418,6 +393,7 @@
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32875264" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -432,7 +408,6 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
