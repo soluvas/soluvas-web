@@ -16,3 +16,11 @@ build
 /olark
 /googleanalytics
 /parent
+
+# Intellij
+.idea/
+*.iml 
+*.ipr
+*.iws
+out/
+.idea_modules/
