@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bootstrap/org.soluvas.web.bootstrap.iml" filepath="$PROJECT_DIR$/bootstrap/org.soluvas.web.bootstrap.iml" />
-      <module fileurl="file://$PROJECT_DIR$/login/org.soluvas.web.login.iml" filepath="$PROJECT_DIR$/login/org.soluvas.web.login.iml" />
-      <module fileurl="file://$PROJECT_DIR$/nav/org.soluvas.web.nav.iml" filepath="$PROJECT_DIR$/nav/org.soluvas.web.nav.iml" />
-      <module fileurl="file://$PROJECT_DIR$/org.soluvas.web.parent.iml" filepath="$PROJECT_DIR$/org.soluvas.web.parent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/site/org.soluvas.web.site.iml" filepath="$PROJECT_DIR$/site/org.soluvas.web.site.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../soluvas-framework/org.soluvas.parent.iml" filepath="$PROJECT_DIR$/../soluvas-framework/org.soluvas.parent.iml" group="org.soluvas.web.parent and modules" />
+      <module fileurl="file://$PROJECT_DIR$/org.soluvas.web.parent.iml" filepath="$PROJECT_DIR$/org.soluvas.web.parent.iml" group="org.soluvas.web.parent and modules" />
     </modules>
   </component>
 </project>
-
