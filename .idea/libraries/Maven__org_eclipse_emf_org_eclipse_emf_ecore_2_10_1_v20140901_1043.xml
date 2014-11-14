@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.eclipse.emf:org.eclipse.emf.ecore:2.10.1-v20140901-1043">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/emf/org.eclipse.emf.ecore/2.10.1-v20140901-1043/org.eclipse.emf.ecore-2.10.1-v20140901-1043.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/emf/org.eclipse.emf.ecore/2.10.1-v20140901-1043/org.eclipse.emf.ecore-2.10.1-v20140901-1043-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/emf/org.eclipse.emf.ecore/2.10.1-v20140901-1043/org.eclipse.emf.ecore-2.10.1-v20140901-1043-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
