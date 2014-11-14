@@ -22,6 +22,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="org.soluvas.process.stomp" />
         <module name="org.soluvas.web.bootstrap" />
         <module name="org.soluvas.web.login" />
         <module name="org.soluvas.web.nav" />
@@ -37,4 +38,3 @@
     </bytecodeTargetLevel>
   </component>
 </project>
-
