@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc7a98af-4ccb-4131-9e4d-bcc09ae57239" name="Default" comment="">
+    <list default="true" id="bc7a98af-4ccb-4131-9e4d-bcc09ae57239" name="Default" comment="IntelliJ IDEA project files">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../soluvas-framework/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../soluvas-framework/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="soluvas-web.iws" />
@@ -383,7 +384,13 @@
       <option name="project" value="LOCAL" />
       <updated>1415944980337</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="IntelliJ IDEA project files">
+      <created>1415945006606</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1415945006606</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
