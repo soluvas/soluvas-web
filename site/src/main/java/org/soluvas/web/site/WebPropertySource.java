@@ -1,10 +1,13 @@
 package org.soluvas.web.site;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.MapPropertySource;
@@ -38,11 +41,23 @@ public class WebPropertySource extends MapPropertySource {
 	}
 	
 	protected static Map<String, Object> getProperties(ServletContext servletContext) {
-		final String webInf = servletContext.getRealPath("/WEB-INF"); //"/home/ceefour/git/quikdo-hub/hub.app/src/main/webapp/WEB-INF";
-		final File metaInfInClasses = new File(webInf, "classes/META-INF");
-		// If /WEB-INF/classes/META-INF not found, assume we're running in development
-		final File configDir = metaInfInClasses.exists() ? metaInfInClasses :
-			new File(new File(webInf).getParentFile().getParentFile(), "resources/META-INF");
+		final File configDir;
+		if (servletContext != null) {
+			final String webInf = servletContext.getRealPath("/WEB-INF"); //"/home/ceefour/git/quikdo-hub/hub.app/src/main/webapp/WEB-INF";
+			final File metaInfInClasses = new File(webInf, "classes/META-INF");
+			// If /WEB-INF/classes/META-INF not found, assume we're running inside Tomcat, inside Eclipse WTP
+			configDir = metaInfInClasses.exists() ? metaInfInClasses :
+					new File(new File(webInf).getParentFile().getParentFile(), "resources/META-INF");
+		} else {
+			// assume we're running inside Spring Boot, inside either IDEA, or command line using build classpath, or using packaged artifact
+			// user.dir inside IDEA: /home/ceefour/git/bippo-commerce (not so helpful, furthermore it's customizable)
+			// /META-INF/template.AppManifest.xmi works, e.g. file:/home/ceefour/git/bippo-commerce/springapp/target/classes/META-INF/template.AppManifest.xmi
+			final URL appManifestTemplateUrl = WebPropertySource.class.getResource("/META-INF/template.AppManifest.xmi");
+			Preconditions.checkNotNull(appManifestTemplateUrl, "/META-INF/template.AppManifest.xmi must exist in order to detect configDir");
+			Preconditions.checkState(!Strings.isNullOrEmpty(appManifestTemplateUrl.getFile()),
+					"appManifest template '%s' must be in file system in order to detect configDir", appManifestTemplateUrl);
+			configDir = new File(appManifestTemplateUrl.getFile()).getParentFile();
+		}
 		log.debug("Web configDir: {}", configDir);
 		return ImmutableMap.<String, Object>of("configDir", configDir.getPath());
 	}
