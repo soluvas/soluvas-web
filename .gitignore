@@ -19,7 +19,7 @@ build
 
 # Intellij
 .idea/
-*.iml 
+*.iml
 *.ipr
 *.iws
 out/
