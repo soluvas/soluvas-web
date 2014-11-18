@@ -49,8 +49,8 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-core</artifactId>
-			<version>0.9.6</version>
-			<!-- won't be needed after reflections 0.9.9 -->
+			<version>0.9.7</version>
+			<!-- won't be needed after wicket-webjars 0.4.4 / wicket-bootstrap 0.9.8 -->
 			<exclusions>
 				<exclusion>
 					<artifactId>javassist</artifactId>
@@ -65,17 +65,17 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-extensions</artifactId>
-			<version>0.9.6</version>
+			<version>0.9.7</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-themes</artifactId>
-			<version>0.9.6</version>
+			<version>0.9.7</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-less</artifactId>
-			<version>0.9.6</version>
+			<version>0.9.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
