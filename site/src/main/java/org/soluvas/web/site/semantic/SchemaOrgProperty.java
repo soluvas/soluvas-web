@@ -69,4 +69,32 @@ public enum SchemaOrgProperty {
 	 * <a href="http://schema.org/color">schema:color</a> - The color of the product.
 	 */
 	COLOR,
+	/**
+	 * <a href="http://schema.org/mainContentOfPage">schema:mainContentOfPage</a> - Indicates if this web page element is the main subject of the page.
+	 */
+	MAIN_CONTENT_OF_PAGE,
+	/**
+	 * <a href="http://schema.org/primaryImageOfPage">schema:primaryImageOfPage</a> - Indicates the main image on the page.
+	 */
+	PRIMARY_IMAGE_OF_PAGE,
+	/**
+	 * <a href="http://schema.org/relatedLink">schema:relatedLink</a> - A link related to this web page, for example to other related web pages.
+	 */
+	RELATED_LINK,
+	/**
+	 * <a href="http://schema.org/significantLink">schema:significantLink</a> - One of the more significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most.
+	 */
+	SIGNIFICANT_LINK,
+	/**
+	 * <a href="http://schema.org/breadcrumb">schema:breadcrumb</a> - A set of links that can help a user understand and navigate a website hierarchy.
+	 */
+	BREADCRUMB, 
+	/**
+	 * <a href="http://schema.org/url">schema:url</a> - URL of the item.
+	 */
+	URL,
+	/**
+	 * <a href="http://schema.org/thumbnailUrl">schema:thumbnailUrl</a> - A thumbnail image relevant to the Thing.
+	 */
+	THUMBNAIL_URL,
 }

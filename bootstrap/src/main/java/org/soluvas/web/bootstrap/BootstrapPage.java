@@ -508,7 +508,37 @@ public class BootstrapPage extends ExtensiblePage {
 	 * use {@code MustachePageMetaModel} (TODO) for common cases
 	 * or your own {@link LoadableDetachableModel} for dynamic cases.
 	 * Will be called during {@link #onInitialize()} so make sure any dependencies
-	 * you need are already available. 
+	 * you need are already available.
+	 * 
+	 * Example:
+	 * 
+	 * <pre>
+	 * &commat;Override
+	 * protected IModel&lt;PageMeta> createPageMetaModel() {
+	 * 	return new LoadableDetachableModel&lt;PageMeta>() {
+	 * 		&commat;Override
+	 * 		protected PageMeta load() {
+	 * 			final ProductRelease release = productReleaseModel.getObject();
+	 * 			final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
+	 * 			if (!Strings.isNullOrEmpty(release.getMetaTitle())) {
+	 * 				pageMeta.setTitle(release.getMetaTitle());
+	 * 			} else {
+	 * 				pageMeta.setTitle(release.getDisplayName());
+	 * 			}
+	 * 			if (!Strings.isNullOrEmpty(release.getMetaDescription())) {
+	 * 				pageMeta.setDescription(release.getMetaDescription());
+	 * 			} else if (!Strings.isNullOrEmpty(release.getDescription())) {
+	 * 				pageMeta.setDescription(release.getDescription());
+	 * 			}
+	 * 			if (!Strings.isNullOrEmpty(release.getMetaKeywords())) {
+	 * 				pageMeta.setKeywords(release.getMetaKeywords());
+	 * 			}
+	 * 			return pageMeta;
+	 * 		}
+	 * 	};
+	 * }
+	 * </pre>
+	 * 
 	 * @return
 	 */
 	protected IModel<PageMeta> createPageMetaModel() {

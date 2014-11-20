@@ -65,7 +65,7 @@ public class ExtensiblePage extends WebPage {
 	 * to get the {@literal scope}.
 	 * @param name
 	 * @param model
-	 * @deprecated Please override {@link org.soluvas.web.bootstrap.BootstrapPage#getPageMetaModel()} instead and use {@code MustachePageMetaModel} for common cases
+	 * @deprecated Please override {@link org.soluvas.web.bootstrap.BootstrapPage#createPageMetaModel()} instead and use {@code MustachePageMetaModel} for common cases
 	 * 		or your own {@link LoadableDetachableModel} for dynamic cases.
 	 */
 	@Deprecated

@@ -10,12 +10,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.image.DisplayImage;
 import org.soluvas.web.site.EmfModel;
+import org.soluvas.web.site.semantic.ImageMicrodataBehavior;
 
 import com.google.common.base.Strings;
 
 /**
  * Displays a {@link DisplayImage}.
  * @author rio
+ * @see ImageMicrodataBehavior
  */
 @SuppressWarnings("serial")
 public class DisplayImageContainer extends WebMarkupContainer {
@@ -62,6 +64,11 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	public DisplayImageContainer(String id, DisplayImage image, @Nullable String title) {
 		super(id, new EmfModel<>(image));
 		this.titleModel = new Model<>(title);
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 	}
 	
 	@Override

@@ -32,5 +32,28 @@ public enum SchemaOrgClass {
 	 * @see SchemaOrgProperty#BRAND
 	 * @see SchemaOrgProperty#MANUFACTURER
 	 */
-	ORGANIZATION
+	ORGANIZATION,
+	/**
+	 * <a href="http://schema.org/WebPage">schema:WebPage</a> - A web page. Every web page is implicitly assumed to be declared to be of type WebPage, so the various properties about that webpage, such as breadcrumb may be used. 
+	 * We recommend explicit declaration if these properties are specified, but if they are found outside of an itemscope, they will be assumed to be about the page
+	 * @see #ITEM_PAGE
+	 * @see #IMAGE_GALLERY
+	 */
+	WEB_PAGE,
+	/**
+	 * <a href="http://schema.org/CollectionPage">schema:CollectionPage</a> - Web page type: Collection page.
+	 * @see #ITEM_PAGE
+	 * @see #IMAGE_GALLERY
+	 */
+	COLLECTION_PAGE,
+	/**
+	 * <a href="http://schema.org/ImageGallery">schema:ImageGallery</a> - Web page type: Image gallery page.
+	 * @see #ITEM_PAGE
+	 */
+	IMAGE_GALLERY,
+	/**
+	 * <a href="http://schema.org/ItemPage">schema:ItemPage</a> - A page devoted to a single item, such as a particular product or hotel.
+	 * @see #WEB_PAGE
+	 */
+	ITEM_PAGE,
 }
