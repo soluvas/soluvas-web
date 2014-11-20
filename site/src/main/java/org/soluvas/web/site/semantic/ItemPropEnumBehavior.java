@@ -34,9 +34,9 @@ public class ItemPropEnumBehavior extends Behavior {
 			public String getObject() {
 				final Enum<?> origHref = hrefModel.getObject();
 				if (origHref != null) {
-					return null;
+					return "http://schema.org/" + CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, origHref.name());
 				} else {
-					return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, origHref.name());
+					return null;
 				}
 			}
 		};
