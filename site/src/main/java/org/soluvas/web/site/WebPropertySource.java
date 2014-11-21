@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Map;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletContext;
 
 import com.google.common.base.Preconditions;
@@ -52,11 +53,16 @@ public class WebPropertySource extends MapPropertySource {
 			// assume we're running inside Spring Boot, inside either IDEA, or command line using build classpath, or using packaged artifact
 			// user.dir inside IDEA: /home/ceefour/git/bippo-commerce (not so helpful, furthermore it's customizable)
 			// /META-INF/template.AppManifest.xmi works, e.g. file:/home/ceefour/git/bippo-commerce/springapp/target/classes/META-INF/template.AppManifest.xmi
-			final URL appManifestTemplateUrl = WebPropertySource.class.getResource("/META-INF/template.AppManifest.xmi");
-			Preconditions.checkNotNull(appManifestTemplateUrl, "/META-INF/template.AppManifest.xmi must exist in order to detect configDir");
-			Preconditions.checkState(!Strings.isNullOrEmpty(appManifestTemplateUrl.getFile()),
-					"appManifest template '%s' must be in file system in order to detect configDir", appManifestTemplateUrl);
-			configDir = new File(appManifestTemplateUrl.getFile()).getParentFile();
+			@Nullable
+			URL someMetaInfUrl = WebPropertySource.class.getResource("/META-INF/template.AppManifest.xmi");
+			if (someMetaInfUrl == null) {
+				someMetaInfUrl = WebPropertySource.class.getResource("/META-INF/template.WebAddress.xmi");
+			}
+			Preconditions.checkState(someMetaInfUrl != null,
+					"/META-INF/template.AppManifest.xmi or /META-INF/template.WebAddress.xmi must exist in order to detect configDir");
+			Preconditions.checkState(!Strings.isNullOrEmpty(someMetaInfUrl.getFile()),
+					"appManifest template '%s' must be in file system in order to detect configDir", someMetaInfUrl);
+			configDir = new File(someMetaInfUrl.getFile()).getParentFile();
 		}
 		log.debug("Web configDir: {}", configDir);
 		return ImmutableMap.<String, Object>of("configDir", configDir.getPath());
