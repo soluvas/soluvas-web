@@ -35,6 +35,7 @@ public class CurrencyColumn<T> extends PropertyColumn<T, String> {
 				new PropertyModel<>(model, currencyExpression),
 				(IModel) getDataModel(model));
 		item.add(label);
-		item.add(new AttributeAppender("class", "currency"));
+		item.add(new AttributeAppender("class", "currency text-right"));
 	}
+	
 }

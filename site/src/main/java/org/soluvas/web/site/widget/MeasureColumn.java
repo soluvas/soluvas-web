@@ -36,6 +36,6 @@ public class MeasureColumn<T> extends PropertyColumn<T, String> {
 				new PropertyModel<>(model, unitExpression),
 				(IModel) getDataModel(model));
 		item.add(label);
-		item.add(new AttributeAppender("class", "measure"));
+		item.add(new AttributeAppender("class", "measure text-right"));
 	}
 }
