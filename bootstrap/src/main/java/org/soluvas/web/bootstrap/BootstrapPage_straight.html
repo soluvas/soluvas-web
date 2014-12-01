@@ -37,18 +37,17 @@
 
 <body>
 	<!-- not needed -->
-	<div wicket:id="dev" style="display: none;">[DebugBar]</div><!-- end not needed -->
-	<div class="container-fluid">
-		<div class="row">
+	<div wicket:id="dev" style="display: none;">[DebugBar]</div>
+	<!-- end not needed -->
+	
 		<header wicket:id="header"></header>
 		<div class="navbar-bg"></div>
 		<nav class="navbar navbar-default navbar-fixed-top" wicket:id="navbar" role="navigation">
 			Navbar... (see Navbar.html)
 		</nav>
-		<div class="row">
-				<div class="sidebar-categories" wicket:id="sidebarColumn">
+				<section class="head-description" wicket:id="sidebarColumn">
 					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-				</div>
+				</section>
 				<!--/span-->
 	
 				<div wicket:id="contentColumn">
@@ -65,15 +64,13 @@
 						</ol>
 					</wicket:child>
 				</div>
-			</div>
 			
 			<footer class="footer" wicket:id="footer">
 				<small style="color: #808080;"> &middot; &copy; <a
 					href="http://www.soluvas.com/">Soluvas</a> 2012
 				</small>
 			</footer>
-		</div>
-	</div>
+	
 	<!--/.fluid-container-->
 
 	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
