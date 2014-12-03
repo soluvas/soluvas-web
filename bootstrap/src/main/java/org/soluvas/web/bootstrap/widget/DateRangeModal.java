@@ -22,22 +22,20 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
  *
  * @author ceefour
  */
-public abstract class DateRangeModal extends Modal {
+public abstract class DateRangeModal extends Modal<Range<LocalDate>> {
 	private static final Logger log = LoggerFactory
 			.getLogger(DateRangeModal.class);
 	private static final long serialVersionUID = 1L;
 	private Form<Range<LocalDate>> form;
 	private DateTextField startDateFld;
-	private IModel<Range<LocalDate>> model;
 	private IModel<Date> startDateModel;
 	private IModel<Date> endDateModel;
 
 	public DateRangeModal(String markupId, final IModel<Range<LocalDate>> model) {
-		super(markupId);
-		this.model = model;
+		super(markupId, model);
 		final Range<LocalDate> inputRange = Optional.fromNullable(model.getObject()).or(Range.singleton(new LocalDate()));
-		startDateModel = new Model<Date>(inputRange.lowerEndpoint().toDate());
-		endDateModel = new Model<Date>(inputRange.upperEndpoint().toDate());
+		startDateModel = new Model<>(inputRange.lowerEndpoint().toDate());
+		endDateModel = new Model<>(inputRange.upperEndpoint().toDate());
 		
 		addCloseButton(new Model<>("Cancel"));
 		header(new Model<>("Select date range"));
@@ -104,7 +102,6 @@ public abstract class DateRangeModal extends Modal {
 	
 	@Override
 	protected void onDetach() {
-		model.detach();
 		super.onDetach();
 	}
 	

@@ -5,6 +5,7 @@ import org.apache.wicket.model.IModel;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.components.progress.ProgressBar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
+import org.apache.wicket.model.Model;
 
 /**
  * @author rudi
@@ -14,11 +15,9 @@ public class ProgressModal extends Modal<String> {
 
 	/**
 	 * @param id
-	 * @param model
 	 */
 	public ProgressModal(String id) {
-		super(id);
-		setModelObject("Please wait...");
+		super(id, new Model<>("Please wait..."));
 	}
 	
 	public ProgressModal(String id, IModel<String> statusModel) {
@@ -29,7 +28,7 @@ public class ProgressModal extends Modal<String> {
 	protected void onInitialize() {
 		super.onInitialize();
 		final ProgressBar progressBar = new ProgressBar("progressBar").active(true).striped(true);
-		progressBar.setDefaultModelObject(100);
+		progressBar.setModelObject(100);
 		add(progressBar);
 		final Label progressStatus = new Label("progressStatus", getModel());
 		add(progressStatus);
