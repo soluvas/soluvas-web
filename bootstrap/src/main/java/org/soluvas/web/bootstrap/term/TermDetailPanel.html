@@ -19,10 +19,10 @@
 	          			<span wicket:id="kind">Colors</span> &gt; <span wicket:id="termUName">base_red</span>
 				</header>
 				<div class="panel-body">
-					<form class="form-horizontal position-center" role="form" wicket:id="form" >
+					<form class="form-horizontal" role="form" wicket:id="form" >
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr> :</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr> :</label>
+                            <div class="col-lg-6 col-md-6 col-sm-9">
                             	<div class="input-group m-bot15">
 	                                <span class="input-group-addon btn-primary" wicket:id="nsPrefix"></span>
 	                                <input wicket:id="name" class="form-control" placeholder="Name">
@@ -31,16 +31,16 @@
                         </div>			
                           					
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="displayName">Display Name :</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="displayName">Display Name :</label>
+                            <div class="col-lg-6 col-md-6 col-sm-9">
 								<input wicket:id="displayName" class="form-control">
                             </div>
                         </div>			
                           					
 						<wicket:enclosure child="imageId">
 							<div class="form-group">
-								<label class="col-lg-2 control-label" wicket:for="imageId">Image ID :</label>
-	                            <div class="col-lg-2 col-xs-12">
+								<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="imageId">Image ID :</label>
+	                            <div class="col-lg-4 col-md-7 col-sm-9">
 									<input wicket:id="imageId" class="form-control">
 	                            </div>
 	                        </div>			
@@ -48,8 +48,8 @@
 					
                           					
 						<div class="form-group">
-							<label class="col-lg-2 control-label">HTML Color :</label>
-                            <div class="col-lg-2 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">HTML Color :</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<input type="checkbox" wicket:id="colorUsed"/>
 								<span wicket:id="colorBox" class="color-box" style="background-color: #ff0000">&nbsp;</span>
 								<input wicket:id="color" class="form-control"/>
@@ -59,9 +59,9 @@
 					</form>
 					
 					<hr>
-					<div class="form-horizontal position-center">
+					<div class="form-horizontal">
 						<div class="form-group">
-							<label class="col-lg-2 control-label"></label>
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"></label>
                             <div class="col-lg-8 col-xs-12">
 								<button wicket:id="saveBtn" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
 								<button wicket:id="deleteBtn" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
