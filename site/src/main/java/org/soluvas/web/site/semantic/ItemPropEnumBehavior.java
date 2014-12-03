@@ -21,12 +21,14 @@ public class ItemPropEnumBehavior extends Behavior {
 	
 	private final Enum<?> property;
 	private final IModel<String> hrefModel;
+	private final IModel<?> contentModel;
 
 	/**
 	 * @param property Typically a property from {@link SchemaOrgProperty}.
 	 * @param hrefModel enumeration value, e.g. {@link ItemAvailability#IN_STOCK}.
+	 * @param contentModel Content value, e.g. {@code InStock}.
 	 */
-	public ItemPropEnumBehavior(Enum<?> property, final IModel<Enum<?>> hrefModel) {
+	public ItemPropEnumBehavior(Enum<?> property, final IModel<? extends Enum<?>> hrefModel, final IModel<?> contentModel) {
 		super();
 		this.property = property;
 		this.hrefModel = new AbstractReadOnlyModel<String>() {
@@ -40,6 +42,15 @@ public class ItemPropEnumBehavior extends Behavior {
 				}
 			}
 		};
+		this.contentModel = contentModel;
+	}
+	
+	/**
+	 * @param property Typically a property from {@link SchemaOrgProperty}.
+	 * @param hrefModel enumeration value, e.g. {@link ItemAvailability#IN_STOCK}.
+	 */
+	public ItemPropEnumBehavior(Enum<?> property, final IModel<? extends Enum<?>> hrefModel) {
+		this(property, hrefModel, new Model<>());
 	}
 	
 	/**
@@ -56,6 +67,9 @@ public class ItemPropEnumBehavior extends Behavior {
 		if (tag.getType() != TagType.CLOSE) {
 			tag.getAttributes().put("itemprop", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, property.name()));
 			tag.getAttributes().put("href", hrefModel.getObject());
+			if (contentModel.getObject() != null) {
+				tag.getAttributes().put("content", contentModel.getObject());
+			}
 		}
 	}
 
