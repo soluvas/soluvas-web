@@ -97,4 +97,8 @@ public enum SchemaOrgProperty {
 	 * <a href="http://schema.org/thumbnailUrl">schema:thumbnailUrl</a> - A thumbnail image relevant to the Thing.
 	 */
 	THUMBNAIL_URL,
+	/**
+	 * <a href="http://schema.org/itemOffered">schema:itemOffered</a> - The item being offered.
+	 */
+	ITEM_OFFERED
 }

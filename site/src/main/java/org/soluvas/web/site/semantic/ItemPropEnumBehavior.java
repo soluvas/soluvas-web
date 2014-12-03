@@ -1,5 +1,7 @@
 package org.soluvas.web.site.semantic;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
@@ -58,7 +60,16 @@ public class ItemPropEnumBehavior extends Behavior {
 	 * @param hrefModel enumeration value, e.g. {@link ItemAvailability#IN_STOCK}.
 	 */
 	public ItemPropEnumBehavior(Enum<?> property, final Enum<?> href) {
-		this(property, new Model<Enum<?>>(href));
+		this(property, new Model<>(href));
+	}
+	
+	/**
+	 * @param property Typically a property from {@link SchemaOrgProperty}.
+	 * @param hrefModel enumeration value, e.g. {@link ItemAvailability#IN_STOCK}.
+	 * @param contentModel Content value, e.g. {@code InStock}.
+	 */
+	public ItemPropEnumBehavior(Enum<?> property, final Enum<?> href, final Serializable content) {
+		this(property, new Model<>(href), new Model<>(content));
 	}
 	
 	@Override
