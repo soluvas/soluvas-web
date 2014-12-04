@@ -6,10 +6,10 @@
 	          			<span wicket:id="kind">Colors</span> &gt; <span wicket:id="headerUName">base_red</span>
 				</header>
 				<div class="panel-body">
-					<form class="form-horizontal position-center" role="form" wicket:id="form" >
+					<form class="form-horizontal" role="form" wicket:id="form" >
 						<div class="form-group">
-							<label class="col-lg-2 control-label">Parent</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Parent</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
                             	<label>
 									<wicket:container wicket:id="parentUName">parentUName</wicket:container>
                             	</label>
@@ -17,8 +17,8 @@
                         </div>	
                         		
 						<div class="form-group" wicket:id="uNameDiv">
-							<label class="col-lg-2 control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr></label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr></label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
                             	<div class="input-group m-bot15">
 	                                <span class="input-group-addon btn-primary" wicket:id="nsPrefix"></span>
 	                                <input wicket:id="name" class="form-control" placeholder="Name">
@@ -27,29 +27,29 @@
                         </div>			
                           					
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="displayName">Name</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="displayName">Name</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<input wicket:id="displayName" class="form-control">
                             </div>
                         </div>			
                           					
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="description">Description</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="description">Description</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<textarea wicket:id="description" class="form-control">Clothing for women</textarea>
                             </div>
                         </div>			
                           					
 						<div class="form-group" wicket:id="slugPathDiv">
-							<label class="col-lg-2 control-label" wicket:for="slugPath">Slug Path</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="slugPath">Slug Path</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<input wicket:id="slugPath" class="form-control">
                             </div>
                         </div>			
                           					
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="status">Status</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="status">Status</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
                             	<div class="checkbox">
                             		<label>
 										<input wicket:id="status" type="checkbox"> Active
@@ -59,15 +59,15 @@
                         </div>			
 
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="positioner">Position</label>
-                            <div class="col-lg-2 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="positioner">Position</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<input type="number" wicket:id="positioner" class="form-control">
                             </div>
                         </div>			
                           					
 						<div class="form-group">
-							<label class="col-lg-2 control-label" wicket:for="defaultMixin">Default Mixin</label>
-                            <div class="col-lg-6 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="defaultMixin">Default Mixin</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<input type="hidden" wicket:id="defaultMixin" class="col-xs-12">
                             </div>
                         </div>			
@@ -75,10 +75,10 @@
 					</form>
 					
 					<hr>
-					<div class="form-horizontal position-center">
+					<div class="form-horizontal">
 						<div class="form-group">
-							<label class="col-lg-2 control-label"></label>
-                            <div class="col-lg-8 col-xs-12">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"></label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
 								<button wicket:id="saveBtn" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
 								<button wicket:id="deleteBtn" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
 								<a wicket:id="backLink" href="#" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i> Back to List</a>
