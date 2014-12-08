@@ -41,9 +41,16 @@ import org.springframework.web.context.ConfigurableWebApplicationContext;
  */
 public class AppInitializer extends RequestOrCommandAppInitializer {
 
+	public AppInitializer(boolean scopeConfigurerEnabled) {
+		super(scopeConfigurerEnabled);
+	}
+
+	public AppInitializer() {
+	}
+
 	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationContextInitializer#initialize(org.springframework.context.ConfigurableApplicationContext)
-	 */
+         * @see org.springframework.context.ApplicationContextInitializer#initialize(org.springframework.context.ConfigurableApplicationContext)
+         */
 	@Override
 	public void initialize(ConfigurableApplicationContext applicationContext) {
 		super.initialize(applicationContext);

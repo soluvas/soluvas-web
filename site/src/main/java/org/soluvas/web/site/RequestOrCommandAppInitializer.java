@@ -17,14 +17,26 @@ import com.google.common.collect.ImmutableMap;
 public class RequestOrCommandAppInitializer implements
 		ApplicationContextInitializer<ConfigurableApplicationContext> {
 
+	private boolean scopeConfigurerEnabled;
+
+	public RequestOrCommandAppInitializer(boolean scopeConfigurerEnabled) {
+		this.scopeConfigurerEnabled = scopeConfigurerEnabled;
+	}
+
+	public RequestOrCommandAppInitializer() {
+		this(true);
+	}
+
 	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationContextInitializer#initialize(org.springframework.context.ConfigurableApplicationContext)
-	 */
+         * @see org.springframework.context.ApplicationContextInitializer#initialize(org.springframework.context.ConfigurableApplicationContext)
+         */
 	@Override
 	public void initialize(ConfigurableApplicationContext applicationContext) {
-		final CustomScopeConfigurer scopeConfigurer = new CustomScopeConfigurer();
-		scopeConfigurer.setScopes(ImmutableMap.<String, Object>of(WebApplicationContext.SCOPE_REQUEST, new RequestOrCommandScope()));
-		applicationContext.addBeanFactoryPostProcessor(scopeConfigurer);
+		if (scopeConfigurerEnabled) {
+			final CustomScopeConfigurer scopeConfigurer = new CustomScopeConfigurer();
+			scopeConfigurer.setScopes(ImmutableMap.<String, Object>of(WebApplicationContext.SCOPE_REQUEST, new RequestOrCommandScope()));
+			applicationContext.addBeanFactoryPostProcessor(scopeConfigurer);
+		}
 	}
 	
 }
