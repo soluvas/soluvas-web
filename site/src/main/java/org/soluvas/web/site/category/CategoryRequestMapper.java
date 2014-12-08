@@ -2,6 +2,7 @@ package org.soluvas.web.site.category;
 
 import javax.servlet.ServletRequest;
 
+import com.google.common.base.Optional;
 import org.apache.wicket.Page;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
@@ -10,7 +11,10 @@ import org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
+import org.apache.wicket.request.mapper.parameter.IPageParametersEncoder;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.mapper.parameter.PageParametersEncoder;
+import org.apache.wicket.util.lang.Args;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
@@ -40,11 +44,13 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(CategoryRequestMapper.class);
+	public static final String SLUG_PATH_PARAMETER = "slugPath";
 
 	private final Class<? extends Page> categoryShowPage;
-	
+	private IPageParametersEncoder pageParametersEncoder = new PageParametersEncoder();
+
 	/**
-	 * @param CategoryShow {@link Page} with {@code slugPath} parameter.
+	 * @param categoryShowPage CategoryShow {@link Page} with {@code slugPath} parameter.
 	 */
 	public CategoryRequestMapper(Class<? extends Page> categoryShowPage) {
 		super();
@@ -70,11 +76,16 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
 				switch (existence.getState()) {
 				case MATCHED:
+					final PageParameters pageParameters = Optional.fromNullable(
+							extractPageParameters(request, request.getUrl().getSegments().size(), pageParametersEncoder))
+							.or(new PageParameters());
+					pageParameters.set(SLUG_PATH_PARAMETER, existence.get());
 					return new UrlInfo(getPageComponentInfo(request.getUrl()), 
-							categoryShowPage, new PageParameters().set("slugPath", existence.get()));
+							categoryShowPage, pageParameters);
 				case MISMATCHED:
 					// canonical URI
-					throw new MapperRedirectException(new PageProvider(categoryShowPage, new PageParameters().set("slugPath", existence.get())));
+					throw new MapperRedirectException(new PageProvider(categoryShowPage,
+							new PageParameters().set(SLUG_PATH_PARAMETER, existence.get())));
 				default:
 				}
 			}
@@ -93,11 +104,13 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == categoryShowPage && info.getPageParameters() != null) {
-			final String categorySlugPath = info.getPageParameters().get("slugPath").toString();
+			final String categorySlugPath = info.getPageParameters().get(SLUG_PATH_PARAMETER).toString();
 			if (categorySlugPath != null) {
+				final PageParameters copy = new PageParameters(info.getPageParameters());
+				copy.remove(SLUG_PATH_PARAMETER);
 				final Url url = new Url(Splitter.on('/').splitToList(categorySlugPath), Charsets.UTF_8);
 				encodePageComponentInfo(url, info.getPageComponentInfo());
-				return url;
+				return encodePageParameters(url, copy, pageParametersEncoder);
 			} else {
 				return null;
 			}
@@ -119,6 +132,44 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 	@Override
 	protected boolean pageMustHaveBeenCreatedBookmarkable() {
 		return false;
+	}
+
+	/**
+	 * Encodes the given {@link org.apache.wicket.request.mapper.parameter.PageParameters} to the URL using the given
+	 * {@link org.apache.wicket.request.mapper.parameter.IPageParametersEncoder}. The original URL object is unchanged.
+	 *
+	 * @param url
+	 * @param pageParameters
+	 * @param encoder
+	 * @return URL with encoded parameters
+	 */
+	protected Url encodePageParameters(Url url, PageParameters pageParameters,
+									   final IPageParametersEncoder encoder) {
+		Args.notNull(url, "url");
+		Args.notNull(encoder, "encoder");
+
+		if (pageParameters == null)
+		{
+			pageParameters = new PageParameters();
+		}
+
+		Url parametersUrl = encoder.encodePageParameters(pageParameters);
+		if (parametersUrl != null)
+		{
+			// copy the url
+			url = new Url(url);
+
+			for (String s : parametersUrl.getSegments())
+			{
+				url.getSegments().add(s);
+			}
+			for (Url.QueryParameter p : parametersUrl.getQueryParameters())
+			{
+				url.getQueryParameters().add(p);
+			}
+		}
+
+		return url;
 	}
 
 }
