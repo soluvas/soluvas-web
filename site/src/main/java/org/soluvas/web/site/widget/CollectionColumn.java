@@ -1,7 +1,6 @@
 package org.soluvas.web.site.widget;
 
 import java.util.Collection;
-import java.util.Map;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -12,7 +11,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * Renders a {@link Map}.
+ * Renders a {@link Collection}.
  * @author ceefour
  */
 @SuppressWarnings("serial")
@@ -23,14 +22,15 @@ public class CollectionColumn<T> extends PropertyColumn<T, String> {
 		super(displayModel, propertyExpression);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId,
 			IModel<T> rowModel) {
-		final IModel<Collection<?>> cellModel = (IModel) getDataModel(rowModel);
-		item.add(new CollectionColumnPanel(componentId, cellModel) {
+		final IModel<Collection<Object>> cellModel = (IModel) getDataModel(rowModel);
+		item.add(new CollectionColumnPanel<Object>(componentId, cellModel) {
 			@Override
 			protected Component createItemComponent(String componentId,
-					ListItem item) {
+					ListItem<Object> item) {
 				return CollectionColumn.this.createItemComponent(componentId, item);
 			}
 		});
@@ -42,7 +42,7 @@ public class CollectionColumn<T> extends PropertyColumn<T, String> {
 	 * The default implementation creates a simple {@link Label}.
 	 * @return
 	 */
-	protected Component createItemComponent(String componentId, ListItem<T> item) {
+	protected Component createItemComponent(String componentId, ListItem<Object> item) {
 		return new Label(componentId, item.getModel());
 	}
 
