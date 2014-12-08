@@ -15,7 +15,7 @@ import org.apache.wicket.model.IModel;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class CollectionColumn<T> extends PropertyColumn<T, String> {
+public class CollectionColumn<T, C> extends PropertyColumn<T, String> {
 
 	public CollectionColumn(IModel<String> displayModel,
 			String propertyExpression) {
@@ -26,11 +26,11 @@ public class CollectionColumn<T> extends PropertyColumn<T, String> {
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId,
 			IModel<T> rowModel) {
-		final IModel<Collection<Object>> cellModel = (IModel) getDataModel(rowModel);
-		item.add(new CollectionColumnPanel<Object>(componentId, cellModel) {
+		final IModel<Collection<C>> cellModel = (IModel) getDataModel(rowModel);
+		item.add(new CollectionColumnPanel<C>(componentId, cellModel) {
 			@Override
 			protected Component createItemComponent(String componentId,
-					ListItem<Object> item) {
+					ListItem<C> item) {
 				return CollectionColumn.this.createItemComponent(componentId, item);
 			}
 		});
@@ -42,7 +42,7 @@ public class CollectionColumn<T> extends PropertyColumn<T, String> {
 	 * The default implementation creates a simple {@link Label}.
 	 * @return
 	 */
-	protected Component createItemComponent(String componentId, ListItem<Object> item) {
+	protected Component createItemComponent(String componentId, ListItem<C> item) {
 		return new Label(componentId, item.getModel());
 	}
 
