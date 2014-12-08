@@ -2,19 +2,11 @@ package org.soluvas.web.site.category;
 
 import javax.servlet.ServletRequest;
 
-import com.google.common.base.Optional;
 import org.apache.wicket.Page;
 import org.apache.wicket.core.request.handler.PageProvider;
-import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
-import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
-import org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper;
-import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
-import org.apache.wicket.request.mapper.parameter.IPageParametersEncoder;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.mapper.parameter.PageParametersEncoder;
-import org.apache.wicket.util.lang.Args;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
@@ -23,11 +15,13 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.data.Existence;
 import org.soluvas.data.StatusMask;
 import org.soluvas.web.site.MapperRedirectException;
+import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.collect.FluentIterable;
 
@@ -40,14 +34,13 @@ import com.google.common.collect.FluentIterable;
  * </pre>
  * @author ceefour
  */
-public class CategoryRequestMapper extends AbstractBookmarkableMapper {
+public class CategoryRequestMapper extends SeoBookmarkableMapper {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(CategoryRequestMapper.class);
 	public static final String SLUG_PATH_PARAMETER = "slugPath";
 
 	private final Class<? extends Page> categoryShowPage;
-	private IPageParametersEncoder pageParametersEncoder = new PageParametersEncoder();
 
 	/**
 	 * @param categoryShowPage CategoryShow {@link Page} with {@code slugPath} parameter.
@@ -117,59 +110,6 @@ public class CategoryRequestMapper extends AbstractBookmarkableMapper {
 		} else {
 			return null;
 		}
-	}
-
-	@Override
-	public IRequestHandler mapRequest(Request request) {
-		try {
-			return super.mapRequest(request);
-		} catch (MapperRedirectException e) {
-			log.debug("Redirecting '{}' to canonical page: {}", request.getUrl(), e.getPageProvider());
-			return new RenderPageRequestHandler(e.getPageProvider(), RedirectPolicy.ALWAYS_REDIRECT);
-		}
-	}
-
-	@Override
-	protected boolean pageMustHaveBeenCreatedBookmarkable() {
-		return false;
-	}
-
-	/**
-	 * Encodes the given {@link org.apache.wicket.request.mapper.parameter.PageParameters} to the URL using the given
-	 * {@link org.apache.wicket.request.mapper.parameter.IPageParametersEncoder}. The original URL object is unchanged.
-	 *
-	 * @param url
-	 * @param pageParameters
-	 * @param encoder
-	 * @return URL with encoded parameters
-	 */
-	protected Url encodePageParameters(Url url, PageParameters pageParameters,
-									   final IPageParametersEncoder encoder) {
-		Args.notNull(url, "url");
-		Args.notNull(encoder, "encoder");
-
-		if (pageParameters == null)
-		{
-			pageParameters = new PageParameters();
-		}
-
-		Url parametersUrl = encoder.encodePageParameters(pageParameters);
-		if (parametersUrl != null)
-		{
-			// copy the url
-			url = new Url(url);
-
-			for (String s : parametersUrl.getSegments())
-			{
-				url.getSegments().add(s);
-			}
-			for (Url.QueryParameter p : parametersUrl.getQueryParameters())
-			{
-				url.getQueryParameters().add(p);
-			}
-		}
-
-		return url;
 	}
 
 }
