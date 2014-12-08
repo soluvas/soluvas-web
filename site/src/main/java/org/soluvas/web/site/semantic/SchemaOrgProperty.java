@@ -4,6 +4,10 @@ package org.soluvas.web.site.semantic;
  * @author ceefour
  *
  */
+/**
+ * @author ceefour
+ *
+ */
 public enum SchemaOrgProperty {
 	/**
 	 * <a href="http://schema.org/description">schema:description</a> - A short description of the item.
@@ -100,5 +104,21 @@ public enum SchemaOrgProperty {
 	/**
 	 * <a href="http://schema.org/itemOffered">schema:itemOffered</a> - The item being offered.
 	 */
-	ITEM_OFFERED
+	ITEM_OFFERED,
+	/**
+	 * <a href="http://schema.org/dateCreated">schema:dateCreated</a> - The date on which the CreativeWork was created.
+	 */
+	DATE_CREATED,
+	/**
+	 * <a href="http://schema.org/dateModified">schema:dateModified</a> - The date on which the CreativeWork was most recently modified.
+	 */
+	DATE_MODIFIED,
+	/**
+	 * <a href="http://schema.org/datePublished">schema:datePublished</a> - Date of first broadcast/publication.
+	 */
+	DATE_PUBLISHED,
+	/**
+	 * <a href="http://schema.org/releaseDate">schema:releaseDate</a> - The release date of a product or product model. This can be used to distinguish the exact variant of a product.
+	 */
+	RELEASE_DATE
 }

@@ -8,7 +8,7 @@ import org.soluvas.web.site.SiteException;
 
 /**
  * @author atang
- *
+ * @see CommonFolderContentLookup
  */
 public class ContentNode implements Serializable {
 	

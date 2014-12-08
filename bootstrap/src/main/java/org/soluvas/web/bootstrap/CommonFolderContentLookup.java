@@ -46,7 +46,7 @@ public class CommonFolderContentLookup implements EntityLookup<String, String> {
 	}
 
 	@SuppressWarnings("unchecked") @Override
-	public <S extends String> S findOne(String id) {
+	public String findOne(String id) {
 		final File file = new File(dataDir, "common/content/" + id + ".html");
 		log.trace("Reading {}", file);
 		String content;
@@ -56,7 +56,7 @@ public class CommonFolderContentLookup implements EntityLookup<String, String> {
 			throw new SiteException(e, "Cannot read %s", file);
 		}
 		log.debug("Read {} ({} bytes) in {}", file.getName(), content.length(), file.getParent());
-		return (S) content;
+		return content;
 	}
 
 	@Override

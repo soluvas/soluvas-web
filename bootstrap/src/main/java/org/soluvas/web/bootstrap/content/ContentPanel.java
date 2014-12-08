@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.EntityLookup;
+import org.soluvas.web.bootstrap.CommonFolderContentLookup;
 import org.soluvas.web.bootstrap.ContentNode;
 import org.soluvas.web.site.MustacheRenderer;
 import org.soluvas.web.site.Nl2Br;
@@ -43,6 +44,7 @@ import com.google.common.collect.ImmutableMap;
  * 
  * @author rudi
  * @todo Merge with Soluvas Content.
+ * @see CommonFolderContentLookup
  */
 @SuppressWarnings("serial")
 public class ContentPanel extends GenericPanel<ContentNode> {

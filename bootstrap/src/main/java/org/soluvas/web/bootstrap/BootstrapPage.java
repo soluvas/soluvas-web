@@ -184,6 +184,7 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 	};
 	private IModel<PageMeta> pageMetaModel;
+	protected TransparentWebMarkupContainer html;
 	
 	/**
 	 * @param pageLinks Mutable.
@@ -293,6 +294,10 @@ public class BootstrapPage extends ExtensiblePage {
 		super(params);
 		this.sidebarVisibility = sidebarVisibility;
 		this.addedInfoVisibility = AddedInfoVisibility.HIDDEN;
+		
+		// HTML
+		html = new TransparentWebMarkupContainer("html");
+		add(html);
 		
 		if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
 			try {
@@ -443,10 +448,8 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		pageMetaModel = createPageMetaModel();
 
-		// HTML
-		add(new TransparentWebMarkupContainer("html")
-				.add(new AttributeModifier("lang", new PropertyModel<String>(
-						pageMetaModel, "languageCode"))));
+		html.add(new AttributeModifier("lang", new PropertyModel<String>(
+				pageMetaModel, "languageCode")));
 
 		// HEAD
 		// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
