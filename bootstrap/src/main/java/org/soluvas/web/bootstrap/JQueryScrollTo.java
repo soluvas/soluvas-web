@@ -3,17 +3,15 @@
  */
 package org.soluvas.web.bootstrap;
 
+import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.references.JQueryPluginUrlResourceReference;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
-import org.soluvas.web.site.AfterJQueryUrlResourceReference;
-
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 /**
  * <a href="http://flesler.blogspot.com">jQuery ScrollTo</a>.

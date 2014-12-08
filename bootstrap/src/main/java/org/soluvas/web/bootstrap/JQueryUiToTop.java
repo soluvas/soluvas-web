@@ -1,6 +1,10 @@
 package org.soluvas.web.bootstrap;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
+import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.references.JQueryPluginUrlResourceReference;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -9,13 +13,6 @@ import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.request.resource.UrlResourceReference;
-import org.soluvas.web.site.AfterJQueryUrlResourceReference;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 /**
  * @author rio
