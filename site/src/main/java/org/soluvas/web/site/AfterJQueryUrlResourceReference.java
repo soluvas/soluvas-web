@@ -12,8 +12,9 @@ import com.google.common.collect.ImmutableList;
 /**
  * A {@link UrlResourceReference} that depends on {@link JavaScriptLibrarySettings#getJQueryReference()}.
  * @author mahendri
+ * @deprecated Use {@link de.agilecoders.wicket.core.markup.html.references.JQueryPluginUrlResourceReference}
  */
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") @Deprecated
 public class AfterJQueryUrlResourceReference extends
 		UrlResourceReference {
 

@@ -1,8 +1,10 @@
 package org.soluvas.web.bootstrap;
 
+import de.agilecoders.wicket.core.markup.html.references.JQueryPluginUrlResourceReference;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -34,7 +36,8 @@ public class JQueryUiToTop {
 					CssHeaderItem.forReference(TOTOP_CSS)));
 		};
 	};
-	private static final UrlResourceReference TOTOP_CDN = new AfterJQueryUrlResourceReference("//cdn.jsdelivr.net/jquery.uitotop/1.2/js/jquery.ui.totop.min.js") {
+	private static final UrlResourceReference TOTOP_CDN = new JQueryPluginUrlResourceReference(
+			Url.parse("//cdn.jsdelivr.net/jquery.uitotop/1.2/js/jquery.ui.totop.min.js")) {
 		@Override
 		public Iterable<? extends HeaderItem> getDependencies() {
 			return Iterables.concat(super.getDependencies(), ImmutableList.of(
