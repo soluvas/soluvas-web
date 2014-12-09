@@ -15,7 +15,7 @@ public class BotUtils {
 	private static final ImmutableSet<String> dummyBots = ImmutableSet.of("appie", "architext",
 			"jeeves", "bjaaland", "ferret", "gulliver", "harvest", "htdig",
 			"linkwalker", "lycos_", "moget", "muscatferret", "myweb", "nomad",
-			"scooter", "yahoo!\\sslurp\\schina", "slurp", "weblayers",
+			"scooter", "yahoo!", "slurp", "weblayers",
 			"antibot", "bruinbot", "digout4u", "echo!", "ia_archiver",
 			"jennybot", "mercator", "netcraft", "msnbot", "petersnews",
 			"unlost_web_crawler", "voila", "webbase", "webcollage", "cfetch",
@@ -25,7 +25,7 @@ public class BotUtils {
 			// Google (+https://developers.google.com/+/web/snippet/)
 			"+/web/snippet");
 	private static final ImmutableSet<String> redirectCapableBots = ImmutableSet.of("googlebot",
-			"msnbot", "slurp", "jeeves");
+			"msnbot", "slurp", "jeeves", "facebookexternalhit");
 
 	/**
 	 * Whether user agent is a redirect capable bot.
