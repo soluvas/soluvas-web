@@ -23,9 +23,11 @@ public class BotUtils {
 			// Mozilla/5.0 (compatible; Google-StructuredDataTestingTool; +http://www.google.com/webmasters/tools/richsnippets)
 			"richsnippets",
 			// Google (+https://developers.google.com/+/web/snippet/)
-			"+/web/snippet");
-	private static final ImmutableSet<String> redirectCapableBots = ImmutableSet.of("googlebot",
-			"msnbot", "slurp", "jeeves", "facebookexternalhit");
+			"+/web/snippet",
+			// facebookexternalhit/1.1 (+http(s)://www.facebook.com/externalhit_uatext.php)
+			"facebookexternalhit");
+	private static final ImmutableSet<String> cookieCapableBots = ImmutableSet.of("googlebot",
+			"msnbot", "slurp", "jeeves");
 
 	/**
 	 * Whether user agent is a redirect capable bot.
@@ -35,7 +37,7 @@ public class BotUtils {
 	public static boolean isRedirectCapableBot(final String agent) {
 		if (agent != null) {
 			final String lowerAgent = agent.toLowerCase();
-			for (final String bot : redirectCapableBots) {
+			for (final String bot : cookieCapableBots) {
 				if (lowerAgent.indexOf(bot) != -1) {
 					return true;
 				}
@@ -52,7 +54,7 @@ public class BotUtils {
 	public static boolean isBot(final String agent) {
 		if (agent != null) {
 			final String lowerAgent = agent.toLowerCase();
-			for (final String bot : Iterables.concat(dummyBots, redirectCapableBots)) {
+			for (final String bot : Iterables.concat(dummyBots, cookieCapableBots)) {
 				if (lowerAgent.indexOf(bot) != -1) {
 					return true;
 				}
