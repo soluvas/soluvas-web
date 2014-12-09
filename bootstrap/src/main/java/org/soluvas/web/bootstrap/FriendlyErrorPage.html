@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- template from: http://bootsnipp.com/snippets/featured/simple-404-not-found-page -->
+<!doctype html>
+<html wicket:id="html" xmlns:wicket="http://wicket.apache.org">
+<head>
+	<title>Gangguan Sistem</title>
+	<style>
+	body { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);}
+	.error-template {padding: 40px 15px;text-align: center;}
+	.error-actions {margin-top:15px;margin-bottom:15px;}
+	.error-actions .btn { margin-right:10px; }
+	#techInfo { text-align: left; font-size: 80% }
+	#techInfo dt { margin-top: 0.5em }
+	#techInfo dd { white-space: pre-wrap }
+	</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+            
+				<h1>Fasilitas Ini Mengalami Gangguan</h1>
+				<h2 class="text-muted">
+					Mohon maaf atas ketidaknyamanan Anda, fasilitas ini sedang mengalami gangguan.
+					Sistem telah melaporkan kejadian ini kepada staf teknis untuk perbaikan.</h2>
+				<div class="error-details">
+					<wicket:container wicket:id="exceptionName">NullPointerException</wicket:container> <code wicket:id="incidentId2"></code>	
+				</div>
+				 
+				<div class="error-actions">
+					<a class="btn btn-primary btn-lg" wicket:id="homePageLink" href=""><span class="glyphicon glyphicon-home"></span> Kembali ke beranda</a>
+				</div>
+				
+				<button class="btn btn-link btn-xs" onclick="$('#techInfo').toggle()">Informasi Teknis</button>
+				<dl id="techInfo" style="display: none" class="well well-sm">
+					<dt>Incident ID</dt>
+					<dd wicket:id="incidentId">ddecb012-2fad-4a55-adc5-e0dbbc33e81a</dd>
+					<dt>Time</dt>
+					<dd wicket:id="time">2014-01-01T01:01:01.000+07:00</dd>
+					<dt>Request</dt>
+					<dd wicket:id="request"></dd>
+					<dt>Request Cookies</dt>
+					<dd wicket:id="cookies"></dd>
+					<dt>Request Headers</dt>
+					<dd wicket:id="headers"></dd>
+					<dt>Stack Trace</dt>
+					<dd wicket:id="stackTrace"></dd>
+				</dl>
+				
+            </div>
+        </div>
+    </div>
+</div>
+
+<wicket:container wicket:id="footer-container"/>
+</body>
+</html>
