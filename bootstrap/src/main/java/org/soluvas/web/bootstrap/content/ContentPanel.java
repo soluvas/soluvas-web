@@ -37,8 +37,6 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.google.common.collect.ImmutableMap;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
-
 /**
  * Reads HTML file from specified folder or classpath location.
  * URI is e.g. /p/how-to-order
@@ -80,7 +78,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	 * @param html Where to put the {@link ItemScopeBehavior}.
 	 * @param slugPath
 	 */
-	public ContentPanel(String id, RepeatingView sidebarBlocks, @Nullable HtmlTag html, @Nullable final String slugPath) {
+	public ContentPanel(String id, RepeatingView sidebarBlocks, @Nullable Component html, @Nullable final String slugPath) {
 		super(id); 
 		this.sidebarBlocks = sidebarBlocks;
 		setModel(new LoadableDetachableModel<ContentNode>() {
@@ -161,7 +159,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 		this(id, sidebarBlocks, null, null);
 	}
 	
-	public ContentPanel(String id, RepeatingView sidebarBlocks, HtmlTag html) {
+	public ContentPanel(String id, RepeatingView sidebarBlocks, Component html) {
 		this(id, sidebarBlocks, html, null);
 	}
 	
