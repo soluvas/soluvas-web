@@ -2,6 +2,7 @@ package org.soluvas.web.site;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.wicket.*;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler;
 import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
@@ -10,6 +11,8 @@ import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.component.IRequestablePage;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.handler.RedirectRequestHandler;
 import org.apache.wicket.request.mapper.info.PageComponentInfo;
 import org.apache.wicket.request.mapper.parameter.IPageParametersEncoder;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -24,8 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class SeoBookmarkableMapper extends AbstractBookmarkableMapper {
 	
-	private static final Logger log = LoggerFactory
-			.getLogger(SeoBookmarkableMapper.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	protected final IPageParametersEncoder pageParametersEncoder = new PageParametersEncoder();
 
@@ -84,9 +86,11 @@ public abstract class SeoBookmarkableMapper extends AbstractBookmarkableMapper {
 			}
 			return null;
 		} catch (MapperRedirectException e) {
-			log.debug("Redirecting '{}' to canonical page: {}", request.getUrl(), e.getPageProvider());
-//			return new RedirectRequestHandler(redirectUrl, 301);
-			return new RenderPageRequestHandler(e.getPageProvider(), RedirectPolicy.ALWAYS_REDIRECT);
+			final String redirectUri = RequestCycle.get()
+					.urlFor((Class< org.apache.wicket.Page>) e.getPageProvider().getPageClass(), e.getPageProvider().getPageParameters()).toString();
+			log.debug("Redirecting permanently '{}' to canonical URI '{}'", request.getUrl(), redirectUri);
+			// SEO: to avoid duplicate content, redirect permanently old URIs to new URIs
+			return new RedirectRequestHandler(redirectUri, 301);
 		}
 	}
 
