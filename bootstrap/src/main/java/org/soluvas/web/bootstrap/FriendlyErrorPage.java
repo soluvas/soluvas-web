@@ -94,10 +94,12 @@ public class FriendlyErrorPage extends InternalErrorPage {
 		add(new Label("request", requestDetails));
 		
 		String cookies = "";
-		for (final Cookie cookie : httpRequest.getCookies()) {
-			cookies += cookie.getName() + ": " + cookie.getValue() + "; maxAge=" + cookie.getMaxAge()
-					+ "; domain=" + cookie.getDomain() + "; path=" + cookie.getPath() + "; version=" + cookie.getVersion()
-					+ "; secure=" + cookie.getSecure() + "; comment=" + cookie.getComment() + "\n";
+		if (httpRequest.getCookies() != null) {
+			for (final Cookie cookie : httpRequest.getCookies()) {
+				cookies += cookie.getName() + ": " + cookie.getValue() + "; maxAge=" + cookie.getMaxAge()
+						+ "; domain=" + cookie.getDomain() + "; path=" + cookie.getPath() + "; version=" + cookie.getVersion()
+						+ "; secure=" + cookie.getSecure() + "; comment=" + cookie.getComment() + "\n";
+			}
 		}
 		add(new Label("cookies", cookies));
 		
