@@ -29,6 +29,7 @@ import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapCssRefer
  * Human-friendly and mobile first {@link InternalErrorPage}
  * with Bootstrap layout.
  * @author ceefour
+ * @see FriendlyErrorRequestListener
  */
 @SuppressWarnings("serial")
 public class FriendlyErrorPage extends InternalErrorPage {
