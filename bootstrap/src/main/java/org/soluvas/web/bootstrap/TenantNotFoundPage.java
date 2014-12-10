@@ -33,8 +33,7 @@ public class TenantNotFoundPage extends AbstractErrorPage {
 	}
 
 	@Override
-	protected void setHeaders(final WebResponse response)
-	{
+	protected void setHeaders(final WebResponse response) {
 		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 	}
 
