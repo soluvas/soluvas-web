@@ -85,6 +85,7 @@ public abstract class SeoBookmarkableMapper extends AbstractBookmarkableMapper {
 			return null;
 		} catch (MapperRedirectException e) {
 			log.debug("Redirecting '{}' to canonical page: {}", request.getUrl(), e.getPageProvider());
+//			return new RedirectRequestHandler(redirectUrl, 301);
 			return new RenderPageRequestHandler(e.getPageProvider(), RedirectPolicy.ALWAYS_REDIRECT);
 		}
 	}
