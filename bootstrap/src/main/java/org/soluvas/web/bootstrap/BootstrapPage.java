@@ -446,7 +446,13 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		contentAddedInfo.setVisible(addedInfoVisibility == AddedInfoVisibility.VISIBLE);
 		
-		pageMetaModel = createPageMetaModel();
+		final IModel<PageMeta> origPageMetaModel = createPageMetaModel();
+		pageMetaModel = new LoadableDetachableModel<PageMeta>() {
+			@Override
+			protected PageMeta load() {
+				return origPageMetaModel.getObject().toFinal(appManifest.getTitle());
+			}
+		};
 
 		html.add(new AttributeModifier("lang", new PropertyModel<String>(
 				pageMetaModel, "languageCode")));
@@ -464,15 +470,15 @@ public class BootstrapPage extends ExtensiblePage {
 								.getTitle())).orNull();
 			}
 		};
-		final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
-			@Override
-			protected String load() {
-				return " | " + appManifest.getTitle();
-			}
-		};
-		add(new Label("pageTitle", titleModel).setRenderBodyOnly(true));
-		add(new Label("pageTitleSuffix", titleSuffixModel)
-				.setRenderBodyOnly(true));
+//		final IModel<String> titleSuffixModel = new LoadableDetachableModel<String>() {
+//			@Override
+//			protected String load() {
+//				return " | " + appManifest.getTitle();
+//			}
+//		};
+		add(new Label("pageTitle", titleModel));
+//		add(new Label("pageTitleSuffix", titleSuffixModel)
+//				.setRenderBodyOnly(true));
 		// Get favicon from FaviconResourceReference if set, otherwise use PageMetaModel
 		final WebMarkupContainer faviconLink = new WebMarkupContainer(
 				"faviconLink");
@@ -523,6 +529,7 @@ public class BootstrapPage extends ExtensiblePage {
 	 * 		protected PageMeta load() {
 	 * 			final ProductRelease release = productReleaseModel.getObject();
 	 * 			final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
+	 * 			pageMeta.setPhase(PageMetaPhase.TEXT);
 	 * 			if (!Strings.isNullOrEmpty(release.getMetaTitle())) {
 	 * 				pageMeta.setTitle(release.getMetaTitle());
 	 * 			} else {

@@ -752,15 +752,17 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 */
 	@Override
-	public PageMeta toFinal() {
-		if (phase == PageMetaPhase.TEXT) {
+	public PageMeta toFinal(String appTitle) {
+		switch (phase) {
+		case TEXT:
 			final PageMetaImpl result = EcoreUtil.copy(this);
-			// TODO: merge
+			result.setTitle(result.getTitle() != null ? result.getTitle() + " | " + appTitle : appTitle);
 			return result;
-		} else if (phase == PageMetaPhase.FINAL) {
+		case FINAL:
 			return EcoreUtil.copy(this);
-		} else
+		default:
 			throw new IllegalStateException("Invalid phase " + phase + " to call toFinal()");
+		}
 	}
 
 	/**

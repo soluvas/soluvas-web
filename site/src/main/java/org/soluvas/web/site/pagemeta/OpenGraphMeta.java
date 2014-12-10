@@ -304,7 +304,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * og:image - An image URL which should represent your object within the graph.
-	 * 
+	 * The 'og:image' property should be explicitly provided, even if a value can be inferred from other tags.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Image</em>' attribute.
 	 * @see #setImage(String)
@@ -330,6 +330,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * og:url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., "http://www.imdb.com/title/tt0117500/".
+	 * The 'og:url' property should be explicitly provided, even if a value can be inferred from other tags.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Url</em>' attribute.
 	 * @see #setUrl(String)
@@ -380,6 +381,7 @@ public interface OpenGraphMeta extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * og:description - A one to two sentence description of your object.
+	 * The 'og:description' property should be explicitly provided, even if a value can be inferred from other tags.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)

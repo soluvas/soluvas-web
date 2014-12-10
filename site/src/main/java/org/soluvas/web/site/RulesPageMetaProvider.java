@@ -93,7 +93,7 @@ public class RulesPageMetaProvider implements PageMetaProvider {
 		scope.put("appManifest", context.getAppManifest());
 		scope.putAll(modelsScopeMap);
 		final PageMeta textPageMeta = pageMeta.getPhase() == PageMetaPhase.TEMPLATE ? pageMeta.toText(scope) : pageMeta;
-		final PageMeta finalPageMeta = pageMeta.getPhase() == PageMetaPhase.TEXT ? pageMeta.toFinal() : textPageMeta;
+		final PageMeta finalPageMeta = pageMeta.getPhase() == PageMetaPhase.TEXT ? pageMeta.toFinal(context.getAppManifest().getTitle()) : textPageMeta;
 		
 		// process Icon
 		final PageIcon relativeIcon = finalPageMeta.getIcon();

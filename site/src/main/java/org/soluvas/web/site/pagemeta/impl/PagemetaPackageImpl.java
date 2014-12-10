@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.soluvas.commons.CommonsPackage;
 import org.soluvas.web.site.PageRequestContext;
@@ -237,6 +238,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 
 		// Initialize simple dependencies
 		CommonsPackage.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		thePagemetaPackage.createPackageContents();
@@ -1315,7 +1317,8 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		EOperation op = addEOperation(pageMetaEClass, this.getPageMeta(), "toText", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(pageMetaEClass, this.getPageMeta(), "toFinal", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(pageMetaEClass, this.getPageMeta(), "toFinal", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "appTitle", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(pageIconEClass, PageIcon.class, "PageIcon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPageIcon_BrandingBundleName(), ecorePackage.getEString(), "brandingBundleName", null, 0, 1, PageIcon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1435,343 +1438,343 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * @generated
 	 */
 	protected void createGenModelAnnotations() {
-		String source = "http://www.eclipse.org/emf/2002/GenModel";		
+		String source = "http://www.eclipse.org/emf/2002/GenModel";	
 		addAnnotation
 		  (pageMetaEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Low-level meta-information about a HTML page.\n\nFor practical purposes, these are usually provided dynamically. However, some information, like favicon URIs and OpenGraph siteName are usually provided statically from application\'s site catalog XMI e.g. berbatik.SiteCatalog.xmi.\n\nNote that PageMeta uses low-level HTML title, not a \"CMS title\" (which needs to be reformatted i.e. with prefix & suffix).\nIt also distinguishes between meta description and og:description.\nSo it doesn\'t fit well to be provided statically."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Creates a new PageMeta with phase=text using the input context.\n\nThrows IllegalStateException if phase is after text (i.e. final)."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "Returns a new PageMeta with titles merged.\n\nThrows IllegalStateException if phase is not text."
-		   });		
+		   });	
 		addAnnotation
 		  (getPageMeta_LanguageCode(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Used in \"html\" tag, recommended is \"en\"."
-		   });		
+		   });	
 		addAnnotation
 		  (getPageMeta_Charset(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Recommended: utf-8."
-		   });		
+		   });	
 		addAnnotation
 		  (getPageMeta_Viewport(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Recommended: width=device-width, initial-scale=1.0"
-		   });		
+		   });	
 		addAnnotation
 		  (pageIconEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Create a PageIcon containing absolute URIs."
-		   });		
+		   });	
 		addAnnotation
 		  (getPageIcon_BrandingBundleName(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Used to calculate the absolute URI of icons, relative to Image URI and bundle name.\n\nThis will be used only if any of *Uri is not set."
-		   });		
+		   });	
 		addAnnotation
 		  (openGraphMetaEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook.\n\nWhile many different technologies and schemas exist and could be combined together, there isn\'t a single technology which provides enough information to richly represent any web page within the social graph. The Open Graph protocol builds on these existing technologies and gives developers one thing to implement. Developer simplicity is a key goal of the Open Graph protocol which has informed many of the technical design decisions.\n\nBasic Metadata\nTo turn your web pages into graph objects, you need to add basic metadata to your page. We\'ve based the initial version of the protocol on RDFa which means that you\'ll place additional <meta> tags in the <head> of your web page. The four required properties for every page are:\n\nog:title - The title of your object as it should appear within the graph, e.g., \"The Rock\".\nog:type - The type of your object, e.g., \"video.movie\". Depending on the type you specify, other properties may also be required.\nog:image - An image URL which should represent your object within the graph.\nog:url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., \"http://www.imdb.com/title/tt0117500/\".\nAs an example, the following is the Open Graph protocol markup for The Rock on IMDB:\n\n<html prefix=\"og: http://ogp.me/ns#\">\n<head>\n<title>The Rock (1996)</title>\n<meta property=\"og:title\" content=\"The Rock\" />\n<meta property=\"og:type\" content=\"video.movie\" />\n<meta property=\"og:url\" content=\"http://www.imdb.com/title/tt0117500/\" />\n<meta property=\"og:image\" content=\"http://ia.media-imdb.com/images/rock.jpg\" />\n...\n</head>\n...\n</html>\nOptional Metadata\nThe following properties are optional for any object and are generally recommended:\n\nog:audio - A URL to an audio file to accompany this object.\nog:description - A one to two sentence description of your object.\nog:determiner - The word that appears before this object\'s title in a sentence. An enum of (a, an, the, \"\", auto). If auto is chosen, the consumer of your data should chose between \"a\" or \"an\". Default is \"\" (blank).\nog:locale - The locale these tags are marked up in. Of the format language_TERRITORY. Default is en_US.\nog:locale:alternate - An array of other locales this page is available in.\nog:site_name - If your object is part of a larger web site, the name which should be displayed for the overall site. e.g., \"IMDb\".\nog:video - A URL to a video file that complements this object.\nFor example (line-break solely for display purposes):\n\n<meta property=\"og:audio\" content=\"http://example.com/bond/theme.mp3\" />\n<meta property=\"og:description\" \n  content=\"Sean Connery found fame and fortune as the\n           suave, sophisticated British agent, James Bond.\" />\n<meta property=\"og:determiner\" content=\"the\" />\n<meta property=\"og:locale\" content=\"en_GB\" />\n<meta property=\"og:locale:alternate\" content=\"fr_FR\" />\n<meta property=\"og:locale:alternate\" content=\"es_ES\" />\n<meta property=\"og:site_name\" content=\"IMDb\" />\n<meta property=\"og:video\" content=\"http://example.com/bond/trailer.swf\" />\nThe RDF schema (in Turtle) can be found at ogp.me/ns.\n\nStructured Properties\nSome properties can have extra metadata attached to them. These are specified in the same way as other metadata with property and content, but the property will have extra :.\n\nThe og:image property has some optional structured properties:\n\nog:image:url - Identical to og:image.\nog:image:secure_url - An alternate url to use if the webpage requires HTTPS.\nog:image:type - A MIME type for this image.\nog:image:width - The number of pixels wide.\nog:image:height - The number of pixels high.\nA full image example:\n\n<meta property=\"og:image\" content=\"http://example.com/ogp.jpg\" />\n<meta property=\"og:image:secure_url\" content=\"https://secure.example.com/ogp.jpg\" />\n<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta property=\"og:image:width\" content=\"400\" />\n<meta property=\"og:image:height\" content=\"300\" />\nThe og:video tag has the identical tags as og:image. Here is an example:\n\n<meta property=\"og:video\" content=\"http://example.com/movie.swf\" />\n<meta property=\"og:video:secure_url\" content=\"https://secure.example.com/movie.swf\" />\n<meta property=\"og:video:type\" content=\"application/x-shockwave-flash\" />\n<meta property=\"og:video:width\" content=\"400\" />\n<meta property=\"og:video:height\" content=\"300\" />\nThe og:audio tag only has the first 3 properties available (since size doesn\'t make sense for sound):\n\n<meta property=\"og:audio\" content=\"http://example.com/sound.mp3\" />\n<meta property=\"og:audio:secure_url\" content=\"https://secure.example.com/sound.mp3\" />\n<meta property=\"og:audio:type\" content=\"audio/mpeg\" />\nArrays\nIf a tag can have multiple values, just put multiple versions of the same <meta> tag on your page. The first tag (from top to bottom) is given preference during conflicts.\n\n<meta property=\"og:image\" content=\"http://example.com/rock.jpg\" />\n<meta property=\"og:image\" content=\"http://example.com/rock2.jpg\" />\nPut structured properties after you declare their root tag. Whenever another root element is parsed, that structured property is considered to be done and another one is started.\n\nFor example:\n\n<meta property=\"og:image\" content=\"http://example.com/rock.jpg\" />\n<meta property=\"og:image:width\" content=\"300\" />\n<meta property=\"og:image:height\" content=\"300\" />\n<meta property=\"og:image\" content=\"http://example.com/rock2.jpg\" />\n<meta property=\"og:image\" content=\"http://example.com/rock3.jpg\" />\n<meta property=\"og:image:height\" content=\"1000\" />\nmeans there are 3 images on this page, the first image is 300x300, the middle one has unspecified dimensions, and the last one is 1000px tall.\n\nObject Types\nIn order for your object to be represented within the graph, you need to specify its type. This is done using the og:type property:\n\n<meta property=\"og:type\" content=\"website\" />\nWhen the community agrees on the schema for a type, it is added to the list of global types. All other objects in the type system are CURIEs of the form\n\n<head prefix=\"my_namespace: http://example.com/ns#\">\n<meta property=\"og:type\" content=\"my_namespace:my_type\" />\nThe global types are grouped into verticals. Each vertical has its own namespace. The og:type values for a namespace are always prefixed with the namespace and then a period. This is to reduce confusion with user-defined namespaced types which always have colons in them.\n\nMusic\nNamespace URI: http://ogp.me/ns/music#\nog:type values:\n\nmusic.song\n\nmusic:duration - integer >=1 - The song\'s length in seconds.\nmusic:album - music.album array - The album this song is from.\nmusic:album:disc - integer >=1 - Which disc of the album this song is on.\nmusic:album:track - integer >=1 - Which track this song is.\nmusic:musician - profile array - The musician that made this song.\nmusic.album\n\nmusic:song - music.song - The song on this album.\nmusic:song:disc - integer >=1 - The same as music:album:disc but in reverse.\nmusic:song:track - integer >=1 - The same as music:album:track but in reverse.\nmusic:musician - profile - The musician that made this song.\nmusic:release_date - datetime - The date the album was released.\nmusic.playlist\n\nmusic:song - Identical to the ones on music.album\nmusic:song:disc\nmusic:song:track\nmusic:creator - profile - The creator of this playlist.\nmusic.radio_station\n\nmusic:creator - profile - The creator of this station.\nVideo\nNamespace URI: http://ogp.me/ns/video#\nog:type values:\n\nvideo.movie\n\nvideo:actor - profile array - Actors in the movie.\nvideo:actor:role - string - The role they played.\nvideo:director - profile array - Directors of the movie.\nvideo:writer - profile array - Writers of the movie.\nvideo:duration - integer >=1 - The movie\'s length in seconds.\nvideo:release_date - datetime - The date the movie was released.\nvideo:tag - string array - Tag words associated with this movie.\nvideo.episode\n\nvideo:actor - Identical to video.movie\nvideo:actor:role\nvideo:director\nvideo:writer\nvideo:duration\nvideo:release_date\nvideo:tag\nvideo:series - video.tv_show - Which series this episode belongs to.\nvideo.tv_show\n\nA multi-episode TV show. The metadata is identical to video.movie.\n\nvideo.other\n\nA video that doesn\'t belong in any other category. The metadata is identical to video.movie.\n\nNo Vertical\nThese are globally defined objects that just don\'t fit into a vertical but yet are broadly used and agreed upon.\n\nog:type values:\n\narticle - Namespace URI: http://ogp.me/ns/article#\n\narticle:published_time - datetime - When the article was first published.\narticle:modified_time - datetime - When the article was last changed.\narticle:expiration_time - datetime - When the article is out of date after.\narticle:author - profile array - Writers of the article.\narticle:section - string - A high-level section name. E.g. Technology\narticle:tag - string array - Tag words associated with this article.\nbook - Namespace URI: http://ogp.me/ns/book#\n\nbook:author - profile array - Who wrote this book.\nbook:isbn - string - The ISBN\nbook:release_date - datetime - The date the book was released.\nbook:tag - string array - Tag words associated with this book.\nprofile - Namespace URI: http://ogp.me/ns/profile#\n\nprofile:first_name - string - A name normally given to an individual by a parent or self-chosen.\nprofile:last_name - string - A name inherited from a family or marriage and by which the individual is commonly known.\nprofile:username - string - A short unique string to identify them.\nprofile:gender - enum(male, female) - Their gender.\nwebsite - Namespace URI: http://ogp.me/ns/website#\n\nNo additional properties other than the basic ones. Any non-marked up webpage should be treated as og:type website.\n\nTypes\nThe following types are used when defining attributes in Open Graph protocol.\n\nType\tDescription\tLiterals\nBoolean\tA Boolean represents a true or false value\ttrue, false, 1, 0\nDateTime\tA DateTime represents a temporal value composed of a date (year, month, day) and an optional time component (hours, minutes)\tISO 8601\nEnum\tA type consisting of bounded set of constant string values (enumeration members).\tA string value that is a member of the enumeration\nFloat\tA 64-bit signed floating point number\tAll literals that conform to the following formats:\n\n1.234\n-1.234\n1.2e3\n-1.2e3\n7E-10\nInteger\tA 32-bit signed integer. In many languages integers over 32-bits become floats, so we limit Open Graph protocol for easy multi-language use.\tAll literals that conform to the following formats:\n\n1234\n-123\nString\tA sequence of Unicode characters\tAll literals composed of Unicode characters with no escape characters\nURL\tA sequence of Unicode characters that identify an Internet resource.\tAll valid URLs that utilize the http:// or https:// protocols\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Title(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:title. The title of your object as it should appear within the graph, e.g., \"The Rock\"."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Type(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:type. The type of your object, e.g., \"video.movie\". Depending on the type you specify, other properties may also be required."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Image(), 
 		   source, 
 		   new String[] {
-			 "documentation", "og:image - An image URL which should represent your object within the graph.\n"
-		   });		
+			 "documentation", "og:image - An image URL which should represent your object within the graph.\nThe \'og:image\' property should be explicitly provided, even if a value can be inferred from other tags."
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Url(), 
 		   source, 
 		   new String[] {
-			 "documentation", "og:url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., \"http://www.imdb.com/title/tt0117500/\"."
-		   });		
+			 "documentation", "og:url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., \"http://www.imdb.com/title/tt0117500/\".\nThe \'og:url\' property should be explicitly provided, even if a value can be inferred from other tags."
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Audio(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:audio - A URL to an audio file to accompany this object."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Description(), 
 		   source, 
 		   new String[] {
-			 "documentation", "og:description - A one to two sentence description of your object."
-		   });		
+			 "documentation", "og:description - A one to two sentence description of your object.\nThe \'og:description\' property should be explicitly provided, even if a value can be inferred from other tags."
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Determiner(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:determiner - The word that appears before this object\'s title in a sentence. An enum of (a, an, the, \"\", auto). If auto is chosen, the consumer of your data should chose between \"a\" or \"an\". Default is \"\" (blank)."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Locale(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:locale - The locale these tags are marked up in. Of the format language_TERRITORY. Default is en_US."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_LocaleAlternates(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:locale:alternate - An array of other locales this page is available in.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_SiteName(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:site_name - If your object is part of a larger web site, the name which should be displayed for the overall site. e.g., \"IMDb\"."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphMeta_Video(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:video - A URL to a video file that complements this object.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (openGraphImageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "The og:image property has some optional structured properties:\n\nog:image:url - Identical to og:image.\nog:image:secure_url - An alternate url to use if the webpage requires HTTPS.\nog:image:type - A MIME type for this image.\nog:image:width - The number of pixels wide.\nog:image:height - The number of pixels high.\nA full image example:\n\n<meta property=\"og:image\" content=\"http://example.com/ogp.jpg\" />\n<meta property=\"og:image:secure_url\" content=\"https://secure.example.com/ogp.jpg\" />\n<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta property=\"og:image:width\" content=\"400\" />\n<meta property=\"og:image:height\" content=\"300\" />"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphImage_Url(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:url - Identical to og:image."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphImage_SecureUrl(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:secure_url - An alternate url to use if the webpage requires HTTPS.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphImage_Type(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:type - A MIME type for this image.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphImage_Width(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:width - The number of pixels wide.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphImage_Height(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:height - The number of pixels high.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (openGraphVideoEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "The og:video tag has the identical tags as og:image. Here is an example:\n\n<meta property=\"og:video\" content=\"http://example.com/movie.swf\" />\n<meta property=\"og:video:secure_url\" content=\"https://secure.example.com/movie.swf\" />\n<meta property=\"og:video:type\" content=\"application/x-shockwave-flash\" />\n<meta property=\"og:video:width\" content=\"400\" />\n<meta property=\"og:video:height\" content=\"300\" />"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphVideo_Url(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:url - Identical to og:image."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphVideo_SecureUrl(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:secure_url - An alternate url to use if the webpage requires HTTPS.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphVideo_Type(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:type - A MIME type for this image.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphVideo_Width(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:width - The number of pixels wide.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphVideo_Height(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:height - The number of pixels high.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (openGraphAudioEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "The og:audio tag only has the first 3 properties available (since size doesn\'t make sense for sound):\n\n<meta property=\"og:audio\" content=\"http://example.com/sound.mp3\" />\n<meta property=\"og:audio:secure_url\" content=\"https://secure.example.com/sound.mp3\" />\n<meta property=\"og:audio:type\" content=\"audio/mpeg\" />"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphAudio_Url(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:url - Identical to og:image."
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphAudio_SecureUrl(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:secure_url - An alternate url to use if the webpage requires HTTPS.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getOpenGraphAudio_Type(), 
 		   source, 
 		   new String[] {
 			 "documentation", "og:image:type - A MIME type for this image.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (pageSelectorEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Matches a web request against a rule and modifies the current Page object."
-		   });		
+		   });	
 		addAnnotation
 		  (pageSelectorEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Determines if this selector matches the provided page."
-		   });		
+		   });	
 		addAnnotation
 		  (uriPatternPageSelectorEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Matches web requests using http://code.google.com/p/wo-furi/"
-		   });		
+		   });	
 		addAnnotation
 		  (pageRuleEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Positioner Guide:\n\n* -200 : org.soluvas core\n* -100 : coarse-grained\n* -50 : module-level fine-grained (e.g. bippo salesorder)\n* -10 : product-level fine-grained (e.g. bippo )\n* 0 or missing : application-level fine-grained (e.g. berbatik)\n* 10 : customizations\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getPageRule_Declaration(), 
 		   source, 
 		   new String[] {
 			 "documentation", "What to apply when the selector matches."
-		   });		
+		   });	
 		addAnnotation
 		  (sourcePageDeclarationEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Applies the contents of the specified \"source\" Page to current web request.\n\nThe Page instance must be linked via EMF, which is sometimes handy but not very flexible for runtime purposes."
-		   });		
+		   });	
 		addAnnotation
 		  (processorPageDeclarationEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Uses a PageProcessor implementation to modify the Page for current web request.\n\nIt will be looked up in OSGi (scoped for the current tenant) using the given filters."
-		   });		
+		   });	
 		addAnnotation
 		  (getProcessorPageDeclaration_Filter(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Filter in LDAP syntax."
-		   });		
+		   });	
 		addAnnotation
 		  (resourcePageDeclarationEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Loads the file from the specified bundle and the specified resource path.\n\nThis is handy to load from classpath in OSGi environments, but cannot handle overrides properly. You need a proper federating repository for that."
-		   });		
+		   });	
 		addAnnotation
 		  (getResourcePageDeclaration_Bundle(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Bundle symbolic name that hosts the Page XMI file."
-		   });		
+		   });	
 		addAnnotation
 		  (getResourcePageDeclaration_Path(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Full path to the Page XMI in the bundle, including the leading \'/\' and the \'.xmi\' extension."
-		   });		
+		   });	
 		addAnnotation
 		  (getRepositoryPageDeclaration_Filter(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Filter to the repository in LDAP syntax. Will be looked up in OSGi."
-		   });		
+		   });	
 		addAnnotation
 		  (getRepositoryPageDeclaration_Path(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Path to the page in the repository."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaCatalogEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "The site catalog is used to define all *logical* sections and pages in a site.\n\nIt is used in 2 ways:\n1. at generation time, to generate concrete page classes, Wicket HTML markup, and JS files.\n2. at runtime, to inspect *logical* sections and pages in the site.\n\nNote that information about actual concrete page classes etc. are not visible here, and if needed, then it should be described using another schema."
-		   });		
+		   });	
 		addAnnotation
 		  (pageRuleCollectionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Contains a list of rules."
-		   });		
+		   });	
 		addAnnotation
 		  (pageTitleEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Used to compose a title string.\n\nThis will set the :\n- page meta title : prefixes.join(prefixSeparator) + main + suffixes.join(suffixSeparator)\n- open graph meta : title <= main (TODO: needs to be more configurable), e.g. we want to display \"Zalova Bag - Bags\" or \"Zalova Bag - O Batiks\" or even \"Zalova Bag - Bags - O Batiks\""
-		   });		
+		   });	
 		addAnnotation
 		  (classPageSelectorEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Selects pages based on Wicket page class name."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaPhaseEEnum, 
 		   source, 
 		   new String[] {
 			 "documentation", "PageMeta need to have at least 3 states : \n\n1. `template`. Contains Mustache templates.\n2. `text`. Will not be parsed for template but titles not yet merged.\n3. `final`. Titles already merged."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaPhaseEEnum.getELiterals().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Contains Mustache templates."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaPhaseEEnum.getELiterals().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "Will not be parsed for template but titles not yet merged."
-		   });		
+		   });	
 		addAnnotation
 		  (pageMetaPhaseEEnum.getELiterals().get(2), 
 		   source, 

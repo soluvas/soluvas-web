@@ -7,6 +7,8 @@ import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.parser.XmlTag.TagType;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import com.google.common.base.CaseFormat;
 
@@ -21,22 +23,31 @@ import com.google.common.base.CaseFormat;
 public class ItemScopeBehavior extends Behavior {
 	
 	@Nonnull
-	private final Enum<?> itemType;
+	private final IModel<? extends Enum<?>> itemTypeModel;
 	
 	/**
 	 * @param itemType Typically a {@link SchemaOrgClass} value, e.g. {@link SchemaOrgClass#PRODUCT}.
 	 */
 	public ItemScopeBehavior(@Nonnull Enum<?> itemType) {
 		super();
-		this.itemType = itemType;
+		this.itemTypeModel = new Model<Enum<?>>(itemType);
+	}
+
+	/**
+	 * @param itemType Typically a {@link SchemaOrgClass} value, e.g. {@link SchemaOrgClass#PRODUCT}.
+	 */
+	public ItemScopeBehavior(@Nonnull IModel<? extends Enum<?>> itemTypeModel) {
+		super();
+		this.itemTypeModel = itemTypeModel;
 	}
 
 	@Override
 	public void onComponentTag(Component component, ComponentTag tag) {
 		super.onComponentTag(component, tag);
-		if (tag.getType() != TagType.CLOSE) {
+		if (tag.getType() != TagType.CLOSE && itemTypeModel.getObject() != null) {
 			tag.getAttributes().put("itemscope", null);
-			tag.getAttributes().put("itemtype", "http://schema.org/" + CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, itemType.name()));
+			tag.getAttributes().put("itemtype", "http://schema.org/" + 
+				CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, itemTypeModel.getObject().name()));
 		}
 	}
 	

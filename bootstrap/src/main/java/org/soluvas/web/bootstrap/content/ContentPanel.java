@@ -10,6 +10,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -27,11 +28,16 @@ import org.soluvas.web.site.MustacheRenderer;
 import org.soluvas.web.site.Nl2Br;
 import org.soluvas.web.site.SiteException;
 import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaPhase;
 import org.soluvas.web.site.pagemeta.PagemetaFactory;
+import org.soluvas.web.site.semantic.ItemScopeBehavior;
+import org.soluvas.web.site.semantic.SchemaOrgClass;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.google.common.collect.ImmutableMap;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 
 /**
  * Reads HTML file from specified folder or classpath location.
@@ -68,7 +74,13 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 		return new PageParameters().set("slugPath", slugPath);
 	}
 	
-	public ContentPanel(String id, RepeatingView sidebarBlocks, @Nullable final String slugPath) {
+	/**
+	 * @param id
+	 * @param sidebarBlocks
+	 * @param html Where to put the {@link ItemScopeBehavior}.
+	 * @param slugPath
+	 */
+	public ContentPanel(String id, RepeatingView sidebarBlocks, @Nullable HtmlTag html, @Nullable final String slugPath) {
 		super(id); 
 		this.sidebarBlocks = sidebarBlocks;
 		setModel(new LoadableDetachableModel<ContentNode>() {
@@ -84,10 +96,28 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 			}
 		});
 		
+		if (html != null) {
+			html.add(new ItemScopeBehavior(new AbstractReadOnlyModel<SchemaOrgClass>() {
+				@Override
+				public SchemaOrgClass getObject() {
+					final String wantedSlugPath = slugPath != null ? slugPath : getPage().getPageParameters().get("slugPath").toString();
+					// TODO: make this flexible from the html itself or "node types" (a la Drupal / HippoCMS)
+					if ("about".equalsIgnoreCase(wantedSlugPath)) {
+						return SchemaOrgClass.ABOUT_PAGE;
+					} else if ("contact".equalsIgnoreCase(wantedSlugPath)) {
+						return SchemaOrgClass.CONTACT_PAGE;
+					} else {
+						return SchemaOrgClass.WEB_PAGE;
+					}
+				}
+			}));
+		}
+		
 		pageMetaModel = new LoadableDetachableModel<PageMeta>() {
 			@Override
 			protected PageMeta load() {
 				final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
+				pageMeta.setPhase(PageMetaPhase.TEXT);
 				final ContentNode contentNode = getModelObject();
 				switch (contentNode.getTemplateSystem()) {
 				case NONE:
@@ -128,7 +158,11 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	 * @param sidebarBlocks Where to put the sidebar content renderer.
 	 */
 	public ContentPanel(String id, RepeatingView sidebarBlocks) {
-		this(id, sidebarBlocks, null);
+		this(id, sidebarBlocks, null, null);
+	}
+	
+	public ContentPanel(String id, RepeatingView sidebarBlocks, HtmlTag html) {
+		this(id, sidebarBlocks, html, null);
 	}
 	
 	@Override

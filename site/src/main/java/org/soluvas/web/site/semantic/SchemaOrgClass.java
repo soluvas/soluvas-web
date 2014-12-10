@@ -56,4 +56,15 @@ public enum SchemaOrgClass {
 	 * @see #WEB_PAGE
 	 */
 	ITEM_PAGE,
+	/**
+	 * <a href="http://schema.org/AboutPage">schema:AboutPage</a> - Web page type: About page.
+	 * @see #WEB_PAGE
+	 */
+	ABOUT_PAGE,
+	/**
+	 * <a href="http://schema.org/ContactPage">schema:ContactPage</a> - Web page type: Contact page.
+	 * @see #WEB_PAGE
+	 */
+	CONTACT_PAGE,
+	
 }

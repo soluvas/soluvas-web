@@ -405,6 +405,6 @@ public interface PageMeta extends EObject {
 	 * @model
 	 * @generated
 	 */
-	PageMeta toFinal();
+	PageMeta toFinal(String appTitle);
 
 } // PageMeta
