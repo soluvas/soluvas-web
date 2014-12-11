@@ -476,7 +476,6 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		faviconLink.add(new AttributeModifier("href", faviconUriModel));
 		add(faviconLink);
-		log.debug("pagemetamodel {} -- {}", pageMetaModel.getObject().getDescription(), pageMetaModel.getObject().getAuthor());
 		final PropertyModel<String> descriptionModel = new PropertyModel<>(pageMetaModel, "description");
 		final PropertyModel<String> keywordsModel = new PropertyModel<>(pageMetaModel, "keywords");
 		final PropertyModel<String> authorModel = new PropertyModel<>(pageMetaModel, "author");
