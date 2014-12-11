@@ -17,7 +17,8 @@
           title="Soluvas Web"
           keywords=""
           description=""
-          viewport="width=device-width, initial-scale=1.0">
+          viewport="width=device-width, initial-scale=1.0"
+          author="{{{appManifest.organizationName}}}">
         <icon
             brandingBundleName="org.soluvas.web.site"
             faviconPath="soluvas-favicon.ico"/>

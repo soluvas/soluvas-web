@@ -19,6 +19,7 @@ import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -46,6 +47,7 @@ import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.FaviconResourceReference;
 import org.soluvas.web.site.JavaScriptLink;
 import org.soluvas.web.site.JavaScriptSource;
+import org.soluvas.web.site.ModelVisibilityBehavior;
 import org.soluvas.web.site.PageMetaProvider;
 import org.soluvas.web.site.PageRequestContext;
 import org.soluvas.web.site.Site;
@@ -66,6 +68,7 @@ import com.google.common.collect.Ordering;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
+import de.agilecoders.wicket.core.markup.html.bootstrap.html.MetaTag;
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
  * 
@@ -82,25 +85,6 @@ public class BootstrapPage extends ExtensiblePage {
 	public static enum AddedInfoVisibility {
 		VISIBLE,
 		HIDDEN
-	}
-
-	public static class MetaTag extends WebMarkupContainer {
-
-		/**
-		 * @param id
-		 * @param model
-		 */
-		public MetaTag(String id, IModel<String> model) {
-			super(id, model);
-			add(new AttributeModifier("content", model));
-		}
-
-		@Override
-		protected void onConfigure() {
-			super.onConfigure();
-			setVisible(!Strings.isNullOrEmpty(getDefaultModelObjectAsString()));
-		}
-
 	}
 
 	public static final class JsSourceVisitor implements
@@ -314,6 +298,8 @@ public class BootstrapPage extends ExtensiblePage {
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
 		
+		add(new ExternalLink("canonical", urlFor(getClass(), getPageParameters()).toString()));
+		
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
 		
@@ -343,7 +329,7 @@ public class BootstrapPage extends ExtensiblePage {
 		navbar.add(new BookmarkablePageLink<Page>("homeLink",
 				getApplication().getHomePage()) {
 			{
-				this.setBody(new Model<String>(appManifest.getTitle()));
+				this.setBody(new Model<>(appManifest.getTitle()));
 			}
 
 			@Override
@@ -490,12 +476,13 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		faviconLink.add(new AttributeModifier("href", faviconUriModel));
 		add(faviconLink);
-		add(new MetaTag("metaDescription", new PropertyModel<String>(pageMetaModel, "description")),
-			new MetaTag("metaKeywords", new PropertyModel<String>(pageMetaModel, "keywords")),
-			new MetaTag("ogTitle", new PropertyModel<String>(pageMetaModel, "openGraph.title")),
-			new MetaTag("ogType", new PropertyModel<String>(pageMetaModel,"openGraph.type")),
-			new MetaTag("ogUrl", new PropertyModel<String>(pageMetaModel, "openGraph.url")),
-			new MetaTag("ogImage", new PropertyModel<String>(pageMetaModel,"openGraph.image")));
+		add(new MetaTag("metaDescription", new Model<>("description"), new PropertyModel<String>(pageMetaModel, "description")).add(new ModelVisibilityBehavior()),
+			new MetaTag("metaKeywords", new Model<>("keywords"), new PropertyModel<String>(pageMetaModel, "keywords")).add(new ModelVisibilityBehavior()),
+			new MetaTag("author", new Model<>("author"), new PropertyModel<String>(pageMetaModel, "author")).add(new ModelVisibilityBehavior()) );
+		add(new WebMarkupContainer("ogTitle").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel, "openGraph.title"))).add(new ModelVisibilityBehavior()),
+			new WebMarkupContainer("ogType").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel,"openGraph.type"))).add(new ModelVisibilityBehavior()),
+			new WebMarkupContainer("ogUrl").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel, "openGraph.url"))).add(new ModelVisibilityBehavior()),
+			new WebMarkupContainer("ogImage").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel,"openGraph.image"))).add(new ModelVisibilityBehavior()) );
 	}
 
 	@Override
