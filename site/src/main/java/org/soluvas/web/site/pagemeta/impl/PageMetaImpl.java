@@ -716,6 +716,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Url(), openGraph, context);
 				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Image(), openGraph, context);
 			}
+			result.setPhase(PageMetaPhase.TEXT);
 			return result;
 		case TEXT:
 			return EcoreUtil.copy(this);
@@ -754,7 +755,6 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	@Override
 	public PageMeta toFinal(String appTitle) {
 		switch (phase) {
-		case TEMPLATE:
 		case TEXT:
 			final PageMetaImpl result = EcoreUtil.copy(this);
 			result.setTitle(result.getTitle() != null ? result.getTitle() + " | " + appTitle : appTitle);
