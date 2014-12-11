@@ -754,6 +754,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	@Override
 	public PageMeta toFinal(String appTitle) {
 		switch (phase) {
+		case TEMPLATE:
 		case TEXT:
 			final PageMetaImpl result = EcoreUtil.copy(this);
 			result.setTitle(result.getTitle() != null ? result.getTitle() + " | " + appTitle : appTitle);
