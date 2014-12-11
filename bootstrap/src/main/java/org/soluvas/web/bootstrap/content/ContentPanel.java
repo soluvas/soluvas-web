@@ -116,6 +116,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 			protected PageMeta load() {
 				final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
 				pageMeta.setPhase(PageMetaPhase.TEXT);
+				pageMeta.setAuthor(appManifest.getOrganizationName());
 				final ContentNode contentNode = getModelObject();
 				switch (contentNode.getTemplateSystem()) {
 				case NONE:

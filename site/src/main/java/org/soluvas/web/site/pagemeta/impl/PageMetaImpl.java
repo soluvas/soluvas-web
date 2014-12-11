@@ -709,6 +709,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Title(), result, context);
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Description(), result, context);
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Keywords(), result, context);
+			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Author(), result, context);
 			final OpenGraphMeta openGraph = result.getOpenGraph();
 			if (openGraph != null) {
 				renderMustache(mf, PagemetaPackage.eINSTANCE.getOpenGraphMeta_Title(), openGraph, context);

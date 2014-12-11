@@ -476,13 +476,21 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		faviconLink.add(new AttributeModifier("href", faviconUriModel));
 		add(faviconLink);
-		add(new MetaTag("metaDescription", new Model<>("description"), new PropertyModel<String>(pageMetaModel, "description")).add(new ModelVisibilityBehavior()),
-			new MetaTag("metaKeywords", new Model<>("keywords"), new PropertyModel<String>(pageMetaModel, "keywords")).add(new ModelVisibilityBehavior()),
-			new MetaTag("author", new Model<>("author"), new PropertyModel<String>(pageMetaModel, "author")).add(new ModelVisibilityBehavior()) );
-		add(new WebMarkupContainer("ogTitle").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel, "openGraph.title"))).add(new ModelVisibilityBehavior()),
-			new WebMarkupContainer("ogType").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel,"openGraph.type"))).add(new ModelVisibilityBehavior()),
-			new WebMarkupContainer("ogUrl").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel, "openGraph.url"))).add(new ModelVisibilityBehavior()),
-			new WebMarkupContainer("ogImage").add(new AttributeModifier("content", new PropertyModel<String>(pageMetaModel,"openGraph.image"))).add(new ModelVisibilityBehavior()) );
+		log.debug("pagemetamodel {} -- {}", pageMetaModel.getObject().getDescription(), pageMetaModel.getObject().getAuthor());
+		final PropertyModel<String> descriptionModel = new PropertyModel<>(pageMetaModel, "description");
+		final PropertyModel<String> keywordsModel = new PropertyModel<>(pageMetaModel, "keywords");
+		final PropertyModel<String> authorModel = new PropertyModel<>(pageMetaModel, "author");
+		add(new MetaTag("metaDescription", new Model<>("description"), descriptionModel).add(new ModelVisibilityBehavior(descriptionModel)),
+			new MetaTag("metaKeywords", new Model<>("keywords"), keywordsModel).add(new ModelVisibilityBehavior(keywordsModel)),
+			new MetaTag("author", new Model<>("author"), authorModel).add(new ModelVisibilityBehavior(authorModel)) );
+		final PropertyModel<String> ogTitleModel = new PropertyModel<>(pageMetaModel, "openGraph.title");
+		final PropertyModel<String> ogTypeModel = new PropertyModel<>(pageMetaModel,"openGraph.type");
+		final PropertyModel<String> ogUrlModel = new PropertyModel<>(pageMetaModel, "openGraph.url");
+		final PropertyModel<String> ogImageModel = new PropertyModel<>(pageMetaModel,"openGraph.image");
+		add(new WebMarkupContainer("ogTitle").add(new AttributeModifier("content", ogTitleModel)).add(new ModelVisibilityBehavior(ogTitleModel)),
+			new WebMarkupContainer("ogType").add(new AttributeModifier("content", ogTypeModel)).add(new ModelVisibilityBehavior(ogTypeModel)),
+			new WebMarkupContainer("ogUrl").add(new AttributeModifier("content", ogUrlModel)).add(new ModelVisibilityBehavior(ogUrlModel)),
+			new WebMarkupContainer("ogImage").add(new AttributeModifier("content", ogImageModel)).add(new ModelVisibilityBehavior(ogImageModel)) );
 	}
 
 	@Override
