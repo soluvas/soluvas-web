@@ -78,7 +78,7 @@ public class Howler {
 			final boolean looped = Interaction.LOOPED_SOUNDS.contains(interaction);
 			return play(sprite.get(), looped);
 		} else {
-			log.debug("No sound for {} in {}", interaction, sounds);
+			log.trace("No sound for {} in {}", interaction, sounds);
 			return stopLoop();
 		}
 	}
