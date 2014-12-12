@@ -105,6 +105,15 @@
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.common</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-integration-spring</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.karaf.shell</groupId>

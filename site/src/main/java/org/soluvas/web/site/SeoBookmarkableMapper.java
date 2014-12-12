@@ -29,6 +29,10 @@ public abstract class SeoBookmarkableMapper extends AbstractBookmarkableMapper {
 	public static final String LOCALE_PREF_ID_PARAMETER = "localePrefId";
 	protected final Logger log = LoggerFactory.getLogger(getClass());
 	protected final IPageParametersEncoder pageParametersEncoder = new PageParametersEncoder();
+	/**
+	 * @todo FIXME: Should use AppManifest's
+	 */
+	public static final String DEFAULT_LOCALE_PREF_ID = "id";
 
 	/**
 	 * Creates a {@code IRequestHandler} that processes a bookmarkable request.

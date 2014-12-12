@@ -28,7 +28,7 @@
       template="{+baseUri}{slugPath}"/>
   <permalinks
       namespace="category"
-      template="{+baseUri}{slugPath}"/>
+      template="{+baseUri}id/{slugPath}"/>
   <permalinks
       namespace="product_release"
       template="{+baseUri}{slugPath}"/>
