@@ -1521,6 +1521,34 @@ public interface SitePackage extends EPackage {
 	int GOOGLE_PLUS_SYS_CONFIG_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.BingSysConfig <em>Bing Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.BingSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getBingSysConfig()
+	 * @generated
+	 */
+	int BING_SYS_CONFIG = 28;
+
+	/**
+	 * The feature id for the '<em><b>Bing Verify Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BING_SYS_CONFIG__BING_VERIFY_ID = 0;
+
+	/**
+	 * The number of structural features of the '<em>Bing Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BING_SYS_CONFIG_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1528,7 +1556,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 28;
+	int JAVA_SCRIPT_MODE = 29;
 
 
 	/**
@@ -1539,7 +1567,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 29;
+	int INTERACTION = 30;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1549,7 +1577,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 30;
+	int LIVE_CHAT_PROVIDER = 31;
 
 
 	/**
@@ -2361,6 +2389,27 @@ public interface SitePackage extends EPackage {
 	EAttribute getGooglePlusSysConfig_GooglePlusDisplayName();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.BingSysConfig <em>Bing Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Bing Sys Config</em>'.
+	 * @see org.soluvas.web.site.BingSysConfig
+	 * @generated
+	 */
+	EClass getBingSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.BingSysConfig#getBingVerifyId <em>Bing Verify Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bing Verify Id</em>'.
+	 * @see org.soluvas.web.site.BingSysConfig#getBingVerifyId()
+	 * @see #getBingSysConfig()
+	 * @generated
+	 */
+	EAttribute getBingSysConfig_BingVerifyId();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3076,6 +3125,24 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_DISPLAY_NAME = eINSTANCE.getGooglePlusSysConfig_GooglePlusDisplayName();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.BingSysConfig <em>Bing Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.BingSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getBingSysConfig()
+		 * @generated
+		 */
+		EClass BING_SYS_CONFIG = eINSTANCE.getBingSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Bing Verify Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BING_SYS_CONFIG__BING_VERIFY_ID = eINSTANCE.getBingSysConfig_BingVerifyId();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

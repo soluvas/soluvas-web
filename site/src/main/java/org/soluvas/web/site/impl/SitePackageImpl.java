@@ -14,6 +14,7 @@ import org.soluvas.commons.CommonsPackage;
 import org.soluvas.commons.impl.CommonsPackageImpl;
 import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.site.AlexaSysConfig;
+import org.soluvas.web.site.BingSysConfig;
 import org.soluvas.web.site.ContentPage;
 import org.soluvas.web.site.DashboardPage;
 import org.soluvas.web.site.EntityEditPage;
@@ -248,6 +249,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass googlePlusSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass bingSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1083,6 +1091,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBingSysConfig() {
+		return bingSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBingSysConfig_BingVerifyId() {
+		return (EAttribute)bingSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1240,6 +1266,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_KIND);
 		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_URL);
 		createEAttribute(googlePlusSysConfigEClass, GOOGLE_PLUS_SYS_CONFIG__GOOGLE_PLUS_DISPLAY_NAME);
+
+		bingSysConfigEClass = createEClass(BING_SYS_CONFIG);
+		createEAttribute(bingSysConfigEClass, BING_SYS_CONFIG__BING_VERIFY_ID);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1426,6 +1455,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getGooglePlusSysConfig_GooglePlusUrl(), ecorePackage.getEString(), "googlePlusUrl", null, 0, 1, GooglePlusSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGooglePlusSysConfig_GooglePlusDisplayName(), ecorePackage.getEString(), "googlePlusDisplayName", null, 0, 1, GooglePlusSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(bingSysConfigEClass, BingSysConfig.class, "BingSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBingSysConfig_BingVerifyId(), ecorePackage.getEString(), "bingVerifyId", null, 0, 1, BingSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
 		addEEnumLiteral(javaScriptModeEEnum, JavaScriptMode.DEVELOPMENT);
@@ -1471,468 +1503,474 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	protected void createGenModelAnnotations() {
-		String source = "http://www.eclipse.org/emf/2002/GenModel";		
+		String source = "http://www.eclipse.org/emf/2002/GenModel";	
 		addAnnotation
 		  (sectionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A large division of web application.\n\nFor example, Bippo Mall is divided into 4 sections: sys, mall, shop, and pub."
-		   });		
+		   });	
 		addAnnotation
 		  (siteCatalogEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "The site catalog is used to define all *logical* sections and pages in a site.\n\nIt is used in 2 ways:\n1. at generation time, to generate concrete page classes, Wicket HTML markup, and JS files.\n2. at runtime, to inspect *logical* sections and pages in the site.\n\nNote that information about actual concrete page classes etc. are not visible here, and if needed, then it should be described using another schema."
-		   });		
+		   });	
 		addAnnotation
 		  (pageEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Returns the class simple name, which is simply the name + \"Page\" suffix."
-		   });		
+		   });	
 		addAnnotation
 		  (getPage_Name(), 
 		   source, 
 		   new String[] {
 			 "documentation", "The resulting simple name of the Wicket Page subclass, e.g. \"ProductSysTable\", without the \"Page\" suffix."
-		   });		
+		   });	
 		addAnnotation
 		  (getPage_MountPoint(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Where the page is mounted, relative to application root, e.g. /product/sys, or a URI template with parameters: /product/sys/show/${productId}\n\nmountPoint is highly recommended for SEO and easy URI typing, but not mandatory."
-		   });		
+		   });	
 		addAnnotation
 		  (genericPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A page that that specifies the literal Wicket page class name"
-		   });		
+		   });	
 		addAnnotation
 		  (rawEntityTablePageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Lists raw entities in a page using Backbone and jQuery DataTables.\n\nFor normal entities see EntityTablePage.\n\nEntities can be added, shown, and deleted.\n\nFeatures:\n* client-side paging support\n* client-side quick search\n* client-side table column sorting\n\nTODO: support push for dynamic add/remove and show status."
-		   });		
+		   });	
 		addAnnotation
 		  (entityTablePageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Lists normal entities in a page using Backbone and jQuery DataTables.\n\nFor raw entities see RawEntity TablePage.\n\nSupported folders:\n1. Published (virtual; published only)\n2. All Items (virtual; except deleted)\n3. Drafts (virtual)\n4. Trash (virtual)\n\nActions on entities:\n1. add\n2. show\n3. delete\n4. undelete\n5. publish (draft->published)\n6. unpublish (published->draft; some entities may not support this)\n\nFeatures:\n* client-side paging support\n* client-side quick search\n* client-side table column sorting\n\nTODO: support push for dynamic add/remove and show status."
-		   });		
+		   });	
 		addAnnotation
 		  (entityEditPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Edit page for normal entities"
-		   });		
+		   });	
 		addAnnotation
 		  (rawEntityEditPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Edit page for raw entities"
-		   });		
+		   });	
 		addAnnotation
 		  (rawEntityNewPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "New normal entity page"
-		   });		
+		   });	
 		addAnnotation
 		  (entityNewPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "New raw entity page"
-		   });		
+		   });	
 		addAnnotation
 		  (contentPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Contains static but editable HTML content."
-		   });		
+		   });	
 		addAnnotation
 		  (dashboardPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A page that can be customized by admin.\n\nTypically used for homepage.\n\nThe layout is a bit different than other pages because it has a header and a slider/carousel after the header.\nThe sidebar is below the header and the carousel."
-		   });		
+		   });	
 		addAnnotation
 		  (getPageParam_Name(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Parameter name for the page, e.g. \"productId\"."
-		   });		
+		   });	
 		addAnnotation
 		  (loginPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Login page, that also serves as a SSO register page for Facebook, Twitter, Google, etc."
-		   });		
+		   });	
 		addAnnotation
 		  (registerPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Register as user via email."
-		   });		
+		   });	
 		addAnnotation
 		  (resetPasswordPageEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Used to reset password if user forgets the password."
-		   });		
+		   });	
 		addAnnotation
 		  (getEntityPage_EntityClass(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Full name of the class that represents the entity.\n\nThis is required for:\n1. Getting the EntityRepository for the entity, scoped to the active tenant\n2. Getting the EntityDescriptor which provides metadata about the entity, scoped to the active tenant\n"
-		   });		
+		   });	
 		addAnnotation
 		  (permalinkEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Permalink configuration for an entity."
-		   });		
+		   });	
 		addAnnotation
 		  (getPermalink_Namespace(), 
 		   source, 
 		   new String[] {
 			 "documentation", "e.g. person, shop, etc."
-		   });		
+		   });	
 		addAnnotation
 		  (getPermalink_Template(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Recognized values are:\n\n<ol>\n<li>baseUri (from WebAddress, automatically chosen whether relative (\'/\'), absolute plain HTTP, or absolute HTTPS),\nincluding scheme and port, and trailing slash.</li>\n<li>slugPath</li>\n</ol>\n\n<p>Reference: https://github.com/damnhandy/Handy-URI-Templates"
-		   });		
+		   });	
 		addAnnotation
 		  (permalinkManagerEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Get permalink URI relative to current website, no switch of HTTP(S) protocol."
-		   });		
+		   });	
 		addAnnotation
 		  (permalinkManagerEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "Get absolute permalink URI, considering the recommended protocol for the entity show page, e.g. plain HTTP vs secure HTTPS."
-		   });		
+		   });	
 		addAnnotation
 		  (permalinkManagerEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "documentation", "Get absolute permalink URI, plain HTTP only."
-		   });		
+		   });	
 		addAnnotation
 		  (permalinkManagerEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "documentation", "Get absolute permalink URI, secure HTTPS."
-		   });		
+		   });	
 		addAnnotation
 		  (javaScriptModeEEnum.getELiterals().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Use original JS."
-		   });		
+		   });	
 		addAnnotation
 		  (javaScriptModeEEnum.getELiterals().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "Use minified JS."
-		   });		
+		   });	
 		addAnnotation
 		  (javaScriptModeEEnum.getELiterals().get(2), 
 		   source, 
 		   new String[] {
 			 "documentation", "Aggregate all JavaScript, then minify it."
-		   });		
+		   });	
 		addAnnotation
 		  (getRequireManager_CacheBust(), 
 		   source, 
 		   new String[] {
 			 "documentation", "A string used to bust CDN cache, e.g. \"2013-02-16 18:43:22+07:00\".\n\nThis will be appended as a query string to \"relative\" js, skin, and img URIs. Relative here in reference to webAddres URIs. Absolute URIs won\'t be cache-busted."
-		   });		
+		   });	
 		addAnnotation
 		  (alexaSysConfigEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "SysConfig for Alexa Verify and Alexa Certify.\n\n<p>Note: Alexa Certify is paid, Verify is free by <a href=\"http://www.alexa.com/siteowners/claim\">claiming your site</a>."
-		   });		
+		   });	
 		addAnnotation
 		  (getAlexaSysConfig_AlexaVerifyId(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Note: Alexa Certify is paid, Verify is free by <a href=\"http://www.alexa.com/siteowners/claim\">claiming your site</a>."
-		   });		
+		   });	
 		addAnnotation
 		  (getAlexaSysConfig_AlexaCertifyEnabled(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Whether Alexa Certify feature is enabled."
-		   });		
+		   });	
 		addAnnotation
 		  (getAlexaSysConfig_AlexaCertifyAccount(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Account ID for Alexa Certify."
-		   });		
+		   });	
 		addAnnotation
 		  (getAlexaSysConfig_AlexaCertifyDomain(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Domain for Alexa Certify, e.g. \"berbatik.com\"."
-		   });		
+		   });	
 		addAnnotation
 		  (getAlexaSysConfig_AlexaCertifyJsCdn(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Alexa Certify JavaScript CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d31qbv1cthcecs.cloudfront.net\""
-		   });		
+		   });	
 		addAnnotation
 		  (getAlexaSysConfig_AlexaCertifyImageCdn(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Alexa Certify Image CDN, embedded inside Alexa\'s script, which will be used to dynamically generate the script. e.g. \"d5nxst8fruw4z.cloudfront.net\""
-		   });		
+		   });	
 		addAnnotation
 		  (getLiveChatSysConfig_LiveChatEnabled(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Whether live chat feature is enabled."
-		   });		
+		   });	
 		addAnnotation
 		  (getLiveChatSysConfig_LiveChatProviderId(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Live chat provider, if enabled. Available choices: OLARK, LIVECHATINC."
-		   });		
+		   });	
 		addAnnotation
 		  (getLiveChatSysConfig_LiveChatProvider(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Live chat provider, if enabled. Available choices: OLARK, LIVECHATINC."
-		   });		
+		   });	
 		addAnnotation
 		  (getLiveChatSysConfig_LiveChatSiteId(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Live chat site ID, if enabled. This is provider-specific."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Whether Google Analytics is enabled."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Google Analytics Tracking ID, which is mandatory if enabled."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Cookie domain for Google Analytics, if different than the default settings (usually the \"www\" subdomain)."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures(), 
 		   source, 
 		   new String[] {
 			 "documentation", "<a href=\"https://support.google.com/analytics/answer/2700409\">Google Analytics Advertising Features</a> allow you to enable features in Analytics that aren\'t available through standard implementations. Advertising Features include:\n\n<ol>\n<li>Remarketing with Google Analytics</li>\n<li>Google Display Network Impression Reporting</li>\n<li>DoubleClick Platform integrations</li>\n<li>Google Analytics Demographics and Interest Reporting</li>\n</ol>\n\n<p>By enabling these advertising features, you enable Google Analytics to collect data about your traffic via Google advertising cookies and anonymous identifiers, in addition to data collected through a standard Google Analytics implementation. Regardless of how you send data to Google Analytics (for example, via the Google Analytics tracking code, Google Analytics SDK, or the Measurement Protocol), if you use Google Analytics Advertising Features, you must adhere to this policy.\n\n<p>You will not facilitate the merging of personally-identifiable information with non-personally identifiable information collected through any Google advertising product or feature unless you have robust notice of, and the user\'s prior affirmative (i.e., opt-in) consent to, that merger.\n\n<p>If you\'ve enabled any Google Analytics Advertising Features, you are required to notify your visitors by disclosing the following information in your privacy policy:\n\n<ol>\n<li>The Google Analytics Advertising Features you\'ve implemented.</li>\n<li>How you and third-party vendors use first-party cookies (such as the Google Analytics cookie) or other first-party identifiers, and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together.</li>\n<li>How visitors can opt-out of the Google Analytics Advertising Features you use, including through Ads Settings, Ad Settings for mobile apps, or any other available means (for example, the NAI\'s consumer opt-out).</li>\n</ol>\n\n<p>We also encourage you to point users to Google Analytics\' <a href=\"https://tools.google.com/dlpage/gaoptout/\">currently available opt-outs</a> for the web.\n\n<p>Because laws across countries and territories vary, and because Google Analytics can be used in many ways, Google is unable to provide the exact language you need to include in your privacy policy. Only you understand the unique aspects and special considerations of your business, and your privacy policy should account for this information that only you can provide."
-		   });		
+		   });	
 		addAnnotation
 		  (themePrefEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Theme Preference, usable by App, Tenant, Shop, Person, and possibly Article/Category/Product.\n\n<p>Should be extended, e.g. {@link id.co.bippo.common.BippoThemePref} contains bippo-specific theme preferences in additional to Soluvas Web\'s.\n\n<p><b>Notes:</b> These may be disabled for a tenant by FeatureSet, which has veto power.\nA ThemePref feature usually requires data from AppManifest/Mall/SysConfig, so without the data, the theme won\'t be able to show it anyway.\nNot all Themes support all ThemePref features."
-		   });		
+		   });	
 		addAnnotation
 		  (getThemePref_NavbarColor(), 
 		   source, 
 		   new String[] {
 			 "documentation", "HTML color that is usually used for the navbar background color (color 1), but depends on theme."
-		   });		
+		   });	
 		addAnnotation
 		  (getThemePref_NavbarTextColor(), 
 		   source, 
 		   new String[] {
 			 "documentation", "HTML color that is usually used for the navbar text color (color 2), but depends on theme."
-		   });		
+		   });	
 		addAnnotation
 		  (getThemePref_OutlineColor(), 
 		   source, 
 		   new String[] {
 			 "documentation", "HTML color usually used for link or button outlines (color 3), but it depends on theme."
-		   });		
+		   });	
 		addAnnotation
 		  (getThemePref_BackgroundColor(), 
 		   source, 
 		   new String[] {
 			 "documentation", "HTML color usually used for the overall page background color (color 4), but it depends on theme."
-		   });		
+		   });	
 		addAnnotation
 		  (getThemePref_HighlightColor(), 
 		   source, 
 		   new String[] {
 			 "documentation", "HTML color usually used for highlight background color selected/active elements (color 5), but it depends on theme."
-		   });		
+		   });	
 		addAnnotation
 		  (getThemePref_FootnoteVisible(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Displays the footnote specified in {@link org.soluvas.commons.AppManifest#getFootnote()}.\nThe footnote is shown on all frontend pages, usually positioned below the main content, but above the footer."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum, 
 		   source, 
 		   new String[] {
 			 "documentation", "Used for providing sound effects (themeable) during or after interactions.\n\n<p><b>Note</b>: Sound effects are generally only playable during user actions, so for example we can\'t play sound on page load.\n\n<p>A sound theme depend on other themes, so it can use sounds from them.\n\n<p>See <a href=\"https://idbippo.atlassian.net/browse/BC-1811\">BC-1811: Integrasi growl / Wicket feedback dengan sound effect</a>.\n"
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "Tenant user logs in to tenant."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "Tenant user logs out from tenant."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(2), 
 		   source, 
 		   new String[] {
 			 "documentation", "General notification."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(3), 
 		   source, 
 		   new String[] {
 			 "documentation", "Question or confirmation box, usually a modal."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(4), 
 		   source, 
 		   new String[] {
 			 "documentation", "Warning notification."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(5), 
 		   source, 
 		   new String[] {
 			 "documentation", "Error notification."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(6), 
 		   source, 
 		   new String[] {
 			 "documentation", "One or more entities have been deleted."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(7), 
 		   source, 
 		   new String[] {
 			 "documentation", "One or more entities have been added."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(8), 
 		   source, 
 		   new String[] {
 			 "documentation", "One or more entities have been modified."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(9), 
 		   source, 
 		   new String[] {
 			 "documentation", "Search results have been shown."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(10), 
 		   source, 
 		   new String[] {
 			 "documentation", "Filtered results have been shown."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(11), 
 		   source, 
 		   new String[] {
 			 "documentation", "Loading loop for light/short operations, usually without progress bar. e.g. {@link com.vaynberg.wicket.select2.Select2Choice}."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(12), 
 		   source, 
 		   new String[] {
 			 "documentation", "Loading loop for heavy/long operations, usually with either AJAX spinner or progress bar. e.g. {@link org.soluvas.web.site.widget.AutoDisableAjaxButton}."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(13), 
 		   source, 
 		   new String[] {
 			 "documentation", "Message or comment sent."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(14), 
 		   source, 
 		   new String[] {
 			 "documentation", "Message or comment (long, non-private) received."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(15), 
 		   source, 
 		   new String[] {
 			 "documentation", "Short/private instant message received."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(16), 
 		   source, 
 		   new String[] {
 			 "documentation", "Short/private instant message sent."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(17), 
 		   source, 
 		   new String[] {
 			 "documentation", "Liked or starred or watched."
-		   });		
+		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(18), 
 		   source, 
 		   new String[] {
 			 "documentation", "Unliked or unstarred or unwatched."
-		   });		
+		   });	
 		addAnnotation
 		  (googleSysConfigEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "SysConfig for <a href=\"https://developers.google.com/+/\">Google+ Sign-in</a> and <a href=\"https://www.google.com/webmasters/tools/home\">Google Webmasters Toolkit</a>."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleSysConfig_GoogleApiKey(), 
 		   source, 
 		   new String[] {
 			 "documentation", "<a href=\"https://developers.google.com/console/help/using-keys\">Public API access</a>\n\n<p>Use of this key does not require any user action or consent, does not grant access to any account information, and is not used for authorization.\n\n<p>Get this from <a href=\"https://console.developers.google.com/\">Google Developers Console</a> - API Project - APIs & auth - Credentials - Public API access."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleSysConfig_GoogleClientId(), 
 		   source, 
 		   new String[] {
 			 "documentation", "<a href=\"https://developers.google.com/console/help/generating-oauth2\">OAuth 2.0 Client ID</a>\n\n<p>OAuth 2.0 allows users to share specific data with you (for example, contact lists) while keeping their usernames, passwords, and other information private.\n\n<p>Get this from <a href=\"https://console.developers.google.com/\">Google Developers Console</a> - API Project - APIs & auth - Credentials - OAuth."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleSysConfig_GoogleClientSecret(), 
 		   source, 
 		   new String[] {
 			 "documentation", "<a href=\"https://developers.google.com/console/help/generating-oauth2\">OAuth 2.0 Client Secret</a>\n\n<p>OAuth 2.0 allows users to share specific data with you (for example, contact lists) while keeping their usernames, passwords, and other information private.\n\n<p>Get this from <a href=\"https://console.developers.google.com/\">Google Developers Console</a> - API Project - APIs & auth - Credentials - OAuth."
-		   });		
+		   });	
 		addAnnotation
 		  (getGoogleSysConfig_GoogleVerifyId(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Google site verification ID provided by <a href=\"https://www.google.com/webmasters/tools/home\">Google Webmasters Toolkit</a>, e.g. {@code google187974e610426105}."
+		   });	
+		addAnnotation
+		  (bingSysConfigEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "This will serve {@code /BingSiteAuth.xml} with the following content (for example):\n\n<pre>\n&lt;?xml version=\"1.0\"?>\n&lt;users>\n\t&lt;user>81F7B85A49DDECE76EB169D2EFA46809</user>\n&lt;/users>\n</pre>\n\nGo to <a href=\"https://www.bing.com/webmaster/home/mysites\">Bing Webmaster</a> to get Bing Verify ID for your website."
 		   });
 	}
 	

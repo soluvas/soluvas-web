@@ -463,4 +463,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="googlePlusDisplayName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BingSysConfig" abstract="true" interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This will serve {@code /BingSiteAuth.xml} with the following content (for example):&#xA;&#xA;&lt;pre>&#xA;&amp;lt;?xml version=&quot;1.0&quot;?>&#xA;&amp;lt;users>&#xA;&#x9;&amp;lt;user>81F7B85A49DDECE76EB169D2EFA46809&lt;/user>&#xA;&amp;lt;/users>&#xA;&lt;/pre>&#xA;&#xA;Go to &lt;a href=&quot;https://www.bing.com/webmaster/home/mysites&quot;>Bing Webmaster&lt;/a> to get Bing Verify ID for your website."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bingVerifyId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>
