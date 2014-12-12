@@ -1,6 +1,5 @@
-package org.soluvas.web.site;
+package org.soluvas.web.site.robots;
 
-import org.soluvas.web.site.bing.BingVerifyController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -10,11 +9,11 @@ import org.springframework.context.annotation.Scope;
  *
  */
 @Configuration
-public class BingMvcConfig {
-	
+public class RobotsMvcConfig {
+
 	@Bean @Scope("request")
-	public BingVerifyController bingVerifyController() {
-		return new BingVerifyController();
+	public RobotsTxtController robotsTxtController() {
+		return new RobotsTxtController();
 	}
 
 }
