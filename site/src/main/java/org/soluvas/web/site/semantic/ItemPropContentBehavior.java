@@ -2,7 +2,6 @@ package org.soluvas.web.site.semantic;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
@@ -52,8 +51,8 @@ public class ItemPropContentBehavior extends Behavior {
 			if (content instanceof BigDecimal) {
 				// workaround: otherwise we'll get 3.49E+5 :(
 				tag.getAttributes().put("content", ((BigDecimal) content).toPlainString());
-			} else {
-				tag.getAttributes().put("content", Objects.toString(content, null));
+			} else if (content != null) {
+				tag.getAttributes().put("content", content);
 			}
 		}
 	}
