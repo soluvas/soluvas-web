@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.joda.time.DateTime;
 import org.soluvas.web.site.BingSysConfig;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,7 @@ public class BingVerifyController {
 					+ "  <user>" + bingSysConfig.getBingVerifyId() + "</user>"
 					+ "</users>\n";
 			return ResponseEntity.ok()
+					.contentType(MediaType.APPLICATION_XML)
 					.header("Expires", Long.toString(new DateTime().plusWeeks(1).getMillis()))
 					.body(body);
 		} else {
