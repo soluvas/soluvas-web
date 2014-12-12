@@ -18,7 +18,7 @@ import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.web.site.EmfModel;
-import org.soluvas.web.site.SocialApplication;
+import org.soluvas.web.site.ISocialApplication;
 import org.soluvas.web.site.widget.DisplayImageContainer;
 
 import com.google.common.base.Strings;
@@ -53,7 +53,7 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 		add(new DisplayImageContainer("photo", displayImage));
 		if (getModelObject() != null && !Strings.isNullOrEmpty(getModelObject().getSlug())) {
 			add(new BookmarkablePageLink<>("profileLink",
-					((SocialApplication) getApplication()).getPersonShowPage(),
+					((ISocialApplication) getApplication()).getPersonShowPage(),
 					new PageParameters().set("slug", getModelObject().getSlug())));
 		} else {
 			add(new EmptyPanel("profileLink"));

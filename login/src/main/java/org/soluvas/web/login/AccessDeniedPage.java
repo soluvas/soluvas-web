@@ -1,5 +1,6 @@
 package org.soluvas.web.login;
 
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.soluvas.web.bootstrap.BootstrapPage;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -7,13 +8,12 @@ import org.wicketstuff.annotation.mount.MountPath;
  * @author rudi
  *
  */
+@SuppressWarnings("serial")
 @MountPath("access_denied/")
 public class AccessDeniedPage extends BootstrapPage {
 	
-	private static final long serialVersionUID = 1L;
-
-	public AccessDeniedPage() {
-		super();
+	public AccessDeniedPage(PageParameters params) {
+		super(params);
 	}
 
 }

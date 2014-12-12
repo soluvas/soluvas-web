@@ -270,8 +270,16 @@ public class BootstrapPage extends ExtensiblePage {
 		return null;
 	}
 
+	/**
+	 * @deprecated Please use {@link #BootstrapPage(PageParameters)} to retain {@code localePrefId} and other {@link PageParameters} for {@code rel=canonical} purpose
+	 */
+	@Deprecated
 	public BootstrapPage() {
 		this(null, SidebarVisibility.VISIBLE);
+	}
+
+	public BootstrapPage(PageParameters params) {
+		this(params, SidebarVisibility.VISIBLE);
 	}
 
 	public BootstrapPage(@Nullable PageParameters params, SidebarVisibility sidebarVisibility) {
@@ -298,7 +306,9 @@ public class BootstrapPage extends ExtensiblePage {
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
 		
-		add(new ExternalLink("canonical", urlFor(getClass(), getPageParameters()).toString()));
+		final String canonicalUri = urlFor(getClass(), params).toString();
+		log.trace("Canonical URI for {} {}: {}", getClass().getName(), params, canonicalUri);
+		add(new ExternalLink("canonical", canonicalUri));
 		
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();

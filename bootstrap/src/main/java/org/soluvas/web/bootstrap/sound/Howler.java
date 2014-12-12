@@ -78,7 +78,7 @@ public class Howler {
 			final boolean looped = Interaction.LOOPED_SOUNDS.contains(interaction);
 			return play(sprite.get(), looped);
 		} else {
-			log.debug("No sound for {} in {}", interaction, sounds);
+			log.trace("No sound for {} in {}", interaction, sounds);
 			return stopLoop();
 		}
 	}
@@ -137,7 +137,7 @@ public class Howler {
 	public static void renderHead(Component component, IHeaderResponse response, Sounds sounds) {
 		HowlerJavaScriptReference.renderHead(component, response);
 		final Set<String> deps = mergeDependencies(sounds);
-		log.debug("Sound theme '{}' has {} merged dependencies: {}",
+		log.trace("Sound theme '{}' has {} merged dependencies: {}",
 				sounds.getId(), deps.size(), deps);
 		for (String cur : deps) {
 			doRenderHead(component, response, get(cur));

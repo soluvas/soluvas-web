@@ -23,7 +23,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Match request to a {@code CategoryShow} {@link Page}, with {@code slugPath} parameter
@@ -52,33 +52,36 @@ public class CategoryRequestMapper extends SeoBookmarkableMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		if (request.getUrl().getSegments().size() >= 2 && "category".equals(request.getUrl().getSegments().get(0))) {
-			// legacy URIs: shouldn't be needed after Bippo 7.0
-			log.trace("legacy segments: {}", request.getUrl().getSegments());
-			final String segments = Joiner.on('/').join(FluentIterable.from(request.getUrl().getSegments()).skip(1));
-			throw new MapperRedirectException(new PageProvider(categoryShowPage, new PageParameters().set("slugPath", segments)));
-		} else if (request.getUrl().getSegments().size() >= 1) {
-			log.trace("segments: {}", request.getUrl().getSegments());
-			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
-			if (SlugUtils.SEGMENT_PATH_PATTERN.matcher(segments).matches()) {
+//		if (request.getUrl().getSegments().size() >= 2 && "category".equals(request.getUrl().getSegments().get(0))) {
+//			// legacy URIs: shouldn't be needed after Bippo 7.0
+//			log.trace("legacy segments: {}", request.getUrl().getSegments());
+//			final String segments = Joiner.on('/').join(FluentIterable.from(request.getUrl().getSegments()).skip(1));
+//			throw new MapperRedirectException(new PageProvider(categoryShowPage, new PageParameters().set("slugPath", segments)));
+//		} else
+		if (request.getUrl().getSegments().size() >= 2) {
+			final String localePrefId = request.getUrl().getSegments().get(0);
+			final String upSlugPath = Joiner.on('/').join(request.getUrl().getSegments().subList(1, request.getUrl().getSegments().size()));
+			if (SlugUtils.SEGMENT_PATH_PATTERN.matcher(upSlugPath).matches()) {
 				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final CategoryRepository categoryRepo = appCtx.getBean(CategoryRepository.class);
 				// RAW because we can detect mismatch
-				final Existence<String> existence = categoryRepo.existsBySlugPath(StatusMask.RAW, segments);
-				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
+				final Existence<String> existence = categoryRepo.existsBySlugPath(StatusMask.RAW, upSlugPath);
 				switch (existence.getState()) {
 				case MATCHED:
 					final PageParameters pageParameters = Optional.fromNullable(
 							extractPageParameters(request, request.getUrl().getSegments().size(), pageParametersEncoder))
 							.or(new PageParameters());
+					pageParameters.set(LOCALE_PREF_ID_PARAMETER, localePrefId);
 					pageParameters.set(SLUG_PATH_PARAMETER, existence.get());
 					return new UrlInfo(getPageComponentInfo(request.getUrl()), 
 							categoryShowPage, pageParameters);
 				case MISMATCHED:
 					// canonical URI
 					throw new MapperRedirectException(new PageProvider(categoryShowPage,
-							new PageParameters().set(SLUG_PATH_PARAMETER, existence.get())));
+							new PageParameters()
+								.set(LOCALE_PREF_ID_PARAMETER, localePrefId)
+								.set(SLUG_PATH_PARAMETER, existence.get())));
 				default:
 				}
 			}
@@ -97,11 +100,19 @@ public class CategoryRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == categoryShowPage && info.getPageParameters() != null) {
+			if (info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).isEmpty()) {
+				log.warn("localePrefId PageParameter must be given", new IllegalArgumentException("localePrefId PageParameter must be given"));
+			}
+			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
 			final String categorySlugPath = info.getPageParameters().get(SLUG_PATH_PARAMETER).toString();
 			if (categorySlugPath != null) {
 				final PageParameters copy = new PageParameters(info.getPageParameters());
+				copy.remove(LOCALE_PREF_ID_PARAMETER);
 				copy.remove(SLUG_PATH_PARAMETER);
-				final Url url = new Url(Splitter.on('/').splitToList(categorySlugPath), Charsets.UTF_8);
+				final ImmutableList<String> segments = ImmutableList.<String>builder()
+						.add(localePrefId)
+						.addAll(Splitter.on('/').splitToList(categorySlugPath)).build();
+				final Url url = new Url(segments, Charsets.UTF_8);
 				encodePageComponentInfo(url, info.getPageComponentInfo());
 				return encodePageParameters(url, copy, pageParametersEncoder);
 			} else {

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PreDestroy;
 
@@ -102,7 +101,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				final Resource[] resources = resolver.getResources(locationPattern);
 				allResources.addAll(ImmutableList.copyOf(resources));
 			}
-			log.info("Scanned {} returned {} resources: {}",
+			log.debug("Scanned {} returned {} resources: {}",
 					locationPatterns, allResources.size(), allResources);
 			final List<URL> xmiUrls = ImmutableList.copyOf(Lists.transform(
 					allResources, new Function<Resource, URL>() {
@@ -130,7 +129,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 		
 		final Builder<EObject> eobjects = ImmutableList.builder();
 		for (final URL url : xmiFiles) {
-			log.debug("Getting {} from {}", suppliedClassName, url);
+			log.trace("Getting {} from {}", suppliedClassName, url);
 			final StaticXmiLoader<ComposeCatalog> loader = bundle != null ?
 					new StaticXmiLoader<ComposeCatalog>(ePackage, url, bundle) :
 						new StaticXmiLoader<ComposeCatalog>(ePackage, url, ResourceType.CLASSPATH);
@@ -159,7 +158,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			}
 			
 			for (final Slave slave : ImmutableList.copyOf(composeCatalog.getSlaves())) {
-				log.debug("Adding Slave {}/{} from {}", slave.getPageClassName(), slave.getPath(), url);
+				log.trace("Adding Slave {}/{} from {}", slave.getPageClassName(), slave.getPath(), url);
 				final LiveSlave liveSlave = ComposeFactory.eINSTANCE.createLiveSlave();
 				liveSlave.setBundle(slave.getBundle());
 				liveSlave.setResourceName(slave.getResourceName());
@@ -189,7 +188,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 				} else {
 					contributorName = "unknown";
 				}
-				log.debug("Adding Contributor {} for {}/{} from {}", contributorName,
+				log.trace("Adding Contributor {} for {}/{} from {}", contributorName,
 						contributor.getPageClassName(), contributor.getTargetPath(), url);
 				final LiveContributor liveContributor = contributor.createLive();
 				final LiveContributor added = contributorRepo.add(liveContributor);
@@ -198,7 +197,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 		}
 		final List<EObject> eobjectList = eobjects.build();
 		if (!eobjectList.isEmpty()) {
-			log.info("Added {} EObjects from {}",
+			log.debug("Added {} EObjects from {}",
 					eobjectList.size(), resourceContainer);
 		}
 		
@@ -238,17 +237,17 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 			
 			if (eobject instanceof LivePlaceholder) {
 				final LivePlaceholder placeholder = (LivePlaceholder) eobject;
-				log.debug("Removing Placeholder {}/{} from {}", placeholder.getPageClassName(), placeholder.getPath(),
+				log.trace("Removing Placeholder {}/{} from {}", placeholder.getPageClassName(), placeholder.getPath(),
 						resourceContainer);
 				placeholderRepo.delete(placeholder);
 			} else if (eobject instanceof LiveSlave) {
 				final LiveSlave slave = (LiveSlave) eobject;
-				log.debug("Removing Slave {}/{} from {}", slave.getPageClassName(), slave.getPath(),
+				log.trace("Removing Slave {}/{} from {}", slave.getPageClassName(), slave.getPath(),
 						resourceContainer);
 				slaveRepo.delete(slave);
 			} else if (eobject instanceof LiveContributor) {
 				final LiveContributor contributor = (LiveContributor) eobject;
-				log.debug("Removing Contributor {}/{} from {}", contributor.getPageClassName(), contributor.getTargetPath(),
+				log.trace("Removing Contributor {}/{} from {}", contributor.getPageClassName(), contributor.getTargetPath(),
 						resourceContainer);
 				contributorRepo.delete(contributor);
 			} else {
@@ -256,7 +255,7 @@ public class ComposeCatalogXmiTracker implements BundleTrackerCustomizer<List<EO
 						resourceContainer);
 			}
 		}
-		log.info("Removed {} EObjects from {}",
+		log.trace("Removed {} EObjects from {}",
 				eobjects.size(), resourceContainer);
 	}
 

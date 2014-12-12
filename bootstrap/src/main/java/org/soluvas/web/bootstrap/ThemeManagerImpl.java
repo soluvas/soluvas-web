@@ -81,12 +81,12 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 	
 	@PostConstruct
 	public void init() {
-		LinkedHashMap<String, File> generateds = new LinkedHashMap<>();
+		LinkedHashMap<String, Optional<File>> generateds = new LinkedHashMap<>();
 		for (Map.Entry<String, AppManifest> tenant : initialTenantIds.entrySet()) {
 			final String tenantId = tenant.getKey();
 			final String realStyle = Optional.fromNullable(tenant.getValue().getDefaultStyle()).or(defaultTheme.name());
 			Optional<File> generated = doGenerateThemeStyle(tenantId, realStyle, themePrefs.getExpanded(tenantId));
-			generateds.put(tenantId, generated.orNull());
+			generateds.put(tenantId, generated);
 			styles.add(realStyle);
 		}
 		log.info("Generated {} tenant theme style files: {}", generateds.size(), generateds);

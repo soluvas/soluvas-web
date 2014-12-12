@@ -1,6 +1,7 @@
 package org.soluvas.web.bootstrap;
 
 import org.apache.wicket.request.http.WebResponse;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
  * Usage:
@@ -21,12 +22,11 @@ import org.apache.wicket.request.http.WebResponse;
  * 
  * @author atang
  */
+@SuppressWarnings("serial")
 public class PageNotFound extends BootstrapPage {
 
-	private static final long serialVersionUID = 1L;
-
-	public PageNotFound() {
-		super();
+	public PageNotFound(PageParameters params) {
+		super(params);
 //		add(new Page404());
 	}
 	

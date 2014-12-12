@@ -5,6 +5,9 @@ import javax.inject.Inject;
 import org.joda.time.DateTime;
 import org.soluvas.web.site.BingSysConfig;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +33,10 @@ public class BingVerifyController {
 					+ "<users>\n"
 					+ "  <user>" + bingSysConfig.getBingVerifyId() + "</user>"
 					+ "</users>\n";
-			return ResponseEntity.ok()
-					.header("Expires", Long.toString(new DateTime().plusWeeks(1).getMillis()))
-					.body(body);
+			final HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_XML);
+			headers.setExpires(new DateTime().plusWeeks(1).getMillis());
+			return new ResponseEntity<>(body, headers, HttpStatus.OK);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
