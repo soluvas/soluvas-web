@@ -3,7 +3,6 @@ package org.soluvas.web.bootstrap.content;
 import javax.servlet.ServletRequest;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.data.EntityLookup;
-import org.soluvas.web.site.MapperRedirectException;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -20,7 +18,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 import com.hp.hpl.jena.assembler.Content;
 
 /**
@@ -50,32 +48,34 @@ public class ContentRequestMapper extends SeoBookmarkableMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		if (request.getUrl().getSegments().size() == 2 && "p".equals(request.getUrl().getSegments().get(0))) {
-			// legacy URIs: shouldn't be needed after Bippo 7.0
-			log.trace("legacy segments: {}", request.getUrl().getSegments());
-			final String segments = Joiner.on('/').join(FluentIterable.from(request.getUrl().getSegments()).skip(1));
-			throw new MapperRedirectException(new PageProvider(contentShowPage, ContentPanel.bySlugPath(segments)));
-		} else if (request.getUrl().getSegments().size() == 1) {
-			log.trace("segments: {}", request.getUrl().getSegments());
-			final String segments = Joiner.on('/').join(request.getUrl().getSegments());
-			if (SlugUtils.SEGMENT_PATH_PATTERN.matcher(segments).matches()) {
+//		if (request.getUrl().getSegments().size() == 2 && "p".equals(request.getUrl().getSegments().get(0))) {
+//			// legacy URIs: shouldn't be needed after Bippo 7.0
+//			log.trace("legacy segments: {}", request.getUrl().getSegments());
+//			final String segments = Joiner.on('/').join(FluentIterable.from(request.getUrl().getSegments()).skip(1));
+//			throw new MapperRedirectException(new PageProvider(contentShowPage, ContentPanel.bySlugPath(segments)));
+//		} else 
+		if (request.getUrl().getSegments().size() == 2) {
+			final String localePrefId = request.getUrl().getSegments().get(0);
+			final String upSlug = Joiner.on('/').join(request.getUrl().getSegments().subList(1, request.getUrl().getSegments().size()));
+			if (SlugUtils.SEGMENT_PATH_PATTERN.matcher(upSlug).matches()) {
 				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final EntityLookup<String, String> contentLookup = appCtx.getBean("contentLookup", EntityLookup.class); 
 				try {
-					final String found = contentLookup.findOne(segments);
-					log.trace("match segments: {} {}", segments, found != null);
+					final String found = contentLookup.findOne(upSlug);
+					log.trace("match segments: {} {}", upSlug, found != null);
 					if (found != null) {
 						final PageParameters pageParameters = Optional.fromNullable(
-								extractPageParameters(request, request.getUrl().getSegments().size(), pageParametersEncoder))
+								extractPageParameters(request, 2, pageParametersEncoder))
 								.or(new PageParameters());
-						pageParameters.set(SLUG_PATH_PARAMETER, segments);
+						pageParameters.set(LOCALE_PREF_ID_PARAMETER, localePrefId);
+						pageParameters.set(SLUG_PATH_PARAMETER, upSlug);
 						return new UrlInfo(getPageComponentInfo(request.getUrl()),
 								contentShowPage, pageParameters);
 					}
 				} catch (Exception e) {
 					// does not match
-					log.trace("Content not found for '" + segments + "' using " + 
+					log.trace("Content not found for '" + upSlug + "' using " + 
 							contentLookup, e);
 				}
 				// TODO: content system should support existsBySlugPath
@@ -106,11 +106,16 @@ public class ContentRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == contentShowPage && info.getPageParameters() != null) {
+			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
 			final String contentSlugPath = info.getPageParameters().get(SLUG_PATH_PARAMETER).toString();
 			if (contentSlugPath != null) {
 				final PageParameters copy = new PageParameters(info.getPageParameters());
+				copy.remove(LOCALE_PREF_ID_PARAMETER);
 				copy.remove(SLUG_PATH_PARAMETER);
-				final Url url = new Url(Splitter.on('/').splitToList(contentSlugPath), Charsets.UTF_8);
+				final ImmutableList<String> segments = ImmutableList.<String>builder()
+						.add(localePrefId)
+						.addAll(Splitter.on('/').splitToList(contentSlugPath)).build();
+				final Url url = new Url(segments, Charsets.UTF_8);
 				encodePageComponentInfo(url, info.getPageComponentInfo());
 				return encodePageParameters(url, copy, pageParametersEncoder);
 			} else {

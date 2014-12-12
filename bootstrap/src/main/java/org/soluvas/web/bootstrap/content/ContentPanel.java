@@ -68,7 +68,7 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	private String slugPath;
 	private LoadableDetachableModel<PageMeta> pageMetaModel;
 	
-	public static PageParameters bySlugPath(String slugPath) {
+	public static PageParameters bySlugPath(String localePrefId, String slugPath) {
 		return new PageParameters().set("slugPath", slugPath);
 	}
 	
