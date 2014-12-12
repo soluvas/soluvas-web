@@ -10,7 +10,7 @@
       template="{+baseUri}id/{slugPath}"/>
   <permalinks
       namespace="shop"
-      template="{+baseUri}{slugPath}"/>
+      template="{+baseUri}id/{slugPath}"/>
   <permalinks
       namespace="product"
       template="{+baseUri}id/{slugPath}"/>
