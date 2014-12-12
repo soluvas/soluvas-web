@@ -7,8 +7,6 @@ import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.data.Existence;
@@ -34,8 +32,6 @@ import com.google.common.collect.ImmutableList;
  */
 public class PersonRequestMapper extends SeoBookmarkableMapper {
 	
-	private static final Logger log = LoggerFactory
-			.getLogger(PersonRequestMapper.class);
 	public static final String SLUG_PARAMETER = "slug";
 
 	private final Class<? extends Page> personShowPage;
@@ -50,28 +46,29 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		if (request.getUrl().getSegments().size() == 1) {
-			final String segment1 = request.getUrl().getSegments().get(0);
-			log.trace("segments: {}", request.getUrl().getSegments());
-			if (SlugUtils.SCREEN_NAME_PATTERN.matcher(segment1).matches()) {
+		if (request.getUrl().getSegments().size() == 2) {
+			final String localePrefId = request.getUrl().getSegments().get(0);
+			final String upSlug = request.getUrl().getSegments().get(1);
+			if (SlugUtils.SCREEN_NAME_PATTERN.matcher(upSlug).matches()) {
 				final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
 				// RAW because we can detect mismatch
-				final Existence<String> existence = personRepo.existsBySlug(StatusMask.RAW, segment1);
-				log.trace("match segments: {} {}", request.getUrl().getSegments(), existence);
+				final Existence<String> existence = personRepo.existsBySlug(StatusMask.RAW, upSlug);
 				switch (existence.getState()) {
 				case MATCHED:
 					final PageParameters pageParameters = Optional.fromNullable(
-							extractPageParameters(request, 1, pageParametersEncoder))
+							extractPageParameters(request, 2, pageParametersEncoder))
 							.or(new PageParameters());
+					pageParameters.set(LOCALE_PREF_ID_PARAMETER, localePrefId);
 					pageParameters.set(SLUG_PARAMETER, existence.get());
 					return new UrlInfo(getPageComponentInfo(request.getUrl()),
 							personShowPage, pageParameters);
 				case MISMATCHED:
 					// canonical URI
-					throw new MapperRedirectException(new PageProvider(personShowPage, new PageParameters().set("slug", existence.get())));
-					
+					throw new MapperRedirectException(new PageProvider(personShowPage, 
+							new PageParameters().set(LOCALE_PREF_ID_PARAMETER, localePrefId)
+								.set(SLUG_PARAMETER, existence.get())));
 //					throw new MapperRedirectException(new PageProvider(PersonPubViewPage.class, PersonPubViewPage.bySlug(existence.get())));
 				default:
 				}
@@ -91,11 +88,13 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
+			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
 			final String personSlug = info.getPageParameters().get(SLUG_PARAMETER).toString();
 			if (personSlug != null) {
 				final PageParameters copy = new PageParameters(info.getPageParameters());
+				copy.remove(LOCALE_PREF_ID_PARAMETER);
 				copy.remove(SLUG_PARAMETER);
-				final Url url = new Url(ImmutableList.of(personSlug), Charsets.UTF_8);
+				final Url url = new Url(ImmutableList.of(localePrefId, personSlug), Charsets.UTF_8);
 				encodePageComponentInfo(url, info.getPageComponentInfo());
 				return encodePageParameters(url, copy, pageParametersEncoder);
 			} else {
