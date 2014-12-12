@@ -31,7 +31,7 @@
       template="{+baseUri}id/{slugPath}"/>
   <permalinks
       namespace="product_release"
-      template="{+baseUri}{slugPath}"/>
+      template="{+baseUri}id/{slugPath}"/>
   <permalinks
       namespace="tag"
       template="{+baseUri}{slugPath}"/>

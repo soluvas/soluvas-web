@@ -45,7 +45,7 @@ public class CategoryRewriteConfiguration extends HttpConfigurationProvider {
 	 */
 	@Override
 	public Configuration getConfiguration(ServletContext context) {
-		log.debug("Preparing Product rewrite configuration");
+		log.debug("Preparing Category rewrite configuration");
 		ConfigurationRuleBuilderPerform builder = ConfigurationBuilder.begin()
 				// legacy URIs: shouldn't be needed after Bippo 7.0, but hey... Google doesn't forget :(
 				.addRule().when(Direction.isInbound().and(Path.matches("/category/{path1}")))
