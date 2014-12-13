@@ -2,6 +2,7 @@ package org.soluvas.web.site.sitemap;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
@@ -13,6 +14,7 @@ import org.joda.time.DateTime;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,8 @@ public class SitemapController {
 	private AppManifest appManifest;
 	@Inject
 	private GeneralSysConfig sysConfig;
+	@Autowired(required=false)
+	private List<SitemapSupplier> sitemapSuppliers;
 	
 	/**
 	 * <?xml-stylesheet type="text/xsl" href="//yoast.com/main-sitemap.xsl"?>
@@ -57,6 +61,11 @@ public class SitemapController {
 		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final SitemapIndex index = new SitemapIndex();
 		index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusHours(1).getMillis());
@@ -76,19 +85,57 @@ public class SitemapController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "page-sitemap.xml")
-	public ResponseEntity<String> getPageIndex() throws JAXBException {
+	public ResponseEntity<String> getPageSitemap() throws JAXBException {
+		return getSitemap(SitemapPart.PAGE);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "category-sitemap.xml")
+	public ResponseEntity<String> getCategorySitemap() throws JAXBException {
+		return getSitemap(SitemapPart.CATEGORY);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "person-sitemap.xml")
+	public ResponseEntity<String> getPersonSitemap() throws JAXBException {
+		return getSitemap(SitemapPart.PERSON);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "shop-sitemap.xml")
+	public ResponseEntity<String> getShopSitemap() throws JAXBException {
+		return getSitemap(SitemapPart.SHOP);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "product-sitemap.xml")
+	public ResponseEntity<String> getProductSitemap() throws JAXBException {
+		return getSitemap(SitemapPart.PRODUCT);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "product-release-sitemap.xml")
+	public ResponseEntity<String> getProductReleaseSitemap() throws JAXBException {
+		return getSitemap(SitemapPart.PRODUCT_RELEASE);
+	}
+
+	protected ResponseEntity<String> getSitemap(SitemapPart part) throws JAXBException {
 		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final UrlSet urlSet = new UrlSet();
-		final Url homePage = new Url(baseUri, new DateTime(appManifest.getDefaultTimeZone()), ChangeFreq.daily, 1);
-		urlSet.getUrls().add(homePage);
+		if (part == SitemapPart.PAGE) {
+			final Url homePage = new Url(baseUri, new DateTime(appManifest.getDefaultTimeZone()), ChangeFreq.daily, 1);
+			urlSet.getUrls().add(homePage);
+		}
+
+		if (sitemapSuppliers != null) {
+			for (SitemapSupplier supplier : sitemapSuppliers) {
+				urlSet.getUrls().addAll(supplier.getUrls(part));
+			}
+		}
+
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusHours(1).getMillis());
-		
+
 		JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
 		Marshaller marshaller = jaxb.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		marshaller.setProperty("com.sun.xml.bind.xmlHeaders", 
+		marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
 			    "<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
 		final StringWriter sw = new StringWriter();
 		marshaller.marshal(urlSet, sw);
