@@ -37,4 +37,8 @@ public class Url {
 		this.priority = priority;
 	}
 
+	public List<Image> getImages() {
+		return images;
+	}
+
 }
