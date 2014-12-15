@@ -46,7 +46,7 @@ public class ContentSitemapSupplier implements SitemapSupplier {
             final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
             final ImmutableList.Builder<Url> result = ImmutableList.builder();
 
-            final UriComponentsBuilder content = UriComponentsBuilder.fromUriString(baseUri)
+            final UriComponentsBuilder contentUriBuilder = UriComponentsBuilder.fromUriString(baseUri)
                     .path("/{localePrefId}/{slug}");
             final Set<String> slugs = contentRepo.findAllSlugPathsByStatus(StatusMask.ACTIVE_ONLY);
 
@@ -56,7 +56,7 @@ public class ContentSitemapSupplier implements SitemapSupplier {
                             @Nullable @Override
                             public Url apply(String input) {
                                 return new Url(
-                                        content.buildAndExpand(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID, input).toString(),
+                                        contentUriBuilder.buildAndExpand(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID, input).toString(),
                                         new DateTime(appManifest.getDefaultTimeZone()),
                                         ChangeFreq.weekly, 0.6);
                             }

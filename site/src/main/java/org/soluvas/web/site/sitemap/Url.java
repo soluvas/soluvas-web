@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.apache.commons.math3.util.Precision;
 import org.joda.time.DateTime;
 
 /**
@@ -34,7 +35,7 @@ public class Url {
 		this.loc = loc;
 		this.lastMod = lastMod;
 		this.changeFreq = changeFreq;
-		this.priority = priority;
+		this.priority = Precision.round(priority, 2);
 	}
 
 	public List<Image> getImages() {
