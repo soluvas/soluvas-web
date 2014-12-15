@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap.content;
 
 import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.data.StatusMask;
 
@@ -11,6 +12,6 @@ import org.soluvas.data.StatusMask;
  */
 public interface ContentRepository extends EntityLookup<String, String> {
 
-	Set<String> findAllSlugPathsByStatus(StatusMask statusMask);
+	ImmutableSet<String> findAllSlugPathsByStatus(StatusMask statusMask);
 
 }

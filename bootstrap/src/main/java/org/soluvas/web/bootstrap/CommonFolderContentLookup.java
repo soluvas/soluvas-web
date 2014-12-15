@@ -3,8 +3,9 @@ package org.soluvas.web.bootstrap;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.regex.Pattern;
 
+import com.google.common.collect.ImmutableSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -42,6 +43,7 @@ public class CommonFolderContentLookup implements ContentRepository {
 			.getLogger(CommonFolderContentLookup.class);
 	
 	private final File dataDir;
+	private static final Pattern contentPagePattern = Pattern.compile("[a-z][^.]*");
 	
 	public CommonFolderContentLookup(File dataDir) {
 		super();
@@ -72,15 +74,18 @@ public class CommonFolderContentLookup implements ContentRepository {
 	}
 
 	@Override
-	public Set<String> findAllSlugPathsByStatus(StatusMask statusMask) {
+	public ImmutableSet<String> findAllSlugPathsByStatus(StatusMask statusMask) {
 		final String pattern = "file:" + dataDir + "/common/content/*.html";
 		final HashSet<String> slugs = new HashSet<>();
 		try {
 			final Resource[] resources = new PathMatchingResourcePatternResolver().getResources(pattern);
 			for (final Resource res : resources) {
-				slugs.add( FilenameUtils.getBaseName(res.getFilename()) );
+				final String baseName = FilenameUtils.getBaseName(res.getFilename());
+				if (contentPagePattern.matcher(baseName).matches()) {
+					slugs.add(baseName);
+				}
 			}
-			return slugs;
+			return ImmutableSet.copyOf(slugs);
 		} catch (IOException e) {
 			throw new RepositoryException(e, "Cannot list files using '%s'", pattern);
 		}
