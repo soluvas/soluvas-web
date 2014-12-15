@@ -9,15 +9,15 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Image {
 	
-	@XmlElement(name="loc")
+	@XmlElement(name="loc", namespace="http://www.google.com/schemas/sitemap-image/1.1")
 	private final String loc;
-	@Nullable @XmlElement(name="caption")
+	@Nullable @XmlElement(name="caption", namespace="http://www.google.com/schemas/sitemap-image/1.1")
 	private final String caption;
-	@Nullable @XmlElement(name="geo_location")
+	@Nullable @XmlElement(name="geo_location", namespace="http://www.google.com/schemas/sitemap-image/1.1")
 	private final String geoLocation;
-	@Nullable @XmlElement(name="title")
+	@Nullable @XmlElement(name="title", namespace="http://www.google.com/schemas/sitemap-image/1.1")
 	private final String title;
-	@Nullable @XmlElement(name="license")
+	@Nullable @XmlElement(name="license", namespace="http://www.google.com/schemas/sitemap-image/1.1")
 	private final String license;
 
 	public Image() {
