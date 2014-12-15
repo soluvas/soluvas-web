@@ -56,7 +56,6 @@ public class CategorySitemapSupplier implements SitemapSupplier {
             final Page<Category> categories = categoryRepo.findAllByStatus(
                     ImmutableSet.of(CategoryStatus.ACTIVE),
             new CappedRequest(10000l, Sort.Direction.DESC, "modificationTime"));
-            final DateTime oneMonthAgo = new DateTime().minusMonths(1);
 
 //            final Set<String> imageIds = products.getContent().stream().flatMap(p -> p.getImages().keySet().stream()).collect(Collectors.toSet());
 //            final Map<String, DisplayImage> productImages = imageMgr.getSafeImagesById(ImageTypes.PRODUCT, imageIds, ImageStyles.LARGE);
