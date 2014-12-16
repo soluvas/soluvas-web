@@ -5,7 +5,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -28,6 +31,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.CssResourceReference;
@@ -38,6 +42,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
@@ -129,16 +134,20 @@ public class BootstrapPage extends ExtensiblePage {
 
 //	@SpringBean(name="pageMetaSupplierFactory")
 //	private PageMetaSupplierFactory<PageMetaSupplier> pageMetaSupplierFactory;
-	@SpringBean
+	@Inject
 	private PageMetaProvider pageMetaProvider;
-	@SpringBean
+	@Inject
+	protected GeneralSysConfig sysConfig;
+	@Inject
 	protected WebAddress webAddress;
-	@SpringBean(name="appManifest")
+	@Inject @Named("appManifest")
 	protected AppManifest appManifest;
 	@SpringBean(name="contributorRepo", required=false)
 	private CrudRepository<LiveContributor, Integer> contributorRepo;
 	@SpringBean(required=false)
 	protected AlexaCertify alexaCertify;
+	@Inject
+	private TenantRef tenant;
 
 	protected Component feedbackPanel;
 	
@@ -147,9 +156,6 @@ public class BootstrapPage extends ExtensiblePage {
 	protected TransparentWebMarkupContainer contentColumn;
 
 	protected TransparentWebMarkupContainer sidebarColumn;
-
-	@SpringBean
-	private TenantRef tenant;
 
 	protected final RepeatingView afterHeader;
 
@@ -305,10 +311,6 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		add(new BootstrapBaseBehavior());
 		add(new HeaderResponseContainer("footer-container", "footer-container"));
-		
-		final String canonicalUri = urlFor(getClass(), params).toString();
-		log.trace("Canonical URI for {} {}: {}", getClass().getName(), params, canonicalUri);
-		add(new ExternalLink("canonical", canonicalUri));
 		
 		final Ordering<JavaScriptSource> sourceOrdering = Ordering.natural();
 		final Ordering<JavaScriptLink> linkOrdering = Ordering.natural();
@@ -486,6 +488,13 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		faviconLink.add(new AttributeModifier("href", faviconUriModel));
 		add(faviconLink);
+		
+//		final String canonicalUri = urlFor(getClass(), getPageParameters()).toString();
+		final String realBaseUri = BooleanUtils.isTrue(sysConfig.getSslSupported()) ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
+		final String canonicalUri = realBaseUri + RequestUtils.toAbsolutePath(getRequest().getUrl().toString(), urlFor(getClass(), getPageParameters()).toString());
+		log.trace("Canonical URI for {} {}: {}", getClass().getName(), getPageParameters(), canonicalUri);
+		add(new ExternalLink("canonical", canonicalUri));
+		
 		final PropertyModel<String> descriptionModel = new PropertyModel<>(pageMetaModel, "description");
 		final PropertyModel<String> keywordsModel = new PropertyModel<>(pageMetaModel, "keywords");
 		final PropertyModel<String> authorModel = new PropertyModel<>(pageMetaModel, "author");
@@ -494,7 +503,16 @@ public class BootstrapPage extends ExtensiblePage {
 			new MetaTag("author", new Model<>("author"), authorModel).add(new ModelVisibilityBehavior(authorModel)) );
 		final PropertyModel<String> ogTitleModel = new PropertyModel<>(pageMetaModel, "openGraph.title");
 		final PropertyModel<String> ogTypeModel = new PropertyModel<>(pageMetaModel,"openGraph.type");
-		final PropertyModel<String> ogUrlModel = new PropertyModel<>(pageMetaModel, "openGraph.url");
+		final IModel<String> ogUrlModel = new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				if (pageMetaModel.getObject().getOpenGraph() != null && pageMetaModel.getObject().getOpenGraph().getUrl() != null) {
+					return pageMetaModel.getObject().getOpenGraph().getUrl();
+				} else {
+					return canonicalUri;
+				}
+			}
+		};
 		final PropertyModel<String> ogImageModel = new PropertyModel<>(pageMetaModel,"openGraph.image");
 		add(new WebMarkupContainer("ogTitle").add(new AttributeModifier("content", ogTitleModel)).add(new ModelVisibilityBehavior(ogTitleModel)),
 			new WebMarkupContainer("ogType").add(new AttributeModifier("content", ogTypeModel)).add(new ModelVisibilityBehavior(ogTypeModel)),
