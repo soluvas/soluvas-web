@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import com.google.common.collect.ImmutableSet;
 import org.apache.maven.surefire.shade.org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.soluvas.commons.AppManifest;
@@ -40,7 +41,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Scope("request")
 public class SitemapController {
-	
+
+	public static final ImmutableSet<SitemapPart> activeSitemaps = ImmutableSet.of(
+			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE);
+
 	@Inject
 	private WebAddress webAddress;
 	@Inject
@@ -49,7 +53,7 @@ public class SitemapController {
 	private GeneralSysConfig sysConfig;
 	@Autowired(required=false)
 	private List<SitemapSupplier> sitemapSuppliers;
-	
+
 	/**
 	 * <?xml-stylesheet type="text/xsl" href="//yoast.com/main-sitemap.xsl"?>
 	 * @return
@@ -60,15 +64,27 @@ public class SitemapController {
 	public ResponseEntity<String> getSitemapIndex() throws JAXBException, IOException {
 		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final SitemapIndex index = new SitemapIndex();
-		index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
-		index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
-		index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
-		index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
-		index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
-		index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		if (activeSitemaps.contains(SitemapPart.PAGE)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.PERSON)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.CATEGORY)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.SHOP)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.PRODUCT)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.PRODUCT_RELEASE)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
-		headers.setExpires(new DateTime().plusHours(1).getMillis());
+		headers.setExpires(new DateTime().plusDays(1).getMillis());
 		
 		JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
 		Marshaller marshaller = jaxb.createMarshaller();
@@ -86,35 +102,40 @@ public class SitemapController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "page-sitemap.xml")
 	public ResponseEntity<String> getPageSitemap() throws JAXBException {
-		return getSitemap(SitemapPart.PAGE);
+		return getSitemapIfActive(SitemapPart.PAGE);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "category-sitemap.xml")
 	public ResponseEntity<String> getCategorySitemap() throws JAXBException {
-		return getSitemap(SitemapPart.CATEGORY);
+		return getSitemapIfActive(SitemapPart.CATEGORY);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "person-sitemap.xml")
 	public ResponseEntity<String> getPersonSitemap() throws JAXBException {
-		return getSitemap(SitemapPart.PERSON);
+		return getSitemapIfActive(SitemapPart.PERSON);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "shop-sitemap.xml")
 	public ResponseEntity<String> getShopSitemap() throws JAXBException {
-		return getSitemap(SitemapPart.SHOP);
+		return getSitemapIfActive(SitemapPart.SHOP);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "product-sitemap.xml")
 	public ResponseEntity<String> getProductSitemap() throws JAXBException {
-		return getSitemap(SitemapPart.PRODUCT);
+		return getSitemapIfActive(SitemapPart.PRODUCT);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "product-release-sitemap.xml")
 	public ResponseEntity<String> getProductReleaseSitemap() throws JAXBException {
-		return getSitemap(SitemapPart.PRODUCT_RELEASE);
+		return getSitemapIfActive(SitemapPart.PRODUCT_RELEASE);
 	}
 
-	protected ResponseEntity<String> getSitemap(SitemapPart part) throws JAXBException {
+	protected ResponseEntity<String> getSitemapIfActive(SitemapPart part) throws JAXBException {
+		if (!activeSitemaps.contains(part)) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_XML)
+					.body("Sitemap " + part + " is not active.");
+		}
+
 		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final UrlSet urlSet = new UrlSet();
 		if (part == SitemapPart.PAGE) {
@@ -147,7 +168,7 @@ public class SitemapController {
 		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("text/xsl"));
-		headers.setExpires(new DateTime().plusDays(1).getMillis());
+		headers.setExpires(new DateTime().plusWeeks(1).getMillis());
 		return new ResponseEntity<>(IOUtils.toString(SitemapController.class.getResource("main-sitemap.xsl")), 
 				headers, HttpStatus.OK);
 	}
