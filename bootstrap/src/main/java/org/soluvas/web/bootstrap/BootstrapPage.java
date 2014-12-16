@@ -69,6 +69,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
@@ -112,6 +113,14 @@ public class BootstrapPage extends ExtensiblePage {
 
 	private static final Logger log = LoggerFactory.getLogger(BootstrapPage.class);
 	public static final CssResourceReference PRINT_CSS = new CssResourceReference(BootstrapPage.class, "soluvas-web-print.css");
+	/**
+	 * Common tracking parameters from <a href="https://support.google.com/analytics/answer/1033867?hl=en">Google Analytics</a>, etc. that should be stripped
+	 * from Canonical URI.
+	 * 
+	 * @see <a href="https://idbippo.atlassian.net/browse/BC-2480">BC-2480: rel=canonical on all (Bootstrap) pages to remove ?0 from search engine result pages</a>
+	 */
+	public static final ImmutableSet<String> TRACKING_PARAMETERS = ImmutableSet.of(
+			"utm_source", "utm_medium", "utm_term", "utm_content", "utm_campaign");
 	
 //	@SpringBean(name="jacksonMapperFactory")
 //	private Supplier<ObjectMapper> jacksonMapperFactory;
@@ -489,9 +498,13 @@ public class BootstrapPage extends ExtensiblePage {
 		faviconLink.add(new AttributeModifier("href", faviconUriModel));
 		add(faviconLink);
 		
-//		final String canonicalUri = urlFor(getClass(), getPageParameters()).toString();
 		final String realBaseUri = BooleanUtils.isTrue(sysConfig.getSslSupported()) ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
-		final String canonicalUri = realBaseUri + RequestUtils.toAbsolutePath(getRequest().getUrl().toString(), urlFor(getClass(), getPageParameters()).toString());
+		final PageParameters canonicalParameters = new PageParameters(getPageParameters());
+		for (final String trackingParameter : TRACKING_PARAMETERS) {
+			canonicalParameters.remove(trackingParameter);
+		}
+		final String canonicalUri = realBaseUri + RequestUtils.toAbsolutePath(getRequest().getUrl().toString(), 
+				urlFor(getClass(), canonicalParameters).toString());
 		log.trace("Canonical URI for {} {}: {}", getClass().getName(), getPageParameters(), canonicalUri);
 		add(new ExternalLink("canonical", canonicalUri));
 		
