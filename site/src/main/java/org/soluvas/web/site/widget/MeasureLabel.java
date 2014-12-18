@@ -12,6 +12,7 @@ import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.soluvas.commons.BigDecimalUtils;
 import org.soluvas.commons.util.Measures;
 import org.soluvas.web.site.SiteException;
 
@@ -24,7 +25,7 @@ import org.soluvas.web.site.SiteException;
 @SuppressWarnings("serial")
 public class MeasureLabel extends Label {
 
-	public static final int ROUNDED_SCALE = 2;
+//	public static final int ROUNDED_SCALE = 2;
 	
 	@Nullable
 	private IModel<BigDecimal> amountModel;
@@ -108,11 +109,12 @@ public class MeasureLabel extends Label {
 			if (scale != null) {
 				scaled = amountModel.getObject().setScale(scale, RoundingMode.HALF_EVEN);
 			} else {
-				try {
-					scaled = amountModel.getObject().setScale(0, RoundingMode.UNNECESSARY);
-				} catch (ArithmeticException e) {
-					scaled = amountModel.getObject().setScale(ROUNDED_SCALE, RoundingMode.HALF_EVEN);
-				}
+				scaled = BigDecimalUtils.stripFractionZeros(amountModel.getObject());
+//				try {
+//					scaled = amountModel.getObject().setScale(0, RoundingMode.UNNECESSARY);
+//				} catch (ArithmeticException e) {
+//					scaled = amountModel.getObject().setScale(ROUNDED_SCALE, RoundingMode.HALF_EVEN);
+//				}
 			}
 			final Locale locale = getLocale();
 			return Measures.formatHtml(scaled, unit, locale);
