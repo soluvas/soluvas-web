@@ -29,7 +29,7 @@ public class OpenSearchLink extends ExternalLink {
     private AppManifest appManifest;
 
     public OpenSearchLink(String id) {
-        super(id, "search.xml");
+        super(id, "/search.xml");
 //        final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 //        setDefaultModelObject(baseUri + "search.xml");
         add(new AttributeModifier("rel", "search"));
