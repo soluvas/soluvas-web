@@ -15,8 +15,16 @@ import org.slf4j.MDC;
 import org.soluvas.commons.tenant.CommandRequestAttributes;
 
 /**
- * Should be added as the <b>last</b> {@link WebApplication#getRequestCycleListeners()},
- * which will log {@link Logger#error(String)} and exception then show {@link FriendlyErrorPage}.
+ * Should be added as the <b>last</b> {@link WebApplication#getRequestCycleListeners()}
+ * for {@link org.apache.wicket.RuntimeConfigurationType#DEPLOYMENT},
+ * which will log {@link Logger#error(String)} and exception then show {@link FriendlyErrorPage}, e.g.:
+ *
+ * <pre>
+ * if (getConfigurationType() == RuntimeConfigurationType.DEPLOYMENT) {
+ *     getRequestCycleListeners().add(new FriendlyErrorRequestListener());
+ * }
+ * </pre>
+ *
  * @author ceefour
  */
 public class FriendlyErrorRequestListener extends AbstractRequestCycleListener {
