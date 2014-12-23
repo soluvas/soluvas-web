@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
+import javax.measure.DecimalMeasure;
 import javax.measure.unit.Unit;
 
 import org.apache.wicket.markup.ComponentTag;
@@ -31,6 +32,15 @@ public class MeasureLabel extends Label {
 	private IModel<BigDecimal> amountModel;
 	@Nullable
 	private final Integer scale;
+
+	public MeasureLabel(String id, DecimalMeasure<?> measure) {
+		super(id);
+		if (measure != null) {
+			setDefaultModel(new Model<>(measure.getUnit()));
+			amountModel = new Model<>(measure.getValue());
+		}
+		this.scale = null;
+	}
 
 	public MeasureLabel(String id, IModel<?> model) {
 		super(id, model);
