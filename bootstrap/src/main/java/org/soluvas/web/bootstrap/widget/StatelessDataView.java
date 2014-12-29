@@ -1,7 +1,5 @@
 package org.soluvas.web.bootstrap.widget;
 
-import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.util.string.StringValue;
@@ -36,10 +34,11 @@ public abstract class StatelessDataView<T> extends DataView<T> {
         if (!pageSizeParam.isEmpty()) {
             setItemsPerPage(pageSizeParam.toInt());
         }
-        final StringValue sortParam = getPage().getPageParameters().get(SORT_PARAMETER);
-        if (!sortParam.isEmpty() && getDataProvider() instanceof ISortableDataProvider) {
-            ((ISortableDataProvider) getDataProvider()).getSortState()
-                    .setPropertySortOrder(sortParam.toString(), SortOrder.ASCENDING);
-        }
+        // TODO: use Spring Data REST format
+//        final StringValue sortParam = getPage().getPageParameters().get(SORT_PARAMETER);
+//        if (!sortParam.isEmpty() && getDataProvider() instanceof ISortableDataProvider) {
+//            ((ISortableDataProvider) getDataProvider()).getSortState()
+//                    .setPropertySortOrder(sortParam.toString(), SortOrder.ASCENDING);
+//        }
     }
 }
