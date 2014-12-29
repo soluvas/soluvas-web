@@ -1,5 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
+import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.util.string.StringValue;
@@ -14,6 +19,7 @@ public abstract class StatelessDataView<T> extends DataView<T> {
     public static final String PAGE_NUMBER_PARAMETER = "page";
     public static final String PAGE_SIZE_PARAMETER = "size";
     public static final String SORT_PARAMETER = "sort";
+	protected static final Pattern SORT_PATTERN = Pattern.compile("([^+,]+)(\\+(asc|\\+desc))?");
 
     public StatelessDataView(String id, IDataProvider<T> dataProvider) {
         super(id, dataProvider);
@@ -23,7 +29,8 @@ public abstract class StatelessDataView<T> extends DataView<T> {
         super(id, dataProvider, itemsPerPage);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void onInitialize() {
         super.onInitialize();
         final StringValue pageNumberParam = getPage().getPageParameters().get(PAGE_NUMBER_PARAMETER);
@@ -34,11 +41,12 @@ public abstract class StatelessDataView<T> extends DataView<T> {
         if (!pageSizeParam.isEmpty()) {
             setItemsPerPage(pageSizeParam.toInt());
         }
-        // TODO: use Spring Data REST format
-//        final StringValue sortParam = getPage().getPageParameters().get(SORT_PARAMETER);
-//        if (!sortParam.isEmpty() && getDataProvider() instanceof ISortableDataProvider) {
-//            ((ISortableDataProvider) getDataProvider()).getSortState()
-//                    .setPropertySortOrder(sortParam.toString(), SortOrder.ASCENDING);
-//        }
+		final String sortStr = getPage().getPageParameters().get(SORT_PARAMETER).toString("");
+		final Matcher matcher = SORT_PATTERN.matcher(sortStr.toString());
+		if (matcher.matches() && getDataProvider() instanceof SortableDataProvider) {
+          ((SortableDataProvider<T, String>) getDataProvider()).setSort(
+        		  matcher.group(1),
+        		  "desc".equalsIgnoreCase(matcher.group(3)) ? SortOrder.DESCENDING : SortOrder.ASCENDING);
+		}
     }
 }
