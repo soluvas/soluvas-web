@@ -9,8 +9,6 @@ import org.apache.wicket.markup.html.navigation.paging.PagingNavigation;
 
 import com.google.common.base.Preconditions;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.navigation.BootstrapPagingNavigator;
-
 /**
  * Created by ceefour on 28/12/14.
  */

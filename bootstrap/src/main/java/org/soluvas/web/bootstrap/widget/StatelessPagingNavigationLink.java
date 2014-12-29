@@ -21,7 +21,6 @@ public class StatelessPagingNavigationLink<C extends Page> extends
 		super(id, pageClass);
 		this.pageable = pageable;
 		this.pageNumber = pageNumber;
-		// FIXME: setAutoEnable(true)
 	}
 
 	public long getPageNumber() {
@@ -35,8 +34,11 @@ public class StatelessPagingNavigationLink<C extends Page> extends
 		getPageParameters().clearNamed();
 		getPageParameters().mergeWith(getPage().getPageParameters());
 		// PagingNavigator's magic number -1 means last page
-		getPageParameters().set("page",
-				pageNumber >= 0 ? pageNumber : pageable.getPageCount() - 1);
+		final long realPageNumber = pageNumber >= 0 ? pageNumber : pageable.getPageCount() - 1;
+		if (realPageNumber > 0) { // for first page, leave out the ?page=0
+			getPageParameters().set("page", realPageNumber);
+		}
+		setEnabled(realPageNumber != getPage().getPageParameters().get("page").toInt(0)); 
 	}
 
 }

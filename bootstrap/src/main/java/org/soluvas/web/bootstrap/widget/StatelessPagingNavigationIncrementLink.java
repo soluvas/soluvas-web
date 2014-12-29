@@ -21,7 +21,6 @@ public class StatelessPagingNavigationIncrementLink<C extends Page> extends
 		super(id, pageClass);
 		this.pageable = pageable;
 		this.increment = increment;
-		// FIXME: setAutoEnable(true)
 	}
 
 	/**
@@ -40,7 +39,11 @@ public class StatelessPagingNavigationIncrementLink<C extends Page> extends
 		getPageParameters().clearIndexed();
 		getPageParameters().clearNamed();
 		getPageParameters().mergeWith(getPage().getPageParameters());
-		getPageParameters().set("page", getPageNumber());
+		final long realPageNumber = getPageNumber();
+		if (realPageNumber > 0) { // for first page, leave out the ?page=0
+			getPageParameters().set("page", realPageNumber);
+		}
+		setEnabled(realPageNumber != getPage().getPageParameters().get("page").toInt(0));
 	}
 
 }
