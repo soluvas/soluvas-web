@@ -9,8 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import com.google.common.collect.ImmutableSet;
-import org.apache.maven.surefire.shade.org.apache.commons.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
@@ -24,6 +23,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Requires {@code WebMvcConfigurerAdapter} to be set up as follows:
