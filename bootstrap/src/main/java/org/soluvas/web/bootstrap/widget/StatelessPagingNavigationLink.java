@@ -36,9 +36,9 @@ public class StatelessPagingNavigationLink<C extends Page> extends
 		// PagingNavigator's magic number -1 means last page
 		final long realPageNumber = pageNumber >= 0 ? pageNumber : pageable.getPageCount() - 1;
 		if (realPageNumber > 0) { // for first page, leave out the ?page=0
-			getPageParameters().set("page", realPageNumber);
+			getPageParameters().set(StatelessDataView.PAGE_NUMBER_PARAMETER, realPageNumber);
 		}
-		setEnabled(realPageNumber != getPage().getPageParameters().get("page").toInt(0)); 
+		setEnabled(realPageNumber != getPage().getPageParameters().get(StatelessDataView.PAGE_NUMBER_PARAMETER).toInt(0)); 
 	}
 
 }

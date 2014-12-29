@@ -41,9 +41,9 @@ public class StatelessPagingNavigationIncrementLink<C extends Page> extends
 		getPageParameters().mergeWith(getPage().getPageParameters());
 		final long realPageNumber = getPageNumber();
 		if (realPageNumber > 0) { // for first page, leave out the ?page=0
-			getPageParameters().set("page", realPageNumber);
+			getPageParameters().set(StatelessDataView.PAGE_NUMBER_PARAMETER, realPageNumber);
 		}
-		setEnabled(realPageNumber != getPage().getPageParameters().get("page").toInt(0));
+		setEnabled(realPageNumber != getPage().getPageParameters().get(StatelessDataView.PAGE_NUMBER_PARAMETER).toInt(0));
 	}
 
 }

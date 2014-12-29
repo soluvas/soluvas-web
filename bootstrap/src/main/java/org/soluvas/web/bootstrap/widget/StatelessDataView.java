@@ -10,11 +10,12 @@ import org.apache.wicket.util.string.StringValue;
  * To be used with {@link org.soluvas.web.bootstrap.widget.StatelessBootstrapPagingNavigator}.
  * Created by ceefour on 29/12/14.
  */
+@SuppressWarnings("serial")
 public abstract class StatelessDataView<T> extends DataView<T> {
 
-    protected final String PAGE_NUMBER_PARAMETER = "page";
-    protected final String PAGE_SIZE_PARAMETER = "size";
-    protected final String SORT_PARAMETER = "sort";
+    public static final String PAGE_NUMBER_PARAMETER = "page";
+    public static final String PAGE_SIZE_PARAMETER = "size";
+    public static final String SORT_PARAMETER = "sort";
 
     public StatelessDataView(String id, IDataProvider<T> dataProvider) {
         super(id, dataProvider);
