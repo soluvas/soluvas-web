@@ -120,5 +120,17 @@ public enum SchemaOrgProperty {
 	/**
 	 * <a href="http://schema.org/releaseDate">schema:releaseDate</a> - The release date of a product or product model. This can be used to distinguish the exact variant of a product.
 	 */
-	RELEASE_DATE
+	RELEASE_DATE,
+	/**
+	 * <a href="http://schema.org/elevation">schema:elevation</a> - The elevation of a location.
+	 */
+	ELEVATION,
+	/**
+	 * <a href="http://schema.org/latitude">schema:latitude</a> - The latitude of a location. For example 37.42242.
+	 */
+	LATITUDE,
+	/**
+	 * <a href="http://schema.org/longitude">schema:longitude</a> - The longitude of a location. For example -122.08585.
+	 */
+	LONGITUDE
 }
