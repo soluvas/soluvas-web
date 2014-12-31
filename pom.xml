@@ -205,6 +205,12 @@
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-stateless</artifactId>
 				<version>${wicket.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-simple</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
