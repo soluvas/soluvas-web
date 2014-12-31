@@ -64,6 +64,10 @@
 			<artifactId>wicketstuff-annotation</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-stateless</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-datetime</artifactId>
 		</dependency>
