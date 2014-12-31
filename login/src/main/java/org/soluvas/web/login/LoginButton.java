@@ -5,7 +5,10 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
+import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
@@ -42,6 +45,68 @@ public class LoginButton extends IndicatingAjaxButton {
 		super(id);
 		this.loginTokenModel = loginTokenModel;
 		this.host = host;
+	}
+	
+	/**
+	 * Makes this a stateless AJAX button.
+	 * @todo Find a better, more convenient, superclass.
+	 */
+	@Override
+	protected boolean getStatelessHint() {
+		return true;
+	}
+	
+	/**
+	 * Makes this a stateless AJAX button.
+	 * @todo Find a better, more convenient, superclass.
+	 */
+	@Override
+	protected AjaxFormSubmitBehavior newAjaxFormSubmitBehavior(String event)
+	{
+		return new AjaxFormSubmitBehavior(getForm(), event)
+		{
+			@Override
+			public boolean getStatelessHint(org.apache.wicket.Component component) {
+				return true;
+			};
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target)
+			{
+				LoginButton.this.onSubmit(target, LoginButton.this.getForm());
+			}
+
+			@Override
+			protected void onAfterSubmit(AjaxRequestTarget target)
+			{
+				LoginButton.this.onAfterSubmit(target, LoginButton.this.getForm());
+			}
+
+			@Override
+			protected void onError(AjaxRequestTarget target)
+			{
+				LoginButton.this.onError(target, LoginButton.this.getForm());
+			}
+
+			@Override
+			protected AjaxChannel getChannel()
+			{
+				return LoginButton.this.getChannel();
+			}
+
+			@Override
+			protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
+			{
+				super.updateAjaxAttributes(attributes);
+				LoginButton.this.updateAjaxAttributes(attributes);
+			}
+
+			@Override
+			public boolean getDefaultProcessing()
+			{
+				return LoginButton.this.getDefaultFormProcessing();
+			}
+		};
 	}
 
 	@Override
@@ -99,7 +164,7 @@ public class LoginButton extends IndicatingAjaxButton {
 	/**
 	 * Override this method to handle Ajax submit <b>only</b>, for example, redirect to original page
 	 * (if using {@link DedicatedLoginPage}).
-	 * @param target TODO
+	 * @param target 
 	 * @param personId
 	 */
 	protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
