@@ -2,6 +2,8 @@ package org.soluvas.web.bootstrap.widget;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.basic.Label;
@@ -12,13 +14,14 @@ import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.web.nav.PageLink;
 
 import de.agilecoders.wicket.core.util.Attributes;
 
 /**
  * Stateless Bootstrap-styled breadcrumb bar that is SEO-optimized using <a href="https://support.google.com/webmasters/answer/185417?hl=en">Structured Data Breadcrumbs</a>.
- * "Home" (localized) is always the first breadcrumb.
+ * "Home" (using {@link AppManifest#getTitle()}) is always the first breadcrumb.
  * @author atang
  * @see BreadcrumbListView
  */
@@ -41,6 +44,9 @@ public class BreadcrumbBar extends GenericPanel<List<PageLink>> {
 		}
 		
 	}
+	
+	@Inject
+	private AppManifest appManifest;
 
 	/**
 	 * @param id
@@ -81,7 +87,9 @@ public class BreadcrumbBar extends GenericPanel<List<PageLink>> {
 //				return ImmutableList.copyOf(crumbStr);
 //			}
 //		};
-		add(new BookmarkablePageLink<Page>("homeLink", getApplication().getHomePage()));
+		final BookmarkablePageLink<Page> homeLink = new BookmarkablePageLink<>("homeLink", getApplication().getHomePage());
+		homeLink.add(new Label("title", appManifest.getTitle()));
+		add(homeLink);
 		add(new BreadcrumbListView("crumbs", new AbstractReadOnlyModel<List<PageLink>>() {
 			@Override
 			public List<PageLink> getObject() {

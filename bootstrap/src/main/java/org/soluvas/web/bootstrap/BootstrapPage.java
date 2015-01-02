@@ -578,6 +578,7 @@ public class BootstrapPage extends ExtensiblePage {
 	 * 			if (!Strings.isNullOrEmpty(release.getMetaKeywords())) {
 	 * 				pageMeta.setKeywords(release.getMetaKeywords());
 	 * 			}
+	 * 			pageMeta.setAuthor(appManifest.getOrganizationName());
 	 * 			return pageMeta;
 	 * 		}
 	 * 	};
