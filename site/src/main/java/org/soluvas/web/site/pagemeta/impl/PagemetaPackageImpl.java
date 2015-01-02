@@ -400,6 +400,15 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPageMeta_Robots() {
+		return (EAttribute)pageMetaEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EClass getPageIcon() {
 		return pageIconEClass;
@@ -1158,6 +1167,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		createEAttribute(pageMetaEClass, PAGE_META__VIEWPORT);
 		createEAttribute(pageMetaEClass, PAGE_META__AUTHOR);
 		createEAttribute(pageMetaEClass, PAGE_META__PHASE);
+		createEAttribute(pageMetaEClass, PAGE_META__ROBOTS);
 
 		pageIconEClass = createEClass(PAGE_ICON);
 		createEAttribute(pageIconEClass, PAGE_ICON__BRANDING_BUNDLE_NAME);
@@ -1313,6 +1323,7 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		initEAttribute(getPageMeta_Viewport(), ecorePackage.getEString(), "viewport", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Author(), ecorePackage.getEString(), "author", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPageMeta_Phase(), this.getPageMetaPhase(), "phase", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPageMeta_Robots(), ecorePackage.getEString(), "robots", null, 0, 1, PageMeta.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(pageMetaEClass, this.getPageMeta(), "toText", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "context", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1474,6 +1485,12 @@ public class PagemetaPackageImpl extends EPackageImpl implements PagemetaPackage
 		   source, 
 		   new String[] {
 			 "documentation", "Recommended: width=device-width, initial-scale=1.0"
+		   });	
+		addAnnotation
+		  (getPageMeta_Robots(), 
+		   source, 
+		   new String[] {
+			 "documentation", "The <a href=\"http://en.wikipedia.org/wiki/Noindex\">noindex</a> value of an HTML robots meta tag requests that automated Internet bots avoid indexing a web page. Reasons why one might want to use this meta tag include advising robots not to index a very large database, webpages that are very transitory, pages that one wishes to keep slightly more private, or the printer and mobile-friendly versions of pages. Since the burden of honoring a website\'s noindex tag lies with the author of the search robot, sometimes these tags are ignored. Also the interpretation of the noindex tag is sometimes slightly different from one search engine company to the next.\n\n<p>Possible values for the meta tag content are: \"none\", \"all\", \"index\", \"noindex\", \"nofollow\", and \"follow\". A combination of the values is also possible."
 		   });	
 		addAnnotation
 		  (pageIconEClass.getEOperations().get(0), 

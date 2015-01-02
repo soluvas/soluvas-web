@@ -48,6 +48,11 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="author" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="phase" eType="#//PageMetaPhase"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="robots" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The &lt;a href=&quot;http://en.wikipedia.org/wiki/Noindex&quot;>noindex&lt;/a> value of an HTML robots meta tag requests that automated Internet bots avoid indexing a web page. Reasons why one might want to use this meta tag include advising robots not to index a very large database, webpages that are very transitory, pages that one wishes to keep slightly more private, or the printer and mobile-friendly versions of pages. Since the burden of honoring a website's noindex tag lies with the author of the search robot, sometimes these tags are ignored. Also the interpretation of the noindex tag is sometimes slightly different from one search engine company to the next.&#xA;&#xA;&lt;p>Possible values for the meta tag content are: &quot;none&quot;, &quot;all&quot;, &quot;index&quot;, &quot;noindex&quot;, &quot;nofollow&quot;, and &quot;follow&quot;. A combination of the values is also possible."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PageIcon">
     <eOperations name="toAbsolute" eType="#//PageIcon">

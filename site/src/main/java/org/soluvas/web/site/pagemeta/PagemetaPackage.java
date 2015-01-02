@@ -186,13 +186,22 @@ public interface PagemetaPackage extends EPackage {
 	int PAGE_META__PHASE = 12;
 
 	/**
+	 * The feature id for the '<em><b>Robots</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PAGE_META__ROBOTS = 13;
+
+	/**
 	 * The number of structural features of the '<em>Page Meta</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PAGE_META_FEATURE_COUNT = 13;
+	int PAGE_META_FEATURE_COUNT = 14;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.pagemeta.impl.PageIconImpl <em>Page Icon</em>}' class.
@@ -1270,6 +1279,17 @@ public interface PagemetaPackage extends EPackage {
 	EAttribute getPageMeta_Phase();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.pagemeta.PageMeta#getRobots <em>Robots</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Robots</em>'.
+	 * @see org.soluvas.web.site.pagemeta.PageMeta#getRobots()
+	 * @see #getPageMeta()
+	 * @generated
+	 */
+	EAttribute getPageMeta_Robots();
+
+	/**
 	 * Returns the meta object for class '{@link org.soluvas.web.site.pagemeta.PageIcon <em>Page Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2177,6 +2197,14 @@ public interface PagemetaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PAGE_META__PHASE = eINSTANCE.getPageMeta_Phase();
+
+		/**
+		 * The meta object literal for the '<em><b>Robots</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PAGE_META__ROBOTS = eINSTANCE.getPageMeta_Robots();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.pagemeta.impl.PageIconImpl <em>Page Icon</em>}' class.

@@ -49,6 +49,7 @@ import com.github.mustachejava.Mustache;
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getViewport <em>Viewport</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getPhase <em>Phase</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.impl.PageMetaImpl#getRobots <em>Robots</em>}</li>
  * </ul>
  * </p>
  *
@@ -267,6 +268,26 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * @ordered
 	 */
 	protected PageMetaPhase phase = PHASE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getRobots() <em>Robots</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRobots()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ROBOTS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getRobots() <em>Robots</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRobots()
+	 * @generated
+	 * @ordered
+	 */
+	protected String robots = ROBOTS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -699,6 +720,27 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getRobots() {
+		return robots;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRobots(String newRobots) {
+		String oldRobots = robots;
+		robots = newRobots;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PagemetaPackage.PAGE_META__ROBOTS, oldRobots, robots));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 */
 	@Override
 	public PageMeta toText(final Object context) {
@@ -823,6 +865,8 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				return getAuthor();
 			case PagemetaPackage.PAGE_META__PHASE:
 				return getPhase();
+			case PagemetaPackage.PAGE_META__ROBOTS:
+				return getRobots();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -873,6 +917,9 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				return;
 			case PagemetaPackage.PAGE_META__PHASE:
 				setPhase((PageMetaPhase)newValue);
+				return;
+			case PagemetaPackage.PAGE_META__ROBOTS:
+				setRobots((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -925,6 +972,9 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 			case PagemetaPackage.PAGE_META__PHASE:
 				setPhase(PHASE_EDEFAULT);
 				return;
+			case PagemetaPackage.PAGE_META__ROBOTS:
+				setRobots(ROBOTS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -963,6 +1013,8 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				return AUTHOR_EDEFAULT == null ? author != null : !AUTHOR_EDEFAULT.equals(author);
 			case PagemetaPackage.PAGE_META__PHASE:
 				return phase != PHASE_EDEFAULT;
+			case PagemetaPackage.PAGE_META__ROBOTS:
+				return ROBOTS_EDEFAULT == null ? robots != null : !ROBOTS_EDEFAULT.equals(robots);
 		}
 		return super.eIsSet(featureID);
 	}

@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getViewport <em>Viewport</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getPhase <em>Phase</em>}</li>
+ *   <li>{@link org.soluvas.web.site.pagemeta.PageMeta#getRobots <em>Robots</em>}</li>
  * </ul>
  * </p>
  *
@@ -43,6 +44,9 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface PageMeta extends EObject {
+	
+	public static final String NOINDEX = "noindex";
+	
 	/**
 	 * Returns the value of the '<em><b>Icon</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -380,6 +384,33 @@ public interface PageMeta extends EObject {
 	 * @generated
 	 */
 	void setPhase(PageMetaPhase value);
+
+	/**
+	 * Returns the value of the '<em><b>Robots</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The <a href="http://en.wikipedia.org/wiki/Noindex">noindex</a> value of an HTML robots meta tag requests that automated Internet bots avoid indexing a web page. Reasons why one might want to use this meta tag include advising robots not to index a very large database, webpages that are very transitory, pages that one wishes to keep slightly more private, or the printer and mobile-friendly versions of pages. Since the burden of honoring a website's noindex tag lies with the author of the search robot, sometimes these tags are ignored. Also the interpretation of the noindex tag is sometimes slightly different from one search engine company to the next.
+	 * 
+	 * <p>Possible values for the meta tag content are: "none", "all", "index", "noindex", "nofollow", and "follow". A combination of the values is also possible.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Robots</em>' attribute.
+	 * @see #setRobots(String)
+	 * @see org.soluvas.web.site.pagemeta.PagemetaPackage#getPageMeta_Robots()
+	 * @model
+	 * @generated
+	 */
+	String getRobots();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.pagemeta.PageMeta#getRobots <em>Robots</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Robots</em>' attribute.
+	 * @see #getRobots()
+	 * @generated
+	 */
+	void setRobots(String value);
 
 	/**
 	 * <!-- begin-user-doc -->
