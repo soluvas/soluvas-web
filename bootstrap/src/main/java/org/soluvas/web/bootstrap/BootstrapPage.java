@@ -46,6 +46,7 @@ import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
+import org.soluvas.web.bootstrap.widget.PageMetaPanel;
 import org.soluvas.web.nav.PageLink;
 import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
@@ -463,11 +464,9 @@ public class BootstrapPage extends ExtensiblePage {
 
 		html.add(new AttributeModifier("lang", new PropertyModel<String>(
 				pageMetaModel, "languageCode")));
-
 		// HEAD
+		add(new PageMetaPanel("meta", pageMetaModel));
 		// add(new Label("pageTitle", "Welcome").setRenderBodyOnly(true));
-		// do NOT use AsyncModel here, because it depends on PageMeta model
-		// loading last
 		final IModel<String> titleModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {

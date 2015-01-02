@@ -45,6 +45,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface PageMeta extends EObject {
 	
+	/**
+	 * Useful for {@link #setRobots(String)}.
+	 */
 	public static final String NOINDEX = "noindex";
 	
 	/**
