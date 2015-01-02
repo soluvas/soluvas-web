@@ -2,6 +2,8 @@ package org.soluvas.web.bootstrap.content;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -24,6 +26,8 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.bootstrap.CommonFolderContentLookup;
 import org.soluvas.web.bootstrap.ContentNode;
+import org.soluvas.web.bootstrap.widget.BreadcrumbBar;
+import org.soluvas.web.nav.PageLink;
 import org.soluvas.web.site.MustacheRenderer;
 import org.soluvas.web.site.Nl2Br;
 import org.soluvas.web.site.SiteException;
@@ -45,6 +49,23 @@ import com.google.common.collect.ImmutableMap;
  * Fallback sidebar for all content pages is located in {@code common/content/_all.sidebar.html}.
  * 
  * <p>Title and meta description is read from {@code head/title} and {@code head/meta} tags.
+ * 
+ * <p>Usage:</p>
+ * 
+ * <pre>
+ * public ContentPage(PageParameters params) {
+ * 	super(params, SidebarVisibility.HIDDEN);
+ * 	addedInfoVisibility = AddedInfoVisibility.HIDDEN;
+ * 	contentPanel = new ContentPanel("content", sidebarBlocks);
+ * 	add(contentPanel);
+ * 	add(contentPanel.createBreadcrumbBar());
+ * }
+ * 
+ * &commat;Override
+ * protected IModel&lt;PageMeta> createPageMetaModel() {
+ * 	return contentPanel.getPageMetaModel();
+ * }
+ * </pre>
  * 
  * @author rudi
  * @todo Merge with Soluvas Content.
@@ -162,6 +183,17 @@ public class ContentPanel extends GenericPanel<ContentNode> {
 	
 	public ContentPanel(String id, RepeatingView sidebarBlocks, Component html) {
 		this(id, sidebarBlocks, html, null);
+	}
+	
+	public BreadcrumbBar createBreadcrumbBar() {
+		return new BreadcrumbBar("breadcrumbs", new LoadableDetachableModel<List<PageLink>>() {
+			@Override
+			protected java.util.List<PageLink> load() {
+				final ArrayList<PageLink> links = new ArrayList<>();
+				links.add(new PageLink(getModelObject().getTitle())); 
+				return links;
+			}
+		});
 	}
 	
 	@Override
