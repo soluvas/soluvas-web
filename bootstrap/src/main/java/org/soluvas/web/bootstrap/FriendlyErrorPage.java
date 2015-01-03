@@ -65,6 +65,8 @@ public class FriendlyErrorPage extends InternalErrorPage {
 		final DateTimeZone timeZone = DateTimeZone.forID(env.getProperty("defaultTimeZone", DateTimeZone.getDefault().getID()));
 		add(new Label("time", new DateTime(timeZone)));
 		final HttpServletRequest httpRequest = (HttpServletRequest) getRequest().getContainerRequest();
+		final String servletLocale = httpRequest.getLocale() != null ? httpRequest.getLocale().toLanguageTag() : null;
+		final String wicketLocale = getRequest().getLocale() != null ? getRequest().getLocale().toLanguageTag() : null;
 		String requestDetails =
 				"Auth type: " + httpRequest.getAuthType() + "\n"
 						+ "Character encoding: " + httpRequest.getCharacterEncoding() + "\n"
@@ -74,7 +76,7 @@ public class FriendlyErrorPage extends InternalErrorPage {
 						+ "Local address: " + httpRequest.getLocalAddr() + "\n" 
 						+ "Local name: " + httpRequest.getLocalName() + "\n" 
 						+ "Local port: " + httpRequest.getLocalPort() + "\n" 
-						+ "Locale: " + ( httpRequest.getLocale() != null ? httpRequest.getLocale().toLanguageTag() : null) + "\n" 
+						+ "Locale: servlet=" + servletLocale + ", wicket=" + wicketLocale + "\n" 
 						+ "Method: " + httpRequest.getMethod() + "\n" 
 						+ "Path info: " + httpRequest.getPathInfo() + "\n" 
 						+ "Path translated: " + httpRequest.getPathTranslated() + "\n" 
