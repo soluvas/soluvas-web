@@ -47,10 +47,12 @@ import com.google.common.base.Strings;
  * @todo Another component to support <a href="http://asciidoc.org/">AsciiDoc</a>
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class MarkdownLabel extends Label {
 
-	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * <b>Non-thread-safe</b> {@link PegDownProcessor} must be confined in its own thread.
+	 */
 	protected static final ThreadLocal<PegDownProcessor> localProcessor = new ThreadLocal<PegDownProcessor>() {
 		@Override
 		protected PegDownProcessor initialValue() {
