@@ -33,7 +33,7 @@ public class SlowRequestFilter implements IResponseFilter {
 	/**
 	 * Threshold for slow request in milliseconds.
 	 */
-	public static final int SLOW_REQUEST_MS = 1000;
+	public static final int SLOW_REQUEST_MS = 2000;
 	private static NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
 	/* (non-Javadoc)
