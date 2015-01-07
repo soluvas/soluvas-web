@@ -43,6 +43,10 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	 * An object larger than this (bytes) will be logged WARN and should not be stored in {@link EmfModel}.
 	 */
 	public static final long LARGE_THRESHOLD = 100 * 1024;
+	/**
+	 * Serialization taking longer than this milliseconds will be logged WARN and should not be stored in {@link EmfModel}.
+	 */
+	public static final long LONG_THRESHOLD = 40;
 	private static final Logger log = LoggerFactory.getLogger(EmfModel.class);
 	private static final long serialVersionUID = 1L;
 	public static enum ResourceContainer {
@@ -64,6 +68,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	 */
 	public static final ResourceContainer RESOURCE_CONTAINER = ResourceContainer.XMI;
 	private byte[] buf;
+	private transient boolean large = false;
 	
 	private static class EObjectToString implements Function<EObject, String> {
 		@Override @Nullable
@@ -198,6 +203,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 				log.trace("Serializing {}", EOBJECT_TO_STRING.apply(obj) );
 			}
 			try {
+				final long startTime = System.currentTimeMillis();
 				final Resource res = new XMIResourceImpl();
 				final T copied = EcoreUtil.copy(obj);
 				res.getContents().add(copied);
@@ -231,6 +237,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 						}
 					}
 					if (buf.length > LARGE_THRESHOLD) {
+						large = true;
 						if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
 							log.warn("Object {} is too large ({} bytes): {}",
 									EOBJECT_TO_STRING.apply(obj), buf.length,
@@ -239,6 +246,19 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 							log.warn("Object {} is too large ({} bytes)",
 									EOBJECT_TO_STRING.apply(obj), buf.length);
 						}
+					} else {
+						large = false;
+					}
+				}
+				final long elapsed = System.currentTimeMillis() - startTime;
+				if (elapsed > LONG_THRESHOLD) {
+					if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
+						log.warn("Serializing object {} takes too long ({} ms), size {} bytes: {}",
+								EOBJECT_TO_STRING.apply(obj), elapsed, buf.length,
+								StringUtils.abbreviateMiddle(new String(buf), "…", 200));
+					} else {
+						log.warn("Serializing object {} takes too long ({} ms), size {} bytes",
+								EOBJECT_TO_STRING.apply(obj), elapsed, buf.length);
 					}
 				}
 			} catch (Exception e) {
@@ -251,4 +271,8 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		return buf != null ? buf.length : 0;
 	}
 
+	public boolean isLarge() {
+		return large;
+	}
+	
 }
