@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -38,6 +39,10 @@ import com.google.common.collect.Lists;
  */
 public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 
+	/**
+	 * An object larger than this (bytes) will be logged WARN and should not be stored in {@link EmfModel}.
+	 */
+	public static final long LARGE_THRESHOLD = 100 * 1024;
 	private static final Logger log = LoggerFactory.getLogger(EmfModel.class);
 	private static final long serialVersionUID = 1L;
 	public static enum ResourceContainer {
@@ -73,7 +78,7 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 		}
 	}
 	
-	private static final EObjectToString EOBJECT_TO_STRING = new EObjectToString();
+	public static final EObjectToString EOBJECT_TO_STRING = new EObjectToString();
 	
 	public EmfModel() {
 		super();
@@ -189,7 +194,9 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 	protected void onDetach() {
 		final T obj = getObject();
 		if (obj != null) {
-			log.trace("Serializing {}", EOBJECT_TO_STRING.apply(obj) );
+			if (log.isTraceEnabled()) {
+				log.trace("Serializing {}", EOBJECT_TO_STRING.apply(obj) );
+			}
 			try {
 				final Resource res = new XMIResourceImpl();
 				final T copied = EcoreUtil.copy(obj);
@@ -205,25 +212,43 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 				}
 	//			res.getContents().addAll(objectsToAdd);
 				try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-					log.trace("Serializing {} as {} objects: {}", obj.eClass().getName(), res.getContents().size(),
-							Lists.transform(res.getContents(), EOBJECT_TO_STRING));
+					if (log.isTraceEnabled()) {
+						log.trace("Serializing {} as {} objects: {}", obj.eClass().getName(), res.getContents().size(),
+								Lists.transform(res.getContents(), EOBJECT_TO_STRING));
+					}
 					res.save(out, ImmutableMap.of(
 							XMIResource.OPTION_ENCODING, "UTF-8",
 							XMIResource.OPTION_BINARY, RESOURCE_CONTAINER == ResourceContainer.BINARY,
 							XMIResource.OPTION_DEFER_IDREF_RESOLUTION, true
 							));
 					buf = out.toByteArray();
-					if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
-						log.trace("Serialized {} to: {}", EOBJECT_TO_STRING.apply(obj),
-								new String(buf));
-					} else {
-						log.trace("Serialized {} as {} bytes", EOBJECT_TO_STRING.apply(obj), buf.length);
+					if (log.isTraceEnabled()) {
+						if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
+							log.trace("Serialized {} to: {}", EOBJECT_TO_STRING.apply(obj),
+									new String(buf));
+						} else {
+							log.trace("Serialized {} as {} bytes", EOBJECT_TO_STRING.apply(obj), buf.length);
+						}
+					}
+					if (buf.length > LARGE_THRESHOLD) {
+						if (RESOURCE_CONTAINER == ResourceContainer.XMI) {
+							log.warn("Object {} is too large ({} bytes): {}",
+									EOBJECT_TO_STRING.apply(obj), buf.length,
+									StringUtils.abbreviateMiddle(new String(buf), "…", 200));
+						} else {
+							log.warn("Object {} is too large ({} bytes)",
+									EOBJECT_TO_STRING.apply(obj), buf.length);
+						}
 					}
 				}
 			} catch (Exception e) {
 				throw new SiteException("Cannot serialize EObject " + EOBJECT_TO_STRING.apply(obj), e);
 			}
 		}
+	}
+	
+	public long getBufSize() {
+		return buf != null ? buf.length : 0;
 	}
 
 }

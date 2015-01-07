@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.eclipse.emf.ecore.EObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
@@ -22,8 +24,14 @@ import com.google.common.collect.Lists;
  *            type of object inside list
  */
 public class EmfListModel<T extends EObject> extends LoadableDetachableModel<List<T>> {
+	/**
+	 * A list larger than this (bytes) will be logged WARN and should not be stored in {@link EmfListModel}.
+	 */
+	public static final long LARGE_THRESHOLD = 300 * 1024;
 	private static final long serialVersionUID = 1L;
-	private List<IModel<T>> savedObjects;
+	private static final Logger log = LoggerFactory
+			.getLogger(EmfListModel.class);
+	private List<EmfModel<T>> savedObjects;
 	
 	public EmfListModel() {
 		super();
@@ -59,14 +67,23 @@ public class EmfListModel<T extends EObject> extends LoadableDetachableModel<Lis
 	protected void onDetach() {
 		final List<T> origList = getObject();
 		if (origList != null) {
-			savedObjects = ImmutableList.copyOf( Lists.transform(origList, new Function<T, IModel<T>>() {
+			savedObjects = ImmutableList.copyOf( Lists.transform(origList, new Function<T, EmfModel<T>>() {
 				@Override @Nullable
-				public IModel<T> apply(@Nullable T input) {
+				public EmfModel<T> apply(@Nullable T input) {
 					final EmfModel<T> emfModel = new EmfModel<>(input);
 					emfModel.detach();
 					return emfModel;
 				}
 			}));
+			long totalBufSize = 0;
+			for (EmfModel<T> obj : savedObjects) {
+				totalBufSize += obj.getBufSize();
+			}
+			if (totalBufSize > LARGE_THRESHOLD) {
+				log.warn("List of {} objects is too large ({} bytes): {}",
+						savedObjects.size(), totalBufSize,
+						Lists.transform(origList, EmfModel.EOBJECT_TO_STRING));
+			}
 		}
 		super.onDetach();
 	}

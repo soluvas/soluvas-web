@@ -25,10 +25,14 @@ import com.google.common.collect.Maps;
  *            type of object value inside {@link Map}
  */
 public class EmfMapModel<K extends Serializable, V extends EObject> extends LoadableDetachableModel<Map<K, V>> {
+	/**
+	 * A list larger than this (bytes) will be logged WARN and should not be stored in {@link EmfListModel}.
+	 */
+	public static final long LARGE_THRESHOLD = 300 * 1024;
 	private static final Logger log = LoggerFactory
 			.getLogger(EmfMapModel.class);
 	private static final long serialVersionUID = 1L;
-	private Map<K, IModel<V>> savedObjects;
+	private Map<K, EmfModel<V>> savedObjects;
 	
 	public EmfMapModel() {
 		super();
@@ -58,15 +62,24 @@ public class EmfMapModel<K extends Serializable, V extends EObject> extends Load
 	protected void onDetach() {
 		final Map<K, V> origMap = getObject();
 		if (origMap != null) {
-			savedObjects = ImmutableMap.copyOf( Maps.transformValues(origMap, new Function<V, IModel<V>>() {
+			savedObjects = ImmutableMap.copyOf( Maps.transformValues(origMap, new Function<V, EmfModel<V>>() {
 				@Override @Nullable
-				public IModel<V> apply(@Nullable V input) {
+				public EmfModel<V> apply(@Nullable V input) {
 					final EmfModel<V> emfModel = new EmfModel<>(input);
 					emfModel.detach();
 					return emfModel;
 				}
 			}));
 			log.trace("Saving EmfMapModel to savedObjects: {}", savedObjects.keySet());
+			long totalBufSize = 0;
+			for (EmfModel<V> obj : savedObjects.values()) {
+				totalBufSize += obj.getBufSize();
+			}
+			if (totalBufSize > LARGE_THRESHOLD) {
+				log.warn("Map of {} objects is too large ({} bytes): {}",
+						savedObjects.size(), totalBufSize,
+						Maps.transformValues(origMap, EmfModel.EOBJECT_TO_STRING));
+			}
 		} else {
 			log.trace("Not saving EmfMapModel because of null original map");
 		}
