@@ -215,6 +215,7 @@ public class OlarkPackageImpl extends EPackageImpl implements OlarkPackage {
 		initEEnum(liveChatProviderEEnum, LiveChatProvider.class, "LiveChatProvider");
 		addEEnumLiteral(liveChatProviderEEnum, LiveChatProvider.OLARK);
 		addEEnumLiteral(liveChatProviderEEnum, LiveChatProvider.LIVECHATINC);
+		addEEnumLiteral(liveChatProviderEEnum, LiveChatProvider.PURECHAT);
 
 		// Create resource
 		createResource(eNS_URI);

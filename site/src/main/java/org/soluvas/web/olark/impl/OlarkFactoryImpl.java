@@ -28,7 +28,7 @@ public class OlarkFactoryImpl extends EFactoryImpl implements OlarkFactory {
 	 */
 	public static OlarkFactory init() {
 		try {
-			OlarkFactory theOlarkFactory = (OlarkFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.soluvas.org/schema/web.olark/1.0"); 
+			OlarkFactory theOlarkFactory = (OlarkFactory)EPackage.Registry.INSTANCE.getEFactory(OlarkPackage.eNS_URI);
 			if (theOlarkFactory != null) {
 				return theOlarkFactory;
 			}

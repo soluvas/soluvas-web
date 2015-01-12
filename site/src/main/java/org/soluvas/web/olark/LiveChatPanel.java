@@ -51,6 +51,8 @@ public class LiveChatPanel extends Panel {
 				inner = new LiveChatinc("inner", new Model<>(
 						liveChatMgr.getSiteId()));
 				break;
+			case PURECHAT :
+				inner = new PureChat("inner", new Model<>(liveChatMgr.getSiteId()));
 			default:
 				throw new SiteException("Unknown live chat provider: " + liveChatMgr.getProvider());
 			}

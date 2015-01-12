@@ -36,7 +36,15 @@ public enum LiveChatProvider implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIVECHATINC(1, "livechatinc", "livechatinc");
+	LIVECHATINC(1, "livechatinc", "livechatinc"), /**
+	 * The '<em><b>Purechat</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PURECHAT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PURECHAT(2, "purechat", "purechat");
 
 	/**
 	 * The '<em><b>Olark</b></em>' literal value.
@@ -69,6 +77,21 @@ public enum LiveChatProvider implements Enumerator {
 	public static final int LIVECHATINC_VALUE = 1;
 
 	/**
+	 * The '<em><b>Purechat</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Purechat</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #PURECHAT
+	 * @model name="purechat"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PURECHAT_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>Live Chat Provider</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,6 +101,7 @@ public enum LiveChatProvider implements Enumerator {
 		new LiveChatProvider[] {
 			OLARK,
 			LIVECHATINC,
+			PURECHAT,
 		};
 
 	/**
@@ -130,6 +154,7 @@ public enum LiveChatProvider implements Enumerator {
 		switch (value) {
 			case OLARK_VALUE: return OLARK;
 			case LIVECHATINC_VALUE: return LIVECHATINC;
+			case PURECHAT_VALUE: return PURECHAT;
 		}
 		return null;
 	}

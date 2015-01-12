@@ -12,5 +12,6 @@
   <eClassifiers xsi:type="ecore:EEnum" name="LiveChatProvider">
     <eLiterals name="olark"/>
     <eLiterals name="livechatinc" value="1"/>
+    <eLiterals name="purechat" value="2"/>
   </eClassifiers>
 </ecore:EPackage>
