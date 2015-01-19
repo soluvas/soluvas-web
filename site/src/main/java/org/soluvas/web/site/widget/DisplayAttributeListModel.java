@@ -81,15 +81,19 @@ public class DisplayAttributeListModel extends AbstractReadOnlyModel<List<Displa
 				switch (entry.getKey()) {
 				case "base_color":
 					final Term colorTerm = colorTermRepo.findOne(entry.getValue());
-					final EList<Value<?>> colorValues = new BasicEList<Value<?>>();
-					colorValues.add(colorTerm.toValue());
-					source.put("base_color", colorValues);
+					if (colorTerm != null) {
+						final EList<Value<?>> colorValues = new BasicEList<>();
+						colorValues.add(colorTerm.toValue());
+						source.put("base_color", colorValues);
+					}
 					break;
 				case "base_size":
 					final Term sizeTerm = sizeTermRepo.findOne(entry.getValue());
-					final EList<Value<?>> sizeValues = new BasicEList<Value<?>>();
-					sizeValues.add(sizeTerm.toValue());
-					source.put("base_size", sizeValues);
+					if (sizeTerm != null) {
+						final EList<Value<?>> sizeValues = new BasicEList<>();
+						sizeValues.add(sizeTerm.toValue());
+						source.put("base_size", sizeValues);
+					}
 					break;
 				default:
 					throw new RuntimeException(String.format("Unrecognize principal type %s (%s)", entry.getKey(), entry.getValue()));
