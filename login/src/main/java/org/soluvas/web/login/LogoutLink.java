@@ -3,16 +3,18 @@ package org.soluvas.web.login;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
-import org.apache.wicket.markup.html.link.StatelessLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.Interaction;
 
 /**
+ * rudi: Pake normal link, bukan stateless: ga jadi pake stateless: https://idbippo.atlassian.net/browse/BC-2658
+ * 
  * Logs the current user out and returns to "after logout page".
  * @author ceefour
  */
-public class LogoutLink extends StatelessLink<Void> {
+public class LogoutLink extends Link<Void> {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger(LogoutLink.class);

@@ -7,7 +7,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
@@ -19,6 +18,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 /**
+ * rudi: ga jadi pake stateless: https://idbippo.atlassian.net/browse/BC-2658
+ * 
  * It's for stateless login form, combined with a normal {@code input type="submit"},
  * which can be non-Wicket component, {@link Button}, or even a simple {@link WebMarkupContainer}.
  * If you want stateful use {@link LoginButton} + normal {@link Form}.
@@ -28,7 +29,7 @@ import com.google.common.base.Strings;
  * @see LoginButton
  */
 @SuppressWarnings("serial")
-public class StatelessLoginForm extends StatelessForm<LoginToken> {
+public class StatelessLoginForm extends Form<LoginToken> {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(StatelessLoginForm.class);
