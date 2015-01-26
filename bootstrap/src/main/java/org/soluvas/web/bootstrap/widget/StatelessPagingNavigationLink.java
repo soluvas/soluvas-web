@@ -12,7 +12,10 @@ import org.apache.wicket.markup.html.navigation.paging.IPageable;
 @SuppressWarnings("serial")
 public class StatelessPagingNavigationLink<C extends Page> extends
 		BookmarkablePageLink<C> {
-
+	
+//	private static final Logger log = LoggerFactory
+//			.getLogger(StatelessPagingNavigationLink.class);
+	
 	private final IPageable pageable;
 	private final long pageNumber;
 
@@ -35,9 +38,15 @@ public class StatelessPagingNavigationLink<C extends Page> extends
 		getPageParameters().mergeWith(getPage().getPageParameters());
 		// PagingNavigator's magic number -1 means last page
 		final long realPageNumber = pageNumber >= 0 ? pageNumber : pageable.getPageCount() - 1;
-		if (realPageNumber > 0) { // for first page, leave out the ?page=0
+		
+		if (realPageNumber >= 0) { // for first page, leave out the ?page=0
+//			log.debug("realPageNumber {}", realPageNumber);
 			getPageParameters().set(StatelessDataView.PAGE_NUMBER_PARAMETER, realPageNumber);
-		}
+		} 
+//		else if (realPageNumber <= 0 ) {
+//			getPageParameters().set(StatelessDataView.PAGE_NUMBER_PARAMETER, pageNumber);
+//		}
+		
 		setEnabled(realPageNumber != getPage().getPageParameters().get(StatelessDataView.PAGE_NUMBER_PARAMETER).toInt(0)); 
 	}
 
