@@ -93,7 +93,7 @@ public class BootstrapPage extends ExtensiblePage {
 		VISIBLE,
 		HIDDEN
 	}
-
+	
 	public static final class JsSourceVisitor implements
 			IVisitor<Component, Void> {
 		private final ImmutableList.Builder<String> jsSources;
@@ -172,7 +172,7 @@ public class BootstrapPage extends ExtensiblePage {
 	protected AddedInfoVisibility addedInfoVisibility;
 	
 	protected SidebarVisibility sidebarVisibility;
-
+	
 	protected Navbar navbar;
 	
 	private final IModel<List<PageLink>> breadcrumbModel = new LoadableDetachableModel<List<PageLink>>() {
@@ -297,7 +297,7 @@ public class BootstrapPage extends ExtensiblePage {
 	public BootstrapPage(PageParameters params) {
 		this(params, SidebarVisibility.VISIBLE);
 	}
-
+	
 	public BootstrapPage(@Nullable PageParameters params, SidebarVisibility sidebarVisibility) {
 		super(params);
 		this.sidebarVisibility = sidebarVisibility;
