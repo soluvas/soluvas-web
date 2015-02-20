@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
+import org.soluvas.geo.City;
 import org.soluvas.geo.District;
 import org.soluvas.geo.DistrictRepository;
 
@@ -39,18 +40,27 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 		@Inject
 		private DistrictRepository districtRepo;
 		
-		public DistrictProvider() {
+		private final IModel<City> cityModel;
+		
+		public DistrictProvider(IModel<City> cityModel) {
 			super();
 			Injector.get().inject(this);
+			this.cityModel = cityModel;
 		}
 
 		@SuppressWarnings("null")
 		@Override
 		public void query(String term, int page, Response<District> response) {
 			final String trimedTerm = term.trim();
-			final Page<District> pageCity = districtRepo.searchDistrict(trimedTerm, new PageRequest(page, 20));
-			response.addAll(pageCity.getContent());
-			response.setHasMore(!pageCity.isLastPage());
+			final Page<District> pageDistrict; 
+			@Nullable final City city = cityModel.getObject();
+			if (city == null || !city.getCountry().getIso().equals("ID")) {
+				pageDistrict = districtRepo.searchDistrict(trimedTerm, new PageRequest(page, 20));
+			} else {
+				pageDistrict = districtRepo.searchDistrictByCity(trimedTerm, city.getName(), new PageRequest(page, 20));
+			}
+			response.addAll(pageDistrict.getContent());
+			response.setHasMore(!pageDistrict.isLastPage());
 		}
 
 		@Override
@@ -73,17 +83,22 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 		
 		@Override
 		public void detach() {
+			cityModel.detach();
 			super.detach();
 		}
 		
 	}
-	
+
 	public DistrictSelect2(final String id) {
-		super(id, new Model<District>(), new DistrictProvider());
+		super(id, new Model<District>(), new DistrictProvider(new Model<City>()));
 	}
 
 	public DistrictSelect2(final String id, final IModel<District> model) {
-		super(id, model, new DistrictProvider());
+		super(id, model, new DistrictProvider(new Model<City>()));
+	}
+	
+	public DistrictSelect2(final String id, final IModel<District> model, final IModel<City> cityModel) {
+		super(id, model, new DistrictProvider(cityModel));
 	}
 	
 	@Override
@@ -106,5 +121,5 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 				"container.append(thediv);" +
 				"}");
 	}
-
+	
 }
