@@ -58,10 +58,9 @@ import com.restfb.types.User;
  * @author haidar
  *
  */
+@SuppressWarnings("serial")
 @MountPath("fb_recipient/")
 public class FacebookRecipient extends WebPage {
-
-	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	
