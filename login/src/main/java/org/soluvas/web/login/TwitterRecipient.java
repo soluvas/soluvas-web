@@ -142,7 +142,7 @@ public class TwitterRecipient extends WebPage {
 			curPerson.setTwitterAccessToken(oAuthAccessToken.getToken());
 			curPerson.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
 			curPerson.setTwitterScreenName(twitterUser.getScreenName());
-			if (curPerson.getPhotoId() == null) {
+//			if (curPerson.getPhotoId() == null) {
 				//Set photo from Twitter.
 				try {
 					final String imageId = TwitterUtils.refreshPhotoFromTwitter(
@@ -151,7 +151,7 @@ public class TwitterRecipient extends WebPage {
 				} catch (Exception e) {
 					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
-			}
+//			}
 			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
 			
 			// Set Token And Set Session
