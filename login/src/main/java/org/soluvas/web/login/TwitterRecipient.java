@@ -49,11 +49,10 @@ import com.google.common.base.Strings;
  * @author haidar
  *
  */
+@SuppressWarnings("serial")
 @MountPath("twitter_recipient/")
 public class TwitterRecipient extends WebPage {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterRecipient.class);
 	
@@ -146,7 +145,7 @@ public class TwitterRecipient extends WebPage {
 				//Set photo from Twitter.
 				try {
 					final String imageId = TwitterUtils.refreshPhotoFromTwitter(
-							curPerson.getTwitterScreenName(), curPerson.getName(), personImageRepo);
+							curPerson, twitterManager.getConsumerKey(), twitterManager.getConsumerSecret(), personImageRepo);
 					curPerson.setPhotoId(imageId);
 				} catch (Exception e) {
 					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
