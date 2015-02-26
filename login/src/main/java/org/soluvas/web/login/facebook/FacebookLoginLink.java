@@ -57,7 +57,10 @@ public class FacebookLoginLink extends ExternalLink {
 				fbLoginUriBuilder
 						.addParameter(
 								"scope",
-								"read_stream,email,user_birthday,user_hometown,user_about_me,user_photos,user_religion_politics,user_relationships,user_work_history,user_education_history,user_website,offline_access,publish_stream,publish_actions,share_item");
+								"user_likes,read_stream,email,user_birthday,user_hometown,user_about_me,user_photos,user_religion_politics,user_relationships,user_work_history,user_education_history,user_website,publish_actions");
+				/**
+				 * offline_access,publish_stream,share_item --> removed, soalnya ga ada lagi
+				 */
 				final String fbLoginUri = fbLoginUriBuilder.toString();
 				log.trace("Facebook login URI {}", fbLoginUri);
 				setDefaultModelObject(fbLoginUri);
