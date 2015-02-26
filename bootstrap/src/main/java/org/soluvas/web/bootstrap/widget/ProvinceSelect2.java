@@ -70,7 +70,7 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 			return FluentIterable.from(ids).transform(new Function<String, Province>() {
 				@Override @Nullable
 				public Province apply(@Nullable String input) {
-					return provinceRepo.getProvince(input);
+					return provinceRepo.getProvinceByCountryAndName(input);
 				}
 			}).toSet();
 		}

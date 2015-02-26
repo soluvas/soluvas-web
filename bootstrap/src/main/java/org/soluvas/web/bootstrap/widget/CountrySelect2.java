@@ -15,8 +15,8 @@ import org.json.JSONException;
 import org.json.JSONWriter;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
-import org.soluvas.geo.CityRepository;
 import org.soluvas.geo.Country;
+import org.soluvas.geo.CountryRepository;
 import org.soluvas.web.site.FlagsCssResourceReference;
 
 import com.google.common.base.Function;
@@ -29,16 +29,13 @@ import com.vaynberg.wicket.select2.Select2Choice;
  * {@link Select2Choice} UI component for Joda {@link Country}.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 
-	private static final long serialVersionUID = 1L;
-	
 	private static class CountryChoiceProvider extends ChoiceProvider<Country> {
 
-		private static final long serialVersionUID = 1L;
-
 		@SpringBean
-		private CityRepository cityRepo;
+		private CountryRepository countryRepo;
 
 		public CountryChoiceProvider() {
 			super();
@@ -48,7 +45,7 @@ public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 		@Override
 		public void query(String term, int page, Response<Country> response) {
 			final String trimmedTerm = term.trim();
-			final Page<Country> countries = cityRepo.searchCountry(trimmedTerm, new PageRequest(page, 20));
+			final Page<Country> countries = countryRepo.searchCountry(trimmedTerm, new PageRequest(page, 20));
 			response.addAll(countries.getContent());
 			response.setHasMore(!countries.isLastPage());
 		}
@@ -58,15 +55,9 @@ public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 			return FluentIterable.from(ids).transform(new Function<String, Country>() {
 				@Override @Nullable
 				public Country apply(@Nullable String input) {
-					return cityRepo.getCountry(input);
+					return countryRepo.getCountry(input);
 				}
 			}).toSet();
-//			// Workaround for Select2Choice "bug": https://github.com/ivaynberg/wicket-select2/issues/56
-//			if (!ids.isEmpty() && found.isEmpty()) {
-//				return Arrays.asList(new Country[] { null });
-//			} else {
-//				return found;
-//			}
 		}
 		
 		@Override
