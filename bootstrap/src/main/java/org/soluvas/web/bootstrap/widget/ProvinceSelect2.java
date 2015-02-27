@@ -50,7 +50,13 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 		public void query(String term, int page, Response<Province> response) {
 			final String trimedTerm = term.trim();
 			final Page<Province> pageProvince;
-			pageProvince =  provinceRepo.searchProvince(trimedTerm, new PageRequest(page, 20));
+			@Nullable final Country country = countryModel.getObject();
+//			if (country != null) {
+//				pageProvince =  provinceRepo.searchProvince(trimedTerm, new PageRequest(page, 20));
+//			} else {
+//				pageProvince =  provinceRepo.searchProvince(trimedTerm, country.getIso(), new PageRequest(page, 20));
+//			}
+			pageProvince =  provinceRepo.searchProvince(trimedTerm, country != null ? country.getIso() : null, new PageRequest(page, 20));
 			
 			response.addAll(pageProvince.getContent());
 			response.setHasMore(!pageProvince.isLastPage());
@@ -99,6 +105,10 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 	}
 
 	public ProvinceSelect2(String id){
+		super(id, new Model<Province>(), new ProvinceProvider(new Model<Country>()));
+	}
+	
+	public ProvinceSelect2(String id, IModel<Province> curModel, IModel<Country> countryModel){
 		super(id, new Model<Province>(), new ProvinceProvider(new Model<Country>()));
 	}
 
