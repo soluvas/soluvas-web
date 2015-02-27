@@ -18,6 +18,8 @@ import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.City;
 import org.soluvas.geo.CityRepository;
+import org.soluvas.geo.Country;
+import org.soluvas.geo.Province;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
@@ -38,17 +40,35 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 		
 		@SpringBean
 		private CityRepository cityRepo;
+		private final IModel<Country> countryModel;
+		private final IModel<Province> provinceModel;
 		
-		public CityProvider() {
+		public CityProvider(final IModel<Country> countryModel, final IModel<Province> provinceModel) {
 			super();
 			Injector.get().inject(this);
+			this.countryModel = countryModel;
+			this.provinceModel = provinceModel;
 		}
 
 		@SuppressWarnings("null")
 		@Override
 		public void query(String term, int page, Response<City> response) {
 			final String trimedTerm = term.trim();
-			final Page<City> pageCity = cityRepo.searchCity(trimedTerm, new PageRequest(page, 20));
+			@Nullable final Country country = countryModel.getObject();
+			@Nullable Province province = null;
+			if (provinceModel != null){
+				province = provinceModel.getObject();
+			}
+			final Page<City> pageCity;
+			if (country != null && province != null) {
+				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), province.getName().toLowerCase(), country.getIso(), new PageRequest(page, 20));
+			} else if (country != null && province == null) {
+				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), null, country.getIso(), new PageRequest(page, 20));
+			} else if (country == null && province != null) {
+				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), province.getName().toLowerCase(), new PageRequest(page, 20));
+			} else {
+				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), new PageRequest(page, 20));
+			}
 			response.addAll(pageCity.getContent());
 			response.setHasMore(!pageCity.isLastPage());
 		}
@@ -73,17 +93,29 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 		
 		@Override
 		public void detach() {
+			countryModel.detach();
+			if(provinceModel != null){
+				provinceModel.detach();
+			}
 			super.detach();
 		}
 		
 	}
 	
 	public CitySelect2(final String id) {
-		super(id, new Model<City>(), new CityProvider());
+		super(id, new Model<City>(), new CityProvider(new Model<Country>(), new Model<Province>()));
 	}
 
 	public CitySelect2(final String id, final IModel<City> model) {
-		super(id, model, new CityProvider());
+		super(id, model, new CityProvider(new Model<Country>(), new Model<Province>()));
+	}
+
+	public CitySelect2(final String id, final IModel<City> model, final IModel<Province> provinceModel) {
+		super(id, model, new CityProvider(new Model<Country>(), provinceModel));
+	}
+	
+	public CitySelect2(final String id, final IModel<City> model, final IModel<Country> countryModel, final IModel<Province> provinceModel) {
+		super(id, model, new CityProvider(countryModel, provinceModel));
 	}
 	
 	@Override

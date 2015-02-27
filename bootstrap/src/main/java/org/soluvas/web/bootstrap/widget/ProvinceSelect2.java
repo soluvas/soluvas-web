@@ -107,5 +107,9 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 	public ProvinceSelect2(String id){
 		super(id, new Model<Province>(), new ProvinceProvider(new Model<Country>()));
 	}
+	
+	public ProvinceSelect2(String id, IModel<Province> curModel, IModel<Country> countryModel){
+		super(id, new Model<Province>(), new ProvinceProvider(new Model<Country>()));
+	}
 
 }
