@@ -160,25 +160,25 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		nameFld.setOutputMarkupId(true);
 		form.add(nameFld);
 		final Component displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable);
-		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
-						new Predicate<String>() {
-							@Override
-							public boolean apply(@Nullable String input) {
-								return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
-							}
-						});
-				getModelObject().setName(id);
-				target.add(nameFld, uNameLabel);
-			}
-		});
+		if (editMode == EditMode.ADD) {
+			displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
+				
+				@Override
+				protected void onUpdate(AjaxRequestTarget target) {
+					final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
+							new Predicate<String>() {
+						@Override
+						public boolean apply(@Nullable String input) {
+							return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
+						}
+					});
+					getModelObject().setName(id);
+					target.add(nameFld, uNameLabel);
+				}
+			});
+		}
 		form.add(displayNameFld);
 		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onConfigure() {
