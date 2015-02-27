@@ -12,6 +12,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.json.JSONException;
 import org.json.JSONWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.Country;
@@ -30,7 +32,8 @@ import com.vaynberg.wicket.select2.Response;
 
 @SuppressWarnings("serial")
 public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
-	
+	private static final Logger log = LoggerFactory
+			.getLogger(ProvinceSelect2.class);
 	
 	private static class ProvinceProvider extends ChoiceProvider<Province>{
 		
@@ -56,7 +59,8 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 //			} else {
 //				pageProvince =  provinceRepo.searchProvince(trimedTerm, country.getIso(), new PageRequest(page, 20));
 //			}
-			pageProvince =  provinceRepo.searchProvince(trimedTerm, country != null ? country.getIso() : null, new PageRequest(page, 20));
+			pageProvince =  provinceRepo.searchProvince(trimedTerm.toLowerCase()
+					, country != null ? country.getIso() : null, new PageRequest(page, 20));
 			
 			response.addAll(pageProvince.getContent());
 			response.setHasMore(!pageProvince.isLastPage());
@@ -65,6 +69,7 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 		@Override
 		public void toJson(Province choice, JSONWriter writer)
 				throws JSONException {
+//			log.debug("toJson province: {}", choice);
 			writer.key("id").value(provinceRepo.getKeyForProvince(choice))
 				.key("text").value(choice.getName())
 				.key("country").value(choice.getCountry().getName())
@@ -76,7 +81,7 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 			return FluentIterable.from(ids).transform(new Function<String, Province>() {
 				@Override @Nullable
 				public Province apply(@Nullable String input) {
-					return provinceRepo.getProvinceByCountryAndName(input);
+					return provinceRepo.getProvinceByCountryIsoAndName(input);
 				}
 			}).toSet();
 		}
@@ -109,7 +114,7 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 	}
 	
 	public ProvinceSelect2(String id, IModel<Province> curModel, IModel<Country> countryModel){
-		super(id, new Model<Province>(), new ProvinceProvider(new Model<Country>()));
+		super(id, curModel, new ProvinceProvider(countryModel));
 	}
 
 }

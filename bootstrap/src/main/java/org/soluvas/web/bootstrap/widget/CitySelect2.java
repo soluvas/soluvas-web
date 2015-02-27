@@ -48,6 +48,7 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 			Injector.get().inject(this);
 			this.countryModel = countryModel;
 			this.provinceModel = provinceModel;
+//			log.debug("Province: {}", provinceModel.getObject());
 		}
 
 		@SuppressWarnings("null")
@@ -55,10 +56,11 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 		public void query(String term, int page, Response<City> response) {
 			final String trimedTerm = term.trim();
 			@Nullable final Country country = countryModel.getObject();
-			@Nullable Province province = null;
-			if (provinceModel != null){
-				province = provinceModel.getObject();
-			}
+			@Nullable Province province = provinceModel.getObject();
+//			@Nullable Province province = null;
+//			if (provinceModel != null){
+//				province = provinceModel.getObject();
+//			}
 			final Page<City> pageCity;
 			if (country != null && province != null) {
 				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), province.getName().toLowerCase(), country.getIso(), new PageRequest(page, 20));
@@ -94,9 +96,9 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 		@Override
 		public void detach() {
 			countryModel.detach();
-			if(provinceModel != null){
+//			if(provinceModel != null){
 				provinceModel.detach();
-			}
+//			}
 			super.detach();
 		}
 		

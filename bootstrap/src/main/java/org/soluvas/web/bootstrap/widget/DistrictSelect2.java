@@ -17,8 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.City;
+import org.soluvas.geo.Country;
 import org.soluvas.geo.District;
 import org.soluvas.geo.DistrictRepository;
+import org.soluvas.geo.Province;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
@@ -41,24 +43,62 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 		private DistrictRepository districtRepo;
 		
 		private final IModel<City> cityModel;
+
+		private final IModel<Province> provinceModel;
+
+		private final IModel<Country> countryModel;
 		
-		public DistrictProvider(IModel<City> cityModel) {
+		public DistrictProvider(IModel<City> cityModel, IModel<Province> provinceModel,
+				IModel<Country>countryModel) {
 			super();
 			Injector.get().inject(this);
 			this.cityModel = cityModel;
+			this.provinceModel = provinceModel;
+			this.countryModel = countryModel;
 		}
 
 		@SuppressWarnings("null")
 		@Override
 		public void query(String term, int page, Response<District> response) {
+			
+			@Nullable final City city = cityModel.getObject();
+			@Nullable final Province province = provinceModel.getObject();
+			@Nullable final Country country = countryModel.getObject();
+			
 			final String trimedTerm = term.trim();
 			final Page<District> pageDistrict; 
-			@Nullable final City city = cityModel.getObject();
-			if (city == null || !city.getCountry().getIso().equals("ID")) {
-				pageDistrict = districtRepo.searchDistrict(trimedTerm, new PageRequest(page, 20));
+//			if (city == null || !city.getCountry().getIso().equals("ID")) {
+//				pageDistrict = districtRepo.searchDistrict(trimedTerm, new PageRequest(page, 20), city, province, country);
+//			} else {
+//				pageDistrict = districtRepo.searchDistrictByCity(trimedTerm, city.getName(), new PageRequest(page, 20));
+//			}
+			
+			if (city != null && province != null && country != null){
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						, new PageRequest(page, 20), city.getName(), province.getName(), country.getIso());
+			} else if (city != null && province == null && country == null){
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						, new PageRequest(page, 20), city.getName(), null, null);
+			} else if (city != null && province != null && country == null){
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						, new PageRequest(page, 20), city.getName(), province.getName(), null);
+			} else if (city != null && province == null && country != null){
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						, new PageRequest(page, 20), city.getName(), null, country.getIso());
+			} else if (city == null && province != null && country != null){
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						, new PageRequest(page, 20), null, province.getName(), country.getIso());
+			} else if (city == null && province != null && country == null){
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						, new PageRequest(page, 20), null, province.getName(), null);
+			} else if (city == null && province == null && country != null){
+				 pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						 , new PageRequest(page, 20), null, null, country.getIso());
 			} else {
-				pageDistrict = districtRepo.searchDistrictByCity(trimedTerm, city.getName(), new PageRequest(page, 20));
+				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
+						 , new PageRequest(page, 20), null, null, null);
 			}
+			
 			response.addAll(pageDistrict.getContent());
 			response.setHasMore(!pageDistrict.isLastPage());
 		}
@@ -90,15 +130,22 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 	}
 
 	public DistrictSelect2(final String id) {
-		super(id, new Model<District>(), new DistrictProvider(new Model<City>()));
+		super(id, new Model<District>(), new DistrictProvider(new Model<City>(), new Model<Province>(), new Model<Country>()));
 	}
 
-	public DistrictSelect2(final String id, final IModel<District> model) {
-		super(id, model, new DistrictProvider(new Model<City>()));
+	public DistrictSelect2(final String id, final IModel<District> districtModel) {
+		super(id, districtModel, new DistrictProvider(new Model<City>(), new Model<Province>(), new Model<Country>()));
 	}
 	
-	public DistrictSelect2(final String id, final IModel<District> model, final IModel<City> cityModel) {
-		super(id, model, new DistrictProvider(cityModel));
+	public DistrictSelect2(final String id, final IModel<District> districtModel, final IModel<City> cityModel) {
+		super(id, districtModel, new DistrictProvider(cityModel, new Model<Province>(), new Model<Country>()));
+	}
+	public DistrictSelect2(final String id, final IModel<District> districtModel, final IModel<City> cityModel, final IModel<Province> provinceModel) {
+		super(id, districtModel, new DistrictProvider(cityModel, provinceModel, new Model<Country>()));
+	}
+	public DistrictSelect2(final String id, final IModel<District> districtModel, final IModel<City> cityModel, final IModel<Province> provinceModel,
+			final IModel<Country> countryModel) {
+		super(id, districtModel, new DistrictProvider(cityModel, provinceModel, countryModel));
 	}
 	
 	@Override
