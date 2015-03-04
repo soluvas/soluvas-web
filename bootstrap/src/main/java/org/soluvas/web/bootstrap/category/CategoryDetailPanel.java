@@ -219,9 +219,9 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 						}
 					});
 					category.setId(id);
+					category.setSlug(null);
+					category.resolve(categoryRepo);
 				}
-				category.setSlug(null);
-				category.resolve(categoryRepo);
 				target.add(headerUNameLabel, uNameDiv, slugPathDiv);
 			}
 		});
@@ -312,9 +312,9 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 						}
 					});
 					category.setId(id);
+					category.setSlug(null);
+					category.resolve(categoryRepo);
 				}
-				category.setSlug(null);
-				category.resolve(categoryRepo);
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
 				category.setDefaultMixin(curMixinModel.getObject().getQName());
 				switch (editMode) {
