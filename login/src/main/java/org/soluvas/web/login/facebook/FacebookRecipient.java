@@ -170,7 +170,7 @@ public class FacebookRecipient extends WebPage {
 				log.warn("User {} from Facebook ID {} has no email address",
 					curPerson.getId(), fbUser.getId());
 			}
-//			if (curPerson.getPhotoId() == null) {
+			if (curPerson.getPhotoId() == null) {
 				//Set photo from Facebook.
 				try {
 					final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(
@@ -179,7 +179,7 @@ public class FacebookRecipient extends WebPage {
 				} catch (Exception e) {
 					log.error("Cannot refresh photo from Facebook for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
-//			}
+			}
 			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson); 
 			
 			// Set Token And Set Session
