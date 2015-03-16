@@ -1549,6 +1549,43 @@ public interface SitePackage extends EPackage {
 	int BING_SYS_CONFIG_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.PerfectAudienceSysConfig <em>Perfect Audience Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.PerfectAudienceSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getPerfectAudienceSysConfig()
+	 * @generated
+	 */
+	int PERFECT_AUDIENCE_SYS_CONFIG = 29;
+
+	/**
+	 * The feature id for the '<em><b>Perfect Audience Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Perfect Audience Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ENABLED = 1;
+
+	/**
+	 * The number of structural features of the '<em>Perfect Audience Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERFECT_AUDIENCE_SYS_CONFIG_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1556,7 +1593,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 29;
+	int JAVA_SCRIPT_MODE = 30;
 
 
 	/**
@@ -1567,7 +1604,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 30;
+	int INTERACTION = 31;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1577,7 +1614,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 31;
+	int LIVE_CHAT_PROVIDER = 32;
 
 
 	/**
@@ -2410,6 +2447,38 @@ public interface SitePackage extends EPackage {
 	EAttribute getBingSysConfig_BingVerifyId();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.PerfectAudienceSysConfig <em>Perfect Audience Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Perfect Audience Sys Config</em>'.
+	 * @see org.soluvas.web.site.PerfectAudienceSysConfig
+	 * @generated
+	 */
+	EClass getPerfectAudienceSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PerfectAudienceSysConfig#getPerfectAudienceId <em>Perfect Audience Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Perfect Audience Id</em>'.
+	 * @see org.soluvas.web.site.PerfectAudienceSysConfig#getPerfectAudienceId()
+	 * @see #getPerfectAudienceSysConfig()
+	 * @generated
+	 */
+	EAttribute getPerfectAudienceSysConfig_PerfectAudienceId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.PerfectAudienceSysConfig#getPerfectAudienceEnabled <em>Perfect Audience Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Perfect Audience Enabled</em>'.
+	 * @see org.soluvas.web.site.PerfectAudienceSysConfig#getPerfectAudienceEnabled()
+	 * @see #getPerfectAudienceSysConfig()
+	 * @generated
+	 */
+	EAttribute getPerfectAudienceSysConfig_PerfectAudienceEnabled();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3143,6 +3212,32 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BING_SYS_CONFIG__BING_VERIFY_ID = eINSTANCE.getBingSysConfig_BingVerifyId();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.PerfectAudienceSysConfig <em>Perfect Audience Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.PerfectAudienceSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getPerfectAudienceSysConfig()
+		 * @generated
+		 */
+		EClass PERFECT_AUDIENCE_SYS_CONFIG = eINSTANCE.getPerfectAudienceSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Perfect Audience Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ID = eINSTANCE.getPerfectAudienceSysConfig_PerfectAudienceId();
+
+		/**
+		 * The meta object literal for the '<em><b>Perfect Audience Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ENABLED = eINSTANCE.getPerfectAudienceSysConfig_PerfectAudienceEnabled();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

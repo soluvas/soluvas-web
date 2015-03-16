@@ -31,6 +31,7 @@ import org.soluvas.web.site.LiveChatSysConfig;
 import org.soluvas.web.site.LoginPage;
 import org.soluvas.web.site.Page;
 import org.soluvas.web.site.PageParam;
+import org.soluvas.web.site.PerfectAudienceSysConfig;
 import org.soluvas.web.site.Permalink;
 import org.soluvas.web.site.PermalinkCatalog;
 import org.soluvas.web.site.PermalinkManager;
@@ -256,6 +257,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass bingSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass perfectAudienceSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1109,6 +1117,33 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPerfectAudienceSysConfig() {
+		return perfectAudienceSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPerfectAudienceSysConfig_PerfectAudienceId() {
+		return (EAttribute)perfectAudienceSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPerfectAudienceSysConfig_PerfectAudienceEnabled() {
+		return (EAttribute)perfectAudienceSysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1269,6 +1304,10 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		bingSysConfigEClass = createEClass(BING_SYS_CONFIG);
 		createEAttribute(bingSysConfigEClass, BING_SYS_CONFIG__BING_VERIFY_ID);
+
+		perfectAudienceSysConfigEClass = createEClass(PERFECT_AUDIENCE_SYS_CONFIG);
+		createEAttribute(perfectAudienceSysConfigEClass, PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ID);
+		createEAttribute(perfectAudienceSysConfigEClass, PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ENABLED);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1457,6 +1496,10 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		initEClass(bingSysConfigEClass, BingSysConfig.class, "BingSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBingSysConfig_BingVerifyId(), ecorePackage.getEString(), "bingVerifyId", null, 0, 1, BingSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(perfectAudienceSysConfigEClass, PerfectAudienceSysConfig.class, "PerfectAudienceSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPerfectAudienceSysConfig_PerfectAudienceId(), ecorePackage.getEString(), "perfectAudienceId", null, 0, 1, PerfectAudienceSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPerfectAudienceSysConfig_PerfectAudienceEnabled(), ecorePackage.getEBooleanObject(), "perfectAudienceEnabled", "false", 0, 1, PerfectAudienceSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
