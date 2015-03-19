@@ -41,16 +41,16 @@
 				Navbar... (see Navbar.html)
 			</nav>
 		</div>
-		<div class="row">
-				<section class="head-description" wicket:id="sidebarColumn">
+					<div wicket:id="afterHeader">
+						<!-- 		Carousel Images is loading.. -->
+					</div>
+		<div class="row content-area">
+				<section wicket:id="sidebarColumn" class="sidebarCol">
 					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
 				</section>
 				<!--/span-->
 	
 				<div wicket:id="contentColumn">
-					<div wicket:id="afterHeader">
-						<!-- 		Carousel Images is loading.. -->
-					</div>
 					<div style="display: none;" wicket:id="addedInfo"></div>
 					<div style="display: none;" wicket:id="feedback" class="feedback"></div>
 					<wicket:child style="display: none;">
