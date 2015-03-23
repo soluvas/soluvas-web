@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.soluvas.commons.CommonsPackage;
-import org.soluvas.commons.impl.CommonsPackageImpl;
 import org.soluvas.web.olark.LiveChatProvider;
 import org.soluvas.web.site.AlexaSysConfig;
 import org.soluvas.web.site.BingSysConfig;
@@ -905,6 +904,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleAnalyticsSysConfig_GoogleAnalyticsDisplayFeatures() {
 		return (EAttribute)googleAnalyticsSysConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -924,6 +924,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_NavbarTextColor() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(1);
 	}
@@ -933,6 +934,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_OutlineColor() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(2);
 	}
@@ -942,6 +944,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_BackgroundColor() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(3);
 	}
@@ -951,6 +954,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_HighlightColor() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(4);
 	}
@@ -1000,6 +1004,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThemePref_NavbarColor() {
 		return (EAttribute)themePrefEClass.getEStructuralFeatures().get(0);
 	}
@@ -1009,6 +1014,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGoogleSysConfig() {
 		return googleSysConfigEClass;
 	}
@@ -1018,6 +1024,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleSysConfig_GoogleApiKey() {
 		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1027,6 +1034,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleSysConfig_GoogleClientId() {
 		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -1036,6 +1044,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleSysConfig_GoogleClientSecret() {
 		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -1045,6 +1054,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGoogleSysConfig_GoogleVerifyId() {
 		return (EAttribute)googleSysConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -1054,6 +1064,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGooglePlusSysConfig() {
 		return googlePlusSysConfigEClass;
 	}
@@ -1063,6 +1074,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGooglePlusSysConfig_GooglePlusId() {
 		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1072,6 +1084,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGooglePlusSysConfig_GooglePlusKind() {
 		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -1081,6 +1094,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGooglePlusSysConfig_GooglePlusUrl() {
 		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -1090,6 +1104,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGooglePlusSysConfig_GooglePlusDisplayName() {
 		return (EAttribute)googlePlusSysConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -1099,6 +1114,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBingSysConfig() {
 		return bingSysConfigEClass;
 	}
@@ -1108,6 +1124,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBingSysConfig_BingVerifyId() {
 		return (EAttribute)bingSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1117,6 +1134,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPerfectAudienceSysConfig() {
 		return perfectAudienceSysConfigEClass;
 	}
@@ -1126,6 +1144,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPerfectAudienceSysConfig_PerfectAudienceId() {
 		return (EAttribute)perfectAudienceSysConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1135,6 +1154,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPerfectAudienceSysConfig_PerfectAudienceEnabled() {
 		return (EAttribute)perfectAudienceSysConfigEClass.getEStructuralFeatures().get(1);
 	}
