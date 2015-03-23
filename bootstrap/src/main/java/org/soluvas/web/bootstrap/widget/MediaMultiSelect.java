@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.json.JSONException;
 import org.json.JSONWriter;
 import org.soluvas.data.StatusMask;
@@ -31,7 +30,7 @@ public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
 
 		private static final long serialVersionUID = 1L;
 
-		@SpringBean
+//		@SpringBean
 		private MediaRepository mediaRepo;
 		
 		public MediaChoiceProvider() {
