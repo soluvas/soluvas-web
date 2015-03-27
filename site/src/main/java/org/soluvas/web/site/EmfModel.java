@@ -169,7 +169,13 @@ public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 					}
 				}
 			} else if (refObj != null) {
-				final EObject refEObj = (EObject) refObj;
+				final EObject refEObj;
+				try {
+					refEObj = (EObject) refObj;
+				} catch (Exception e) {
+					throw new SiteException(e, "Invalid EMF reference %s.%s, please ensure that you have generated model code properly for package '%s'",
+							child.eClass().getName(), ref.getName(), child.eClass().getEPackage().getName());
+				}
 //				if (!res.getContents().contains(refEObj)) {
 				if (!ref.isContainment() && refEObj.eResource() != res) {
 					EList<EObject> x = refEObj.eCrossReferences();
