@@ -56,7 +56,7 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 		public void query(String term, int page, Response<City> response) {
 			final String trimedTerm = term.trim();
 			@Nullable final Country country = countryModel.getObject();
-			@Nullable Province province = provinceModel.getObject();
+			@Nullable final Province province = provinceModel.getObject();
 //			@Nullable Province province = null;
 //			if (provinceModel != null){
 //				province = provinceModel.getObject();
