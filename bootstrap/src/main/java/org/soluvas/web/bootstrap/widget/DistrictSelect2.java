@@ -56,7 +56,7 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 			this.provinceModel = provinceModel;
 			this.countryModel = countryModel;
 			
-			log.debug("Contructor districtSelect2 for city {}, province {} and country {}", cityModel.getObject(), provinceModel.getObject(), countryModel.getObject());
+//			log.debug("Contructor districtSelect2 for city {}, province {} and country {}", cityModel.getObject(), provinceModel.getObject(), countryModel.getObject());
 		}
 
 		@SuppressWarnings("null")
@@ -102,6 +102,7 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 
 		@Override
 		public void toJson(District choice, JSONWriter writer) throws JSONException {
+//			log.debug("District.toJson {}", choice);
 			writer.key("id").value(districtRepo.getKeyForDistrict(choice))
 				.key("text").value(choice.getName())
 				.key("country").value(choice.getCountry().getName())
@@ -110,6 +111,7 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 
 		@Override
 		public Collection<District> toChoices(Collection<String> ids) {
+//			log.debug("District.toChoices {}", ids);
 			return FluentIterable.from(ids).transform(new Function<String, District>() {
 				@Override @Nullable
 				public District apply(@Nullable String input) {
