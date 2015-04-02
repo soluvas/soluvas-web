@@ -55,6 +55,8 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 			this.cityModel = cityModel;
 			this.provinceModel = provinceModel;
 			this.countryModel = countryModel;
+			
+			log.debug("Contructor districtSelect2 for city {}, province {} and country {}", cityModel.getObject(), provinceModel.getObject(), countryModel.getObject());
 		}
 
 		@SuppressWarnings("null")
@@ -67,12 +69,7 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 			
 			final String trimedTerm = term.trim();
 			final Page<District> pageDistrict; 
-//			if (city == null || !city.getCountry().getIso().equals("ID")) {
-//				pageDistrict = districtRepo.searchDistrict(trimedTerm, new PageRequest(page, 20), city, province, country);
-//			} else {
-//				pageDistrict = districtRepo.searchDistrictByCity(trimedTerm, city.getName(), new PageRequest(page, 20));
-//			}
-			
+			log.debug("Querying districtSelect2 for term '{}', city {}, province {} and country {}", trimedTerm, city, province, country);
 			if (city != null && province != null && country != null){
 				pageDistrict = districtRepo.searchDistrict(trimedTerm.toLowerCase()
 						, new PageRequest(page, 20), city.getName(), province.getName(), country.getIso());
@@ -124,6 +121,8 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 		@Override
 		public void detach() {
 			cityModel.detach();
+			provinceModel.detach();
+			countryModel.detach();
 			super.detach();
 		}
 		
