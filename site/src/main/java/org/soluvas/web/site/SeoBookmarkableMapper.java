@@ -33,6 +33,8 @@ public abstract class SeoBookmarkableMapper extends AbstractBookmarkableMapper {
 	 * @todo FIXME: Should use AppManifest's
 	 */
 	public static final String DEFAULT_LOCALE_PREF_ID = "id";
+	
+	public static final String DEFAULT_LOCALE_PREF_EN = "en";
 
 	/**
 	 * Creates a {@code IRequestHandler} that processes a bookmarkable request.
