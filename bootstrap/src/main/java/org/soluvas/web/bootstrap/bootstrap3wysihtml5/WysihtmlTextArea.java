@@ -35,6 +35,18 @@ public class WysihtmlTextArea extends TextArea<String> {
 		add(new CssClassNameAppender("wysihtml5"));
 	}
 	
+//	@Override
+//    public void onEvent(IEvent<?> event) {
+//		super.onEvent(event);
+//
+//		if (event.getPayload() instanceof AjaxRequestTarget) {
+//		    AjaxRequestTarget target = (AjaxRequestTarget) event.getPayload();
+//		    if (target.getComponents().contains(this)) {
+//		    	target.prependJavaScript("$(function() { $('.wysihtml5').wysihtml5({color: true}); });");
+//		    }
+//		}
+//    }
+	
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
