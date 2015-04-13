@@ -1,7 +1,7 @@
 package org.soluvas.web.bootstrap.bootstrap3wysihtml5;
 
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.IModel;
 
@@ -32,6 +32,7 @@ public class WysihtmlTextArea extends TextArea<String> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		setOutputMarkupId(true);
 		add(new CssClassNameAppender("wysihtml5"));
 	}
 	
@@ -40,9 +41,9 @@ public class WysihtmlTextArea extends TextArea<String> {
 //		super.onEvent(event);
 //
 //		if (event.getPayload() instanceof AjaxRequestTarget) {
-//		    AjaxRequestTarget target = (AjaxRequestTarget) event.getPayload();
+//		    final AjaxRequestTarget target = (AjaxRequestTarget) event.getPayload();
 //		    if (target.getComponents().contains(this)) {
-//		    	target.prependJavaScript("$(function() { $('.wysihtml5').wysihtml5({color: true}); });");
+//		    	target.appendJavaScript("$('#" + getMarkupId() + "').wysihtml5({color: true});");
 //		    }
 //		}
 //    }
@@ -53,8 +54,18 @@ public class WysihtmlTextArea extends TextArea<String> {
 		
 		// bootstrap-wysihtml5 is activated by advanced-form.js
 		response.render(Bootstrap3Wysihtml5.asHeaderItem());
-		response.render(JavaScriptHeaderItem.forScript(
-				"$(function() { $('.wysihtml5').wysihtml5({color: true}); });", "wysihtml5-activator"));
+		response.render(OnLoadHeaderItem.forScript(
+				"$('#" + getMarkupId() + "').wysihtml5({color: true});"));
+//		response.render(OnLoadHeaderItem.forScript( --> ga jalan
+//				"$('.wysihtml5').wysihtml5({color: true});"));
+//		response.render(JavaScriptHeaderItem.forScript(--> ga jalan
+//				"$(function() { $('.wysihtml5').wysihtml5({color: true}); });", "wysihtml5-activator"));		
+//		response.render(JavaScriptHeaderItem.forScript(--> ga jalan
+//				"$(function() { $('#" + getMarkupId() + "').wysihtml5({color: true}); });", "wysihtml5-activator-" + getMarkupId()));
+//		response.render(OnLoadHeaderItem.forScript(
+//				"$(function() { $('#" + getMarkupId() + "').wysihtml5({color: true}); });"));
+//		response.render(JavaScriptHeaderItem.forScript( --> ga jalan
+//				"$(function() { $('.wysihtml5').wysihtml5({color: true}); });", "wysihtml5-activator"));
 		
 //		//wysihtml5 start
 //		// Bippo hack to workaround missing CSS since JavaScript doesn't know the (WicketResource) location of the CSS file

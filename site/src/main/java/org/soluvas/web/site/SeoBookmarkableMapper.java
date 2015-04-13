@@ -1,5 +1,8 @@
 package org.soluvas.web.site;
 
+import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.wicket.core.request.handler.PageProvider;
@@ -20,6 +23,8 @@ import org.apache.wicket.util.lang.Args;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.ImmutableMap;
+
 /**
  * @author ceefour
  *
@@ -30,10 +35,15 @@ public abstract class SeoBookmarkableMapper extends AbstractBookmarkableMapper {
 	protected final Logger log = LoggerFactory.getLogger(getClass());
 	protected final IPageParametersEncoder pageParametersEncoder = new PageParametersEncoder();
 	/**
-	 * @todo FIXME: Should use AppManifest's
+	 * LocalePref is different that locale/language tag, because it represents a site's preference, and is SEO-aware (used in URI segment).
+	 * So for example, LocalePref "id" maps to language tag "id-ID", while LocalePref "en" may map to language tag "en-US".
+	 * We can also create a LocalePref "en-uk" to map to language tag "en-UK". 
+	 * @todo FIXME: Should use AppManifest's.
 	 */
+	public static final Map<String, Locale> SUPPORTED_LOCALE_PREFS = ImmutableMap.of(
+			"id", Locale.forLanguageTag("id-ID"),
+			"en", Locale.forLanguageTag("en-US")); 
 	public static final String DEFAULT_LOCALE_PREF_ID = "id";
-	
 	public static final String DEFAULT_LOCALE_PREF_EN = "en";
 
 	/**
