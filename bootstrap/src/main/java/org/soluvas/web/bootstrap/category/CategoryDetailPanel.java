@@ -36,6 +36,7 @@ import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.impl.CategoryImpl;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.NotNullPredicate;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
@@ -92,6 +93,9 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	private TenantRef tenant;
 	@SpringBean
 	private MixinManager mixinMgr;
+	@SpringBean
+	private AppManifest appManifest;
+	
 	private final CategoryRepository categoryRepo;
 	private final EditMode editMode;
 	private final String originalUName;
@@ -116,6 +120,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		
 		final CategoryImpl category = new CategoryImpl();
 		category.setNsPrefix(tenant.getTenantId());
+		category.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		if (parentUName != null) {
 			category.setParentUName(parentUName);
 			final Category parent = Preconditions.checkNotNull(categoryRepo.findOne(parentUName),
@@ -149,6 +154,9 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		this.categoryRepo = categoryRepo;
 		this.originalUName = uName;
 		this.backPage = backPage;
+		if (getModelObject().getLanguage() == null) {
+			getModelObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
+		}
 	}
 	
 	@SuppressWarnings("null")
