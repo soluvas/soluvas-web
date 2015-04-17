@@ -274,10 +274,10 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				final Category category = CategoryDetailPanel.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
-				if (editMode == EditMode.ADD) {
-					if (Objects.equal(selectedLocale, categoryLocale)) {
-						category.setName(nameModel.getObject());
-						
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+					category.setName(nameModel.getObject());
+					
+					if (editMode == EditMode.ADD) {
 						final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
 							@Override
 							public boolean apply(@Nullable String input) {
@@ -287,19 +287,12 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 						category.setId(id);
 						category.setSlug(null);
 						category.resolve(categoryRepo);
-					} else {
-						updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, nameModel.getObject());
-						transNameMapModel.getObject().put(selectedLocale, nameModel.getObject());
+						target.add(headerUNameLabel, uNameDiv, slugPathDiv);
 					}
 				} else {
-					if (Objects.equal(selectedLocale, categoryLocale)) {
-						category.setName(nameModel.getObject());
-					} else {
-						updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, nameModel.getObject());
-						transNameMapModel.getObject().put(selectedLocale, nameModel.getObject());
-					}
+					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, nameModel.getObject());
+					transNameMapModel.getObject().put(selectedLocale, nameModel.getObject());
 				}
-				target.add(headerUNameLabel, uNameDiv, slugPathDiv);
 			}
 		});
 		form.add(displayNameFld);
@@ -515,7 +508,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	
 	private void initLocalesAndTranslationMapModel() {
 		//TODO: get languages from app manifest
-		final Collection<Locale> locales = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.values();
+		final Collection<Locale> locales = new ArrayList<>(SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.values());
 		for (final Locale locale : locales) {
 			transNameMapModel.getObject().put(locale, null);
 			transDescriptionMapModel.getObject().put(locale, null);

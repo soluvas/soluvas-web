@@ -1,10 +1,12 @@
 package org.soluvas.web.bootstrap.term;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -20,12 +22,17 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
@@ -54,8 +61,10 @@ import org.soluvas.data.impl.TermImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
+import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -108,7 +117,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	private final String originalUName;
 	
 	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
-	private final IModel<Locale> productReleaseLocaleModel = new Model<>();
+	private final IModel<Locale> termLocaleModel = new Model<>();
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
 	
 	private final IModel<Map<Locale, String>> transDisplayNameMapModel = new MapModel<>(new HashMap<Locale, String>());
@@ -171,6 +180,10 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		
+		termLocaleModel.setObject(Locale.forLanguageTag(getModel().getObject().getLanguage()));
+		initLocalesAndTranslationMapModel();
+		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
 		add(new BookmarkablePageLink<>("backLink", backPage));
@@ -187,31 +200,58 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		nameFld.setEnabled(false);
 		nameFld.setOutputMarkupId(true);
 		form.add(nameFld);
-		new LoadableDetachableModel<String>() {
+		final IModel<String> displayNameModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
-				// TODO Auto-generated method stub
-				return null;
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale productReleaseLocale = termLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+					return getModel().getObject().getDisplayName();
+				} else {
+					final String translation = transDisplayNameMapModel.getObject().get(selectedLocale);
+					log.debug("loading display name for locale '{}': {}", selectedLocale, translation);
+					return translation;
+				}
 			}
 		};
-		final Component displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable);
-		if (editMode == EditMode.ADD) {
-			displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
-				
-				@Override
-				protected void onUpdate(AjaxRequestTarget target) {
-					final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
-							new Predicate<String>() {
-						@Override
-						public boolean apply(@Nullable String input) {
-							return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
-						}
-					});
-					getModelObject().setName(id);
-					target.add(nameFld, uNameLabel);
+		final TextField displayNameFld = new TextField<String>("displayName", displayNameModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
 				}
-			});
-		}
+			}
+		};
+		displayNameFld.setRequired(true).setEnabled(editable);
+		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale productReleaseLocale = termLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+					getModelObject().setDisplayName(displayNameModel.getObject());
+					
+					if (editMode == EditMode.ADD) {
+						final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
+								new Predicate<String>() {
+							@Override
+							public boolean apply(@Nullable String input) {
+								return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
+							}
+						});
+						getModelObject().setName(id);
+						target.add(nameFld, uNameLabel);
+					}
+				} else {
+					updateAttributeTranslations(selectedLocale, Value.DISPLAY_NAME_ATTR, displayNameModel.getObject());
+					transDisplayNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
+				}
+			}
+		});
 		form.add(displayNameFld);
 		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
 
@@ -330,6 +370,70 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		deleteBtn.setVisible(false);
 		add(deleteBtn);
 		
+		/*LANGUAGE BUTTONS*/
+		final WebMarkupContainer wmcLocales = new WebMarkupContainer("wmcLocales");
+		wmcLocales.setOutputMarkupId(true);
+		wmcLocales.add(new ListView<Locale>("locales", localesModel) {
+			@Override
+			protected void populateItem(final ListItem<Locale> item) {
+				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						selectedLocaleModel.setObject(item.getModelObject());
+						displayNameModel.detach();
+						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
+						target.add(displayNameFld, wmcLocales);
+					}
+					
+					@Override
+					protected void onConfigure() {
+						super.onConfigure();
+						setOutputMarkupId(true);
+						if (Objects.equal(selectedLocaleModel.getObject(), item.getModelObject())) {
+							add(new AttributeAppender("class", "btn btn-default active"));
+						} else {
+							add(new AttributeAppender("class", "btn btn-default"));
+						}
+					}
+				};
+				
+				final Label lblLocale = new Label("lblLocale", new Model<>(
+							item.getModelObject().getDisplayLanguage() + 
+							"-" + item.getModelObject().getDisplayCountry() +
+							(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
+						));
+				btnLocale.add(lblLocale);
+				item.add(btnLocale);
+			}
+		});
+		form.add(wmcLocales);
+	}
+	
+	private void initLocalesAndTranslationMapModel() {
+		//TODO: get languages from app manifest
+		final Collection<Locale> locales = new ArrayList<>(SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.values());
+		for (final Locale locale : locales) {
+			transDisplayNameMapModel.getObject().put(locale, null);
+		}
+		
+		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
+			for (final Entry<String, Translation> entry : getModelObject().getTranslations().entrySet()) {
+				final Locale locale = Locale.forLanguageTag(entry.getKey());
+				if (!locales.contains(locale)) {
+					locales.add(locale);
+				}
+				
+				final Translation translation = entry.getValue();
+				for (final Entry<String, String> messageEntry : translation.getMessages()) {
+					//display name
+					if (messageEntry.getKey().equals(Value.DISPLAY_NAME_ATTR)) {
+						transDisplayNameMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+				}
+			}
+		}
+		
+		localesModel.getObject().addAll(locales);
 	}
 	
 	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
