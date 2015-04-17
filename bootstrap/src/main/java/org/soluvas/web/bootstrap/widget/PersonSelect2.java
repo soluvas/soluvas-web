@@ -33,13 +33,10 @@ import com.vaynberg.wicket.select2.Response;
  * For without {@link ImageManager} dependency, use {@link TextPersonSelect2}.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class PersonSelect2 extends InteractiveSelect2Choice<Person> {
 
-	private static final long serialVersionUID = 1L;
-
 	private static class PersonChoiceProvider extends ChoiceProvider<Person> {
-
-		private static final long serialVersionUID = 1L;
 
 		/**
 		 * Preload image URIs to make it quicker to display. 
