@@ -1,5 +1,10 @@
 package org.soluvas.web.bootstrap.term;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -24,17 +29,24 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.util.ListModel;
+import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.PatternValidator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.CommonsFactory;
 import org.soluvas.commons.SlugUtils;
+import org.soluvas.commons.Translation;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
+import org.soluvas.data.Value;
 import org.soluvas.data.event.AddedTermEvent;
 import org.soluvas.data.event.ModifiedTermEvent;
 import org.soluvas.data.event.RemovedTermEvent;
@@ -88,9 +100,18 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	private TenantRef tenant;
 	@SpringBean
 	private EventBus ev;
+	@SpringBean
+	private AppManifest appManifest;
+	
 	private final TermRepository termRepo;
 	private final EditMode editMode;
 	private final String originalUName;
+	
+	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
+	private final IModel<Locale> productReleaseLocaleModel = new Model<>();
+	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
+	
+	private final IModel<Map<Locale, String>> transDisplayNameMapModel = new MapModel<>(new HashMap<Locale, String>());
 
 	/**
 	 * For creating a new {@link Term}. The nsPrefix is always the tenantId.
@@ -114,6 +135,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		term.setKindNsPrefix(kindNsPrefix);
 		term.setKindName(kindName);
 		term.setNsPrefix(tenant.getTenantId());
+		term.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		setModel(new EmfModel<Term>(term));
 	}
 
@@ -138,6 +160,12 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		this.originalUName = uName;
 		this.kindDisplayName = kindDisplayName;
 		this.backPage = backPage;
+		
+		if (getModel().getObject().getLanguage() == null) {
+			getModel().getObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
+		}
+		
+		changeTranslationsByDefault();
 	}
 	
 	@Override
@@ -151,7 +179,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
 		
-		final Form<Void> form = new Form<Void>("form");
+		final Form<Void> form = new Form<>("form");
 		add(form);
 		
 		form.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
@@ -159,6 +187,13 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		nameFld.setEnabled(false);
 		nameFld.setOutputMarkupId(true);
 		form.add(nameFld);
+		new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
 		final Component displayNameFld = new TextField<>("displayName", new PropertyModel<>(getModel(), "displayName")).setRequired(true).setEnabled(editable);
 		if (editMode == EditMode.ADD) {
 			displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
@@ -295,6 +330,48 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		deleteBtn.setVisible(false);
 		add(deleteBtn);
 		
+	}
+	
+	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
+			final String upValue) {
+		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
+			log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
+			final Translation translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
+			translation.getMessages().put(attribute, upValue);
+		} else {
+			log.debug("Putting new translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
+			final Translation newTranslation = CommonsFactory.eINSTANCE.createTranslation();
+			newTranslation.setLanguage(selectedLocale.toLanguageTag());
+			newTranslation.getMessages().put(attribute, upValue);
+			getModelObject().getTranslations().put(selectedLocale.toLanguageTag(), newTranslation);
+		}
+	}
+	
+	private void changeTranslationsByDefault() {
+		final String defaultLanguageTag = appManifest.getDefaultLocale().toLanguageTag();
+		final String oldLanguageTag = getModelObject().getLanguage();
+		final Locale oldLocale = Locale.forLanguageTag(oldLanguageTag);
+		if (defaultLanguageTag.equals(oldLanguageTag)) {
+			log.info("No need for translating different language with default (get from appManifest)");
+			return;
+		}
+		//set the language as default of product
+		getModelObject().setLanguage(defaultLanguageTag);
+		if (!getModelObject().getTranslations().containsKey(oldLanguageTag)) {
+			//create translation for old language
+			updateAttributeTranslations(oldLocale, Value.DISPLAY_NAME_ATTR, getModelObject().getDisplayName());
+		}
+		
+		if (getModelObject().getTranslations().containsKey(defaultLanguageTag)) {
+			//update attribute from translation if exists
+			final Translation translation = getModelObject().getTranslations().get(defaultLanguageTag);
+			if (translation.getMessages().containsKey(Value.DISPLAY_NAME_ATTR)) {
+				getModelObject().setDisplayName(translation.getMessages().get(Value.DISPLAY_NAME_ATTR));
+			}
+			
+			//remove translation as default language product
+			getModelObject().getTranslations().remove(defaultLanguageTag);
+		}
 	}
 	
 }
