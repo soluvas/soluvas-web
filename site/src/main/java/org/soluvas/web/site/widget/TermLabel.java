@@ -59,12 +59,12 @@ public class TermLabel extends Label {
 
 	private String getDefaultModelObjectAsFormattedString() {
 		final Term term = (Term) getDefaultModelObject();
-//		final Locale locale = getLocale();
+		final String curLanguageTag = getLocale().toLanguageTag();
 		if (term != null) {
 			final String iconHtml;
 			final String uri = term.getImageUri(webAddress.getImagesUri());
 			if (uri != null) {
-				iconHtml = "<img class=\"img-color-badge\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getDisplayName()) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getDisplayName()) + "\"/> ";
+				iconHtml = "<img class=\"img-color-badge\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(term.getEffectiveDisplayName(curLanguageTag)) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(term.getEffectiveDisplayName(curLanguageTag)) + "\"/> ";
 			} else {
 				final String color = term.getColor();
 				if (color != null) {
@@ -79,12 +79,12 @@ public class TermLabel extends Label {
 				if (!"".equals(iconHtml)) {
 					return iconHtml;
 				} else {
-					return "" + Strings.escapeMarkup(term.getDisplayName());
+					return "" + Strings.escapeMarkup(term.getEffectiveDisplayName(curLanguageTag));
 				}
 			case TEXT_ONLY:
-				return "" + Strings.escapeMarkup(term.getDisplayName());
+				return "" + Strings.escapeMarkup(term.getEffectiveDisplayName(curLanguageTag));
 			case IMAGE_AND_TEXT:
-				return iconHtml + Strings.escapeMarkup(term.getDisplayName());
+				return iconHtml + Strings.escapeMarkup(term.getEffectiveDisplayName(curLanguageTag));
 			default:
 				throw new RuntimeException("Unrecognize for termDisplay " + termDisplay);
 			}
