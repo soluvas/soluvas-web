@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
-import com.google.common.collect.ImmutableSet;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -18,6 +17,8 @@ import org.soluvas.web.bootstrap.content.ContentRepository;
 import org.soluvas.web.site.SiteException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Looks up HTML content from "${dataFolder}/common/content/${slug}.html".
@@ -84,6 +85,22 @@ public class CommonFolderContentLookup implements ContentRepository {
 				if (contentPagePattern.matcher(baseName).matches()) {
 					slugs.add(baseName);
 				}
+			}
+			return ImmutableSet.copyOf(slugs);
+		} catch (IOException e) {
+			throw new RepositoryException(e, "Cannot list files using '%s'", pattern);
+		}
+	}
+
+	@Override
+	public ImmutableSet<String> findAllWithouthPattern() {
+		final String pattern = "file:" + dataDir + "/common/content/*.html";
+		final HashSet<String> slugs = new HashSet<>();
+		try {
+			final Resource[] resources = new PathMatchingResourcePatternResolver().getResources(pattern);
+			for (final Resource res : resources) {
+				final String baseName = FilenameUtils.getBaseName(res.getFilename());
+				slugs.add(baseName);
 			}
 			return ImmutableSet.copyOf(slugs);
 		} catch (IOException e) {
