@@ -66,6 +66,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
@@ -539,11 +540,16 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 	}
 	
 	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
-			final String upValue) {
+			@Nullable final String upValue) {
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
-			log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
 			final Translation translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
-			translation.getMessages().put(attribute, upValue);
+			if (!Strings.isNullOrEmpty(upValue)) {
+				log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
+				translation.getMessages().put(attribute, upValue);
+			} else {
+				log.debug("Removing translation {} for {}", attribute, selectedLocale.toLanguageTag());
+				translation.getMessages().remove(attribute);
+			}
 		} else {
 			log.debug("Putting new translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
 			final Translation newTranslation = CommonsFactory.eINSTANCE.createTranslation();

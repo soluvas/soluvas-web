@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.shiro.SecurityUtils;
@@ -68,6 +69,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
 
 /**
@@ -225,7 +227,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				}
 			}
 		};
-		displayNameFld.setRequired(true).setEnabled(editable);
+		displayNameFld.setEnabled(editable);
 		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
 			
 			@Override
@@ -309,6 +311,10 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				final Term term = TermDetailPanel.this.getModelObject();
+				if (Strings.isNullOrEmpty(term.getDisplayName())) {
+					error("Display Name must not be null or empty");
+					return;
+				}
 				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
 					term.setColor(null);
 				}
@@ -339,7 +345,6 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		add(saveBtn);
 		
 		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -437,11 +442,16 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	}
 	
 	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
-			final String upValue) {
+			@Nonnull final String upValue) {
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
-			log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
 			final Translation translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
-			translation.getMessages().put(attribute, upValue);
+			if (!Strings.isNullOrEmpty(upValue)) {
+				log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
+				translation.getMessages().put(attribute, upValue);
+			} else {
+				log.debug("Removing translation {} for {}", attribute, selectedLocale.toLanguageTag());
+				translation.getMessages().remove(attribute);
+			}
 		} else {
 			log.debug("Putting new translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
 			final Translation newTranslation = CommonsFactory.eINSTANCE.createTranslation();
