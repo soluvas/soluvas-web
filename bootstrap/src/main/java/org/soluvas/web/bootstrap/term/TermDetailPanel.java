@@ -329,12 +329,12 @@ public class TermDetailPanel extends GenericPanel<Term> {
 							});
 					term.setName(id);
 					termRepo.add(term);
-					ev.post(new AddedTermEvent(EcoreUtil.copy(term), UUID.randomUUID().toString()));
+					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
 					info("Added term " + term.getQName());
 					break;
 				case MODIFY:
 					termRepo.modify(originalUName, term);
-					ev.post(new ModifiedTermEvent(originalUName, EcoreUtil.copy(term), UUID.randomUUID().toString()));
+					ev.post(new ModifiedTermEvent(originalUName, EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
 					info("Modified term " + term.getQName());
 					break;
 				}
@@ -365,7 +365,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 					term.setColor(null);
 //				}
 				termRepo.delete(originalUName);
-				ev.post(new RemovedTermEvent(EcoreUtil.copy(term), UUID.randomUUID().toString()));
+				ev.post(new RemovedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
 				warn("Deleted term " + originalUName);
 				setResponsePage(backPage);
 			}
