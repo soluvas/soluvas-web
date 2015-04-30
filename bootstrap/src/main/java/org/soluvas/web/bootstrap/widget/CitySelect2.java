@@ -61,6 +61,8 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 //			if (provinceModel != null){
 //				province = provinceModel.getObject();
 //			}
+			log.debug("Querying city by country '{}', province '{}', and trimmedTerm '{}'",
+					country, province, trimedTerm);
 			final Page<City> pageCity;
 			if (country != null && province != null) {
 				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), province.getName().toLowerCase(), country.getIso(), new PageRequest(page, 20));

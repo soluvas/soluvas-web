@@ -3,6 +3,7 @@ package org.soluvas.web.site.category;
 import javax.servlet.ServletRequest;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.Session;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
@@ -103,7 +104,8 @@ public class CategoryRequestMapper extends SeoBookmarkableMapper {
 			if (info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).isEmpty()) {
 				log.warn("localePrefId PageParameter must be given", new IllegalArgumentException("localePrefId PageParameter must be given"));
 			}
-			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
+			final String defaultLocalePrefId = Session.get().getLocale().toLanguageTag().equals("id-ID") ? SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID : SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN;
+			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(defaultLocalePrefId);
 			final String categorySlugPath = info.getPageParameters().get(SLUG_PATH_PARAMETER).toString();
 			if (categorySlugPath != null) {
 				final PageParameters copy = new PageParameters(info.getPageParameters());

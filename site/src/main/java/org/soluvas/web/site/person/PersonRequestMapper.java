@@ -3,6 +3,7 @@ package org.soluvas.web.site.person;
 import javax.servlet.ServletRequest;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.Session;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
@@ -88,7 +89,8 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
-			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
+			final String defaultLocalePrefId = Session.get().getLocale().toLanguageTag().equals("id-ID") ? SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID : SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN;
+			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(defaultLocalePrefId);
 			final String personSlug = info.getPageParameters().get(SLUG_PARAMETER).toString();
 			if (personSlug != null) {
 				final PageParameters copy = new PageParameters(info.getPageParameters());

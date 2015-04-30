@@ -3,6 +3,7 @@ package org.soluvas.web.bootstrap.content;
 import javax.servlet.ServletRequest;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.Session;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -106,7 +107,8 @@ public class ContentRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == contentShowPage && info.getPageParameters() != null) {
-			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
+			final String defaultLocalePrefId = Session.get().getLocale().toLanguageTag().equals("id-ID") ? SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID : SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN;
+			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(defaultLocalePrefId);
 			final String contentSlugPath = info.getPageParameters().get(SLUG_PATH_PARAMETER).toString();
 			if (contentSlugPath != null) {
 				final PageParameters copy = new PageParameters(info.getPageParameters());
