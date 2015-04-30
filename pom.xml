@@ -53,10 +53,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     	
-		<wicket.version>6.18.0</wicket.version>
-		<wicketstuff.version>6.18.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
-		<wicket-atmosphere.version>0.21</wicket-atmosphere.version><!-- linked to wicket.version -->
-		<atmosphere.version>2.2.3</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version, but there's also atmosphere-runtime-native -->
+		<wicket.version>6.19.0</wicket.version>
+		<wicketstuff.version>6.19.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
+		<wicket-atmosphere.version>0.22</wicket-atmosphere.version><!-- linked to wicket.version -->
+		<atmosphere.version>2.2.6</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version, but there's also atmosphere-runtime-native -->
 	</properties>
 
 	<dependencyManagement>
@@ -112,17 +112,11 @@
 				<version>${wicket-atmosphere.version}</version>
 				<exclusions>
 					<!-- TODO: only required before wicket-webjars upgrades to reflections 0.9.9 which uses javassist 3.18.2-GA natively -->
-					<exclusion>
+					<!--<exclusion>
 						<artifactId>javassist</artifactId>
 						<groupId>javassist</groupId>
-					</exclusion>
+					</exclusion>-->
 				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>de.agilecoders.wicket.webjars</groupId>
-				<artifactId>wicket-webjars</artifactId>
-				<!-- only required until wicket-atmosphere uses proper wicket-webjars version -->
-				<version>0.4.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.atmosphere</groupId>
