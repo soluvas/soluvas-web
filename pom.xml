@@ -112,10 +112,10 @@
 				<version>${wicket-atmosphere.version}</version>
 				<exclusions>
 					<!-- TODO: only required before wicket-webjars upgrades to reflections 0.9.9 which uses javassist 3.18.2-GA natively -->
-					<!--<exclusion>
+					<exclusion>
 						<artifactId>javassist</artifactId>
 						<groupId>javassist</groupId>
-					</exclusion>-->
+					</exclusion>
 				</exclusions>
 			</dependency>
 			<dependency>
