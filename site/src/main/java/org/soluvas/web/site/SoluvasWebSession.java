@@ -1,7 +1,9 @@
 package org.soluvas.web.site;
 
+import java.util.Locale;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
+import org.apache.wicket.core.request.handler.IPageRequestHandler;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebSession;
@@ -57,7 +60,31 @@ public class SoluvasWebSession extends WebSession {
 		super(request);
 		Injector.get().inject(this);
 		try {
-			setLocale(appManifest.getDefaultLocale());
+			final RequestCycle requestCycle = RequestCycle.get();
+			@Nullable
+			final String localePrefId;
+			if (requestCycle.getActiveRequestHandler() instanceof IPageRequestHandler) {
+				final IPageRequestHandler pageHandler = (IPageRequestHandler) requestCycle.getActiveRequestHandler();
+				localePrefId = pageHandler.getPageParameters().get(SeoBookmarkableMapper.LOCALE_PREF_ID_PARAMETER).toString();
+			} else {
+				localePrefId = null;
+			}
+			
+			final Locale locale;
+			if (localePrefId != null) {
+				if (SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(localePrefId)) {
+					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(localePrefId);
+				} else {
+					locale = appManifest.getDefaultLocale();
+					log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use default locale from appManifest, it is %s",
+							localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, locale));
+				}
+			} else {
+				locale = appManifest.getDefaultLocale();
+				log.warn(String.format("Locale pref id is null. So use default locale from appManifest, it is %s", locale));
+			}
+			setLocale(locale);
+			
 			if (getClientInfo().getProperties().getTimeZone() == null) {
 				getClientInfo().getProperties().setTimeZone(appManifest.getDefaultTimeZone().toTimeZone());
 			}
