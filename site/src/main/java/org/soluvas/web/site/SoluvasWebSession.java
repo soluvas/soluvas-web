@@ -19,6 +19,7 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.flow.RedirectToUrlException;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +66,12 @@ public class SoluvasWebSession extends WebSession {
 			final String localePrefId;
 			if (requestCycle.getActiveRequestHandler() instanceof IPageRequestHandler) {
 				final IPageRequestHandler pageHandler = (IPageRequestHandler) requestCycle.getActiveRequestHandler();
-				localePrefId = pageHandler.getPageParameters().get(SeoBookmarkableMapper.LOCALE_PREF_ID_PARAMETER).toString();
+				final PageParameters params = pageHandler.getPageParameters();
+				if (params != null) {
+					localePrefId = params.get(SeoBookmarkableMapper.LOCALE_PREF_ID_PARAMETER).toOptionalString();
+				} else  {
+					localePrefId = null;
+				}
 			} else {
 				localePrefId = null;
 			}
@@ -94,9 +100,9 @@ public class SoluvasWebSession extends WebSession {
 			if (getClientInfo().getProperties().getTimeZone() == null) {
 				getClientInfo().getProperties().setTimeZone(defaultsConfig.getDefaultTimeZone().toTimeZone());
 			}
-		} catch (NullPointerException e) {
+		} /*catch (NullPointerException e) {
 			throw new IllegalStateException("appManifest bean is required, please configure MultiTenantWebConfig/SingleTenantWebConfig properly");
-		}
+		}*/
 	}
 	
 	@Deprecated
