@@ -1,6 +1,7 @@
 package org.soluvas.web.site;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -13,6 +14,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.core.request.handler.IPageRequestHandler;
 import org.apache.wicket.injection.Injector;
+import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
@@ -28,6 +30,8 @@ import org.soluvas.commons.Person;
 import org.soluvas.commons.config.DefaultsConfig;
 import org.soluvas.commons.locale.LocaleContext;
 import org.soluvas.data.person.PersonRepository;
+import org.soluvas.geo.Country;
+import org.soluvas.geo.IpLocationRepository;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -56,6 +60,8 @@ public class SoluvasWebSession extends WebSession {
 	private AppManifest appManifest;
 	@Inject
 	private DefaultsConfig defaultsConfig;
+	@Inject
+	private IpLocationRepository ipLocationRepo;
 	
 	public SoluvasWebSession(Request request) {
 		super(request);
@@ -80,14 +86,30 @@ public class SoluvasWebSession extends WebSession {
 			if (localePrefId != null) {
 				if (SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(localePrefId)) {
 					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(localePrefId);
+					log.info("Locale pref id '%s' for locale: {}", localePrefId, locale);
 				} else {
-					locale = appManifest.getDefaultLocale();
-					log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use default locale from appManifest, it is %s",
-							localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, locale));
+					final ClientProperties properties = getClientInfo().getProperties();
+					final String remoteAddress = properties.getRemoteAddress();
+					final Optional<Country> optCountry = ipLocationRepo.getCountryByIp(remoteAddress);
+					if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
+						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("id");
+					} else {
+						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
+					}
+					log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use get by ip '%s' --> country %s, it is %s",
+							localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
 				}
 			} else {
-				locale = appManifest.getDefaultLocale();
-				log.warn(String.format("Locale pref id is null. So use default locale from appManifest, it is %s", locale));
+				final ClientProperties properties = getClientInfo().getProperties();
+				final String remoteAddress = properties.getRemoteAddress();
+				final Optional<Country> optCountry = ipLocationRepo.getCountryByIp(remoteAddress);
+				if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
+					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("id");
+				} else {
+					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
+				}
+				log.warn(String.format("Locale pref id is null. So use get by ip '%s' --> country %s, it is %s",
+						remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
 			}
 			setLocale(locale);
 			
