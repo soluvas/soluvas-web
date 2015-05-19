@@ -1,7 +1,6 @@
 package org.soluvas.web.site;
 
 import java.util.Locale;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -35,6 +34,8 @@ import org.soluvas.geo.IpLocationRepository;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.google.common.base.Optional;
 
 /**
  * @author ceefour
