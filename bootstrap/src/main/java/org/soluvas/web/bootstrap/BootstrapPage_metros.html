@@ -48,36 +48,40 @@ body {
 
 	<header wicket:id="header"></header>
 	<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
-	<div class="container top-md-10">
-		<div class="row">
-			<div class="col-sm-3 col-md-3 sidebar-categories top-md-30" wicket:id="sidebarColumn">
-				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-			</div>
-			<!--/span-->
-
-			<div wicket:id="contentColumn">
-				<div wicket:id="afterHeader" class="afterHeader">
-					<!-- 		Carousel Images is loading.. -->
-				</div>
-				<div wicket:id="feedback" class="feedback"></div>
-				<wicket:child>
-					<ol class="featured-products">
-						<div id="featuredProducts">
-							<li><a href="#">Product name</a></li>
+	<div class="wrapp-all">
+		<div id="page-content">
+			<div class="container top-md-10">
+				<div class="row">
+					<div class="col-sm-3 col-md-3 sidebar-categories top-md-30" wicket:id="sidebarColumn">
+						<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+					</div>
+					<!--/span-->
+		
+					<div wicket:id="contentColumn">
+						<div wicket:id="afterHeader" class="afterHeader">
+							<!-- 		Carousel Images is loading.. -->
 						</div>
-					</ol>
-				</wicket:child>
+						<div wicket:id="feedback" class="feedback"></div>
+						<wicket:child>
+							<ol class="featured-products">
+								<div id="featuredProducts">
+									<li><a href="#">Product name</a></li>
+								</div>
+							</ol>
+						</wicket:child>
+					</div>
+				</div>
+				<!--/row-->
+		
 			</div>
+			
+			<footer id="page-content" class="footer" wicket:id="footer">
+				<small style="color: #808080;"> &middot; &copy; <a
+					href="http://www.soluvas.com/">Soluvas</a> 2012
+				</small>
+			</footer>
 		</div>
-		<!--/row-->
-
 	</div>
-	
-	<footer class="footer" wicket:id="footer">
-		<small style="color: #808080;"> &middot; &copy; <a
-			href="http://www.soluvas.com/">Soluvas</a> 2012
-		</small>
-	</footer>
 	<!--/.fluid-container-->
 
 
