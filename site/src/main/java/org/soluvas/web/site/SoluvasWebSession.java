@@ -87,7 +87,7 @@ public class SoluvasWebSession extends WebSession {
 			if (localePrefId != null) {
 				if (SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(localePrefId)) {
 					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(localePrefId);
-					log.info("Locale pref id '%s' for locale: {}", localePrefId, locale);
+					log.info("Locale pref id '{}' for locale: {}", localePrefId, locale);
 				} else {
 					final ClientProperties properties = getClientInfo().getProperties();
 					final String remoteAddress = properties.getRemoteAddress();
