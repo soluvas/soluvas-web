@@ -63,8 +63,7 @@ public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 		@Override
 		public void toJson(Country choice, JSONWriter writer)
 				throws JSONException {
-			writer.key("id").value(choice.getIso())
-				.key("text").value(choice.getName());
+			writer.key("id").value(choice.getIso()).key("text").value(choice.getName());
 		}
 		
 		@Override
