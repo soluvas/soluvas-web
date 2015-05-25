@@ -50,7 +50,7 @@ body {
 	<div class="wrapp-navbar">
 		<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
 	</div>
-	<div class="">
+	<div class="page-content">
 		<div id="">
 			<div class="container top-md-10">
 				<div class="row">
@@ -155,10 +155,10 @@ $(document).ready(function () {
 
     // Enter your ids or classes
     var toggler = '.navbar-toggle';
-    var pagewrapper = '#page-content';
+    var pagewrapper = '.page-content';
     var navigationwrapper = '.navbar-header';
     var menuwidth = '100%'; // the menu inside the slide menu itself
-    var slidewidth = '80%';
+    var slidewidth = '270px';
     var menuneg = '-100%';
     var slideneg = '-80%';
 
@@ -188,13 +188,13 @@ $(document).ready(function () {
         $('#slidemenu').toggleClass('slide-active');
 
 
-        $('#page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
+        $('.page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
 
 
     });
 
 
-    var selected = '#slidemenu, #page-content, body, .navbar, .navbar-header';
+    var selected = '#slidemenu, .page-content, body, .navbar, .navbar-header';
 
 
     $(window).on("resize", function () {
