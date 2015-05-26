@@ -212,5 +212,15 @@ $(document).ready(function () {
 });
 </script>
 
+<script type="text/javascript">
+$(window).scroll(function() {
+	if ($(this).scrollTop() > 50) {
+        $('.navbar').addClass('fix');
+    } else {
+        $('.navbar').removeClass('fix');
+    }
+});
+</script>
+
 </body>
 </html>
