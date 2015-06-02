@@ -31,6 +31,9 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	
 	final Optional<IModel<String>> labelModel;
 	final Class<? extends Page> pageClass;
+	/**
+	 * Initial parameters, e.g. to include {@link org.soluvas.web.site.SeoBookmarkableMapper#LOCALE_PREF_ID_PARAMETER}.
+	 */
 	final PageParameters paramsTemplate;
 	final String paramName;
 	final String paramExpression;
@@ -53,6 +56,16 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		this.paramExpression = paramExpression;
 	}
 
+	/**
+	 *
+	 * @param displayModel
+	 * @param sortProperty
+	 * @param propertyExpression
+	 * @param pageClass
+	 * @param paramsTemplate Initial parameters, e.g. to include {@link org.soluvas.web.site.SeoBookmarkableMapper#LOCALE_PREF_ID_PARAMETER}.
+	 * @param paramName
+	 * @param paramExpression
+	 */
 	public LinkColumn(IModel<String> displayModel, S sortProperty,
 			String propertyExpression, 
 			Class<? extends Page> pageClass, PageParameters paramsTemplate,
@@ -85,6 +98,15 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		this.paramExpression = paramExpression;
 	}
 
+	/**
+	 *
+	 * @param displayModel
+	 * @param propertyExpression
+	 * @param pageClass
+	 * @param paramsTemplate Initial parameters, e.g. to include {@link org.soluvas.web.site.SeoBookmarkableMapper#LOCALE_PREF_ID_PARAMETER}.
+	 * @param paramName
+	 * @param paramExpression
+	 */
 	public LinkColumn(IModel<String> displayModel, String propertyExpression,
 			Class<? extends Page> pageClass, PageParameters paramsTemplate, String paramName, String paramExpression) {
 		super(displayModel, propertyExpression);

@@ -115,11 +115,14 @@ public class MeasureLabel extends Label {
 			unit = Unit.ONE;
 		}
 		if (amountModel != null && amountModel.getObject() != null) {
+			final Object origObject = amountModel.getObject();
+			// accepts Double, Integer, etc. as well
+			final BigDecimal theAmount = origObject instanceof BigDecimal ? (BigDecimal) origObject : new BigDecimal(origObject.toString());
 			BigDecimal scaled;
 			if (scale != null) {
-				scaled = amountModel.getObject().setScale(scale, RoundingMode.HALF_EVEN);
+				scaled = theAmount.setScale(scale, RoundingMode.HALF_EVEN);
 			} else {
-				scaled = BigDecimalUtils.stripFractionZeros(amountModel.getObject());
+				scaled = BigDecimalUtils.stripFractionZeros(theAmount);
 //				try {
 //					scaled = amountModel.getObject().setScale(0, RoundingMode.UNNECESSARY);
 //				} catch (ArithmeticException e) {
