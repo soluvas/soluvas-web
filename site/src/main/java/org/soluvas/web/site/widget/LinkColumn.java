@@ -6,6 +6,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
@@ -147,17 +148,22 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-		final Object paramValue = Preconditions.checkNotNull(new PropertyModel<>(model, paramExpression).getObject(),
-				"Cannot get '%s' parameter because of null '%s' in %s",
-				paramName, paramExpression, model.getObject());
-		final PageParameters params = new PageParameters(paramsTemplate)
-			.add(paramName, paramValue);
-		final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClass, params,
-				labelModel.or((IModel) getDataModel(model)), tagType);
-		if (enabled != null) {
-			linkPanel.setEnabled(enabled.apply(model.getObject()));
+		@Nullable
+		final Object paramValue = new PropertyModel<>(model, paramExpression).getObject();
+//				"Cannot get '%s' parameter because of null '%s' in %s",
+//				paramName, paramExpression, model.getObject());
+		if (paramValue != null) {
+			final PageParameters params = new PageParameters(paramsTemplate)
+					.add(paramName, paramValue);
+			final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClass, params,
+					labelModel.or((IModel) getDataModel(model)), tagType);
+			if (enabled != null) {
+				linkPanel.setEnabled(enabled.apply(model.getObject()));
+			}
+			item.add(linkPanel);
+		} else {
+			item.add(new Label(componentId));
 		}
-		item.add(linkPanel);
 		if (cssClass != null) {
 			item.add(new AttributeAppender("class", new Model<>(cssClass), " "));
 		}
