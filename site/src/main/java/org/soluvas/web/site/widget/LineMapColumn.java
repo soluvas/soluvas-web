@@ -62,7 +62,9 @@ public class LineMapColumn<T> extends AbstractColumn<T, String> {
 			gmap.setDoubleClickZoomEnabled(false);
 			final GLatLng startLatLng = new GLatLng(startLat, startLon);
 			final GLatLng finishLatLng = new GLatLng(finishLat, finishLon);
-			gmap.setCenter(startLatLng);
+			final GLatLng centerLatLng = new GLatLng((startLat + finishLat) / 2d,
+					(startLon + finishLon) / 2d);
+			gmap.setCenter(centerLatLng);
 
 			gmap.addOverlay(new GPolyline("red", 4, 0.8f, startLatLng, finishLatLng));
 			gmap.add(new AttributeAppender("style", "width: 16em; height: 8em"));
