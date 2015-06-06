@@ -61,7 +61,7 @@ public class SoluvasWebSession extends WebSession {
 	private AppManifest appManifest;
 	@Inject
 	private DefaultsConfig defaultsConfig;
-	@Inject
+	@SpringBean(required=false) @Nullable // Bippo uses this, but other clients usually don't
 	private IpLocationRepository ipLocationRepo;
 	
 	public SoluvasWebSession(Request request) {
@@ -90,6 +90,23 @@ public class SoluvasWebSession extends WebSession {
 					log.info("Locale pref id '{}' for locale: {}", localePrefId, locale);
 				} else {
 					final ClientProperties properties = getClientInfo().getProperties();
+					if (ipLocationRepo != null) {
+						final String remoteAddress = properties.getRemoteAddress();
+						final Optional<Country> optCountry = ipLocationRepo.getCountryByIp(remoteAddress);
+						if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
+							locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
+						} else {
+							locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN);
+						}
+						log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use get by ip '%s' --> country %s, it is %s",
+								localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
+					} else {
+						locale = appManifest.getDefaultLocale();
+					}
+				}
+			} else {
+				if (ipLocationRepo != null) {
+					final ClientProperties properties = getClientInfo().getProperties();
 					final String remoteAddress = properties.getRemoteAddress();
 					final Optional<Country> optCountry = ipLocationRepo.getCountryByIp(remoteAddress);
 					if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
@@ -97,20 +114,11 @@ public class SoluvasWebSession extends WebSession {
 					} else {
 						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
 					}
-					log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use get by ip '%s' --> country %s, it is %s",
-							localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
-				}
-			} else {
-				final ClientProperties properties = getClientInfo().getProperties();
-				final String remoteAddress = properties.getRemoteAddress();
-				final Optional<Country> optCountry = ipLocationRepo.getCountryByIp(remoteAddress);
-				if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
-					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("id");
+					log.warn(String.format("Locale pref id is null. So use get by ip '%s' --> country %s, it is %s",
+							remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
 				} else {
-					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
+					locale = appManifest.getDefaultLocale();
 				}
-				log.warn(String.format("Locale pref id is null. So use get by ip '%s' --> country %s, it is %s",
-						remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
 			}
 			setLocale(locale);
 			
