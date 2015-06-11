@@ -1,7 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -22,18 +21,17 @@ public class TermTypeSelect2Multi extends InteractiveSelect2MultiChoice<TermType
 			.getLogger(TermTypeSelect2Multi.class);
 	private static final long serialVersionUID = 1L;
 	
-	private LoadableDetachableModel<List<TermType>> termTypeModel;
-	
-	public TermTypeSelect2Multi(String id, IModel<Collection<TermType>> termTypesModel) {
-		super(id, termTypesModel);
+	public TermTypeSelect2Multi(String id, IModel<Collection<TermType>> selectedTermTypesModel) {
+		super(id, selectedTermTypesModel);
+	//	setModel(new LoadableDetachableModel(selectedTermTypesModel));
 		
-		termTypeModel = new LoadableDetachableModel<List<TermType>>() {
+		final LoadableDetachableModel<Collection<TermType>> termTypesModel = new LoadableDetachableModel<Collection<TermType>>() {
 			@Override
-			protected List<TermType> load() {
+			protected Collection<TermType> load() {
 				return ImmutableList.copyOf(TermType.values());
 			}
 		};
-		setProvider(new TermTypeChoiceProvider(termTypeModel));
+		setProvider(new TermTypeChoiceProvider(termTypesModel));
 		
 	}
 
