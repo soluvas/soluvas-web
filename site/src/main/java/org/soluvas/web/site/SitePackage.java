@@ -1256,10 +1256,10 @@ public interface SitePackage extends EPackage {
 	int LIVE_CHAT_SYS_CONFIG_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl <em>Google Analytics Sys Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig
+	 * @see org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleAnalyticsSysConfig()
 	 * @generated
 	 */
@@ -1421,10 +1421,10 @@ public interface SitePackage extends EPackage {
 	int GOOGLE_PLUS_SYS_CONFIG = 27;
 
 	/**
-	 * The meta object id for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.GoogleSysConfigImpl <em>Google Sys Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.soluvas.web.site.GoogleSysConfig
+	 * @see org.soluvas.web.site.impl.GoogleSysConfigImpl
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleSysConfig()
 	 * @generated
 	 */
@@ -2988,10 +2988,10 @@ public interface SitePackage extends EPackage {
 		EAttribute LIVE_CHAT_SYS_CONFIG__LIVE_CHAT_SITE_ID = eINSTANCE.getLiveChatSysConfig_LiveChatSiteId();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleAnalyticsSysConfig <em>Google Analytics Sys Config</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl <em>Google Analytics Sys Config</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.GoogleAnalyticsSysConfig
+		 * @see org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl
 		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleAnalyticsSysConfig()
 		 * @generated
 		 */
@@ -3112,10 +3112,10 @@ public interface SitePackage extends EPackage {
 		EAttribute THEME_PREF__NAVBAR_COLOR = eINSTANCE.getThemePref_NavbarColor();
 
 		/**
-		 * The meta object literal for the '{@link org.soluvas.web.site.GoogleSysConfig <em>Google Sys Config</em>}' class.
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.GoogleSysConfigImpl <em>Google Sys Config</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.soluvas.web.site.GoogleSysConfig
+		 * @see org.soluvas.web.site.impl.GoogleSysConfigImpl
 		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleSysConfig()
 		 * @generated
 		 */

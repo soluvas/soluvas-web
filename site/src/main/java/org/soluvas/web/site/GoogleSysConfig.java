@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getGoogleSysConfig()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
 public interface GoogleSysConfig extends EObject {
