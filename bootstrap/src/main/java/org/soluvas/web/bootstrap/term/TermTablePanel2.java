@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.data.Kind;
 import org.soluvas.data.Term;
 import org.soluvas.web.site.widget.LinkColumn;
@@ -40,25 +42,33 @@ import org.soluvas.web.site.widget.TermColumn;
  * }
  * }</pre>
  * 
- * @author ceefour
+ * @author anton
  */
 @SuppressWarnings("serial")
 public class TermTablePanel2 extends Panel {
 	
-	public TermTablePanel2(String id, final String kindNsPrefix, final IModel<String> kindNameModel, String kindDisplayName,
-			final IModel<Class<? extends Page>> addPageModel, final IModel<Class<? extends Page>> detailPageModel) {
+	private static final Logger log = LoggerFactory
+			.getLogger(TermTablePanel2.class);
+	
+	
+	public TermTablePanel2(String id, final String kindNsPrefix, final IModel<String> kindNameModel, final IModel<String> kindDisplayNameModel,
+			IModel<Class<? extends Page>> addPageModel, final IModel<Class<? extends Page>> detailPageModel) {
 		super(id);
 		setOutputMarkupId(true);
-		add(new Label("kindDisplayName", kindDisplayName));
 		
-		final IModel<Class<? extends Page>> addPageModelDetach = new LoadableDetachableModel<Class<? extends Page>>() {
+		final Label kindDisplayNameLbl = new Label("kindDisplayName", kindDisplayNameModel);
+		
+		add(kindDisplayNameLbl);
+		
+//		final BookmarkablePageLink<Class<? extends Page>> addLink = new BookmarkablePageLink<>("addLink", addPageModel.getObject());
+//		add(addLink);
+		
+		add(new AjaxLink<String>("addLink") {
 			@Override
-			protected Class<? extends Page> load() {
-				return addPageModel.getObject();
+			public void onClick(AjaxRequestTarget target) {
+				getRequestCycle().setResponsePage(addPageModel.getObject());
 			}
-		};
-		
-		add(new BookmarkablePageLink<>("addLink", addPageModelDetach.getObject()));
+		});
 		
 		final SortableDataProvider<Term, String> termDp = new TermSDP(kindNameModel);
 		termDp.setSort("name", SortOrder.ASCENDING);
@@ -73,5 +83,6 @@ public class TermTablePanel2 extends Panel {
 //		columns.add(new TermColumn<Term>(new Model<>("Color"), "color"));
 		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
 	}
+	
 	
 }

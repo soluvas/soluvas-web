@@ -21,6 +21,8 @@ import org.soluvas.web.site.EmfModel;
  */
 public class TermSDP extends SortableDataProvider<Term, String> {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@SpringBean(name="sizeTermRepo")
 	private TermRepository sizeTermRepo;
 	@SpringBean(name="colorTermRepo")
