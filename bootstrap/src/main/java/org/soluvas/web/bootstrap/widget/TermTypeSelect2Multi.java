@@ -34,6 +34,5 @@ public class TermTypeSelect2Multi extends InteractiveSelect2MultiChoice<TermType
 		setProvider(new TermTypeChoiceProvider(termTypesModel));
 		
 	}
-	
 
 }
