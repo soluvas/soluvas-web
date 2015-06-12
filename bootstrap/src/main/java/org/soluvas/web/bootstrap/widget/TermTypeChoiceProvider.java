@@ -35,7 +35,16 @@ public class TermTypeChoiceProvider extends TextChoiceProvider<TermType>{
 
 	@Override
 	protected String getDisplayText(TermType choice) {
-		return choice.getName();
+		switch (choice.getName()) {
+		case "color":
+				return "Color";
+		case "cloth_size":
+			return "Cloth Size";
+		case "shoe_size":
+			return "Shoe Size";
+		default:
+			return choice.getName();
+		}
 	}
 
 	@Override
