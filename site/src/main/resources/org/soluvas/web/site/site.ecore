@@ -260,8 +260,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GoogleAnalyticsSysConfig" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GoogleAnalyticsSysConfig">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="googleAnalyticsEnabled"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
         defaultValueLiteral="false">
@@ -430,7 +429,7 @@
       </eAnnotations>
     </eLiterals>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GoogleSysConfig" abstract="true" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GoogleSysConfig">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="SysConfig for &lt;a href=&quot;https://developers.google.com/+/&quot;>Google+ Sign-in&lt;/a> and &lt;a href=&quot;https://www.google.com/webmasters/tools/home&quot;>Google Webmasters Toolkit&lt;/a>."/>
     </eAnnotations>

@@ -1485,7 +1485,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getLiveChatSysConfig_LiveChatProvider(), this.getLiveChatProvider(), "liveChatProvider", null, 1, 1, LiveChatSysConfig.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLiveChatSysConfig_LiveChatSiteId(), ecorePackage.getEString(), "liveChatSiteId", null, 0, 1, LiveChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(googleAnalyticsSysConfigEClass, GoogleAnalyticsSysConfig.class, "GoogleAnalyticsSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(googleAnalyticsSysConfigEClass, GoogleAnalyticsSysConfig.class, "GoogleAnalyticsSysConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsEnabled(), ecorePackage.getEBooleanObject(), "googleAnalyticsEnabled", "false", 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsTrackingId(), ecorePackage.getEString(), "googleAnalyticsTrackingId", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleAnalyticsSysConfig_GoogleAnalyticsCookieDomain(), ecorePackage.getEString(), "googleAnalyticsCookieDomain", null, 0, 1, GoogleAnalyticsSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1502,7 +1502,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getThemePref_YouTubeLinkVisible(), ecorePackage.getEBoolean(), "youTubeLinkVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThemePref_FootnoteVisible(), ecorePackage.getEBoolean(), "footnoteVisible", "true", 0, 1, ThemePref.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(googleSysConfigEClass, GoogleSysConfig.class, "GoogleSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(googleSysConfigEClass, GoogleSysConfig.class, "GoogleSysConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGoogleSysConfig_GoogleApiKey(), ecorePackage.getEString(), "googleApiKey", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleSysConfig_GoogleClientId(), ecorePackage.getEString(), "googleClientId", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleSysConfig_GoogleClientSecret(), ecorePackage.getEString(), "googleClientSecret", null, 0, 1, GoogleSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

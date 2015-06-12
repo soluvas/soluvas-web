@@ -25,7 +25,7 @@ public class ItemPropScopeBehavior extends Behavior {
 
 	/**
 	 * @param property Typically a property from {@link SchemaOrgProperty}.
-	 * @param contentModel object value, convertible to String
+	 * @param itemTypeModel item type, convertible to String
 	 */
 	public ItemPropScopeBehavior(Enum<?> property, final IModel<Enum<?>> itemTypeModel) {
 		super();
@@ -35,7 +35,7 @@ public class ItemPropScopeBehavior extends Behavior {
 	
 	/**
 	 * @param property Typically a property from {@link SchemaOrgProperty}.
-	 * @param content content value
+	 * @param itemType item type
 	 */
 	public ItemPropScopeBehavior(Enum<?> property, final Enum<?> itemType) {
 		this(property, new Model<Enum<?>>(itemType));

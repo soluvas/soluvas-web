@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getGoogleAnalyticsSysConfig()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
 public interface GoogleAnalyticsSysConfig extends EObject {

@@ -204,6 +204,24 @@ public interface SiteFactory extends EFactory {
 	RequireManager createRequireManager();
 
 	/**
+	 * Returns a new object of class '<em>Google Analytics Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Google Analytics Sys Config</em>'.
+	 * @generated
+	 */
+	GoogleAnalyticsSysConfig createGoogleAnalyticsSysConfig();
+
+	/**
+	 * Returns a new object of class '<em>Google Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Google Sys Config</em>'.
+	 * @generated
+	 */
+	GoogleSysConfig createGoogleSysConfig();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

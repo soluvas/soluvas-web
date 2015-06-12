@@ -66,5 +66,47 @@ public enum SchemaOrgClass {
 	 * @see #WEB_PAGE
 	 */
 	CONTACT_PAGE,
-	
+	/**
+	 * <a href="http://schema.org/Event">schema:Event</a> - An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the 'offers' property. Repeated events may be structured as separate Event objects.
+	 * Usage: Between 100,000 and 250,000 domains.
+	 */
+	EVENT,
+	/**
+	 * <a href="http://schema.org/VisualArtsEvent">schema:VisualArtsEvent</a> - Visual arts event.
+	 */
+	VISUAL_ARTS_EVENT,
+	/**
+	 * <a href="http://schema.org/MusicEvent">schema:MusicEvent</a> - Music event.
+	 */
+	MUSIC_EVENT,
+	/**
+	 * <a href="http://schema.org/EducationEvent">schema:EducationEvent</a> - Education event.
+	 */
+	EDUCATION_EVENT,
+	/**
+	 * <a href="http://schema.org/PublicationEvent">schema:PublicationEvent</a> - A PublicationEvent corresponds indifferently to the event of publication for a CreativeWork of any type e.g. a broadcast event, an on-demand event, a book/journal publication via a variety of delivery media.
+	 * Usage: Between 100 and 1000 domains
+	 */
+	PUBLICATION_EVENT,
+	/**
+	 * <a href="http://schema.org/BusinessEvent">schema:BusinessEvent</a> - Business event.
+	 * Usage: Between 100 and 1000 domains
+	 */
+	BUSINESS_EVENT,
+	/**
+	 * <a href="http://schema.org/SaleEvent">schema:SaleEvent</a> - Sales event.
+	 * Usage: Between 100 and 1000 domains
+	 */
+	SALE_EVENT,
+	/**
+	 * <a href="http://schema.org/ImageObject">schema:ImageObject</a> - An image file.
+	 * Usage: Over 1,000,000 domains
+	 */
+	IMAGE_OBJECT,
+	/**
+	 * <a href="http://schema.org/Place">schema:Place</a> - Entities that have a somewhat fixed, physical extension.
+	 * Usage: Between 100,000 and 250,000 domains
+	 * @see SchemaOrgProperty#LOCATION
+	 */
+	PLACE,
 }

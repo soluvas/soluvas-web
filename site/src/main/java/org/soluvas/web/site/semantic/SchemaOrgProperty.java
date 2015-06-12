@@ -78,6 +78,11 @@ public enum SchemaOrgProperty {
 	 */
 	MAIN_CONTENT_OF_PAGE,
 	/**
+	 * <a href="http://schema.org/image">schema:image</a> - An image of the item. This can be a URL or a fully described ImageObject.
+	 * Usage: Over 1,000,000 domains
+	 */
+	IMAGE,
+	/**
 	 * <a href="http://schema.org/primaryImageOfPage">schema:primaryImageOfPage</a> - Indicates the main image on the page.
 	 */
 	PRIMARY_IMAGE_OF_PAGE,
@@ -132,5 +137,18 @@ public enum SchemaOrgProperty {
 	/**
 	 * <a href="http://schema.org/longitude">schema:longitude</a> - The longitude of a location. For example -122.08585.
 	 */
-	LONGITUDE
+	LONGITUDE,
+	/**
+	 * <a href="http://schema.org/doorTime">schema:doorTime</a> - The time admission will commence.
+	 */
+	DOOR_TIME,
+	/**
+	 * <a href="http://schema.org/organizer">schema:organizer</a> - An organizer of an Event.
+	 */
+	ORGANIZER,
+	/**
+	 * <a href="http://schema.org/location">schema:location</a> - The location of the event, organization or action.
+	 * @see SchemaOrgClass#PLACE
+	 */
+	LOCATION,
 }
