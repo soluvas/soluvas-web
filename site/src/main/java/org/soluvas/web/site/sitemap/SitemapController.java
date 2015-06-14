@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.web.site.SiteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +37,15 @@ import com.google.common.collect.ImmutableSet;
  * 	converters.add(new Jaxb2RootElementHttpMessageConverter());
  * }
  * </pre>
+ *
+ * <p>Required beans are:</p>
+ *
+ * <ol>
+ *     <li>An {@link AppManifest} for {@link AppManifest#getDefaultTimeZone()}</li>
+ *     <li>A {@link WebAddress} for {@link WebAddress#getBaseUri()} and {@link WebAddress#getSecureBaseUri()}</li>
+ *     <li>A {@link GeneralSysConfig} for {@link GeneralSysConfig#getSslSupported()}</li>
+ *     <li>One or more {@link SitemapSupplier}s for actual sitemap contents</li>
+ * </ol>
  * 
  * @author ceefour
  */
@@ -46,10 +56,24 @@ public class SitemapController {
 	public static final ImmutableSet<SitemapPart> activeSitemaps = ImmutableSet.of(
 			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE);
 
-	@Inject
-	private WebAddress webAddress;
+	private static final Marshaller marshaller;
+
+	static {
+		try {
+			final JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
+			marshaller = jaxb.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
+					"<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
+		} catch (Exception e) {
+			throw new SiteException(e, "Cannot create JAXBContext and/or Marshaller: %s", e);
+		}
+	}
+
 	@Inject
 	private AppManifest appManifest;
+	@Inject
+	private WebAddress webAddress;
 	@Inject
 	private GeneralSysConfig sysConfig;
 	@Autowired(required=false)
@@ -87,11 +111,6 @@ public class SitemapController {
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusDays(1).getMillis());
 		
-		JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
-		Marshaller marshaller = jaxb.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		marshaller.setProperty("com.sun.xml.bind.xmlHeaders", 
-			    "<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
 		final StringWriter sw = new StringWriter();
 		marshaller.marshal(index, sw);
 		return new ResponseEntity<>(sw.toString(), headers, HttpStatus.OK);
@@ -154,11 +173,6 @@ public class SitemapController {
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusHours(1).getMillis());
 
-		JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
-		Marshaller marshaller = jaxb.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
-			    "<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
 		final StringWriter sw = new StringWriter();
 		marshaller.marshal(urlSet, sw);
 		return new ResponseEntity<>(sw.toString(), headers, HttpStatus.OK);
@@ -166,7 +180,7 @@ public class SitemapController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "main-sitemap.xsl")
 	public ResponseEntity<String> mainSitemapXsl() throws IOException {
-		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
+		//final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("text/xsl"));
 		headers.setExpires(new DateTime().plusWeeks(1).getMillis());
