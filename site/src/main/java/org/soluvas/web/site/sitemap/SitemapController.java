@@ -28,7 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Requires {@code WebMvcConfigurerAdapter} to be set up as follows:
+ * Serves the Google XML Sitemap index at {@code /sitemap_index.xml}, and individual {@link SitemapController} sitemaps
+ * based on {@link #activeSitemaps}.
+ *
+ * <p>Requires {@code WebMvcConfigurerAdapter} to be set up as follows:</p>
  * 
  * <pre>
  * &commat;Override
@@ -53,8 +56,10 @@ import com.google.common.collect.ImmutableSet;
 @Scope("request")
 public class SitemapController {
 
+	// TODO: per tenant active-sitemaps configuration
 	public static final ImmutableSet<SitemapPart> activeSitemaps = ImmutableSet.of(
-			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE);
+			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE,
+			/*SitemapPart.PERSON,*/ SitemapPart.PLACE, SitemapPart.EVENT);
 
 	private static final Marshaller marshaller;
 
@@ -107,6 +112,12 @@ public class SitemapController {
 		if (activeSitemaps.contains(SitemapPart.PRODUCT_RELEASE)) {
 			index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
 		}
+		if (activeSitemaps.contains(SitemapPart.PLACE)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.EVENT)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusDays(1).getMillis());
@@ -148,6 +159,16 @@ public class SitemapController {
 	@RequestMapping(method = RequestMethod.GET, value = "product-release-sitemap.xml")
 	public ResponseEntity<String> getProductReleaseSitemap() throws JAXBException {
 		return getSitemapIfActive(SitemapPart.PRODUCT_RELEASE);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "place-sitemap.xml")
+	public ResponseEntity<String> getPlaceSitemap() throws JAXBException {
+		return getSitemapIfActive(SitemapPart.PLACE);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "event-sitemap.xml")
+	public ResponseEntity<String> getEventSitemap() throws JAXBException {
+		return getSitemapIfActive(SitemapPart.EVENT);
 	}
 
 	protected ResponseEntity<String> getSitemapIfActive(SitemapPart part) throws JAXBException {
