@@ -7,7 +7,11 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.soluvas.commons.Expandable;
+import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.StyleConfiguration;
+import org.soluvas.commons.SysConfig;
+import org.soluvas.commons.Timestamped;
 import org.soluvas.web.site.*;
 
 /**
@@ -263,6 +267,18 @@ public class SiteSwitch<T> extends Switch<T> {
 			case SitePackage.PERFECT_AUDIENCE_SYS_CONFIG: {
 				PerfectAudienceSysConfig perfectAudienceSysConfig = (PerfectAudienceSysConfig)theEObject;
 				T result = casePerfectAudienceSysConfig(perfectAudienceSysConfig);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SitePackage.STARTER_SYS_CONFIG: {
+				StarterSysConfig starterSysConfig = (StarterSysConfig)theEObject;
+				T result = caseStarterSysConfig(starterSysConfig);
+				if (result == null) result = caseGeneralSysConfig(starterSysConfig);
+				if (result == null) result = caseGoogleSysConfig(starterSysConfig);
+				if (result == null) result = caseGoogleAnalyticsSysConfig(starterSysConfig);
+				if (result == null) result = caseExpandable(starterSysConfig);
+				if (result == null) result = caseSysConfig(starterSysConfig);
+				if (result == null) result = caseTimestamped(starterSysConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -717,6 +733,81 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePerfectAudienceSysConfig(PerfectAudienceSysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Starter Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Starter Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStarterSysConfig(StarterSysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expandable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expandable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpandable(Expandable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Timestamped</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Timestamped</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimestamped(Timestamped object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSysConfig(SysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>General Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>General Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGeneralSysConfig(GeneralSysConfig object) {
 		return null;
 	}
 

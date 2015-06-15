@@ -80,6 +80,7 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 			case SitePackage.REQUIRE_MANAGER: return createRequireManager();
 			case SitePackage.GOOGLE_ANALYTICS_SYS_CONFIG: return createGoogleAnalyticsSysConfig();
 			case SitePackage.GOOGLE_SYS_CONFIG: return createGoogleSysConfig();
+			case SitePackage.STARTER_SYS_CONFIG: return createStarterSysConfig();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -341,6 +342,16 @@ public class SiteFactoryImpl extends EFactoryImpl implements SiteFactory {
 	public GoogleSysConfig createGoogleSysConfig() {
 		GoogleSysConfigImpl googleSysConfig = new GoogleSysConfigImpl();
 		return googleSysConfig;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StarterSysConfig createStarterSysConfig() {
+		StarterSysConfigImpl starterSysConfig = new StarterSysConfigImpl();
+		return starterSysConfig;
 	}
 
 	/**

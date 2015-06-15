@@ -45,6 +45,7 @@ import org.soluvas.web.site.SectionCollection;
 import org.soluvas.web.site.SiteCatalog;
 import org.soluvas.web.site.SiteFactory;
 import org.soluvas.web.site.SitePackage;
+import org.soluvas.web.site.StarterSysConfig;
 import org.soluvas.web.site.ThemePref;
 
 /**
@@ -263,6 +264,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass perfectAudienceSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass starterSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1164,6 +1172,15 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getStarterSysConfig() {
+		return starterSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1329,6 +1346,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(perfectAudienceSysConfigEClass, PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ID);
 		createEAttribute(perfectAudienceSysConfigEClass, PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ENABLED);
 
+		starterSysConfigEClass = createEClass(STARTER_SYS_CONFIG);
+
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
 		interactionEEnum = createEEnum(INTERACTION);
@@ -1387,6 +1406,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		loginPageEClass.getESuperTypes().add(this.getPage());
 		registerPageEClass.getESuperTypes().add(this.getPage());
 		resetPasswordPageEClass.getESuperTypes().add(this.getPage());
+		starterSysConfigEClass.getESuperTypes().add(theCommonsPackage.getGeneralSysConfig());
+		starterSysConfigEClass.getESuperTypes().add(this.getGoogleSysConfig());
+		starterSysConfigEClass.getESuperTypes().add(this.getGoogleAnalyticsSysConfig());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(sectionEClass, Section.class, "Section", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1520,6 +1542,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEClass(perfectAudienceSysConfigEClass, PerfectAudienceSysConfig.class, "PerfectAudienceSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPerfectAudienceSysConfig_PerfectAudienceId(), ecorePackage.getEString(), "perfectAudienceId", null, 0, 1, PerfectAudienceSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerfectAudienceSysConfig_PerfectAudienceEnabled(), ecorePackage.getEBooleanObject(), "perfectAudienceEnabled", "false", 0, 1, PerfectAudienceSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(starterSysConfigEClass, StarterSysConfig.class, "StarterSysConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
@@ -2034,6 +2058,12 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		   source, 
 		   new String[] {
 			 "documentation", "This will serve {@code /BingSiteAuth.xml} with the following content (for example):\n\n<pre>\n&lt;?xml version=\"1.0\"?>\n&lt;users>\n\t&lt;user>81F7B85A49DDECE76EB169D2EFA46809</user>\n&lt;/users>\n</pre>\n\nGo to <a href=\"https://www.bing.com/webmaster/home/mysites\">Bing Webmaster</a> to get Bing Verify ID for your website."
+		   });	
+		addAnnotation
+		  (starterSysConfigEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Typical SysConfig for \"Starter\" style apps.\nThis is a temporary quick workaround before rethinking SysConfig mechanism,\nwhich should be JSON-based (not requiring Eclipse/EMF), and supports app-, env-, hotel-, tenant-, person- and entity- levels of SysConfigs."
 		   });
 	}
 	

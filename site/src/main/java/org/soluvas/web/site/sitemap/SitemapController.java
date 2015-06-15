@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.web.site.SiteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
@@ -27,7 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Requires {@code WebMvcConfigurerAdapter} to be set up as follows:
+ * Serves the Google XML Sitemap index at {@code /sitemap_index.xml}, and individual {@link SitemapController} sitemaps
+ * based on {@link #activeSitemaps}.
+ *
+ * <p>Requires {@code WebMvcConfigurerAdapter} to be set up as follows:</p>
  * 
  * <pre>
  * &commat;Override
@@ -36,6 +40,15 @@ import com.google.common.collect.ImmutableSet;
  * 	converters.add(new Jaxb2RootElementHttpMessageConverter());
  * }
  * </pre>
+ *
+ * <p>Required beans are:</p>
+ *
+ * <ol>
+ *     <li>An {@link AppManifest} for {@link AppManifest#getDefaultTimeZone()}</li>
+ *     <li>A {@link WebAddress} for {@link WebAddress#getBaseUri()} and {@link WebAddress#getSecureBaseUri()}</li>
+ *     <li>A {@link GeneralSysConfig} for {@link GeneralSysConfig#getSslSupported()}</li>
+ *     <li>One or more {@link SitemapSupplier}s for actual sitemap contents</li>
+ * </ol>
  * 
  * @author ceefour
  */
@@ -43,13 +56,29 @@ import com.google.common.collect.ImmutableSet;
 @Scope("request")
 public class SitemapController {
 
+	// TODO: per tenant active-sitemaps configuration
 	public static final ImmutableSet<SitemapPart> activeSitemaps = ImmutableSet.of(
-			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE);
+			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE,
+			/*SitemapPart.PERSON,*/ SitemapPart.PLACE, SitemapPart.EVENT);
+
+	private static final Marshaller marshaller;
+
+	static {
+		try {
+			final JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
+			marshaller = jaxb.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
+					"<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
+		} catch (Exception e) {
+			throw new SiteException(e, "Cannot create JAXBContext and/or Marshaller: %s", e);
+		}
+	}
 
 	@Inject
-	private WebAddress webAddress;
-	@Inject
 	private AppManifest appManifest;
+	@Inject
+	private WebAddress webAddress;
 	@Inject
 	private GeneralSysConfig sysConfig;
 	@Autowired(required=false)
@@ -83,15 +112,16 @@ public class SitemapController {
 		if (activeSitemaps.contains(SitemapPart.PRODUCT_RELEASE)) {
 			index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
 		}
+		if (activeSitemaps.contains(SitemapPart.PLACE)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.EVENT)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+		}
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusDays(1).getMillis());
 		
-		JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
-		Marshaller marshaller = jaxb.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		marshaller.setProperty("com.sun.xml.bind.xmlHeaders", 
-			    "<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
 		final StringWriter sw = new StringWriter();
 		marshaller.marshal(index, sw);
 		return new ResponseEntity<>(sw.toString(), headers, HttpStatus.OK);
@@ -131,6 +161,16 @@ public class SitemapController {
 		return getSitemapIfActive(SitemapPart.PRODUCT_RELEASE);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "place-sitemap.xml")
+	public ResponseEntity<String> getPlaceSitemap() throws JAXBException {
+		return getSitemapIfActive(SitemapPart.PLACE);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "event-sitemap.xml")
+	public ResponseEntity<String> getEventSitemap() throws JAXBException {
+		return getSitemapIfActive(SitemapPart.EVENT);
+	}
+
 	protected ResponseEntity<String> getSitemapIfActive(SitemapPart part) throws JAXBException {
 		if (!activeSitemaps.contains(part)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_XML)
@@ -154,11 +194,6 @@ public class SitemapController {
 		headers.setContentType(MediaType.APPLICATION_XML);
 		headers.setExpires(new DateTime().plusHours(1).getMillis());
 
-		JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
-		Marshaller marshaller = jaxb.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
-			    "<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
 		final StringWriter sw = new StringWriter();
 		marshaller.marshal(urlSet, sw);
 		return new ResponseEntity<>(sw.toString(), headers, HttpStatus.OK);
@@ -166,7 +201,7 @@ public class SitemapController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "main-sitemap.xsl")
 	public ResponseEntity<String> mainSitemapXsl() throws IOException {
-		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
+		//final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("text/xsl"));
 		headers.setExpires(new DateTime().plusWeeks(1).getMillis());

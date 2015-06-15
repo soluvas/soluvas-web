@@ -9,7 +9,11 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.soluvas.commons.Expandable;
+import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.StyleConfiguration;
+import org.soluvas.commons.SysConfig;
+import org.soluvas.commons.Timestamped;
 import org.soluvas.web.site.*;
 
 /**
@@ -187,6 +191,26 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePerfectAudienceSysConfig(PerfectAudienceSysConfig object) {
 				return createPerfectAudienceSysConfigAdapter();
+			}
+			@Override
+			public Adapter caseStarterSysConfig(StarterSysConfig object) {
+				return createStarterSysConfigAdapter();
+			}
+			@Override
+			public Adapter caseExpandable(Expandable object) {
+				return createExpandableAdapter();
+			}
+			@Override
+			public Adapter caseTimestamped(Timestamped object) {
+				return createTimestampedAdapter();
+			}
+			@Override
+			public Adapter caseSysConfig(SysConfig object) {
+				return createSysConfigAdapter();
+			}
+			@Override
+			public Adapter caseGeneralSysConfig(GeneralSysConfig object) {
+				return createGeneralSysConfigAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -625,6 +649,76 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPerfectAudienceSysConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.StarterSysConfig <em>Starter Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.StarterSysConfig
+	 * @generated
+	 */
+	public Adapter createStarterSysConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.Expandable <em>Expandable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.Expandable
+	 * @generated
+	 */
+	public Adapter createExpandableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.Timestamped <em>Timestamped</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.Timestamped
+	 * @generated
+	 */
+	public Adapter createTimestampedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.SysConfig <em>Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.SysConfig
+	 * @generated
+	 */
+	public Adapter createSysConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.GeneralSysConfig <em>General Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.GeneralSysConfig
+	 * @generated
+	 */
+	public Adapter createGeneralSysConfigAdapter() {
 		return null;
 	}
 

@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 /**
+ * Creates {@link SitemapController} bean for Google Sitemap XML generation.
  * @author ceefour
- *
  */
 @Configuration
 public class SitemapMvcConfig {
