@@ -109,4 +109,10 @@ public enum SchemaOrgClass {
 	 * @see SchemaOrgProperty#LOCATION
 	 */
 	PLACE,
+	/**
+	 * <a href="http://schema.org/PostalAddress">schema:PostalAddress</a> - The mailing address
+	 * @see SchemaOrgProperty#LOCATION
+	 * @see SchemaOrgClass#PLACE
+	 */
+	POSTAL_ADDRESS,
 }
