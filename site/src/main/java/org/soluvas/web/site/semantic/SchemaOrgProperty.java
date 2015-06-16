@@ -103,6 +103,10 @@ public enum SchemaOrgProperty {
 	 */
 	URL,
 	/**
+	 * <a href="http://schema.org/contentUrl">schema:contentUrl</a> - Actual bytes of the media object, for example the image file or video file.
+	 */
+	CONTENT_URL,
+	/**
 	 * <a href="http://schema.org/thumbnailUrl">schema:thumbnailUrl</a> - A thumbnail image relevant to the Thing.
 	 */
 	THUMBNAIL_URL,
@@ -143,12 +147,65 @@ public enum SchemaOrgProperty {
 	 */
 	DOOR_TIME,
 	/**
+	 * <a href="http://schema.org/startDate">schema:startDate</a> - The start date and time of the item (in ISO 8601 date format).
+	 * @see SchemaOrgClass#EVENT
+	 */
+	START_DATE,
+	/**
+	 * <a href="http://schema.org/endDate">schema:endDate</a> - The end date and time of the item (in ISO 8601 date format).
+	 * @see SchemaOrgClass#EVENT
+	 */
+	END_DATE,
+	/**
 	 * <a href="http://schema.org/organizer">schema:organizer</a> - An organizer of an Event.
 	 */
 	ORGANIZER,
 	/**
 	 * <a href="http://schema.org/location">schema:location</a> - The location of the event, organization or action.
 	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
 	 */
 	LOCATION,
+	/**
+	 * <a href="http://schema.org/address">schema:address</a> - Physical address of the item.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	ADDRESS,
+	/**
+	 * <a href="http://schema.org/addressCountry">schema:addressCountry</a> - The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	ADDRESS_COUNTRY,
+	/**
+	 * <a href="http://schema.org/addressLocality">schema:addressLocality</a> - The locality. For example, Mountain View.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	ADDRESS_LOCALITY,
+	/**
+	 * <a href="http://schema.org/addressRegion">schema:addressRegion</a> - The region. For example, CA.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	ADDRESS_REGION,
+	/**
+	 * <a href="http://schema.org/postOfficeBoxNumber">schema:postOfficeBoxNumber</a> - The post office box number for PO box addresses.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	POST_OFFICE_BOX_NUMBER,
+	/**
+	 * <a href="http://schema.org/postalCode">schema:postalCode</a> - The postal code. For example, 94043.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	POSTAL_CODE,
+	/**
+	 * <a href="http://schema.org/streetAddress">schema:streetAddress</a> - The street address. For example, 1600 Amphitheatre Pkwy.
+	 * @see SchemaOrgClass#PLACE
+	 * @see SchemaOrgClass#POSTAL_ADDRESS
+	 */
+	STREET_ADDRESS,
 }

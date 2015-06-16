@@ -11,6 +11,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import com.google.common.base.CaseFormat;
+import org.soluvas.commons.BigDecimalUtils;
 
 /**
  * Adds {@code itemprop} from {@link Enum#name()} inflected using {@link CaseFormat#LOWER_CAMEL},
@@ -50,7 +51,7 @@ public class ItemPropContentBehavior extends Behavior {
 			final Object content = contentModel.getObject();
 			if (content instanceof BigDecimal) {
 				// workaround: otherwise we'll get 3.49E+5 :(
-				tag.getAttributes().put("content", ((BigDecimal) content).toPlainString());
+				tag.getAttributes().put("content", BigDecimalUtils.stripFractionZeros((BigDecimal) content).toPlainString());
 			} else if (content != null) {
 				tag.getAttributes().put("content", content);
 			}

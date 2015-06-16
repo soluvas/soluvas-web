@@ -15,6 +15,17 @@ public enum SitemapPart {
     CATEGORY,
     ARTICLE,
     SHOP,
+    /**
+     * <a href="http://schema.org/Product">schema:Product</a>
+     */
     PRODUCT,
-    PRODUCT_RELEASE
+    PRODUCT_RELEASE,
+    /**
+     * <a href="http://schema.org/Place">schema:Place</a>
+     */
+    PLACE,
+    /**
+     * <a href="http://schema.org/Event">schema:Event</a>
+     */
+    EVENT,
 }

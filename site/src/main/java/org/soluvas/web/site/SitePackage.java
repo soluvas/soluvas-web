@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.soluvas.commons.CommonsPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -1586,6 +1587,142 @@ public interface SitePackage extends EPackage {
 	int PERFECT_AUDIENCE_SYS_CONFIG_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.StarterSysConfigImpl <em>Starter Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.StarterSysConfigImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getStarterSysConfig()
+	 * @generated
+	 */
+	int STARTER_SYS_CONFIG = 30;
+
+	/**
+	 * The feature id for the '<em><b>Expansion State</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__EXPANSION_STATE = CommonsPackage.GENERAL_SYS_CONFIG__EXPANSION_STATE;
+
+	/**
+	 * The feature id for the '<em><b>Creation Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__CREATION_TIME = CommonsPackage.GENERAL_SYS_CONFIG__CREATION_TIME;
+
+	/**
+	 * The feature id for the '<em><b>Modification Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__MODIFICATION_TIME = CommonsPackage.GENERAL_SYS_CONFIG__MODIFICATION_TIME;
+
+	/**
+	 * The feature id for the '<em><b>Tenant Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__TENANT_ID = CommonsPackage.GENERAL_SYS_CONFIG__TENANT_ID;
+
+	/**
+	 * The feature id for the '<em><b>Ssl Supported</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__SSL_SUPPORTED = CommonsPackage.GENERAL_SYS_CONFIG__SSL_SUPPORTED;
+
+	/**
+	 * The feature id for the '<em><b>Google Api Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_API_KEY = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Google Client Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_CLIENT_ID = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Google Client Secret</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_CLIENT_SECRET = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Google Verify Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_VERIFY_ID = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_ENABLED = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Tracking Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Cookie Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Google Analytics Display Features</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 7;
+
+	/**
+	 * The number of structural features of the '<em>Starter Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG_FEATURE_COUNT = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 8;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1593,7 +1730,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 30;
+	int JAVA_SCRIPT_MODE = 31;
 
 
 	/**
@@ -1604,7 +1741,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 31;
+	int INTERACTION = 32;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1614,7 +1751,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 32;
+	int LIVE_CHAT_PROVIDER = 33;
 
 
 	/**
@@ -2479,6 +2616,16 @@ public interface SitePackage extends EPackage {
 	EAttribute getPerfectAudienceSysConfig_PerfectAudienceEnabled();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.StarterSysConfig <em>Starter Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Starter Sys Config</em>'.
+	 * @see org.soluvas.web.site.StarterSysConfig
+	 * @generated
+	 */
+	EClass getStarterSysConfig();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3238,6 +3385,16 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ENABLED = eINSTANCE.getPerfectAudienceSysConfig_PerfectAudienceEnabled();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.StarterSysConfigImpl <em>Starter Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.StarterSysConfigImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getStarterSysConfig()
+		 * @generated
+		 */
+		EClass STARTER_SYS_CONFIG = eINSTANCE.getStarterSysConfig();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

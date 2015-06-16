@@ -222,6 +222,15 @@ public interface SiteFactory extends EFactory {
 	GoogleSysConfig createGoogleSysConfig();
 
 	/**
+	 * Returns a new object of class '<em>Starter Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Starter Sys Config</em>'.
+	 * @generated
+	 */
+	StarterSysConfig createStarterSysConfig();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
