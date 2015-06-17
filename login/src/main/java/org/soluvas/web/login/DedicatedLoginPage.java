@@ -8,6 +8,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 /**
  * Copy this class to your own {@link WebPage}, the logic is in {@link DedicatedLoginPanel}.
+ * This page can be used as-is if you're okay it extends {@link BootstrapPage}.
  * @author rudi
  */
 @SuppressWarnings("serial")
