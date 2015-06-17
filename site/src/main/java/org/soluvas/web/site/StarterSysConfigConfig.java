@@ -41,6 +41,7 @@ public class StarterSysConfigConfig implements SysConfigMapHolder<StarterSysConf
         final TenantSource tenantSource = env.getProperty("tenantSource", TenantSource.class, TenantSource.CONFIG);
         log.info("Tenant source: {}", tenantSource);
         final Pattern tenantIdPattern = Pattern.compile("([^.]+).+");
+        // FIXME: Implement "overlay" support
         switch (tenantSource) {
             case CONFIG:
                 final org.springframework.core.io.Resource[] fileResources = new PathMatchingResourcePatternResolver(StarterSysConfigConfig.class.getClassLoader())

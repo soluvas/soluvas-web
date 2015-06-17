@@ -1409,6 +1409,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		starterSysConfigEClass.getESuperTypes().add(theCommonsPackage.getGeneralSysConfig());
 		starterSysConfigEClass.getESuperTypes().add(this.getGoogleSysConfig());
 		starterSysConfigEClass.getESuperTypes().add(this.getGoogleAnalyticsSysConfig());
+		starterSysConfigEClass.getESuperTypes().add(theCommonsPackage.getMongoSysConfig());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(sectionEClass, Section.class, "Section", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

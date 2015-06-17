@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.soluvas.commons.Expandable;
 import org.soluvas.commons.GeneralSysConfig;
+import org.soluvas.commons.MongoSysConfig;
 import org.soluvas.commons.StyleConfiguration;
 import org.soluvas.commons.SysConfig;
 import org.soluvas.commons.Timestamped;
@@ -276,6 +277,7 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = caseGeneralSysConfig(starterSysConfig);
 				if (result == null) result = caseGoogleSysConfig(starterSysConfig);
 				if (result == null) result = caseGoogleAnalyticsSysConfig(starterSysConfig);
+				if (result == null) result = caseMongoSysConfig(starterSysConfig);
 				if (result == null) result = caseExpandable(starterSysConfig);
 				if (result == null) result = caseSysConfig(starterSysConfig);
 				if (result == null) result = caseTimestamped(starterSysConfig);
@@ -808,6 +810,21 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGeneralSysConfig(GeneralSysConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Mongo Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Mongo Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMongoSysConfig(MongoSysConfig object) {
 		return null;
 	}
 

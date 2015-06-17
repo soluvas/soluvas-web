@@ -3,6 +3,7 @@
 package org.soluvas.web.site;
 
 import org.soluvas.commons.GeneralSysConfig;
+import org.soluvas.commons.MongoSysConfig;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,5 +21,5 @@ import org.soluvas.commons.GeneralSysConfig;
  * @model
  * @generated
  */
-public interface StarterSysConfig extends GeneralSysConfig, GoogleSysConfig, GoogleAnalyticsSysConfig {
+public interface StarterSysConfig extends GeneralSysConfig, GoogleSysConfig, GoogleAnalyticsSysConfig, MongoSysConfig {
 } // StarterSysConfig

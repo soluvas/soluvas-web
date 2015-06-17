@@ -476,7 +476,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
         defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StarterSysConfig" eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//GeneralSysConfig #//GoogleSysConfig #//GoogleAnalyticsSysConfig">
+  <eClassifiers xsi:type="ecore:EClass" name="StarterSysConfig" eSuperTypes="../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//GeneralSysConfig #//GoogleSysConfig #//GoogleAnalyticsSysConfig ../../../../../../../../org.soluvas.commons/src/main/resources/org/soluvas/commons/commons.ecore#//MongoSysConfig">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Typical SysConfig for &quot;Starter&quot; style apps.&#xA;This is a temporary quick workaround before rethinking SysConfig mechanism,&#xA;which should be JSON-based (not requiring Eclipse/EMF), and supports app-, env-, hotel-, tenant-, person- and entity- levels of SysConfigs."/>
     </eAnnotations>
