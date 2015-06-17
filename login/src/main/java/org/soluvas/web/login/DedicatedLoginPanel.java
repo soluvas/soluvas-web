@@ -28,6 +28,7 @@ import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * A Shiro-powered dedicated login panel, to be used by e.g. {@link DedicatedLoginPage}.
@@ -84,10 +85,10 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 	}
 	
 	public class FormSignIn extends Form<LoginToken> {
-		
+
 		@Inject
 		private WebAddress webAddress;
-		@SpringBean(name="personLookup")
+		@Inject @Named("personLookup")
 		private EntityLookup<Person, String> personLookup;
 		@Inject
 		private TenantRef tenant;

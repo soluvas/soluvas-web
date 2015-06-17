@@ -26,8 +26,12 @@ import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.facebook.FacebookRecipient;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * A Spring Security-powered dedicated login panel, to be used by e.g. {@link DedicatedLoginPage}.
@@ -35,6 +39,7 @@ import javax.inject.Inject;
  * <p>It uses {@link SpringLoginButton}, therefore its requirements:</p>
  *
  * <ol>
+ *     <li>{@link EntityLookup} for {@link Person}</li>
  *     <li>A {@link org.springframework.security.authentication.ProviderManager} with one or more {@link org.springframework.security.authentication.AuthenticationProvider}s</li>
  *     <li>TODO: {@link org.springframework.security.web.authentication.RememberMeServices}</li>
  *     <li>{@link org.apache.wicket.protocol.http.WebApplication#newSession(Request, Response)} must return {@link SoluvasWebSession}</li>
@@ -73,10 +78,11 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		
-		final Subject subject = SecurityUtils.getSubject();
-		if (subject.getPrincipal() != null) {
-			log.info("{} is already logged in.", subject.getPrincipal());
+
+		@Nullable
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+			log.info("{} is already logged in.", authentication.getPrincipal());
 			final Class<? extends Page> homePage = getApplication().getHomePage();
 			getRequestCycle().setResponsePage(homePage);
 		}
@@ -88,7 +94,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 		
 		@Inject
 		private WebAddress webAddress;
-		@SpringBean(name="personLookup")
+		@Inject @Named("personLookup")
 		private EntityLookup<Person, String> personLookup;
 		@Inject
 		private TenantRef tenant;
