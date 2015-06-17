@@ -55,6 +55,7 @@ import org.soluvas.commons.Translation;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
+import org.soluvas.data.TermType;
 import org.soluvas.data.Value;
 import org.soluvas.data.event.AddedTermEvent;
 import org.soluvas.data.event.ModifiedTermEvent;
@@ -118,6 +119,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	private final TermRepository termRepo;
 	private final EditMode editMode;
 	private final String originalUName;
+	private final TermType termType;
 	
 	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
 	private final IModel<Locale> termLocaleModel = new Model<>();
@@ -133,6 +135,8 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
+	 * @param shoeSize 
+	 * @param string 
 	 * @param backPage
 	 */
 	public TermDetailPanel2(String id, TermRepository termRepo, final String kindNsPrefix, final String kindName, String kindDisplayName,
@@ -143,6 +147,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		this.termRepo = termRepo;
 		this.kindDisplayName = kindDisplayName;
 		this.backPage = backPage;
+		this.termType= null;
 		final TermImpl term = new TermImpl();
 		term.setKindNsPrefix(kindNsPrefix);
 		term.setKindName(kindName);
@@ -162,7 +167,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	 * @param backPage
 	 */
 	public TermDetailPanel2(String id, TermRepository termRepo, String uName, final String kindNsPrefix, final String kindName, String kindDisplayName,
-			final Class<? extends Page> backPage) {
+			final Class<? extends Page> backPage, TermType termType) {
 		super(id, new EmfModel<>(
 				Preconditions.checkNotNull(termRepo.findOne(uName),
 						"Cannot find term %s using %s", uName, termRepo)
@@ -172,6 +177,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		this.originalUName = uName;
 		this.kindDisplayName = kindDisplayName;
 		this.backPage = backPage;
+		this.termType = termType;
 		
 		if (getModel().getObject().getLanguage() == null) {
 			getModel().getObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
@@ -191,7 +197,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		add(new Label("kind", kindDisplayName));
 		 
 		final PageParameters params = new PageParameters();
-		params.set("termType", "shoe_size");
+		params.set("termType", termType.getName());
 		add(new BookmarkablePageLink<>("backLink", backPage, params));
 		
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "qName"));

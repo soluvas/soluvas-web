@@ -51,11 +51,14 @@ public class TermTablePanel2 extends Panel {
 	private static final Logger log = LoggerFactory
 			.getLogger(TermTablePanel2.class);
 	
+	private final IModel<Class<? extends Page>> detailPageModel;
 	
 	public TermTablePanel2(String id, final String kindNsPrefix, final Model<TermType> termKindModel,
 			IModel<Class<? extends Page>> addPageModel, final IModel<Class<? extends Page>> detailPageModel) {
 		super(id);
 		setOutputMarkupId(true);
+		
+		this.detailPageModel = detailPageModel;
 		
 		final TitledEnumLabel<TermType> kindDisplayNameLbl = new TitledEnumLabel<>("kindDisplayName", termKindModel);
 		
@@ -84,6 +87,10 @@ public class TermTablePanel2 extends Panel {
 //		columns.add(new TermColumn<Term>(new Model<>("Color"), "color"));
 		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
 	}
-	
+	@Override
+	protected void onDetach() {
+		detailPageModel.detach();
+		super.onDetach();
+	}
 	
 }
