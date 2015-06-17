@@ -191,7 +191,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		add(new Label("kind", kindDisplayName));
 		 
 		final PageParameters params = new PageParameters();
-		params.set("termType", "Color");
+		params.set("termType", "shoe_size");
 		add(new BookmarkablePageLink<>("backLink", backPage, params));
 		
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "qName"));
