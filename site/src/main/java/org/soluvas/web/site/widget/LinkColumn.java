@@ -15,7 +15,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 
 /**
@@ -31,7 +30,7 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	private static final long serialVersionUID = 1L;
 	
 	final Optional<IModel<String>> labelModel;
-	final Class<? extends Page> pageClass;
+//	final Class<? extends Page> pageClass;
 	/**
 	 * Initial parameters, e.g. to include {@link org.soluvas.web.site.SeoBookmarkableMapper#LOCALE_PREF_ID_PARAMETER}.
 	 */
@@ -46,12 +45,27 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	@Nullable
 	private Predicate<T> enabled;
 
+	private final IModel<Class<? extends Page>> pageClassModel;
+
 	public LinkColumn(IModel<String> displayModel, S sortProperty,
 			String propertyExpression, 
 			Class<? extends Page> pageClass, String paramName, String paramExpression) {
 		super(displayModel, sortProperty, propertyExpression);
 		this.labelModel = Optional.absent();
-		this.pageClass = pageClass;
+//		this.pageClass = pageClass;
+		this.pageClassModel = new Model<>(pageClass);
+		this.paramsTemplate = new PageParameters();
+		this.paramName = paramName;
+		this.paramExpression = paramExpression;
+	}
+	
+	public LinkColumn(IModel<String> displayModel, S sortProperty,
+			String propertyExpression, 
+			IModel<Class<? extends Page>> pageClassModel, String paramName, String paramExpression) {
+		super(displayModel, sortProperty, propertyExpression);
+		this.labelModel = Optional.absent();
+//		this.pageClass = pageClassModel.getObject();
+		this.pageClassModel = pageClassModel;
 		this.paramsTemplate = new PageParameters();
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
@@ -73,7 +87,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 			String paramName, String paramExpression) {
 		super(displayModel, sortProperty, propertyExpression);
 		this.labelModel = Optional.absent();
-		this.pageClass = pageClass;
+//		this.pageClass = pageClass;
+		this.pageClassModel = new Model<>(pageClass);
 		this.paramsTemplate = paramsTemplate;
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
@@ -83,7 +98,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 			Class<? extends Page> pageClass, String paramName, String paramExpression) {
 		super(displayModel, null);
 		this.labelModel = Optional.of(labelModel);
-		this.pageClass = pageClass;
+//		this.pageClass = pageClass;
+		this.pageClassModel = new Model<>(pageClass);
 		this.paramsTemplate = new PageParameters();
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
@@ -93,7 +109,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 			Class<? extends Page> pageClass, String paramName, String paramExpression) {
 		super(displayModel, propertyExpression);
 		this.labelModel = Optional.absent();
-		this.pageClass = pageClass;
+//		this.pageClass = pageClass;
+		this.pageClassModel = new Model<>(pageClass);
 		this.paramsTemplate = new PageParameters();
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
@@ -112,7 +129,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 			Class<? extends Page> pageClass, PageParameters paramsTemplate, String paramName, String paramExpression) {
 		super(displayModel, propertyExpression);
 		this.labelModel = Optional.absent();
-		this.pageClass = pageClass;
+//		this.pageClass = pageClass;
+		this.pageClassModel = new Model<>(pageClass);
 		this.paramsTemplate = paramsTemplate;
 		this.paramName = paramName;
 		this.paramExpression = paramExpression;
@@ -155,7 +173,9 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 		if (paramValue != null) {
 			final PageParameters params = new PageParameters(paramsTemplate)
 					.add(paramName, paramValue);
-			final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClass, params,
+//			final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClass, params,
+//					labelModel.or((IModel) getDataModel(model)), tagType);
+			final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClassModel.getObject(), params,
 					labelModel.or((IModel) getDataModel(model)), tagType);
 			if (enabled != null) {
 				linkPanel.setEnabled(enabled.apply(model.getObject()));

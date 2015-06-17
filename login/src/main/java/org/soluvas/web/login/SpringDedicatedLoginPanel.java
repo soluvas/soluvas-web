@@ -30,40 +30,41 @@ import org.soluvas.web.site.SoluvasWebSession;
 import javax.inject.Inject;
 
 /**
- * A Shiro-powered dedicated login panel, to be used by e.g. {@link DedicatedLoginPage}.
+ * A Spring Security-powered dedicated login panel, to be used by e.g. {@link DedicatedLoginPage}.
  *
- * <p>It uses {@link LoginButton}, therefore its requirements:</p>
+ * <p>It uses {@link SpringLoginButton}, therefore its requirements:</p>
  *
  * <ol>
- *     <li>Shiro {@link org.apache.shiro.realm.AuthenticatingRealm}</li>
+ *     <li>A {@link org.springframework.security.authentication.ProviderManager} with one or more {@link org.springframework.security.authentication.AuthenticationProvider}s</li>
+ *     <li>TODO: {@link org.springframework.security.web.authentication.RememberMeServices}</li>
  *     <li>{@link org.apache.wicket.protocol.http.WebApplication#newSession(Request, Response)} must return {@link SoluvasWebSession}</li>
  * </ol>
  *
- * @author rudi
+ * @author ceefour
  * @see DedicatedLoginPage
  * @see org.apache.wicket.protocol.http.WebApplication#newSession(Request, Response)
  * @see SoluvasWebSession
  */
 @SuppressWarnings("serial")
-public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
-	
+public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
+
 	private static final Logger log = LoggerFactory
-			.getLogger(DedicatedLoginPanel.class);
-	
+			.getLogger(SpringDedicatedLoginPanel.class);
+
 	private final Class<? extends Page> facebookRecipientPage;
 	private final Class<? extends Page> twitterRecipientPage;
 
-	public DedicatedLoginPanel(final String id,
-			final IModel<LoginToken> userLoginModel) {
+	public SpringDedicatedLoginPanel(final String id,
+									 final IModel<LoginToken> userLoginModel) {
 		super(id, userLoginModel);
 		this.facebookRecipientPage = FacebookRecipient.class;
 		this.twitterRecipientPage = TwitterRecipient.class;
 	}
-	
-	public DedicatedLoginPanel(final String id,
-			final IModel<LoginToken> userLoginModel,
-			Class<? extends Page> facebookRecipientPage,
-			Class<? extends Page> twitterRecipientPage) {
+
+	public SpringDedicatedLoginPanel(final String id,
+									 final IModel<LoginToken> userLoginModel,
+									 Class<? extends Page> facebookRecipientPage,
+									 Class<? extends Page> twitterRecipientPage) {
 		super(id, userLoginModel);
 		this.facebookRecipientPage = facebookRecipientPage;
 		this.twitterRecipientPage = twitterRecipientPage;
@@ -91,16 +92,16 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 		private EntityLookup<Person, String> personLookup;
 		@Inject
 		private TenantRef tenant;
-		
+
 		public FormSignIn(final String id, final IModel<LoginToken> userLoginModel,
 				final Component dedicatedLoginPanelComponent) {
 			super(id, userLoginModel);
 
-			final Subject subject = SecurityUtils.getSubject();
-			if (subject.isRemembered()) {
-				userLoginModel.getObject().setUsername((String) subject.getPrincipal());
-				userLoginModel.getObject().setRememberMe(true);
-			}
+			// TODO: RememberMeServices
+//			if (subject.isRemembered()) {
+//				userLoginModel.getObject().setUsername((String) subject.getPrincipal());
+//				userLoginModel.getObject().setRememberMe(true);
+//			}
 			
 			setOutputMarkupId(true);
 			
@@ -108,7 +109,7 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 			add(new PasswordTextField("password", new PropertyModel<>(userLoginModel, "password")));
 			add(new CheckBox("rememberMe", new PropertyModel<>(userLoginModel, "rememberMe")));
 			
-			final LoginButton ldapLoginBtn = new LoginButton("login", userLoginModel, tenant.getTenantId()) {
+			final SpringLoginButton ldapLoginBtn = new SpringLoginButton("login", userLoginModel, tenant.getTenantId()) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
 					log.debug("LoginButton has logged in '{}', redirecting to original page...", personId);
