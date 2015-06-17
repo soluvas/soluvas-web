@@ -11,7 +11,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -19,9 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.Kind;
 import org.soluvas.data.Term;
+import org.soluvas.data.TermType;
 import org.soluvas.web.site.widget.LinkColumn;
 import org.soluvas.web.site.widget.TagType;
 import org.soluvas.web.site.widget.TermColumn;
+import org.soluvas.web.site.widget.TitledEnumLabel;
 
 /**
  * List {@link Term}s for a {@link Kind}.
@@ -50,13 +51,13 @@ public class TermTablePanel2 extends Panel {
 	private static final Logger log = LoggerFactory
 			.getLogger(TermTablePanel2.class);
 	
-	
-	public TermTablePanel2(String id, final String kindNsPrefix, final IModel<String> kindNameModel, final IModel<String> kindDisplayNameModel,
+	public TermTablePanel2(String id, final String kindNsPrefix, final Model<TermType> termKindModel,
 			IModel<Class<? extends Page>> addPageModel, final IModel<Class<? extends Page>> detailPageModel) {
 		super(id);
 		setOutputMarkupId(true);
 		
-		final Label kindDisplayNameLbl = new Label("kindDisplayName", kindDisplayNameModel);
+		
+		final TitledEnumLabel<TermType> kindDisplayNameLbl = new TitledEnumLabel<>("kindDisplayName", termKindModel);
 		
 		add(kindDisplayNameLbl);
 		
@@ -70,10 +71,10 @@ public class TermTablePanel2 extends Panel {
 			}
 		});
 		
-		final SortableDataProvider<Term, String> termDp = new TermSDP(kindNameModel);
+		final SortableDataProvider<Term, String> termDp = new TermSDP(termKindModel);
 		termDp.setSort("name", SortOrder.ASCENDING);
 		final List<IColumn<Term, String>> columns = new ArrayList<>();
-		columns.add(new LinkColumn<Term, String>(new Model<>("ID"), "name", "name", detailPageModel.getObject(),
+		columns.add(new LinkColumn<Term, String>(new Model<>("ID"), "name", "name", detailPageModel,
 				"uName", "qName").tag(TagType.CODE));
 //		columns.add(new PropertyColumn<Term, String>(new Model<>("Display Name"), "displayName", "displayName"));
 		columns.add(new TermColumn<Term>(new Model<>("Display Name"), null));
@@ -83,6 +84,5 @@ public class TermTablePanel2 extends Panel {
 //		columns.add(new TermColumn<Term>(new Model<>("Color"), "color"));
 		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
 	}
-	
 	
 }

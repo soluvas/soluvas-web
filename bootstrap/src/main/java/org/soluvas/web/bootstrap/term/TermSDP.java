@@ -6,10 +6,12 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.data.DataException;
 import org.soluvas.data.Term;
 import org.soluvas.data.TermRepository;
+import org.soluvas.data.TermType;
 import org.soluvas.data.domain.PageOffsetRequest;
 import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
@@ -27,24 +29,29 @@ public class TermSDP extends SortableDataProvider<Term, String> {
 	private TermRepository sizeTermRepo;
 	@SpringBean(name="colorTermRepo")
 	private TermRepository colorTermRepo;
+	@SpringBean(name="shoeSizeTermRepo")
+	private TermRepository shoeSizeTermRepo;
 	
 	private TermRepository termRepo;
-	private final IModel<String> kindNameModel;
+	private final IModel<TermType> kindNameModel;
 	
-	public TermSDP(final IModel<String> kindNameModel) {
+	public TermSDP(final Model<TermType> termKindModel) {
 		super();
 		Injector.get().inject(this);
 		
-		this.kindNameModel = kindNameModel;
+		this.kindNameModel = termKindModel;
 	}
 	
 	private void reloadRepo() {
 		switch (kindNameModel.getObject()) {
-		case "Color":
+		case COLOR:
 			termRepo = colorTermRepo;
 			break;
-		case "Size":
+		case SIZE:
 			termRepo = sizeTermRepo; 
+			break;
+		case SHOE_SIZE:
+			termRepo = shoeSizeTermRepo; 
 			break;
 		default:
 			throw new DataException(String.format("Unsupported for kind '%s'", kindNameModel.getObject()));
