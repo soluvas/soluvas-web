@@ -1,6 +1,7 @@
 package org.soluvas.web.bootstrap.widget;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -40,7 +41,7 @@ public class CountryChoiceProvider extends ChoiceProvider<Country> {
 		final String trimmedTerm = term.trim();
 		final Page<Country> pageCountry = countryRepo.searchCountry(trimmedTerm,
 				new PageRequest(page, 20, Sort.Direction.ASC, "name"));
-		log.trace("Search '{}' page '{}' returned '{}'", trimmedTerm, page, pageCountry.getContent());
+		log.debug("Search '{}' page '{}' returned {} countries", trimmedTerm, page, pageCountry.getContent().size());
 		response.addAll(pageCountry.getContent());
 		response.setHasMore(!pageCountry.isLastPage());
 	}
@@ -54,7 +55,7 @@ public class CountryChoiceProvider extends ChoiceProvider<Country> {
 
 	@Override
 	public Collection<Country> toChoices(Collection<String> ids) {
-		return FluentIterable.from(ids).transform(new Function<String, Country>() {
+		final List<Country> filteredCountries = FluentIterable.from(ids).transform(new Function<String, Country>() {
 
 			@Override
 			@Nullable
@@ -62,6 +63,7 @@ public class CountryChoiceProvider extends ChoiceProvider<Country> {
 				return countryRepo.getCountry(input);
 			}
 		}).toList();
+		return filteredCountries;
 	}
 	
 	@Override

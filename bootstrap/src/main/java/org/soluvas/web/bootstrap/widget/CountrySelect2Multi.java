@@ -3,28 +3,20 @@ package org.soluvas.web.bootstrap.widget;
 import java.util.Collection;
 
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.geo.Country;
-
-import com.vaynberg.wicket.select2.Select2MultiChoice;
 
 /**
  * @author anton
  *
  */
-public class CountrySelect2Multi extends Select2MultiChoice<Country> {
+public class CountrySelect2Multi extends InteractiveSelect2MultiChoice<Country> {
 	
 	private static final long serialVersionUID = 1L;
 	
 	public CountrySelect2Multi(final String id, final IModel<Collection<Country>> model) {
 		super(id, model, new CountryChoiceProvider());
-	}
-	
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		super.renderHead(response);
 	}
 	
 	@Override
@@ -40,6 +32,5 @@ public class CountrySelect2Multi extends Select2MultiChoice<Country> {
 				"container.append(thediv);" +
 				"}");
 	}
-
-
+	
 }
