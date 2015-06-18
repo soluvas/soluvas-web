@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.soluvas.commons.Expandable;
 import org.soluvas.commons.GeneralSysConfig;
+import org.soluvas.commons.MongoSysConfig;
 import org.soluvas.commons.StyleConfiguration;
 import org.soluvas.commons.SysConfig;
 import org.soluvas.commons.Timestamped;
@@ -211,6 +212,10 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseGeneralSysConfig(GeneralSysConfig object) {
 				return createGeneralSysConfigAdapter();
+			}
+			@Override
+			public Adapter caseMongoSysConfig(MongoSysConfig object) {
+				return createMongoSysConfigAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -719,6 +724,20 @@ public class SiteAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGeneralSysConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.MongoSysConfig <em>Mongo Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.MongoSysConfig
+	 * @generated
+	 */
+	public Adapter createMongoSysConfigAdapter() {
 		return null;
 	}
 

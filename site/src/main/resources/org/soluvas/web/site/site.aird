@@ -2754,6 +2754,7 @@
         <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.0"/>
         <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.1"/>
         <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.2"/>
+        <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.3"/>
         <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_rNONkBJPEeW0nsKvD51OQw" targetArrow="InputClosedArrow" routingStyle="tree">
           <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC%20ESupertypes']/@style"/>
           <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_rNONkRJPEeW0nsKvD51OQw" red="136" green="136" blue="136"/>
@@ -2771,6 +2772,7 @@
         <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.0"/>
         <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.1"/>
         <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.2"/>
+        <semanticElements xmi:type="ecore:EGenericType" href="site.ecore#//StarterSysConfig/@eGenericSuperTypes.3"/>
         <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_sE3nQBJPEeW0nsKvD51OQw" targetArrow="InputClosedArrow" routingStyle="tree">
           <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC%20ESupertypes']/@style"/>
           <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_sE3nQRJPEeW0nsKvD51OQw" red="136" green="136" blue="136"/>

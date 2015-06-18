@@ -17,6 +17,7 @@ import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.flow.RedirectToUrlException;
@@ -38,8 +39,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.google.common.base.Optional;
 
 /**
+ * To use it, override {@link WebApplication#newSession(Request, Response)}
+ * to return an instance of {@link SoluvasWebSession}.
  * @author ceefour
- *
  */
 public class SoluvasWebSession extends WebSession {
 

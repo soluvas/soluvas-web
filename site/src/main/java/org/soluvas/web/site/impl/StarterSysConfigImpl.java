@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.soluvas.commons.CommonsPackage;
+import org.soluvas.commons.MongoSysConfig;
 import org.soluvas.commons.impl.GeneralSysConfigImpl;
 
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
@@ -30,6 +32,7 @@ import org.soluvas.web.site.StarterSysConfig;
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#getGoogleAnalyticsTrackingId <em>Google Analytics Tracking Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#getGoogleAnalyticsCookieDomain <em>Google Analytics Cookie Domain</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#isGoogleAnalyticsDisplayFeatures <em>Google Analytics Display Features</em>}</li>
+ *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#getMongoUri <em>Mongo Uri</em>}</li>
  * </ul>
  * </p>
  *
@@ -204,6 +207,26 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 	 * @ordered
 	 */
 	protected boolean googleAnalyticsDisplayFeaturesESet;
+
+	/**
+	 * The default value of the '{@link #getMongoUri() <em>Mongo Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMongoUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MONGO_URI_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMongoUri() <em>Mongo Uri</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMongoUri()
+	 * @generated
+	 * @ordered
+	 */
+	protected String mongoUri = MONGO_URI_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -422,6 +445,27 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getMongoUri() {
+		return mongoUri;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMongoUri(String newMongoUri) {
+		String oldMongoUri = mongoUri;
+		mongoUri = newMongoUri;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.STARTER_SYS_CONFIG__MONGO_URI, oldMongoUri, mongoUri));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -441,6 +485,8 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 				return getGoogleAnalyticsCookieDomain();
 			case SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES:
 				return isGoogleAnalyticsDisplayFeatures();
+			case SitePackage.STARTER_SYS_CONFIG__MONGO_URI:
+				return getMongoUri();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -476,6 +522,9 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 				return;
 			case SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES:
 				setGoogleAnalyticsDisplayFeatures((Boolean)newValue);
+				return;
+			case SitePackage.STARTER_SYS_CONFIG__MONGO_URI:
+				setMongoUri((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -513,6 +562,9 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 			case SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES:
 				unsetGoogleAnalyticsDisplayFeatures();
 				return;
+			case SitePackage.STARTER_SYS_CONFIG__MONGO_URI:
+				setMongoUri(MONGO_URI_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -541,6 +593,8 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 				return GOOGLE_ANALYTICS_COOKIE_DOMAIN_EDEFAULT == null ? googleAnalyticsCookieDomain != null : !GOOGLE_ANALYTICS_COOKIE_DOMAIN_EDEFAULT.equals(googleAnalyticsCookieDomain);
 			case SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES:
 				return isSetGoogleAnalyticsDisplayFeatures();
+			case SitePackage.STARTER_SYS_CONFIG__MONGO_URI:
+				return MONGO_URI_EDEFAULT == null ? mongoUri != null : !MONGO_URI_EDEFAULT.equals(mongoUri);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -570,6 +624,12 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 				default: return -1;
 			}
 		}
+		if (baseClass == MongoSysConfig.class) {
+			switch (derivedFeatureID) {
+				case SitePackage.STARTER_SYS_CONFIG__MONGO_URI: return CommonsPackage.MONGO_SYS_CONFIG__MONGO_URI;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -595,6 +655,12 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 				case SitePackage.GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID: return SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_TRACKING_ID;
 				case SitePackage.GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN: return SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN;
 				case SitePackage.GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES: return SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES;
+				default: return -1;
+			}
+		}
+		if (baseClass == MongoSysConfig.class) {
+			switch (baseFeatureID) {
+				case CommonsPackage.MONGO_SYS_CONFIG__MONGO_URI: return SitePackage.STARTER_SYS_CONFIG__MONGO_URI;
 				default: return -1;
 			}
 		}
@@ -627,6 +693,8 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 		result.append(googleAnalyticsCookieDomain);
 		result.append(", googleAnalyticsDisplayFeatures: ");
 		if (googleAnalyticsDisplayFeaturesESet) result.append(googleAnalyticsDisplayFeatures); else result.append("<unset>");
+		result.append(", mongoUri: ");
+		result.append(mongoUri);
 		result.append(')');
 		return result.toString();
 	}

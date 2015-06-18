@@ -1714,13 +1714,22 @@ public interface SitePackage extends EPackage {
 	int STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_DISPLAY_FEATURES = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Mongo Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STARTER_SYS_CONFIG__MONGO_URI = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>Starter Sys Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STARTER_SYS_CONFIG_FEATURE_COUNT = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 8;
+	int STARTER_SYS_CONFIG_FEATURE_COUNT = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
