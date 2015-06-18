@@ -140,14 +140,14 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	 * @param backPage
 	 */
 	public TermDetailPanel2(String id, TermRepository termRepo, final String kindNsPrefix, final String kindName, String kindDisplayName,
-			final Class<? extends Page> backPage) {
+			final Class<? extends Page> backPage, TermType termType) {
 		super(id);
 		this.editMode = EditMode.ADD;
 		this.originalUName = null;
 		this.termRepo = termRepo;
 		this.kindDisplayName = kindDisplayName;
 		this.backPage = backPage;
-		this.termType= null;
+		this.termType= termType;
 		final TermImpl term = new TermImpl();
 		term.setKindNsPrefix(kindNsPrefix);
 		term.setKindName(kindName);
@@ -199,7 +199,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		final PageParameters params = new PageParameters();
 		params.set("termType", termType.getName());
 		add(new BookmarkablePageLink<>("backLink", backPage, params));
-		
+		 
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "qName"));
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
