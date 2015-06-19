@@ -23,6 +23,19 @@ public enum SchemaOrgClass {
 	 */
 	REVIEW,
 	/**
+	 * <a href="http://schema.org/Rating">schema:Rating</a> - A rating is an evaluation on a numeric scale, such as 1 to 5 stars.
+	 * @see SchemaOrgProperty#REVIEW_RATING
+	 * @see SchemaOrgClass#REVIEW
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	RATING,
+	/**
+	 * <a href="http://schema.org/AggregateRating">schema:AggregateRating</a> - The average rating based on multiple ratings or reviews.
+	 * @see SchemaOrgProperty#AGGREGATE_RATING
+	 * @see SchemaOrgClass#RATING
+	 */
+	AGGREGATE_RATING,
+	/**
 	 * <a href="http://schema.org/Brand">schema:Brand</a> - A brand is a name used by an organization or business person for labeling a product, product group, or similar..
 	 * @see SchemaOrgProperty#BRAND
 	 */

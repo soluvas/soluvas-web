@@ -9,14 +9,14 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.parser.XmlTag.TagType;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.soluvas.commons.BigDecimalUtils;
 
 import com.google.common.base.CaseFormat;
-import org.soluvas.commons.BigDecimalUtils;
 
 /**
  * Adds {@code itemprop} from {@link Enum#name()} inflected using {@link CaseFormat#LOWER_CAMEL},
  * with a {@code content} attribute using {@link Object#toString()}.
- * Usually used with {@code <span>}.
+ * Usually used with {@code <span>} or {@code <meta>}.
  * @author ceefour
  */
 @SuppressWarnings("serial")

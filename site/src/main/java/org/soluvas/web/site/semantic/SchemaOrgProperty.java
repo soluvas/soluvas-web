@@ -56,8 +56,59 @@ public enum SchemaOrgProperty {
 	CATEGORY,
 	/**
 	 * <a href="http://schema.org/review">schema:review</a> - A review of the item.
+	 * @see SchemaOrgClass#REVIEW
+	 * @see SchemaOrgProperty#AGGREGATE_RATING
 	 */
 	REVIEW,
+	/**
+	 * <a href="http://schema.org/aggregateRating">schema:aggregateRating</a> - The overall rating, based on a collection of reviews or ratings, of the item.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 * @see SchemaOrgProperty#REVIEW
+	 */
+	AGGREGATE_RATING,
+	/**
+	 * <a href="http://schema.org/itemReviewed">schema:itemReviewed</a> - The item that is being reviewed/rated.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	ITEM_REVIEWED,
+	/**
+	 * <a href="http://schema.org/ratingCount">schema:ratingCount</a> - The count of total number of ratings.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	RATING_COUNT,
+	/**
+	 * <a href="http://schema.org/reviewCount">schema:reviewCount</a> - The count of total number of reviews.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	REVIEW_COUNT,
+	/**
+	 * <a href="http://schema.org/ratingValue">schema:ratingValue</a> - The rating for the content.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	RATING_VALUE,
+	/**
+	 * <a href="http://schema.org/bestRating">schema:bestRating</a> - The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	BEST_RATING,
+	/**
+	 * <a href="http://schema.org/worstRating">schema:worstRating</a> - The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.
+	 * @see SchemaOrgClass#AGGREGATE_RATING
+	 */
+	WORST_RATING,
+	/**
+	 * <a href="http://schema.org/reviewBody">schema:reviewBody</a> - The actual body of the review.
+	 * @see SchemaOrgClass#REVIEW
+	 */
+	REVIEW_BODY,
+	/**
+	 * <a href="http://schema.org/reviewRating">schema:reviewRating</a> - The rating given in this review. 
+	 * Note that reviews can themselves be rated. The reviewRating applies to rating given by the review. 
+	 * The aggregateRating property applies to the review itself, as a creative work.
+	 * @see SchemaOrgClass#REVIEW
+	 * @see SchemaOrgClass#RATING
+	 */
+	REVIEW_RATING,
 	/**
 	 * <a href="http://schema.org/brand">schema:brand</a> - The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person.
 	 * @see SchemaOrgClass#BRAND
@@ -208,4 +259,26 @@ public enum SchemaOrgProperty {
 	 * @see SchemaOrgClass#POSTAL_ADDRESS
 	 */
 	STREET_ADDRESS,
+	/**
+	 * <a href="http://schema.org/author">schema:author</a> - The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.
+	 * @see SchemaOrgClass#REVIEW
+	 * @see SchemaOrgClass#PERSON
+	 * @see SchemaOrgClass#ORGANIZATION
+	 * @see SchemaOrgClass#CREATIVE_WORK
+	 */
+	AUTHOR,
+	/**
+	 * <a href="http://schema.org/author">schema:creator</a> - The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.
+	 * @see SchemaOrgClass#REVIEW
+	 * @see SchemaOrgClass#PERSON
+	 * @see SchemaOrgClass#ORGANIZATION
+	 * @see SchemaOrgClass#CREATIVE_WORK
+	 */
+	CREATOR,
+	/**
+	 * <a href="http://schema.org/headline">schema:headline</a> - Headline of the article.
+	 * @see SchemaOrgClass#REVIEW
+	 * @see SchemaOrgClass#CREATIVE_WORK
+	 */
+	HEADLINE,
 }
