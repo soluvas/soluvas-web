@@ -23,8 +23,8 @@ public class TermListModel extends
 	private TermRepository colorTermRepo;
 	@SpringBean(name="sizeTermRepo")
 	private TermRepository sizeTermRepo;
-	@SpringBean(name="shoeSizeTermRepo")
-	private TermRepository shoeSizeTermRepo;
+//	@SpringBean(name="shoeSizeTermRepo")
+//	private TermRepository shoeSizeTermRepo;
 	private final String kindNsPrefix;
 	private final String kindName;
 
@@ -42,8 +42,8 @@ public class TermListModel extends
 			return colorTermRepo.findAll(new PageRequest(0, 5000)).getContent();
 		case TermKinds.SIZE :
 			return sizeTermRepo.findAll(new PageRequest(0, 5000)).getContent();
-		case TermKinds.SHOE_SIZE :
-			return shoeSizeTermRepo.findAll(new PageRequest(0, 5000)).getContent();
+//		case TermKinds.SHOE_SIZE :
+//			return shoeSizeTermRepo.findAll(new PageRequest(0, 5000)).getContent();
 		default :
 				throw new RuntimeException(String.format("%s not supported", kindName));
 		}
