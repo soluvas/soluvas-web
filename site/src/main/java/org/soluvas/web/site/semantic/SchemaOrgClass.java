@@ -6,6 +6,14 @@ package org.soluvas.web.site.semantic;
  */
 public enum SchemaOrgClass {
 	/**
+	 * <a href="http://schema.org/Person">schema:Person</a> - A person (alive, dead, undead, or fictional).
+	 */
+	PERSON,
+	/**
+	 * <a href="http://schema.org/CreativeWork">schema:CreativeWork</a> - The most generic kind of creative work, including books, movies, photographs, software programs, etc.
+	 */
+	CREATIVE_WORK,
+	/**
 	 * <a href="http://schema.org/Product">schema:Product</a> - Any offered product or service.
 	 * For example: a pair of shoes; a concert ticket; the rental of a car; a haircut; or an episode of a TV show streamed online.
 	 */
@@ -128,4 +136,9 @@ public enum SchemaOrgClass {
 	 * @see SchemaOrgClass#PLACE
 	 */
 	POSTAL_ADDRESS,
+	/**
+	 * <a href="http://schema.org/GeoCoordinates">schema:GeoCoordinates</a> - The geographic coordinates of a place or event.
+	 * @see SchemaOrgProperty#GEO
+	 */
+	GEO_COORDINATES,
 }

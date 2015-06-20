@@ -4,10 +4,6 @@ package org.soluvas.web.site.semantic;
  * @author ceefour
  *
  */
-/**
- * @author ceefour
- *
- */
 public enum SchemaOrgProperty {
 	/**
 	 * <a href="http://schema.org/description">schema:description</a> - A short description of the item.
@@ -182,18 +178,6 @@ public enum SchemaOrgProperty {
 	 */
 	RELEASE_DATE,
 	/**
-	 * <a href="http://schema.org/elevation">schema:elevation</a> - The elevation of a location.
-	 */
-	ELEVATION,
-	/**
-	 * <a href="http://schema.org/latitude">schema:latitude</a> - The latitude of a location. For example 37.42242.
-	 */
-	LATITUDE,
-	/**
-	 * <a href="http://schema.org/longitude">schema:longitude</a> - The longitude of a location. For example -122.08585.
-	 */
-	LONGITUDE,
-	/**
 	 * <a href="http://schema.org/doorTime">schema:doorTime</a> - The time admission will commence.
 	 */
 	DOOR_TIME,
@@ -281,4 +265,33 @@ public enum SchemaOrgProperty {
 	 * @see SchemaOrgClass#CREATIVE_WORK
 	 */
 	HEADLINE,
+	/**
+	 * <a href="http://schema.org/geo">schema:geo</a> - The geo coordinates of the place.
+	 * @see SchemaOrgClass#GEO_COORDINATES
+	 */
+	GEO,
+	/**
+	 * <a href="http://schema.org/elevation">schema:elevation</a> - The elevation of a location.
+	 * @see SchemaOrgClass#GEO_COORDINATES
+	 * @see SchemaOrgProperty#GEO
+	 * @see SchemaOrgProperty#LATITUDE
+	 * @see SchemaOrgProperty#LONGITUDE
+	 */
+	ELEVATION,
+	/**
+	 * <a href="http://schema.org/latitude">schema:latitude</a> - The latitude of a location. For example 37.42242.
+	 * @see SchemaOrgClass#GEO_COORDINATES
+	 * @see SchemaOrgProperty#GEO
+	 * @see SchemaOrgProperty#ELEVATION
+	 * @see SchemaOrgProperty#LONGITUDE
+	 */
+	LATITUDE,
+	/**
+	 * <a href="http://schema.org/longitude">schema:longitude</a> - The longitude of a location. For example -122.08585.
+	 * @see SchemaOrgClass#GEO_COORDINATES
+	 * @see SchemaOrgProperty#GEO
+	 * @see SchemaOrgProperty#ELEVATION
+	 * @see SchemaOrgProperty#LATITUDE
+	 */
+	LONGITUDE,
 }
