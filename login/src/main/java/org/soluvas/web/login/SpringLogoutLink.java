@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.Interaction;
@@ -18,7 +19,7 @@ import java.security.Principal;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class SpringLogoutLink extends Link<Void> {
+public class SpringLogoutLink extends StatelessLink<Void> {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringLogoutLink.class);
 
@@ -28,7 +29,7 @@ public class SpringLogoutLink extends Link<Void> {
 
 	@Override
 	public void onClick() {
-		final SecurityContextHolderAwareRequestWrapper request = new SecurityContextHolderAwareRequestWrapper((HttpServletRequest) getRequest().getContainerRequest(), "ROLE_");
+		final SecurityContextHolderAwareRequestWrapper request = (SecurityContextHolderAwareRequestWrapper) getRequest().getContainerRequest();
 		final Principal prevUserPrincipal = request.getUserPrincipal();
 		final Class<? extends Page> homePageClass = getApplication().getHomePage();
 		log.info("Logging out '{}' and redirecting to {}", prevUserPrincipal != null ? prevUserPrincipal.getName() : null, homePageClass.getName());

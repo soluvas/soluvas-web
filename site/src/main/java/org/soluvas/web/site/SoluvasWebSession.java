@@ -91,7 +91,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			if (localePrefId != null) {
 				if (SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(localePrefId)) {
 					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(localePrefId);
-					log.info("Locale pref id '{}' for locale: {}", localePrefId, locale);
+					log.info("Locale pref id '{}' for locale: {}", localePrefId, locale.toLanguageTag());
 				} else {
 					final ClientProperties properties = getClientInfo().getProperties();
 					if (ipLocationRepo != null) {
@@ -103,7 +103,8 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 							locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN);
 						}
 						log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use get by ip '%s' --> country %s, it is %s",
-								localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
+								localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, remoteAddress,
+								optCountry.isPresent() ? optCountry.get() : null, locale.toLanguageTag()));
 					} else {
 						locale = appManifest.getDefaultLocale();
 					}
@@ -119,7 +120,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
 					}
 					log.warn(String.format("Locale pref id is null. So use get by ip '%s' --> country %s, it is %s",
-							remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale));
+							remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale.toLanguageTag()));
 				} else {
 					locale = appManifest.getDefaultLocale();
 				}

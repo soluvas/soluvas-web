@@ -24,6 +24,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * }
  * </pre>
  *
+ * <p>How to get {@link SecurityContextHolderAwareRequestWrapper} in Wicket:</p>
+ *
+ * <pre>
+ * final SecurityContextHolderAwareRequestWrapper request = (SecurityContextHolderAwareRequestWrapper) getRequest().getContainerRequest();
+ * </pre>
+ *
  * Created by ceefour on 6/20/15.
  */
 public class SpringWebSession extends SoluvasWebSession {
