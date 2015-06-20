@@ -7,28 +7,32 @@ import org.apache.wicket.markup.html.link.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.Interaction;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 /**
- * rudi: Pake normal link, bukan stateless: ga jadi pake stateless: https://idbippo.atlassian.net/browse/BC-2658
- * 
- * Logs the current user out and returns to "after logout page", using Shiro.
+ * Logs the current user out and returns to "after logout page", using Spring Security.
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class LogoutLink extends Link<Void> {
+public class SpringLogoutLink extends Link<Void> {
 
-	private static final Logger log = LoggerFactory.getLogger(LogoutLink.class);
-	
-	public LogoutLink(String id) {
+	private static final Logger log = LoggerFactory.getLogger(SpringLogoutLink.class);
+
+	public SpringLogoutLink(String id) {
 		super(id);
 	}
 
 	@Override
 	public void onClick() {
-		final Subject currentUser = SecurityUtils.getSubject();
+		final SecurityContextHolderAwareRequestWrapper request = new SecurityContextHolderAwareRequestWrapper((HttpServletRequest) getRequest().getContainerRequest(), "ROLE_");
+		final Principal prevUserPrincipal = request.getUserPrincipal();
 		final Class<? extends Page> homePageClass = getApplication().getHomePage();
-		log.info("Logging out {} and redirecting to {}", currentUser.getPrincipal(), homePageClass.getName());
-		currentUser.logout();
+		log.info("Logging out '{}' and redirecting to {}", prevUserPrincipal != null ? prevUserPrincipal.getName() : null, homePageClass.getName());
+		SecurityContextHolder.getContext().setAuthentication(null);
 		Interaction.LOGOUT.info("Anda telah log out."); // TODO: why is this not in FeedbackMessages?
 		setResponsePage(homePageClass);
 		/* For some reason at this point Wicket (6.8.0) throws:

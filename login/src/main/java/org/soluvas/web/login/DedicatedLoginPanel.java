@@ -76,8 +76,8 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 		
 		final Subject subject = SecurityUtils.getSubject();
 		if (subject.getPrincipal() != null) {
-			log.info("{} is already logged in.", subject.getPrincipal());
 			final Class<? extends Page> homePage = getApplication().getHomePage();
+			log.info("User '{}' is already logged in, redirecting to {}", subject.getPrincipal(), homePage.getName());
 			getRequestCycle().setResponsePage(homePage);
 		}
 		

@@ -22,9 +22,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Generic {@link IndicatingAjaxButton} that can be used with Spring Security {@link org.springframework.security.authentication.ProviderManager}.
@@ -140,16 +144,19 @@ public class SpringLoginButton extends IndicatingAjaxButton {
 //		final UsernamePasswordToken token = new UsernamePasswordToken(
 //				upUsername, upPassword.toCharArray(), host);
 		// FIXME: authorities
-		Authentication authentication = new UsernamePasswordAuthenticationToken(upUsername, upPassword, ImmutableList.of());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(upUsername, upPassword, null);
 		log.debug("Logging in using '{}' host '{}'", upUsername, host);
 		try {
 			authentication = authMgr.authenticate(authentication);
-			final String personId = Preconditions.checkNotNull((String) authentication.getPrincipal(),
+			final User user = (User) authentication.getPrincipal();
+			final String personId = Preconditions.checkNotNull(user.getUsername(),
 					"Cannot get current user as person ID");
 			Interaction.LOGIN.info("You are now logged in as %s", personId);
 			// TODO: Permission-based?
 //			log.debug("Current user is now '{}' host '{}'. Has permission to edit all person data? {}",
 //					personId, host, currentUser.isPermitted("person:edit:*"));
+			// http://stackoverflow.com/a/6165912/122441 is not required if 'securityFilterChain' is property ordered
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 			if (target != null) {
 				onLoginSuccess(target, personId);
 			} else {

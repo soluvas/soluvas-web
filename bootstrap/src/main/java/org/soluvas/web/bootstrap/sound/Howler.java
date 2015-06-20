@@ -112,7 +112,7 @@ public class Howler {
 		} else {
 			script = stopLoop() + "\n" + sprite.getPrefix() + "_fx.play(" + JSONObject.quote(sprite.getLocalPart()) + ");";
 		}
-		log.debug("Play {} loop={} with: {}", script);
+		log.trace("Play {} loop={} with: {}", script);
 		return script;
 	}
 	

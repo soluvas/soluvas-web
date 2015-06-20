@@ -158,7 +158,7 @@
 				<exclusions>
 					<!-- NOTE: wicket requires cglib at least 2.2.2, but to be portable, cglib must use version 3.1+ -->
 					<!-- asm 3.3.1 depended by cglib 2.2.2 -->
-					<!-- replaced by asm 4.1 as required by parboiled, note it conflicts with standard jersey -->
+					<!-- replaced by asm 4.2 as required by parboiled, note it conflicts with standard jersey -->
 					<exclusion>
 						<groupId>asm</groupId>
 						<artifactId>asm</artifactId>
@@ -170,7 +170,12 @@
 				<artifactId>wicket-extensions</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-			
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-auth-roles</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-devutils</artifactId>

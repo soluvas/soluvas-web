@@ -28,10 +28,13 @@ import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 /**
  * A Spring Security-powered dedicated login panel, to be used by e.g. {@link DedicatedLoginPage}.
@@ -79,11 +82,11 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		@Nullable
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null && authentication.isAuthenticated()) {
-			log.info("{} is already logged in.", authentication.getPrincipal());
+		final SecurityContextHolderAwareRequestWrapper request = new SecurityContextHolderAwareRequestWrapper((HttpServletRequest) getRequest().getContainerRequest(), "ROLE_");
+		final Principal userPrincipal = request.getUserPrincipal();
+		if (userPrincipal != null) {
 			final Class<? extends Page> homePage = getApplication().getHomePage();
+			log.info("User '{}' is already logged in, redirecting to {}", userPrincipal.getName(), homePage.getName());
 			getRequestCycle().setResponsePage(homePage);
 		}
 		

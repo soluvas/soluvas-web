@@ -11,6 +11,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.core.request.handler.IPageRequestHandler;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.ClientProperties;
@@ -43,7 +45,7 @@ import com.google.common.base.Optional;
  * to return an instance of {@link SoluvasWebSession}.
  * @author ceefour
  */
-public class SoluvasWebSession extends WebSession {
+public class SoluvasWebSession extends AuthenticatedWebSession {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
@@ -137,7 +139,17 @@ public class SoluvasWebSession extends WebSession {
 			throw new IllegalStateException("appManifest bean is required, please configure MultiTenantWebConfig/SingleTenantWebConfig properly");
 		}*/
 	}
-	
+
+	@Override
+	public Roles getRoles() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean authenticate(String username, String password) {
+		throw new UnsupportedOperationException("Please use SpringWebSession/ShiroWebSession if you want to use Wicket auth roles.");
+	}
+
 	@Deprecated
 	public String getUserId() {
 		return userId;
