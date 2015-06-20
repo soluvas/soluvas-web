@@ -91,7 +91,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			if (localePrefId != null) {
 				if (SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(localePrefId)) {
 					locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(localePrefId);
-					log.info("Locale pref id '{}' for locale: {}", localePrefId, locale.toLanguageTag());
+					log.debug("Locale pref id '{}' for locale: {}", localePrefId, locale.toLanguageTag());
 				} else {
 					final ClientProperties properties = getClientInfo().getProperties();
 					if (ipLocationRepo != null) {
