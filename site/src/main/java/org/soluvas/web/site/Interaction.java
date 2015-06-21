@@ -733,5 +733,78 @@ public enum Interaction implements Enumerator {
 		}
 		return msg;
 	}
-	
+
+	/**
+	 * Notifies {@link InteractionMessage} using {@link Session#error(java.io.Serializable)}.
+	 *
+	 * <pre>
+	 * Interaction.ERROR.error("Cannot edit person '%s'", personId);
+	 * </pre>
+	 *
+	 * @param message
+	 * @return
+	 */
+	public InteractionMessage error(String message) {
+		final InteractionMessage msg = new InteractionMessage(this, message);
+		Session.get().error(msg);
+		return msg;
+	}
+
+	/**
+	 * Notifies {@link InteractionMessage} using {@link Session#error(java.io.Serializable)}.
+	 *
+	 * <pre>
+	 * Interaction.ERROR.error("Cannot edit person '%s'", personId);
+	 * </pre>
+	 *
+	 * @param format
+	 * @return
+	 */
+	public InteractionMessage error(String format, Object... params) {
+		final InteractionMessage msg = new InteractionMessage(this, String.format(format, params));
+		Session.get().error(msg);
+		return msg;
+	}
+
+
+	/**
+	 * Notifies {@link InteractionMessage} using {@link Session#error(java.io.Serializable)}.
+	 *
+	 * <pre>
+	 * Interaction.ERROR.error("Cannot edit person '%s'", personId);
+	 * </pre>
+	 *
+	 * @param message
+	 * @return
+	 */
+	public InteractionMessage error(@Nullable Component component, String message) {
+		final InteractionMessage msg = new InteractionMessage(this, message);
+		if (component != null) {
+			component.error(msg);
+		} else {
+			Session.get().error(msg);
+		}
+		return msg;
+	}
+
+	/**
+	 * Notifies {@link InteractionMessage} using {@link Session#error(java.io.Serializable)}.
+	 *
+	 * <pre>
+	 * Interaction.ERROR.error("Cannot edit person '%s'", personId);
+	 * </pre>
+	 *
+	 * @param format
+	 * @return
+	 */
+	public InteractionMessage error(@Nullable Component component, String format, Object... params) {
+		final InteractionMessage msg = new InteractionMessage(this, String.format(format, params));
+		if (component != null) {
+			component.error(msg);
+		} else {
+			Session.get().error(msg);
+		}
+		return msg;
+	}
+
 } //Interaction
