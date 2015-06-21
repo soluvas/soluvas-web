@@ -294,4 +294,9 @@ public enum SchemaOrgProperty {
 	 * @see SchemaOrgProperty#LATITUDE
 	 */
 	LONGITUDE,
+	/**
+	 * <a href="http://schema.org/isBasedOnUrl">schema:isBasedOnUrl</a> - A resource that was used in the creation of this resource. This term can be repeated for multiple sources. For example, http://example.com/great-multiplication-intro.html.
+	 * @see SchemaOrgClass#CREATIVE_WORK
+	 */
+	IS_BASED_ON_URL,
 }
