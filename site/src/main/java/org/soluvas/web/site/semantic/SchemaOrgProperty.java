@@ -299,4 +299,9 @@ public enum SchemaOrgProperty {
 	 * @see SchemaOrgClass#CREATIVE_WORK
 	 */
 	IS_BASED_ON_URL,
+	/**
+	 * <a href="http://schema.org/gender">schema:gender</a> - Gender of the person.
+	 * @see SchemaOrgClass#PERSON
+	 */
+	GENDER,
 }
