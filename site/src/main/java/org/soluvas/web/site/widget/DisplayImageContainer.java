@@ -11,11 +11,13 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.image.DisplayImage;
 import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.semantic.ImageMicrodataBehavior;
+import org.soluvas.web.site.semantic.ItemPropBehavior;
+import org.soluvas.web.site.semantic.SchemaOrgProperty;
 
 import com.google.common.base.Strings;
 
 /**
- * Displays a {@link DisplayImage}.
+ * Displays a {@link DisplayImage} with itemprop={@link SchemaOrgProperty#CONTENT_URL}.
  * @author rio
  * @see ImageMicrodataBehavior
  */
@@ -69,6 +71,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		add(new ItemPropBehavior(SchemaOrgProperty.CONTENT_URL));
 	}
 	
 	@Override
