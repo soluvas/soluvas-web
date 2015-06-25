@@ -14,7 +14,14 @@ public enum SchemaOrgProperty {
 	 */
 	OFFERS, 
 	/**
-	 * <a href="http://schema.org/availability">schema:availability</a> - The availability of this item—for example In stock, Out of stock, Pre-order, etc. 
+	 * <a href="http://schema.org/availability">schema:availability</a> - The availability of this item—for example In stock, Out of stock, Pre-order, etc.
+	 * Usually used like this:
+	 * 
+	 * <pre>{@code
+	 * <link itemprop="availability" href="http://schema.org/InStock"/>In stock! Order now!</span>
+	 * }</pre>
+	 * 
+	 * @see ItemAvailability
 	 */
 	AVAILABILITY, 
 	/**
