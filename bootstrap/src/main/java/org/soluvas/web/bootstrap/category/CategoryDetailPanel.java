@@ -184,7 +184,6 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		changeTranslationsByDefault();
 	}
 	
-	@SuppressWarnings("null")
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
