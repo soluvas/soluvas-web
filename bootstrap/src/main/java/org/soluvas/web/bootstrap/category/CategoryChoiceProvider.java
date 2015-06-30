@@ -48,7 +48,6 @@ class CategoryChoiceProvider extends TextChoiceProvider<Category> {
 		return displayTxt;
 	}
 	
-	@SuppressWarnings("null")
 	protected String getParentPrefix(Category child) {
 //			if (child.getParent() != null) {
 		if (!Strings.isNullOrEmpty(child.getParentUName())) {
