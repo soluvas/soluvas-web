@@ -19,6 +19,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -418,7 +419,19 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 			formalCategoryModel.setObject(Preconditions.checkNotNull(formalCategoryRepo.findOne(getModelObject().getGoogleFormalId()),
 					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
 		}
-		form.add(new FormalCategorySelect2("acFormalCategory", formalCategoryModel));
+		final FormalCategorySelect2 acFormalCategory = new FormalCategorySelect2("acFormalCategory", formalCategoryModel);
+		acFormalCategory.setLabel(new Model<>("Formal Category"));
+//		acFormalCategory.getSettings().setMinimumInputLength(3);	
+		acFormalCategory.setRequired(true);
+		acFormalCategory.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				getModelObject().setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
+				info(String.format("Selected Formal Category %s: %s", getModelObject().getGoogleFormalId(), formalCategoryModel.getObject().getGoogleBreadcrumbs()));
+			}
+		});
+		form.add(acFormalCategory);
 		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
 			@Override

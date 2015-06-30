@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.category.FormalCategory;
 import org.soluvas.category.FormalCategoryRepository;
 import org.soluvas.data.domain.Page;
@@ -21,6 +23,11 @@ import com.vaynberg.wicket.select2.TextChoiceProvider;
  *
  */
 public class FormalCategoryChoiceProvider extends TextChoiceProvider<FormalCategory> {
+	
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger log = LoggerFactory
+			.getLogger(FormalCategoryChoiceProvider.class);
 	
 	@Inject
 	private FormalCategoryRepository repo;
@@ -44,6 +51,7 @@ public class FormalCategoryChoiceProvider extends TextChoiceProvider<FormalCateg
 	@Override
 	public void query(String term, int page, Response<FormalCategory> response) {
 		final Page<FormalCategory> result = repo.findAllBySearchText(term.trim(), new PageRequest(page, 10L, Direction.ASC, "googleId"));
+		log.debug("Got {} row(s) by term '{}': {}", result.getSize(), term, Iterables.limit(result.getContent(), 5));
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}
