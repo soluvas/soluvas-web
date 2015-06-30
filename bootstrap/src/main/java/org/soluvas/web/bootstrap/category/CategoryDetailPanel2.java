@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
@@ -47,6 +48,8 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
+import org.soluvas.category.FormalCategory;
+import org.soluvas.category.FormalCategoryRepository;
 import org.soluvas.category.impl.CategoryImpl;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.CommonsFactory;
@@ -112,6 +115,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 	private MixinManager mixinMgr;
 	@SpringBean
 	private AppManifest appManifest;
+	@Inject
+	private FormalCategoryRepository formalCategoryRepo;
 	
 	private final CategoryRepository categoryRepo;
 	private final EditMode editMode;
@@ -407,6 +412,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 		});
 		mixinChoices.setRequired(true);
 		form.add(mixinChoices);
+		
+		final IModel<FormalCategory> formalCategoryModel = new Model<>();
+		if ( getModelObject().getGoogleFormalId() != null ) {
+			formalCategoryModel.setObject(Preconditions.checkNotNull(formalCategoryRepo.findOne(getModelObject().getGoogleFormalId()),
+					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
+		}
+		form.add(new FormalCategorySelect2("acFormalCategory", formalCategoryModel));
 		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
 			@Override
