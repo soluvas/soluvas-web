@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -47,36 +46,25 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
-import org.soluvas.category.CategoryRepository;
+import org.soluvas.category.Category2;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.FormalCategory;
 import org.soluvas.category.FormalCategoryRepository;
-import org.soluvas.category.impl.CategoryImpl;
+import org.soluvas.category.MongoCategoryRepository;
 import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.CommonsFactory;
-import org.soluvas.commons.NotNullPredicate;
 import org.soluvas.commons.SlugUtils;
-import org.soluvas.commons.Translation;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
-import org.soluvas.web.site.CategoryModel;
-import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
-import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -100,7 +88,7 @@ import com.vaynberg.wicket.select2.TextChoiceProvider;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class CategoryDetailPanel2 extends GenericPanel<Category> {
+public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(CategoryDetailPanel2.class);
@@ -118,8 +106,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 	private AppManifest appManifest;
 	@Inject
 	private FormalCategoryRepository formalCategoryRepo;
+	@Inject
+	private MongoCategoryRepository catRepo;
 	
-	private final CategoryRepository categoryRepo;
 	private final EditMode editMode;
 	private final String originalUName;
 	
@@ -140,27 +129,23 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
-	public CategoryDetailPanel2(String id, CategoryRepository categoryRepo,
-			final Class<? extends Page> backPage, @Nullable String parentUName, String defaultMixinUName) {
+	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentUName, String defaultMixinUName) {
 		super(id);
 		this.editMode = EditMode.ADD;
 		this.originalUName = null;
-		this.categoryRepo = categoryRepo;
 		this.backPage = backPage;
 		
-		final CategoryImpl category = new CategoryImpl();
+		final Category2 category = new Category2();
 		category.setNsPrefix(tenant.getTenantId());
 		category.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		if (parentUName != null) {
 			category.setParentUName(parentUName);
-			final Category parent = Preconditions.checkNotNull(categoryRepo.findOne(parentUName),
-					"Cannot find parent category '%s' using %s", parentUName, categoryRepo);
-			category.setDefaultMixin(parent.getDefaultMixin());
+			final Category parent = Preconditions.checkNotNull(catRepo.findOne(parentUName),
+					"Cannot find parent category '%s' using %s", parentUName, catRepo);
 		} else {
-			category.setDefaultMixin(defaultMixinUName);
 		}
 		category.setStatus(CategoryStatus.ACTIVE);
-		setModel(new CategoryModel<Category>(category));
+		setModel(new Model<>(category));
 	}
 
 	/**
@@ -173,15 +158,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public CategoryDetailPanel2(String id, CategoryRepository categoryRepo, String uName,
-			final Class<? extends Page> backPage) {
+	public CategoryDetailPanel2(String id, String uName, final Class<? extends Page> backPage) {
 		// FIXME: reference to parent is gone
-		super(id, new CategoryModel<>(
-				Preconditions.checkNotNull(categoryRepo.findOne(uName),
-						"Cannot find category %s using %s", uName, categoryRepo)
-			));
+		super(id);
+		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(uName),
+						"Cannot find category %s using %s", uName, catRepo)));
 		this.editMode = EditMode.MODIFY;
-		this.categoryRepo = categoryRepo;
 		this.originalUName = uName;
 		this.backPage = backPage;
 		if (getModelObject().getLanguage() == null) {
@@ -196,12 +178,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 		
 		categoryLocaleModel.setObject(Locale.forLanguageTag(getModelObject().getLanguage()));
 		initLocalesAndTranslationMapModel();
-		
-		if (editMode == EditMode.ADD) {
-			final String mixinUName = getModelObject().getDefaultMixin();
-			Preconditions.checkNotNull(mixinMgr.findMixin(mixinUName),
-					"Mixin '%s' referred by new category must exist.", mixinUName);
-		}
 		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
@@ -277,7 +253,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -287,12 +263,14 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 						final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
 							@Override
 							public boolean apply(@Nullable String input) {
-								return !categoryRepo.exists(tenant.getTenantId() + "_" + input);
+								//FIXME: how??
+								return !catRepo.exists(tenant.getTenantId() + "_" + input);
 							}
 						});
 						category.setId(id);
 						category.setSlug(null);
-						category.resolve(categoryRepo);
+						//FIXME: how??
+//						category.resolve(categoryRepo);
 						target.add(headerUNameLabel, uNameDiv, slugPathDiv);
 					}
 				} else {
@@ -332,7 +310,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -367,52 +345,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 				return sortedMixins;
 			}
 		};
-		final String curDefaultMixin = getModelObject().getDefaultMixin();
-		log.debug("Got curMixin from Category {} is {}", getModelObject().getUName(), curDefaultMixin);
-		final Mixin curMixin = mixinMgr.findMixin(curDefaultMixin);
-		final IModel<Mixin> curMixinModel = new EmfModel<>(curMixin);
-		final Select2Choice<Mixin> mixinChoices = new Select2Choice<>("defaultMixin", curMixinModel, new TextChoiceProvider<Mixin>() {
-			@Override
-			protected String getDisplayText(Mixin choice) {
-				return choice.getDisplayName();
-			}
-			
-			@Override
-			protected Object getId(Mixin choice) {
-				return choice.getQName();
-			}
-			
-			@Override
-			public void query(final String term, int page, Response<Mixin> response) {
-				Preconditions.checkNotNull(sortedMixinsModel, "Sorted Mixins Model must not be null");
-				Preconditions.checkNotNull(sortedMixinsModel.getObject(), "Sorted Mixins must not be null");
-				final Collection<Mixin> filteredMixins = Collections2.filter(sortedMixinsModel.getObject(), new Predicate<Mixin>() {
-					@Override
-					public boolean apply(@Nullable Mixin input) {
-						return StringUtils.containsIgnoreCase(input.getDisplayName(), term);
-					}
-				});
-				response.addAll(filteredMixins);
-			}
-			
-			@Override
-			public Collection<Mixin> toChoices(Collection<String> ids) {
-				final Collection<Mixin> matchedChoices = Collections2.filter( Collections2.transform(ids, new Function<String, Mixin>() {
-					@Override @Nullable
-					public Mixin apply(@Nullable final String qName) {
-						return Iterables.find(sortedMixinsModel.getObject(), new Predicate<Mixin>() {
-							@Override
-							public boolean apply(@Nullable Mixin input) {
-								return input.getQName().equals(qName);
-							}
-						});
-					}
-				}), new NotNullPredicate<>());
-				return matchedChoices;
-			}
-		});
-		mixinChoices.setRequired(true);
-		form.add(mixinChoices);
 		
 		final IModel<FormalCategory> formalCategoryModel = new Model<>();
 		if ( getModelObject().getGoogleFormalId() != null ) {
@@ -437,27 +369,28 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Category category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
 				if (editMode == EditMode.ADD) {
 					final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
 						@Override
 						public boolean apply(@Nullable String input) {
-							return !categoryRepo.exists(tenant.getTenantId() + "_" + input);
+							//FIXME: how??
+							return !catRepo.exists(tenant.getTenantId() + "_" + input);
 						}
 					});
 					category.setId(id);
 					category.setSlug(null);
-					category.resolve(categoryRepo);
+					//FIXME: how??
+//					category.resolve(categoryRepo);
 				}
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
-				category.setDefaultMixin(curMixinModel.getObject().getQName());
 				switch (editMode) {
 				case ADD:
-					categoryRepo.add(category);
+					catRepo.add(category);
 					info("Added category " + category.getNsPrefix() + "_" + category.getName());
 					break;
 				case MODIFY:
-					categoryRepo.modify(originalUName, category);
+					catRepo.modify(originalUName, category);
 					info("Modified category " + category.getNsPrefix() + "_" + category.getName());
 					break;
 				}
@@ -482,8 +415,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Category category = CategoryDetailPanel2.this.getModelObject();
-				categoryRepo.delete(originalUName);
+				//FIXME: how??
+				catRepo.delete(originalUName);
 				warn("Deleted category " + originalUName);
 				setResponsePage(backPage);
 			}
@@ -540,14 +473,14 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 		}
 		
 		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
-			for (final Entry<String, Translation> entry : getModelObject().getTranslations().entrySet()) {
+			for (final Entry<String, Map<String, String>> entry : getModelObject().getTranslations().entrySet()) {
 				final Locale locale = Locale.forLanguageTag(entry.getKey());
 				if (!locales.contains(locale)) {
 					locales.add(locale);
 				}
 				
-				final Translation translation = entry.getValue();
-				for (final Entry<String, String> messageEntry : translation.getMessages()) {
+				final Map<String, String> translation = entry.getValue();
+				for (final Entry<String, String> messageEntry : translation.entrySet()) {
 					//name
 					if (messageEntry.getKey().equals(Category.NAME_ATTR)) {
 						transNameMapModel.getObject().put(locale, messageEntry.getValue());
@@ -566,19 +499,18 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
 			@Nullable final String upValue) {
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
-			final Translation translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
+			final Map<String, String> translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
 			if (!Strings.isNullOrEmpty(upValue)) {
 				log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
-				translation.getMessages().put(attribute, upValue);
+				translation.put(attribute, upValue);
 			} else {
 				log.debug("Removing translation {} for {}", attribute, selectedLocale.toLanguageTag());
-				translation.getMessages().remove(attribute);
+				translation.remove(attribute);
 			}
 		} else {
 			log.debug("Putting new translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
-			final Translation newTranslation = CommonsFactory.eINSTANCE.createTranslation();
-			newTranslation.setLanguage(selectedLocale.toLanguageTag());
-			newTranslation.getMessages().put(attribute, upValue);
+			final Map<String, String> newTranslation = new HashMap<>();
+			newTranslation.put(attribute, upValue);
 			getModelObject().getTranslations().put(selectedLocale.toLanguageTag(), newTranslation);
 		}
 	}
@@ -595,20 +527,20 @@ public class CategoryDetailPanel2 extends GenericPanel<Category> {
 		getModelObject().setLanguage(defaultLanguageTag);
 		if (!getModelObject().getTranslations().containsKey(oldLanguageTag)) {
 			//create translation for old language
-			updateAttributeTranslations(oldLocale, Category.NAME_ATTR, getModelObject().getName());
+			updateAttributeTranslations(oldLocale, Category2.NAME_ATTR, getModelObject().getName());
 			if (getModelObject().getDescription() != null) {
-				updateAttributeTranslations(oldLocale, Category.DESCRIPTION_ATTR, getModelObject().getDescription());
+				updateAttributeTranslations(oldLocale, Category2.DESCRIPTION_ATTR, getModelObject().getDescription());
 			}
 		}
 		
 		if (getModelObject().getTranslations().containsKey(defaultLanguageTag)) {
 			//update attribute from translation if exists
-			final Translation translation = getModelObject().getTranslations().get(defaultLanguageTag);
-			if (translation.getMessages().containsKey(Category.NAME_ATTR)) {
-				getModelObject().setName(translation.getMessages().get(Category.NAME_ATTR));
+			final Map<String, String> translation = getModelObject().getTranslations().get(defaultLanguageTag);
+			if (translation.containsKey(Category2.NAME_ATTR)) {
+				getModelObject().setName(translation.get(Category.NAME_ATTR));
 			}
-			if (translation.getMessages().containsKey(Category.DESCRIPTION_ATTR)) {
-				getModelObject().setDescription(translation.getMessages().get(Category.DESCRIPTION_ATTR));
+			if (translation.containsKey(Category2.DESCRIPTION_ATTR)) {
+				getModelObject().setDescription(translation.get(Category.DESCRIPTION_ATTR));
 			}
 			
 			//remove translation as default language product
