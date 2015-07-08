@@ -3,6 +3,7 @@ package org.soluvas.web.site.robots;
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.config.MultiTenantConfig;
@@ -34,7 +35,7 @@ public class RobotsTxtController {
 	public ResponseEntity<String> getRobotsTxt() {
 		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
 		final String body;
-		if (MultiTenantConfig.ENV_PRD.equals(tenantConfig.getTenantEnv())) {
+		if (AppManifest.ENV_PRD.equals(tenantConfig.getTenantEnv())) {
 			body = "User-Agent: *\n"
 				+ "Disallow: \n"
 				+ "\n"
