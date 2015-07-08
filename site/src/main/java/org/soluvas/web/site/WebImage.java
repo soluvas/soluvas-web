@@ -52,10 +52,31 @@ public class WebImage extends WebMarkupContainer {
 		try {
 			final String src = UriTemplate.fromTemplate(srcTemplate).expand(vars);
 			tag.put("src", src);
+			
+			if (disableCaching()) {
+				addAntiCacheParameter(tag);
+			}
 		} catch (VariableExpansionException | MalformedUriTemplateException e) {
 			throw new SiteException(e, "WebImage %'s src invalid URI template or without variables, please use standard img for non-dynamic URIs: %s",
 					getPageRelativePath(), srcTemplate);
 		}
 	}
+	
+	
+	protected boolean disableCaching() {
+		return false;
+	}
+	
+	/**
+	 * Adds random noise to the url every request to prevent the browser from caching the image.
+	 * 
+	 */
+	protected void addAntiCacheParameter(ComponentTag tag) {
+		String url = tag.getAttributes().getString("src");
+		url = url + (url.contains("?") ? "&" : "?");
+		url = url + "antiCache=" + System.currentTimeMillis();
+		tag.put("src", url);
+	}
+	
 	
 }
