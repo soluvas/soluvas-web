@@ -4,12 +4,12 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
-import org.soluvas.web.site.EmfModel;
 
 /**
  * Formats a {@link Term} with associated image or color.
@@ -17,6 +17,7 @@ import org.soluvas.web.site.EmfModel;
  * @todo It's possible to use app-scoped {@link WebAddress#getImagesUri()} or customize.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class TermLabel extends Label {
 	
 	public enum TermDisplay {
@@ -25,8 +26,6 @@ public class TermLabel extends Label {
 		IMAGE_AND_TEXT,
 	}
 
-	private static final long serialVersionUID = 1L;
-	
 	@SpringBean
 	private WebAddress webAddress;
 
@@ -38,7 +37,12 @@ public class TermLabel extends Label {
 	}
 
 	public TermLabel(String id, Term term) {
-		this(id, new EmfModel<>(term));
+		this(id, new LoadableDetachableModel<Term>(term) {
+			@Override
+			protected Term load() {
+				return null;
+			}
+		});
 	}
 	
 	public TermLabel(String id, IModel<Term> model, TermDisplay termDisplay) {
@@ -48,7 +52,13 @@ public class TermLabel extends Label {
 	}
 
 	public TermLabel(String id, Term term, TermDisplay termDisplay) {
-		this(id, new EmfModel<>(term), termDisplay);
+//		this(id, new EmfModel<>(term), termDisplay);
+		this(id, new LoadableDetachableModel<Term>(term) {
+			@Override
+			protected Term load() {
+				return null;
+			}
+		}, termDisplay);
 	}
 	
 	@Override
