@@ -86,7 +86,7 @@ public class CategoryTablePanel2 extends Panel {
 		columns.add(new EnumColumn<Category2>(new Model<>("Status"), "status", CategoryPackage.Literals.CATEGORY_STATUS,
 				CategoryStatus.ICON_MAPPING).enumVisible(false).headerIcon("cog"));
 		columns.add(new LinkColumn<Category2, String>(new Model<>("Name"), "name", "name", detailPage,
-				"uName", "uName"));
+				"id", "id"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Slug Path"), "slugPath", "slugPath"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Position"), "positioner", "positioner"));
