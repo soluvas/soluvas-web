@@ -124,12 +124,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param id
 	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param backPage
-	 * @param parentUName Parent {@link Category#getUName()} (non-editable).
+	 * @param parentId Parent {@link Category#getUName()} (non-editable).
 	 * @param defaultMixinUName Default {@link Category#setDefaultMixin(String)}, this is app specific e.g. {@code base_Apparel}.
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
-	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentUName, String defaultMixinUName) {
+	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentId, String defaultMixinUName) {
 		super(id);
 		this.editMode = EditMode.ADD;
 		this.originalUName = null;
@@ -138,10 +138,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final Category2 category = new Category2();
 		category.setNsPrefix(tenant.getTenantId());
 		category.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
-		if (parentUName != null) {
-			category.setParentUName(parentUName);
-			final Category parent = Preconditions.checkNotNull(catRepo.findOne(parentUName),
-					"Cannot find parent category '%s' using %s", parentUName, catRepo);
+		if (parentId != null) {
+			category.setParentId(parentId);
 		} else {
 		}
 		category.setStatus(CategoryStatus.ACTIVE);
@@ -193,8 +191,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		form.add(new Label("parentUName", new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				if (getModelObject().getParentUName() != null) {
-					return getModelObject().getParentUName();
+				if (getModelObject().getParentId() != null) {
+					return getModelObject().getParentId();
 				} else {
 					return "(root)";
 				}
