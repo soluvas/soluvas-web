@@ -110,7 +110,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private MongoCategoryRepository catRepo;
 	
 	private final EditMode editMode;
-	private final String originalUName;
+	private final String originalId;
 	
 	private final IModel<Locale> categoryLocaleModel = new Model<>();
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
@@ -129,10 +129,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
-	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentId, String defaultMixinUName) {
+	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentId) {
 		super(id);
 		this.editMode = EditMode.ADD;
-		this.originalUName = null;
+		this.originalId = null;
 		this.backPage = backPage;
 		
 		final Category2 category = new Category2();
@@ -150,19 +150,19 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * For viewing or editing an existing {@link Category}.
 	 * @param id
 	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
-	 * @param uName
+	 * @param originalId
 	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public CategoryDetailPanel2(String id, String uName, final Class<? extends Page> backPage) {
+	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage) {
 		// FIXME: reference to parent is gone
 		super(id);
-		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(uName),
-						"Cannot find category %s using %s", uName, catRepo)));
+		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(originalId),
+						"Cannot find category %s using %s", originalId, catRepo)));
 		this.editMode = EditMode.MODIFY;
-		this.originalUName = uName;
+		this.originalId = originalId;
 		this.backPage = backPage;
 		if (getModelObject().getLanguage() == null) {
 			getModelObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
@@ -180,10 +180,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
 		add(new BookmarkablePageLink<>("backLink", backPage));
-		
-		final Label headerUNameLabel = new Label("headerUName", new PropertyModel<>(getModel(), "uName"));
-		headerUNameLabel.setOutputMarkupId(true);
-		add(headerUNameLabel);
 		
 		final Form<Void> form = new Form<>("form");
 		add(form);
@@ -248,6 +244,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		displayNameFld.setOutputMarkupId(true);
 		displayNameFld.setRequired(true);
 		displayNameFld.setEnabled(editable);
+		displayNameFld.setLabel(new Model<>("Display name"));
 		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
@@ -269,7 +266,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						category.setSlug(null);
 						//FIXME: how??
 //						category.resolve(categoryRepo);
-						target.add(headerUNameLabel, uNameDiv, slugPathDiv);
+						target.add(uNameDiv, slugPathDiv);
 					}
 				} else {
 					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, nameModel.getObject());
@@ -388,7 +385,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					info("Added category " + category.getNsPrefix() + "_" + category.getName());
 					break;
 				case MODIFY:
-					catRepo.modify(originalUName, category);
+					catRepo.modify(originalId, category);
 					info("Modified category " + category.getNsPrefix() + "_" + category.getName());
 					break;
 				}
@@ -405,7 +402,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				attributes.getAjaxCallListeners().add(new AjaxCallListener() {
 					@Override
 					public CharSequence getPrecondition(Component component) {
-						return "return confirm('Do you want to delete category ' + " + JSONObject.quote(originalUName) + " + '?')";
+						return "return confirm('Do you want to delete category ' + " + JSONObject.quote(originalId) + " + '?')";
 					}
 				});
 			}
@@ -414,8 +411,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				//FIXME: how??
-				catRepo.delete(originalUName);
-				warn("Deleted category " + originalUName);
+				catRepo.delete(originalId);
+				warn("Deleted category " + originalId);
 				setResponsePage(backPage);
 			}
 		};
@@ -496,6 +493,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	
 	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
 			@Nullable final String upValue) {
+		if (getModelObject().getTranslations() == null) {
+			getModelObject().setTranslations(new HashMap<String, Map<String,String>>());
+		}
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
 			final Map<String, String> translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
 			if (!Strings.isNullOrEmpty(upValue)) {
@@ -515,7 +515,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	
 	private void changeTranslationsByDefault() {
 		final String defaultLanguageTag = appManifest.getDefaultLocale().toLanguageTag();
-		final String oldLanguageTag = getModelObject().getLanguage();
+		final String oldLanguageTag = Strings.nullToEmpty(getModelObject().getLanguage());
 		final Locale oldLocale = Locale.forLanguageTag(oldLanguageTag);
 		if (defaultLanguageTag.equals(oldLanguageTag)) {
 			log.info("No need for translating different language with default (get from appManifest)");
@@ -523,6 +523,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		}
 		//set the language as default of product
 		getModelObject().setLanguage(defaultLanguageTag);
+		if (getModelObject().getTranslations() == null) {
+			getModelObject().setTranslations(new HashMap<String, Map<String,String>>());
+		}
 		if (!getModelObject().getTranslations().containsKey(oldLanguageTag)) {
 			//create translation for old language
 			updateAttributeTranslations(oldLocale, Category2.NAME_ATTR, getModelObject().getName());

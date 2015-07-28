@@ -22,7 +22,7 @@ public class AddChildPanel2 extends GenericPanel<Category2> {
 	public AddChildPanel2(String id, IModel<Category2> model, Class<? extends Page> addPage) {
 		super(id, model);
 		add(new BookmarkablePageLink<>("link", addPage, 
-				new PageParameters().set("parentUName", new PropertyModel<>(model, "id").getObject())));
+				new PageParameters().set("parentId", new PropertyModel<>(model, "id").getObject())));
 	}
 
 }
