@@ -56,6 +56,7 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
+import org.soluvas.data.PropertyDefinition;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
@@ -64,6 +65,8 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 
 /**
@@ -157,7 +160,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param backPage
 	 */
 	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage) {
-		// FIXME: reference to parent is gone
 		super(id);
 		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(originalId),
 						"Cannot find category %s using %s", originalId, catRepo)));
@@ -216,21 +218,22 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		slugPathDiv.add(slugPathFld);
 		form.add(slugPathDiv);
 		
-		final IModel<String> nameModel = new LoadableDetachableModel<String>() {
+		final IModel<String> displayNameModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
-				final Locale productReleaseLocale = categoryLocaleModel.getObject();
-				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading name for locale '{}': {}", selectedLocale, getModelObject().getName());
 					return getModel().getObject().getName();
 				} else {
 					final String translation = transNameMapModel.getObject().get(selectedLocale);
-					log.debug("loading name for locale '{}': {}", selectedLocale, translation);
+//					log.debug("loading name for locale '{}': {}", selectedLocale, translation);
 					return translation;
 				}
 			}
 		};
-		final TextField<String> displayNameFld = new TextField<String>("displayName", nameModel){
+		final TextField<String> displayNameFld = new TextField<String>("displayName", displayNameModel){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -252,7 +255,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
-					category.setName(nameModel.getObject());
+					category.setName(displayNameModel.getObject());
 					
 					if (editMode == EditMode.ADD) {
 						final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
@@ -269,8 +272,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						target.add(uNameDiv, slugPathDiv);
 					}
 				} else {
-					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, nameModel.getObject());
-					transNameMapModel.getObject().put(selectedLocale, nameModel.getObject());
+					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, displayNameModel.getObject());
+					transNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
 				}
 			}
 		});
@@ -280,12 +283,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			@Override
 			protected String load() {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
-				final Locale productReleaseLocale = categoryLocaleModel.getObject();
-				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading description for locale '{}': {}", selectedLocale, getModelObject().getDescription());
 					return getModel().getObject().getDescription();
 				} else {
 					final String translation = transDescriptionMapModel.getObject().get(selectedLocale);
-					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
+//					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
 					return translation;
 				}
 			}
@@ -360,6 +364,24 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		});
 		form.add(acFormalCategory);
 		
+		form.add(new propertyOverridesListView("propertyOverrides", new ListModel<>(ImmutableList.copyOf(getModelObject().getPropertyOverrides()))){
+			@Override
+			protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
+				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
+					@Override
+					public boolean apply(PropertyDefinition input) {
+						return input.getId().equals(upPropertyOv.getId());
+					}
+				});
+				log.debug("Found propertyOv: {}", prevPropertyOv);
+				if (!CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().remove(prevPropertyOv)) {
+					error(String.format("Failed to update Property Override '%s'", upPropertyOv.getName()));
+					return;
+				}
+				CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(upPropertyOv);
+			}
+		});
+		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -375,8 +397,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					});
 					category.setId(id);
 					category.setSlug(null);
-					//FIXME: how??
-//					category.resolve(categoryRepo);
 				}
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
 				switch (editMode) {
@@ -429,8 +449,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
+						log.debug("AAAAAAAAAAAAaa");
 						selectedLocaleModel.setObject(item.getModelObject());
-						nameModel.detach();
+						displayNameModel.detach();
 						descriptionModel.detach();
 						target.add(displayNameFld, descriptionFld, wmcLocales);
 					}

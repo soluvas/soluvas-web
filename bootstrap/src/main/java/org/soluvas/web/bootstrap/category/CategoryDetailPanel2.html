@@ -75,7 +75,32 @@
                             <div class="col-lg-4 col-md-7 col-sm-9">
 								<input type="hidden" wicket:id="acFormalCategory" class="col-xs-12">
                             </div>
-                        </div>			
+                        </div>
+                        
+                        <div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Property Overrides</label>
+                            <div class="col-lg-4 col-md-7 col-sm-9">
+                            	<ul>
+                            		<li wicket:id="propertyOverrides">
+                            			Name: <span wicket:id="name"></span>
+                            			<br/>
+                            			Enabled: <input wicket:id="enabled" type="checkbox" value="Enabled">
+                            			<br/>
+                            			Default Kind: <select wicket:id="ddcDefaultKind"></select>
+                            			<br/>
+                            			<div wicket:id="measurementUnit">
+                            				Unit: <select wicket:id="selMeasurementUnit"></select>
+	                            			<br/>
+                            			</div>
+                            			<div wicket:id="defaultEnum">
+                            				Default Enum: <select wicket:id="selDefaultEnum"></select>
+	                            			<br/>
+                            			</div>
+                            			=====================
+                            		</li>
+                            	</ul>
+                            </div>
+                        </div>	
                           					
 					</form>
 					
