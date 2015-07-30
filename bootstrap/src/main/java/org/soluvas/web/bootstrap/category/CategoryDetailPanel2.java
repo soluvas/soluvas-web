@@ -2,7 +2,6 @@ package org.soluvas.web.bootstrap.category;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +41,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
@@ -67,7 +65,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -267,8 +264,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						});
 						category.setId(id);
 						category.setSlug(null);
-						//FIXME: how??
-//						category.resolve(categoryRepo);
 						target.add(uNameDiv, slugPathDiv);
 					}
 				} else {
@@ -328,23 +323,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
 		
-//		getModel().getObject().getd
-		final IModel<List<Mixin>> sortedMixinsModel = new LoadableDetachableModel<List<Mixin>>() {
-			@Override
-			protected List<Mixin> load() {
-				final Collection<Mixin> mixins = EcoreUtil.copyAll(mixinMgr.getMixins());
-				final Ordering<Mixin> mixinOrderer = Ordering.from(new Comparator<Mixin>() {
-					@Override
-					public int compare(Mixin o1, Mixin o2) {
-						return o1.getName().compareToIgnoreCase(o2.getName());
-					}
-				});
-				final List<Mixin> sortedMixins = mixinOrderer.immutableSortedCopy(mixins);
-				log.debug("Got {} mixins", sortedMixins.size());
-				return sortedMixins;
-			}
-		};
-		
 		final IModel<FormalCategory> formalCategoryModel = new Model<>();
 		if ( getModelObject().getGoogleFormalId() != null ) {
 			formalCategoryModel.setObject(Preconditions.checkNotNull(formalCategoryRepo.findOne(getModelObject().getGoogleFormalId()),
@@ -364,7 +342,17 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		});
 		form.add(acFormalCategory);
 		
-		form.add(new propertyOverridesListView("propertyOverrides", new ListModel<>(ImmutableList.copyOf(getModelObject().getPropertyOverrides()))){
+		final ImmutableList<PropertyDefinition> propertyOverrides = ImmutableList.copyOf(getModelObject().getPropertyOverrides());
+		final IModel<Collection<PropertyDefinition>> propertyOverridesModel = (IModel) new ListModel<>(propertyOverrides);
+		
+		final PropertyDefinitionSelect2MultiChoice acPropertyDefinition = new PropertyDefinitionSelect2MultiChoice("acPropertyDefinition", propertyOverridesModel);
+		acPropertyDefinition.setLabel(new Model<>("Property Override"));
+		form.add(acPropertyDefinition);
+		
+		final WebMarkupContainer wmcPropertyOverrides = new WebMarkupContainer("wmcPropertyOverrides");
+		wmcPropertyOverrides.setOutputMarkupId(true);
+		final PropertyOverridesListView propertyOverridesLv = new PropertyOverridesListView("propertyOverrides", new ListModel<>(propertyOverrides), formalCategoryModel,
+				selectedLocaleModel, categoryLocaleModel){
 			@Override
 			protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
 				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
@@ -380,7 +368,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 				CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(upPropertyOv);
 			}
-		});
+		};
+		wmcPropertyOverrides.add(propertyOverridesLv);
+		form.add(wmcPropertyOverrides);
 		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
 			@Override
@@ -449,11 +439,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						log.debug("AAAAAAAAAAAAaa");
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
 						descriptionModel.detach();
-						target.add(displayNameFld, descriptionFld, wmcLocales);
+						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrides);
 					}
 					
 					@Override
