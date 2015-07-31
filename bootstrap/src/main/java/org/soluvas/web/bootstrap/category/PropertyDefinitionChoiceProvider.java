@@ -1,10 +1,12 @@
 package org.soluvas.web.bootstrap.category;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
+import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.PropertyDefinition;
@@ -13,6 +15,7 @@ import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 
+import com.google.common.collect.ImmutableSet;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
@@ -29,11 +32,13 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	
 	@Inject
 	private PropertyDefinitionRepository repo;
+
+	private final IModel<List<String>> excludedIdsModel;
 	
-	public PropertyDefinitionChoiceProvider() {
+	public PropertyDefinitionChoiceProvider(IModel<List<String>> excludedIdsModel) {
 		super();
 		Injector.get().inject(this);
-		
+		this.excludedIdsModel = excludedIdsModel;
 	}
 
 	@Override
@@ -48,7 +53,9 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 
 	@Override
 	public void query(String term, int page, Response<PropertyDefinition> response) {
-		final Page<PropertyDefinition> result = repo.findAllBaseBySearchText(term.trim(), new PageRequest(page, 10L, Direction.ASC, "name"));
+		final Page<PropertyDefinition> result = repo.findAllBaseBySearchText(term.trim(),
+				ImmutableSet.copyOf(this.excludedIdsModel.getObject()),
+				new PageRequest(page, 10L, Direction.ASC, "name"));
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}
@@ -57,5 +64,5 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	public Collection<PropertyDefinition> toChoices(Collection<String> ids) {
 		return repo.findAllBase(ids);
 	}
-
+	
 }
