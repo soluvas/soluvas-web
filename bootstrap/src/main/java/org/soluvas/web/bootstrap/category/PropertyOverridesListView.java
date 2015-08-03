@@ -28,7 +28,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.soluvas.category.FormalCategory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.data.PropertyDefinition;
 import org.soluvas.data.PropertyDefinitionRepository;
@@ -71,18 +70,15 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 
 	private final IModel<List<String>> defaultEnumsModel;
 
-	private final IModel<FormalCategory> formalCategoryModel;
-
 	private final IModel<Locale> selectedLocaleModel;
 
 	private final IModel<Locale> categoryLocaleModel;
 	
 	public PropertyOverridesListView(final String id, final IModel<List<PropertyDefinition>> model,
-			final IModel<FormalCategory> formalCategoryModel, final IModel<Locale> selectedLocaleModel,
+			final IModel<Locale> selectedLocaleModel,
 			final IModel<Locale> categoryLocaleModel) {
 		super(id, model);
 		this.defaultEnumsModel = new ListModel<>(ImmutableList.copyOf(propDefRepo.getDefaultEnums()));
-		this.formalCategoryModel = formalCategoryModel;
 		this.selectedLocaleModel = selectedLocaleModel;
 		this.categoryLocaleModel = categoryLocaleModel;
 	}
@@ -268,20 +264,6 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 				});
 		defaultEnum.add(selDefaultEnum);
 		item.add(defaultEnum);
-		
-//		item.add( new AutoDisableAjaxButton("btnRemoveSelPropertyOverride") {
-//			@Override
-//			protected void onConfigure() {
-//				super.onConfigure();
-//				setVisible(!formalCategoryModel.getObject().getPropertyOverrides().contains(item.getModelObject()));
-//			}
-//			@Override
-//			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-//				super.onSubmit(target, form);
-//				
-//				
-//			}
-//		} );
 		
 		item.getModelObject().getTranslations();
 	}

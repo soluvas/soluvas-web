@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap.category;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -33,12 +34,12 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	@Inject
 	private PropertyDefinitionRepository repo;
 
-	private final IModel<List<String>> excludedIdsModel;
+	private final IModel<List<PropertyDefinition>> excludedsModel;
 	
-	public PropertyDefinitionChoiceProvider(IModel<List<String>> excludedIdsModel) {
+	public PropertyDefinitionChoiceProvider(IModel<List<PropertyDefinition>> excludedsModel) {
 		super();
 		Injector.get().inject(this);
-		this.excludedIdsModel = excludedIdsModel;
+		this.excludedsModel = excludedsModel;
 	}
 
 	@Override
@@ -53,8 +54,10 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 
 	@Override
 	public void query(String term, int page, Response<PropertyDefinition> response) {
+		final List<String> excludedPropertyDefIds = excludedsModel.getObject().stream().
+				map(it -> it.getId()).collect(Collectors.toList());
 		final Page<PropertyDefinition> result = repo.findAllBaseBySearchText(term.trim(),
-				ImmutableSet.copyOf(this.excludedIdsModel.getObject()),
+				ImmutableSet.copyOf(excludedPropertyDefIds),
 				new PageRequest(page, 10L, Direction.ASC, "name"));
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());

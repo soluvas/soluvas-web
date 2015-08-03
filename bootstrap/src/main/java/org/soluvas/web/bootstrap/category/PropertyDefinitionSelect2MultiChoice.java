@@ -27,9 +27,9 @@ public class PropertyDefinitionSelect2MultiChoice extends InteractiveSelect2Mult
 	}
 	
 	public PropertyDefinitionSelect2MultiChoice(final String id, final IModel<Collection<PropertyDefinition>> model,
-			final IModel<List<String>> excludedIdsModel) {
+			final IModel<List<PropertyDefinition>> excludedsModel) {
 		super(id, model);
-		setProvider(new PropertyDefinitionChoiceProvider(excludedIdsModel));
+		setProvider(new PropertyDefinitionChoiceProvider(excludedsModel));
 	}
 
 	@Override

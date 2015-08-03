@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -18,7 +17,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -64,6 +62,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 /**
@@ -115,6 +114,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private final IModel<Locale> categoryLocaleModel = new Model<>();
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
 	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
+	private final IModel<FormalCategory> formalCategoryModel;
 	
 	private final IModel<Map<Locale, String>> transNameMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
@@ -130,18 +130,23 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
-	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentId) {
+	public CategoryDetailPanel2(final String id, final Class<? extends Page> backPage,
+			@Nullable final String parentId, final IModel<FormalCategory> formalCategoryModel) {
 		super(id);
+		
 		this.editMode = EditMode.ADD;
 		this.originalId = null;
 		this.backPage = backPage;
+		this.formalCategoryModel = formalCategoryModel;
 		
 		final Category2 category = new Category2();
 		category.setNsPrefix(tenant.getTenantId());
 		category.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		if (parentId != null) {
 			category.setParentId(parentId);
-		} else {
+		}
+		if (formalCategoryModel.getObject() != null) {
+			category.setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
 		}
 		category.setStatus(CategoryStatus.ACTIVE);
 		setModel(new Model<>(category));
@@ -164,6 +169,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		this.editMode = EditMode.MODIFY;
 		this.originalId = originalId;
 		this.backPage = backPage;
+		this.formalCategoryModel = new Model<>(Preconditions.checkNotNull(formalCategoryRepo.findOne(
+				Preconditions.checkNotNull(getModelObject().getGoogleFormalId(), "Google Formal ID must not be null for category '%s'", getModelObject().getId())),
+					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
 		if (getModelObject().getLanguage() == null) {
 			getModelObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		}
@@ -192,6 +200,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				} else {
 					return "(root)";
 				}
+			}
+		}));
+		
+		form.add(new Label("formalCategory", new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				return formalCategoryModel.getObject().getName();
 			}
 		}));
 		
@@ -324,34 +339,21 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
 		
-		
-		final IModel<FormalCategory> formalCategoryModel = new Model<>();
-		formalCategoryModel.setObject(Preconditions.checkNotNull(formalCategoryRepo.findOne(
-				Preconditions.checkNotNull(getModelObject().getGoogleFormalId(), "Google Formal ID must not be null for category '%s'", getModelObject().getId())),
-					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
-		final FormalCategorySelect2 acFormalCategory = new FormalCategorySelect2("acFormalCategory", formalCategoryModel);
-		acFormalCategory.setLabel(new Model<>("Formal Category"));
-//		acFormalCategory.getSettings().setMinimumInputLength(3);	
-		acFormalCategory.setRequired(true);
-		acFormalCategory.add(new AjaxFormComponentUpdatingBehavior("onchange") {
-			
+		final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new LoadableDetachableModel<List<PropertyDefinition>>() {
 			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				getModelObject().setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
-				info(String.format("Selected Formal Category %s: %s", getModelObject().getGoogleFormalId(), formalCategoryModel.getObject().getGoogleBreadcrumbs()));
+			protected List<PropertyDefinition> load() {
+//				final List<PropertyDefinition> curPropertyOverrides = new ArrayList<>(getModelObject().getPropertyOverrides());
+				final List<PropertyDefinition> curPropertyOverrides = ImmutableList.copyOf(getModelObject().getPropertyOverrides());
+				log.debug("Loading {} current propertyOverrides", curPropertyOverrides.size());
+				return curPropertyOverrides;
 			}
-		});
-		form.add(acFormalCategory);
-		
-		final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>(new ArrayList<>(getModelObject().getPropertyOverrides()));
-		final IModel<List<String>> excludedPropertyDefIdsModel = new ListModel<>(new ArrayList<>(getModelObject().getPropertyOverrides().stream().
-				map(it -> it.getId()).collect(Collectors.toList())));
+		};
 		final IModel<Collection<PropertyDefinition>> newPropertyOverridesModel = (IModel) new ListModel<>(new ArrayList<>());
 		
 		final WebMarkupContainer wmcPropertyOverride = new WebMarkupContainer("wmcPropertyOverride");
 		wmcPropertyOverride.setOutputMarkupId(true);
 		final PropertyDefinitionSelect2MultiChoice acPropertyDefinition = new PropertyDefinitionSelect2MultiChoice("acPropertyDefinition",
-				newPropertyOverridesModel, excludedPropertyDefIdsModel);
+				newPropertyOverridesModel, curPropertyOverridesModel);
 		acPropertyDefinition.setLabel(new Model<>("Property Override"));
 		wmcPropertyOverride.add(acPropertyDefinition);
 
@@ -368,9 +370,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 				for (final PropertyDefinition newPropDef : newPropertyOverridesModel.getObject()) {
 					CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(newPropDef);
-					curPropertyOverridesModel.getObject().add(newPropDef);
-					excludedPropertyDefIdsModel.getObject().add(newPropDef.getId());
+//					excludedPropertyDefIdsModel.detach();
 				}
+				curPropertyOverridesModel.detach();
 				newPropertyOverridesModel.getObject().clear();
 				log.debug("newPropertyOverrides are {}",
 						newPropertyOverridesModel.getObject() != null ? newPropertyOverridesModel.getObject().size() + " row(s)" : null);
@@ -383,8 +385,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		form.add(wmcPropertyOverride);
 		
 		final PropertyOverridesListView propertyOverridesLv = new PropertyOverridesListView("propertyOverrides",
-				curPropertyOverridesModel, formalCategoryModel,
-				selectedLocaleModel, categoryLocaleModel){
+				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel){
 			@Override
 			protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
 				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
