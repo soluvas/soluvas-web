@@ -62,7 +62,6 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 /**
@@ -118,6 +117,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	
 	private final IModel<Map<Locale, String>> transNameMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
 	private Form<Void> form;
 
 	/**
@@ -147,6 +147,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		}
 		if (formalCategoryModel.getObject() != null) {
 			category.setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
+			category.getPropertyOverrides().addAll(formalCategoryModel.getObject().getPropertyOverrides());
 		}
 		category.setStatus(CategoryStatus.ACTIVE);
 		setModel(new Model<>(category));
@@ -280,6 +281,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						});
 						category.setId(id);
 						category.setSlug(null);
+						category.resolve(catRepo);
 						target.add(uNameDiv, slugPathDiv);
 					}
 				} else {
@@ -339,15 +341,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
 		
-		final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new LoadableDetachableModel<List<PropertyDefinition>>() {
-			@Override
-			protected List<PropertyDefinition> load() {
-//				final List<PropertyDefinition> curPropertyOverrides = new ArrayList<>(getModelObject().getPropertyOverrides());
-				final List<PropertyDefinition> curPropertyOverrides = ImmutableList.copyOf(getModelObject().getPropertyOverrides());
-				log.debug("Loading {} current propertyOverrides", curPropertyOverrides.size());
-				return curPropertyOverrides;
-			}
-		};
+		
+		curPropertyOverridesModel.setObject(new ArrayList<>(getModelObject().getPropertyOverrides()));
 		final IModel<Collection<PropertyDefinition>> newPropertyOverridesModel = (IModel) new ListModel<>(new ArrayList<>());
 		
 		final WebMarkupContainer wmcPropertyOverride = new WebMarkupContainer("wmcPropertyOverride");
@@ -370,9 +365,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 				for (final PropertyDefinition newPropDef : newPropertyOverridesModel.getObject()) {
 					CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(newPropDef);
-//					excludedPropertyDefIdsModel.detach();
 				}
-				curPropertyOverridesModel.detach();
+				addCurPropertyOverrides(newPropertyOverridesModel.getObject());
 				newPropertyOverridesModel.getObject().clear();
 				log.debug("newPropertyOverrides are {}",
 						newPropertyOverridesModel.getObject() != null ? newPropertyOverridesModel.getObject().size() + " row(s)" : null);
@@ -420,6 +414,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					});
 					category.setId(id);
 					category.setSlug(null);
+					category.resolve(catRepo);
 				}
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
 				switch (editMode) {
@@ -590,6 +585,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			//remove translation as default language product
 			getModelObject().getTranslations().remove(defaultLanguageTag);
 		}
+	}
+	
+	public void addCurPropertyOverrides(Collection<PropertyDefinition> upPropertyOverrides) {
+		curPropertyOverridesModel.getObject().addAll(upPropertyOverrides);
 	}
 	
 }
