@@ -29,8 +29,8 @@ public class Bootstrap3Wysihtml5v2 {
 			Bootstrap3Wysihtml5v2.class, "wysihtml5x-toolbar.min.js"));
 	public static final JavaScriptHeaderItem BOOTSTRAP3_WYSIHTML5_MIN = JavaScriptHeaderItem.forReference(new AfterBootstrapJavaScriptResourceReference(
 			Bootstrap3Wysihtml5v2.class, "bootstrap3-wysihtml5.min.js"));
-	public static final JavaScriptHeaderItem BOOTSTRAP3_WYSIHTML5 = JavaScriptHeaderItem.forReference(new AfterBootstrapJavaScriptResourceReference(
-			Bootstrap3Wysihtml5v2.class, "bootstrap3-wysihtml5.js"));
+//	public static final JavaScriptHeaderItem BOOTSTRAP3_WYSIHTML5 = JavaScriptHeaderItem.forReference(new AfterBootstrapJavaScriptResourceReference(
+//			Bootstrap3Wysihtml5v2.class, "bootstrap3-wysihtml5.js"));
 	
 	
 	
