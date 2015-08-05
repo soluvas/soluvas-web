@@ -58,9 +58,22 @@ public class WysihtmlTextArea extends TextArea<String> {
 		response.render(Bootstrap3Wysihtml5v2.CSS_BOOTSTRAP3_WYSIHTML5_EDITOR);
 		response.render(Bootstrap3Wysihtml5v2.WYSIHTML5X_TOOLBAR_MIN);
 		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5_MIN);
+//		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5);
 		
+		//http://stackoverflow.com/questions/18305497/customize-wysihtml5-toolbar
+		/*$('#some-textarea').wysihtml5({
+			"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+			"emphasis": true, //Italics, bold, etc. Default true
+			"lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+			"html": false, //Button which allows you to edit the generated HTML. Default false
+			"link": true, //Button to insert a link. Default true
+			"image": true, //Button to insert an image. Default true,
+			"color": false //Button to change color of font  
+		});*/
 		response.render(OnLoadHeaderItem.forScript(
-				"$('#" + getMarkupId() + "').wysihtml5();"));
+				"$('#" + getMarkupId() + "').wysihtml5({"
+//						+ "\"image\": false"
+						+ "});"));
 		
 		// bootstrap-wysihtml5 is activated by advanced-form.js
 //		response.render(Bootstrap3Wysihtml5.asHeaderItem());
