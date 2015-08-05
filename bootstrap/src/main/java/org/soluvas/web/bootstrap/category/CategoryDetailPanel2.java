@@ -370,8 +370,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				newPropertyOverridesModel.getObject().clear();
 				log.debug("newPropertyOverrides are {}",
 						newPropertyOverridesModel.getObject() != null ? newPropertyOverridesModel.getObject().size() + " row(s)" : null);
-				CategoryDetailPanel2.this.form.clearInput();
-				target.add(wmcPropertyOverrideList, wmcPropertyOverride, CategoryDetailPanel2.this.form);
+				//$("#s2id_acPropertyDefinition135") --> clear all values
+				final String call = "$('#" + acPropertyDefinition.getMarkupId() + "').select2(\"val\", \"\");";
+				target.appendJavaScript(call);
+				target.add(wmcPropertyOverrideList, wmcPropertyOverride);
 				
 			};
 		};
