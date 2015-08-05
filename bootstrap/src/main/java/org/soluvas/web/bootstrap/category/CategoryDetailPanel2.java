@@ -2,7 +2,6 @@ package org.soluvas.web.bootstrap.category;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -18,7 +17,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -42,7 +40,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
@@ -56,6 +53,7 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
+import org.soluvas.data.PropertyDefinition;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
@@ -64,7 +62,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.collect.Ordering;
+import com.google.common.collect.Iterables;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -115,9 +113,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private final IModel<Locale> categoryLocaleModel = new Model<>();
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
 	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
+	private final IModel<FormalCategory> formalCategoryModel;
 	
 	private final IModel<Map<Locale, String>> transNameMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
+	private Form<Void> form;
 
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
@@ -129,18 +130,24 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
-	public CategoryDetailPanel2(String id, final Class<? extends Page> backPage, @Nullable String parentId) {
+	public CategoryDetailPanel2(final String id, final Class<? extends Page> backPage,
+			@Nullable final String parentId, final IModel<FormalCategory> formalCategoryModel) {
 		super(id);
+		
 		this.editMode = EditMode.ADD;
 		this.originalId = null;
 		this.backPage = backPage;
+		this.formalCategoryModel = formalCategoryModel;
 		
 		final Category2 category = new Category2();
 		category.setNsPrefix(tenant.getTenantId());
 		category.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		if (parentId != null) {
 			category.setParentId(parentId);
-		} else {
+		}
+		if (formalCategoryModel.getObject() != null) {
+			category.setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
+			category.getPropertyOverrides().addAll(formalCategoryModel.getObject().getPropertyOverrides());
 		}
 		category.setStatus(CategoryStatus.ACTIVE);
 		setModel(new Model<>(category));
@@ -157,13 +164,15 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param backPage
 	 */
 	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage) {
-		// FIXME: reference to parent is gone
 		super(id);
 		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(originalId),
 						"Cannot find category %s using %s", originalId, catRepo)));
 		this.editMode = EditMode.MODIFY;
 		this.originalId = originalId;
 		this.backPage = backPage;
+		this.formalCategoryModel = new Model<>(Preconditions.checkNotNull(formalCategoryRepo.findOne(
+				Preconditions.checkNotNull(getModelObject().getGoogleFormalId(), "Google Formal ID must not be null for category '%s'", getModelObject().getId())),
+					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
 		if (getModelObject().getLanguage() == null) {
 			getModelObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		}
@@ -181,7 +190,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		add(new Label("kind", kindDisplayName));
 		add(new BookmarkablePageLink<>("backLink", backPage));
 		
-		final Form<Void> form = new Form<>("form");
+		form = new Form<>("form");
 		add(form);
 		
 		form.add(new Label("parentUName", new AbstractReadOnlyModel<String>() {
@@ -192,6 +201,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				} else {
 					return "(root)";
 				}
+			}
+		}));
+		
+		form.add(new Label("formalCategory", new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				return formalCategoryModel.getObject().getName();
 			}
 		}));
 		
@@ -216,21 +232,22 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		slugPathDiv.add(slugPathFld);
 		form.add(slugPathDiv);
 		
-		final IModel<String> nameModel = new LoadableDetachableModel<String>() {
+		final IModel<String> displayNameModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
-				final Locale productReleaseLocale = categoryLocaleModel.getObject();
-				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading name for locale '{}': {}", selectedLocale, getModelObject().getName());
 					return getModel().getObject().getName();
 				} else {
 					final String translation = transNameMapModel.getObject().get(selectedLocale);
-					log.debug("loading name for locale '{}': {}", selectedLocale, translation);
+//					log.debug("loading name for locale '{}': {}", selectedLocale, translation);
 					return translation;
 				}
 			}
 		};
-		final TextField<String> displayNameFld = new TextField<String>("displayName", nameModel){
+		final TextField<String> displayNameFld = new TextField<String>("displayName", displayNameModel){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -252,7 +269,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
-					category.setName(nameModel.getObject());
+					category.setName(displayNameModel.getObject());
 					
 					if (editMode == EditMode.ADD) {
 						final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
@@ -264,13 +281,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						});
 						category.setId(id);
 						category.setSlug(null);
-						//FIXME: how??
-//						category.resolve(categoryRepo);
+						category.resolve(catRepo);
 						target.add(uNameDiv, slugPathDiv);
 					}
 				} else {
-					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, nameModel.getObject());
-					transNameMapModel.getObject().put(selectedLocale, nameModel.getObject());
+					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, displayNameModel.getObject());
+					transNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
 				}
 			}
 		});
@@ -280,12 +296,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			@Override
 			protected String load() {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
-				final Locale productReleaseLocale = categoryLocaleModel.getObject();
-				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading description for locale '{}': {}", selectedLocale, getModelObject().getDescription());
 					return getModel().getObject().getDescription();
 				} else {
 					final String translation = transDescriptionMapModel.getObject().get(selectedLocale);
-					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
+//					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
 					return translation;
 				}
 			}
@@ -324,41 +341,65 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
 		
-//		getModel().getObject().getd
-		final IModel<List<Mixin>> sortedMixinsModel = new LoadableDetachableModel<List<Mixin>>() {
+		
+		curPropertyOverridesModel.setObject(new ArrayList<>(getModelObject().getPropertyOverrides()));
+		final IModel<Collection<PropertyDefinition>> newPropertyOverridesModel = (IModel) new ListModel<>(new ArrayList<>());
+		
+		final WebMarkupContainer wmcPropertyOverride = new WebMarkupContainer("wmcPropertyOverride");
+		wmcPropertyOverride.setOutputMarkupId(true);
+		final PropertyDefinitionSelect2MultiChoice acPropertyDefinition = new PropertyDefinitionSelect2MultiChoice("acPropertyDefinition",
+				newPropertyOverridesModel, curPropertyOverridesModel);
+		acPropertyDefinition.setLabel(new Model<>("Property Override"));
+		wmcPropertyOverride.add(acPropertyDefinition);
+
+		final WebMarkupContainer wmcPropertyOverrideList = new WebMarkupContainer("wmcPropertyOverrides");
+		wmcPropertyOverrideList.setOutputMarkupId(true);
+		
+		final AutoDisableAjaxButton btnAddNewPropertyDefinition = new AutoDisableAjaxButton("btnAddNewPropertyDefinition") {
 			@Override
-			protected List<Mixin> load() {
-				final Collection<Mixin> mixins = EcoreUtil.copyAll(mixinMgr.getMixins());
-				final Ordering<Mixin> mixinOrderer = Ordering.from(new Comparator<Mixin>() {
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				super.onSubmit(target, form);
+				if (newPropertyOverridesModel.getObject() == null || newPropertyOverridesModel.getObject().isEmpty()) {
+					error("Please choose at least one property definition.");
+					return;
+				}
+				for (final PropertyDefinition newPropDef : newPropertyOverridesModel.getObject()) {
+					CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(newPropDef);
+				}
+				addCurPropertyOverrides(newPropertyOverridesModel.getObject());
+				newPropertyOverridesModel.getObject().clear();
+				log.debug("newPropertyOverrides are {}",
+						newPropertyOverridesModel.getObject() != null ? newPropertyOverridesModel.getObject().size() + " row(s)" : null);
+				//$("#s2id_acPropertyDefinition135") --> clear all values
+				final String call = "$('#" + acPropertyDefinition.getMarkupId() + "').select2(\"val\", \"\");";
+				target.appendJavaScript(call);
+				target.add(wmcPropertyOverrideList, wmcPropertyOverride);
+				
+			};
+		};
+		wmcPropertyOverride.add(btnAddNewPropertyDefinition);
+		form.add(wmcPropertyOverride);
+		
+		final PropertyOverridesListView propertyOverridesLv = new PropertyOverridesListView("propertyOverrides",
+				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel){
+			@Override
+			protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
+				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
 					@Override
-					public int compare(Mixin o1, Mixin o2) {
-						return o1.getName().compareToIgnoreCase(o2.getName());
+					public boolean apply(PropertyDefinition input) {
+						return input.getId().equals(upPropertyOv.getId());
 					}
 				});
-				final List<Mixin> sortedMixins = mixinOrderer.immutableSortedCopy(mixins);
-				log.debug("Got {} mixins", sortedMixins.size());
-				return sortedMixins;
+				log.debug("Found propertyOv: {}", prevPropertyOv);
+				if (!CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().remove(prevPropertyOv)) {
+					error(String.format("Failed to update Property Override '%s'", upPropertyOv.getName()));
+					return;
+				}
+				CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(upPropertyOv);
 			}
 		};
-		
-		final IModel<FormalCategory> formalCategoryModel = new Model<>();
-		if ( getModelObject().getGoogleFormalId() != null ) {
-			formalCategoryModel.setObject(Preconditions.checkNotNull(formalCategoryRepo.findOne(getModelObject().getGoogleFormalId()),
-					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
-		}
-		final FormalCategorySelect2 acFormalCategory = new FormalCategorySelect2("acFormalCategory", formalCategoryModel);
-		acFormalCategory.setLabel(new Model<>("Formal Category"));
-//		acFormalCategory.getSettings().setMinimumInputLength(3);	
-		acFormalCategory.setRequired(true);
-		acFormalCategory.add(new AjaxFormComponentUpdatingBehavior("onchange") {
-			
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				getModelObject().setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
-				info(String.format("Selected Formal Category %s: %s", getModelObject().getGoogleFormalId(), formalCategoryModel.getObject().getGoogleBreadcrumbs()));
-			}
-		});
-		form.add(acFormalCategory);
+		wmcPropertyOverrideList.add(propertyOverridesLv);
+		form.add(wmcPropertyOverrideList);
 		
 		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
 			@Override
@@ -375,8 +416,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					});
 					category.setId(id);
 					category.setSlug(null);
-					//FIXME: how??
-//					category.resolve(categoryRepo);
+					category.resolve(catRepo);
 				}
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
 				switch (editMode) {
@@ -430,9 +470,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						selectedLocaleModel.setObject(item.getModelObject());
-						nameModel.detach();
+						displayNameModel.detach();
 						descriptionModel.detach();
-						target.add(displayNameFld, descriptionFld, wmcLocales);
+						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrideList);
 					}
 					
 					@Override
@@ -547,6 +587,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			//remove translation as default language product
 			getModelObject().getTranslations().remove(defaultLanguageTag);
 		}
+	}
+	
+	public void addCurPropertyOverrides(Collection<PropertyDefinition> upPropertyOverrides) {
+		curPropertyOverridesModel.getObject().addAll(upPropertyOverrides);
 	}
 	
 }
