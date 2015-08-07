@@ -4,6 +4,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.IModel;
+import org.soluvas.web.bootstrap.AfterBootstrapCssResourceReference;
 import org.soluvas.web.bootstrap.bootstrap3wysihtml5v2.Bootstrap3Wysihtml5v2;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
@@ -12,6 +13,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameApp
  * @author anton
  *
  */
+
 @SuppressWarnings("serial")
 public class WysihtmlTextArea extends TextArea<String> {
 
@@ -52,12 +54,16 @@ public class WysihtmlTextArea extends TextArea<String> {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		
 		//v 2
-		response.render(Bootstrap3Wysihtml5v2.CSS_BOOTSTRAP3_WYSIHTML5);
-		response.render(Bootstrap3Wysihtml5v2.CSS_BOOTSTRAP3_WYSIHTML5_EDITOR);
-		response.render(Bootstrap3Wysihtml5v2.WYSIHTML5X_TOOLBAR_MIN);
+//		response.render(Bootstrap3Wysihtml5v2.CSS_BOOTSTRAP3_WYSIHTML5);
+//		response.render(Bootstrap3Wysihtml5v2.CSS_BOOTSTRAP3_WYSIHTML5_EDITOR);
+//		response.render(Bootstrap3Wysihtml5v2.WYSIHTML5X_TOOLBAR_MIN);
+		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5_MIN_CSS);
+		response.render(Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS);
 		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5_MIN);
+		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5_ALL_MIN);
+//		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5_COMMANDS);
+//		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5_TEMPLATES);
 //		response.render(Bootstrap3Wysihtml5v2.BOOTSTRAP3_WYSIHTML5);
 		
 		//http://stackoverflow.com/questions/18305497/customize-wysihtml5-toolbar
@@ -70,10 +76,22 @@ public class WysihtmlTextArea extends TextArea<String> {
 			"image": true, //Button to insert an image. Default true,
 			"color": false //Button to change color of font  
 		});*/
+//		response.render(OnLoadHeaderItem.forScript(
+//				"$('#" + getMarkupId() + "').wysihtml5();"));
+		final AfterBootstrapCssResourceReference afterBootstrapCssResourceReference = new AfterBootstrapCssResourceReference(
+				Bootstrap3Wysihtml5v2.class, "wysiwyg-color.css");
+		
+		
 		response.render(OnLoadHeaderItem.forScript(
 				"$('#" + getMarkupId() + "').wysihtml5({"
-//						+ "\"image\": false"
-						+ "});"));
+//						+ "\"image\": false,"
+						+ "\"color\": true,"
+//						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.class.getResource("/lib/css/wysiwyg-color.css") + "\"]"
+//						+ "\"stylesheets\": [\"wysiwyg-color.css\"]"
+//						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS + "\"]"
+						+ "\"stylesheets\": [\"" + urlFor(Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS.getReference(), null) + "\"]"
+						+ "})"));
+		
 		
 		// bootstrap-wysihtml5 is activated by advanced-form.js
 //		response.render(Bootstrap3Wysihtml5.asHeaderItem());
