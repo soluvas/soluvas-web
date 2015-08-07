@@ -50,7 +50,7 @@ body {
 	<div class="wrapp-navbar">
 		<div class="" wicket:id="navbar">Navbar... (see Navbar.html)</div>
 	</div>
-	<div class="page-content" id="sb-site">
+	<div class="page-content">
 		<div id="">
 			<div class="container top-md-10">
 				<div class="row">
@@ -164,7 +164,7 @@ $(document).ready(function () {
 
 
     $("#slide-nav").on("click", toggler, function (e) {
-		
+
         var selected = $(this).hasClass('slide-active');
 
         $('#slidemenu').stop().animate({
@@ -189,37 +189,10 @@ $(document).ready(function () {
 
 
         $('.page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
-        
+
+
     });
 
-    $(".page-content").click(function () {
-
-        var selected = $('.navbar-toggle').hasClass('slide-active');
-
-        $('#slidemenu').stop().animate({
-            left: selected ? menuneg : '0px'
-        });
-
-        $('#navbar-height-col').stop().animate({
-            left: selected ? slideneg : '0px'
-        });
-
-        $(pagewrapper).stop().animate({
-            left: selected ? '0px' : slidewidth
-        });
-
-        $(navigationwrapper).stop().animate({
-            left: selected ? '0px' : slidewidth
-        });
-
-
-        $('.navbar-toggle').toggleClass('slide-active', !selected);
-        $('#slidemenu').toggleClass('slide-active');
-
-
-        $('.page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
-		console.info('hello 2');
-    });
 
     var selected = '#slidemenu, .page-content, body, .navbar, .navbar-header';
 
