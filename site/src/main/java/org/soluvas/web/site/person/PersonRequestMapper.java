@@ -89,6 +89,9 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
+			if (info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).isEmpty()) {
+				log.warn("localePrefId PageParameter must be given");
+			}
 			final String defaultLocalePrefId = Session.get().getLocale().toLanguageTag().equals("id-ID") ? SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID : SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN;
 			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(defaultLocalePrefId);
 			final String personSlug = info.getPageParameters().get(SLUG_PARAMETER).toString();
