@@ -84,7 +84,7 @@ public class WysihtmlTextArea extends TextArea<String> {
 		
 		response.render(OnLoadHeaderItem.forScript(
 				"$('#" + getMarkupId() + "').wysihtml5({"
-//						+ "\"image\": false,"
+						+ "\"image\": false,"
 						+ "\"color\": true,"
 //						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.class.getResource("/lib/css/wysiwyg-color.css") + "\"]"
 //						+ "\"stylesheets\": [\"wysiwyg-color.css\"]"
