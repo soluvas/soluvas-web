@@ -6,7 +6,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.data.TermType;
+import org.soluvas.data.TermKind;
 
 import com.google.common.collect.ImmutableList;
 
@@ -15,20 +15,19 @@ import com.google.common.collect.ImmutableList;
  *
  */
 @SuppressWarnings("serial")
-public class TermTypeSelect2Multi extends InteractiveSelect2MultiChoice<TermType>{
+public class TermKindSelect2Multi extends InteractiveSelect2MultiChoice<TermKind>{
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TermTypeSelect2Multi.class);
+			.getLogger(TermKindSelect2Multi.class);
 	private static final long serialVersionUID = 1L;
 	
-	public TermTypeSelect2Multi(String id, IModel<Collection<TermType>> selectedTermTypesModel) {
+	public TermKindSelect2Multi(String id, IModel<Collection<TermKind>> selectedTermTypesModel) {
 		super(id, selectedTermTypesModel);
-	//	setModel(new LoadableDetachableModel(selectedTermTypesModel));
 		
-		final LoadableDetachableModel<Collection<TermType>> termTypesModel = new LoadableDetachableModel<Collection<TermType>>() {
+		final LoadableDetachableModel<Collection<TermKind>> termTypesModel = new LoadableDetachableModel<Collection<TermKind>>() {
 			@Override
-			protected Collection<TermType> load() {
-				return ImmutableList.copyOf(TermType.values());
+			protected Collection<TermKind> load() {
+				return ImmutableList.copyOf(TermKind.values());
 			}
 		};
 		setProvider(new TermTypeChoiceProvider(termTypesModel));
