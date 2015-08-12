@@ -47,7 +47,8 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		if (request.getUrl().getSegments().size() == 2) {
+		if (request.getUrl().getSegments().size() == 2 &&
+				SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(request.getUrl().getSegments().get(0))) {
 			final String localePrefId = request.getUrl().getSegments().get(0);
 			final String upSlug = request.getUrl().getSegments().get(1);
 			if (SlugUtils.SCREEN_NAME_PATTERN.matcher(upSlug).matches()) {
