@@ -13,6 +13,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -26,6 +28,8 @@ import com.google.common.base.Predicate;
  * @author ceefour
  */
 public class LinkColumn<T, S> extends PropertyColumn<T, S> {
+	
+	private static final Logger log = LoggerFactory.getLogger(LinkColumn.class);
 
 	private static final long serialVersionUID = 1L;
 	
@@ -166,6 +170,8 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
+//		log.debug("paramEx '{}' - paramName", paramExpression, paramName);
+		
 		@Nullable
 		final Object paramValue = new PropertyModel<>(model, paramExpression).getObject();
 //				"Cannot get '%s' parameter because of null '%s' in %s",

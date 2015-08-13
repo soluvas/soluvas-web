@@ -47,7 +47,8 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	
 	@Override
 	protected UrlInfo parseRequest(Request request) {
-		if (request.getUrl().getSegments().size() == 2) {
+		if (request.getUrl().getSegments().size() == 2 &&
+				SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(request.getUrl().getSegments().get(0))) {
 			final String localePrefId = request.getUrl().getSegments().get(0);
 			final String upSlug = request.getUrl().getSegments().get(1);
 			if (SlugUtils.SCREEN_NAME_PATTERN.matcher(upSlug).matches()) {
@@ -89,6 +90,9 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 	@Override
 	protected Url buildUrl(UrlInfo info) {
 		if (info.getPageClass() == personShowPage && info.getPageParameters() != null) {
+			if (info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).isEmpty()) {
+				log.warn("localePrefId PageParameter must be given");
+			}
 			final String defaultLocalePrefId = Session.get().getLocale().toLanguageTag().equals("id-ID") ? SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID : SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN;
 			final String localePrefId = info.getPageParameters().get(LOCALE_PREF_ID_PARAMETER).toString(defaultLocalePrefId);
 			final String personSlug = info.getPageParameters().get(SLUG_PARAMETER).toString();

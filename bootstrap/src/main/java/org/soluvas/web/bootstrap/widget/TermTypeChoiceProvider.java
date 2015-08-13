@@ -9,7 +9,7 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.data.TermType;
+import org.soluvas.data.TermKind;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -20,21 +20,21 @@ import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 @SuppressWarnings("serial")
-public class TermTypeChoiceProvider extends TextChoiceProvider<TermType>{
+public class TermTypeChoiceProvider extends TextChoiceProvider<TermKind>{
 
-	private final IModel<Collection<TermType>> termTypesModel;
+	private final IModel<Collection<TermKind>> termTypesModel;
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(TermTypeChoiceProvider.class);
 	
-	public TermTypeChoiceProvider(IModel<Collection<TermType>> termTypesModel) {
+	public TermTypeChoiceProvider(IModel<Collection<TermKind>> termTypesModel) {
 		super();
 		Injector.get().inject(this);
 		this.termTypesModel = termTypesModel;
 	}
 
 	@Override
-	protected String getDisplayText(TermType choice) {
+	protected String getDisplayText(TermKind choice) {
 		switch (choice.getName()) {
 		case "color":
 				return "Color";
@@ -48,15 +48,15 @@ public class TermTypeChoiceProvider extends TextChoiceProvider<TermType>{
 	}
 
 	@Override
-	protected Object getId(TermType choice) {
+	protected Object getId(TermKind choice) {
 		return choice.getValue();
 	}
 
 	@Override
-	public void query(String term, int page, Response<TermType> response) {
-		final Collection<TermType> termTypeCollection = Collections2.filter(termTypesModel.getObject(), new Predicate<TermType>() {
+	public void query(String term, int page, Response<TermKind> response) {
+		final Collection<TermKind> termTypeCollection = Collections2.filter(termTypesModel.getObject(), new Predicate<TermKind>() {
 			@Override
-			public boolean apply(@Nullable TermType input) {
+			public boolean apply(@Nullable TermKind input) {
 				return StringUtils.containsIgnoreCase(input.getName(), term.trim());
 			}
 		});
@@ -64,14 +64,14 @@ public class TermTypeChoiceProvider extends TextChoiceProvider<TermType>{
 	}
 
 	@Override
-	public Collection<TermType> toChoices(Collection<String> ids) {
-		return FluentIterable.from(ids).transform(new Function<String, TermType>() {
+	public Collection<TermKind> toChoices(Collection<String> ids) {
+		return FluentIterable.from(ids).transform(new Function<String, TermKind>() {
 			@Override
 			@Nullable
-			public TermType apply(@Nullable String id) {
-				final TermType termType = Iterables.find(termTypesModel.getObject(), new Predicate<TermType>(){
+			public TermKind apply(@Nullable String id) {
+				final TermKind termType = Iterables.find(termTypesModel.getObject(), new Predicate<TermKind>(){
 					@Override
-					public boolean apply(TermType termType) {
+					public boolean apply(TermKind termType) {
 						return String.valueOf(termType.getValue()).equals(id);
 					}
 				});

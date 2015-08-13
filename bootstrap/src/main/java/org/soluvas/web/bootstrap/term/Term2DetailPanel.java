@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,24 +44,15 @@ import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.PatternValidator;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.CommonsFactory;
 import org.soluvas.commons.SlugUtils;
-import org.soluvas.commons.Translation;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
-import org.soluvas.data.TermRepository;
-import org.soluvas.data.TermType;
-import org.soluvas.data.Value;
-import org.soluvas.data.event.AddedTermEvent;
-import org.soluvas.data.event.ModifiedTermEvent;
-import org.soluvas.data.event.RemovedTermEvent;
-import org.soluvas.data.impl.TermImpl;
+import org.soluvas.data.Term2;
+import org.soluvas.data.TermKind;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
-import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
@@ -96,10 +86,10 @@ import com.google.common.eventbus.EventBus;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class TermDetailPanel2 extends GenericPanel<Term> {
+public class Term2DetailPanel extends GenericPanel<Term2> {
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(TermDetailPanel2.class);
+			.getLogger(Term2DetailPanel.class);
 	
 	private static final String IMAGE_ID_PATTERN = "[^\\s]{1,7}";
 	
@@ -109,6 +99,9 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	}
 	private final String kindDisplayName;
 	private final Class<? extends Page> backPage;
+	
+	@SpringBean
+	private MongoTermCatalogRepository termCatalogRepo;
 	@SpringBean
 	private TenantRef tenant;
 	@SpringBean
@@ -116,16 +109,16 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	@SpringBean
 	private AppManifest appManifest;
 	
-	private final TermRepository termRepo;
 	private final EditMode editMode;
-	private final String originalUName;
-	private final TermType termType;
+	private final String termId;
 	
 	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
 	private final IModel<Locale> termLocaleModel = new Model<>();
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
 	
 	private final IModel<Map<Locale, String>> transDisplayNameMapModel = new MapModel<>(new HashMap<Locale, String>());
+
+	private final IModel<TermKind> termKindModel;
 
 	/**
 	 * For creating a new {@link Term}. The nsPrefix is always the tenantId.
@@ -139,21 +132,20 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	 * @param string 
 	 * @param backPage
 	 */
-	public TermDetailPanel2(String id, TermRepository termRepo, final String kindNsPrefix, final String kindName, String kindDisplayName,
-			final Class<? extends Page> backPage, TermType termType) {
+	public Term2DetailPanel(String id, final Class<? extends Page> backPage, IModel<TermKind> termKindModel) {
 		super(id);
 		this.editMode = EditMode.ADD;
-		this.originalUName = null;
-		this.termRepo = termRepo;
-		this.kindDisplayName = kindDisplayName;
+		this.termId = null;
 		this.backPage = backPage;
-		this.termType= termType;
-		final TermImpl term = new TermImpl();
-		term.setKindNsPrefix(kindNsPrefix);
-		term.setKindName(kindName);
+		this.termKindModel= termKindModel;
+		this.kindDisplayName = termKindModel.getObject().name();
+		
+		final Term2 term = new Term2();
+		term.setKindNsPrefix("base");
+		term.setKindName(MongoTermCatalogRepositoryImpl.TERM_STRING_VALUE.get(termKindModel.getObject()));
 		term.setNsPrefix(tenant.getTenantId());
 		term.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
-		setModel(new EmfModel<Term>(term));
+		setModel(new Model<Term2>(term));
 	}
 
 	/**
@@ -166,18 +158,17 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public TermDetailPanel2(String id, TermRepository termRepo, String uName, final String kindNsPrefix, final String kindName, String kindDisplayName,
-			final Class<? extends Page> backPage, TermType termType) {
-		super(id, new EmfModel<>(
-				Preconditions.checkNotNull(termRepo.findOne(uName),
-						"Cannot find term %s using %s", uName, termRepo)
-			));
+	public Term2DetailPanel(final String id, final String termId, final Class<? extends Page> backPage) {
+		super(id);
+		final Term2 term = Preconditions.checkNotNull(termCatalogRepo.findOne(termId),
+						"Cannot find term %s using %s", termId, termCatalogRepo);
+		setModel(new Model<>(term));
+		
 		this.editMode = EditMode.MODIFY;
-		this.termRepo = termRepo;
-		this.originalUName = uName;
-		this.kindDisplayName = kindDisplayName;
+		this.termId = termId;
+		this.termKindModel = new Model<>(MongoTermCatalogRepositoryImpl.TERM_KIND_VALUE.get(getModelObject().getKindName()));
+		this.kindDisplayName = termKindModel.getObject().name();
 		this.backPage = backPage;
-		this.termType = termType;
 		
 		if (getModel().getObject().getLanguage() == null) {
 			getModel().getObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
@@ -197,10 +188,10 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		add(new Label("kind", kindDisplayName));
 		 
 		final PageParameters params = new PageParameters();
-		params.set("termType", termType.getName());
+		params.set("termKind", termKindModel.getObject().name());
 		add(new BookmarkablePageLink<>("backLink", backPage, params));
 		 
-		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "qName"));
+		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "id"));
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
 		
@@ -208,17 +199,17 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		add(form);
 		
 		form.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
-		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "name"));
-		nameFld.setEnabled(false);
-		nameFld.setOutputMarkupId(true);
-		form.add(nameFld);
+		final TextField<String> idFld = new TextField<>("name", new PropertyModel<String>(getModel(), "id"));
+		idFld.setEnabled(false);
+		idFld.setOutputMarkupId(true);
+		form.add(idFld);
 		final IModel<String> displayNameModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale productReleaseLocale = termLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, productReleaseLocale)) {
-					return getModel().getObject().getDisplayName();
+					return getModel().getObject().getName();
 				} else {
 					final String translation = transDisplayNameMapModel.getObject().get(selectedLocale);
 					log.debug("loading display name for locale '{}': {}", selectedLocale, translation);
@@ -226,7 +217,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 				}
 			}
 		};
-		final TextField displayNameFld = new TextField<String>("displayName", displayNameModel){
+		final TextField<String> nameFld = new TextField<String>("displayName", displayNameModel){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -237,34 +228,37 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 				}
 			}
 		};
-		displayNameFld.setEnabled(editable);
-		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
+		nameFld.setEnabled(editable);
+		nameFld.add(new OnChangeThrottledBehavior("onchange") {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale productReleaseLocale = termLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, productReleaseLocale)) {
-					getModelObject().setDisplayName(displayNameModel.getObject());
-					
+					getModelObject().setName(displayNameModel.getObject());
 					if (editMode == EditMode.ADD) {
-						final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
-								new Predicate<String>() {
-							@Override
-							public boolean apply(@Nullable String input) {
-								return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
-							}
-						});
-						getModelObject().setName(id);
-						target.add(nameFld, uNameLabel);
+						if (displayNameModel.getObject() != null) {
+							final String id = SlugUtils.generateValidId(getModelObject().getName(),
+									new Predicate<String>() {
+								@Override
+								public boolean apply(@Nullable String input) {
+									return !termCatalogRepo.exists(getModelObject().getNsPrefix() + "_" + input);
+								}
+							});
+							getModelObject().setId(id);
+						} else {
+							getModelObject().setId(null);
+						}
+						target.add(idFld, uNameLabel);
 					}
 				} else {
-					updateAttributeTranslations(selectedLocale, Value.DISPLAY_NAME_ATTR, displayNameModel.getObject());
+					updateAttributeTranslations(selectedLocale, Term2.NAME_ATTR, displayNameModel.getObject());
 					transDisplayNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
 				}
 			}
 		});
-		form.add(displayNameFld);
+		form.add(nameFld);
 		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
 
 			@Override
@@ -320,8 +314,8 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Term term = TermDetailPanel2.this.getModelObject();
-				if (Strings.isNullOrEmpty(term.getDisplayName())) {
+				final Term2 term = Term2DetailPanel.this.getModelObject();
+				if (Strings.isNullOrEmpty(term.getName())) {
 					error("Display Name must not be null or empty");
 					return;
 				}
@@ -330,25 +324,29 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 				}
 				switch (editMode) {
 				case ADD:
-					final String id = SlugUtils.generateValidId(term.getDisplayName(),
+					final String id = SlugUtils.generateValidId(term.getName(),
 							new Predicate<String>() {
 								@Override
 								public boolean apply(@Nullable String input) {
-									return !termRepo.exists(term.getNsPrefix() + "_" + input);
+									return !termCatalogRepo.exists(term.getNsPrefix() + "_" + input);
 								}
 							});
 					term.setName(id);
-					termRepo.add(term);
-					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
-					info("Added term " + term.getQName());
+					termCatalogRepo.add(term);
+					//FIXME: ga perlu cpp + update on memory
+//					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
+					info("Added term " + term.getId());
 					break;
 				case MODIFY:
-					termRepo.modify(originalUName, term);
-					ev.post(new ModifiedTermEvent(originalUName, EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
-					info("Modified term " + term.getQName());
+					termCatalogRepo.modify(termId, term);
+					//FIXME: ga perlu cpp + update on memory
+//					ev.post(new ModifiedTermEvent(termId, EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
+					info("Modified term " + term.getId());
 					break;
 				}
-				setResponsePage(backPage);
+//				final PageParameters params = new PageParameters();
+//				params.set("termKind", termKindModel.getObject().name());
+				setResponsePage(backPage, params);
 			}
 		};
 		saveBtn.setEnabled(editable);
@@ -362,7 +360,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 				attributes.getAjaxCallListeners().add(new AjaxCallListener() {
 					@Override
 					public CharSequence getPrecondition(Component component) {
-						return "return confirm('Do you want to delete term ' + " + JSONObject.quote(originalUName) + " + '?')";
+						return "return confirm('Do you want to delete term ' + " + JSONObject.quote(termId) + " + '?')";
 					}
 				});
 			}
@@ -370,13 +368,14 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Term term = TermDetailPanel2.this.getModelObject();
+				final Term2 term = Term2DetailPanel.this.getModelObject();
 //				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
 					term.setColor(null);
 //				}
-				termRepo.delete(originalUName);
-				ev.post(new RemovedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
-				warn("Deleted term " + originalUName);
+				termCatalogRepo.delete(termId);
+				//FIXME: ga perlu cpp + update on memory
+//				ev.post(new RemovedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
+				warn("Deleted term " + termId);
 				setResponsePage(backPage);
 			}
 		};
@@ -397,7 +396,7 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
 						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
-						target.add(displayNameFld, wmcLocales);
+						target.add(nameFld, wmcLocales);
 					}
 					
 					@Override
@@ -432,16 +431,16 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		}
 		
 		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
-			for (final Entry<String, Translation> entry : getModelObject().getTranslations().entrySet()) {
+			for (final Entry<String, Map<String, String>> entry : getModelObject().getTranslations().entrySet()) {
 				final Locale locale = Locale.forLanguageTag(entry.getKey());
 				if (!locales.contains(locale)) {
 					locales.add(locale);
 				}
 				
-				final Translation translation = entry.getValue();
-				for (final Entry<String, String> messageEntry : translation.getMessages()) {
+				final Map<String, String> translation = entry.getValue();
+				for (final Entry<String, String> messageEntry : translation.entrySet()) {
 					//display name
-					if (messageEntry.getKey().equals(Value.DISPLAY_NAME_ATTR)) {
+					if (messageEntry.getKey().equals(Term2.NAME_ATTR)) {
 						transDisplayNameMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
@@ -454,19 +453,18 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
 			@Nonnull final String upValue) {
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
-			final Translation translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
+			final Map<String, String> translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
 			if (!Strings.isNullOrEmpty(upValue)) {
 				log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
-				translation.getMessages().put(attribute, upValue);
+				translation.put(attribute, upValue);
 			} else {
 				log.debug("Removing translation {} for {}", attribute, selectedLocale.toLanguageTag());
-				translation.getMessages().remove(attribute);
+				translation.remove(attribute);
 			}
 		} else {
 			log.debug("Putting new translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
-			final Translation newTranslation = CommonsFactory.eINSTANCE.createTranslation();
-			newTranslation.setLanguage(selectedLocale.toLanguageTag());
-			newTranslation.getMessages().put(attribute, upValue);
+			final Map<String, String> newTranslation = new HashMap<>();
+			newTranslation.put(attribute, upValue);
 			getModelObject().getTranslations().put(selectedLocale.toLanguageTag(), newTranslation);
 		}
 	}
@@ -483,14 +481,14 @@ public class TermDetailPanel2 extends GenericPanel<Term> {
 		getModelObject().setLanguage(defaultLanguageTag);
 		if (!getModelObject().getTranslations().containsKey(oldLanguageTag)) {
 			//create translation for old language
-			updateAttributeTranslations(oldLocale, Value.DISPLAY_NAME_ATTR, getModelObject().getDisplayName());
+			updateAttributeTranslations(oldLocale, Term2.NAME_ATTR, getModelObject().getName());
 		}
 		
 		if (getModelObject().getTranslations().containsKey(defaultLanguageTag)) {
 			//update attribute from translation if exists
-			final Translation translation = getModelObject().getTranslations().get(defaultLanguageTag);
-			if (translation.getMessages().containsKey(Value.DISPLAY_NAME_ATTR)) {
-				getModelObject().setDisplayName(translation.getMessages().get(Value.DISPLAY_NAME_ATTR));
+			final Map<String, String> translation = getModelObject().getTranslations().get(defaultLanguageTag);
+			if (translation.containsKey(Term2.NAME_ATTR)) {
+				getModelObject().setName(translation.get(Term2.NAME_ATTR));
 			}
 			
 			//remove translation as default language product
