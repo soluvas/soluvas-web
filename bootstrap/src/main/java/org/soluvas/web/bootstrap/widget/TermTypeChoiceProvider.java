@@ -35,21 +35,12 @@ public class TermTypeChoiceProvider extends TextChoiceProvider<TermKind>{
 
 	@Override
 	protected String getDisplayText(TermKind choice) {
-		switch (choice.getName()) {
-		case "color":
-				return "Color";
-		case "cloth_size":
-			return "Cloth Size";
-		case "shoe_size":
-			return "Shoe Size";
-		default:
-			return choice.getName();
-		}
+		return choice.getName();
 	}
 
 	@Override
 	protected Object getId(TermKind choice) {
-		return choice.getValue();
+		return choice.getId();
 	}
 
 	@Override
@@ -72,7 +63,7 @@ public class TermTypeChoiceProvider extends TextChoiceProvider<TermKind>{
 				final TermKind termType = Iterables.find(termTypesModel.getObject(), new Predicate<TermKind>(){
 					@Override
 					public boolean apply(TermKind termType) {
-						return String.valueOf(termType.getValue()).equals(id);
+						return String.valueOf(termType.getId()).equals(id);
 					}
 				});
 				return termType;

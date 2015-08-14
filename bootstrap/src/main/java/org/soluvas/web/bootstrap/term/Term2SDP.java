@@ -23,7 +23,7 @@ public class Term2SDP extends SortableDataProvider<Term2, String> {
 	private static final long serialVersionUID = 1L;
 	
 	@SpringBean
-	private MongoTermCatalogRepository termCatalogRepo;
+	private MongoTermRepository termCatalogRepo;
 	
 	private final IModel<TermKind> termKindModel;
 	

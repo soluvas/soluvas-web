@@ -30,6 +30,8 @@ import org.soluvas.data.TermKind;
 import org.soluvas.web.site.widget.LinkColumn;
 import org.soluvas.web.site.widget.TagType;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * List {@link Term}s for a {@link Kind}.
  * 
@@ -55,7 +57,7 @@ import org.soluvas.web.site.widget.TagType;
 public class Term2TablePanel extends Panel {
 	
 	@SpringBean
-	private MongoTermCatalogRepository termRepo;
+	private MongoTermRepository termRepo;
 	
 	private static final Logger log = LoggerFactory.getLogger(Term2TablePanel.class);
 	
@@ -84,17 +86,17 @@ public class Term2TablePanel extends Panel {
 			columns.add(new LinkColumn<Term2, String>(new Model<>("ID"), "id", "id", detailPage,
 					"id", "id").tag(TagType.CODE));
 			columns.add(new PropertyColumn<Term2, String>(new Model<>("Display Name"), "name", "name"));
-			columns.add(new PropertyColumn<Term2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
+//			columns.add(new PropertyColumn<Term2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 			final AjaxFallbackDefaultDataTable<Term2, String> table = new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20);
 			table.setOutputMarkupId(true);
 			add(table);
 			
 			final DropDownChoice<TermKind> ddcTermKind = new DropDownChoice<>("ddcTermKind", termKindModel,
-					new ListModel<>(TermKind.VALUES), new IChoiceRenderer<TermKind>() {
+					new ListModel<>(ImmutableList.copyOf(TermKind.values())), new IChoiceRenderer<TermKind>() {
 				
 				@Override
 				public Object getDisplayValue(TermKind object) {
-					return object.getName();
+					return object.getEnumerationId();
 				}
 				
 				@Override
@@ -103,7 +105,6 @@ public class Term2TablePanel extends Panel {
 				}
 			});
 			ddcTermKind.add(new OnChangeAjaxBehavior() {
-				
 				@Override
 				protected void onUpdate(AjaxRequestTarget target) {
 					target.add(table);

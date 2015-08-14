@@ -101,7 +101,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	private final Class<? extends Page> backPage;
 	
 	@SpringBean
-	private MongoTermCatalogRepository termCatalogRepo;
+	private MongoTermRepository termCatalogRepo;
 	@SpringBean
 	private TenantRef tenant;
 	@SpringBean
@@ -125,7 +125,6 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	 * @param id
 	 * @param termRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param uName
-	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
 	 * @param shoeSize 
@@ -141,9 +140,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		this.kindDisplayName = termKindModel.getObject().name();
 		
 		final Term2 term = new Term2();
-		term.setKindNsPrefix("base");
-		term.setKindName(MongoTermCatalogRepositoryImpl.TERM_STRING_VALUE.get(termKindModel.getObject()));
-		term.setNsPrefix(tenant.getTenantId());
+		term.setEnumerationId(termKindModel.getObject().getEnumerationId());
 		term.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		setModel(new Model<Term2>(term));
 	}
@@ -153,7 +150,6 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	 * @param id
 	 * @param termRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param uName
-	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
 	 * @param backPage
@@ -166,7 +162,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		
 		this.editMode = EditMode.MODIFY;
 		this.termId = termId;
-		this.termKindModel = new Model<>(MongoTermCatalogRepositoryImpl.TERM_KIND_VALUE.get(getModelObject().getKindName()));
+		this.termKindModel = new Model<>(MongoTermRepositoryImpl.TERM_STRING_VALUE.inverse().get(getModelObject().getEnumerationId()));
 		this.kindDisplayName = termKindModel.getObject().name();
 		this.backPage = backPage;
 		
@@ -184,7 +180,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		termLocaleModel.setObject(Locale.forLanguageTag(getModel().getObject().getLanguage()));
 		initLocalesAndTranslationMapModel();
 		
-		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
+		final boolean editable = !Strings.isNullOrEmpty(getModelObject().getFormalId()) ? getModelObject().getFormalId().startsWith(tenant.getTenantId() + "_") : true;
 		add(new Label("kind", kindDisplayName));
 		 
 		final PageParameters params = new PageParameters();
@@ -198,7 +194,6 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		final Form<Void> form = new Form<>("form");
 		add(form);
 		
-		form.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
 		final TextField<String> idFld = new TextField<>("name", new PropertyModel<String>(getModel(), "id"));
 		idFld.setEnabled(false);
 		idFld.setOutputMarkupId(true);
@@ -230,7 +225,6 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		};
 		nameFld.setEnabled(editable);
 		nameFld.add(new OnChangeThrottledBehavior("onchange") {
-			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
@@ -239,15 +233,17 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					getModelObject().setName(displayNameModel.getObject());
 					if (editMode == EditMode.ADD) {
 						if (displayNameModel.getObject() != null) {
-							final String id = SlugUtils.generateValidId(getModelObject().getName(),
+							final String formalId = SlugUtils.generateValidId(tenant.getTenantId() + " " + getModelObject().getName(),
 									new Predicate<String>() {
 								@Override
 								public boolean apply(@Nullable String input) {
-									return !termCatalogRepo.exists(getModelObject().getNsPrefix() + "_" + input);
+									return !termCatalogRepo.existsByEnumerationId(getModelObject().getEnumerationId(), input).isPresent();
 								}
 							});
-							getModelObject().setId(id);
+							getModelObject().setFormalId(formalId);
+							getModelObject().setId(getModelObject().getEnumerationId() + "/" + formalId);
 						} else {
+							getModelObject().setFormalId(null);
 							getModelObject().setId(null);
 						}
 						target.add(idFld, uNameLabel);
@@ -324,14 +320,15 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 				}
 				switch (editMode) {
 				case ADD:
-					final String id = SlugUtils.generateValidId(term.getName(),
+					final String formalId = SlugUtils.generateValidId(tenant.getTenantId() + " " + term.getName(),
 							new Predicate<String>() {
-								@Override
-								public boolean apply(@Nullable String input) {
-									return !termCatalogRepo.exists(term.getNsPrefix() + "_" + input);
-								}
-							});
-					term.setName(id);
+						@Override
+						public boolean apply(@Nullable String input) {
+							return !termCatalogRepo.existsByEnumerationId(term.getEnumerationId(), input).isPresent();
+						}
+					});
+					term.setFormalId(formalId);
+					term.setId(term.getEnumerationId() + "/" + formalId);
 					termCatalogRepo.add(term);
 					//FIXME: ga perlu cpp + update on memory
 //					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));

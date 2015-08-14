@@ -24,21 +24,21 @@ public class MongoTermCatalogConfig {
 	private SysConfigMapHolder<? extends MongoSysConfig> sysConfigMapHolder;
 	
 	@Bean
-	public TenantBeans<MongoTermCatalogRepository> mongoTermCatalogRepoBeans() {
+	public TenantBeans<MongoTermRepository> mongoTermCatalogRepoBeans() {
 		final boolean mongoMigrationEnabled = env.getProperty("mongoMigrationEnabled", Boolean.class, true);
 		final boolean mongoAutoExplainSlow = env.getProperty("mongoAutoExplainSlow", Boolean.class, false);
-		return new TenantBeans<MongoTermCatalogRepository>(MongoTermCatalogRepository.class) {
+		return new TenantBeans<MongoTermRepository>(MongoTermRepository.class) {
 			@Override
-			protected MongoTermCatalogRepository create(String tenantId, AppManifest appManifest) throws Exception {
+			protected MongoTermRepository create(String tenantId, AppManifest appManifest) throws Exception {
 				final MongoSysConfig sysConfig = sysConfigMapHolder.sysConfigMap().get(tenantId);
 				final String mongoUri = sysConfig.getMongoUri();
-				return new MongoTermCatalogRepositoryImpl(mongoUri, mongoMigrationEnabled, mongoAutoExplainSlow);
+				return new MongoTermRepositoryImpl(mongoUri, mongoMigrationEnabled, mongoAutoExplainSlow);
 			}
 		};
 	}
 	
 	@Bean @Scope("prototype")
-	public MongoTermCatalogRepository mongoTermCatalogRepo() {
+	public MongoTermRepository mongoTermCatalogRepo() {
 		return mongoTermCatalogRepoBeans().getCurrent();
 	}
 
