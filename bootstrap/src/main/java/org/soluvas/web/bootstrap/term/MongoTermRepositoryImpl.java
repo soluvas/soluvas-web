@@ -24,8 +24,8 @@ public class MongoTermRepositoryImpl extends MongoRepositoryBase<Term2> implemen
 	public MongoTermRepositoryImpl(String mongoUri, boolean migrationEnabled, boolean autoExplainSlow) {
 		super(Term2.class, Term2.class, Term2.CURRENT_SCHEMA_VERSION, mongoUri, ReadPattern.DUAL,
 				"term", migrationEnabled, autoExplainSlow,
+				Index.uniqueAsc("formalId"),
 				Index.asc("name"),
-				Index.asc("formalId"),
 				Index.asc("enumerationId")
 				);
 	}
@@ -50,6 +50,12 @@ public class MongoTermRepositoryImpl extends MongoRepositoryBase<Term2> implemen
 	public Existence<String> existsByEnumerationId(String enumerationId,
 			String termId) {
 		return exists(enumerationId + "/" + termId) ? Existence.of(termId, termId) : Existence.absent();
+	}
+
+	@Override
+	public Term2 findOneByFormalId(String formalId) {
+		final BasicDBObject query = new BasicDBObject("formalId", formalId);
+		return findOnePrimaryAsEntity(query, null, "findOneByFormalId", formalId);
 	}
 	
 }

@@ -19,5 +19,7 @@ public interface MongoTermRepository extends PagingAndSortingRepository<Term2, S
 	long count(TermKind termKind);
 	
 	Existence<String> existsByEnumerationId(String enumerationId, String termId);
+	
+	Term2 findOneByFormalId(String formalId);
 
 }

@@ -29,6 +29,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -117,6 +118,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
 	
 	private final IModel<Map<Locale, String>> transDisplayNameMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<Map<Locale, String>> transDescMapModel = new MapModel<>(new HashMap<Locale, String>());
 
 	private final IModel<TermKind> termKindModel;
 
@@ -154,14 +156,14 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public Term2DetailPanel(final String id, final String termId, final Class<? extends Page> backPage) {
+	public Term2DetailPanel(final String id, final String formalId, final Class<? extends Page> backPage) {
 		super(id);
-		final Term2 term = Preconditions.checkNotNull(termCatalogRepo.findOne(termId),
-						"Cannot find term %s using %s", termId, termCatalogRepo);
+		final Term2 term = Preconditions.checkNotNull(termCatalogRepo.findOneByFormalId(formalId),
+						"Cannot find term %s using %s", formalId, termCatalogRepo);
 		setModel(new Model<>(term));
 		
 		this.editMode = EditMode.MODIFY;
-		this.termId = termId;
+		this.termId = term.getId();
 		this.termKindModel = new Model<>(MongoTermRepositoryImpl.TERM_STRING_VALUE.inverse().get(getModelObject().getEnumerationId()));
 		this.kindDisplayName = termKindModel.getObject().name();
 		this.backPage = backPage;
@@ -198,6 +200,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		idFld.setEnabled(false);
 		idFld.setOutputMarkupId(true);
 		form.add(idFld);
+		
 		final IModel<String> displayNameModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
@@ -255,6 +258,52 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 			}
 		});
 		form.add(nameFld);
+		
+		final IModel<String> descModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale productReleaseLocale = termLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+					return getModel().getObject().getDescription();
+				} else {
+					final String translation = transDescMapModel.getObject().get(selectedLocale);
+					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
+					return translation;
+				}
+			}
+		};
+		final TextArea<String> descFld = new TextArea<String>("desc", descModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			}
+		};
+		descFld.setEnabled(editable);
+		descFld.add(new OnChangeThrottledBehavior("onchange") {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale termLocale = termLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, termLocale)) {
+					getModelObject().setDescription(descModel.getObject());
+//					log.debug("Updated desc for locale '{}': {}", selectedLocale.toLanguageTag(),
+//							getModelObject().getDescription());
+				} else {
+					updateAttributeTranslations(selectedLocale, Term2.DESCRIPTION_ATTR, descModel.getObject());
+					transDescMapModel.getObject().put(selectedLocale, descModel.getObject());
+//					log.debug("Updated desc for locale '{}': {}", selectedLocale.toLanguageTag(),
+//							getModelObject().getTranslations());
+				}
+			}
+		});
+		form.add(descFld);
+		
 		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
 
 			@Override
@@ -315,6 +364,8 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					error("Display Name must not be null or empty");
 					return;
 				}
+//				log.debug("Desc: {}", term.getDescription());
+//				log.debug("Trans: {}", term.getTranslations());
 				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
 					term.setColor(null);
 				}
@@ -392,8 +443,9 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					public void onClick(AjaxRequestTarget target) {
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
-						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
-						target.add(nameFld, wmcLocales);
+						descModel.detach();
+//						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
+						target.add(nameFld, descFld, wmcLocales);
 					}
 					
 					@Override
@@ -425,6 +477,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		final Collection<Locale> locales = new ArrayList<>(SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.values());
 		for (final Locale locale : locales) {
 			transDisplayNameMapModel.getObject().put(locale, null);
+			transDescMapModel.getObject().put(locale, null);
 		}
 		
 		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
@@ -439,6 +492,9 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					//display name
 					if (messageEntry.getKey().equals(Term2.NAME_ATTR)) {
 						transDisplayNameMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Term2.DESCRIPTION_ATTR)) {
+						transDescMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
 			}

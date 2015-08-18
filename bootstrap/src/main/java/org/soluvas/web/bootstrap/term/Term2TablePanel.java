@@ -84,7 +84,7 @@ public class Term2TablePanel extends Panel {
 			termDp.setSort("name", SortOrder.ASCENDING);
 			final List<IColumn<Term2, String>> columns = new ArrayList<>();
 			columns.add(new LinkColumn<Term2, String>(new Model<>("ID"), "id", "id", detailPage,
-					"id", "id").tag(TagType.CODE));
+					"formalId", "formalId").tag(TagType.CODE));
 			columns.add(new PropertyColumn<Term2, String>(new Model<>("Display Name"), "name", "name"));
 //			columns.add(new PropertyColumn<Term2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 			final AjaxFallbackDefaultDataTable<Term2, String> table = new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20);
