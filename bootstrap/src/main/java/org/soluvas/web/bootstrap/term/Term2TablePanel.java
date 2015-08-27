@@ -27,6 +27,7 @@ import org.soluvas.data.Kind;
 import org.soluvas.data.Term;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermKind;
+import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.site.widget.LinkColumn;
 import org.soluvas.web.site.widget.TagType;
 

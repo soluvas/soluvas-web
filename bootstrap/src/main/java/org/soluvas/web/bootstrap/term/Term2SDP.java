@@ -13,6 +13,7 @@ import org.soluvas.data.TermKind;
 import org.soluvas.data.domain.PageOffsetRequest;
 import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
+import org.soluvas.mongo.MongoTermRepository;
 
 /**
  * @author anton

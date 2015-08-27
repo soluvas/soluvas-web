@@ -53,6 +53,8 @@ import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermKind;
+import org.soluvas.mongo.MongoTermRepository;
+import org.soluvas.mongo.MongoTermRepositoryImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
