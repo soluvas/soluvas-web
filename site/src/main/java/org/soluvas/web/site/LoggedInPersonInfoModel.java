@@ -29,7 +29,6 @@ public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo>
 		Injector.get().inject(this);
 	}
 	
-	@SuppressWarnings("null")
 	@Override
 	protected PersonInfo load() {
 		Preconditions.checkNotNull(personLookup, "Person Lookup must not be null.");
