@@ -17,7 +17,6 @@ import org.apache.wicket.core.request.handler.IPageRequestHandler;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
@@ -100,7 +99,8 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 						if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
 							locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID);
 						} else {
-							locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN);
+//							locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get(SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_EN);
+							locale = appManifest.getDefaultLocale();
 						}
 						log.warn(String.format("Locale pref id '%s' not supported. Locales have been supported are %s. So use get by ip '%s' --> country %s, it is %s",
 								localePrefId, SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS, remoteAddress,
@@ -117,7 +117,8 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 					if (optCountry.isPresent() && optCountry.get().getIso().equals("ID")) {
 						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("id");
 					} else {
-						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
+//						locale = SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.get("en");
+						locale = appManifest.getDefaultLocale();
 					}
 					log.warn(String.format("Locale pref id is null. So use get by ip '%s' --> country %s, it is %s",
 							remoteAddress, optCountry.isPresent() ? optCountry.get() : null, locale.toLanguageTag()));
@@ -125,6 +126,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 					locale = appManifest.getDefaultLocale();
 				}
 			}
+			log.debug("Set locale to session: {}", locale.toLanguageTag());
 			setLocale(locale);
 			
 			if (getClientInfo().getProperties().getTimeZone() == null) {
