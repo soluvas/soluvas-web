@@ -60,7 +60,7 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 		}
 		if (choice.getImageId() != null) {
 			final String bundleName = choice.getId().startsWith("base") ? "org.soluvas.data" : "tenant_common";
-			final String uri = webAddress.getImagesUri() + bundleName + "/" + choice.getId().substring(0, choice.getId().indexOf("_") + 1) + "_" + choice.getEnumerationId() +"/" + choice.getImageId() + ".png";
+			final String uri = webAddress.getImagesUri() + bundleName + "/" + "base_" + choice.getEnumerationId() +"/" + choice.getImageId() + ".png";
 			writer.key("imageUri").value(uri);
 		}
 	}
