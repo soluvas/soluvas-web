@@ -2,35 +2,29 @@ package org.soluvas.web.bootstrap.widget;
 
 import java.util.Collection;
 
-import javax.annotation.Nullable;
+import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.injection.Injector;
-import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.TermKind;
+import org.soluvas.data.TermKindRepository;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Iterables;
 import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 @SuppressWarnings("serial")
 public class TermTypeChoiceProvider extends TextChoiceProvider<TermKind>{
 
-	private final IModel<Collection<TermKind>> termTypesModel;
-	
 	private static final Logger log = LoggerFactory
 			.getLogger(TermTypeChoiceProvider.class);
 	
-	public TermTypeChoiceProvider(IModel<Collection<TermKind>> termTypesModel) {
+	@Inject
+	private TermKindRepository termKindRepo;
+	
+	public TermTypeChoiceProvider() {
 		super();
 		Injector.get().inject(this);
-		this.termTypesModel = termTypesModel;
 	}
 
 	@Override
@@ -45,30 +39,12 @@ public class TermTypeChoiceProvider extends TextChoiceProvider<TermKind>{
 
 	@Override
 	public void query(String term, int page, Response<TermKind> response) {
-		final Collection<TermKind> termTypeCollection = Collections2.filter(termTypesModel.getObject(), new Predicate<TermKind>() {
-			@Override
-			public boolean apply(@Nullable TermKind input) {
-				return StringUtils.containsIgnoreCase(input.getName(), term.trim());
-			}
-		});
-		response.addAll(termTypeCollection);
+		response.addAll(termKindRepo.findAll());
 	}
 
 	@Override
 	public Collection<TermKind> toChoices(Collection<String> ids) {
-		return FluentIterable.from(ids).transform(new Function<String, TermKind>() {
-			@Override
-			@Nullable
-			public TermKind apply(@Nullable String id) {
-				final TermKind termType = Iterables.find(termTypesModel.getObject(), new Predicate<TermKind>(){
-					@Override
-					public boolean apply(TermKind termType) {
-						return String.valueOf(termType.getId()).equals(id);
-					}
-				});
-				return termType;
-			}
-		}).toList();
+		return termKindRepo.findAll(ids);
 	}
 
 }

@@ -54,7 +54,6 @@ import org.soluvas.data.Term;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermKind;
 import org.soluvas.mongo.MongoTermRepository;
-import org.soluvas.mongo.MongoTermRepositoryImpl;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
@@ -62,7 +61,6 @@ import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
@@ -141,10 +139,10 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		this.termId = null;
 		this.backPage = backPage;
 		this.termKindModel= termKindModel;
-		this.kindDisplayName = termKindModel.getObject().name();
+		this.kindDisplayName = termKindModel.getObject().getName();
 		
 		final Term2 term = new Term2();
-		term.setEnumerationId(termKindModel.getObject().getEnumerationId());
+		term.setEnumerationId(termKindModel.getObject().getId());
 		term.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		setModel(new Model<Term2>(term));
 	}
@@ -158,16 +156,15 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public Term2DetailPanel(final String id, final String formalId, final Class<? extends Page> backPage) {
-		super(id);
-		final Term2 term = Preconditions.checkNotNull(termCatalogRepo.findOneByFormalId(formalId),
-						"Cannot find term %s using %s", formalId, termCatalogRepo);
-		setModel(new Model<>(term));
+	public Term2DetailPanel(final String id, final IModel<Term2> model, final Class<? extends Page> backPage,
+			final IModel<TermKind> termKindModel) {
+		super(id, model);
+		
 		
 		this.editMode = EditMode.MODIFY;
-		this.termId = term.getId();
-		this.termKindModel = new Model<>(MongoTermRepositoryImpl.TERM_STRING_VALUE.inverse().get(getModelObject().getEnumerationId()));
-		this.kindDisplayName = termKindModel.getObject().name();
+		this.termId = model.getObject().getId();
+		this.termKindModel = termKindModel;
+		this.kindDisplayName = termKindModel.getObject().getName();
 		this.backPage = backPage;
 		
 		if (getModel().getObject().getLanguage() == null) {
@@ -188,7 +185,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		add(new Label("kind", kindDisplayName));
 		 
 		final PageParameters params = new PageParameters();
-		params.set("termKind", termKindModel.getObject().name());
+		params.set("termKind", termKindModel.getObject().getName());
 		add(new BookmarkablePageLink<>("backLink", backPage, params));
 		 
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "id"));

@@ -3,6 +3,8 @@ package org.soluvas.web.bootstrap.term;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
@@ -27,6 +29,7 @@ import org.soluvas.data.Kind;
 import org.soluvas.data.Term;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermKind;
+import org.soluvas.data.TermKindRepository;
 import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.site.widget.LinkColumn;
 import org.soluvas.web.site.widget.TagType;
@@ -59,6 +62,8 @@ public class Term2TablePanel extends Panel {
 	
 	@SpringBean
 	private MongoTermRepository termRepo;
+	@Inject
+	private TermKindRepository termKindRepo;
 	
 	private static final Logger log = LoggerFactory.getLogger(Term2TablePanel.class);
 	
@@ -77,7 +82,7 @@ public class Term2TablePanel extends Panel {
 			add(new AjaxLink<String>("addLink") {
 				@Override
 				public void onClick(AjaxRequestTarget target) {
-					getRequestCycle().setResponsePage(addPage, new PageParameters().add("termKind", termKindModel.getObject().name()));
+					getRequestCycle().setResponsePage(addPage, new PageParameters().add("termKind", termKindModel.getObject().getName()));
 				}
 			});
 			
@@ -93,16 +98,16 @@ public class Term2TablePanel extends Panel {
 			add(table);
 			
 			final DropDownChoice<TermKind> ddcTermKind = new DropDownChoice<>("ddcTermKind", termKindModel,
-					new ListModel<>(ImmutableList.copyOf(TermKind.values())), new IChoiceRenderer<TermKind>() {
+					new ListModel<>(ImmutableList.copyOf(termKindRepo.findAll())), new IChoiceRenderer<TermKind>() {
 				
 				@Override
 				public Object getDisplayValue(TermKind object) {
-					return object.getEnumerationId();
+					return object.getName();
 				}
 				
 				@Override
 				public String getIdValue(TermKind object, int index) {
-					return object.name();
+					return object.getId();
 				}
 			});
 			ddcTermKind.add(new OnChangeAjaxBehavior() {
