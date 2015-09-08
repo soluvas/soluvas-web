@@ -39,7 +39,7 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 	
 	@Override
 	public void query(final String term, int page, Response<Term2> response) {
-		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "localSku");
+		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
 		final Page<Term2> result = termRepo.findAll(enumerationId, term.trim(), pageable);
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());

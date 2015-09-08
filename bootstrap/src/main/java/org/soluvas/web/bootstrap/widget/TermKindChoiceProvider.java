@@ -14,15 +14,15 @@ import com.vaynberg.wicket.select2.Response;
 import com.vaynberg.wicket.select2.TextChoiceProvider;
 
 @SuppressWarnings("serial")
-public class TermTypeChoiceProvider extends TextChoiceProvider<TermKind>{
+public class TermKindChoiceProvider extends TextChoiceProvider<TermKind>{
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TermTypeChoiceProvider.class);
+			.getLogger(TermKindChoiceProvider.class);
 	
 	@Inject
 	private TermKindRepository termKindRepo;
 	
-	public TermTypeChoiceProvider() {
+	public TermKindChoiceProvider() {
 		super();
 		Injector.get().inject(this);
 	}

@@ -11,7 +11,6 @@ import org.soluvas.data.TermKind;
  * @author anton
  *
  */
-@SuppressWarnings("serial")
 public class TermKindSelect2Multi extends InteractiveSelect2MultiChoice<TermKind>{
 
 	private static final Logger log = LoggerFactory
@@ -22,7 +21,7 @@ public class TermKindSelect2Multi extends InteractiveSelect2MultiChoice<TermKind
 	public TermKindSelect2Multi(String id, IModel<Collection<TermKind>> selectedTermTypesModel) {
 		super(id, selectedTermTypesModel);
 		
-		setProvider(new TermTypeChoiceProvider());
+		setProvider(new TermKindChoiceProvider());
 		
 	}
 
