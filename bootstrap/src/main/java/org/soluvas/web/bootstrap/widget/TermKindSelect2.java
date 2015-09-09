@@ -1,7 +1,5 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +9,15 @@ import org.soluvas.data.TermKind;
  * @author anton
  *
  */
-public class TermKindSelect2Multi extends InteractiveSelect2MultiChoice<TermKind>{
+public class TermKindSelect2 extends InteractiveSelect2Choice<TermKind>{
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TermKindSelect2Multi.class);
+			.getLogger(TermKindSelect2.class);
 	
 	private static final long serialVersionUID = 1L;
 	
-	public TermKindSelect2Multi(String id, IModel<Collection<TermKind>> selectedTermKindsModel) {
-		super(id, selectedTermKindsModel);
+	public TermKindSelect2(String id, IModel<TermKind> selectedTermKindModel) {
+		super(id, selectedTermKindModel);
 		
 		setProvider(new TermKindChoiceProvider());
 		
