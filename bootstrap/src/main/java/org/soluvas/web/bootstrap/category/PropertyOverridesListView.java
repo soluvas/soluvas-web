@@ -27,7 +27,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.data.PropertyDefinition;
 import org.soluvas.data.PropertyDefinitionRepository;
@@ -61,9 +60,9 @@ import com.google.common.collect.ImmutableList;
 @SuppressWarnings("serial")
 public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 	
-	final ImmutableList<Unit<?>> SUPPORTED_UNITS = ImmutableList.of(SI.CENTIMETRE, SI.METER, SI.GRAM, NonSI.LITRE, SI.MILLI(NonSI.LITRE));
+	final ImmutableList<Unit<?>> SUPPORTED_UNITS = ImmutableList.of(SI.CENTIMETRE, SI.METRE, SI.GRAM, NonSI.LITRE, NonSI.LITRE.divide(1000));
 	
-	@SpringBean
+	@Inject
 	private PropertyDefinitionRepository propDefRepo;
 	@Inject
 	private AppManifest appManifest;
