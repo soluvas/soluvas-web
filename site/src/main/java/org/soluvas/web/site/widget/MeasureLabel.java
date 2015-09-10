@@ -1,11 +1,12 @@
 package org.soluvas.web.site.widget;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
-import javax.measure.DecimalMeasure;
+import javax.measure.Measure;
 import javax.measure.unit.Unit;
 
 import org.apache.wicket.markup.ComponentTag;
@@ -33,11 +34,11 @@ public class MeasureLabel extends Label {
 	@Nullable
 	private final Integer scale;
 
-	public MeasureLabel(String id, DecimalMeasure<?> measure) {
+	public MeasureLabel(String id, Measure<?> measure) {
 		super(id);
 		if (measure != null) {
 			setDefaultModel(new Model<>(measure.getUnit()));
-			amountModel = new Model<>(measure.getValue());
+			amountModel = new Model<>(measure.decimalValue((Unit) measure.getUnit(), MathContext.UNLIMITED));
 		}
 		this.scale = null;
 	}
