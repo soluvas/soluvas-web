@@ -1,23 +1,26 @@
 package org.soluvas.web.site.widget;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.joda.money.BigMoney;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.format.MoneyFormatter;
-import org.joda.money.format.MoneyFormatterBuilder;
+import org.javamoney.moneta.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.MoneyUtils;
 
 /**
  * Formats a {@link CurrencyUnit} code as symbol in current {@link Locale},
@@ -43,7 +46,7 @@ public class CurrencyLabel extends Label {
 	}
 
 	public CurrencyLabel(String id, CurrencyUnit currency) {
-		super(id, currency);
+		super(id, (Serializable) currency);
 		this.scale = null;
 	}
 	
@@ -65,7 +68,7 @@ public class CurrencyLabel extends Label {
 	}
 
 	public CurrencyLabel(String id, CurrencyUnit currency, BigDecimal amount) {
-		super(id, currency);
+		super(id, (Serializable) currency);
 		this.amountModel = new Model<>(amount);
 		this.scale = null;
 	}
@@ -86,18 +89,18 @@ public class CurrencyLabel extends Label {
 		final Locale locale = getLocale();
 		if (currencyObj != null) {
 			final CurrencyUnit currency = currencyObj instanceof CurrencyUnit ? 
-					(CurrencyUnit) currencyObj : CurrencyUnit.of((String) currencyObj);
-			final String currencyHtml = amount != null ? "<small class=\"text-muted currency\">" + currency.getSymbol(locale) + "</small>" : currency.getSymbol(locale);
+					(CurrencyUnit) currencyObj : Monetary.getCurrency((String) currencyObj);
+			final String symbol = MoneyUtils.getSymbol(locale, currency);
+			final String currencyHtml = amount != null ? "<small class=\"text-muted currency\">" + symbol + "</small>" : symbol;
 			if (amount != null) {
 				final BigDecimal scaled;
 				if (scale != null) {
 					scaled = amount.setScale(scale, RoundingMode.HALF_EVEN);
 				} else {
-					scaled = amount.setScale(currency.getDecimalPlaces(), RoundingMode.HALF_EVEN);
+					scaled = amount.setScale(currency.getDefaultFractionDigits(), RoundingMode.HALF_EVEN);
 				}
-				final MoneyFormatter formatter = new MoneyFormatterBuilder()
-					.appendAmountLocalized().toFormatter(locale);
-				return currencyHtml + formatter.print(BigMoney.of(currency, scaled));
+				MonetaryAmountFormat formatter = MonetaryFormats.getAmountFormat(locale);
+				return currencyHtml + formatter.format(Money.of(scaled, currency));
 			} else {
 				return currencyHtml;
 			}

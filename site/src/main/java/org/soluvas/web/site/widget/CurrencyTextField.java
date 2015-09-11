@@ -3,11 +3,13 @@ package org.soluvas.web.site.widget;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import javax.money.CurrencyUnit;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.Strings;
-import org.joda.money.CurrencyUnit;
+import org.soluvas.commons.MoneyUtils;
 
 /**
  * Extends {@link NumberTextField} for amount, and prepended with a fixed
@@ -32,8 +34,7 @@ public class CurrencyTextField extends NumberTextField<BigDecimal> {
 		final Locale locale = getLocale();
 		final String currencyHtml;
 		if (currency != null) {
-			final String sym = currency.getSymbol(locale);
-			currencyHtml = Strings.escapeMarkup(com.google.common.base.Strings.isNullOrEmpty(sym) ? currency.getCode() : sym).toString();
+			currencyHtml = Strings.escapeMarkup(MoneyUtils.getSymbol(locale, currency)).toString();
 		} else {
 			currencyHtml = "??";
 		}
