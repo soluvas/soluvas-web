@@ -41,13 +41,13 @@ public class Term2SDP extends SortableDataProvider<Term2, String> {
 		final Sort sort = sortParam != null ? new Sort(sortParam.isAscending() ? Direction.ASC : Direction.DESC, sortParam.getProperty())
 			: new Sort("name");
 		
-		final org.soluvas.data.domain.Page<Term2> page = termCatalogRepo.findAll(termKindModel.getObject().getId(), new PageOffsetRequest(first, count, sort));
+		final org.soluvas.data.domain.Page<Term2> page = termCatalogRepo.findAllByEnumId(termKindModel.getObject().getId(), new PageOffsetRequest(first, count, sort));
 		return page.getContent().iterator();
 	}
 
 	@Override
 	public long size() {
-		return termCatalogRepo.count(termKindModel.getObject().getId());
+		return termCatalogRepo.countByEnumId(termKindModel.getObject().getId());
 	}
 
 	@Override
