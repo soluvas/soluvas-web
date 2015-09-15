@@ -82,7 +82,7 @@ public class Term2TablePanel extends Panel {
 			add(new AjaxLink<String>("addLink") {
 				@Override
 				public void onClick(AjaxRequestTarget target) {
-					getRequestCycle().setResponsePage(addPage, new PageParameters().add("termKind", termKindModel.getObject().getName()));
+					getRequestCycle().setResponsePage(addPage, new PageParameters().add("termKindId", termKindModel.getObject().getId()));
 				}
 			});
 			
