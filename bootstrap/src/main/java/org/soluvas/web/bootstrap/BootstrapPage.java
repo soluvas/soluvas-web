@@ -248,6 +248,9 @@ public class BootstrapPage extends ExtensiblePage {
 		}
 		
 		response.render(CssHeaderItem.forReference(PRINT_CSS, "print"));
+		
+//		response.render(CssHeaderItem.forReference(new CssResourceReference(BootstrapPage.class, "slidebars/slidebars.css")));
+//		response.render(CssHeaderItem.forReference(new CssResourceReference(BootstrapPage.class, "slidebars/demos.css")));
 
 		if (headJavaScripts != null) {
 			log.trace("Page {} has {} head JavaScript links", getClass().getName(),
@@ -268,6 +271,9 @@ public class BootstrapPage extends ExtensiblePage {
 		
 		response.render(JavaScriptHeaderItem.forReference(TinyNavJs.instance()));
 		response.render(JavaScriptHeaderItem.forReference(JQueryUiToTop.instance()));
+		
+//		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(BootstrapPage.class, "slidebars/slidebars.js")));
+		
 //		response.render(JavaScriptHeaderItem.forReference(
 //				new JavaScriptResourceReference(BootstrapPage.class, "require-2.1.5-soluvas.js")));		
 	}
