@@ -33,68 +33,36 @@
 	<!-- not needed -->
 	<div wicket:id="dev" style="display: none;">[DebugBar]</div>
 	<!-- end not needed -->
-	<div class="container-fluid bg-white">
+	<div class="container-fluid">
+		<header wicket:id="header"></header>
+		<div class="row" wicket:id="navbar" >
+		</div>
+		<div class="row" wicket:id="afterHeader">
+		<!--	Carousel Images is loading -->
+		</div>
 		<div class="row">
-			<header wicket:id="header"></header>
-			<div class="navbar-bg"></div>
-			<nav class="navbar navbar-default navbar-fixed-top" wicket:id="navbar" role="navigation">
-				Navbar... (see Navbar.html)
-			</nav>
+			<section wicket:id="sidebarColumn" class="sidebarCol">
+				<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
+			</section>
+				
+			<div wicket:id="contentColumn">
+				<div style="display: none;" wicket:id="addedInfo"></div>
+				<div style="display: none;" wicket:id="feedback" class="feedback"></div>
+				<wicket:child style="display: none;">
+					<ol class="featured-products">
+						<div id="featuredProducts">
+							<li><a href="#">Product name</a></li>
+						</div>
+					</ol>
+				</wicket:child>
+			</div>			
 		</div>
-					<div wicket:id="afterHeader">
-						<!-- 		Carousel Images is loading.. -->
-					</div>
-		<div class="row content-area">
-				<section wicket:id="sidebarColumn" class="sidebarCol">
-					<div wicket:id="sidebarBlocks">[sidebarBlocks]</div>
-				</section>
-				<!--/span-->
-	
-				<div wicket:id="contentColumn">
-					<div style="display: none;" wicket:id="addedInfo"></div>
-					<div style="display: none;" wicket:id="feedback" class="feedback"></div>
-					<wicket:child style="display: none;">
-						<ol class="featured-products">
-							<div id="featuredProducts">
-								<li><a href="#">Product name</a></li>
-							</div>
-						</ol>
-					</wicket:child>
-				</div>			
-			</div>
-			<div class="row">
-			<footer class="footer" wicket:id="footer">
-				<small style="color: #808080;"> &middot; &copy; <a
-					href="http://www.soluvas.com/">Soluvas</a> 2012
-				</small>
-			</footer>
-			</div>
+			
 	</div>
-	<!-- Modal cart -->
-		<div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="modalCart" aria-hidden="true">
-  		<div class="modal-dialog">
-		    <div class="modal-content">
-		      	<div class="modal-header">
-		        	<h4 id="myModalLabel">YOUR CART</h4>
-		      	</div>
-		      	<div class="modal-body">
-		        	...
-		      	</div>
-		      	<div class="modal-footer">
-		      		<div class="row">
-		      			<div class="col-md-6 no-padding">
-		        		<button type="button" class="btn btn-default btn-block btn-big" data-dismiss="modal">BACK TO SHOP</button>
-		        		</div>
-		        		<div class="col-md-6 no-padding">
-		        		<button type="button" class="btn btn-default btn-block btn-big">CHECKOUT</button>
-		        		</div>
-		        	</div>
-		      	</div>
-		    </div>
-  		</div>
-		</div>
-		
-	
+	<footer class="footer" wicket:id="footer">
+		<small style="color: #808080;"> &middot; &copy; <a href="http://www.soluvas.com/">Soluvas</a> 2012
+		</small>
+	</footer>
 
 	<div wicket:id="beforeFooterJs">[beforeFooterJs]</div>
 
