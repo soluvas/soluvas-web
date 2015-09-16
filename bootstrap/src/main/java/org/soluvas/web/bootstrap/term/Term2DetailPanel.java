@@ -185,7 +185,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		add(new Label("kind", kindDisplayName));
 		 
 		final PageParameters params = new PageParameters();
-		params.set("termKindId", termKindModel.getObject().getName());
+		params.set("termKindId", termKindModel.getObject().getId());
 		add(new BookmarkablePageLink<>("backLink", backPage, params));
 		 
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "id"));
