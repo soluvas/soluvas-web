@@ -100,7 +100,7 @@ public class CurrencyLabel extends Label {
 					scaled = amount.setScale(currency.getDefaultFractionDigits(), RoundingMode.HALF_EVEN);
 				}
 				MonetaryAmountFormat formatter = MonetaryFormats.getAmountFormat(locale);
-				return currencyHtml + formatter.format(Money.of(scaled, currency));
+				return currencyHtml + formatter.format(Money.of(scaled, currency)).replace(currency.getCurrencyCode(), "");
 			} else {
 				return currencyHtml;
 			}
