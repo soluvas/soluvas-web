@@ -107,7 +107,8 @@ public class CurrencyLabel extends Label {
 		} else {
 			if (amount != null) {
 				final BigDecimal scaled = scale != null ? amount.setScale(scale, RoundingMode.HALF_EVEN) : amount;
-				return "<small class=\"text-muted currency\">?</small> " + DecimalFormat.getInstance(locale).format(scaled.doubleValue());
+				//rudi: currency klo null, memang sengaja tidak mau menampilkan currency-nya
+				return DecimalFormat.getInstance(locale).format(scaled.doubleValue());
 			} else {
 				return "";
 			}
