@@ -11,6 +11,8 @@ import javax.xml.bind.Marshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
@@ -55,6 +57,9 @@ import com.google.common.collect.ImmutableSet;
 @RestController
 @Scope("request")
 public class SitemapController {
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(SitemapController.class);
 
 	// TODO: per tenant active-sitemaps configuration
 	public static final ImmutableSet<SitemapPart> activeSitemaps = ImmutableSet.of(
@@ -192,10 +197,12 @@ public class SitemapController {
 
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
+//		headers.add("", headerValue);
 		headers.setExpires(new DateTime().plusHours(1).getMillis());
 
 		final StringWriter sw = new StringWriter();
 		marshaller.marshal(urlSet, sw);
+//		log.debug("responseEntity: {}", sw.toString());
 		return new ResponseEntity<>(sw.toString(), headers, HttpStatus.OK);
 	}
 

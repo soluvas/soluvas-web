@@ -1,11 +1,12 @@
 package org.soluvas.web.site.person;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.base.Strings;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +25,19 @@ import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.web.site.SeoBookmarkableMapper;
-import org.soluvas.web.site.sitemap.*;
+import org.soluvas.web.site.sitemap.ChangeFreq;
+import org.soluvas.web.site.sitemap.Image;
+import org.soluvas.web.site.sitemap.SitemapPart;
+import org.soluvas.web.site.sitemap.SitemapSupplier;
+import org.soluvas.web.site.sitemap.Url;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.List;
-import java.util.Map;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Created by ceefour on 12/13/14.
@@ -90,7 +97,9 @@ public class PersonSitemapSupplier implements SitemapSupplier {
                                         ChangeFreq.monthly, priority);
                                 if (!Strings.isNullOrEmpty(input.getImageId())) {
                                     final DisplayImage img = personImages.get(input.getImageId());
-                                    url.getImages().add(new Image(img.getSrc(), input.getName(), img.getTitle()));
+                                    url.getImages().add(new Image(img.getSrc(),
+                                    		StringEscapeUtils.escapeHtml3(input.getName()),
+                                    		StringEscapeUtils.escapeHtml3(img.getTitle())));
                                 }
                                 return url;
                             }
