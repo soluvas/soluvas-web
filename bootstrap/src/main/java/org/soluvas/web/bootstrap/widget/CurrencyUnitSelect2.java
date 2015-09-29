@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Locale;
@@ -9,6 +10,8 @@ import javax.inject.Inject;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Ordering;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
@@ -55,16 +58,14 @@ public class CurrencyUnitSelect2 extends InteractiveSelect2Choice<CurrencyUnit> 
 		public void query(String term, int page, Response<CurrencyUnit> response) {
 			final String trimmedTerm = term.trim();
 			final PageRequest pageable = new PageRequest(page, 20);
-			final Collection<CurrencyUnit> sorted = Monetary.getCurrencies();
-//			final ImmutableList<CurrencyUnit> sorted = CurrencyUnitOrdering.INSTANCE.immutableSortedCopy(Arrays.asList(CurrencyUnit.getAvailableCurrencyUnits()));
+			final Collection<CurrencyUnit> unsorted = Monetary.getCurrencies();
+			final ImmutableList<CurrencyUnit> sorted = Ordering.natural().immutableSortedCopy(
+					unsorted);
 			final FluentIterable<CurrencyUnit> filtered = FluentIterable.from(sorted)
-				.filter(new Predicate<CurrencyUnit>() {
-					@Override
-					public boolean apply(@Nullable CurrencyUnit currency) {
-						final String searchable = currency + " " + MoneyUtils.getSymbol(Locale.US, currency);
-						return StringUtils.containsIgnoreCase(searchable, trimmedTerm);
-					}
-				});
+				.filter(currency -> {
+                    final String searchable = currency + " " + MoneyUtils.getSymbol(Locale.US, currency);
+                    return StringUtils.containsIgnoreCase(searchable, trimmedTerm);
+                });
 			response.addAll(filtered.skip((int) pageable.getOffset()).limit((int) pageable.getPageSize()).toList());
 			response.setHasMore(!filtered.skip((int) ((page + 1) * pageable.getPageSize())).isEmpty());
 		}
