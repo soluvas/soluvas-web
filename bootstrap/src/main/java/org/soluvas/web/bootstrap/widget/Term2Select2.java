@@ -1,9 +1,12 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.List;
+
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.data.Term2;
+import org.soluvas.data.Value;
 
 import com.vaynberg.wicket.select2.Select2Choice;
 
@@ -17,6 +20,18 @@ public class Term2Select2 extends InteractiveSelect2Choice<Term2> {
 	
 	public Term2Select2(String id, IModel<Term2> model, final String enumerationId) {
 		super(id, model, new Term2ChoiceProvider(enumerationId));
+	}
+	
+	/**
+	 * Filter only terms which match the values provided by whitelist. The whitelist can be dynamic.
+	 * @param id
+	 * @param model
+	 * @param kindNsPrefix
+	 * @param kindName
+	 * @param whitelistModel
+	 */
+	public Term2Select2(String id, IModel<Term2> model, final IModel<List<Value<?>>> whitelistModel) {
+		super(id, model, new Term2ChoiceProvider(whitelistModel));
 	}
 	
 	@Override
