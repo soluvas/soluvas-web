@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -18,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.soluvas.data.DataFactory;
 import org.soluvas.data.DisplayAttribute;
+import org.soluvas.data.DisplayAttribute2;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermKindRepository;
 import org.soluvas.data.TermValue;
@@ -39,11 +42,11 @@ import com.google.common.collect.ImmutableMap;
  * 
  * @author haidar
  */
-public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<DisplayAttribute>> {
+public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<DisplayAttribute2>> {
 	
 	private static final long serialVersionUID = 1L;
 	private final IModel<EMap<String, EList<Value<?>>>> sourceModel;
-	private final IModel<Map<String, String>> sourceStrModel = new MapModel<>();
+	private final IModel<Map<String, List<String>>> sourceStrModel = new MapModel<>();
 	
 	@Inject
 	private MongoTermRepository termRepo;
@@ -54,13 +57,13 @@ public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<Displ
 	public DisplayAttributeListModel2(IModel<EMap<String, EList<Value<?>>>> sourceModel, String curLanguageTag) {
 		super();
 		this.sourceModel = sourceModel;
-		this.sourceStrModel.setObject(ImmutableMap.<String, String>of());
+		this.sourceStrModel.setObject(ImmutableMap.<String, List<String>>of());
 		this.curLanguageTag = curLanguageTag;
 		
 		Injector.get().inject(this);
 	}
 	
-	public DisplayAttributeListModel2(Map<String, String> sourceStrMap, String curLanguageTag) {
+	public DisplayAttributeListModel2(Map<String, List<String>> sourceStrMap, String curLanguageTag) {
 		super();
 		
 		this.sourceModel = new LoadableDetachableModel<EMap<String,EList<Value<?>>>>() {
@@ -76,34 +79,40 @@ public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<Displ
 	}
 
 	@Override
-	public List<DisplayAttribute> getObject() {
+	public List<DisplayAttribute2> getObject() {
 		EMap<String, EList<Value<?>>> source = null;
 		if (sourceModel.getObject() != null) {
 			source = sourceModel.getObject();
 		}
 		if (sourceStrModel.getObject() != null && !sourceStrModel.getObject().isEmpty()) {
-			source = new BasicEMap<String, EList<Value<?>>>();
-			for (final Entry<String, String> entry : sourceStrModel.getObject().entrySet()) {
-				final Term2 term2 = termRepo.findOne(entry.getValue());
-				if (term2 != null) {
-					final TermValue termValue = DataFactory.eINSTANCE.createTermValue();
-					termValue.copyFromMongo(term2);
-					final EList<Value<?>> values = new BasicEList<>();
-					values.add(termValue);
-					source.put(term2.getEnumerationId(), values);
+			source = new BasicEMap<>();
+			for (final Entry<String, List<String>> entry : sourceStrModel.getObject().entrySet()) {
+				final List<Term2> term2List = termRepo.findAll(entry.getValue());
+				if (!term2List.isEmpty()) {
+					source.put(term2List.get(0).getEnumerationId(), new BasicEList<>(term2List.stream().map(new Function<Term2, TermValue>() {
+						@Override
+						public TermValue apply(Term2 t) {
+							final TermValue termValue = DataFactory.eINSTANCE.createTermValue();
+							termValue.copyFromMongo(t);
+							return termValue;
+						}
+					}).collect(Collectors.toList())));
 				}
 			}
 		}
 		
 		if (source != null) {
-			final List<DisplayAttribute> displayAttrs = new ArrayList<>();
+			final List<DisplayAttribute2> displayAttrs = new ArrayList<>();
 			for (Entry<String, EList<Value<?>>> entry : source.entrySet()) {
-				// TODO: do not hardcode principal displayName, get from mixin
-				final String principalDisplayName = termKindRepo.findOne(entry.getKey()).getEffectiveName(curLanguageTag);
+				String termKeyOrEnumId = entry.getKey();
+				if (termKeyOrEnumId.startsWith("base_")) {
+					termKeyOrEnumId = termRepo.findOne(String.valueOf(entry.getValue().get(0).getValue())).getEnumerationId(); 
+				}
+				final String principalDisplayName = termKindRepo.findOne(termKeyOrEnumId).getEffectiveName(curLanguageTag);
 				if (!entry.getValue().isEmpty()) {
-					displayAttrs.add(new DisplayAttribute(principalDisplayName, entry.getValue().get(0)));
+					displayAttrs.add(new DisplayAttribute2(principalDisplayName, entry.getValue()));
 				} else {
-					displayAttrs.add(new DisplayAttribute(principalDisplayName, null));
+					displayAttrs.add(new DisplayAttribute2(principalDisplayName, null));
 				}
 			}
 			return displayAttrs;
