@@ -17,6 +17,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -150,6 +151,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			category.getPropertyOverrides().addAll(formalCategoryModel.getObject().getPropertyOverrides());
 		}
 		category.setStatus(CategoryStatus.ACTIVE);
+		category.setPositioner(0);
 		setModel(new Model<>(category));
 	}
 
@@ -262,7 +264,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		displayNameFld.setRequired(true);
 		displayNameFld.setEnabled(editable);
 		displayNameFld.setLabel(new Model<>("Display name"));
-		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
+		displayNameFld.add(new OnChangeAjaxBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Category2 category = CategoryDetailPanel2.this.getModelObject();

@@ -196,7 +196,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 		item.add(enabled);
 		
 		final DropDownChoice<PropertyKind> ddcDefaultKind = new DropDownChoice<>("ddcDefaultKind", new PropertyModel<>(item.getModel(), "defaultKind"),
-				new ListModel<>(ImmutableList.copyOf(PropertyKind.values())),
+				new ListModel<>(ImmutableList.of(PropertyKind.ENUMERATION, PropertyKind.MEASUREMENT, PropertyKind.STRING)),
 				new IChoiceRenderer<PropertyKind>() {
 
 					@Override
