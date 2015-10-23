@@ -1,9 +1,15 @@
 package org.soluvas.web.bootstrap.category;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -11,6 +17,7 @@ import javax.measure.unit.NonSI;
 import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
 
+import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
@@ -27,6 +34,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
+import org.soluvas.category.FormalCategory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.data.PropertyDefinition;
 import org.soluvas.data.PropertyDefinitionRepository;
@@ -75,11 +83,38 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 	
 	public PropertyOverridesListView(final String id, final IModel<List<PropertyDefinition>> model,
 			final IModel<Locale> selectedLocaleModel,
-			final IModel<Locale> categoryLocaleModel) {
+			final IModel<Locale> categoryLocaleModel,
+			final IModel<FormalCategory> formalCategoryModel) {
 		super(id, model);
-		this.defaultEnumsModel = new ListModel<>(ImmutableList.copyOf(propDefRepo.getDefaultEnums()));
 		this.selectedLocaleModel = selectedLocaleModel;
 		this.categoryLocaleModel = categoryLocaleModel;
+		
+		this.defaultEnumsModel = new LoadableDetachableModel<List<String>>() {
+			@Override
+			protected List<String> load() {
+				final List<String> defaultEnumsFromFormalCategory = new ArrayList<>();
+				if (formalCategoryModel.getObject() != null) {
+					defaultEnumsFromFormalCategory.addAll( formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new Predicate<PropertyDefinition>() {
+						@Override
+						public boolean test(PropertyDefinition t) {
+							return Optional.fromNullable(t.getUsableAsOption()).or(new Boolean(false)).booleanValue();
+						}
+					}).map(new Function<PropertyDefinition, String>() {
+						@Override
+						public String apply(PropertyDefinition t) {
+							return t.getDefaultEnum();
+						}
+					}).collect(Collectors.toList()) );
+				}
+				
+				final Set<String> defaultEnumsFromSoluvas = propDefRepo.getDefaultEnums();
+				
+				final Set<String> defaultEnums = new HashSet<>();
+				defaultEnums.addAll(defaultEnumsFromFormalCategory);
+				defaultEnums.addAll(defaultEnumsFromSoluvas);
+				return ImmutableList.copyOf(defaultEnums);
+			}
+		};
 	}
 	
 	@Override
@@ -194,6 +229,16 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			}
 		});
 		item.add(enabled);
+		
+		final CheckBox usableAsOption = new CheckBox("usableAsOption", new PropertyModel<Boolean>(item.getModel(), "usableAsOption"));
+		usableAsOption.add(new OnChangeAjaxBehavior() {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				updatePropertyOverride(item.getModelObject());
+			}
+		});
+		item.add(usableAsOption);
 		
 		final DropDownChoice<PropertyKind> ddcDefaultKind = new DropDownChoice<>("ddcDefaultKind", new PropertyModel<>(item.getModel(), "defaultKind"),
 				new ListModel<>(ImmutableList.of(PropertyKind.ENUMERATION, PropertyKind.MEASUREMENT, PropertyKind.STRING)),

@@ -29,7 +29,7 @@ public class TermKindChoiceProvider extends TextChoiceProvider<TermKind>{
 
 	@Override
 	protected String getDisplayText(TermKind choice) {
-		return choice.getName();
+		return choice.getName() + "[" + choice.getId() + "]";
 	}
 
 	@Override

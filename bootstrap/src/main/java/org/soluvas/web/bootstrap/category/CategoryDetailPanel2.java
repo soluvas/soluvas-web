@@ -383,7 +383,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		form.add(wmcPropertyOverride);
 		
 		final PropertyOverridesListView propertyOverridesLv = new PropertyOverridesListView("propertyOverrides",
-				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel){
+				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel, formalCategoryModel){
 			@Override
 			protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
 				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
