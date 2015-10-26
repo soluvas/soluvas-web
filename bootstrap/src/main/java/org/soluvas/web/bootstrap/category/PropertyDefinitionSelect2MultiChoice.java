@@ -23,13 +23,19 @@ public class PropertyDefinitionSelect2MultiChoice extends InteractiveSelect2Mult
 	
 	public PropertyDefinitionSelect2MultiChoice(final String id, final IModel<Collection<PropertyDefinition>> model) {
 		super(id, model);
-		setProvider(new PropertyDefinitionChoiceProvider(new ListModel<>(ImmutableList.of())));
+		setProvider(new PropertyDefinitionChoiceProvider(new ListModel<>(ImmutableList.of()), new ListModel<>(ImmutableList.of())));
 	}
 	
 	public PropertyDefinitionSelect2MultiChoice(final String id, final IModel<Collection<PropertyDefinition>> model,
 			final IModel<List<PropertyDefinition>> excludedsModel) {
 		super(id, model);
-		setProvider(new PropertyDefinitionChoiceProvider(excludedsModel));
+		setProvider(new PropertyDefinitionChoiceProvider(excludedsModel, new ListModel<>(ImmutableList.of())));
+	}
+	
+	public PropertyDefinitionSelect2MultiChoice(final String id, final IModel<Collection<PropertyDefinition>> model,
+			final IModel<List<PropertyDefinition>> excludedsModel, final IModel<List<PropertyDefinition>> dataListModel) {
+		super(id, model);
+		setProvider(new PropertyDefinitionChoiceProvider(excludedsModel, dataListModel));
 	}
 
 	@Override

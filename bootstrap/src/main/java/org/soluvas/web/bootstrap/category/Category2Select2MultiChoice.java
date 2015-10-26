@@ -6,11 +6,9 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category2;
-import org.soluvas.category.MongoCategoryRepository;
 import org.soluvas.web.bootstrap.widget.InteractiveSelect2MultiChoice;
 
 /**
@@ -23,8 +21,6 @@ public class Category2Select2MultiChoice extends
 	
 	static final Logger log = LoggerFactory
 			.getLogger(Category2Select2MultiChoice.class);
-	@SpringBean
-	private MongoCategoryRepository categoryRepo;
 	
 	public Category2Select2MultiChoice(String id, IModel<Collection<Category2>> model) {
 		super(id, model);
