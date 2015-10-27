@@ -38,11 +38,14 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 
 	private final IModel<List<PropertyDefinition>> excludedsModel;
 	private final IModel<List<PropertyDefinition>> dataPropDefListModel;
+
+	private final IModel<Collection<PropertyDefinition>> model;
 	
-	public PropertyDefinitionChoiceProvider(final IModel<List<PropertyDefinition>> excludedsModel,
+	public PropertyDefinitionChoiceProvider(final IModel<Collection<PropertyDefinition>> model, final IModel<List<PropertyDefinition>> excludedsModel,
 			final IModel<List<PropertyDefinition>> dataPropDefListModel) {
 		super();
 		Injector.get().inject(this);
+		this.model = model;
 		this.excludedsModel = excludedsModel;
 		this.dataPropDefListModel = dataPropDefListModel;
 	}
@@ -61,7 +64,14 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	public void query(String term, int page, Response<PropertyDefinition> response) {
 		final Page<PropertyDefinition> result;
 		if (dataPropDefListModel.getObject() != null && !dataPropDefListModel.getObject().isEmpty()) {
-			result = new PageImpl<>(dataPropDefListModel.getObject(), new PageRequest(page, 10L, Direction.ASC, "name"), dataPropDefListModel.getObject().size());
+//			log.debug("dataPropDefList has {} rows", dataPropDefListModel.getObject().size());
+			final List<PropertyDefinition> filteredPropDefList = dataPropDefListModel.getObject().stream().filter(new Predicate<PropertyDefinition>() {
+				@Override
+				public boolean test(PropertyDefinition t) {
+					return t.getName().startsWith(term.trim());
+				}
+			}).collect(Collectors.toList());
+			result = new PageImpl<>(filteredPropDefList, new PageRequest(page, 10L, Direction.ASC, "name"), filteredPropDefList.size() - model.getObject().size());
 		} else {
 			final List<String> excludedPropertyDefIds = excludedsModel.getObject().stream().
 					map(it -> it.getId()).collect(Collectors.toList());
@@ -69,6 +79,7 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 					ImmutableSet.copyOf(excludedPropertyDefIds),
 					new PageRequest(page, 10L, Direction.ASC, "name"));
 		}
+//		log.debug("by page {} and result.getContent(): {}", page, result.getContent().size());
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}

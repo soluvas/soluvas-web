@@ -370,8 +370,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 				addCurPropertyOverrides(newPropertyOverridesModel.getObject());
 				newPropertyOverridesModel.getObject().clear();
-				log.debug("newPropertyOverrides are {}",
-						newPropertyOverridesModel.getObject() != null ? newPropertyOverridesModel.getObject().size() + " row(s)" : null);
+//				log.debug("newPropertyOverrides are {}",
+//						newPropertyOverridesModel.getObject() != null ? newPropertyOverridesModel.getObject().size() + " row(s)" : null);
 				//$("#s2id_acPropertyDefinition135") --> clear all values
 				final String call = "$('#" + acPropertyDefinition.getMarkupId() + "').select2(\"val\", \"\");";
 				target.appendJavaScript(call);
