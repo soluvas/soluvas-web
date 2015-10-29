@@ -68,7 +68,7 @@ import com.google.common.collect.ImmutableList;
 @SuppressWarnings("serial")
 public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 	
-	final ImmutableList<Unit<?>> SUPPORTED_UNITS = ImmutableList.of(SI.CENTIMETRE, SI.METRE, SI.GRAM, NonSI.LITRE, NonSI.LITRE.divide(1000));
+	final ImmutableList<Unit<?>> SUPPORTED_UNITS = ImmutableList.of(SI.CENTIMETRE, SI.METRE, SI.GRAM, NonSI.LITRE, NonSI.LITRE.divide(1000), NonSI.INCH);
 	
 	@Inject
 	private PropertyDefinitionRepository propDefRepo;
