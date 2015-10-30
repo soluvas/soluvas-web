@@ -53,7 +53,7 @@ public class DisplayAttributeListPanel2 extends GenericPanel<List<DisplayAttribu
 				displayAttItem.add( new ListView<Value<?>>("valueList", new PropertyModel<List<Value<?>>>(displayAttItem.getModel(), "values")) {
 					@Override
 					protected void populateItem(ListItem<Value<?>> valueItem) {
-						valueItem.add(new ValueLabel("value", valueItem.getModel()));
+						valueItem.add(new ValueLabel2("value", valueItem.getModel()));
 					}
 				} );
 			}
