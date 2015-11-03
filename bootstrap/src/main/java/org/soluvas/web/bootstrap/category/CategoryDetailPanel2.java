@@ -385,7 +385,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final PropertyOverridesListView propertyOverridesLv = new PropertyOverridesListView("propertyOverrides",
 				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel, formalCategoryModel){
 			@Override
-			protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
+			protected void updatePropertyOverride(PropertyDefinition upPropertyOv, AjaxRequestTarget target) {
 				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
 					@Override
 					public boolean apply(PropertyDefinition input) {
@@ -398,6 +398,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					return;
 				}
 				CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(upPropertyOv);
+				
+				target.add(wmcPropertyOverrideList);
 			}
 		};
 		wmcPropertyOverrideList.add(propertyOverridesLv);
