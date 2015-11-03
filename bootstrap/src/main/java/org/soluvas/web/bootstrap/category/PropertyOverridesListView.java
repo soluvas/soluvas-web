@@ -225,7 +225,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				updatePropertyOverride(item.getModelObject());
+				updatePropertyOverride(item.getModelObject(), target);
 			}
 		});
 		item.add(enabled);
@@ -235,7 +235,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				updatePropertyOverride(item.getModelObject());
+				updatePropertyOverride(item.getModelObject(), target);
 			}
 		});
 		item.add(usableAsOption);
@@ -258,7 +258,24 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				updatePropertyOverride(item.getModelObject());
+				final PropertyDefinition propOver = item.getModelObject();
+				switch (propOver.getDefaultKind()) {
+				case ENUMERATION:
+					propOver.setDefaultEnum(defaultEnumsModel.getObject().get(0));
+					propOver.setDefaultUnit(null);
+					break;
+				case MEASUREMENT:
+					propOver.setDefaultEnum(null);
+					propOver.setDefaultUnit(SUPPORTED_UNITS.get(0));
+					break;
+				case STRING:
+					propOver.setDefaultEnum(null);
+					propOver.setDefaultUnit(null);
+					break;
+				default:
+					break;
+				}
+				updatePropertyOverride(propOver, target);
 			}
 		});
 		item.add(ddcDefaultKind);
@@ -283,6 +300,12 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 						return object.toString();
 					}
 				});
+		selMeasurementUnit.add(new OnChangeAjaxBehavior() {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				updatePropertyOverride(item.getModelObject(), target);
+			}
+		});
 		measurementUnit.add(selMeasurementUnit);
 		item.add(measurementUnit);
 		
@@ -329,7 +352,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 		}
 	}
 	
-	protected void updatePropertyOverride(PropertyDefinition upPropertyOv) {
+	protected void updatePropertyOverride(PropertyDefinition upPropertyOv, AjaxRequestTarget target) {
 	}
 
 }
