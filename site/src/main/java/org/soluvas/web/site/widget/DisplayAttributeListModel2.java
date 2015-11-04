@@ -1,12 +1,14 @@
 package org.soluvas.web.site.widget;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
@@ -14,18 +16,16 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.util.MapModel;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
-import org.soluvas.data.DataFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.data.DisplayAttribute;
 import org.soluvas.data.DisplayAttribute2;
-import org.soluvas.data.Term2;
-import org.soluvas.data.TermKindRepository;
-import org.soluvas.data.TermValue;
+import org.soluvas.data.EntityLookupException;
+import org.soluvas.data.PropertyDefinition;
+import org.soluvas.data.PropertyDefinitionRepository;
 import org.soluvas.data.Value;
-import org.soluvas.mongo.MongoTermRepository;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -45,25 +45,24 @@ import com.google.common.collect.ImmutableMap;
 public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<DisplayAttribute2>> {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger log = LoggerFactory.getLogger(DisplayAttributeListModel2.class);
+	
+	@Inject
+	private PropertyDefinitionRepository propDefRepo;
+	
 	private final IModel<EMap<String, EList<Value<?>>>> sourceModel;
 	private final IModel<Map<String, List<String>>> sourceStrModel = new MapModel<>();
 	
-	@Inject
-	private MongoTermRepository termRepo;
-	@Inject
-	private TermKindRepository termKindRepo;
-	private String curLanguageTag;
-	
-	public DisplayAttributeListModel2(IModel<EMap<String, EList<Value<?>>>> sourceModel, String curLanguageTag) {
+	public DisplayAttributeListModel2(IModel<EMap<String, EList<Value<?>>>> sourceModel) {
 		super();
 		this.sourceModel = sourceModel;
 		this.sourceStrModel.setObject(ImmutableMap.<String, List<String>>of());
-		this.curLanguageTag = curLanguageTag;
 		
 		Injector.get().inject(this);
 	}
 	
-	public DisplayAttributeListModel2(Map<String, List<String>> sourceStrMap, String curLanguageTag) {
+	public DisplayAttributeListModel2(Map<String, List<String>> sourceStrMap) {
 		super();
 		
 		this.sourceModel = new LoadableDetachableModel<EMap<String,EList<Value<?>>>>() {
@@ -73,46 +72,39 @@ public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<Displ
 			}
 		};
 		this.sourceStrModel.setObject(sourceStrMap);
-		this.curLanguageTag = curLanguageTag;
 		
 		Injector.get().inject(this);
 	}
 
 	@Override
 	public List<DisplayAttribute2> getObject() {
-		EMap<String, EList<Value<?>>> source = null;
+		Map<String, List<String>> source = null;
 		if (sourceModel.getObject() != null) {
-			source = sourceModel.getObject();
+			source = new HashMap<>();
+			for (final Entry<String, EList<Value<?>>> entry : sourceModel.getObject().entrySet()) {
+				source.put(entry.getKey(), entry.getValue().stream().map(new Function<Value<?>, String>() {
+					@Override
+					public String apply(Value<?> t) {
+						return t.getString();
+					}
+				}).collect(Collectors.toList()));
+			}
 		}
 		if (sourceStrModel.getObject() != null && !sourceStrModel.getObject().isEmpty()) {
-			source = new BasicEMap<>();
-			for (final Entry<String, List<String>> entry : sourceStrModel.getObject().entrySet()) {
-				final List<Term2> term2List = termRepo.findAll(entry.getValue());
-				if (!term2List.isEmpty()) {
-					source.put(term2List.get(0).getEnumerationId(), new BasicEList<>(term2List.stream().map(new Function<Term2, TermValue>() {
-						@Override
-						public TermValue apply(Term2 t) {
-							final TermValue termValue = DataFactory.eINSTANCE.createTermValue();
-							termValue.copyFromMongo(t);
-							return termValue;
-						}
-					}).collect(Collectors.toList())));
-				}
-			}
+			source = sourceStrModel.getObject();
 		}
 		
 		if (source != null) {
 			final List<DisplayAttribute2> displayAttrs = new ArrayList<>();
-			for (Entry<String, EList<Value<?>>> entry : source.entrySet()) {
-				String termKeyOrEnumId = entry.getKey();
-				if (termKeyOrEnumId.startsWith("base_")) {
-					termKeyOrEnumId = termRepo.findOne(String.valueOf(entry.getValue().get(0).getValue())).getEnumerationId(); 
-				}
-				final String principalDisplayName = termKindRepo.findOne(termKeyOrEnumId).getEffectiveName(curLanguageTag);
-				if (!entry.getValue().isEmpty()) {
-					displayAttrs.add(new DisplayAttribute2(principalDisplayName, entry.getValue()));
-				} else {
-					displayAttrs.add(new DisplayAttribute2(principalDisplayName, null));
+			for (final Entry<String, List<String>> entry : source.entrySet()) {
+				final String keyOfPropDefByOptionPropKey = entry.getKey().replace("base_", "");
+				try {
+					@Nullable PropertyDefinition propertyDefinition = propDefRepo.findOneBase(keyOfPropDefByOptionPropKey);
+					if (propertyDefinition != null) {
+						displayAttrs.add(new DisplayAttribute2(propertyDefinition, entry.getValue()));
+					}
+				} catch (EntityLookupException e) {
+					log.error(String.format("Can not find propertyDefinition by id '%s'", keyOfPropDefByOptionPropKey), e);
 				}
 			}
 			return displayAttrs;

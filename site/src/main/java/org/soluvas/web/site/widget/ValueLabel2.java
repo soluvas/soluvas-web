@@ -105,6 +105,8 @@ public class ValueLabel2 extends Label {
 					}
 				}
 			}
+			
+//			log.debug("displayName: {}", displayName);
 			if (valueObj instanceof MeasureValue) {
 				final MeasureValue measureValue = (MeasureValue) valueObj;
 				displayName += " " + measureValue.getValueUnit().toString();
