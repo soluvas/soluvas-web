@@ -40,7 +40,9 @@ public class SelectFormalCategoryPanel extends GenericPanel<FormalCategory> {
 				@Override
 				protected void onUpdate(AjaxRequestTarget target) {
 					detailPanel.getModelObject().setGoogleFormalId(formalCatModel.getObject().getGoogleId());
-					detailPanel.getModelObject().getPropertyOverrides().addAll(formalCatModel.getObject().getPropertyOverrides());
+					if (formalCatModel.getObject().getPropertyOverrides() != null && !formalCatModel.getObject().getPropertyOverrides().isEmpty()) {
+						detailPanel.getModelObject().getPropertyOverrides().addAll(formalCatModel.getObject().getPropertyOverrides());
+					}
 					detailPanel.addCurPropertyOverrides(detailPanel.getModelObject().getPropertyOverrides());
 					log.debug("Selected Formal Category is {} ({}) with {} propertyOverrides",
 							formalCatModel.getObject().getName(), detailPanel.getModelObject().getGoogleFormalId(), detailPanel.getModelObject().getPropertyOverrides().size());
