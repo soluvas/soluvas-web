@@ -93,7 +93,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			@Override
 			protected List<String> load() {
 				final List<String> defaultEnumsFromFormalCategory = new ArrayList<>();
-				if (formalCategoryModel.getObject() != null) {
+				if (formalCategoryModel.getObject() != null && formalCategoryModel.getObject().getPropertyOverrides() != null) {
 					defaultEnumsFromFormalCategory.addAll( formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new Predicate<PropertyDefinition>() {
 						@Override
 						public boolean test(PropertyDefinition t) {
