@@ -64,6 +64,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
+import com.mongodb.DuplicateKeyException;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -379,7 +380,13 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					});
 					term.setFormalId(formalId);
 					term.setId(term.getEnumerationId() + "/" + formalId);
-					termCatalogRepo.add(term);
+					try {
+						termCatalogRepo.add(term);
+					} catch (DuplicateKeyException dke) {
+						log.info("Term for '{}' - {} has already exists: {}", term.getId(), term.getName(), dke);
+						info(String.format("Term '%s' sudah ada!!", term.getName()));
+						return;
+					}
 					//FIXME: ga perlu cpp + update on memory
 //					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
 					info("Added term " + term.getId());
