@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -120,6 +124,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private final IModel<Map<Locale, String>> transDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
 	private Form<Void> form;
+	private final IModel<List<String>> defaultEnumsModel;
 
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
@@ -127,18 +132,21 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param backPage
 	 * @param parentId Parent {@link Category#getUName()} (non-editable).
+	 * @param defaultEnumsModel 
 	 * @param defaultMixinUName Default {@link Category#setDefaultMixin(String)}, this is app specific e.g. {@code base_Apparel}.
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
 	public CategoryDetailPanel2(final String id, final Class<? extends Page> backPage,
-			@Nullable final String parentId, final IModel<FormalCategory> formalCategoryModel) {
+			@Nullable final String parentId, final IModel<FormalCategory> formalCategoryModel,
+			final IModel<List<String>> defaultEnumsModel) {
 		super(id);
 		
 		this.editMode = EditMode.ADD;
 		this.originalId = null;
 		this.backPage = backPage;
 		this.formalCategoryModel = formalCategoryModel;
+		this.defaultEnumsModel = defaultEnumsModel;
 		
 		final Category2 category = new Category2();
 		category.setNsPrefix(tenant.getTenantId());
@@ -165,7 +173,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage) {
+	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage, final IModel<List<String>> defaultEnumsModel) {
 		super(id);
 		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(originalId),
 						"Cannot find category %s using %s", originalId, catRepo)));
@@ -175,6 +183,30 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		this.formalCategoryModel = new Model<>(Preconditions.checkNotNull(formalCategoryRepo.findOne(
 				Preconditions.checkNotNull(getModelObject().getGoogleFormalId(), "Google Formal ID must not be null for category '%s'", getModelObject().getId())),
 					"Formal Category must not be null by id '%s'", getModelObject().getGoogleFormalId()));
+		
+		this.defaultEnumsModel = defaultEnumsModel;
+		
+		final List<String> defaultEnumsByGoogle = this.formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new java.util.function.Predicate<PropertyDefinition>() {
+			@Override
+			public boolean test(PropertyDefinition t) {
+				return Optional.fromNullable(t.getUsableAsOption()).or(new Boolean(false)).booleanValue();
+			}
+		}).map(new Function<PropertyDefinition, String>() {
+			@Override
+			public String apply(PropertyDefinition t) {
+				return t.getDefaultEnum();
+			}
+		}).collect(Collectors.toList());
+		
+		defaultEnumsByGoogle.forEach(new Consumer<String>() {
+			@Override
+			public void accept(String t) {
+				if (!CategoryDetailPanel2.this.defaultEnumsModel.getObject().contains(t)) {
+					CategoryDetailPanel2.this.defaultEnumsModel.getObject().add(t);
+				}
+			}
+		});
+		
 		if (getModelObject().getLanguage() == null) {
 			getModelObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
 		}
@@ -383,7 +415,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		form.add(wmcPropertyOverride);
 		
 		final PropertyOverridesListView propertyOverridesLv = new PropertyOverridesListView("propertyOverrides",
-				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel, formalCategoryModel){
+				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel, defaultEnumsModel){
 			@Override
 			protected void updatePropertyOverride(PropertyDefinition upPropertyOv, AjaxRequestTarget target) {
 				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {

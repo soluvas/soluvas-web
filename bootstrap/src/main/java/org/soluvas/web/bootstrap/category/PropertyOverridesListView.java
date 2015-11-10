@@ -1,15 +1,9 @@
 package org.soluvas.web.bootstrap.category;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -17,7 +11,6 @@ import javax.measure.unit.NonSI;
 import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
 
-import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
@@ -34,10 +27,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
-import org.soluvas.category.FormalCategory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.data.PropertyDefinition;
-import org.soluvas.data.PropertyDefinitionRepository;
 import org.soluvas.data.PropertyKind;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 
@@ -71,8 +62,6 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 	final ImmutableList<Unit<?>> SUPPORTED_UNITS = ImmutableList.of(SI.CENTIMETRE, SI.METRE, SI.GRAM, NonSI.LITRE, NonSI.LITRE.divide(1000), NonSI.INCH);
 	
 	@Inject
-	private PropertyDefinitionRepository propDefRepo;
-	@Inject
 	private AppManifest appManifest;
 
 	private final IModel<List<String>> defaultEnumsModel;
@@ -84,37 +73,11 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 	public PropertyOverridesListView(final String id, final IModel<List<PropertyDefinition>> model,
 			final IModel<Locale> selectedLocaleModel,
 			final IModel<Locale> categoryLocaleModel,
-			final IModel<FormalCategory> formalCategoryModel) {
+			final IModel<List<String>> defaultEnumsModel) {
 		super(id, model);
 		this.selectedLocaleModel = selectedLocaleModel;
 		this.categoryLocaleModel = categoryLocaleModel;
-		
-		this.defaultEnumsModel = new LoadableDetachableModel<List<String>>() {
-			@Override
-			protected List<String> load() {
-				final List<String> defaultEnumsFromFormalCategory = new ArrayList<>();
-				if (formalCategoryModel.getObject() != null && formalCategoryModel.getObject().getPropertyOverrides() != null) {
-					defaultEnumsFromFormalCategory.addAll( formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new Predicate<PropertyDefinition>() {
-						@Override
-						public boolean test(PropertyDefinition t) {
-							return Optional.fromNullable(t.getUsableAsOption()).or(new Boolean(false)).booleanValue();
-						}
-					}).map(new Function<PropertyDefinition, String>() {
-						@Override
-						public String apply(PropertyDefinition t) {
-							return t.getDefaultEnum();
-						}
-					}).collect(Collectors.toList()) );
-				}
-				
-				final Set<String> defaultEnumsFromSoluvas = propDefRepo.getDefaultEnums();
-				
-				final Set<String> defaultEnums = new HashSet<>();
-				defaultEnums.addAll(defaultEnumsFromFormalCategory);
-				defaultEnums.addAll(defaultEnumsFromSoluvas);
-				return ImmutableList.copyOf(defaultEnums);
-			}
-		};
+		this.defaultEnumsModel = defaultEnumsModel;
 	}
 	
 	@Override
