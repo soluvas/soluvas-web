@@ -186,26 +186,29 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		this.defaultEnumsModel = defaultEnumsModel;
 		
-		final List<String> defaultEnumsByGoogle = this.formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new java.util.function.Predicate<PropertyDefinition>() {
-			@Override
-			public boolean test(PropertyDefinition t) {
-				return Optional.fromNullable(t.getUsableAsOption()).or(new Boolean(false)).booleanValue();
-			}
-		}).map(new Function<PropertyDefinition, String>() {
-			@Override
-			public String apply(PropertyDefinition t) {
-				return t.getDefaultEnum();
-			}
-		}).collect(Collectors.toList());
-		
-		defaultEnumsByGoogle.forEach(new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				if (!CategoryDetailPanel2.this.defaultEnumsModel.getObject().contains(t)) {
-					CategoryDetailPanel2.this.defaultEnumsModel.getObject().add(t);
+		if (this.formalCategoryModel.getObject().getPropertyOverrides() != null && !this.formalCategoryModel.getObject().getPropertyOverrides().isEmpty()) {
+			final List<String> defaultEnumsByGoogle = this.formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new java.util.function.Predicate<PropertyDefinition>() {
+				@Override
+				public boolean test(PropertyDefinition t) {
+					return Optional.fromNullable(t.getUsableAsOption()).or(new Boolean(false)).booleanValue();
 				}
-			}
-		});
+			}).map(new Function<PropertyDefinition, String>() {
+				@Override
+				public String apply(PropertyDefinition t) {
+					return t.getDefaultEnum();
+				}
+			}).collect(Collectors.toList());
+			
+			defaultEnumsByGoogle.forEach(new Consumer<String>() {
+				@Override
+				public void accept(String t) {
+					if (!CategoryDetailPanel2.this.defaultEnumsModel.getObject().contains(t)) {
+						CategoryDetailPanel2.this.defaultEnumsModel.getObject().add(t);
+					}
+				}
+			});
+		}
+		
 		
 		if (getModelObject().getLanguage() == null) {
 			getModelObject().setLanguage(appManifest.getDefaultLocale().toLanguageTag());
