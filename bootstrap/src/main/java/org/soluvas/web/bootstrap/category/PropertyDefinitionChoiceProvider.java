@@ -68,7 +68,7 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 			final List<PropertyDefinition> filteredPropDefList = dataPropDefListModel.getObject().stream().filter(new Predicate<PropertyDefinition>() {
 				@Override
 				public boolean test(PropertyDefinition t) {
-					return t.getName().startsWith(term.trim());
+					return t.getName().toLowerCase().startsWith(term.trim().toLowerCase());
 				}
 			}).collect(Collectors.toList());
 			result = new PageImpl<>(filteredPropDefList, new PageRequest(page, 10L, Direction.ASC, "name"), filteredPropDefList.size() - model.getObject().size());
