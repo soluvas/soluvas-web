@@ -131,14 +131,14 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param id
 	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param backPage
-	 * @param parentId Parent {@link Category#getUName()} (non-editable).
+	 * @param parentModel Parent {@link Category#getUName()} (non-editable).
 	 * @param defaultEnumsModel 
 	 * @param defaultMixinUName Default {@link Category#setDefaultMixin(String)}, this is app specific e.g. {@code base_Apparel}.
 	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
 	 * 		otherwise it will use the parent's {@code defaultMixin}.
 	 */
 	public CategoryDetailPanel2(final String id, final Class<? extends Page> backPage,
-			@Nullable final String parentId, final IModel<FormalCategory> formalCategoryModel,
+			@Nullable final IModel<Category2> parentModel, final IModel<FormalCategory> formalCategoryModel,
 			final IModel<List<String>> defaultEnumsModel) {
 		super(id);
 		
@@ -148,19 +148,25 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		this.formalCategoryModel = formalCategoryModel;
 		this.defaultEnumsModel = defaultEnumsModel;
 		
-		final Category2 category = new Category2();
-		category.setNsPrefix(tenant.getTenantId());
-		category.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
-		if (parentId != null) {
-			category.setParentId(parentId);
+		final Category2 newCategory = new Category2();
+		newCategory.setNsPrefix(tenant.getTenantId());
+		newCategory.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
+		if (parentModel.getObject() != null) {
+			//Property Overrides di kasihkan dari parent-nya!
+			newCategory.setParentId(parentModel.getObject().getId());
+			if (parentModel.getObject().getPropertyOverrides() != null && !parentModel.getObject().getPropertyOverrides().isEmpty()) {
+				newCategory.getPropertyOverrides().addAll(parentModel.getObject().getPropertyOverrides());
+			}
 		}
-		if (formalCategoryModel.getObject() != null) {
-			category.setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
-			category.getPropertyOverrides().addAll(formalCategoryModel.getObject().getPropertyOverrides());
+		if (parentModel.getObject() == null && formalCategoryModel.getObject() != null) {
+			newCategory.setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
+			if (formalCategoryModel.getObject().getPropertyOverrides() != null && !formalCategoryModel.getObject().getPropertyOverrides().isEmpty()) {
+				newCategory.getPropertyOverrides().addAll(formalCategoryModel.getObject().getPropertyOverrides());
+			}
 		}
-		category.setStatus(CategoryStatus.ACTIVE);
-		category.setPositioner(0);
-		setModel(new Model<>(category));
+		newCategory.setStatus(CategoryStatus.ACTIVE);
+		newCategory.setPositioner(0);
+		setModel(new Model<>(newCategory));
 	}
 
 	/**
