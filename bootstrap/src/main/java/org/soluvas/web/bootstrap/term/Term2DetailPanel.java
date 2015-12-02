@@ -23,7 +23,6 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -459,9 +458,9 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 						super.onConfigure();
 						setOutputMarkupId(true);
 						if (Objects.equal(selectedLocaleModel.getObject(), item.getModelObject())) {
-							add(new AttributeAppender("class", "btn btn-default active"));
+							add(new AttributeModifier("class", "btn-sm btn-info active multilang pull-left"));
 						} else {
-							add(new AttributeAppender("class", "btn btn-default"));
+							add(new AttributeModifier("class", "btn-sm btn-default multilang pull-left"));
 						}
 					}
 				};
