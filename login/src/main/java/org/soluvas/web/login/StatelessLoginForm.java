@@ -48,7 +48,7 @@ public class StatelessLoginForm extends Form<LoginToken> {
 		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
 		final UsernamePasswordToken token = new UsernamePasswordToken(
 				upUsername, upPassword.toCharArray(), tenant.getTenantId());
-		log.debug("Logging in using '{}' tenant '{}'", upUsername, tenant.getTenantId());
+		log.debug("Logging in using '{}' password {} tenant '{}'", upUsername, upPassword, tenant.getTenantId());
 		try {
 			final Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);
