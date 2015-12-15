@@ -59,6 +59,7 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 				final Existence<String> existence = personRepo.existsBySlug(StatusMask.RAW, upSlug);
 				switch (existence.getState()) {
 				case MATCHED:
+					log.debug("MATCHED");
 					final PageParameters pageParameters = Optional.fromNullable(
 							extractPageParameters(request, 2, pageParametersEncoder))
 							.or(new PageParameters());
@@ -67,12 +68,14 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 					return new UrlInfo(getPageComponentInfo(request.getUrl()),
 							personShowPage, pageParameters);
 				case MISMATCHED:
+					log.debug("MISMATCHED");
 					// canonical URI
 					throw new MapperRedirectException(new PageProvider(personShowPage, 
 							new PageParameters().set(LOCALE_PREF_ID_PARAMETER, localePrefId)
 								.set(SLUG_PARAMETER, existence.get())));
 //					throw new MapperRedirectException(new PageProvider(PersonPubViewPage.class, PersonPubViewPage.bySlug(existence.get())));
 				default:
+					log.debug("default");
 				}
 			}
 		}
