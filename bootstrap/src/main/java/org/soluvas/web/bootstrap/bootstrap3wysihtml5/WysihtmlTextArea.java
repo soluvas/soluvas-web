@@ -82,16 +82,25 @@ public class WysihtmlTextArea extends TextArea<String> {
 				Bootstrap3Wysihtml5v2.class, "wysiwyg-color.css");
 		
 		
+//		response.render(OnLoadHeaderItem.forScript(
+//				"$('#" + getMarkupId() + "').wysihtml5({"
+//						+ "\"image\": false,"
+//						+ "\"color\": true,"
+////						+ "\"html\": true,"
+////						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.class.getResource("/lib/css/wysiwyg-color.css") + "\"]"
+////						+ "\"stylesheets\": [\"wysiwyg-color.css\"]"
+////						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS + "\"]"
+//						+ "\"stylesheets\": [\"" + urlFor(Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS.getReference(), null) + "\"]"
+//						+ "})"));
+		
+		
 		response.render(OnLoadHeaderItem.forScript(
 				"$('#" + getMarkupId() + "').wysihtml5({"
 						+ "\"image\": false,"
 						+ "\"color\": true,"
-//						+ "\"html\": true,"
-//						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.class.getResource("/lib/css/wysiwyg-color.css") + "\"]"
-//						+ "\"stylesheets\": [\"wysiwyg-color.css\"]"
-//						+ "\"stylesheets\": [\"" + Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS + "\"]"
+						+"parser: function(html) { return html;},"		
 						+ "\"stylesheets\": [\"" + urlFor(Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS.getReference(), null) + "\"]"
-						+ "})"));
+				+ "})"));
 		
 		
 		// bootstrap-wysihtml5 is activated by advanced-form.js
