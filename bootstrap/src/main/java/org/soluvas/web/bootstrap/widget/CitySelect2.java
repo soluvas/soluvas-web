@@ -3,6 +3,7 @@ package org.soluvas.web.bootstrap.widget;
 import java.util.Collection;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
@@ -38,7 +39,7 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 	
 	private static class CityProvider extends ChoiceProvider<City> {
 		
-		@SpringBean
+		@Inject
 		private CityRepository cityRepo;
 		private final IModel<Country> countryModel;
 		private final IModel<Province> provinceModel;
@@ -61,16 +62,19 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
 //			if (provinceModel != null){
 //				province = provinceModel.getObject();
 //			}
-			log.debug("Querying city by country '{}', province '{}', and trimmedTerm '{}'",
-					country, province, trimedTerm);
 			final Page<City> pageCity;
 			if (country != null && province != null) {
+				log.debug("Querying city by country {}, province {}, and trimmedTerm '{}'",
+						country, province, trimedTerm);
 				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), province.getName().toLowerCase(), country.getIso(), new PageRequest(page, 20));
 			} else if (country != null && province == null) {
+				log.debug("Querying city by country {} and trimmedTerm '{}'", country, trimedTerm);
 				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), null, country.getIso(), new PageRequest(page, 20));
 			} else if (country == null && province != null) {
+				log.debug("Querying city by province {} and trimmedTerm '{}'", province, trimedTerm);
 				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), province.getName().toLowerCase(), new PageRequest(page, 20));
 			} else {
+				log.debug("Querying city by trimmedTerm '{}'", trimedTerm);
 				pageCity = cityRepo.searchCity(trimedTerm.toLowerCase(), new PageRequest(page, 20));
 			}
 			response.addAll(pageCity.getContent());
