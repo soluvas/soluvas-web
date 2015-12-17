@@ -1,12 +1,13 @@
 package org.soluvas.web.login.facebook;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
+import facebook4j.auth.AccessToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
@@ -24,13 +25,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.AccountStatus;
-import org.soluvas.commons.CommonsFactory;
-import org.soluvas.commons.Email;
-import org.soluvas.commons.Gender;
-import org.soluvas.commons.Person;
-import org.soluvas.commons.SlugUtils;
-import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.*;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
@@ -40,18 +35,19 @@ import org.soluvas.image.store.ImageRepository;
 import org.soluvas.json.JsonUtils;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
+import org.soluvas.socmed.FacebookApp;
+import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
-import com.restfb.DefaultFacebookClient;
-import com.restfb.FacebookClient;
-import com.restfb.types.User;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile
@@ -64,19 +60,25 @@ public class FacebookRecipient extends WebPage {
 
 	private static final Logger log = LoggerFactory.getLogger(FacebookRecipient.class);
 	
-	@SpringBean
+	@Inject
 	private PersonRepository personRepo;
-	@SpringBean(name="personImageRepo")
+	@SpringBean(name = "personImageRepo", required = false)
 	private ImageRepository personImageRepo;
-	@SpringBean(name="facebookMgr")
+	@SpringBean(required = false)
+	private FacebookApp facebookApp;
+	/**
+	 * @deprecated Use {@link FacebookApp}.
+	 */
+	@SpringBean(required = false) @Deprecated
 	private FacebookManager facebookMgr;
-	@SpringBean
+	@Inject
 	private WebAddress webAddress;
-	@SpringBean
+	@Inject
 	private TenantRef tenant;
 	
 	public FacebookRecipient(final PageParameters params) {
 		super();
+		Preconditions.checkState(facebookApp != null || facebookMgr != null, "facebookApp must be provided");
 		try {
 			final String code = params.get("code").toOptionalString();
 			if (Strings.isNullOrEmpty(code)) {
@@ -84,20 +86,26 @@ public class FacebookRecipient extends WebPage {
 			}
 	//		Preconditions.checkArgument(!Strings.isNullOrEmpty(code), "Code Parameter must be provided");
 			final String redirectUri = webAddress.getBaseUri() + "fb_recipient/";
-			final String appId = facebookMgr.getAppId();
-			final String appSecret = facebookMgr.getAppSecret();
+			final String appId = facebookApp != null ? facebookApp.getApiKey() : facebookMgr.getAppId();
+			final String appSecret = facebookApp != null ? facebookApp.getApiSecret() : facebookMgr.getAppSecret();
 	
 			log.debug("Code parameter url is {}", code);
-			add(new Label("code" ,code));
+			add(new Label("code", code));
 			
-			log.info("Getting access token for appId {} redirectUri {}",
-					appId, redirectUri);
-			final String accessToken = fetchAccessToken(appId, appSecret, redirectUri, code);
-			log.debug("fetching access token {}", accessToken);
-			final FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
-			final User fbUser = facebookClient.fetchObject("me", User.class);
+			log.info("Getting access token for appId {} redirectUri {}", appId, redirectUri);
+			final Facebook facebook = new FacebookFactory().getInstance();
+			facebook.setOAuthAppId(appId, appSecret);
+			facebook.setOAuthCallbackURL(redirectUri);
+//			final String accessToken = fetchAccessToken(appId, appSecret, redirectUri, code);
+			final AccessToken accessToken = facebook.getOAuthAccessToken(code);
+			log.debug("fetched access token: {}", accessToken);
+//			final long expiresInSeconds = new Duration(facebookAuthorization().getExpiryTime(), new DateTime()).getStandardSeconds();
+			facebook.setOAuthAccessToken(accessToken);
+
+//			final FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
+			final facebook4j.User fbUser = facebook.getMe();
 			Preconditions.checkNotNull("User should not be null", fbUser);
-			log.debug("Got user and user details{}", JsonUtils.asJson(fbUser));
+			log.debug("Got user and user details {}", JsonUtils.asJson(fbUser));
 			
 			Person curPerson = personRepo.findOneByFacebook(Long.valueOf(fbUser.getId()), null);
 			if (curPerson == null) {
@@ -113,20 +121,10 @@ public class FacebookRecipient extends WebPage {
 						curPerson.getId(), fbUser.getId());
 			} else {
 				Preconditions.checkNotNull(fbUser.getName(), "Facebook User's Name cannot be empty");
-				final String personId = SlugUtils.generateValidId(fbUser.getName(), new Predicate<String>() {
-					@Override
-					public boolean apply(@Nullable String input) {
-						return !personRepo.exists(input);
-					}
-				});
-				
-				final String personSlug = SlugUtils.generateValidScreenName(fbUser.getName(), new Predicate<String>() {
-					@Override
-					public boolean apply(@Nullable String input) {
-						return !personRepo.existsBySlug(StatusMask.RAW, input).isPresent();
-					}
-				});
-				
+				final String personId = SlugUtils.generateValidId(fbUser.getName(),
+						input -> !personRepo.exists(input));
+				final String personSlug = SlugUtils.generateValidId(fbUser.getName(),
+						input -> !personRepo.existsBySlug(StatusMask.RAW, input).isPresent());
 				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
@@ -148,7 +146,7 @@ public class FacebookRecipient extends WebPage {
 			}
 			curPerson.setFacebookUsername(fbUser.getUsername());
 			curPerson.setFacebookId(Long.valueOf(fbUser.getId()));
-			curPerson.setFacebookAccessToken(accessToken);
+			curPerson.setFacebookAccessToken(accessToken.getToken());
 			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
 				log.debug("User {} from Facebook ID {} has email {}",
 						curPerson.getId(), fbUser.getId(), fbUser.getEmail());
@@ -171,13 +169,18 @@ public class FacebookRecipient extends WebPage {
 					curPerson.getId(), fbUser.getId());
 			}
 			if (curPerson.getPhotoId() == null) {
-				//Set photo from Facebook.
-				try {
-					final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(
-							curPerson.getFacebookId(), curPerson.getName(), personImageRepo);
-					curPerson.setPhotoId(imageId);
-				} catch (Exception e) {
-					log.error("Cannot refresh photo from Facebook for person " + curPerson.getId() + " " + curPerson.getName(), e);
+				if (personImageRepo != null) {
+					//Set photo from Facebook.
+					try {
+						final String imageId = FacebookUtilsImpl.refreshPhotoFromFacebook(
+								curPerson.getFacebookId(), curPerson.getName(), personImageRepo);
+						curPerson.setPhotoId(imageId);
+					} catch (Exception e) {
+						log.error("Cannot refresh photo from Facebook for person " + curPerson.getId() + " " + curPerson.getName(), e);
+					}
+				} else {
+					log.warn("Not refreshing photo from Facebook for person {} {} because personImageRepo bean not provided",
+							curPerson.getId(), curPerson.getName());
 				}
 			}
 			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson); 
@@ -185,7 +188,7 @@ public class FacebookRecipient extends WebPage {
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
 					Strings.nullToEmpty(modifiedPerson.getId()), tenant.getTenantId());
-			log.debug("Logging in using AutologinToken {}", token.getPrincipal() );
+			log.debug("Logging in using AutologinToken {}", token.getPrincipal());
 			try {
 				final Subject currentUser = SecurityUtils.getSubject();
 				currentUser.login(token);
@@ -207,14 +210,23 @@ public class FacebookRecipient extends WebPage {
 		}
 	}
 
+	/**
+	 * @param appId
+	 * @param appSecret
+	 * @param redirectUri
+	 * @param code
+     * @return
+	 * @deprecated Use {@link Facebook#getOAuthAccessToken(String)}
+     */
+	@Deprecated
 	public String fetchAccessToken(String appId, String appSecret, String redirectUri, String code) {
 		try {
-			final URIBuilder accessTokenUri = new URIBuilder("https://graph.facebook.com/oauth/access_token");
-			accessTokenUri.addParameter("client_id", appId);
-			accessTokenUri.addParameter("client_secret", appSecret);
-			accessTokenUri.addParameter("redirect_uri", redirectUri);
-			accessTokenUri.addParameter("code", code);
-			final HttpGet accessTokenUriRequest = new HttpGet(accessTokenUri.build());
+			final URI accessTokenUri = new URIBuilder("https://graph.facebook.com/oauth/access_token")
+				.addParameter("client_id", appId)
+				.addParameter("client_secret", appSecret)
+				.addParameter("redirect_uri", redirectUri)
+				.addParameter("code", code).build();
+			final HttpGet accessTokenUriRequest = new HttpGet(accessTokenUri);
 			final DefaultHttpClient client = new DefaultHttpClient();
 			final HttpResponse responseAccessTokenReq = client.execute(accessTokenUriRequest);
 			if (responseAccessTokenReq.getStatusLine().getStatusCode() != 200)
@@ -230,8 +242,8 @@ public class FacebookRecipient extends WebPage {
 			return accessToken;
 			//throw new RedirectToUrlException(myUrl.toString());
 		} catch (final Exception ex) {
-			throw new RuntimeException("Error when building Facebook URI for appId " + 
-				appId + " and redirectUri " + redirectUri, ex);
+			throw new LoginException(ex, "Error when building Facebook URI for appId %s and redirectUri %s",
+					appId, redirectUri);
 		}
 	}
 	

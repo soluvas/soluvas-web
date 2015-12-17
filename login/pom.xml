@@ -58,8 +58,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.restfb</groupId>
-			<artifactId>restfb</artifactId>
+			<groupId>org.facebook4j</groupId>
+			<artifactId>facebook4j-core</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
