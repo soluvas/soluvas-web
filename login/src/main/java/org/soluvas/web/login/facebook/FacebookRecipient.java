@@ -8,12 +8,6 @@ import com.google.common.collect.Iterables;
 import facebook4j.Facebook;
 import facebook4j.FacebookFactory;
 import facebook4j.auth.AccessToken;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -36,18 +30,12 @@ import org.soluvas.json.JsonUtils;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.socmed.FacebookApp;
-import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile
@@ -210,41 +198,4 @@ public class FacebookRecipient extends WebPage {
 		}
 	}
 
-	/**
-	 * @param appId
-	 * @param appSecret
-	 * @param redirectUri
-	 * @param code
-     * @return
-	 * @deprecated Use {@link Facebook#getOAuthAccessToken(String)}
-     */
-	@Deprecated
-	public String fetchAccessToken(String appId, String appSecret, String redirectUri, String code) {
-		try {
-			final URI accessTokenUri = new URIBuilder("https://graph.facebook.com/oauth/access_token")
-				.addParameter("client_id", appId)
-				.addParameter("client_secret", appSecret)
-				.addParameter("redirect_uri", redirectUri)
-				.addParameter("code", code).build();
-			final HttpGet accessTokenUriRequest = new HttpGet(accessTokenUri);
-			final DefaultHttpClient client = new DefaultHttpClient();
-			final HttpResponse responseAccessTokenReq = client.execute(accessTokenUriRequest);
-			if (responseAccessTokenReq.getStatusLine().getStatusCode() != 200)
-				throw new IOException(String.format(
-						"GET %s throws HTTP Error %d: %s", accessTokenUriRequest, responseAccessTokenReq
-								.getStatusLine().getStatusCode(), responseAccessTokenReq
-								.getStatusLine().getReasonPhrase()));
-			final Scanner scanner = new Scanner(responseAccessTokenReq.getEntity().getContent());
-			final List<NameValuePair> data = new ArrayList<>();
-			URLEncodedUtils.parse(data, scanner, "UTF-8");
-			
-			final String accessToken = data.get(0).getValue();
-			return accessToken;
-			//throw new RedirectToUrlException(myUrl.toString());
-		} catch (final Exception ex) {
-			throw new LoginException(ex, "Error when building Facebook URI for appId %s and redirectUri %s",
-					appId, redirectUri);
-		}
-	}
-	
 }
