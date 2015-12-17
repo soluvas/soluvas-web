@@ -56,7 +56,8 @@ public class PersonRequestMapper extends SeoBookmarkableMapper {
 						((ServletRequest) request.getContainerRequest()).getServletContext());
 				final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
 				// RAW because we can detect mismatch
-				final Existence<String> existence = personRepo.existsBySlug(StatusMask.RAW, upSlug);
+//				final Existence<String> existence = personRepo.existsBySlug(StatusMask.ACTIVE_ONLY, upSlug);
+				final Existence<String> existence = personRepo.existsBySlugCacheable(StatusMask.ACTIVE_ONLY, upSlug);
 				switch (existence.getState()) {
 				case MATCHED:
 					log.debug("MATCHED");
