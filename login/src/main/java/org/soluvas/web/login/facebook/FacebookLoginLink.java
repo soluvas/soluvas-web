@@ -1,5 +1,6 @@
 package org.soluvas.web.login.facebook;
 
+import com.google.common.base.Strings;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -12,7 +13,7 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.facebook.FacebookManager;
 import org.soluvas.web.login.LoginException;
 
-import com.google.common.base.Strings;
+import javax.inject.Inject;
 
 /**
  * {@link ExternalLink} that gets its source from {@link FacebookManager} settings.
@@ -26,7 +27,7 @@ public class FacebookLoginLink extends ExternalLink {
 
 	@SpringBean(required=false)
 	private FacebookManager facebookMgr;
-	@SpringBean
+	@Inject
 	private WebAddress webAddress;
 
 	public FacebookLoginLink(String id) {
@@ -34,7 +35,7 @@ public class FacebookLoginLink extends ExternalLink {
 	}
 	
 	public FacebookLoginLink(String id, Class<? extends Page> recipientPage) {
-		super(id, new Model<String>());
+		super(id, new Model<>());
 		
 		if (facebookMgr != null && !Strings.isNullOrEmpty(facebookMgr.getAppId()) && 
 				!Strings.isNullOrEmpty(facebookMgr.getAppSecret())) {
@@ -58,9 +59,6 @@ public class FacebookLoginLink extends ExternalLink {
 						.addParameter(
 								"scope",
 								"user_likes,read_stream,email,user_birthday,user_hometown,user_about_me,user_photos,user_religion_politics,user_relationships,user_work_history,user_education_history,user_website,publish_actions");
-				/**
-				 * offline_access,publish_stream,share_item --> removed, soalnya ga ada lagi
-				 */
 				final String fbLoginUri = fbLoginUriBuilder.toString();
 				log.trace("Facebook login URI {}", fbLoginUri);
 				setDefaultModelObject(fbLoginUri);
