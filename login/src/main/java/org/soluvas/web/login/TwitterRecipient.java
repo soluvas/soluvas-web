@@ -51,10 +51,7 @@ import com.google.common.base.Strings;
  */
 @SuppressWarnings("serial")
 @MountPath("twitter_recipient/")
-public class TwitterRecipient extends WebPage {
-	
-	private static final Logger log = LoggerFactory
-			.getLogger(TwitterRecipient.class);
+public class TwitterRecipient extends AbstractTwitterRecipientPage {
 	
 	@SpringBean(name="twitterMgr")
 	private TwitterManager twitterManager;
@@ -68,116 +65,6 @@ public class TwitterRecipient extends WebPage {
 	private TenantRef tenant;
 	
 	public TwitterRecipient(final PageParameters params) {
-		super();
-		final String verifier = params.get("oauth_verifier").toOptionalString();
-//		Preconditions.checkArgument(!Strings.isNullOrEmpty(verifier), "oauth_verifier Parameter must be provided");
-		if (Strings.isNullOrEmpty(verifier)) {
-			throw new NotLoggedWithTwitterException();
-		}
-        final SoluvasWebSession session = (SoluvasWebSession) getSession();
-        final RequestToken requestToken = new RequestToken(session.getTwitterRequestToken(), session.getTwitterRequestTokenSecret());
-
-        final AccessToken oAuthAccessToken;
-        try {
-        	final Twitter twitter = twitterManager.createTwitter();
-			oAuthAccessToken = twitter.getOAuthAccessToken(requestToken, verifier);
-            session.setTwitterRequestToken(null);
-            session.setTwitterRequestTokenSecret(null);
-        } catch (final TwitterException e) {
-            info("Error when processing Twitter verifier " + e.getMessage());
-			log.error("Error when processing Twitter verifier", e);
-			throw new NotLoggedWithTwitterException("Error when processing Twitter verifier", e);
-        }
-        //response.sendRedirect(request.getContextPath() + "/");
-	        
-		log.debug("Code parameter url is {}", verifier);
-		add(new Label("code", verifier));
-		try {
-			final String accessToken = oAuthAccessToken.getToken(); 
-			log.debug("fetching access token {}", accessToken);
-			final Twitter twitter = twitterManager.createTwitter(oAuthAccessToken.getToken(), oAuthAccessToken.getTokenSecret());
-			final User twitterUser = twitter.showUser(oAuthAccessToken.getUserId());
-			Preconditions.checkNotNull("User should not be null", twitterUser);
-			log.debug("Got user {}", JsonUtils.asJson(twitterUser));
-			
-			Person curPerson = personRepo.findOneByTwitter(Long.valueOf(twitterUser.getId()), null);
-			if (curPerson == null) {
-				curPerson = personRepo.findOneByTwitter(null, twitterUser.getScreenName());
-			}
-			
-			if (curPerson != null) {
-				// Direct Login
-				log.debug("Person {} from Twitter ID {} (#{}) exists",
-						curPerson.getId(), twitterUser.getScreenName(), twitterUser.getId());
-			} else {
-				final String personFullName = Preconditions.checkNotNull(twitterUser.getName(), "Twitter User's Name cannot be empty");
-				final String personId = SlugUtils.generateValidId(personFullName, new Predicate<String>() {
-					@Override
-					public boolean apply(@Nullable String input) {
-						return !personRepo.exists(input);
-					}
-				});
-				
-				final String personSlug = SlugUtils.generateValidScreenName(personFullName, new Predicate<String>() {
-					@Override
-					public boolean apply(@Nullable String input) {
-						return !personRepo.existsBySlug(StatusMask.RAW, input).isPresent();
-					}
-				});
-				final PersonName personName = NameUtils.splitName(personFullName);
-				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);
-				curPerson.setCreationTime(new DateTime());
-				curPerson.setModificationTime(new DateTime());
-				personRepo.add(curPerson);
-				log.debug("person {} is inserted", personId);
-			}
-			
-			if (curPerson.getValidationTime() == null) {
-				curPerson.setValidationTime(new DateTime());
-			}
-			curPerson.setAccountStatus(AccountStatus.ACTIVE);
-			curPerson.setTwitterScreenName(twitterUser.getScreenName());
-			curPerson.setTwitterId(Long.valueOf(twitterUser.getId()));
-			curPerson.setTwitterAccessToken(oAuthAccessToken.getToken());
-			curPerson.setTwitterAccessTokenSecret(oAuthAccessToken.getTokenSecret());
-			curPerson.setTwitterScreenName(twitterUser.getScreenName());
-			if (curPerson.getPhotoId() == null) {
-				//Set photo from Twitter.
-				try {
-					final String imageId = TwitterUtils.refreshPhotoFromTwitter(
-							curPerson, twitterManager.getConsumerKey(), twitterManager.getConsumerSecret(), personImageRepo);
-					curPerson.setPhotoId(imageId);
-				} catch (Exception e) {
-					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
-				}
-			}
-			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
-			
-			// Set Token And Set Session
-			final AuthenticationToken token = new AutologinToken(
-					Strings.nullToEmpty(modifiedPerson.getId()), tenant.getTenantId());
-			log.debug("Logging in using AutologinToken {}", token.getPrincipal() );
-			try {
-				final Subject currentUser = SecurityUtils.getSubject();
-				currentUser.login(token);
-				final String personId = Preconditions.checkNotNull(modifiedPerson.getId(),
-						"Cannot get current user as person ID");
-				Interaction.LOGIN.info("You are now logged in as %s", personId);
-				log.debug("Current user is now {}, permitted to edit person? {}", personId, currentUser.isPermitted("person:edit:*"));
-//							onLoginSuccess(personId);
-			} catch (final AuthenticationException e) {
-//				error(String.format("Invalid credentials for %s", token.getPrincipal()));
-				getSession().error(String.format("Wrong Username/Email and password combination."));
-				log.debug(String.format("Invalid credentials for %s", token.getPrincipal()), e);
-			}
-						
-			// Redirect Url
-			((SoluvasWebSession) getSession()).postLoginSuccess();
-		} catch (TwitterException e) {
-			throw new NotLoggedWithTwitterException("Error when processing Twitter verifier", e);
-//			info("Error when processing Twitter verifier" + e.getMessage());
-//			log.error("Error when processing Twitter verifier", e);
-//			throw new RestartResponseException(DedicatedLoginPage.class);
-		}
+		super(params);
 	}
 }

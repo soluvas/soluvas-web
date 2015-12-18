@@ -24,6 +24,7 @@ import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.facebook.FacebookRecipient;
+import org.soluvas.web.login.facebook.SpringFacebookRecipientPage;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
 import org.springframework.security.core.Authentication;
@@ -65,7 +66,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	public SpringDedicatedLoginPanel(final String id,
 									 final IModel<LoginToken> userLoginModel) {
 		super(id, userLoginModel);
-		this.facebookRecipientPage = FacebookRecipient.class;
+		this.facebookRecipientPage = SpringFacebookRecipientPage.class;
 		this.twitterRecipientPage = TwitterRecipient.class;
 	}
 
