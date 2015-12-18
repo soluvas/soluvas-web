@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import de.agilecoders.wicket.core.Bootstrap;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -41,8 +42,8 @@ public class FriendlyErrorPage extends InternalErrorPage {
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		// do not depend on BootstrapSettings, because they will use ThemeProvider, which use custom theme which can be problematic or no bootstrap CSS at all
-		response.render(JavaScriptHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
-		response.render(CssHeaderItem.forReference(BootstrapCssReference.instance()));
+		response.render(JavaScriptHeaderItem.forReference(Bootstrap.getSettings().getJsResourceReference()));
+		response.render(CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 	}
 	
 	public FriendlyErrorPage(UUID incidentId, Exception ex) {
