@@ -67,7 +67,9 @@ public class WebLink extends ExternalLink {
 		vars.putAll(params.getObject());
 		log.trace("Expanding {} using {}", getPageRelativePath(), hrefTemplate);
 		try {
-			final String href = UriTemplate.fromTemplate(hrefTemplate).expand(vars);
+//			final String href = UriTemplate.fromTemplate(hrefTemplate).expand(vars);
+			final String href = UriTemplate.expand(hrefTemplate, vars);
+//			log.debug("href '{}' and params: {}", href, params);
 			tag.put("href", href);
 		} catch (VariableExpansionException | MalformedUriTemplateException e) {
 			throw new SiteException(e, "WebLink %'s href is invalid URI template or without variables, please use standard link for non-dynamic URIs: %s",
