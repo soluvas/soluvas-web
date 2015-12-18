@@ -47,25 +47,24 @@ import com.google.common.base.Optional;
 public class SoluvasWebSession extends AuthenticatedWebSession {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = LoggerFactory
-			.getLogger(SoluvasWebSession.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Deprecated
-	private String userId;
-	private String twitterRequestToken;
-	private String twitterRequestTokenSecret;
-	private Url originalUrl;
-	private boolean tokenFlow;
+	protected String userId;
+	protected String twitterRequestToken;
+	protected String twitterRequestTokenSecret;
+	protected Url originalUrl;
+	protected boolean tokenFlow;
 	/**
 	 * Used by token flow authentication.
 	 */
-	private String redirectUri;
+	protected String redirectUri;
 	@SpringBean(required=false)
-	private AppManifest appManifest;
+	protected AppManifest appManifest;
 	@Inject
-	private DefaultsConfig defaultsConfig;
+	protected DefaultsConfig defaultsConfig;
 	@SpringBean(required=false) @Nullable // Bippo uses this, but other clients usually don't
-	private IpLocationRepository ipLocationRepo;
+	protected IpLocationRepository ipLocationRepo;
 	
 	public SoluvasWebSession(Request request) {
 		super(request);
@@ -73,17 +72,15 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 		try {
 			final RequestCycle requestCycle = RequestCycle.get();
 			@Nullable
-			final String localePrefId;
+			String localePrefId = null;
 			if (requestCycle.getActiveRequestHandler() instanceof IPageRequestHandler) {
 				final IPageRequestHandler pageHandler = (IPageRequestHandler) requestCycle.getActiveRequestHandler();
-				final PageParameters params = pageHandler.getPageParameters();
-				if (params != null) {
-					localePrefId = params.get(SeoBookmarkableMapper.LOCALE_PREF_ID_PARAMETER).toOptionalString();
-				} else  {
-					localePrefId = null;
+				if (pageHandler.isPageInstanceCreated()) {
+					final PageParameters params = pageHandler.getPageParameters();
+					if (params != null) {
+						localePrefId = params.get(SeoBookmarkableMapper.LOCALE_PREF_ID_PARAMETER).toOptionalString();
+					}
 				}
-			} else {
-				localePrefId = null;
 			}
 			
 			final Locale locale;
@@ -213,6 +210,17 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 		this.redirectUri = redirectUri;
 	}
 
+	public WebApplicationContext getApplicationContext() {
+		return WebApplicationContextUtils.getRequiredWebApplicationContext(
+				((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getServletContext() );
+	}
+
+	/**
+	 * Will be called by {@link #postLoginSuccess()} before redirecting, you can override this.
+	 */
+	protected void beforeLoginSuccess() {
+	}
+
 	/**
 	 * Login handlers and recipient pages (Facebook, Twitter, token)
 	 * should call this method after login is successful ({@link Subject#getPrincipal()} is properly set).
@@ -223,16 +231,14 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 	 *  <li>{@link WebApplication#getHomePage()} otherwise</li>
 	 * </ol>
 	 */
-	public void postLoginSuccess() {
+	public final void postLoginSuccess() {
+		beforeLoginSuccess();
 		log.debug("postLoginSuccess() will redirect to token or to original URI or to home page");
-		final RequestCycle requestCycle = RequestCycle.get();
 		if (isTokenFlow()) {
 			// get or create access token
 			// Used by token flow. Won't work with {@link Person}.
 			// http://stackoverflow.com/a/9823467/1343587
-			WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext( 
-					((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest()).getServletContext() ); 
-			final PersonRepository personRepo = appCtx.getBean(PersonRepository.class);
+			final PersonRepository personRepo = getApplicationContext().getBean(PersonRepository.class);
 			final Person person = personRepo.findOne((String) SecurityUtils.getSubject().getPrincipal());
 			if (person.getClientAccessToken() == null) {
 				person.setClientAccessToken(UUID.randomUUID().toString());
@@ -250,7 +256,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			throw new RedirectToUrlException(destUri);
 		} else if (getOriginalUrl() != null) {
 //			final String redirectUri = new RedirectByUserType(mallManager, webAddress, shopRepo, personLookup).apply(personId);
-			final String destUri = requestCycle.getRequest().getContextPath() + "/" + getOriginalUrl().toString();
+			final String destUri = RequestCycle.get().getRequest().getContextPath() + "/" + getOriginalUrl().toString();
 			setOriginalUrl(null);
 			log.debug("Session has originalUrl, redirecting to {}", destUri);
 			throw new RedirectToUrlException(destUri);
@@ -258,8 +264,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			// If Regular User
 			final Class<? extends Page> homePage = getApplication().getHomePage();
 //			RedirectByUserTyperType;
-			
-			log.debug("Session has no original URI, redirecting to {}", homePage.getName()); 
+			log.debug("Session has no original URI, redirecting to {}", homePage.getName());
 			throw new RestartResponseException(homePage);
 		}
 	}

@@ -4,7 +4,6 @@ import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -36,6 +35,14 @@ public class SpringWebSession extends SoluvasWebSession {
 
     public SpringWebSession(Request request) {
         super(request);
+    }
+
+    /**
+     * Returns Spring Security's {@link Authentication} object.
+     * @return
+     */
+    public Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
     @Override
