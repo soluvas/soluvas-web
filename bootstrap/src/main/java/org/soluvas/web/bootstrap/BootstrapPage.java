@@ -73,6 +73,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
 
+import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.MetaTag;
@@ -205,6 +206,8 @@ public class BootstrapPage extends ExtensiblePage {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
+		
+		response.render(CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 
 		// doesn't work, nginx as of 1.3.15 disables Etag if content is gzipped
 //		if (requireMgr.getJavaScriptMode() == JavaScriptMode.DEVELOPMENT) {
