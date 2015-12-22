@@ -48,6 +48,14 @@ public class EnumColumn<T> extends PropertyColumn<T, String> {
 		this.iconMapping = ImmutableMap.copyOf(iconMapping);
 	}
 	
+	public EnumColumn(IModel<String> displayModel, String propertyExpression,
+			EEnum eEnum, Map<? extends Enum<?>, String> iconMapping, String headerIcon) {
+		super(displayModel, propertyExpression, propertyExpression);
+		this.docs = TitledEnumLabel.getEEnumDocs(eEnum);
+		this.iconMapping = ImmutableMap.copyOf(iconMapping);
+		this.headerIcon = headerIcon;
+	}
+	
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
 		final TitledEnumLabel label = new TitledEnumLabel(componentId,
