@@ -3,6 +3,7 @@ package org.soluvas.web.bootstrap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.agilecoders.wicket.core.Bootstrap;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -28,8 +29,8 @@ public class TenantNotFoundPage extends AbstractErrorPage {
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		// do not depend on BootstrapSettings, because they will use ThemeProvider, which use custom theme which can be problematic or no bootstrap CSS at all
-		response.render(JavaScriptHeaderItem.forReference(BootstrapJavaScriptReference.instance()));
-		response.render(CssHeaderItem.forReference(BootstrapCssReference.instance()));
+		response.render(JavaScriptHeaderItem.forReference(Bootstrap.getSettings().getJsResourceReference()));
+		response.render(CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 	}
 
 	@Override

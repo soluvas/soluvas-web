@@ -1,18 +1,18 @@
 package org.soluvas.web.bootstrap;
 
-import java.util.Locale;
-
+import com.google.common.collect.ImmutableList;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.CssResourceReference;
 
-import com.google.common.collect.ImmutableList;
-
-import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapCssReference;
+import java.util.Locale;
 
 /**
- * A {@link CssResourceReference} that requires {@link BootstrapCssReference}.
+ * A {@link CssResourceReference} that requires {@link BootstrapSettings#getCssResourceReference()}.
  * @author mahendri
+ * @deprecated Doesn't work well with {@link de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapTheme} anyway.
  */
 public class AfterBootstrapCssResourceReference extends CssResourceReference {
 
@@ -48,7 +48,7 @@ public class AfterBootstrapCssResourceReference extends CssResourceReference {
 	@SuppressWarnings("null")
 	@Override
 	public Iterable<? extends HeaderItem> getDependencies() {
-		return ImmutableList.of(CssHeaderItem.forReference(BootstrapCssReference.instance()));
+		return ImmutableList.of(); //screws bootswatch CSS: CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 	}
 
 	public CssHeaderItem asHeaderItem() {

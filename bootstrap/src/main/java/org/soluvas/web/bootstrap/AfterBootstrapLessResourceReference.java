@@ -2,6 +2,7 @@ package org.soluvas.web.bootstrap;
 
 import java.util.Locale;
 
+import de.agilecoders.wicket.core.Bootstrap;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 
@@ -48,7 +49,7 @@ public class AfterBootstrapLessResourceReference extends LessResourceReference {
 	@SuppressWarnings("null")
 	@Override
 	public Iterable<? extends HeaderItem> getDependencies() {
-		return ImmutableList.of(CssHeaderItem.forReference(BootstrapCssReference.instance()));
+		return ImmutableList.of(CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 	}
 	
 	public CssHeaderItem asHeaderItem() {
