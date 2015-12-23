@@ -4,26 +4,13 @@ package org.soluvas.web.site.pagemeta.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.util.Switch;
-import org.soluvas.web.site.pagemeta.OpenGraphAudio;
-import org.soluvas.web.site.pagemeta.OpenGraphImage;
-import org.soluvas.web.site.pagemeta.OpenGraphMeta;
-import org.soluvas.web.site.pagemeta.OpenGraphVideo;
-import org.soluvas.web.site.pagemeta.PageDeclaration;
-import org.soluvas.web.site.pagemeta.PageIcon;
-import org.soluvas.web.site.pagemeta.PageMeta;
-import org.soluvas.web.site.pagemeta.PageMetaCatalog;
-import org.soluvas.web.site.pagemeta.PageMetaCollection;
-import org.soluvas.web.site.pagemeta.PageRule;
-import org.soluvas.web.site.pagemeta.PageRuleCollection;
-import org.soluvas.web.site.pagemeta.PageSelector;
-import org.soluvas.web.site.pagemeta.PageTitle;
-import org.soluvas.web.site.pagemeta.PagemetaPackage;
-import org.soluvas.web.site.pagemeta.ProcessorPageDeclaration;
-import org.soluvas.web.site.pagemeta.RepositoryPageDeclaration;
-import org.soluvas.web.site.pagemeta.ResourcePageDeclaration;
-import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
-import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
+
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
+import org.soluvas.commons.ResourceAware;
+import org.soluvas.web.site.pagemeta.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +25,7 @@ import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage
  * @generated
  */
-public class PageMetaSwitch<T> extends Switch<T> {
+public class PagemetaSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -53,7 +40,7 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaSwitch() {
+	public PagemetaSwitch() {
 		if (modelPackage == null) {
 			modelPackage = PagemetaPackage.eINSTANCE;
 		}
@@ -70,6 +57,146 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
+	}
+
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	@Override
+	protected T doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
+			case PagemetaPackage.PAGE_META: {
+				PageMeta pageMeta = (PageMeta)theEObject;
+				T result = casePageMeta(pageMeta);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_ICON: {
+				PageIcon pageIcon = (PageIcon)theEObject;
+				T result = casePageIcon(pageIcon);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.OPEN_GRAPH_META: {
+				OpenGraphMeta openGraphMeta = (OpenGraphMeta)theEObject;
+				T result = caseOpenGraphMeta(openGraphMeta);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.OPEN_GRAPH_IMAGE: {
+				OpenGraphImage openGraphImage = (OpenGraphImage)theEObject;
+				T result = caseOpenGraphImage(openGraphImage);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.OPEN_GRAPH_VIDEO: {
+				OpenGraphVideo openGraphVideo = (OpenGraphVideo)theEObject;
+				T result = caseOpenGraphVideo(openGraphVideo);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.OPEN_GRAPH_AUDIO: {
+				OpenGraphAudio openGraphAudio = (OpenGraphAudio)theEObject;
+				T result = caseOpenGraphAudio(openGraphAudio);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_SELECTOR: {
+				PageSelector pageSelector = (PageSelector)theEObject;
+				T result = casePageSelector(pageSelector);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.URI_PATTERN_PAGE_SELECTOR: {
+				UriPatternPageSelector uriPatternPageSelector = (UriPatternPageSelector)theEObject;
+				T result = caseUriPatternPageSelector(uriPatternPageSelector);
+				if (result == null) result = casePageSelector(uriPatternPageSelector);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_RULE: {
+				PageRule pageRule = (PageRule)theEObject;
+				T result = casePageRule(pageRule);
+				if (result == null) result = caseBundleAware(pageRule);
+				if (result == null) result = caseResourceAware(pageRule);
+				if (result == null) result = casePositionable(pageRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_DECLARATION: {
+				PageDeclaration pageDeclaration = (PageDeclaration)theEObject;
+				T result = casePageDeclaration(pageDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.SOURCE_PAGE_DECLARATION: {
+				SourcePageDeclaration sourcePageDeclaration = (SourcePageDeclaration)theEObject;
+				T result = caseSourcePageDeclaration(sourcePageDeclaration);
+				if (result == null) result = casePageDeclaration(sourcePageDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PROCESSOR_PAGE_DECLARATION: {
+				ProcessorPageDeclaration processorPageDeclaration = (ProcessorPageDeclaration)theEObject;
+				T result = caseProcessorPageDeclaration(processorPageDeclaration);
+				if (result == null) result = casePageDeclaration(processorPageDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.RESOURCE_PAGE_DECLARATION: {
+				ResourcePageDeclaration resourcePageDeclaration = (ResourcePageDeclaration)theEObject;
+				T result = caseResourcePageDeclaration(resourcePageDeclaration);
+				if (result == null) result = casePageDeclaration(resourcePageDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.REPOSITORY_PAGE_DECLARATION: {
+				RepositoryPageDeclaration repositoryPageDeclaration = (RepositoryPageDeclaration)theEObject;
+				T result = caseRepositoryPageDeclaration(repositoryPageDeclaration);
+				if (result == null) result = casePageDeclaration(repositoryPageDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_META_CATALOG: {
+				PageMetaCatalog pageMetaCatalog = (PageMetaCatalog)theEObject;
+				T result = casePageMetaCatalog(pageMetaCatalog);
+				if (result == null) result = casePageRuleCollection(pageMetaCatalog);
+				if (result == null) result = caseBundleAware(pageMetaCatalog);
+				if (result == null) result = caseResourceAware(pageMetaCatalog);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_META_COLLECTION: {
+				PageMetaCollection pageMetaCollection = (PageMetaCollection)theEObject;
+				T result = casePageMetaCollection(pageMetaCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_RULE_COLLECTION: {
+				PageRuleCollection pageRuleCollection = (PageRuleCollection)theEObject;
+				T result = casePageRuleCollection(pageRuleCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.PAGE_TITLE: {
+				PageTitle pageTitle = (PageTitle)theEObject;
+				T result = casePageTitle(pageTitle);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PagemetaPackage.CLASS_PAGE_SELECTOR: {
+				ClassPageSelector classPageSelector = (ClassPageSelector)theEObject;
+				T result = caseClassPageSelector(classPageSelector);
+				if (result == null) result = casePageSelector(classPageSelector);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			default: return defaultCase(theEObject);
+		}
 	}
 
 	/**
@@ -283,13 +410,13 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Catalog</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Page Meta Catalog</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Catalog</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Page Meta Catalog</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -298,13 +425,13 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Collection</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Page Meta Collection</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Collection</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Page Meta Collection</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -343,6 +470,66 @@ public class PageMetaSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Class Page Selector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Class Page Selector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseClassPageSelector(ClassPageSelector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bundle Aware</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bundle Aware</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBundleAware(BundleAware object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Aware</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Aware</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResourceAware(ResourceAware object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Positionable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Positionable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePositionable(Positionable object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -358,4 +545,4 @@ public class PageMetaSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //PageMetaSwitch
+} //PagemetaSwitch

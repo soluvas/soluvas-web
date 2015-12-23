@@ -9,6 +9,9 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.soluvas.commons.BundleAware;
+import org.soluvas.commons.Positionable;
+import org.soluvas.commons.ResourceAware;
 import org.soluvas.web.site.pagemeta.*;
 
 /**
@@ -19,7 +22,7 @@ import org.soluvas.web.site.pagemeta.*;
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage
  * @generated
  */
-public class PageMetaAdapterFactory extends AdapterFactoryImpl {
+public class PagemetaAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
@@ -34,7 +37,7 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PageMetaAdapterFactory() {
+	public PagemetaAdapterFactory() {
 		if (modelPackage == null) {
 			modelPackage = PagemetaPackage.eINSTANCE;
 		}
@@ -65,8 +68,8 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PageMetaSwitch<Adapter> modelSwitch =
-		new PageMetaSwitch<Adapter>() {
+	protected PagemetaSwitch<Adapter> modelSwitch =
+		new PagemetaSwitch<Adapter>() {
 			@Override
 			public Adapter casePageMeta(PageMeta object) {
 				return createPageMetaAdapter();
@@ -138,6 +141,22 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePageTitle(PageTitle object) {
 				return createPageTitleAdapter();
+			}
+			@Override
+			public Adapter caseClassPageSelector(ClassPageSelector object) {
+				return createClassPageSelectorAdapter();
+			}
+			@Override
+			public Adapter caseBundleAware(BundleAware object) {
+				return createBundleAwareAdapter();
+			}
+			@Override
+			public Adapter caseResourceAware(ResourceAware object) {
+				return createResourceAwareAdapter();
+			}
+			@Override
+			public Adapter casePositionable(Positionable object) {
+				return createPositionableAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -356,7 +375,7 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCatalog <em>Catalog</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCatalog <em>Page Meta Catalog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -370,7 +389,7 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Collection</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.PageMetaCollection <em>Page Meta Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
@@ -412,6 +431,62 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.web.site.pagemeta.ClassPageSelector <em>Class Page Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.web.site.pagemeta.ClassPageSelector
+	 * @generated
+	 */
+	public Adapter createClassPageSelectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.BundleAware <em>Bundle Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.BundleAware
+	 * @generated
+	 */
+	public Adapter createBundleAwareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.ResourceAware <em>Resource Aware</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.ResourceAware
+	 * @generated
+	 */
+	public Adapter createResourceAwareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.soluvas.commons.Positionable <em>Positionable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.soluvas.commons.Positionable
+	 * @generated
+	 */
+	public Adapter createPositionableAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for the default case.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null.
@@ -423,4 +498,4 @@ public class PageMetaAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //PageMetaAdapterFactory
+} //PagemetaAdapterFactory
