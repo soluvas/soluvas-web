@@ -4,13 +4,30 @@ package org.soluvas.web.site.pagemeta.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.soluvas.commons.BundleAware;
 import org.soluvas.commons.Positionable;
 import org.soluvas.commons.ResourceAware;
-import org.soluvas.web.site.pagemeta.*;
+import org.soluvas.web.site.pagemeta.ClassPageSelector;
+import org.soluvas.web.site.pagemeta.OpenGraphAudio;
+import org.soluvas.web.site.pagemeta.OpenGraphImage;
+import org.soluvas.web.site.pagemeta.OpenGraphMeta;
+import org.soluvas.web.site.pagemeta.OpenGraphVideo;
+import org.soluvas.web.site.pagemeta.PageDeclaration;
+import org.soluvas.web.site.pagemeta.PageIcon;
+import org.soluvas.web.site.pagemeta.PageMeta;
+import org.soluvas.web.site.pagemeta.PageMetaCatalog;
+import org.soluvas.web.site.pagemeta.PageMetaCollection;
+import org.soluvas.web.site.pagemeta.PageRule;
+import org.soluvas.web.site.pagemeta.PageRuleCollection;
+import org.soluvas.web.site.pagemeta.PageSelector;
+import org.soluvas.web.site.pagemeta.PageTitle;
+import org.soluvas.web.site.pagemeta.PagemetaPackage;
+import org.soluvas.web.site.pagemeta.ProcessorPageDeclaration;
+import org.soluvas.web.site.pagemeta.RepositoryPageDeclaration;
+import org.soluvas.web.site.pagemeta.ResourcePageDeclaration;
+import org.soluvas.web.site.pagemeta.SourcePageDeclaration;
+import org.soluvas.web.site.pagemeta.UriPatternPageSelector;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +42,7 @@ import org.soluvas.web.site.pagemeta.*;
  * @see org.soluvas.web.site.pagemeta.PagemetaPackage
  * @generated
  */
-public class PagemetaSwitch<T> extends Switch<T> {
+public class PageMetaSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -40,7 +57,7 @@ public class PagemetaSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PagemetaSwitch() {
+	public PageMetaSwitch() {
 		if (modelPackage == null) {
 			modelPackage = PagemetaPackage.eINSTANCE;
 		}
