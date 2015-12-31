@@ -10,6 +10,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.facebook.FacebookManager;
 import org.soluvas.socmed.FacebookApp;
@@ -39,6 +41,8 @@ public class FacebookLoginLink extends ExternalLink {
     public static final ImmutableSet<String> DEFAULT_LOGIN_PERMISSIONS =
             ImmutableSet.of("public_profile", "user_friends", "email");
 
+    @Inject
+    private GeneralSysConfig sysConfig;
     @SpringBean(required = false)
     private FacebookApp facebookApp;
     /**
@@ -71,7 +75,7 @@ public class FacebookLoginLink extends ExternalLink {
             // must use webAddress.baseUri since we need actual external URI, not
             // 'localhost'
 //			final String redirectUri = webAddress.getBaseUri() + "fb_recipient/";
-            final String redirectUri = webAddress.getBaseUri() +
+            final String redirectUri = (Boolean.TRUE == sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri()) +
                     getRequestCycle().mapUrlFor(recipientPage, new PageParameters()).toString();
             // final String appSecret = facebookMgr.getAppSecret();
             // UUID state = UUID.randomUUID();
