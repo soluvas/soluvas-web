@@ -62,6 +62,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 
 	private final Class<? extends Page> facebookRecipientPage;
 	private final Class<? extends Page> twitterRecipientPage;
+	private boolean normalEnabled = true;
 
 	public SpringDedicatedLoginPanel(final String id,
 									 final IModel<LoginToken> userLoginModel) {
@@ -78,7 +79,16 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 		this.facebookRecipientPage = facebookRecipientPage;
 		this.twitterRecipientPage = twitterRecipientPage;
 	}
-	
+
+	public boolean isNormalEnabled() {
+		return normalEnabled;
+	}
+
+	public SpringDedicatedLoginPanel setNormalEnabled(boolean normalEnabled) {
+		this.normalEnabled = normalEnabled;
+		return this;
+	}
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -114,19 +124,26 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 //			}
 			
 			setOutputMarkupId(true);
-			
-			add(new TextField<String>("userName", new PropertyModel<>(userLoginModel, "username")));
-			add(new PasswordTextField("password", new PropertyModel<>(userLoginModel, "password")));
-			add(new CheckBox("rememberMe", new PropertyModel<>(userLoginModel, "rememberMe")));
-			
-			final SpringLoginButton ldapLoginBtn = new SpringLoginButton("login", userLoginModel, tenant.getTenantId()) {
+
+			final WebMarkupContainer normal = new WebMarkupContainer("normal") {
+				@Override
+				protected void onConfigure() {
+					super.onConfigure();
+					setVisible(normalEnabled);
+				}
+			};
+			normal.add(new TextField<String>("userName", new PropertyModel<>(userLoginModel, "username")));
+			normal.add(new PasswordTextField("password", new PropertyModel<>(userLoginModel, "password")));
+			normal.add(new CheckBox("rememberMe", new PropertyModel<>(userLoginModel, "rememberMe")));
+			final SpringLoginButton normalLoginBtn = new SpringLoginButton("login", userLoginModel, tenant.getTenantId()) {
 				@Override
 				protected void onLoginSuccess(AjaxRequestTarget target, String personId) {
 					log.debug("LoginButton has logged in '{}', redirecting to original page...", personId);
 					((SoluvasWebSession) getSession()).postLoginSuccess();
 				}
 			};
-			add(ldapLoginBtn);
+			normal.add(normalLoginBtn);
+			add(normal);
 			
 			final FacebookLoginLink facebookLoginLink = new FacebookLoginLink("btnLoginWithFb", facebookRecipientPage);
 			add(facebookLoginLink);
@@ -137,11 +154,18 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 //			add(googleLoginLink);
 			final Component googleLoginLink = new WebMarkupContainer("btnLoginWithGoogle").setVisible(false);
 			add(googleLoginLink);
-			final WebMarkupContainer socialLoginLabel = new WebMarkupContainer("socialLoginLabel");
-			socialLoginLabel.setVisible(facebookLoginLink.isVisible() || twitterLoginLink.isVisible() || googleLoginLink.isVisible());
+
+			final WebMarkupContainer socialLoginLabel = new WebMarkupContainer("socialLoginLabel") {
+				@Override
+				protected void onConfigure() {
+					super.onConfigure();
+					setVisible(normal.isVisible() &&
+							(facebookLoginLink.isVisible() || twitterLoginLink.isVisible() || googleLoginLink.isVisible()));
+				}
+			};
 			add(socialLoginLabel);
 
-			setDefaultButton(ldapLoginBtn);
+			setDefaultButton(normalLoginBtn);
 		}
 		
 	}

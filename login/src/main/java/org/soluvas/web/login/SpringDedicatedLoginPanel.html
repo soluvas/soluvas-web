@@ -2,29 +2,31 @@
 <div class="row">
 	<div class="col-xs-12 col-md-8 col-md-offset-2">
 		<div class="well">
-			<legend>Sign In</legend>
+			<legend>Sign In / Register</legend>
 			<form wicket:id="formSignIn" class="formSignIn" id="formSignIn" role="form">
-				<div class="form-group">
-					<div class="col-sm-6">
-						<input class="form-control" placeholder="Email or username" type="text" name="username" wicket:id="userName">
+				<div wicket:id="normal">
+					<div class="form-group">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Email or username" type="text" name="username" wicket:id="userName">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-6">
-						<input class="form-control" placeholder="Password" type="password" name="password" wicket:id="password">
+					<div class="form-group">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Password" type="password" name="password" wicket:id="password">
+						</div>
 					</div>
-				</div>
-				<br/>
-				<div class="form-group">
-					<label style="margin-bottom: 15px; padding-top: 5px;">
-						<input style="margin-right: 10px;" type="checkbox" name="remember" wicket:id="rememberMe">
-						Remember Me</label>
-					<button type="submit" class="btn btn-primary btn-block" id="signIn" wicket:id="login">Sign In</button>
+					<br/>
+					<div class="form-group">
+						<label style="margin-bottom: 15px; padding-top: 5px;">
+							<input style="margin-right: 10px;" type="checkbox" name="remember" wicket:id="rememberMe">
+							Remember Me</label>
+						<button type="submit" class="btn btn-primary btn-block" id="signIn" wicket:id="login">Sign In</button>
+					</div>
 				</div>
 				<label wicket:id="socialLoginLabel" style="text-align:center;">or</label>
-				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithFb">Sign In with Facebook</a>
-				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithTwitter" id="sign-in-twitter">Sign In with Twitter</a>
-				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithGoogle" id="sign-in-google">Sign In with Google</a>
+				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithFb"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
+				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithTwitter" id="sign-in-twitter"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
+				<a class="btn btn-primary btn-block" href="#" wicket:id="btnLoginWithGoogle" id="sign-in-google"><i class="fa fa-google-plus"></i> Sign In with Google</a>
 			</form>
 		</div>
 	</div>
