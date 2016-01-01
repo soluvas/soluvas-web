@@ -9,6 +9,8 @@ import facebook4j.FacebookFactory;
 import facebook4j.auth.AccessToken;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.protocol.http.ClientProperties;
+import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
@@ -106,13 +108,20 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
+				curPerson.setAccountStatus(AccountStatus.ACTIVE);
 				personRepo.add(curPerson);
 			}
 
-			if (curPerson.getValidationTime() == null) {
+			if (null == curPerson.getValidationTime()) {
 				curPerson.setValidationTime(new DateTime());
 			}
-			curPerson.setAccountStatus(AccountStatus.ACTIVE);
+			curPerson.setLastLoginTime(new DateTime());
+			final ClientProperties properties = WebSession.get().getClientInfo().getProperties();
+			final String remoteAddress = properties.getRemoteAddress();
+			if (null == curPerson.getIpAddress()) {
+				curPerson.setIpAddress(remoteAddress);
+			}
+			curPerson.setLastIpAddress(remoteAddress);
 			if (fbUser.getGender() != null) {
 				try {
 					final Gender gender = Gender.valueOf(fbUser.getGender().toUpperCase());
