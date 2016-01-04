@@ -137,14 +137,15 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
 				log.debug("User {} from Facebook ID {} has email {}",
 						curPerson.getId(), fbUser.getId(), fbUser.getEmail());
-				final Optional<Email> existingEmail = Iterables.tryFind(curPerson.getEmails(),
-						input -> input.getEmail().equals(fbUser.getEmail()));
+				final java.util.Optional<Email> existingEmail = curPerson.getEmails().stream()
+						.filter(it -> it.getEmail().equals(fbUser.getEmail())).findAny();
 				if (!existingEmail.isPresent()) {
 					final Email email = CommonsFactory.eINSTANCE.createEmail();
 					email.setEmail(fbUser.getEmail());
 					if (Strings.isNullOrEmpty(curPerson.getEmail())) {
 						email.setPrimary(true);
 					}
+					email.setValidationTime(new DateTime()); // Facebook email is assumed to be valid, even if "orphaned" :(
 					curPerson.getEmails().add(email);
 				}
 			} else {
