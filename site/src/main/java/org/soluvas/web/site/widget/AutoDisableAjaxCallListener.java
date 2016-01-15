@@ -14,8 +14,11 @@ import org.apache.wicket.ajax.attributes.AjaxCallListener;
  * But: https://issues.apache.org/jira/browse/WICKET-5611?focusedCommentId=14020693&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14020693
  * 
  * @see AutoDisableAjaxButton
+ * @see de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton
  * @author rudi
+ * @deprecated Use {@link de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton} instead
  */
+@Deprecated
 @SuppressWarnings("serial")
 public class AutoDisableAjaxCallListener extends AjaxCallListener {
 	
