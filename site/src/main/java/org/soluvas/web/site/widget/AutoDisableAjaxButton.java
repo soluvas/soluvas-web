@@ -15,9 +15,11 @@ import org.apache.wicket.model.IModel;
  * But: https://issues.apache.org/jira/browse/WICKET-5611?focusedCommentId=14020693&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14020693
  * 
  * @author rudi
- * @see AutoDisableAjaxButton
+ * @see de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton
  * @see AutoDisableAjaxCallListener
+ * @deprecated Use {@link de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton} instead
  */
+@Deprecated
 @SuppressWarnings("serial")
 public abstract class AutoDisableAjaxButton extends IndicatingAjaxButton {
 	
