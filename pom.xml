@@ -227,7 +227,7 @@
 			<dependency>
 			    <groupId>org.ocpsoft.logging</groupId>
 			    <artifactId>logging-adapter-slf4j</artifactId>
-			    <version>1.0.2.Final</version>
+			    <version>1.0.4.Final</version>
 			   <scope>runtime</scope>
 			</dependency>
 			
