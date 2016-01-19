@@ -1,19 +1,14 @@
 package org.soluvas.web.login.facebook;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.subject.Subject;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.soluvas.security.AutologinToken;
+import org.soluvas.commons.Person;
 import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.Interaction;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.GrantedAuthoritiesContainerImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -22,11 +17,12 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile
  * @author haidar
- *
  */
 @SuppressWarnings("serial")
 @MountPath("fb_recipient_spring")
@@ -42,11 +38,15 @@ public class SpringFacebookRecipientPage extends AbstractFacebookRecipient {
 	}
 
 	@Override
-	protected void doLogin(String personId) {
+	protected void doLogin(String personId, Person person) {
 		final User user = new User(personId, "", ImmutableList.of());
-		final PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(user, "");
+		final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()
+				.map(it -> new SimpleGrantedAuthority("ROLE_" + it)).collect(Collectors.toList());
+		final PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(user, "",
+				authorities);
+		log.info("User {}'s Authorities: {}", personId, authorities);
 		token.setDetails(new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(
-				(HttpServletRequest) getRequest().getContainerRequest(), ImmutableList.of()));
+				(HttpServletRequest) getRequest().getContainerRequest(), authorities));
 		log.debug("Logging in via Facebook using pre-authenticated {} ...", token);
 		try {
 			final Authentication authentication = authMgr.authenticate(token);

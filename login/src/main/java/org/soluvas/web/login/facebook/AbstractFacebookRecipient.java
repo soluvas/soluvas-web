@@ -1,9 +1,7 @@
 package org.soluvas.web.login.facebook;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
 import facebook4j.Facebook;
 import facebook4j.FacebookFactory;
 import facebook4j.auth.AccessToken;
@@ -31,9 +29,9 @@ import org.soluvas.web.site.SoluvasWebSession;
 import javax.inject.Inject;
 
 /**
- * Get Facebook Login , token Access, FB Photo profile
+ * Get Facebook Login , token Access, FB Photo profile.
+ * Security roles are provided by {@link Person#getSecurityRoleIds()}, e.g. {@code ADMIN}, {@code SYSADMIN}, {@code USER}.
  * @author haidar
- *
  */
 @SuppressWarnings("serial")
 public abstract class AbstractFacebookRecipient extends WebPage {
@@ -169,7 +167,7 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 			}
 			curPerson = personRepo.modify(curPerson.getId(), curPerson);
 			// Set Token And Set Session
-			doLogin(curPerson.getId());
+			doLogin(curPerson.getId(), curPerson);
 			// Redirect Url
 			((SoluvasWebSession) getSession()).postLoginSuccess();
 		} catch (final Exception e) {
@@ -177,6 +175,6 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 		}
 	}
 
-	protected abstract void doLogin(final String personId);
+	protected abstract void doLogin(final String personId, Person person);
 
 }

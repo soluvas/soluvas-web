@@ -19,7 +19,7 @@ import java.security.Principal;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class SpringLogoutLink extends StatelessLink<Void> {
+public class SpringLogoutLink extends Link<Void> {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringLogoutLink.class);
 
