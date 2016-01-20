@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>3.2.7.RELEASE</version>
+			<version>3.2.9.RELEASE</version>
 			<optional>true</optional>
 		</dependency>
 		
@@ -89,7 +89,7 @@
 		<dependency>
 		    <groupId>com.google.http-client</groupId>
 		    <artifactId>google-http-client-jackson2</artifactId>
-		    <version>1.13.1-beta</version>
+		    <version>1.21.0</version>
 		    <exclusions>
 		    	<exclusion>
 		    		<artifactId>guava-jdk5</artifactId>
@@ -100,7 +100,7 @@
 		<dependency>
       		<groupId>com.google.api-client</groupId>
       		<artifactId>google-api-client</artifactId>
-      		<version>1.13.2-beta</version>
+      		<version>1.21.0</version>
 		    <exclusions>
 		    	<exclusion>
 		    		<artifactId>guava-jdk5</artifactId>
@@ -116,7 +116,7 @@
 	    <dependency>
 	      <groupId>com.google.apis</groupId>
 	      <artifactId>google-api-services-plus</artifactId>
-	      <version>v1-rev49-1.13.2-beta</version>
+	      <version>v1-rev324-1.21.0</version>
 	    </dependency>
 
 		<dependency>
@@ -254,11 +254,11 @@
 		</plugins>
 	</build>
 	
-	<repositories>
+	<!--repositories>
 	    <repository>
 	      <id>google-api-services</id>
 	      <url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
 	    </repository>
-	</repositories>
+	</repositories-->
 
 </project>
