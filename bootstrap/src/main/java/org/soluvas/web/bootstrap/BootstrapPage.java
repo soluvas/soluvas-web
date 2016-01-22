@@ -48,7 +48,6 @@ import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.repository.CrudRepository;
 import org.soluvas.web.bootstrap.widget.PageMetaPanel;
 import org.soluvas.web.nav.PageLink;
-import org.soluvas.web.site.CssLink;
 import org.soluvas.web.site.ExtensiblePage;
 import org.soluvas.web.site.FaviconResourceReference;
 import org.soluvas.web.site.JavaScriptLink;
@@ -64,11 +63,7 @@ import org.soluvas.web.site.compose.ComposeUtils;
 import org.soluvas.web.site.compose.LiveContributor;
 import org.soluvas.web.site.pagemeta.PageMeta;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Ordering;
@@ -131,8 +126,8 @@ public class BootstrapPage extends ExtensiblePage {
 	 */
 	// @Deprecated
 	// private Site site;
-	@SpringBean(name="cssLinks", required=false)
-	private List<CssLink> cssLinks;
+//	@SpringBean(name="cssLinks", required=false)
+//	private List<CssLink> cssLinks;
 	@SpringBean(name="headJavaScripts", required=false)
 	private List<JavaScriptLink> headJavaScripts;
 
@@ -217,38 +212,38 @@ public class BootstrapPage extends ExtensiblePage {
 
 		final String currentStyle = getStyle();
 		
-		if (cssLinks != null) {
-			final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
-					.filter(cssLinks, new Predicate<CssLink>() {
-						@Override
-						public boolean apply(@Nullable CssLink input) {
-							return Strings.isNullOrEmpty(input.getStyle())
-									|| "*".equals(input.getStyle())
-									|| Objects.equal(currentStyle, input.getStyle());
-						}
-					}));
-	
-			log.trace("Page {} has {} CSS links (from {} total)", getClass()
-					.getName(), filteredCsses.size(), cssLinks.size());
-			final Ordering<CssLink> cssOrdering = Ordering
-					.from(new Comparator<CssLink>() {
-						@Override
-						public int compare(CssLink o1, CssLink o2) {
-							return o1.getWeight() - o2.getWeight();
-						};
-					});
-			final List<CssLink> sortedCsses = cssOrdering
-					.immutableSortedCopy(filteredCsses);
-			for (final CssLink css : sortedCsses) {
-				if (getApplication().usesDeploymentConfig() && css.getMinifiedPath() != null) {
-					response.render(CssHeaderItem.forUrl(smartPrefixUri(
-							webAddress.getSkinUri(), css.getMinifiedPath())));
-				} else {
-					response.render(CssHeaderItem.forUrl(smartPrefixUri(
-							webAddress.getSkinUri(), css.getPath())));
-				}
-			}
-		}
+//		if (cssLinks != null) {
+//			final List<CssLink> filteredCsses = ImmutableList.copyOf(Collections2
+//					.filter(cssLinks, new Predicate<CssLink>() {
+//						@Override
+//						public boolean apply(@Nullable CssLink input) {
+//							return Strings.isNullOrEmpty(input.getStyle())
+//									|| "*".equals(input.getStyle())
+//									|| Objects.equal(currentStyle, input.getStyle());
+//						}
+//					}));
+//	
+//			log.trace("Page {} has {} CSS links (from {} total)", getClass()
+//					.getName(), filteredCsses.size(), cssLinks.size());
+//			final Ordering<CssLink> cssOrdering = Ordering
+//					.from(new Comparator<CssLink>() {
+//						@Override
+//						public int compare(CssLink o1, CssLink o2) {
+//							return o1.getWeight() - o2.getWeight();
+//						};
+//					});
+//			final List<CssLink> sortedCsses = cssOrdering
+//					.immutableSortedCopy(filteredCsses);
+//			for (final CssLink css : sortedCsses) {
+//				if (getApplication().usesDeploymentConfig() && css.getMinifiedPath() != null) {
+//					response.render(CssHeaderItem.forUrl(smartPrefixUri(
+//							webAddress.getSkinUri(), css.getMinifiedPath())));
+//				} else {
+//					response.render(CssHeaderItem.forUrl(smartPrefixUri(
+//							webAddress.getSkinUri(), css.getPath())));
+//				}
+//			}
+//		}
 		
 		response.render(CssHeaderItem.forReference(PRINT_CSS, "print"));
 		
