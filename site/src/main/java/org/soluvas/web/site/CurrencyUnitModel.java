@@ -22,9 +22,6 @@ public class CurrencyUnitModel implements IModel<CurrencyUnit> {
 	@Nullable
 	private CurrencyUnit object;
 
-	/**
-	 * 
-	 */
 	public CurrencyUnitModel() {
 	}
 	
@@ -35,7 +32,14 @@ public class CurrencyUnitModel implements IModel<CurrencyUnit> {
 
 	public CurrencyUnitModel(String currencyCode) {
 		super();
-		this.object = currencyCode != null ? Monetary.getCurrency(currencyCode) : null;
+		try {
+			this.object = currencyCode != null ? Monetary.getCurrency(currencyCode) : null;
+		} catch (Exception e) {
+			throw new WebSiteException(e,
+					"Cannot get currency '%s'. Providers (%s) provides %s currencies: %s",
+					currencyCode, Monetary.getCurrencyProviderNames(),
+					Monetary.getCurrencies().size(), Monetary.getCurrencies());
+		}
 	}
 	
 	/* (non-Javadoc)

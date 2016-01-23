@@ -36,4 +36,8 @@ public class WebSiteException extends RuntimeException {
 		super(message, cause);
 	}
 
+	public WebSiteException(Throwable cause, String format, Object... args) {
+		super(String.format(format, args), cause);
+	}
+
 }
