@@ -7,14 +7,18 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
 import org.apache.wicket.model.IModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Workaround for {@link CurrencyUnit}'s lack of {@link Serializable}-ity.
  * @author ceefour
  */
 public class CurrencyUnitModel implements IModel<CurrencyUnit> {
-
+	
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger log = LoggerFactory.getLogger(CurrencyUnitModel.class);
 	
 	/**
 	 * Backing object.
