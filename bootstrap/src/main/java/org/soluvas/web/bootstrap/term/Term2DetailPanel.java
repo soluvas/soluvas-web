@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -57,6 +58,8 @@ import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
@@ -109,6 +112,8 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	private EventBus ev;
 	@SpringBean
 	private AppManifest appManifest;
+	@Inject
+	private CacheManager cacheMgr;
 	
 	private final EditMode editMode;
 	private final String termId;
@@ -392,6 +397,12 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					break;
 				case MODIFY:
 					termCatalogRepo.modify(termId, term);
+					
+					// delete cache for this product
+					final Cache slugsCache = cacheMgr.getCache("term2ids");
+					final String key = String.format("term2:%s:%s", tenant.getTenantId(), term.getId());
+					slugsCache.evict(key);
+					
 					//FIXME: ga perlu cpp + update on memory
 //					ev.post(new ModifiedTermEvent(termId, EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
 					info("Modified term " + term.getId());

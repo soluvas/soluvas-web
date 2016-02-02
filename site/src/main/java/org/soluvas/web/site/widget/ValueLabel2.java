@@ -112,7 +112,7 @@ public class ValueLabel2 extends Label {
 				displayName += " " + measureValue.getValueUnit().toString();
 				return Strings.escapeMarkup(displayName) + "";
 			} else if (valueObj instanceof TermValue) {
-				final Term2 term = termRepo.findOne(String.valueOf(valueObj.getValue()));
+				final Term2 term = termRepo.findOneByExCacheable(String.valueOf(valueObj.getValue()));
 				
 				final String iconHtml;
 				if (term.getImageId() != null) {
