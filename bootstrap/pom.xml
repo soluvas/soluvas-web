@@ -51,17 +51,17 @@
 			<artifactId>wicket-bootstrap-core</artifactId>
 			<version>0.9.7</version>
 			<!-- won't be needed after wicket-webjars 0.4.4 / wicket-bootstrap 0.9.8 -->
-			<exclusions>
+			<!--<exclusions>
 				<exclusion>
 					<artifactId>javassist</artifactId>
 					<groupId>javassist</groupId>
 				</exclusion>
-			</exclusions>
+			</exclusions>-->
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-extensions</artifactId>
