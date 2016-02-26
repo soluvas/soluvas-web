@@ -43,8 +43,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.vaynberg.wicket.select2</groupId>
-			<artifactId>wicket-select2</artifactId>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-select2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
