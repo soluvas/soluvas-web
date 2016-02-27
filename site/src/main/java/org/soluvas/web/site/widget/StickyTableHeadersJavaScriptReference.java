@@ -7,6 +7,8 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.List;
+
 /**
  * <a href="https://github.com/jmosbech/StickyTableHeaders">StickyTableHeaders jQuery plugin</a>
  * that makes large tables more usable by having the table header stick to the top of the screen when scrolling.
@@ -23,7 +25,6 @@ import com.google.common.collect.ImmutableList;
 public class StickyTableHeadersJavaScriptReference extends
 		JavaScriptResourceReference {
 	
-	private static final long serialVersionUID = 1L;
 	public static final StickyTableHeadersJavaScriptReference INSTANCE = new StickyTableHeadersJavaScriptReference();
 
 	StickyTableHeadersJavaScriptReference() {
@@ -31,7 +32,7 @@ public class StickyTableHeadersJavaScriptReference extends
 	}
 	
 	@Override
-	public Iterable<? extends HeaderItem> getDependencies() {
+	public List<HeaderItem> getDependencies() {
 		// don't use this, will cause double jQuery.js: return ImmutableList.of(JavaScriptHeaderItem.forReference( JQueryResourceReference.get() ));
 		return ImmutableList.of(JavaScriptHeaderItem.forReference( Application.get().getJavaScriptLibrarySettings().getJQueryReference() ));
 	}

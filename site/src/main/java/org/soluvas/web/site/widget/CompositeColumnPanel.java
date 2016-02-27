@@ -15,18 +15,17 @@ import org.apache.wicket.model.IModel;
  */
 public class CompositeColumnPanel<T> extends GenericPanel<T> {
 
-	private static final long serialVersionUID = 1L;
-	private final List<IExportableColumn<T, ?, ?>> columns;
+	private final List<IExportableColumn<T, ?>> columns;
 
 	public CompositeColumnPanel(String id, final IModel<T> rowModel, 
-			final IExportableColumn<T, ?, ?> primaryColumn, List<IExportableColumn<T, ?, ?>> columns) {
+			final IExportableColumn<T, ?> primaryColumn, List<IExportableColumn<T, ?>> columns) {
 		super(id, rowModel);
 		this.columns = columns;
 		add(new Label("primary", primaryColumn.getDataModel(rowModel)));
-		add(new ListView<IExportableColumn<T, ?, ?>>("columns", columns) {
+		add(new ListView<IExportableColumn<T, ?>>("columns", columns) {
 			@Override
-			protected void populateItem(ListItem<IExportableColumn<T, ?, ?>> item) {
-				final IExportableColumn<T, ?, ?> column = item.getModelObject();
+			protected void populateItem(ListItem<IExportableColumn<T, ?>> item) {
+				final IExportableColumn<T, ?> column = item.getModelObject();
 				item.add(column.getHeader("header"));
 				final IModel<?> cellModel = column.getDataModel(rowModel);
 				item.add(new Label("content", cellModel));

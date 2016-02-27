@@ -31,12 +31,12 @@ public class TimeTextField extends TextField<LocalTime> {
 	}
 
 	@Override
-	protected String getInputType() {
-		return "time";
+	protected String[] getInputTypes() {
+		return new String[] {"time"};
 	}
 
 	@Override
-	protected void convertInput() {
+	public void convertInput() {
 		if (!Strings.isNullOrEmpty(getInput())) {
 			setConvertedInput(new LocalTime(getInput()));
 		} else {

@@ -11,11 +11,6 @@ import org.apache.wicket.model.IModel;
 public class TelTextField extends TextField<String> {
 
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
 	 * @param id
 	 */
 	public TelTextField(String id) {
@@ -31,8 +26,8 @@ public class TelTextField extends TextField<String> {
 	}
 	
 	@Override
-	protected String getInputType() {
-		return "tel";
+	protected String[] getInputTypes() {
+		return new String[] {"tel"};
 	}
 
 }

@@ -15,17 +15,16 @@ import com.google.common.collect.ImmutableList;
  */
 public class CompositeColumn<T, S> extends PropertyColumn<T, S> {
 
-	private static final long serialVersionUID = 1L;
-	private final ImmutableList<IExportableColumn<T, ?, ?>> children;
+	private final ImmutableList<IExportableColumn<T, ?>> children;
 
 	public CompositeColumn(IModel<String> displayModel, S sortProperty,
-			String propertyExpression, IExportableColumn<T, ?, ?>... children) {
+			String propertyExpression, IExportableColumn<T, ?>... children) {
 		super(displayModel, sortProperty, propertyExpression);
 		this.children = ImmutableList.copyOf(children);
 	}
 
 	public CompositeColumn(IModel<String> displayModel,
-			String propertyExpression, IExportableColumn<T, ?, ?>... children) {
+			String propertyExpression, IExportableColumn<T, ?>... children) {
 		super(displayModel, propertyExpression);
 		this.children = ImmutableList.copyOf(children);
 	}
