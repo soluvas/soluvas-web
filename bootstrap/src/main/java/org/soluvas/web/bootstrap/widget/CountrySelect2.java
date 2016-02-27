@@ -103,19 +103,17 @@ public class CountrySelect2 extends BootstrapSelect2Choice<Country> {
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(400);
 		getSettings().setTemplateResult(
-			"function(object, container, query, escapeMarkup) {" +
-			"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text}));" +
-			"container.append(' ');" +
-			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+			"function(object) {" +
+					"if (!object.id) return object.text;" +
+			"var theflag = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text});" +
 			"var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(textMarkup.join(''));" +
-			"container.append(thediv);" +
+			"  .append(document.createTextNode(object.text));" +
+			"return [theflag, ' ', thediv];" +
 			"}");
 		getSettings().setTemplateSelection(
-				"function(object, container, query) {" +
-				"container.append($('<span>').attr({'class': 'flag flag-' + object.id.toLowerCase(), 'title': object.text}));" +
-				"container.append(' ');" +
-				"container.append(document.createTextNode(object.text));" +
+				"function(object) {" +
+				"var theflag = $('<span>').attr({'class': 'flag flag-' + object.id.toLowerCase(), 'title': object.text});" +
+				"return [theflag, ' ', document.createTextNode(object.text)];" +
 				"}");
 	}
 

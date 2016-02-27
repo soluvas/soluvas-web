@@ -99,7 +99,7 @@ public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
         getSettings().getAjax().setDelay(400);
         getSettings().setTemplateResult(
                 "function(object) {" +
-                        "console.log('res', object);" +
+                        "/*console.log('res', object);*/" +
                         "if (!object.id) return object.text;" +
                         "var theflag = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text});" +
                         "/*var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, true);*/" +
@@ -107,14 +107,22 @@ public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
                         "  .append(document.createTextNode(object.text)).append(' ').append($('<code>').text('+' + object.callingCode));" +
                         "return [theflag, ' ', thediv];" +
                         "}");
+//        getSettings().setTemplateSelection(
+//                "function(object) {" +
+//                        "/*console.log('sel', object);*/" +
+//                        "return [ $('<span>').attr({'class': 'flag flag-' + object.id.toLowerCase(), 'title': object.text})," +
+//                        "' '," +
+//                        "document.createTextNode(object.text)," +
+//                        "' '," +
+//                        "$('<code>').text('+' + object.callingCode) ];" +
+//                        "}");
+        // FIXME: buggy toJson()?
         getSettings().setTemplateSelection(
                 "function(object) {" +
-                        "console.log('sel', object);" +
+                        "/*console.log('sel', object);*/" +
                         "return [ $('<span>').attr({'class': 'flag flag-' + object.id.toLowerCase(), 'title': object.text})," +
                         "' '," +
-                        "document.createTextNode(object.text)," +
-                        "' '," +
-                        "$('<code>').text('+' + object.callingCode) ];" +
+                        "document.createTextNode(object.text) ];" +
                         "}");
     }
 

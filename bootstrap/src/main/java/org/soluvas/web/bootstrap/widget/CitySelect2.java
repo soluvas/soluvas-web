@@ -1,6 +1,7 @@
 package org.soluvas.web.bootstrap.widget;
 
 import com.google.common.base.Function;
+import com.google.common.base.Strings;
 import com.google.common.collect.FluentIterable;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
@@ -61,7 +62,7 @@ public class CitySelect2 extends BootstrapSelect2Choice<City> {
         @SuppressWarnings("null")
         @Override
         public void query(String term, int page, Response<City> response) {
-            final String trimedTerm = term.trim();
+            final String trimedTerm = Strings.nullToEmpty(term).trim();
             @Nullable final Country country = countryModel.getObject();
             @Nullable final Province province = provinceModel.getObject();
 //			@Nullable Province province = null;
@@ -89,9 +90,8 @@ public class CitySelect2 extends BootstrapSelect2Choice<City> {
 
         @Override
         public void toJson(City choice, JSONWriter writer) throws JSONException {
-            writer.key("id").value(cityRepo.getKeyForCity(choice))
-                    .key("text").value(choice.getName())
-                    .key("country").value(choice.getCountry().getName())
+            super.toJson(choice, writer);
+            writer.key("country").value(choice.getCountry().getName())
                     .key("countryCode").value(choice.getCountry().getIso());
         }
 
@@ -144,13 +144,12 @@ public class CitySelect2 extends BootstrapSelect2Choice<City> {
         add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
         getSettings().getAjax().setDelay(250);
         getSettings().setTemplateResult(
-                "function(object, container, query, escapeMarkup) {" +
-                        "container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.countryCode.toLowerCase(), title: object.country}));" +
-                        "container.append(' ');" +
-                        "var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+                "function(object) {" +
+                        "if (!object.id) return object.text;" +
+                        "var theflag = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.countryCode.toLowerCase(), title: object.country});" +
                         "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-                        "  .append(textMarkup.join('')).append(' ').append($('<small>').text(object.country));" +
-                        "container.append(thediv);" +
+                        "  .append(document.createTextNode(object.text)).append(' ').append($('<small>').text(object.country));" +
+                        "return [theflag, ' ', thediv];" +
                         "}");
     }
 
