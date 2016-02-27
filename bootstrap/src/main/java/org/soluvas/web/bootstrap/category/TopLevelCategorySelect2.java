@@ -18,7 +18,7 @@ import org.soluvas.category.CategoryRepository;
 import org.soluvas.commons.NotNullPredicate;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2Choice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2Choice;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -35,7 +35,7 @@ import org.wicketstuff.select2.Select2Choice;
  * @author ceefour
  * @see CategorySelect2
  */
-public class TopLevelCategorySelect2 extends InteractiveSelect2Choice<Category> {
+public class TopLevelCategorySelect2 extends BootstrapSelect2Choice<Category> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -23,7 +23,7 @@ import java.util.Collection;
  *
  * @author ceefour
  */
-public class DateTimeZoneSelect2 extends InteractiveSelect2Choice<DateTimeZone> {
+public class DateTimeZoneSelect2 extends BootstrapSelect2Choice<DateTimeZone> {
 
     private static final long serialVersionUID = 1L;
 

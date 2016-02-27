@@ -25,7 +25,7 @@ import org.wicketstuff.select2.Response;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
+public class MediaMultiSelect extends BootstrapSelect2MultiChoice<Media> {
 
 	private static class MediaChoiceProvider extends ChoiceProvider<Media> {
 

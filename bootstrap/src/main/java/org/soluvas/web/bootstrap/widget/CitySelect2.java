@@ -28,7 +28,7 @@ import java.util.Collection;
  * @author rudi
  */
 @SuppressWarnings("serial")
-public class CitySelect2 extends InteractiveSelect2Choice<City> {
+public class CitySelect2 extends BootstrapSelect2Choice<City> {
 
     private static final Logger log = LoggerFactory
             .getLogger(CitySelect2.class);

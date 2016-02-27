@@ -14,7 +14,7 @@ import org.soluvas.image.ImageManager;
  * @author mahendri
  *
  */
-public class PeopleSelect2 extends InteractiveSelect2MultiChoice<Person> {
+public class PeopleSelect2 extends BootstrapSelect2MultiChoice<Person> {
 	
 	private static final long serialVersionUID = 1L;
 	

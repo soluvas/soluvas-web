@@ -34,7 +34,7 @@ import org.wicketstuff.select2.Response;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class PersonSelect2 extends InteractiveSelect2Choice<Person> {
+public class PersonSelect2 extends BootstrapSelect2Choice<Person> {
 
 	private static class PersonChoiceProvider extends ChoiceProvider<Person> {
 

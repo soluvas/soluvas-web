@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category2;
 import org.soluvas.category.MongoCategoryRepository;
 import org.soluvas.image.ImageManager;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2Choice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2Choice;
 
 /**
  * @author atang
  */
 @SuppressWarnings("serial")
-public class Category2Select2 extends InteractiveSelect2Choice<Category2> {
+public class Category2Select2 extends BootstrapSelect2Choice<Category2> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(Category2Select2.class);

@@ -35,7 +35,7 @@ import java.util.Locale;
  *
  * @author ceefour
  */
-public class CurrencyUnitSelect2 extends InteractiveSelect2Choice<CurrencyUnit> {
+public class CurrencyUnitSelect2 extends BootstrapSelect2Choice<CurrencyUnit> {
 
     private static final long serialVersionUID = 1L;
 

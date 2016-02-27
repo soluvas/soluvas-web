@@ -11,7 +11,7 @@ import org.soluvas.data.TermKind;
  * @author anton
  *
  */
-public class TermKindSelect2Multi extends InteractiveSelect2MultiChoice<TermKind>{
+public class TermKindSelect2Multi extends BootstrapSelect2MultiChoice<TermKind> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(TermKindSelect2Multi.class);

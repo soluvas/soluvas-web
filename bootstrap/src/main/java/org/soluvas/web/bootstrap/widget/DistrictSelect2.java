@@ -32,7 +32,7 @@ import org.wicketstuff.select2.Response;
  *
  */
 @SuppressWarnings("serial")
-public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
+public class DistrictSelect2 extends BootstrapSelect2Choice<District> {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(DistrictSelect2.class);

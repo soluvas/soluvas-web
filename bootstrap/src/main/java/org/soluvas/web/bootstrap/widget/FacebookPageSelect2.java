@@ -27,7 +27,7 @@ import org.wicketstuff.select2.Select2Choice;
  * {@link Account#getCategory()}, plus the page profile picture.
  * @author ceefour
  */
-public class FacebookPageSelect2 extends InteractiveSelect2Choice<Account> {
+public class FacebookPageSelect2 extends BootstrapSelect2Choice<Account> {
 
 	public static class AccountChoiceProvider extends ChoiceProvider<Account> {
 

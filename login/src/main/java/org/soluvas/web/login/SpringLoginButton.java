@@ -25,6 +25,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.wicketstuff.stateless.components.StatelessAjaxButton;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -53,7 +54,7 @@ import javax.servlet.http.HttpServletRequest;
  * @see StatelessLoginForm
  */
 @SuppressWarnings("serial")
-public class SpringLoginButton extends IndicatingAjaxButton {
+public class SpringLoginButton extends StatelessAjaxButton {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringLoginButton.class);
 

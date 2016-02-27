@@ -9,7 +9,7 @@ import org.soluvas.data.Term2;
  * @author rudi
  *
  */
-public class Term2Select2Multi extends InteractiveSelect2MultiChoice<Term2> {
+public class Term2Select2Multi extends BootstrapSelect2MultiChoice<Term2> {
 	
 	private static final long serialVersionUID = 1L;
 		

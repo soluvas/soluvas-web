@@ -18,7 +18,7 @@ import org.soluvas.category.CategoryRepository;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.image.ImageManager;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2Choice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2Choice;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -32,7 +32,7 @@ import java.util.List;
  * @see TopLevelCategorySelect2
  */
 @SuppressWarnings("serial")
-public class CategorySelect2 extends InteractiveSelect2Choice<Category> {
+public class CategorySelect2 extends BootstrapSelect2Choice<Category> {
 
     private static final Logger log = LoggerFactory
             .getLogger(CategorySelect2.class);

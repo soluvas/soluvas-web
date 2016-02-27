@@ -9,7 +9,7 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category2;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2MultiChoice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2MultiChoice;
 
 /**
  * @author rudi
@@ -17,7 +17,7 @@ import org.soluvas.web.bootstrap.widget.InteractiveSelect2MultiChoice;
  */
 @SuppressWarnings("serial")
 public class Category2Select2MultiChoice extends
-		InteractiveSelect2MultiChoice<Category2> {
+		BootstrapSelect2MultiChoice<Category2> {
 	
 	static final Logger log = LoggerFactory
 			.getLogger(Category2Select2MultiChoice.class);

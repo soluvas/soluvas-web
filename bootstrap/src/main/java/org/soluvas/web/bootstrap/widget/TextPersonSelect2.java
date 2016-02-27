@@ -26,7 +26,7 @@ import org.wicketstuff.select2.Response;
  * @author ceefour
  *
  */
-public class TextPersonSelect2 extends InteractiveSelect2Choice<Person> {
+public class TextPersonSelect2 extends BootstrapSelect2Choice<Person> {
 
 	private static class PersonChoiceProvider extends ChoiceProvider<Person> {
 

@@ -24,7 +24,7 @@ import org.soluvas.category.CategoryStatus;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.image.ImageManager;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2MultiChoice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2MultiChoice;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -42,7 +42,7 @@ import com.google.common.collect.Sets.SetView;
  */
 @SuppressWarnings("serial")
 public class CategorySelect2MultiChoice extends
-		InteractiveSelect2MultiChoice<Category> {
+		BootstrapSelect2MultiChoice<Category> {
 	
 	static final Logger log = LoggerFactory
 			.getLogger(CategorySelect2MultiChoice.class);

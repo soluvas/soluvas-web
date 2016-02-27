@@ -9,7 +9,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.ListModel;
 import org.soluvas.data.PropertyDefinition;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2MultiChoice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2MultiChoice;
 
 import com.google.common.collect.ImmutableList;
 
@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableList;
  * @author rudi
  *
  */
-public class PropertyDefinitionSelect2MultiChoice extends InteractiveSelect2MultiChoice<PropertyDefinition> {
+public class PropertyDefinitionSelect2MultiChoice extends BootstrapSelect2MultiChoice<PropertyDefinition> {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -11,7 +11,7 @@ import org.soluvas.web.site.EmfModel;
  * @author rudi
  *
  */
-public class CustomerRoleSelect2 extends InteractiveSelect2Choice<CustomerRole> {
+public class CustomerRoleSelect2 extends BootstrapSelect2Choice<CustomerRole> {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -5,13 +5,13 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.category.FormalCategory;
-import org.soluvas.web.bootstrap.widget.InteractiveSelect2Choice;
+import org.soluvas.web.bootstrap.widget.BootstrapSelect2Choice;
 
 /**
  * @author rudi
  *
  */
-public class FormalCategorySelect2 extends InteractiveSelect2Choice<FormalCategory> {
+public class FormalCategorySelect2 extends BootstrapSelect2Choice<FormalCategory> {
 
 	private static final long serialVersionUID = 1L;
 	

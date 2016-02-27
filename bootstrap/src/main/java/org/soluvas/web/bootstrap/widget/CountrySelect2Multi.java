@@ -11,7 +11,7 @@ import org.soluvas.geo.Country;
  * @author anton
  *
  */
-public class CountrySelect2Multi extends InteractiveSelect2MultiChoice<Country> {
+public class CountrySelect2Multi extends BootstrapSelect2MultiChoice<Country> {
 	
 	public CountrySelect2Multi(final String id, final IModel<Collection<Country>> model) {
 		super(id, model, new CountryChoiceProvider());

@@ -22,7 +22,6 @@ import org.soluvas.geo.CityRepository;
 import org.soluvas.web.site.FlagsCssResourceReference;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import org.wicketstuff.select2.ChoiceProvider;
@@ -33,7 +32,7 @@ import org.wicketstuff.select2.Select2Choice;
  * {@link Select2Choice} UI component for {@link Locale}.
  * @author ceefour
  */
-public class LocaleSelect2 extends InteractiveSelect2Choice<Locale> {
+public class LocaleSelect2 extends BootstrapSelect2Choice<Locale> {
 
 	private static class LocaleChoiceProvider extends ChoiceProvider<Locale> {
 

@@ -24,7 +24,7 @@ import java.util.Collection;
 /**
  * @author rudi
  */
-public class MixinSelect2 extends InteractiveSelect2Choice<Mixin> {
+public class MixinSelect2 extends BootstrapSelect2Choice<Mixin> {
 
     private static class MixinChoiceProvider extends ChoiceProvider<Mixin> {
         @SpringBean

@@ -14,7 +14,7 @@ import org.wicketstuff.select2.Select2Choice;
  * A {@link Select2Choice} autocomplete component that provides {@link Term} as a choice.
  * @author rudi
  */
-public class TermSelect2 extends InteractiveSelect2Choice<Term> {
+public class TermSelect2 extends BootstrapSelect2Choice<Term> {
 	
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName) {

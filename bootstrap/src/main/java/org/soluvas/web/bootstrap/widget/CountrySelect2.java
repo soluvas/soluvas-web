@@ -30,7 +30,7 @@ import org.wicketstuff.select2.Select2Choice;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
+public class CountrySelect2 extends BootstrapSelect2Choice<Country> {
 
 	private static class CountryChoiceProvider extends ChoiceProvider<Country> {
 

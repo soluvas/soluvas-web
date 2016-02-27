@@ -9,7 +9,7 @@ import org.soluvas.data.TermKind;
  * @author anton
  *
  */
-public class TermKindSelect2 extends InteractiveSelect2Choice<TermKind>{
+public class TermKindSelect2 extends BootstrapSelect2Choice<TermKind> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(TermKindSelect2.class);

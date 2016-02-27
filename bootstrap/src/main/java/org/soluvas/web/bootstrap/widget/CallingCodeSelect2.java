@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
+import com.google.common.base.Strings;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -8,7 +9,8 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.Country;
@@ -18,6 +20,7 @@ import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -28,11 +31,12 @@ import java.util.stream.Collectors;
  * @see CountrySelect2
  */
 @SuppressWarnings("serial")
-public class CallingCodeSelect2 extends InteractiveSelect2Choice<Country> {
+public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
 
     private static class CallingCodeChoiceProvider extends ChoiceProvider<Country> {
+        private static final Logger log = LoggerFactory.getLogger(CallingCodeChoiceProvider.class);
 
-        @SpringBean
+        @Inject
         private CountryRepository countryRepo;
 
         public CallingCodeChoiceProvider() {
@@ -52,27 +56,24 @@ public class CallingCodeSelect2 extends InteractiveSelect2Choice<Country> {
 
         @Override
         public void query(String term, int page, Response<Country> response) {
-            final String trimmedTerm = term.trim();
+            final String trimmedTerm = Strings.nullToEmpty(term).trim();
             final Page<Country> countries = countryRepo.searchCountryWithCallingCode(trimmedTerm, new PageRequest(page, 20));
             response.addAll(countries.getContent());
             response.setHasMore(!countries.isLastPage());
+            log.info("Query {} {} = {}", term, page, countries.getContent());
         }
 
         @Override
         public Collection<Country> toChoices(Collection<String> ids) {
-            return ids.stream().map(it -> countryRepo.getCountry(it)).collect(Collectors.toSet());
+            return ids.stream().map(it -> countryRepo.getCountry(it)).collect(Collectors.toList());
         }
 
         @Override
-        public void toJson(Country choice, JSONWriter writer)
+        protected void toJson(Country choice, JSONWriter writer)
                 throws JSONException {
-            writer.key("id").value(choice.getIso()).key("text").value(choice.getName())
-                    .key("callingCode").value(choice.getCallingCodes().get(0));
-        }
-
-        @Override
-        public void detach() {
-            super.detach();
+            super.toJson(choice, writer);
+            log.info("toJson {}", choice);
+            writer.key("callingCode").value(choice.getCallingCodes().get(0));
         }
 
     }
@@ -97,21 +98,23 @@ public class CallingCodeSelect2 extends InteractiveSelect2Choice<Country> {
         add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
         getSettings().getAjax().setDelay(400);
         getSettings().setTemplateResult(
-                "function(object, container, query, escapeMarkup) {" +
-                        "container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text}));" +
-                        "container.append(' ');" +
-                        "var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+                "function(object) {" +
+                        "console.log('res', object);" +
+                        "if (!object.id) return object.text;" +
+                        "var theflag = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text});" +
+                        "/*var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, true);*/" +
                         "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-                        "  .append(textMarkup.join('')).append(' ').append($('<code>').text('+' + object.callingCode));" +
-                        "container.append(thediv);" +
+                        "  .append(document.createTextNode(object.text)).append(' ').append($('<code>').text('+' + object.callingCode));" +
+                        "return [theflag, ' ', thediv];" +
                         "}");
         getSettings().setTemplateSelection(
-                "function(object, container, query) {" +
-                        "container.append($('<span>').attr({'class': 'flag flag-' + object.id.toLowerCase(), 'title': object.text}));" +
-                        "container.append(' ');" +
-                        "container.append(document.createTextNode(object.text));" +
-                        "container.append(' ');" +
-                        "container.append($('<code>').text('+' + object.callingCode));" +
+                "function(object) {" +
+                        "console.log('sel', object);" +
+                        "return [ $('<span>').attr({'class': 'flag flag-' + object.id.toLowerCase(), 'title': object.text})," +
+                        "' '," +
+                        "document.createTextNode(object.text)," +
+                        "' '," +
+                        "$('<code>').text('+' + object.callingCode) ];" +
                         "}");
     }
 
