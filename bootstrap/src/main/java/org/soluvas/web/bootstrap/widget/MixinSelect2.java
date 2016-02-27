@@ -20,8 +20,8 @@ import org.soluvas.web.site.EmfModel;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 /**
  * @author rudi
@@ -88,7 +88,7 @@ public class MixinSelect2 extends InteractiveSelect2Choice<Mixin> {
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("col-sm-4")));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
 				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +

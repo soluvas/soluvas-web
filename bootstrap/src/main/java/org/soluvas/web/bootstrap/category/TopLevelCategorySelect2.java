@@ -26,9 +26,9 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import org.wicketstuff.select2.Response;
+import org.wicketstuff.select2.Select2Choice;
+import org.wicketstuff.select2.TextChoiceProvider;
 
 /**
  * {@link Category} {@link Select2Choice} that only displays top-level categories.
@@ -114,7 +114,7 @@ public class TopLevelCategorySelect2 extends InteractiveSelect2Choice<Category> 
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 	
 	@Override

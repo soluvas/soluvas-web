@@ -3,8 +3,8 @@ package org.soluvas.web.bootstrap.widget;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.request.resource.CssResourceReference;
 
-import com.vaynberg.wicket.select2.Select2Choice;
-import com.vaynberg.wicket.select2.Select2MultiChoice;
+import org.wicketstuff.select2.Select2Choice;
+import org.wicketstuff.select2.Select2MultiChoice;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;

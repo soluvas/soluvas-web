@@ -25,7 +25,7 @@ public class FormalCategorySelect2 extends InteractiveSelect2Choice<FormalCatego
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Choose Formal Category"));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 
 }

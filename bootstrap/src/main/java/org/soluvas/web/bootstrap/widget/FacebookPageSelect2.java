@@ -17,9 +17,9 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.restfb.types.Account;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
+import org.wicketstuff.select2.Select2Choice;
 
 /**
  * A {@link Select2Choice} for Facebook {@link Account} (managed page),
@@ -103,7 +103,7 @@ public class FacebookPageSelect2 extends InteractiveSelect2Choice<Account> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
 //		setProvider(new PersonChoiceProvider(personLdapRepo, imageMgr));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		

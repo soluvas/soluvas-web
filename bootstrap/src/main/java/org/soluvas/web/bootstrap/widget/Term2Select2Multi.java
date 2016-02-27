@@ -21,7 +21,7 @@ public class Term2Select2Multi extends InteractiveSelect2MultiChoice<Term2> {
 	protected void onInitialize() {
 		super.onInitialize();
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
 						"if (object.imageUri !== undefined) {" +

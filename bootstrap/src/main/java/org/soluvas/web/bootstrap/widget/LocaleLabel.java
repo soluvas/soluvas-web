@@ -13,7 +13,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.web.site.FlagsCssResourceReference;
 
-import com.vaynberg.wicket.select2.Select2Choice;
+import org.wicketstuff.select2.Select2Choice;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 

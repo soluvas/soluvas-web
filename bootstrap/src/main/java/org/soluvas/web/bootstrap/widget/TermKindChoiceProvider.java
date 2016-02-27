@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.data.TermKind;
 import org.soluvas.data.TermKindRepository;
 
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import org.wicketstuff.select2.Response;
+import org.wicketstuff.select2.TextChoiceProvider;
 
 @SuppressWarnings("serial")
 public class TermKindChoiceProvider extends TextChoiceProvider<TermKind>{

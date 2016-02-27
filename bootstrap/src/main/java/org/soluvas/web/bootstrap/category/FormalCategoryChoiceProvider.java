@@ -15,8 +15,8 @@ import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 
 import com.google.common.collect.Iterables;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import org.wicketstuff.select2.Response;
+import org.wicketstuff.select2.TextChoiceProvider;
 
 /**
  * @author rudi

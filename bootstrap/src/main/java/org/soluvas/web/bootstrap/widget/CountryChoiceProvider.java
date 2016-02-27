@@ -19,8 +19,8 @@ import org.soluvas.geo.CountryRepository;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 public class CountryChoiceProvider extends ChoiceProvider<Country> {
 	

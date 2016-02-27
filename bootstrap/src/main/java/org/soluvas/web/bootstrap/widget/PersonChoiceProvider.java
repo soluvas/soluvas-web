@@ -24,8 +24,8 @@ import org.soluvas.image.ImageTypes;
 import org.soluvas.web.site.EmfMapModel;
 
 import com.google.common.collect.ImmutableMap;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 /**
  * @author mahendri

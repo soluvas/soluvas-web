@@ -36,7 +36,7 @@ public class PeopleSelect2 extends InteractiveSelect2MultiChoice<Person> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
 		setProvider(new PersonChoiceProvider(personRepo, imageMgr));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		

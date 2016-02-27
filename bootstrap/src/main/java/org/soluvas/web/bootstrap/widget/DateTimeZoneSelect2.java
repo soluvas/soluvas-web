@@ -16,9 +16,9 @@ import org.soluvas.data.domain.PageRequest;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
+import org.wicketstuff.select2.Select2Choice;
 
 /**
  * {@link Select2Choice} UI component for Joda {@link DateTimeZone}.
@@ -94,7 +94,7 @@ public class DateTimeZoneSelect2 extends InteractiveSelect2Choice<DateTimeZone> 
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-large"), " "));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 //		getSettings().setFormatResult(
 //			"function(object, container, query, escapeMarkup) {" +
 //			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		

@@ -6,8 +6,8 @@ import org.apache.wicket.request.http.WebRequest;
 import org.soluvas.web.bootstrap.sound.Howler;
 import org.soluvas.web.site.Interaction;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2Choice;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Select2Choice;
 
 /**
  * Uses {@link Howler} to play sounds.

@@ -21,9 +21,9 @@ import org.soluvas.web.site.FlagsCssResourceReference;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
+import org.wicketstuff.select2.Select2Choice;
 
 /**
  * {@link Select2Choice} UI component for Joda {@link Country}.
@@ -91,7 +91,7 @@ public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
-		getSettings().getAjax().setQuietMillis(400);
+		getSettings().getAjax().setDelay(400);
 		getSettings().setFormatResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.id.toLowerCase(), title: object.text}));" +

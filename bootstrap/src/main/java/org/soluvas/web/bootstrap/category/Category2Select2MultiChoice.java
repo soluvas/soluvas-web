@@ -32,7 +32,7 @@ public class Category2Select2MultiChoice extends
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Choose Category"));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 	
 	@Override

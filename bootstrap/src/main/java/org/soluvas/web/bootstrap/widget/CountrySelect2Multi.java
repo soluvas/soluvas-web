@@ -23,7 +23,7 @@ public class CountrySelect2Multi extends InteractiveSelect2MultiChoice<Country> 
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
 				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +

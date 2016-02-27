@@ -8,8 +8,8 @@ import org.apache.wicket.request.http.WebRequest;
 import org.soluvas.web.bootstrap.sound.Howler;
 import org.soluvas.web.site.Interaction;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Select2MultiChoice;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Select2MultiChoice;
 
 /**
  * Uses {@link Howler} to play sounds.
@@ -53,7 +53,7 @@ public class InteractiveSelect2MultiChoice<T> extends Select2MultiChoice<T> {
 				.format("function(term, page) { " + dataInteraction + " return { term: term, page:page, '%s':true, '%s':[window.location.protocol, '//', window.location.host, window.location.pathname].join('')}; }",
 					WebRequest.PARAM_AJAX, WebRequest.PARAM_AJAX_BASE_URL));
 		final String resultsInteraction = Howler.play(Interaction.FILTERED, Howler.getActive());
-		getSettings().getAjax().setResults("function(data, page) { " + resultsInteraction + " return data; }");
+//		getSettings().getAjax().setResults("function(data, page) { " + resultsInteraction + " return data; }");
 	}
 	
 	@Override

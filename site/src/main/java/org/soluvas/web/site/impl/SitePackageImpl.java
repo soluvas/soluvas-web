@@ -1980,7 +1980,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		  (interactionEEnum.getELiterals().get(11), 
 		   source, 
 		   new String[] {
-			 "documentation", "Loading loop for light/short operations, usually without progress bar. e.g. {@link com.vaynberg.wicket.select2.Select2Choice}."
+			 "documentation", "Loading loop for light/short operations, usually without progress bar. e.g. {@link org.wicketstuff.select2.Select2Choice}."
 		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(12), 

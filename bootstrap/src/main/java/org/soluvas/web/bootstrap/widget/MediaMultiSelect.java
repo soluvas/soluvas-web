@@ -16,8 +16,8 @@ import org.soluvas.data.domain.CappedRequest;
 import org.soluvas.image.Media;
 import org.soluvas.image.MediaRepository;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 /**
  * Quickly choose {@link Media}.
@@ -95,7 +95,7 @@ public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
 	protected void onInitialize() {
 		super.onInitialize();
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
 				"container.append($('<img>').css({float: 'left'}).attr({src: object.mediaUri, width: 50, height: 50}));" +		

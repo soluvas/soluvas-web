@@ -16,11 +16,11 @@ import org.soluvas.data.domain.Sort.Direction;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 @SuppressWarnings("serial")
-public class Category2ChoiceProvider extends TextChoiceProvider<Category2> {
+public class Category2ChoiceProvider extends ChoiceProvider<Category2> {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(Category2ChoiceProvider.class);
@@ -32,13 +32,13 @@ public class Category2ChoiceProvider extends TextChoiceProvider<Category2> {
 		super();
 		Injector.get().inject(this);
 	}
-	
+
 	@Override
-	protected String getDisplayText(Category2 choice) {
+	public String getDisplayValue(Category2 choice) {
 		final String displayTxt = getParentPrefix(choice) + choice.getName();
 		return displayTxt;
 	}
-	
+
 	protected String getParentPrefix(Category2 child) {
 		if (!Strings.isNullOrEmpty(child.getParentId())) {
 			final Category2 parent = categoryRepo.findOne(child.getParentId());
@@ -52,7 +52,7 @@ public class Category2ChoiceProvider extends TextChoiceProvider<Category2> {
 	}
 
 	@Override
-	protected Object getId(Category2 choice) {
+	public String getIdValue(Category2 choice) {
 		return choice.getId();
 	}
 

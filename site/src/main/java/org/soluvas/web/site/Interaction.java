@@ -378,7 +378,7 @@ public enum Interaction implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Loading loop for light/short operations, usually without progress bar. e.g. {@link com.vaynberg.wicket.select2.Select2Choice}.
+	 * Loading loop for light/short operations, usually without progress bar. e.g. {@link org.wicketstuff.select2.Select2Choice}.
 	 * <!-- end-model-doc -->
 	 * @see #LOADING_LIGHT
 	 * @model name="loading_light"

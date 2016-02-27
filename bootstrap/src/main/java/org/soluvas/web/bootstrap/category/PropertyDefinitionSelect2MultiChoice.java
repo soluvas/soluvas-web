@@ -43,7 +43,7 @@ public class PropertyDefinitionSelect2MultiChoice extends InteractiveSelect2Mult
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Choose Property Definition"));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 	
 }

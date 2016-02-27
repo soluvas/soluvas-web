@@ -79,7 +79,7 @@ public class Category2Select2 extends InteractiveSelect2Choice<Category2> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Choose Category2"));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 
 }

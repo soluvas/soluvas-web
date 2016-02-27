@@ -22,8 +22,8 @@ import org.soluvas.geo.ProvinceRepository;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 /**
  * @author anton
@@ -97,7 +97,7 @@ public class ProvinceSelect2 extends InteractiveSelect2Choice<Province>{
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
 				"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.countryCode.toLowerCase(), title: object.country}));" +

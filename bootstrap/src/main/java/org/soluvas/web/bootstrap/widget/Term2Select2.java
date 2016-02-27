@@ -8,7 +8,7 @@ import org.apache.wicket.model.Model;
 import org.soluvas.data.Term2;
 import org.soluvas.data.Value;
 
-import com.vaynberg.wicket.select2.Select2Choice;
+import org.wicketstuff.select2.Select2Choice;
 
 /**
  * A {@link Select2Choice} autocomplete component that provides {@link Term2} as a choice.
@@ -39,7 +39,7 @@ public class Term2Select2 extends InteractiveSelect2Choice<Term2> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 		getSettings().setFormatResult(
 				"function(object, container, query, escapeMarkup) {" +
 						"if (object.imageUri !== undefined) {" +

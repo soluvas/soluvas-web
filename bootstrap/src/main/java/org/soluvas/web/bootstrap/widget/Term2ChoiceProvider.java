@@ -22,8 +22,8 @@ import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.site.EmfListModel;
 
-import com.vaynberg.wicket.select2.ChoiceProvider;
-import com.vaynberg.wicket.select2.Response;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
 public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 
