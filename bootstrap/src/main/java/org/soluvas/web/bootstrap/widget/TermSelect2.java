@@ -40,7 +40,7 @@ public class TermSelect2 extends InteractiveSelect2Choice<Term> {
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
 		getSettings().getAjax().setDelay(250);
-		getSettings().setFormatResult(
+		getSettings().setTemplateResult(
 				"function(object, container, query, escapeMarkup) {" +
 						"if (object.imageUri !== undefined) {" +
 						"  container.append($('<img>').attr('src', object.imageUri));" +
@@ -52,7 +52,7 @@ public class TermSelect2 extends InteractiveSelect2Choice<Term> {
 						"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 						"container.append(textMarkup.join(''));" +
 				"}");
-		getSettings().setFormatSelection(
+		getSettings().setTemplateSelection(
 				"function(object, container) {" +
 						"if (object.imageUri !== undefined) {" +
 						"  container.append($('<img>').attr('src', object.imageUri));" +

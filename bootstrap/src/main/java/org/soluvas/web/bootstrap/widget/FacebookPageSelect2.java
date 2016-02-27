@@ -7,11 +7,11 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.json.JSONException;
-import org.json.JSONWriter;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -112,7 +112,7 @@ public class FacebookPageSelect2 extends InteractiveSelect2Choice<Account> {
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
 //		setProvider(new PersonChoiceProvider(personLdapRepo, imageMgr));
 		getSettings().getAjax().setDelay(250);
-		getSettings().setFormatResult(
+		getSettings().setTemplateResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
 //			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
@@ -125,7 +125,7 @@ public class FacebookPageSelect2 extends InteractiveSelect2Choice<Account> {
 			"container.append(thediv);" +
 			"thediv.css({height: '45px'});" +
 			"}");
-		getSettings().setFormatSelection(
+		getSettings().setTemplateSelection(
 				"function(object, container, query) {" +
 //				"container.append($('<img>').attr('src', object.genderIconUri));" +
 //				"container.append(' ');" +

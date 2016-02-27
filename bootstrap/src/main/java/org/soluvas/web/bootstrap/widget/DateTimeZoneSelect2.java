@@ -104,7 +104,7 @@ public class DateTimeZoneSelect2 extends InteractiveSelect2Choice<DateTimeZone> 
         super.onInitialize();
         add(new AttributeAppender("class", new Model<>("input-large"), " "));
         getSettings().getAjax().setDelay(250);
-//		getSettings().setFormatResult(
+//		getSettings().setTemplateResult(
 //			"function(object, container, query, escapeMarkup) {" +
 //			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
 //			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
@@ -115,7 +115,7 @@ public class DateTimeZoneSelect2 extends InteractiveSelect2Choice<DateTimeZone> 
 //			"container.append(thediv);" +
 //			"thediv.css({height: '45px'});" +
 //			"}");
-//		getSettings().setFormatSelection(
+//		getSettings().setTemplateSelection(
 //				"function(object, container, query) {" +
 //				"container.append($('<img>').attr('src', object.genderIconUri));" +
 //				"container.append(' ');" +

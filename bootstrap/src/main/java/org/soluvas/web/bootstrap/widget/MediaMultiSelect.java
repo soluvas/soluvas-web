@@ -7,10 +7,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.CappedRequest;
 import org.soluvas.image.Media;
@@ -35,6 +35,16 @@ public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
 		public MediaChoiceProvider() {
 			super();
 			Injector.get().inject(this);
+		}
+
+		@Override
+		public String getDisplayValue(Media choice) {
+			return choice.getName();
+		}
+
+		@Override
+		public String getIdValue(Media choice) {
+			return choice.getId();
 		}
 
 		@Override
@@ -96,7 +106,7 @@ public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
 		super.onInitialize();
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
 		getSettings().getAjax().setDelay(250);
-		getSettings().setFormatResult(
+		getSettings().setTemplateResult(
 				"function(object, container, query, escapeMarkup) {" +
 				"container.append($('<img>').css({float: 'left'}).attr({src: object.mediaUri, width: 50, height: 50}));" +		
 				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
@@ -106,7 +116,7 @@ public class MediaMultiSelect extends InteractiveSelect2MultiChoice<Media> {
 				"container.append(thediv);" +
 				"thediv.css({height: '45px'});" +
 				"}");
-		getSettings().setFormatSelection(
+		getSettings().setTemplateSelection(
 				"function(object, container, query) {" +
 				"container.append($('<img>').attr({src: object.mediaUri, width: 50, height: 50}));" +
 				"container.append(' ');" +

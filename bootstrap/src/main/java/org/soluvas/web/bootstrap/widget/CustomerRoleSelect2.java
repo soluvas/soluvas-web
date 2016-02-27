@@ -33,7 +33,7 @@ public class CustomerRoleSelect2 extends InteractiveSelect2Choice<CustomerRole> 
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(250);
-		getSettings().setFormatResult(
+		getSettings().setTemplateResult(
 				"function(object, container, query, escapeMarkup) {" +
 				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 				"var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +

@@ -39,7 +39,7 @@ public class InteractiveSelect2Choice<T> extends Select2Choice<T> {
 				.format("function(term, page) { " + dataInteraction + " return { term: term, page:page, '%s':true, '%s':[window.location.protocol, '//', window.location.host, window.location.pathname].join('')}; }",
 					WebRequest.PARAM_AJAX, WebRequest.PARAM_AJAX_BASE_URL));
 		final String resultsInteraction = Howler.play(Interaction.FILTERED, Howler.getActive());
-		getSettings().getAjax().setResults("function(data, page) { " + resultsInteraction + " return data; }");
+		getSettings().getAjax().setProcessResults("function(data, page) { " + resultsInteraction + " return data; }");
 	}
 	
 	@Override

@@ -66,68 +66,6 @@ public class LoginButton extends IndicatingAjaxButton {
 		this.host = host;
 	}
 	
-	/**
-	 * Makes this a stateless AJAX button.
-	 * @todo Find a better, more convenient, superclass.
-	 */
-	@Override
-	protected boolean getStatelessHint() {
-		return true;
-	}
-	
-	/**
-	 * Makes this a stateless AJAX button.
-	 * @todo Find a better, more convenient, superclass.
-	 */
-	@Override
-	protected AjaxFormSubmitBehavior newAjaxFormSubmitBehavior(String event)
-	{
-		return new AjaxFormSubmitBehavior(getForm(), event)
-		{
-			@Override
-			public boolean getStatelessHint(org.apache.wicket.Component component) {
-				return true;
-			};
-			
-			@Override
-			protected void onSubmit(AjaxRequestTarget target)
-			{
-				LoginButton.this.onSubmit(target, LoginButton.this.getForm());
-			}
-
-			@Override
-			protected void onAfterSubmit(AjaxRequestTarget target)
-			{
-				LoginButton.this.onAfterSubmit(target, LoginButton.this.getForm());
-			}
-
-			@Override
-			protected void onError(AjaxRequestTarget target)
-			{
-				LoginButton.this.onError(target, LoginButton.this.getForm());
-			}
-
-			@Override
-			protected AjaxChannel getChannel()
-			{
-				return LoginButton.this.getChannel();
-			}
-
-			@Override
-			protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
-			{
-				super.updateAjaxAttributes(attributes);
-				LoginButton.this.updateAjaxAttributes(attributes);
-			}
-
-			@Override
-			public boolean getDefaultProcessing()
-			{
-				return LoginButton.this.getDefaultFormProcessing();
-			}
-		};
-	}
-
 	protected void doAuthenticate(@Nullable AjaxRequestTarget target) {
 		final LoginToken loginData = loginTokenModel.getObject();
 		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
@@ -162,12 +100,6 @@ public class LoginButton extends IndicatingAjaxButton {
 		doAuthenticate(target);
 	}
 	
-	@Override
-	public void onSubmit() {
-		super.onSubmit();
-		doAuthenticate(null);
-	}
-
 	/**
 	 * Override this method to handle Ajax submit <b>only</b>, for example, redirect to original page
 	 * (if using {@link DedicatedLoginPage}).
@@ -181,7 +113,9 @@ public class LoginButton extends IndicatingAjaxButton {
 	 * Override this method to handle <b>non</b>-Ajax submit, for example, redirect to original page
 	 * (if using {@link DedicatedLoginPage}).
 	 * @param personId
+	 * @deprecated No longer supports stateless since Wicket 7 because no {@link #onSubmit()}.
 	 */
+	@Deprecated
 	protected void onLoginSuccessStateless(String personId) {
 	}
 

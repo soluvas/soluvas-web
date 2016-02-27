@@ -143,7 +143,7 @@ public class CitySelect2 extends InteractiveSelect2Choice<City> {
         super.onInitialize();
         add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
         getSettings().getAjax().setDelay(250);
-        getSettings().setFormatResult(
+        getSettings().setTemplateResult(
                 "function(object, container, query, escapeMarkup) {" +
                         "container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.countryCode.toLowerCase(), title: object.country}));" +
                         "container.append(' ');" +

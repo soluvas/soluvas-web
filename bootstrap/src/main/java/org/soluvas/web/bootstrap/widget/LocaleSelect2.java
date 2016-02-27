@@ -124,7 +124,7 @@ public class LocaleSelect2 extends InteractiveSelect2Choice<Locale> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(400);
-		getSettings().setFormatResult(
+		getSettings().setTemplateResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text}));" +
 			"container.append(' ');" +
@@ -133,7 +133,7 @@ public class LocaleSelect2 extends InteractiveSelect2Choice<Locale> {
 			"  .append(textMarkup.join(''));" +
 			"container.append(thediv);" +
 			"}");
-		getSettings().setFormatSelection(
+		getSettings().setTemplateSelection(
 				"function(object, container, query) {" +
 				"container.append($('<span>').attr({'class': 'flag flag-' + object.c.toLowerCase(), 'title': object.text}));" +
 				"container.append(' ');" +

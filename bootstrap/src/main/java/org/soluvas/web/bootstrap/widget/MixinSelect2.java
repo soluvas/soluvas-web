@@ -95,7 +95,7 @@ public class MixinSelect2 extends InteractiveSelect2Choice<Mixin> {
         super.onInitialize();
         add(new AttributeAppender("class", new Model<>("col-sm-4")));
         getSettings().getAjax().setDelay(250);
-        getSettings().setFormatResult(
+        getSettings().setTemplateResult(
                 "function(object, container, query, escapeMarkup) {" +
                         "var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
                         "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +

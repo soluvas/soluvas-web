@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.soluvas.commons.Person;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.Page;
@@ -109,7 +109,7 @@ public class TextPersonSelect2 extends InteractiveSelect2Choice<Person> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-" + inputSize), " "));
 		getSettings().getAjax().setDelay(250);
-		getSettings().setFormatResult(
+		getSettings().setTemplateResult(
 			"function(object, container, query, escapeMarkup) {" +
 			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
@@ -118,7 +118,7 @@ public class TextPersonSelect2 extends InteractiveSelect2Choice<Person> {
 			"container.append(thediv);" +
 			"thediv.css({height: '45px'});" +
 			"}");
-		getSettings().setFormatSelection(
+		getSettings().setTemplateSelection(
 			"function(object, container, query) {" +
 			"container.append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
 			"}");
