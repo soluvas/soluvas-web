@@ -8,12 +8,12 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.QNameFunction;
@@ -37,7 +37,6 @@ import org.wicketstuff.select2.Response;
 
 public class TermChoiceProvider extends ChoiceProvider<Term> {
 
-	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(TermChoiceProvider.class);
 	
@@ -105,7 +104,17 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 			}
 		};
 	}
-	
+
+	@Override
+	public String getDisplayValue(Term choice) {
+		return choice.getDisplayName();
+	}
+
+	@Override
+	public String getIdValue(Term choice) {
+		return choice.getQName();
+	}
+
 	@Override
 	public void query(final String term, int page, Response<Term> response) {
 		final Collection<Term> filteredTerm = Collections2.filter(termsModel.getObject(), new Predicate<Term>() {

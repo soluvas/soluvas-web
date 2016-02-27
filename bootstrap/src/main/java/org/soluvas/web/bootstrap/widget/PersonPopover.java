@@ -54,7 +54,7 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 			}
 		};
 		if (getModel().getObject() != null) {
-			final PersonPopoverBody body = new PersonPopoverBody(ComponentRenderer.COMP_ID, getModel());
+			final PersonPopoverBody body = new PersonPopoverBody("popoverBody", getModel());
 			final IModel<String> bodyModel = new AbstractReadOnlyModel<String>() {
 				@Override
 				public String getObject() {

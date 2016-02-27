@@ -4,10 +4,10 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.CustomerRole;
@@ -24,7 +24,6 @@ import org.wicketstuff.select2.Response;
 
 public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole> {
 	
-	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(CustomerRoleChoiceProvider.class);
 	
@@ -34,6 +33,16 @@ public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole> {
 	public CustomerRoleChoiceProvider() {
 		super();
 		Injector.get().inject(this);
+	}
+
+	@Override
+	public String getDisplayValue(CustomerRole choice) {
+		return choice.getId();
+	}
+
+	@Override
+	public String getIdValue(CustomerRole choice) {
+		return choice.getId();
 	}
 
 	@Override
@@ -50,15 +59,13 @@ public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole> {
 	public void toJson(CustomerRole choice, JSONWriter writer)
 			throws JSONException {
 		writer.key("id").value(choice.getId())
-		.key("text").value(choice.getName());
+				.key("text").value(choice.getName());
 	}
 
 	@Override
 	public Collection<CustomerRole> toChoices(Collection<String> ids) {
 		return FluentIterable.from(ids).transform(new Function<String, CustomerRole>() {
-
-			@Override
-			@Nullable
+			@Override @Nullable
 			public CustomerRole apply(@Nullable String input) {
 				return customerRoleRepo.findOne(input);
 			}

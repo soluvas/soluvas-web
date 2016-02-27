@@ -13,8 +13,6 @@ import org.soluvas.geo.Country;
  */
 public class CountrySelect2Multi extends InteractiveSelect2MultiChoice<Country> {
 	
-	private static final long serialVersionUID = 1L;
-	
 	public CountrySelect2Multi(final String id, final IModel<Collection<Country>> model) {
 		super(id, model, new CountryChoiceProvider());
 	}

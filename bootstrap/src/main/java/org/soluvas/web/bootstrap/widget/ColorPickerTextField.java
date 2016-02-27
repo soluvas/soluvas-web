@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.Application;
@@ -35,7 +36,7 @@ public class ColorPickerTextField extends TextField<String> {
 	private static final JavaScriptResourceReference colorpickerJs = new JavaScriptResourceReference(
 			ColorPickerTextField.class, "js/colorpicker.js") {
 		@Override
-		public Iterable<? extends HeaderItem> getDependencies() {
+		public List<HeaderItem> getDependencies() {
 			return ImmutableList.of(
 					JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
 		}
@@ -96,12 +97,7 @@ public class ColorPickerTextField extends TextField<String> {
 		super.onEvent(event);
 		if (event.getPayload() instanceof AjaxRequestHandler) {
 			final AjaxRequestHandler target = (AjaxRequestHandler) event.getPayload();
-			target.addListener(new IListener() {
-				@Override
-				public void onBeforeRespond(Map<String, Component> map,
-						AjaxRequestTarget target) {
-				}
-				
+			target.addListener(new AjaxRequestTarget.AbstractListener() {
 				@Override
 				public void onAfterRespond(Map<String, Component> map,
 						IJavaScriptResponse response) {

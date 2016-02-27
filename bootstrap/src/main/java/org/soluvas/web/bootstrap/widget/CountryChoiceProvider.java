@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
@@ -24,7 +24,6 @@ import org.wicketstuff.select2.Response;
 
 public class CountryChoiceProvider extends ChoiceProvider<Country> {
 	
-	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(CountryChoiceProvider.class);
 	
@@ -34,6 +33,16 @@ public class CountryChoiceProvider extends ChoiceProvider<Country> {
 	public CountryChoiceProvider() {
 		super();
 		Injector.get().inject(this);
+	}
+
+	@Override
+	public String getDisplayValue(Country choice) {
+		return choice.getName();
+	}
+
+	@Override
+	public String getIdValue(Country choice) {
+		return choice.getIso();
 	}
 
 	@Override
@@ -50,7 +59,7 @@ public class CountryChoiceProvider extends ChoiceProvider<Country> {
 	public void toJson(Country choice, JSONWriter writer)
 			throws JSONException {
 		writer.key("id").value(choice.getIso())
-		.key("text").value(choice.getName());
+			.key("text").value(choice.getName());
 	}
 
 	@Override

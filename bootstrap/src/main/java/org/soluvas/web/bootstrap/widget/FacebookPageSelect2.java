@@ -29,8 +29,6 @@ import org.wicketstuff.select2.Select2Choice;
  */
 public class FacebookPageSelect2 extends InteractiveSelect2Choice<Account> {
 
-	private static final long serialVersionUID = 1L;
-	
 	public static class AccountChoiceProvider extends ChoiceProvider<Account> {
 
 		private final IModel<List<Account>> accountsModel;
@@ -38,6 +36,16 @@ public class FacebookPageSelect2 extends InteractiveSelect2Choice<Account> {
 		public AccountChoiceProvider(IModel<List<Account>> accountsModel) {
 			super();
 			this.accountsModel = accountsModel;
+		}
+
+		@Override
+		public String getDisplayValue(Account choice) {
+			return choice.getName();
+		}
+
+		@Override
+		public String getIdValue(Account choice) {
+			return choice.getId();
 		}
 
 		@Override

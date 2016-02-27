@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.wicket.markup.head.HeaderItem;
@@ -17,8 +18,6 @@ import de.agilecoders.wicket.core.Bootstrap;
  */
 public class AfterBootstrapJavaScriptResourceReference extends
 		JavaScriptResourceReference {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param key
@@ -48,7 +47,7 @@ public class AfterBootstrapJavaScriptResourceReference extends
 	}
 
 	@Override
-	public Iterable<? extends HeaderItem> getDependencies() {
+	public List<HeaderItem> getDependencies() {
 		return ImmutableList.of( JavaScriptHeaderItem.forReference(Bootstrap.getSettings().getJsResourceReference()) );
 	};
 

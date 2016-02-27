@@ -19,17 +19,15 @@ import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 
 import com.google.common.collect.ImmutableSet;
+import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
-import org.wicketstuff.select2.TextChoiceProvider;
 
 /**
  * @author rudi
  *
  */
-public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<PropertyDefinition> {
+public class PropertyDefinitionChoiceProvider extends ChoiceProvider<PropertyDefinition> {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger log = LoggerFactory
 			.getLogger(PropertyDefinitionChoiceProvider.class);
 	
@@ -51,12 +49,12 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	}
 
 	@Override
-	protected String getDisplayText(PropertyDefinition choice) {
+	public String getDisplayValue(PropertyDefinition choice) {
 		return choice.getName();
 	}
 
 	@Override
-	protected Object getId(PropertyDefinition choice) {
+	public String getIdValue(PropertyDefinition choice) {
 		return choice.getId();
 	}
 

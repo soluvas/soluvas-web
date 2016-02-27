@@ -14,6 +14,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
@@ -98,10 +99,9 @@ public class Term2TablePanel extends Panel {
 			add(table);
 			
 			final DropDownChoice<TermKind> ddcTermKind = new DropDownChoice<>("ddcTermKind", termKindModel,
-					new ListModel<>(ImmutableList.copyOf(termKindRepo.findAll())), new IChoiceRenderer<TermKind>() {
-				
+					new ListModel<>(ImmutableList.copyOf(termKindRepo.findAll())), new ChoiceRenderer<TermKind>() {
 				@Override
-				public Object getDisplayValue(TermKind object) {
+				public String getDisplayValue(TermKind object) {
 					return object.getName();
 				}
 				

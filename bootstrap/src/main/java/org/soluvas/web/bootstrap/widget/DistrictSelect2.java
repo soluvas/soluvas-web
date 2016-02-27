@@ -5,13 +5,13 @@ import java.util.Collection;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
@@ -57,6 +57,16 @@ public class DistrictSelect2 extends InteractiveSelect2Choice<District> {
 			this.countryModel = countryModel;
 			
 //			log.debug("Contructor districtSelect2 for city {}, province {} and country {}", cityModel.getObject(), provinceModel.getObject(), countryModel.getObject());
+		}
+
+		@Override
+		public String getDisplayValue(District choice) {
+			return choice.getName();
+		}
+
+		@Override
+		public String getIdValue(District choice) {
+			return districtRepo.getKeyForDistrict(choice);
 		}
 
 		@SuppressWarnings("null")

@@ -16,8 +16,6 @@ import org.wicketstuff.select2.Select2Choice;
  */
 public class TermSelect2 extends InteractiveSelect2Choice<Term> {
 	
-	private static final long serialVersionUID = 1L;
-	
 	public TermSelect2(String id, IModel<Term> model,
 			String kindNsPrefix, String kindName) {
 		super(id, model, new TermChoiceProvider(kindNsPrefix, kindName));

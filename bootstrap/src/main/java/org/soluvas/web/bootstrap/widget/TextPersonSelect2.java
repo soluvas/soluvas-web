@@ -28,11 +28,7 @@ import org.wicketstuff.select2.Response;
  */
 public class TextPersonSelect2 extends InteractiveSelect2Choice<Person> {
 
-	private static final long serialVersionUID = 1L;
-
 	private static class PersonChoiceProvider extends ChoiceProvider<Person> {
-
-		private static final long serialVersionUID = 1L;
 
 		@SpringBean
 		private PersonRepository personRepo;
@@ -40,6 +36,16 @@ public class TextPersonSelect2 extends InteractiveSelect2Choice<Person> {
 		public PersonChoiceProvider() {
 			super();
 			Injector.get().inject(this);
+		}
+
+		@Override
+		public String getDisplayValue(Person choice) {
+			return choice.getName();
+		}
+
+		@Override
+		public String getIdValue(Person choice) {
+			return choice.getId();
 		}
 
 		@Override

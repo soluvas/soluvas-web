@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.model.IModel;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.soluvas.commons.Person;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.Page;
@@ -33,8 +33,6 @@ import org.wicketstuff.select2.Response;
  */
 public class PersonChoiceProvider extends ChoiceProvider<Person> {
 	
-	private static final long serialVersionUID = 1L;
-	
 	private final PersonRepository personRepo;
 	private final ImageManager imageMgr;
 	
@@ -48,7 +46,17 @@ public class PersonChoiceProvider extends ChoiceProvider<Person> {
 	 * Preload image URIs to make it quicker to display. 
 	 */
 	private final IModel<Map<String, DisplayImage>> displayImagesModel = new EmfMapModel<>(ImmutableMap.<String, DisplayImage>of());
-	
+
+	@Override
+	public String getDisplayValue(Person choice) {
+		return choice.getName();
+	}
+
+	@Override
+	public String getIdValue(Person choice) {
+		return choice.getId();
+	}
+
 	@Override
 	public void query(String term, int page, Response<Person> response) {
 		term = term.trim();

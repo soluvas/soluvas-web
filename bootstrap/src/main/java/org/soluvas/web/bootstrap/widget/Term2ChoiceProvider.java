@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.ocpsoft.common.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,17 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 		this.enumerationId = null;
 		this.whiteListValuesModel = whiteListValusModel;
 	}
-	
+
+	@Override
+	public String getDisplayValue(Term2 choice) {
+		return choice.getName();
+	}
+
+	@Override
+	public String getIdValue(Term2 choice) {
+		return choice.getId();
+	}
+
 	@Override
 	public void query(final String term, int page, Response<Term2> response) {
 		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");

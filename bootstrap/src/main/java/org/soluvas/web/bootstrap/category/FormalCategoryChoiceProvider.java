@@ -15,17 +15,15 @@ import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 
 import com.google.common.collect.Iterables;
+import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
-import org.wicketstuff.select2.TextChoiceProvider;
 
 /**
  * @author rudi
  *
  */
-public class FormalCategoryChoiceProvider extends TextChoiceProvider<FormalCategory> {
+public class FormalCategoryChoiceProvider extends ChoiceProvider<FormalCategory> {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger log = LoggerFactory
 			.getLogger(FormalCategoryChoiceProvider.class);
 	
@@ -39,13 +37,13 @@ public class FormalCategoryChoiceProvider extends TextChoiceProvider<FormalCateg
 	}
 
 	@Override
-	protected String getDisplayText(FormalCategory choice) {
+	public String getDisplayValue(FormalCategory choice) {
 		return Iterables.getLast(choice.getGoogleBreadcrumbs());
 	}
 
 	@Override
-	protected Object getId(FormalCategory choice) {
-		return choice.getGoogleId();
+	public String getIdValue(FormalCategory choice) {
+		return Long.toString(choice.getGoogleId());
 	}
 
 	@Override

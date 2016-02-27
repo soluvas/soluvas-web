@@ -50,12 +50,7 @@ public abstract class DateRangeModal extends Modal<Range<LocalDate>> {
 		add(form);
 		
 		final String datePattern = "yyyy-MM-dd";
-		startDateFld = new DateTextField("startDateFld", startDateModel, datePattern) {
-			@Override
-			protected String getInputType() {
-				return "date";
-			};
-		};
+		startDateFld = new DateTextField("startDateFld", startDateModel, datePattern);
 		startDateFld.setRequired(true);
 		// buggy inside Modal
 //		final DatePicker dateStartPicker = new DatePicker();
@@ -64,12 +59,7 @@ public abstract class DateRangeModal extends Modal<Range<LocalDate>> {
 //		startDateFld.add(dateStartPicker);
 		form.add(startDateFld);
 		
-		final DateTextField endDateFld = new DateTextField("endDateFld", endDateModel, datePattern) {
-			@Override
-			protected String getInputType() {
-				return "date";
-			};
-		};
+		final DateTextField endDateFld = new DateTextField("endDateFld", endDateModel, datePattern);
 		endDateFld.setRequired(true);
 		// buggy inside Modal
 //		final DatePicker dateEndPicker = new DatePicker();

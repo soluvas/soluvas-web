@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.util.ListModel;
@@ -18,14 +19,10 @@ import org.soluvas.data.domain.PageRequest;
  */
 public class TermCheckBoxMultipleChoice extends CheckBoxMultipleChoice<Term> {
 	
-	private static final long serialVersionUID = 1L;
-	
 	@SpringBean(name="shoeSizeTermRepo")
 	private TermRepository shoeSizeTermRepo;
 	
-	private class TermIChoiceRenderer implements IChoiceRenderer<Term> {
-
-		private static final long serialVersionUID = 1L;
+	private class TermChoiceRenderer extends ChoiceRenderer<Term> {
 
 		@Override
 		public Object getDisplayValue(Term object) {
@@ -36,6 +33,7 @@ public class TermCheckBoxMultipleChoice extends CheckBoxMultipleChoice<Term> {
 		public String getIdValue(Term object, int index) {
 			return object.getQName();
 		}
+
 	}
 
 	public TermCheckBoxMultipleChoice(final String id, final IModel<List<Term>> model,
@@ -46,7 +44,7 @@ public class TermCheckBoxMultipleChoice extends CheckBoxMultipleChoice<Term> {
 		Injector.get().inject(this);
 		setModel( (IModel) model);
 		setChoices(new ListModel<>(shoeSizeTermRepo.findAll(new PageRequest(0, 5000)).getContent()));
-		setChoiceRenderer(new TermIChoiceRenderer());
+		setChoiceRenderer(new TermChoiceRenderer());
 		setPrefix("<span style='margin-right: 7px;'>");
 		setSuffix("</span>");
 	}

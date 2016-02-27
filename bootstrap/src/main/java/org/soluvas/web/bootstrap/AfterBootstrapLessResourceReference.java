@@ -1,5 +1,6 @@
 package org.soluvas.web.bootstrap;
 
+import java.util.List;
 import java.util.Locale;
 
 import de.agilecoders.wicket.core.Bootstrap;
@@ -16,8 +17,6 @@ import de.agilecoders.wicket.less.LessResourceReference;
  * @author mahendri
  */
 public class AfterBootstrapLessResourceReference extends LessResourceReference {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param key
@@ -48,7 +47,7 @@ public class AfterBootstrapLessResourceReference extends LessResourceReference {
 	
 	@SuppressWarnings("null")
 	@Override
-	public Iterable<? extends HeaderItem> getDependencies() {
+	public List<HeaderItem> getDependencies() {
 		return ImmutableList.of(CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 	}
 	

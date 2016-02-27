@@ -7,6 +7,8 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -14,8 +16,6 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.soluvas.commons.locale.LocaleOrdering;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.CityRepository;
@@ -35,11 +35,8 @@ import org.wicketstuff.select2.Select2Choice;
  */
 public class LocaleSelect2 extends InteractiveSelect2Choice<Locale> {
 
-	private static final long serialVersionUID = 1L;
-	
 	private static class LocaleChoiceProvider extends ChoiceProvider<Locale> {
 
-		private static final long serialVersionUID = 1L;
 		/**
 		 * static cache to make it faster to search
 		 */
@@ -55,17 +52,24 @@ public class LocaleSelect2 extends InteractiveSelect2Choice<Locale> {
 		}
 
 		@Override
+		public String getDisplayValue(Locale choice) {
+			return choice.getDisplayName();
+		}
+
+		@Override
+		public String getIdValue(Locale choice) {
+			return choice.toLanguageTag();
+		}
+
+		@Override
 		public void query(String term, int page, Response<Locale> response) {
 			final String trimmedTerm = term.trim();
 			final PageRequest pageable = new PageRequest(page, 20);
 			final FluentIterable<Locale> filtered = FluentIterable.from(sorted)
-				.filter(new Predicate<Locale>() {
-					@Override
-					public boolean apply(@Nullable Locale locale) {
-						final String searchable = locale.toLanguageTag() + " " + locale.getDisplayName();
-						return StringUtils.containsIgnoreCase(searchable, trimmedTerm);
-					}
-				});
+				.filter(locale -> {
+                    final String searchable = locale.toLanguageTag() + " " + locale.getDisplayName();
+                    return StringUtils.containsIgnoreCase(searchable, trimmedTerm);
+                });
 			response.addAll(filtered.skip((int) pageable.getOffset()).limit((int) pageable.getPageSize()).toList());
 			response.setHasMore(!filtered.skip((int) ((page + 1) * pageable.getPageSize())).isEmpty());
 		}

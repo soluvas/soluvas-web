@@ -32,10 +32,10 @@ public class JQueryUiToTop {
 	private static final CssResourceReference TOTOP_CSS = new CssResourceReference(JQueryUiToTop.class, "jquery.ui.totop-1.2/css/ui.totop.css");
 	private static final JavaScriptResourceReference TOTOP = new JavaScriptResourceReference(JQueryUiToTop.class, "jquery.ui.totop-1.2/jquery.ui.totop.js") {
 		@Override
-		public Iterable<? extends HeaderItem> getDependencies() {
-			return Iterables.concat(super.getDependencies(), ImmutableList.<HeaderItem>of(
-					JavaScriptHeaderItem.forReference(JQueryEasing.instance()), 
-					CssHeaderItem.forReference(TOTOP_CSS)));
+		public List<HeaderItem> getDependencies() {
+			return ImmutableList.<HeaderItem>builder().addAll(super.getDependencies())
+					.add(JavaScriptHeaderItem.forReference(JQueryEasing.instance()),
+							CssHeaderItem.forReference(TOTOP_CSS)).build();
 		}
 	};
 	private static final UrlResourceReference TOTOP_CDN = new JQueryPluginUrlResourceReference(

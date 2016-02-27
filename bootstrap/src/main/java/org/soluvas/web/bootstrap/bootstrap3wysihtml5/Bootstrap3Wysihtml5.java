@@ -18,6 +18,8 @@ import com.google.common.collect.ImmutableList;
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
+import java.util.List;
+
 /**
  * <a href="http://bootstrap-wysiwyg.github.io/bootstrap3-wysiwyg/">bootstrap3-wysiwyg</a>
  * 
@@ -54,7 +56,7 @@ public class Bootstrap3Wysihtml5 {
 	private static final JavaScriptResourceReference BOOTSTRAP3_WYSIHTML5_MIN = new AfterBootstrapJavaScriptResourceReference(
 			Bootstrap3Wysihtml5.class, "bootstrap3-wysihtml5.min.js") {
 		@Override
-		public Iterable<? extends HeaderItem> getDependencies() {
+		public List<HeaderItem> getDependencies() {
 			return ImmutableList.of(
 					CssHeaderItem.forReference(BOOTSTRAP3_WYSIHTML5_MIN_CSS),
 					Handlebars.asHeaderItem_v1(), Wysihtml.toolbar());

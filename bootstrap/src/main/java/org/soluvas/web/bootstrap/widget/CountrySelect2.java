@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -11,8 +13,6 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.Country;
@@ -40,6 +40,16 @@ public class CountrySelect2 extends InteractiveSelect2Choice<Country> {
 		public CountryChoiceProvider() {
 			super();
 			Injector.get().inject(this);
+		}
+
+		@Override
+		public String getDisplayValue(Country choice) {
+			return choice.getName();
+		}
+
+		@Override
+		public String getIdValue(Country choice) {
+			return choice.getIso();
 		}
 
 		@Override

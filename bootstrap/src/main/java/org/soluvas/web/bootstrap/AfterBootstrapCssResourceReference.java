@@ -7,6 +7,7 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.request.resource.CssResourceReference;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -15,8 +16,6 @@ import java.util.Locale;
  * @deprecated Doesn't work well with {@link de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapTheme} anyway.
  */
 public class AfterBootstrapCssResourceReference extends CssResourceReference {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param key
@@ -47,7 +46,7 @@ public class AfterBootstrapCssResourceReference extends CssResourceReference {
 	
 	@SuppressWarnings("null")
 	@Override
-	public Iterable<? extends HeaderItem> getDependencies() {
+	public List<HeaderItem> getDependencies() {
 		return ImmutableList.of(); //screws bootswatch CSS: CssHeaderItem.forReference(Bootstrap.getSettings().getCssResourceReference()));
 	}
 

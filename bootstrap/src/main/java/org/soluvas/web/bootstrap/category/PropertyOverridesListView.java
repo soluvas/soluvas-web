@@ -15,11 +15,7 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.IChoiceRenderer;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
@@ -205,18 +201,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 		
 		final DropDownChoice<PropertyKind> ddcDefaultKind = new DropDownChoice<>("ddcDefaultKind", new PropertyModel<>(item.getModel(), "defaultKind"),
 				new ListModel<>(ImmutableList.of(PropertyKind.ENUMERATION, PropertyKind.MEASUREMENT, PropertyKind.STRING)),
-				new IChoiceRenderer<PropertyKind>() {
-
-					@Override
-					public Object getDisplayValue(PropertyKind object) {
-						return object.name();
-					}
-
-					@Override
-					public String getIdValue(PropertyKind object, int index) {
-						return object.name();
-					}
-				});
+				new ChoiceRenderer<>());
 		ddcDefaultKind.add(new OnChangeAjaxBehavior() {
 			
 			@Override
@@ -251,18 +236,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			}
 		};
 		final DropDownChoice<Unit<?>> selMeasurementUnit = new DropDownChoice<>("selMeasurementUnit", new PropertyModel<Unit<?>>(item.getModel(), "defaultUnit"),
-				new ListModel<>(SUPPORTED_UNITS), new IChoiceRenderer<Unit<?>>() {
-
-					@Override
-					public Object getDisplayValue(Unit<?> object) {
-						return object.toString();
-					}
-
-					@Override
-					public String getIdValue(Unit<?> object, int index) {
-						return object.toString();
-					}
-				});
+				new ListModel<>(SUPPORTED_UNITS), new ChoiceRenderer<Unit<?>>());
 		selMeasurementUnit.add(new OnChangeAjaxBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
@@ -280,18 +254,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			}
 		};
 		final DropDownChoice<String> selDefaultEnum = new DropDownChoice<>("selDefaultEnum", new PropertyModel<String>(item.getModel(), "defaultEnum"),
-				defaultEnumsModel, new IChoiceRenderer<String>() {
-
-					@Override
-					public Object getDisplayValue(String object) {
-						return object;
-					}
-
-					@Override
-					public String getIdValue(String object, int index) {
-						return object;
-					}
-				});
+				defaultEnumsModel, new ChoiceRenderer<>());
 		defaultEnum.add(selDefaultEnum);
 		item.add(defaultEnum);
 		

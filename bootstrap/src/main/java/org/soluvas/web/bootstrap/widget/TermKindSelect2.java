@@ -14,8 +14,6 @@ public class TermKindSelect2 extends InteractiveSelect2Choice<TermKind>{
 	private static final Logger log = LoggerFactory
 			.getLogger(TermKindSelect2.class);
 	
-	private static final long serialVersionUID = 1L;
-	
 	public TermKindSelect2(String id, IModel<TermKind> selectedTermKindModel) {
 		super(id, selectedTermKindModel);
 		

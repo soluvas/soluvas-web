@@ -26,9 +26,9 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
+import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
-import org.wicketstuff.select2.TextChoiceProvider;
 
 /**
  * {@link Category} {@link Select2Choice} that only displays top-level categories.
@@ -39,27 +39,21 @@ public class TopLevelCategorySelect2 extends InteractiveSelect2Choice<Category> 
 
 	private static final long serialVersionUID = 1L;
 
-	private class TopLevelCategoryChoiceProvider extends TextChoiceProvider<Category> {
-		private static final long serialVersionUID = 1L;
+	private class TopLevelCategoryChoiceProvider extends ChoiceProvider<Category> {
 
 		@Override
-		protected String getDisplayText(Category choice) {
+		public String getDisplayValue(Category choice) {
 			return choice.getName();
 		}
 
 		@Override
-		protected Object getId(Category choice) {
+		public String getIdValue(Category choice) {
 			return choice.getId();
 		}
 
 		@Override
 		public void query(final String term, int page, Response<Category> response) {
-			final Collection<Category> matching = ImmutableList.copyOf(Collections2.filter(sortedCategoriesModel.getObject(), new Predicate<Category>() {
-				@Override
-				public boolean apply(@Nullable Category input) {
-					return StringUtils.containsIgnoreCase(input.getName(), term.trim());
-				}
-			}));
+			final Collection<Category> matching = ImmutableList.copyOf(Collections2.filter(sortedCategoriesModel.getObject(), input -> StringUtils.containsIgnoreCase(input.getName(), term.trim())));
 			response.addAll(matching);
 		}
 
