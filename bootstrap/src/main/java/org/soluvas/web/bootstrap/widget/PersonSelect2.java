@@ -7,13 +7,13 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.json.JSONException;
-import org.json.JSONWriter;
 import org.soluvas.commons.Person;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.Page;
@@ -52,6 +52,16 @@ public class PersonSelect2 extends InteractiveSelect2Choice<Person> {
 		public PersonChoiceProvider() {
 			super();
 			Injector.get().inject(this);
+		}
+
+		@Override
+		public String getDisplayValue(Person choice) {
+			return choice.getName();
+		}
+
+		@Override
+		public String getIdValue(Person choice) {
+			return choice.getId();
 		}
 
 		@Override
