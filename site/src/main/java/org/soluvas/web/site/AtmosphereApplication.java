@@ -17,6 +17,7 @@ import com.google.common.eventbus.Subscribe;
 /**
  * Wicket {@link WebApplication} that publishes all Guava {@link EventBus} events to an Atmosphere {@link org.apache.wicket.atmosphere.EventBus}.
  * @author ceefour
+ * @see SecuredWicketAtmosphereHandler
  */
 public abstract class AtmosphereApplication extends WebApplication {
 	

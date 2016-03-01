@@ -37,9 +37,6 @@ public abstract class DateRangeModal extends Modal<Range<LocalDate>> {
 		startDateModel = new Model<>(inputRange.lowerEndpoint().toDate());
 		endDateModel = new Model<>(inputRange.upperEndpoint().toDate());
 		
-		addCloseButton(new Model<>("Cancel"));
-		header(new Model<>("Select date range"));
-
 		form = new Form<Range<LocalDate>>("form", model) {
 			@Override
 			protected void onSubmit() {
@@ -79,6 +76,13 @@ public abstract class DateRangeModal extends Modal<Range<LocalDate>> {
 				DateRangeModal.this.onSubmit(target);
 			}
 		});
+	}
+
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		addCloseButton(new Model<>("Cancel"));
+		header(new Model<>("Select date range"));
 	}
 
 	@Override

@@ -60,6 +60,10 @@ import com.google.common.collect.Maps;
  * }</pre>
  * 
  * <p>Adapted from http://burkond.blogspot.com/2013/01/non-blocking-server-push-with.html
+ *
+ * @todo Atmosphere framework seems problematic. Plus Spring Boot + Shiro/SpringSecurity + Wicket, it gets
+ *      a bit hard. See https://github.com/spring-projects/spring-boot/blob/master/spring-boot-samples/spring-boot-sample-atmosphere/src/main/java/sample/atmosphere/SampleAtmosphereApplication.java
+ *      and https://github.com/MarcGiffing/wicket-spring-boot/issues/2
  */
 public class SecuredWicketAtmosphereHandler extends AbstractReflectorAtmosphereHandler
         implements AtmosphereServletProcessor {
