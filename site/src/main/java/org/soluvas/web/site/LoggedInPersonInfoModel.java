@@ -4,13 +4,12 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.CommonsFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.PersonInfo;
 import org.soluvas.data.EntityLookup;
 
-import com.google.common.base.Preconditions;
+import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository2;
 
 import javax.inject.Inject;
@@ -49,7 +48,7 @@ public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo>
 		} catch (Exception e) {
 			throw new org.soluvas.security.SecurityException(e, "Cannot get principal from subject %s: %s", subject, e);
 		}
-		final Optional<Person> socialPerson = personId != null ? personRepo.findOne(tenantId, personId) : Optional.empty();
+		final Optional<Person> socialPerson = personId != null ? personRepo.findOne(tenantId, StatusMask.RAW, personId) : Optional.empty();
 		if (!socialPerson.isPresent()) {
 			return CommonsFactory.eINSTANCE.createPersonInfo();
 		} else {
