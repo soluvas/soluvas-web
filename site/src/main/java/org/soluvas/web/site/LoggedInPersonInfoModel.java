@@ -11,27 +11,37 @@ import org.soluvas.commons.PersonInfo;
 import org.soluvas.data.EntityLookup;
 
 import com.google.common.base.Preconditions;
+import org.soluvas.data.person.PersonRepository2;
+
+import javax.inject.Inject;
+import java.util.Optional;
 
 /**
  * Returns the logged in {@link PersonInfo} using Shiro {@link Subject}
  * then lookup the {@link Person} via {@link EntityLookup} bean named {@code personLookup}.
- * @deprecated To Bippo: Do not delete yet, still used by Quikdo. Until there's a better replacement.
+ *
+ * Currently only used by Quikdo 2.x. Bippo uses its own id.co.bippo.web.LoggedInPersonInfoModel.
+ *
+ * @todo Use Spring Security instead of Shiro.
  * @author mahendri
  */
-@Deprecated
 public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo> {
-	private static final long serialVersionUID = 1L;
-	@SpringBean(name="personLookup")
-	private EntityLookup<Person, String> personLookup;
-	
-	public LoggedInPersonInfoModel() {
+	private final String tenantId;
+	@Inject
+	private PersonRepository2 personRepo;
+
+	/**
+	 *
+	 * @param tenantId Tenant ID to load the current user info.
+     */
+	public LoggedInPersonInfoModel(String tenantId) {
 		super();
+		this.tenantId = tenantId;
 		Injector.get().inject(this);
 	}
 	
 	@Override
 	protected PersonInfo load() {
-		Preconditions.checkNotNull(personLookup, "Person Lookup must not be null.");
 		final Subject subject = SecurityUtils.getSubject();
 		String personId;
 		try {
@@ -39,11 +49,11 @@ public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo>
 		} catch (Exception e) {
 			throw new org.soluvas.security.SecurityException(e, "Cannot get principal from subject %s: %s", subject, e);
 		}
-		final Person socialPerson = personId != null ? personLookup.findOne(personId) : null;
-		if (socialPerson == null) {
+		final Optional<Person> socialPerson = personId != null ? personRepo.findOne(tenantId, personId) : Optional.empty();
+		if (!socialPerson.isPresent()) {
 			return CommonsFactory.eINSTANCE.createPersonInfo();
+		} else {
+			return socialPerson.get().toInfo();
 		}
-		final PersonInfo personInfo = socialPerson.toInfo();
-		return personInfo;
 	}
 }
