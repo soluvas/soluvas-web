@@ -38,7 +38,10 @@ import org.springframework.web.context.ConfigurableWebApplicationContext;
  * @author ceefour
  * @see WebPropertySource
  * @see RequestOrCommandAppInitializer
+ * @deprecated With Spring Boot and putting configuration in {@code config/} + {@code workspace.folder},
+ * 	this is no longer needed.
  */
+@Deprecated
 public class AppInitializer extends RequestOrCommandAppInitializer {
 
 	public AppInitializer(boolean scopeConfigurerEnabled) {
