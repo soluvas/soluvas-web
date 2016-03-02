@@ -41,7 +41,7 @@ public class PersonSelect2Multichoice extends InteractiveSelect2MultiChoice<Pers
 	protected void onInitialize() {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
-		add(new AttributeModifier("placeholder", "Choose Category"));
+		add(new AttributeModifier("placeholder", "Choose Person"));
 		getSettings().getAjax().setQuietMillis(250);
 	}
 	
