@@ -373,6 +373,12 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
 					term.setColor(null);
 				}
+				
+				// delete cache for this product
+				final Cache term2EnumIdCache = cacheMgr.getCache("term2EnumId");
+				final String term2EnumIdKey = String.format("term2:%s:%s", tenant.getTenantId(), term.getEnumerationId());
+				term2EnumIdCache.evict(term2EnumIdKey);
+				
 				switch (editMode) {
 				case ADD:
 					final String formalId = SlugUtils.generateValidId(tenant.getTenantId() + " " + term.getName(),
