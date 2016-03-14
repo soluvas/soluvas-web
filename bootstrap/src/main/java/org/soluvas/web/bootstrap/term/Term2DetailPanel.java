@@ -374,7 +374,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 					term.setColor(null);
 				}
 				
-				// delete cache for this product
+				// delete cache
 				final Cache term2EnumIdCache = cacheMgr.getCache("term2EnumId");
 				final String term2EnumIdKey = String.format("term2:%s:%s", tenant.getTenantId(), term.getEnumerationId());
 				term2EnumIdCache.evict(term2EnumIdKey);
