@@ -1,10 +1,12 @@
 package org.soluvas.web.bootstrap.widget;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
+import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
@@ -29,15 +31,19 @@ public class DomainChoiceProvider extends TextChoiceProvider<DomainPermission2> 
 	
 	@Inject
 	private DomainPermissionRepository repo;
+
+	private final IModel<List<String>> excludedDomainIdsModel;
 	
-	public DomainChoiceProvider() {
+	public DomainChoiceProvider(final IModel<List<String>> excludedDomainIdsModel) {
 		super();
 		Injector.get().inject(this);
+		
+		this.excludedDomainIdsModel = excludedDomainIdsModel;
 	}
 
 	@Override
 	protected String getDisplayText(DomainPermission2 choice) {
-		return choice.getDescription();
+		return choice.getName();
 	}
 
 	@Override
@@ -47,8 +53,8 @@ public class DomainChoiceProvider extends TextChoiceProvider<DomainPermission2> 
 
 	@Override
 	public void query(String term, int page, Response<DomainPermission2> response) {
-		final Page<DomainPermission2> result = repo. findAllBySearchText(term.trim(), new PageRequest(page, 5L, Direction.ASC, "id"));
-		log.debug("Got {} row(s) for query '{}'", result.getContent().size(), term);
+		final Page<DomainPermission2> result = repo. findAllBySearchText(term.trim(), excludedDomainIdsModel.getObject(), new PageRequest(page, 5L, Direction.ASC, "id"));
+		log.debug("Got {} row(s) for query '{}' and excludedDomainIds '{}'", result.getContent().size(), term, excludedDomainIdsModel.getObject());
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}
