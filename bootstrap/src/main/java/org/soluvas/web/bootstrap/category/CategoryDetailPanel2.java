@@ -52,6 +52,7 @@ import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.FormalCategory;
 import org.soluvas.category.FormalCategoryRepository;
 import org.soluvas.category.MongoCategoryRepository;
+import org.soluvas.category.MongoCategoryRepositoryImpl;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
@@ -470,11 +471,11 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				
 				// delete cache
 				final Cache category2LevelStatusCache = cacheMgr.getCache("category2LevelStatus");
-				final String category2LevelStatusKey = String.format("category2:%s:%s", tenant.getTenantId(), "category2LevelStatus");
+				final String category2LevelStatusKey = String.format("category2:%s:%s", tenant.getTenantId(), MongoCategoryRepositoryImpl.CATEGORY2_LEVEL_STATUS + category.getLevel());
 				category2LevelStatusCache.evict(category2LevelStatusKey);
 				
 				final Cache category2LevelStatusParentIdCache = cacheMgr.getCache("category2LevelStatusParentId");
-				final String category2LevelStatusParentIdKey = String.format("category2:%s:%s", tenant.getTenantId(), "category2LevelStatusParentId");
+				final String category2LevelStatusParentIdKey = String.format("category2:%s:%s", tenant.getTenantId(), MongoCategoryRepositoryImpl.CATEGORY2_LEVEL_STATUS_PARENT_ID + category.getLevel() + category.getParentId());
 				category2LevelStatusParentIdCache.evict(category2LevelStatusParentIdKey);
 				
 				final Cache category2StatusCache = cacheMgr.getCache("category2Status");
