@@ -61,6 +61,8 @@ import org.soluvas.data.PropertyDefinition;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
@@ -110,6 +112,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private FormalCategoryRepository formalCategoryRepo;
 	@Inject
 	private MongoCategoryRepository catRepo;
+	@Inject
+	private CacheManager cacheMgr;
 	
 	private final EditMode editMode;
 	private final String originalId;
@@ -463,6 +467,20 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					category.resolve(catRepo);
 				}
 				category.setStatus( statusModel.getObject() ? CategoryStatus.ACTIVE : CategoryStatus.VOID );
+				
+				// delete cache
+				final Cache category2LevelStatusCache = cacheMgr.getCache("category2LevelStatus");
+				final String category2LevelStatusKey = String.format("category2:%s:%s", tenant.getTenantId(), "category2LevelStatus");
+				category2LevelStatusCache.evict(category2LevelStatusKey);
+				
+				final Cache category2LevelStatusParentIdCache = cacheMgr.getCache("category2LevelStatusParentId");
+				final String category2LevelStatusParentIdKey = String.format("category2:%s:%s", tenant.getTenantId(), "category2LevelStatusParentId");
+				category2LevelStatusParentIdCache.evict(category2LevelStatusParentIdKey);
+				
+				final Cache category2StatusCache = cacheMgr.getCache("category2Status");
+				final String category2StatusKey = String.format("category2:%s:%s", tenant.getTenantId(), "category2Status");
+				category2StatusCache.evict(category2StatusKey);
+				
 				switch (editMode) {
 				case ADD:
 					catRepo.add(category);
