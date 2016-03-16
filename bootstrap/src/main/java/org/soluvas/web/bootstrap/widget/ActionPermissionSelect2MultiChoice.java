@@ -13,10 +13,8 @@ import org.soluvas.security.DomainPermission2;
  * @author anisa
  *
  */
-public class ActionPermissionSelect2MultiChoice extends InteractiveSelect2MultiChoice<ActionPermission> {
+public class ActionPermissionSelect2MultiChoice extends BootstrapSelect2MultiChoice<ActionPermission> {
 
-	private static final long serialVersionUID = 1L;
-	
 	public ActionPermissionSelect2MultiChoice(String id,final IModel<Collection<ActionPermission>> model, final IModel<DomainPermission2> domainPermissionModel) {
 		super(id, model);
 		setProvider(new ActionPermissionChoiceProvider(domainPermissionModel));
@@ -27,7 +25,7 @@ public class ActionPermissionSelect2MultiChoice extends InteractiveSelect2MultiC
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Select Action"));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 
 }

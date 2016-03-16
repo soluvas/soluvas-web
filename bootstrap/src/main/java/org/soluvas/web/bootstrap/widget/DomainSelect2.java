@@ -12,10 +12,8 @@ import org.soluvas.security.DomainPermission2;
  * @author rudi
  *
  */
-public class DomainSelect2 extends InteractiveSelect2Choice<DomainPermission2> {
+public class DomainSelect2 extends BootstrapSelect2Choice<DomainPermission2> {
 
-	private static final long serialVersionUID = 1L;
-	
 	public DomainSelect2(final String id, final IModel<DomainPermission2> model,
 			final IModel<List<String>> excludedDomainIdsModel) {
 		super(id, model);
@@ -27,7 +25,7 @@ public class DomainSelect2 extends InteractiveSelect2Choice<DomainPermission2> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Select Domain"));
-		getSettings().getAjax().setQuietMillis(250);
+		getSettings().getAjax().setDelay(250);
 	}
 
 }

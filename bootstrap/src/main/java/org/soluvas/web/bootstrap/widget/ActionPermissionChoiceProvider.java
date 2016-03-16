@@ -1,9 +1,5 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
-import javax.inject.Inject;
-
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
@@ -14,56 +10,55 @@ import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.security.ActionPermission;
 import org.soluvas.security.DomainPermission2;
 import org.soluvas.security.DomainPermissionRepository;
+import org.wicketstuff.select2.ChoiceProvider;
+import org.wicketstuff.select2.Response;
 
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import javax.inject.Inject;
+import java.util.Collection;
 
 /**
  * @author anisa
- *
  */
-public class ActionPermissionChoiceProvider extends TextChoiceProvider<ActionPermission> {
-	
-	private static final long serialVersionUID = 1L;
+public class ActionPermissionChoiceProvider extends ChoiceProvider<ActionPermission> {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(ActionPermissionChoiceProvider.class);
-	
-	@Inject
-	private DomainPermissionRepository domainPermissionRepo;
+    private static final Logger log = LoggerFactory
+            .getLogger(ActionPermissionChoiceProvider.class);
 
-	private final IModel<DomainPermission2> domainPermissionModel;
-	
-	public ActionPermissionChoiceProvider(final IModel<DomainPermission2> domainPermissionModel) {
-		super();
-		this.domainPermissionModel = domainPermissionModel;
-		Injector.get().inject(this);
-	}
+    @Inject
+    private DomainPermissionRepository domainPermissionRepo;
 
-	@Override
-	protected String getDisplayText(ActionPermission choice) {
-		return choice.getName();
-	}
+    private final IModel<DomainPermission2> domainPermissionModel;
 
-	@Override
-	protected Object getId(ActionPermission choice) {
-		return choice.getId();
-	}
+    public ActionPermissionChoiceProvider(final IModel<DomainPermission2> domainPermissionModel) {
+        super();
+        this.domainPermissionModel = domainPermissionModel;
+        Injector.get().inject(this);
+    }
 
-	@Override
-	public void query(String term, int page, Response<ActionPermission> response) {
-		final Page<ActionPermission> result = domainPermissionRepo.findAllActionPermissionsBySearchText(term.trim(), domainPermissionModel.getObject().getId(),
-				new PageRequest(page, 5L, Direction.ASC, "id"));
-		//log.debug("Got {} row(s) for query '{}'", result.getContent().size(), term);
-		if (result != null){
-			response.addAll(result.getContent());
-			response.setHasMore(result.hasNextPage());
-		}
-	}
+    @Override
+    public String getDisplayValue(ActionPermission choice) {
+        return choice.getName();
+    }
 
-	@Override
-	public Collection<ActionPermission> toChoices(Collection<String> ids) {
-		return domainPermissionRepo.findAllActionPermissions(domainPermissionModel.getObject().getId(), ids);
-	}
+    @Override
+    public String getIdValue(ActionPermission choice) {
+        return choice.getId();
+    }
+
+    @Override
+    public void query(String term, int page, Response<ActionPermission> response) {
+        final Page<ActionPermission> result = domainPermissionRepo.findAllActionPermissionsBySearchText(term.trim(), domainPermissionModel.getObject().getId(),
+                new PageRequest(page, 5L, Direction.ASC, "id"));
+        //log.debug("Got {} row(s) for query '{}'", result.getContent().size(), term);
+        if (result != null) {
+            response.addAll(result.getContent());
+            response.setHasMore(result.hasNextPage());
+        }
+    }
+
+    @Override
+    public Collection<ActionPermission> toChoices(Collection<String> ids) {
+        return domainPermissionRepo.findAllActionPermissions(domainPermissionModel.getObject().getId(), ids);
+    }
 
 }
