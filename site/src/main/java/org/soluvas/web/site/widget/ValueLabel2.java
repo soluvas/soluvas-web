@@ -94,13 +94,13 @@ public class ValueLabel2 extends Label {
 					} else {
 						final Translation translation = translations.get(languageTag);
 						if (!translation.getMessages().containsKey(Value.DISPLAY_VALUE_ATTR)) {
-							log.debug("Got translation by {}, but not value by attribute {}",
-									languageTag, Value.DISPLAY_VALUE_ATTR);
+//							log.debug("Got translation by {}, but not value by attribute {}",
+//									languageTag, Value.DISPLAY_VALUE_ATTR);
 							displayName = valueObj.getDisplayValue();
 						} else {
 							displayName = translation.getMessages().get(Value.DISPLAY_VALUE_ATTR);
-							log.debug("Got translation by {} with value by attribute {}: {}",
-									languageTag, Value.DISPLAY_VALUE_ATTR, displayName);
+//							log.debug("Got translation by {} with value by attribute {}: {}",
+//									languageTag, Value.DISPLAY_VALUE_ATTR, displayName);
 						}
 					}
 				}
