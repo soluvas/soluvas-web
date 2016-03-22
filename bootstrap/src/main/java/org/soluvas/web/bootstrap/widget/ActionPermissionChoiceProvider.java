@@ -63,7 +63,11 @@ public class ActionPermissionChoiceProvider extends TextChoiceProvider<ActionPer
 
 	@Override
 	public Collection<ActionPermission> toChoices(Collection<String> ids) {
-		return domainPermissionRepo.findAllActionPermissions(domainPermissionModel.getObject().getId(), ids);
+		if (domainPermissionModel.getObject() != null) {
+			return domainPermissionRepo.findAllActionPermissions(domainPermissionModel.getObject().getId(), ids);
+		} else {
+			return null;
+		}
 	}
 
 }
