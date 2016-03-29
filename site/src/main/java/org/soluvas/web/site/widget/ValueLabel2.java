@@ -94,13 +94,13 @@ public class ValueLabel2 extends Label {
 					} else {
 						final Translation translation = translations.get(languageTag);
 						if (!translation.getMessages().containsKey(Value.DISPLAY_VALUE_ATTR)) {
-							log.debug("Got translation by {}, but not value by attribute {}",
-									languageTag, Value.DISPLAY_VALUE_ATTR);
+//							log.debug("Got translation by {}, but not value by attribute {}",
+//									languageTag, Value.DISPLAY_VALUE_ATTR);
 							displayName = valueObj.getDisplayValue();
 						} else {
 							displayName = translation.getMessages().get(Value.DISPLAY_VALUE_ATTR);
-							log.debug("Got translation by {} with value by attribute {}: {}",
-									languageTag, Value.DISPLAY_VALUE_ATTR, displayName);
+//							log.debug("Got translation by {} with value by attribute {}: {}",
+//									languageTag, Value.DISPLAY_VALUE_ATTR, displayName);
 						}
 					}
 				}
@@ -113,23 +113,28 @@ public class ValueLabel2 extends Label {
 				return Strings.escapeMarkup(displayName) + "";
 			} else if (valueObj instanceof TermValue) {
 				final Term2 term = termRepo.findOneByExCacheable(String.valueOf(valueObj.getValue()));
-				
-				final String iconHtml;
-				if (term.getImageId() != null) {
-					final String uri = term.getImageUri(webAddress.getImagesUri());
-					iconHtml = "<img class=\"img-circle\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(displayName) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(displayName) + "\"/> ";
-				} else {
-					final String color = term.getColor();
-					if (color != null) {
-						iconHtml = "<span class=\"img-circle\" style=\"background: " + color + "; width: 20px; display: inline-block; border: 1px solid #ccc;\">&nbsp;</span> "; 
+				if (term != null) {
+					final String iconHtml;
+					if (term.getImageId() != null) {
+						final String uri = term.getImageUri(webAddress.getImagesUri());
+						iconHtml = "<img class=\"img-circle\" src=\"" + uri + "\" alt=\"" + Strings.escapeMarkup(displayName) + "\" title=\"" + org.apache.wicket.util.string.Strings.escapeMarkup(displayName) + "\"/> ";
 					} else {
-						iconHtml = "";
+						final String color = term.getColor();
+						if (color != null) {
+							iconHtml = "<span class=\"img-circle\" style=\"background: " + color + "; width: 20px; display: inline-block; border: 1px solid #ccc;\">&nbsp;</span> "; 
+						} else {
+							iconHtml = "";
+						}
 					}
-				}
-				if (hideTextIfImageExists && !"".equals(iconHtml)) {
-					return iconHtml;
+					
+					if (hideTextIfImageExists && !"".equals(iconHtml)) {
+						return iconHtml;
+					} else {
+						return iconHtml + Strings.escapeMarkup(displayName);
+					}
 				} else {
-					return iconHtml + Strings.escapeMarkup(displayName);
+					log.warn(String.format("No Term for id '%s'", valueObj.getValue()));
+					return Strings.escapeMarkup(displayName) + "";
 				}
 			} else {
 				return Strings.escapeMarkup(displayName) + ""; // foolproof way to convert CharSequence to String, do NOT cast CharSequence to String!

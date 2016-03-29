@@ -404,7 +404,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 				case MODIFY:
 					termCatalogRepo.modify(termId, term);
 					
-					// delete cache for this product
+					// delete cache for this term
 					final Cache slugsCache = cacheMgr.getCache("term2ids");
 					final String key = String.format("term2:%s:%s", tenant.getTenantId(), term.getId());
 					slugsCache.evict(key);
