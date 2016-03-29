@@ -6,6 +6,7 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.soluvas.commons.CommonsFactory;
 import org.soluvas.commons.Person;
+import org.soluvas.commons.Person2;
 import org.soluvas.commons.PersonInfo;
 import org.soluvas.data.EntityLookup;
 
@@ -48,7 +49,7 @@ public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo>
 		} catch (Exception e) {
 			throw new org.soluvas.security.SecurityException(e, "Cannot get principal from subject %s: %s", subject, e);
 		}
-		final Optional<Person> socialPerson = personId != null ? personRepo.findOne(tenantId, StatusMask.RAW, personId) : Optional.empty();
+		final Optional<Person2> socialPerson = personId != null ? personRepo.findOne(tenantId, StatusMask.RAW, personId) : Optional.empty();
 		if (!socialPerson.isPresent()) {
 			return CommonsFactory.eINSTANCE.createPersonInfo();
 		} else {
