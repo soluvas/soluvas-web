@@ -50,7 +50,7 @@ public class SlowRequestFilter implements IResponseFilter {
 			log.warn("Slow {}ms server time taken for {} request \"{}\" ({} KiB)",
 					timeTaken, remoteIp, RequestCycle.get().getRequest().getUrl(), numberFormat.format(responseBuffer.length() / 1024));
 		} else {
-			log.debug("{}ms server time taken for {} request \"{}\" ({} KiB)",
+			log.trace("{}ms server time taken for {} request \"{}\" ({} KiB)",
 					timeTaken, remoteIp, RequestCycle.get().getRequest().getUrl(), numberFormat.format(responseBuffer.length() / 1024));
 		}
 		return responseBuffer;
