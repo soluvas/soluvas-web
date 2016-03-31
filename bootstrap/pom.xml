@@ -70,7 +70,34 @@
 			<groupId>org.antlr</groupId>
 			<artifactId>stringtemplate</artifactId>
 		</dependency>
-		
+
+		<!-- Patternfly -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>patternfly</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>moment</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>jquery-match-height</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>eonasdan-bootstrap-datetimepicker</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>c3</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- used by FacebookPageSelect2 -->
 		<dependency>
 			<groupId>com.restfb</groupId>
