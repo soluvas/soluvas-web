@@ -481,4 +481,10 @@
       <details key="documentation" value="Typical SysConfig for &quot;Starter&quot; style apps.&#xA;This is a temporary quick workaround before rethinking SysConfig mechanism,&#xA;which should be JSON-based (not requiring Eclipse/EMF), and supports app-, env-, hotel-, tenant-, person- and entity- levels of SysConfigs."/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ZendeskConfig" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zendeskEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zendeskUrl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zendeskToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

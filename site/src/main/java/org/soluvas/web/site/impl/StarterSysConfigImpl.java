@@ -23,6 +23,7 @@ import org.soluvas.web.site.StarterSysConfig;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#getGoogleApiKey <em>Google Api Key</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#getGoogleClientId <em>Google Client Id</em>}</li>
@@ -34,7 +35,6 @@ import org.soluvas.web.site.StarterSysConfig;
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#isGoogleAnalyticsDisplayFeatures <em>Google Analytics Display Features</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.StarterSysConfigImpl#getMongoUri <em>Mongo Uri</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

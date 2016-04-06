@@ -11,13 +11,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsEnabled <em>Google Analytics Enabled</em>}</li>
  *   <li>{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsTrackingId <em>Google Analytics Tracking Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#getGoogleAnalyticsCookieDomain <em>Google Analytics Cookie Domain</em>}</li>
  *   <li>{@link org.soluvas.web.site.GoogleAnalyticsSysConfig#isGoogleAnalyticsDisplayFeatures <em>Google Analytics Display Features</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getGoogleAnalyticsSysConfig()
  * @model

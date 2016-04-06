@@ -11,11 +11,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.PerfectAudienceSysConfig#getPerfectAudienceId <em>Perfect Audience Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.PerfectAudienceSysConfig#getPerfectAudienceEnabled <em>Perfect Audience Enabled</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getPerfectAudienceSysConfig()
  * @model interface="true" abstract="true"

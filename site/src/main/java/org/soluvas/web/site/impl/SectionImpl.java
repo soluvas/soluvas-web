@@ -26,12 +26,12 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.SectionImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.SectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.SectionImpl#getPages <em>Pages</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

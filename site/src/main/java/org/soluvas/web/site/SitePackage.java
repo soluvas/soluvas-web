@@ -1732,6 +1732,52 @@ public interface SitePackage extends EPackage {
 	int STARTER_SYS_CONFIG_FEATURE_COUNT = CommonsPackage.GENERAL_SYS_CONFIG_FEATURE_COUNT + 9;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.ZendeskConfig <em>Zendesk Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.ZendeskConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getZendeskConfig()
+	 * @generated
+	 */
+	int ZENDESK_CONFIG = 31;
+
+	/**
+	 * The feature id for the '<em><b>Zendesk Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CONFIG__ZENDESK_ENABLED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Zendesk Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CONFIG__ZENDESK_URL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Zendesk Token</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CONFIG__ZENDESK_TOKEN = 2;
+
+	/**
+	 * The number of structural features of the '<em>Zendesk Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CONFIG_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1739,7 +1785,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 31;
+	int JAVA_SCRIPT_MODE = 32;
 
 
 	/**
@@ -1750,7 +1796,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 32;
+	int INTERACTION = 33;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1760,7 +1806,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 33;
+	int LIVE_CHAT_PROVIDER = 34;
 
 
 	/**
@@ -2635,6 +2681,49 @@ public interface SitePackage extends EPackage {
 	EClass getStarterSysConfig();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.ZendeskConfig <em>Zendesk Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Zendesk Config</em>'.
+	 * @see org.soluvas.web.site.ZendeskConfig
+	 * @generated
+	 */
+	EClass getZendeskConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#isZendeskEnabled <em>Zendesk Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zendesk Enabled</em>'.
+	 * @see org.soluvas.web.site.ZendeskConfig#isZendeskEnabled()
+	 * @see #getZendeskConfig()
+	 * @generated
+	 */
+	EAttribute getZendeskConfig_ZendeskEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#getZendeskUrl <em>Zendesk Url</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zendesk Url</em>'.
+	 * @see org.soluvas.web.site.ZendeskConfig#getZendeskUrl()
+	 * @see #getZendeskConfig()
+	 * @generated
+	 */
+	EAttribute getZendeskConfig_ZendeskUrl();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#getZendeskToken <em>Zendesk Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zendesk Token</em>'.
+	 * @see org.soluvas.web.site.ZendeskConfig#getZendeskToken()
+	 * @see #getZendeskConfig()
+	 * @generated
+	 */
+	EAttribute getZendeskConfig_ZendeskToken();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3404,6 +3493,40 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EClass STARTER_SYS_CONFIG = eINSTANCE.getStarterSysConfig();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.ZendeskConfig <em>Zendesk Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.ZendeskConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getZendeskConfig()
+		 * @generated
+		 */
+		EClass ZENDESK_CONFIG = eINSTANCE.getZendeskConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Zendesk Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ZENDESK_CONFIG__ZENDESK_ENABLED = eINSTANCE.getZendeskConfig_ZendeskEnabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Zendesk Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ZENDESK_CONFIG__ZENDESK_URL = eINSTANCE.getZendeskConfig_ZendeskUrl();
+
+		/**
+		 * The meta object literal for the '<em><b>Zendesk Token</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ZENDESK_CONFIG__ZENDESK_TOKEN = eINSTANCE.getZendeskConfig_ZendeskToken();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

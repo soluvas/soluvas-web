@@ -11,13 +11,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusId <em>Google Plus Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusKind <em>Google Plus Kind</em>}</li>
  *   <li>{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusUrl <em>Google Plus Url</em>}</li>
  *   <li>{@link org.soluvas.web.site.GooglePlusSysConfig#getGooglePlusDisplayName <em>Google Plus Display Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getGooglePlusSysConfig()
  * @model interface="true" abstract="true"

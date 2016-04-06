@@ -32,6 +32,7 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.EntityNewPageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.EntityNewPageImpl#getMountPoint <em>Mount Point</em>}</li>
@@ -39,7 +40,6 @@ import org.soluvas.web.site.SitePackage;
  *   <li>{@link org.soluvas.web.site.impl.EntityNewPageImpl#getSection <em>Section</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.EntityNewPageImpl#getEntityClass <em>Entity Class</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

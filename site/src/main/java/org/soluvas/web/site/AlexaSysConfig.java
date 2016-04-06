@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.AlexaSysConfig#getAlexaVerifyId <em>Alexa Verify Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.AlexaSysConfig#getAlexaCertifyEnabled <em>Alexa Certify Enabled</em>}</li>
@@ -25,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.site.AlexaSysConfig#getAlexaCertifyJsCdn <em>Alexa Certify Js Cdn</em>}</li>
  *   <li>{@link org.soluvas.web.site.AlexaSysConfig#getAlexaCertifyImageCdn <em>Alexa Certify Image Cdn</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getAlexaSysConfig()
  * @model interface="true" abstract="true"
