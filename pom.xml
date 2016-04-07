@@ -52,11 +52,14 @@
 		<!-- http://stackoverflow.com/a/3018152 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    	
+
 		<wicket.version>6.22.0</wicket.version>
-		<wicketstuff.version>6.22.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
-		<wicket-atmosphere.version>0.25</wicket-atmosphere.version><!-- linked to wicket.version -->
-		<atmosphere.version>2.2.8</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version, but there's also atmosphere-runtime-native -->
+		<wicketstuff.version>6.22.0</wicketstuff.version><!-- used by wicketstuff 
+			e.g. wicket-datetime -->
+		<wicket-atmosphere.version>0.25</wicket-atmosphere.version><!-- linked 
+			to wicket.version -->
+		<atmosphere.version>2.2.8</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version, 
+			but there's also atmosphere-runtime-native -->
 	</properties>
 
 	<dependencyManagement>
@@ -80,6 +83,12 @@
 				<groupId>org.soluvas</groupId>
 				<artifactId>org.soluvas.web.login</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.zendesk</groupId>
+				<artifactId>open-replicator</artifactId>
+				<version>1.4.2</version>
 			</dependency>
 
 			<dependency>
@@ -111,7 +120,8 @@
 				<artifactId>wicket-atmosphere</artifactId>
 				<version>${wicket-atmosphere.version}</version>
 				<exclusions>
-					<!-- TODO: only required before wicket-webjars upgrades to reflections 0.9.9 which uses javassist 3.18.2-GA natively -->
+					<!-- TODO: only required before wicket-webjars upgrades to reflections 
+						0.9.9 which uses javassist 3.18.2-GA natively -->
 					<exclusion>
 						<artifactId>javassist</artifactId>
 						<groupId>javassist</groupId>
@@ -127,14 +137,9 @@
 				<groupId>org.atmosphere</groupId>
 				<artifactId>atmosphere-runtime-native</artifactId>
 				<version>${atmosphere.version}</version>
-				<!-- Please remember to exclude atmosphere-compat-tomcat7 inside atmosphere-runtime-native, e.g.:
-				<exclusions>
-					<exclusion>
-						<groupId>org.atmosphere</groupId>
-						<artifactId>atmosphere-compat-tomcat7</artifactId>
-					</exclusion>
-				</exclusions>
-				-->
+				<!-- Please remember to exclude atmosphere-compat-tomcat7 inside atmosphere-runtime-native, 
+					e.g.: <exclusions> <exclusion> <groupId>org.atmosphere</groupId> <artifactId>atmosphere-compat-tomcat7</artifactId> 
+					</exclusion> </exclusions> -->
 			</dependency>
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
@@ -156,9 +161,11 @@
 				<artifactId>wicket-spring</artifactId>
 				<version>${wicket.version}</version>
 				<exclusions>
-					<!-- NOTE: wicket requires cglib at least 2.2.2, but to be portable, cglib must use version 3.1+ -->
+					<!-- NOTE: wicket requires cglib at least 2.2.2, but to be portable, 
+						cglib must use version 3.1+ -->
 					<!-- asm 3.3.1 depended by cglib 2.2.2 -->
-					<!-- replaced by asm 4.2 as required by parboiled, note it conflicts with standard jersey -->
+					<!-- replaced by asm 4.2 as required by parboiled, note it conflicts 
+						with standard jersey -->
 					<exclusion>
 						<groupId>asm</groupId>
 						<artifactId>asm</artifactId>
@@ -207,30 +214,30 @@
 				<artifactId>wicketstuff-gmap3</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.wicketstuff</groupId> -->
-<!-- 				<artifactId>wicketstuff-tinymce</artifactId> -->
-<!-- 				<version>${wicket.version}</version> -->
-<!-- 			</dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.wicketstuff</groupId> -->
+			<!-- <artifactId>wicketstuff-tinymce</artifactId> -->
+			<!-- <version>${wicket.version}</version> -->
+			<!-- </dependency> -->
 
 			<dependency>
-			   <groupId>org.ocpsoft.rewrite</groupId>
-			   <artifactId>rewrite-servlet</artifactId>
-			   <version>2.0.12.Final</version>
+				<groupId>org.ocpsoft.rewrite</groupId>
+				<artifactId>rewrite-servlet</artifactId>
+				<version>2.0.12.Final</version>
 			</dependency>
 			<dependency>
-			   <groupId>org.ocpsoft.rewrite</groupId>
-			   <artifactId>rewrite-integration-spring</artifactId>
-			   <version>2.0.12.Final</version>
-			   <scope>runtime</scope>
+				<groupId>org.ocpsoft.rewrite</groupId>
+				<artifactId>rewrite-integration-spring</artifactId>
+				<version>2.0.12.Final</version>
+				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.ocpsoft.logging</groupId>
-			    <artifactId>logging-adapter-slf4j</artifactId>
-			    <version>1.0.4.Final</version>
-			   <scope>runtime</scope>
+				<groupId>org.ocpsoft.logging</groupId>
+				<artifactId>logging-adapter-slf4j</artifactId>
+				<version>1.0.4.Final</version>
+				<scope>runtime</scope>
 			</dependency>
-			
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -289,7 +296,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
-  		</plugins>
+		</plugins>
 	</build>
 
 	<repositories>
@@ -354,7 +361,7 @@
 					</plugin>
 				</plugins>
 			</build>
-	    </profile>
+		</profile>
 		<profile>
 			<!-- To deploy to bippo-gk, use: mvn -Pbippo-gk -o -DskipTests clean install 
 				deploy -->
@@ -371,5 +378,5 @@
 			</distributionManagement>
 		</profile>
 	</profiles>
-	
+
 </project>
