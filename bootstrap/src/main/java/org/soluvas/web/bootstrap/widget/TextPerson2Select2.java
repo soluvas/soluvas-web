@@ -6,19 +6,19 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.Person;
+import org.soluvas.commons.Person2;
+import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
-import org.soluvas.data.domain.Page;
-import org.soluvas.data.domain.PageRequest;
-import org.soluvas.data.domain.Sort.Direction;
-import org.soluvas.data.person.PersonRepository;
-import org.soluvas.web.site.EmfModel;
+import org.soluvas.data.person.PersonRepository2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -26,13 +26,15 @@ import java.util.List;
 /**
  * @author ceefour
  */
-public class TextPersonSelect2 extends BootstrapSelect2Choice<Person> {
-    private static final Logger log = LoggerFactory.getLogger(TextPersonSelect2.class);
+public class TextPerson2Select2 extends BootstrapSelect2Choice<Person2> {
+    private static final Logger log = LoggerFactory.getLogger(TextPerson2Select2.class);
 
-    private static class PersonChoiceProvider extends ChoiceProvider<Person> {
+    private static class PersonChoiceProvider extends ChoiceProvider<Person2> {
 
-        @SpringBean
-        private PersonRepository personRepo;
+        @Inject
+        private PersonRepository2 personRepo;
+        @Inject
+        private TenantRef tenant;
 
         public PersonChoiceProvider() {
             super();
@@ -40,39 +42,39 @@ public class TextPersonSelect2 extends BootstrapSelect2Choice<Person> {
         }
 
         @Override
-        public String getDisplayValue(Person choice) {
+        public String getDisplayValue(Person2 choice) {
             return choice.getName();
         }
 
         @Override
-        public String getIdValue(Person choice) {
+        public String getIdValue(Person2 choice) {
             return choice.getId();
         }
 
         @Override
-        public void query(String term, int page, Response<Person> response) {
+        public void query(String term, int page, Response<Person2> response) {
             term = term.trim();
-            final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
+            final PageRequest pageable = new PageRequest(page, 10, Sort.Direction.ASC, "name");
             //FIXME: do not hard coded for STATUS
-            final Page<Person> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
+            final Page<Person2> peoplePage = personRepo.findBySearchText(tenant.getTenantId(), StatusMask.ACTIVE_ONLY, term, pageable);
             response.addAll(peoplePage.getContent());
-            response.setHasMore(!peoplePage.isLastPage());
+            response.setHasMore(!peoplePage.isLast());
         }
 
         @Override
-        public Collection<Person> toChoices(Collection<String> ids) {
+        public Collection<Person2> toChoices(Collection<String> ids) {
             //FIXME: do not hard coded for STATUS
-            final List<Person> found = personRepo.findAll(StatusMask.ACTIVE_ONLY, ids);
+            final List<Person2> found = personRepo.findAll(tenant.getTenantId(), StatusMask.ACTIVE_ONLY, ids);
             // Workaround for Select2Choice "bug": https://github.com/ivaynberg/wicket-select2/issues/56
             if (!ids.isEmpty() && found.isEmpty()) {
-                return Arrays.asList(new Person[]{null});
+                return Arrays.asList(new Person2[]{null});
             } else {
                 return found;
             }
         }
 
         @Override
-        public void toJson(Person choice, JSONWriter writer)
+        public void toJson(Person2 choice, JSONWriter writer)
                 throws JSONException {
             writer.key("id").value(choice.getId())
                     .key("customerId").value(choice.getId())
@@ -94,12 +96,12 @@ public class TextPersonSelect2 extends BootstrapSelect2Choice<Person> {
 
     private String inputSize = "xxlarge";
 
-    public TextPersonSelect2(String id, IModel<Person> model) {
+    public TextPerson2Select2(String id, IModel<Person2> model) {
         super(id, model, new PersonChoiceProvider());
     }
 
-    public TextPersonSelect2(String id) {
-        super(id, new EmfModel<Person>(), new PersonChoiceProvider());
+    public TextPerson2Select2(String id) {
+        super(id, new Model<Person2>(), new PersonChoiceProvider());
     }
 
     public void setInputSize(String inputSize) {
