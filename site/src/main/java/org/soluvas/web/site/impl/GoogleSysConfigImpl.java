@@ -18,13 +18,13 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.GoogleSysConfigImpl#getGoogleApiKey <em>Google Api Key</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.GoogleSysConfigImpl#getGoogleClientId <em>Google Client Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.GoogleSysConfigImpl#getGoogleClientSecret <em>Google Client Secret</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.GoogleSysConfigImpl#getGoogleVerifyId <em>Google Verify Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

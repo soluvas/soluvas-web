@@ -10,8 +10,6 @@ import org.soluvas.web.site.SitePackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Catalog</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

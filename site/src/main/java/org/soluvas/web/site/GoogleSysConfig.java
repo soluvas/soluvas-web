@@ -15,13 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.GoogleSysConfig#getGoogleApiKey <em>Google Api Key</em>}</li>
  *   <li>{@link org.soluvas.web.site.GoogleSysConfig#getGoogleClientId <em>Google Client Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.GoogleSysConfig#getGoogleClientSecret <em>Google Client Secret</em>}</li>
  *   <li>{@link org.soluvas.web.site.GoogleSysConfig#getGoogleVerifyId <em>Google Verify Id</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getGoogleSysConfig()
  * @model

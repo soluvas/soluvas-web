@@ -32,6 +32,7 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.RawEntityTablePageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.RawEntityTablePageImpl#getMountPoint <em>Mount Point</em>}</li>
@@ -39,7 +40,6 @@ import org.soluvas.web.site.SitePackage;
  *   <li>{@link org.soluvas.web.site.impl.RawEntityTablePageImpl#getSection <em>Section</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.RawEntityTablePageImpl#getEntityClass <em>Entity Class</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

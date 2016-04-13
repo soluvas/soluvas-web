@@ -13,13 +13,13 @@ import org.soluvas.web.olark.LiveChatProvider;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatEnabled <em>Live Chat Enabled</em>}</li>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProviderId <em>Live Chat Provider Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatProvider <em>Live Chat Provider</em>}</li>
  *   <li>{@link org.soluvas.web.site.LiveChatSysConfig#getLiveChatSiteId <em>Live Chat Site Id</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getLiveChatSysConfig()
  * @model interface="true" abstract="true"

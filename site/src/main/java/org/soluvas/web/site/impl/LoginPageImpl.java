@@ -33,6 +33,7 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.LoginPageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.LoginPageImpl#getMountPoint <em>Mount Point</em>}</li>
@@ -41,7 +42,6 @@ import org.soluvas.web.site.SitePackage;
  *   <li>{@link org.soluvas.web.site.impl.LoginPageImpl#getRegisterPage <em>Register Page</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.LoginPageImpl#getResetPasswordPage <em>Reset Password Page</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -18,12 +18,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.Section#getId <em>Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.Section#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.Section#getPages <em>Pages</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getSection()
  * @model

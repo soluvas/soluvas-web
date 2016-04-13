@@ -31,13 +31,13 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.DashboardPageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.DashboardPageImpl#getMountPoint <em>Mount Point</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.DashboardPageImpl#getParams <em>Params</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.DashboardPageImpl#getSection <em>Section</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

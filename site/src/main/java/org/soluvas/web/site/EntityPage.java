@@ -11,10 +11,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.EntityPage#getEntityClass <em>Entity Class</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getEntityPage()
  * @model interface="true" abstract="true"

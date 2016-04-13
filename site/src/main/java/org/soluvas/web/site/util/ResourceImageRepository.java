@@ -293,4 +293,10 @@ public class ResourceImageRepository extends PagingAndSortingRepositoryBase<Imag
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void updateName(Map<String, String> upNameMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

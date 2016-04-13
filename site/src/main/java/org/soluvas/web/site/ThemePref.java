@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.ThemePref#getNavbarColor <em>Navbar Color</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#getNavbarTextColor <em>Navbar Text Color</em>}</li>
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.soluvas.web.site.ThemePref#isYouTubeLinkVisible <em>You Tube Link Visible</em>}</li>
  *   <li>{@link org.soluvas.web.site.ThemePref#isFootnoteVisible <em>Footnote Visible</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getThemePref()
  * @model interface="true" abstract="true"

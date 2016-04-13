@@ -15,11 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.Permalink#getNamespace <em>Namespace</em>}</li>
  *   <li>{@link org.soluvas.web.site.Permalink#getTemplate <em>Template</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getPermalink()
  * @model

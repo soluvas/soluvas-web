@@ -47,6 +47,7 @@ import org.soluvas.web.site.SiteFactory;
 import org.soluvas.web.site.SitePackage;
 import org.soluvas.web.site.StarterSysConfig;
 import org.soluvas.web.site.ThemePref;
+import org.soluvas.web.site.ZendeskConfig;
 
 /**
  * <!-- begin-user-doc -->
@@ -271,6 +272,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass starterSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass zendeskConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1181,6 +1189,42 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getZendeskConfig() {
+		return zendeskConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getZendeskConfig_ZendeskEnabled() {
+		return (EAttribute)zendeskConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getZendeskConfig_ZendeskUrl() {
+		return (EAttribute)zendeskConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getZendeskConfig_ZendeskToken() {
+		return (EAttribute)zendeskConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1347,6 +1391,11 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(perfectAudienceSysConfigEClass, PERFECT_AUDIENCE_SYS_CONFIG__PERFECT_AUDIENCE_ENABLED);
 
 		starterSysConfigEClass = createEClass(STARTER_SYS_CONFIG);
+
+		zendeskConfigEClass = createEClass(ZENDESK_CONFIG);
+		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_ENABLED);
+		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_URL);
+		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_TOKEN);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1545,6 +1594,11 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getPerfectAudienceSysConfig_PerfectAudienceEnabled(), ecorePackage.getEBooleanObject(), "perfectAudienceEnabled", "false", 0, 1, PerfectAudienceSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(starterSysConfigEClass, StarterSysConfig.class, "StarterSysConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(zendeskConfigEClass, ZendeskConfig.class, "ZendeskConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getZendeskConfig_ZendeskEnabled(), ecorePackage.getEBoolean(), "zendeskEnabled", "false", 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getZendeskConfig_ZendeskUrl(), ecorePackage.getEString(), "zendeskUrl", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getZendeskConfig_ZendeskToken(), ecorePackage.getEString(), "zendeskToken", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");

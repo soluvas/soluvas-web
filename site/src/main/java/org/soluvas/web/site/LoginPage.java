@@ -14,11 +14,11 @@ package org.soluvas.web.site;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.LoginPage#getRegisterPage <em>Register Page</em>}</li>
  *   <li>{@link org.soluvas.web.site.LoginPage#getResetPasswordPage <em>Reset Password Page</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.soluvas.web.site.SitePackage#getLoginPage()
  * @model

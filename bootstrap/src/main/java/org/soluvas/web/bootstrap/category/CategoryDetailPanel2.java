@@ -70,6 +70,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
+import com.mongodb.DuplicateKeyException;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -484,8 +485,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				
 				switch (editMode) {
 				case ADD:
-					catRepo.add(category);
-					info("Added category " + category.getNsPrefix() + "_" + category.getName());
+					try {
+						catRepo.add(category);
+						info("Added category " + category.getNsPrefix() + "_" + category.getName());
+					} catch (DuplicateKeyException dke) {
+						error("Duplikat kode/uname, mohon ubah nama.");
+						return;
+					}
 					break;
 				case MODIFY:
 					catRepo.modify(originalId, category);

@@ -18,13 +18,13 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl#getGoogleAnalyticsEnabled <em>Google Analytics Enabled</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl#getGoogleAnalyticsTrackingId <em>Google Analytics Tracking Id</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl#getGoogleAnalyticsCookieDomain <em>Google Analytics Cookie Domain</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.GoogleAnalyticsSysConfigImpl#isGoogleAnalyticsDisplayFeatures <em>Google Analytics Display Features</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

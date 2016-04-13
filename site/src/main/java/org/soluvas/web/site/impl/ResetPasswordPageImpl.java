@@ -31,13 +31,13 @@ import org.soluvas.web.site.SitePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.impl.ResetPasswordPageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.ResetPasswordPageImpl#getMountPoint <em>Mount Point</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.ResetPasswordPageImpl#getParams <em>Params</em>}</li>
  *   <li>{@link org.soluvas.web.site.impl.ResetPasswordPageImpl#getSection <em>Section</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
