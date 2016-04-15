@@ -1207,7 +1207,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getZendeskConfig_ZendeskUrl() {
+	public EAttribute getZendeskConfig_ZendeskDomain() {
 		return (EAttribute)zendeskConfigEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1216,8 +1216,17 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getZendeskConfig_ZendeskToken() {
+	public EAttribute getZendeskConfig_ZendeskUserName() {
 		return (EAttribute)zendeskConfigEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getZendeskConfig_ZendeskToken() {
+		return (EAttribute)zendeskConfigEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1394,7 +1403,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		zendeskConfigEClass = createEClass(ZENDESK_CONFIG);
 		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_ENABLED);
-		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_URL);
+		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_DOMAIN);
+		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_USER_NAME);
 		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_TOKEN);
 
 		// Create enums
@@ -1597,7 +1607,8 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 
 		initEClass(zendeskConfigEClass, ZendeskConfig.class, "ZendeskConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getZendeskConfig_ZendeskEnabled(), ecorePackage.getEBoolean(), "zendeskEnabled", "false", 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getZendeskConfig_ZendeskUrl(), ecorePackage.getEString(), "zendeskUrl", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getZendeskConfig_ZendeskDomain(), ecorePackage.getEString(), "zendeskDomain", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getZendeskConfig_ZendeskUserName(), ecorePackage.getEString(), "zendeskUserName", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getZendeskConfig_ZendeskToken(), ecorePackage.getEString(), "zendeskToken", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
