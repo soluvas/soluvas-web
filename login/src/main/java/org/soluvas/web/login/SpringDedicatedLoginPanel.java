@@ -80,10 +80,20 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 		this.twitterRecipientPage = twitterRecipientPage;
 	}
 
+	/**
+	 * Normal authentication uses app-configured database (PostgreSQL/MongoDB).
+	 * If disabled, only external authentications (Facebook/Twitter/etc.) are available.
+	 * @return
+     */
 	public boolean isNormalEnabled() {
 		return normalEnabled;
 	}
 
+	/**
+	 * @param normalEnabled Normal authentication uses app-configured database (PostgreSQL/MongoDB).
+	 * If disabled, only external authentications (Facebook/Twitter/etc.) are available.
+	 * @return
+     */
 	public SpringDedicatedLoginPanel setNormalEnabled(boolean normalEnabled) {
 		this.normalEnabled = normalEnabled;
 		return this;
