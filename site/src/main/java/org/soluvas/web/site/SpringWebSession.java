@@ -52,4 +52,9 @@ public class SpringWebSession extends SoluvasWebSession {
         authentication.getAuthorities().forEach(it -> roles.add(it.getAuthority()));
         return roles;
     }
+
+    @Override
+    protected void guessLocale() {
+        // not supported!
+    }
 }
