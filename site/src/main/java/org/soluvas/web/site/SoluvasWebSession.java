@@ -69,7 +69,18 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 	public SoluvasWebSession(Request request) {
 		super(request);
 		Injector.get().inject(this);
+		guessLocale();
+	}
+
+	/**
+	 * @deprecated Hendy's note: We CANNOT access RequestCycle during constructor of WebSession!
+	 * I think we can move this logic into RequestCycleListener instead.
+	 */
+	@Deprecated
+	protected void guessLocale() {
 		try {
+			// FIXME: Hendy's note - we're breaking Wicket's contract here!
+			// We CANNOT access RequestCycle during constructor of WebSession!
 			final RequestCycle requestCycle = RequestCycle.get();
 			@Nullable
 			String localePrefId = null;
@@ -82,7 +93,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 					}
 				}
 			}
-			
+
 			final Locale locale;
 			if (localePrefId != null) {
 				if (SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.containsKey(localePrefId)) {
@@ -125,7 +136,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			}
 			log.debug("Set locale to session: {}", locale.toLanguageTag());
 			setLocale(locale);
-			
+
 			if (getClientInfo().getProperties().getTimeZone() == null) {
 				getClientInfo().getProperties().setTimeZone(appManifest.getDefaultTimeZone().toTimeZone());
 			}
