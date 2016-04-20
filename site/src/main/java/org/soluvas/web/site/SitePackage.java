@@ -1751,13 +1751,22 @@ public interface SitePackage extends EPackage {
 	int ZENDESK_CONFIG__ZENDESK_ENABLED = 0;
 
 	/**
-	 * The feature id for the '<em><b>Zendesk Url</b></em>' attribute.
+	 * The feature id for the '<em><b>Zendesk Domain</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ZENDESK_CONFIG__ZENDESK_URL = 1;
+	int ZENDESK_CONFIG__ZENDESK_DOMAIN = 1;
+
+	/**
+	 * The feature id for the '<em><b>Zendesk User Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CONFIG__ZENDESK_USER_NAME = 2;
 
 	/**
 	 * The feature id for the '<em><b>Zendesk Token</b></em>' attribute.
@@ -1766,7 +1775,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ZENDESK_CONFIG__ZENDESK_TOKEN = 2;
+	int ZENDESK_CONFIG__ZENDESK_TOKEN = 3;
 
 	/**
 	 * The number of structural features of the '<em>Zendesk Config</em>' class.
@@ -1775,7 +1784,7 @@ public interface SitePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ZENDESK_CONFIG_FEATURE_COUNT = 3;
+	int ZENDESK_CONFIG_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
@@ -2702,15 +2711,26 @@ public interface SitePackage extends EPackage {
 	EAttribute getZendeskConfig_ZendeskEnabled();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#getZendeskUrl <em>Zendesk Url</em>}'.
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#getZendeskDomain <em>Zendesk Domain</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Zendesk Url</em>'.
-	 * @see org.soluvas.web.site.ZendeskConfig#getZendeskUrl()
+	 * @return the meta object for the attribute '<em>Zendesk Domain</em>'.
+	 * @see org.soluvas.web.site.ZendeskConfig#getZendeskDomain()
 	 * @see #getZendeskConfig()
 	 * @generated
 	 */
-	EAttribute getZendeskConfig_ZendeskUrl();
+	EAttribute getZendeskConfig_ZendeskDomain();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#getZendeskUserName <em>Zendesk User Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zendesk User Name</em>'.
+	 * @see org.soluvas.web.site.ZendeskConfig#getZendeskUserName()
+	 * @see #getZendeskConfig()
+	 * @generated
+	 */
+	EAttribute getZendeskConfig_ZendeskUserName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskConfig#getZendeskToken <em>Zendesk Token</em>}'.
@@ -3513,12 +3533,20 @@ public interface SitePackage extends EPackage {
 		EAttribute ZENDESK_CONFIG__ZENDESK_ENABLED = eINSTANCE.getZendeskConfig_ZendeskEnabled();
 
 		/**
-		 * The meta object literal for the '<em><b>Zendesk Url</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zendesk Domain</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ZENDESK_CONFIG__ZENDESK_URL = eINSTANCE.getZendeskConfig_ZendeskUrl();
+		EAttribute ZENDESK_CONFIG__ZENDESK_DOMAIN = eINSTANCE.getZendeskConfig_ZendeskDomain();
+
+		/**
+		 * The meta object literal for the '<em><b>Zendesk User Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ZENDESK_CONFIG__ZENDESK_USER_NAME = eINSTANCE.getZendeskConfig_ZendeskUserName();
 
 		/**
 		 * The meta object literal for the '<em><b>Zendesk Token</b></em>' attribute feature.

@@ -14,7 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.soluvas.web.site.ZendeskConfig#isZendeskEnabled <em>Zendesk Enabled</em>}</li>
- *   <li>{@link org.soluvas.web.site.ZendeskConfig#getZendeskUrl <em>Zendesk Url</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ZendeskConfig#getZendeskDomain <em>Zendesk Domain</em>}</li>
+ *   <li>{@link org.soluvas.web.site.ZendeskConfig#getZendeskUserName <em>Zendesk User Name</em>}</li>
  *   <li>{@link org.soluvas.web.site.ZendeskConfig#getZendeskToken <em>Zendesk Token</em>}</li>
  * </ul>
  *
@@ -51,30 +52,56 @@ public interface ZendeskConfig extends EObject {
 	void setZendeskEnabled(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Zendesk Url</b></em>' attribute.
+	 * Returns the value of the '<em><b>Zendesk Domain</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Zendesk Url</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Zendesk Domain</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Zendesk Url</em>' attribute.
-	 * @see #setZendeskUrl(String)
-	 * @see org.soluvas.web.site.SitePackage#getZendeskConfig_ZendeskUrl()
+	 * @return the value of the '<em>Zendesk Domain</em>' attribute.
+	 * @see #setZendeskDomain(String)
+	 * @see org.soluvas.web.site.SitePackage#getZendeskConfig_ZendeskDomain()
 	 * @model
 	 * @generated
 	 */
-	String getZendeskUrl();
+	String getZendeskDomain();
 
 	/**
-	 * Sets the value of the '{@link org.soluvas.web.site.ZendeskConfig#getZendeskUrl <em>Zendesk Url</em>}' attribute.
+	 * Sets the value of the '{@link org.soluvas.web.site.ZendeskConfig#getZendeskDomain <em>Zendesk Domain</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Zendesk Url</em>' attribute.
-	 * @see #getZendeskUrl()
+	 * @param value the new value of the '<em>Zendesk Domain</em>' attribute.
+	 * @see #getZendeskDomain()
 	 * @generated
 	 */
-	void setZendeskUrl(String value);
+	void setZendeskDomain(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Zendesk User Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Zendesk User Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Zendesk User Name</em>' attribute.
+	 * @see #setZendeskUserName(String)
+	 * @see org.soluvas.web.site.SitePackage#getZendeskConfig_ZendeskUserName()
+	 * @model
+	 * @generated
+	 */
+	String getZendeskUserName();
+
+	/**
+	 * Sets the value of the '{@link org.soluvas.web.site.ZendeskConfig#getZendeskUserName <em>Zendesk User Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Zendesk User Name</em>' attribute.
+	 * @see #getZendeskUserName()
+	 * @generated
+	 */
+	void setZendeskUserName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Zendesk Token</b></em>' attribute.
