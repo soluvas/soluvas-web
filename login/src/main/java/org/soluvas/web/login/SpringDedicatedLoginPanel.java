@@ -63,6 +63,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	private final Class<? extends Page> facebookRecipientPage;
 	private final Class<? extends Page> twitterRecipientPage;
 	private boolean normalEnabled = true;
+	private boolean runAsEnabled = false;
 
 	public SpringDedicatedLoginPanel(final String id,
 									 final IModel<LoginToken> userLoginModel) {
@@ -78,6 +79,19 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 		super(id, userLoginModel);
 		this.facebookRecipientPage = facebookRecipientPage;
 		this.twitterRecipientPage = twitterRecipientPage;
+	}
+
+	/**
+	 * Allow login using sysadmin password ({@code security.user.password}).
+	 * Requires {@link org.springframework.security.access.intercept.RunAsImplAuthenticationProvider} to be configured.
+	 * @return
+	 */
+	public boolean isRunAsEnabled() {
+		return runAsEnabled;
+	}
+
+	public void setRunAsEnabled(boolean runAsEnabled) {
+		this.runAsEnabled = runAsEnabled;
 	}
 
 	/**
@@ -152,6 +166,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 					((SoluvasWebSession) getSession()).postLoginSuccess();
 				}
 			};
+			normalLoginBtn.setRunAsEnabled(runAsEnabled);
 			normal.add(normalLoginBtn);
 			add(normal);
 			

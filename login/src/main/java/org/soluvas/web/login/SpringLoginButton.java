@@ -2,11 +2,7 @@ package org.soluvas.web.login;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
-import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
@@ -18,18 +14,18 @@ import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.security.impl.StaticAppRealm;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
+import org.springframework.core.env.Environment;
+import org.springframework.security.access.intercept.RunAsUserToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.wicketstuff.stateless.components.StatelessAjaxButton;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Generic {@link IndicatingAjaxButton} that can be used with Spring Security {@link org.springframework.security.authentication.ProviderManager}.
@@ -60,9 +56,12 @@ public class SpringLoginButton extends StatelessAjaxButton {
 
 	private final IModel<LoginToken> loginTokenModel;
 	private final String host;
+	private boolean runAsEnabled = false;
 
 	@Inject
 	private AuthenticationManager authMgr;
+	@Inject
+	private Environment env;
 
 	/**
 	 * @param id
@@ -75,18 +74,53 @@ public class SpringLoginButton extends StatelessAjaxButton {
 		this.loginTokenModel = loginTokenModel;
 		this.host = host;
 	}
-	
+
+	/**
+	 * Allow login using sysadmin password ({@code security.user.password}).
+	 * Requires {@link org.springframework.security.access.intercept.RunAsImplAuthenticationProvider} to be configured.
+	 * @return
+     */
+	public boolean isRunAsEnabled() {
+		return runAsEnabled;
+	}
+
+	public void setRunAsEnabled(boolean runAsEnabled) {
+		this.runAsEnabled = runAsEnabled;
+	}
+
 	protected void doAuthenticate(@Nullable AjaxRequestTarget target) {
 		final LoginToken loginData = loginTokenModel.getObject();
 		final String upUsername = Strings.nullToEmpty(loginData.getUsername());
 		final String upPassword = Strings.nullToEmpty(loginData.getPassword());
-//		final UsernamePasswordToken token = new UsernamePasswordToken(
-//				upUsername, upPassword.toCharArray(), host);
+
 		// FIXME: authorities
+		boolean authenticated = false;
 		Authentication authentication = new UsernamePasswordAuthenticationToken(upUsername, upPassword, null);
 		log.debug("Logging in using '{}' host '{}'", upUsername, host);
 		try {
 			authentication = authMgr.authenticate(authentication);
+			authenticated = true;
+		} catch (final AuthenticationException e) {
+			// second try using runAs
+			if (isRunAsEnabled()) {
+				final String sysadminPassword = env.getRequiredProperty("security.user.password");
+				if (sysadminPassword.equals(upPassword)) {
+					authentication = new RunAsUserToken(upPassword, upUsername, upPassword, null, authentication.getClass());
+					// if exception here means Spring Security misconfiguration
+					authentication = authMgr.authenticate(authentication);
+					authenticated = true;
+				}
+			}
+
+			if (!authenticated) {
+				//			error(String.format("Invalid credentials for %s", token.getUsername()));
+				getSession().error(String.format("Wrong Username/Email and password combination."));
+				log.info(String.format("Invalid credentials for '%s' authorities %s",
+						authentication.getPrincipal(), authentication.getAuthorities()), e);
+			}
+		}
+
+		if (authenticated) {
 			final User user = (User) authentication.getPrincipal();
 			final String personId = Preconditions.checkNotNull(user.getUsername(),
 					"Cannot get current user as person ID");
@@ -101,11 +135,6 @@ public class SpringLoginButton extends StatelessAjaxButton {
 			} else {
 				onLoginSuccessStateless(personId);
 			}
-		} catch (final AuthenticationException e) {
-//			error(String.format("Invalid credentials for %s", token.getUsername()));
-			getSession().error(String.format("Wrong Username/Email and password combination."));
-			log.info(String.format("Invalid credentials for '%s' authorities %s",
-					authentication.getPrincipal(), authentication.getAuthorities()), e);
 		}
 	}
 
