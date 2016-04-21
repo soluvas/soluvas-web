@@ -2,30 +2,40 @@ package org.soluvas.web.login;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.Person;
 import org.soluvas.commons.tenant.TenantRef;
+import org.soluvas.data.person.PersonRepository;
 import org.soluvas.security.impl.StaticAppRealm;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.security.access.intercept.RunAsUserToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 import org.wicketstuff.stateless.components.StatelessAjaxButton;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generic {@link IndicatingAjaxButton} that can be used with Spring Security {@link org.springframework.security.authentication.ProviderManager}.
@@ -56,12 +66,14 @@ public class SpringLoginButton extends StatelessAjaxButton {
 
 	private final IModel<LoginToken> loginTokenModel;
 	private final String host;
-	private boolean runAsEnabled = false;
+	private boolean loginAsEnabled = false;
 
 	@Inject
 	private AuthenticationManager authMgr;
 	@Inject
 	private Environment env;
+	@SpringBean(required = false)
+	private PersonRepository personRepo;
 
 	/**
 	 * @param id
@@ -77,15 +89,14 @@ public class SpringLoginButton extends StatelessAjaxButton {
 
 	/**
 	 * Allow login using sysadmin password ({@code security.user.password}).
-	 * Requires {@link org.springframework.security.access.intercept.RunAsImplAuthenticationProvider} to be configured.
 	 * @return
      */
-	public boolean isRunAsEnabled() {
-		return runAsEnabled;
+	public boolean isLoginAsEnabled() {
+		return loginAsEnabled;
 	}
 
-	public void setRunAsEnabled(boolean runAsEnabled) {
-		this.runAsEnabled = runAsEnabled;
+	public void setLoginAsEnabled(boolean loginAsEnabled) {
+		this.loginAsEnabled = loginAsEnabled;
 	}
 
 	protected void doAuthenticate(@Nullable AjaxRequestTarget target) {
@@ -102,12 +113,22 @@ public class SpringLoginButton extends StatelessAjaxButton {
 			authenticated = true;
 		} catch (final AuthenticationException e) {
 			// second try using runAs
-			if (isRunAsEnabled()) {
+			if (isLoginAsEnabled()) {
+				Preconditions.checkNotNull(personRepo, "loginAsEnabled requires personRepo");
 				final String sysadminPassword = env.getRequiredProperty("security.user.password");
 				if (sysadminPassword.equals(upPassword)) {
-					authentication = new RunAsUserToken(upPassword, upUsername, upPassword, null, authentication.getClass());
+					final Person person = Preconditions.checkNotNull(personRepo.findOne(upUsername),
+							"Cannot find person '%s'", upUsername);
+					final User user = new User(person.getId(), "", ImmutableList.of());
+					final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()
+							.map(it -> new SimpleGrantedAuthority("ROLE_" + it)).collect(Collectors.toList());
+					final PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(user, "",
+							authorities);
+					log.info("User {}'s Authorities: {}", person.getGoogleUsername(), authorities);
+					token.setDetails(new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(
+							(HttpServletRequest) getRequest().getContainerRequest(), authorities));
 					// if exception here means Spring Security misconfiguration
-					authentication = authMgr.authenticate(authentication);
+					authentication = authMgr.authenticate(token);
 					authenticated = true;
 				}
 			}

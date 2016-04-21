@@ -1,7 +1,5 @@
 package org.soluvas.web.login;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -15,7 +13,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
@@ -23,15 +20,11 @@ import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
-import org.soluvas.web.login.facebook.FacebookRecipient;
 import org.soluvas.web.login.facebook.SpringFacebookRecipientPage;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +56,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	private final Class<? extends Page> facebookRecipientPage;
 	private final Class<? extends Page> twitterRecipientPage;
 	private boolean normalEnabled = true;
-	private boolean runAsEnabled = false;
+	private boolean loginAsEnabled = false;
 
 	public SpringDedicatedLoginPanel(final String id,
 									 final IModel<LoginToken> userLoginModel) {
@@ -83,15 +76,14 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 
 	/**
 	 * Allow login using sysadmin password ({@code security.user.password}).
-	 * Requires {@link org.springframework.security.access.intercept.RunAsImplAuthenticationProvider} to be configured.
 	 * @return
 	 */
-	public boolean isRunAsEnabled() {
-		return runAsEnabled;
+	public boolean isLoginAsEnabled() {
+		return loginAsEnabled;
 	}
 
-	public void setRunAsEnabled(boolean runAsEnabled) {
-		this.runAsEnabled = runAsEnabled;
+	public void setLoginAsEnabled(boolean loginAsEnabled) {
+		this.loginAsEnabled = loginAsEnabled;
 	}
 
 	/**
@@ -166,7 +158,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 					((SoluvasWebSession) getSession()).postLoginSuccess();
 				}
 			};
-			normalLoginBtn.setRunAsEnabled(runAsEnabled);
+			normalLoginBtn.setLoginAsEnabled(loginAsEnabled);
 			normal.add(normalLoginBtn);
 			add(normal);
 			
