@@ -88,6 +88,11 @@ public enum SchemaOrgClass {
 	 */
 	CONTACT_PAGE,
 	/**
+	 * <a href="http://schema.org/ProfilePage">schema:ProfilePage</a> - Web page type: Profile page.
+	 * @see #WEB_PAGE
+	 */
+	PROFILE_PAGE,
+	/**
 	 * <a href="http://schema.org/Event">schema:Event</a> - An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the 'offers' property. Repeated events may be structured as separate Event objects.
 	 * Usage: Between 100,000 and 250,000 domains.
 	 */
