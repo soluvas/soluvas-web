@@ -1,11 +1,8 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Locale;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
@@ -20,13 +17,14 @@ import org.soluvas.commons.locale.LocaleOrdering;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.CityRepository;
 import org.soluvas.web.site.FlagsCssResourceReference;
-
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
+
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Locale;
 
 /**
  * {@link Select2Choice} UI component for {@link Locale}.
@@ -124,19 +122,20 @@ public class LocaleSelect2 extends BootstrapSelect2Choice<Locale> {
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(400);
 		getSettings().setTemplateResult(
-			"function(object, container, query, escapeMarkup) {" +
-			"container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text}));" +
+			"function(object) {" +
+			"if (!object.id) return object.text;" +
+			"var d1 = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text});" +
 			"container.append(' ');" +
-			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
 			"var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(textMarkup.join(''));" +
-			"container.append(thediv);" +
+			"  .append(document.createTextNode(object.text));" +
+			"return [d1, ' ', thediv];" +
 			"}");
 		getSettings().setTemplateSelection(
-				"function(object, container, query) {" +
-				"container.append($('<span>').attr({'class': 'flag flag-' + object.c.toLowerCase(), 'title': object.text}));" +
-				"container.append(' ');" +
-				"container.append(document.createTextNode(object.text));" +
+				"function(object) {" +
+				"return [" +
+				"  $('<span>').attr({'class': 'flag flag-' + object.c.toLowerCase(), 'title': object.text})," +
+				"  ' '," +
+				"  document.createTextNode(object.text) ];" +
 				"}");
 	}
 

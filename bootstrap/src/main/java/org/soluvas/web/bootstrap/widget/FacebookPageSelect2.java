@@ -113,23 +113,18 @@ public class FacebookPageSelect2 extends BootstrapSelect2Choice<Account> {
 //		setProvider(new PersonChoiceProvider(personLdapRepo, imageMgr));
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
-			"function(object, container, query, escapeMarkup) {" +
-			"container.append($('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50}));" +		
-//			"container.append($('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri));" +
-			"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
-			"var idMarkup = []; window.Select2.util.markMatch(object.id, query.term, idMarkup, escapeMarkup);" +
-			"var categoryMarkup = []; window.Select2.util.markMatch(object.category, query.term, categoryMarkup, escapeMarkup);" +
+			"function(object) {" +
+			"if (!object.id) return object.text;" +
+			"var d1 = $('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50});" +
 			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(textMarkup.join('')).append(' <span class=\"label\">'+ idMarkup.join('') + '</span> <br>')" +
-			"  .append($('<small>').css({color: '#666'}).append(categoryMarkup.join('')));" +
-			"container.append(thediv);" +
+			"  .append(document.createTextNode(object.text)).append(' ').append($('<span class=\"label\">').text(object.id)).append('<br>')" +
+			"  .append($('<small>').css({color: '#666'}).append(document.createTextNode(object.category));" +
 			"thediv.css({height: '45px'});" +
+			"return [d1, thediv];" +
 			"}");
 		getSettings().setTemplateSelection(
-				"function(object, container, query) {" +
-//				"container.append($('<img>').attr('src', object.genderIconUri));" +
-//				"container.append(' ');" +
-				"container.append(document.createTextNode(object.text + ' · #' +  object.id));" +
+				"function(object) {" +
+				"return document.createTextNode(object.text + ' · #' +  object.id);" +
 				"}");
 	}
 

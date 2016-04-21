@@ -117,29 +117,20 @@ public class TextPerson2Select2 extends BootstrapSelect2Choice<Person2> {
         super.onInitialize();
         add(new AttributeAppender("class", new Model<>("input-" + inputSize), " "));
         getSettings().getAjax().setDelay(250);
-//        getSettings().setTemplateResult(
-//                "function(object, container, query, escapeMarkup) {" +
-//                        "var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
-//                        "var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-//                        "  .append(textMarkup.join('')).append(' (ID : '+ object.customerId + ') <br>')" +
-//                        "  .append($('<small>').css({color: '#666'}).text(object.location));" +
-//                        "container.append(thediv);" +
-//                        "thediv.css({height: '45px'});" +
-//                        "}");
         getSettings().setTemplateResult(
                 "function(object) {" +
-                        "if (!object.id) return object.text;" +
-                        "var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-                        "  .append(document.createTextNode(object.text)).append(' (ID : '+ object.customerId + ') <br>')" +
-                        "  .append($('<small>').css({color: '#666'}).text(object.location));" +
-                        "thediv.css({height: '45px'});" +
-                        "return thediv;" +
-                        "}");
+                "if (!object.id) return object.text;" +
+                "var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
+                "  .append(document.createTextNode(object.text)).append(' (ID : '+ object.customerId + ') <br>')" +
+                "  .append($('<small>').css({color: '#666'}).text(object.location));" +
+                "thediv.css({height: '45px'});" +
+                "return thediv;" +
+                "}");
         getSettings().setTemplateSelection(
                 "function(object) {" +
-                        "var span = $('<span>').append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
-                        "return span;" +
-                        "}");
+                "var span = $('<span>').append(document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') '));" +
+                "return span;" +
+                "}");
     }
 
 }

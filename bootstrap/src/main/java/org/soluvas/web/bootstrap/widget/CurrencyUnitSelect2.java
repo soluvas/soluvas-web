@@ -37,8 +37,6 @@ import java.util.Locale;
  */
 public class CurrencyUnitSelect2 extends BootstrapSelect2Choice<CurrencyUnit> {
 
-    private static final long serialVersionUID = 1L;
-
     private static class CurrencyUnitChoiceProvider extends ChoiceProvider<CurrencyUnit> {
 
         @Inject
@@ -127,24 +125,24 @@ public class CurrencyUnitSelect2 extends BootstrapSelect2Choice<CurrencyUnit> {
         add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
         getSettings().getAjax().setDelay(400);
         getSettings().setTemplateResult(
-                "function(object, container, query, escapeMarkup) {" +
-                        "container.append($('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text}));" +
-                        "container.append(' ');" +
-                        "var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
-                        "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-                        "  .append($('<span>').attr({'class': 'label label-default', 'style': 'display: inline-block; margin-right: 0.2em; vertical-align: text-top; width: 4em'}).text(object.id))" +
-                        "  .append(' ')" +
-                        "  .append(textMarkup.join(''));" +
-                        "container.append(thediv);" +
-                        "}");
+                "function(object) {" +
+                "if (!object.id) return object.text;" +
+                "var d1 = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text});" +
+                "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
+                "  .append($('<span>').attr({'class': 'label label-default', 'style': 'display: inline-block; margin-right: 0.2em; vertical-align: text-top; width: 4em'}).text(object.id))" +
+                "  .append(' ')" +
+                "  .append(document.createTextNode(object.text));" +
+                "return [d1, ' ', thediv];" +
+                "}");
         getSettings().setTemplateSelection(
-                "function(object, container, query) {" +
-                        "container.append($('<span>').attr({'class': 'flag flag-' + object.c.toLowerCase(), 'title': object.text}));" +
-                        "container.append(' ');" +
-                        "container.append($('<span>').attr({'class': 'label label-default', 'style': 'display: inline-block; margin-right: 0.2em; vertical-align: text-top; width: 4em'}).text(object.id));" +
-                        "container.append(' ');" +
-                        "container.append(document.createTextNode(object.text));" +
-                        "}");
+                "function(object) {" +
+                "return [" +
+                "  $('<span>').attr({'class': 'flag flag-' + object.c.toLowerCase(), 'title': object.text})," +
+                "  ' '," +
+                "  $('<span>').attr({'class': 'label label-default', 'style': 'display: inline-block; margin-right: 0.2em; vertical-align: text-top; width: 4em'}).text(object.id)," +
+                "  ' '," +
+                "  document.createTextNode(object.text) ];" +
+                "}");
     }
 
 }

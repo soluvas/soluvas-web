@@ -23,11 +23,11 @@ public class CountrySelect2Multi extends BootstrapSelect2MultiChoice<Country> {
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
-				"function(object, container, query, escapeMarkup) {" +
-				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+				"function(object) {" +
+				"if (!object.id) return object.text;" +
 				"var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-				"  .append(textMarkup.join('')).append($('<small>').text(object.formalId));" +
-				"container.append(thediv);" +
+				"  .append(document.createTextNode(object.text)).append($('<small>').text(object.formalId));" +
+				"return thediv;" +
 				"}");
 	}
 	
