@@ -9,7 +9,6 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
 import org.soluvas.data.domain.Page;
@@ -19,6 +18,7 @@ import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import java.util.Collection;
 
 /**
@@ -27,7 +27,8 @@ import java.util.Collection;
 public class MixinSelect2 extends BootstrapSelect2Choice<Mixin> {
 
     private static class MixinChoiceProvider extends ChoiceProvider<Mixin> {
-        @SpringBean
+
+        @Inject
         private MixinManager mixinMgr;
 
         public MixinChoiceProvider() {
@@ -96,12 +97,12 @@ public class MixinSelect2 extends BootstrapSelect2Choice<Mixin> {
         add(new AttributeAppender("class", new Model<>("col-sm-4")));
         getSettings().getAjax().setDelay(250);
         getSettings().setTemplateResult(
-                "function(object, container, query, escapeMarkup) {" +
-                        "var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
-                        "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-                        "  .append(textMarkup.join('')).append(' ').append($('<small>').text(object.name));" +
-                        "container.append(thediv);" +
-                        "}");
+                "function(object) {" +
+                "if (!object.id) return object.text;" +
+                "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
+                "  .append(document.createTextNode(object.text)).append(' ').append($('<small>').text(object.name));" +
+                "return thediv;" +
+                "}");
     }
 
 

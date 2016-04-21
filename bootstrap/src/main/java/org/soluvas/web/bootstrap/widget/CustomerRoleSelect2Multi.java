@@ -1,22 +1,19 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.commons.CustomerRole;
-
 import org.wicketstuff.select2.Select2MultiChoice;
+
+import java.util.Collection;
 
 /**
  * @author rudi
  *
  */
 public class CustomerRoleSelect2Multi extends Select2MultiChoice<CustomerRole> {
-	
-	private static final long serialVersionUID = 1L;
 	
 	public CustomerRoleSelect2Multi(final String id, final IModel<Collection<CustomerRole>> model) {
 		super(id, model, new CustomerRoleChoiceProvider());
@@ -34,10 +31,10 @@ public class CustomerRoleSelect2Multi extends Select2MultiChoice<CustomerRole> {
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
 				"function(object, container, query, escapeMarkup) {" +
-				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+				"if (!object.id) return object.text;" +
 				"var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-				"  .append(textMarkup.join('')).append($('<small>').text(object.formalId));" +
-				"container.append(thediv);" +
+				"  .append(document.createTextNode(object.text)).append($('<small>').text(object.formalId));" +
+				"return thediv;" +
 				"}");
 	}
 

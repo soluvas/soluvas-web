@@ -1,11 +1,5 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
@@ -15,9 +9,13 @@ import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.CappedRequest;
 import org.soluvas.image.Media;
 import org.soluvas.image.MediaRepository;
-
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Quickly choose {@link Media}.
@@ -107,20 +105,21 @@ public class MediaMultiSelect extends BootstrapSelect2MultiChoice<Media> {
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
-				"function(object, container, query, escapeMarkup) {" +
-				"container.append($('<img>').css({float: 'left'}).attr({src: object.mediaUri, width: 50, height: 50}));" +		
-				"var textMarkup = []; window.Select2.util.markMatch(object.text, query.term, textMarkup, escapeMarkup);" +
+				"function(object) {" +
+				"if (!object.id) return object.text;" +
+				"var d1 = $('<img>').css({float: 'left'}).attr({src: object.mediaUri, width: 50, height: 50});" +
 				"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-				"  .append(textMarkup.join(''))" +
+				"  .append(document.createTextNode(object.text))" +
 				"  ;" +
-				"container.append(thediv);" +
 				"thediv.css({height: '45px'});" +
+				"return [d1, thediv];" +
 				"}");
 		getSettings().setTemplateSelection(
-				"function(object, container, query) {" +
-				"container.append($('<img>').attr({src: object.mediaUri, width: 50, height: 50}));" +
-				"container.append(' ');" +
-				"container.append(document.createTextNode(object.text));" +
+				"function(object) {" +
+				"return [" +
+				"  $('<img>').attr({src: object.mediaUri, width: 50, height: 50})," +
+				"  ' '," +
+				"  document.createTextNode(object.text) ];" +
 				"}");
 	}
 
