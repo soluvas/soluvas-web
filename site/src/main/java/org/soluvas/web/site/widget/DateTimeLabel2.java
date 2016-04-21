@@ -10,6 +10,8 @@ import org.apache.wicket.model.Model;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.soluvas.web.site.semantic.ItemPropContentBehavior;
+import org.soluvas.web.site.semantic.SchemaOrgProperty;
 
 /**
  * Displays a {@link DateTime} model, by default with time zone (for safety), and also uses <code>abbr</code>.
@@ -26,6 +28,11 @@ public class DateTimeLabel2 extends Label {
 		super(id, model);
 	}
 	
+	public DateTimeLabel2(String id, final IModel<DateTime> model, SchemaOrgProperty schemaOrgProperty) {
+		super(id, model);
+		add(new ItemPropContentBehavior(schemaOrgProperty, model));
+	}
+
 	public DateTimeLabel2(String id, final DateTime dateTime) {
 		super(id, new Model<>(dateTime));
 	}
