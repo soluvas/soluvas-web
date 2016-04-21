@@ -125,7 +125,7 @@ public class CurrencyUnitSelect2 extends BootstrapSelect2Choice<CurrencyUnit> {
         add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
         getSettings().getAjax().setDelay(400);
         getSettings().setTemplateResult(
-                "function(object, container, query, escapeMarkup) {" +
+                "function(object) {" +
                 "if (!object.id) return object.text;" +
                 "var d1 = $('<span>').css({float: 'left', marginTop: '4px'}).attr({class: 'flag flag-' + object.c.toLowerCase(), title: object.text});" +
                 "var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +

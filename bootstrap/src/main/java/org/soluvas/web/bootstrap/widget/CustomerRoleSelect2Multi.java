@@ -30,7 +30,7 @@ public class CustomerRoleSelect2Multi extends Select2MultiChoice<CustomerRole> {
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
-				"function(object, container, query, escapeMarkup) {" +
+				"function(object) {" +
 				"if (!object.id) return object.text;" +
 				"var thediv = $('<div>').css({marginLeft: '24px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
 				"  .append(document.createTextNode(object.text)).append($('<small>').text(object.formalId));" +

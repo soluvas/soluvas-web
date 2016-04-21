@@ -21,7 +21,7 @@ public class Term2Select2Multi extends BootstrapSelect2MultiChoice<Term2> {
 		// do NOT put this (getAjax()) in constructor, you'll get NPE
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
-				"function(object, container, query, escapeMarkup) {" +
+				"function(object) {" +
 				"if (!object.id) return object.text;" +
 				"var d1 = null;" +
 				"if (object.imageUri !== undefined) {" +
