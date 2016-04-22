@@ -22,7 +22,6 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
@@ -49,7 +48,6 @@ import org.soluvas.web.site.CategoryModel;
 import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
-import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -389,7 +387,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		mixinChoices.setRequired(true);
 		form.add(mixinChoices);
 		
-		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
+		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
@@ -419,7 +417,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				}
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
 		
