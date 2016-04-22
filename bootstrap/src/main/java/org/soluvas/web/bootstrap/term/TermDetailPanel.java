@@ -1,17 +1,13 @@
 package org.soluvas.web.bootstrap.term;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.*;
+import com.google.common.eventbus.EventBus;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.AttributeModifier;
@@ -25,7 +21,6 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -35,11 +30,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.*;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -63,14 +54,11 @@ import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
-import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.eventbus.EventBus;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -306,7 +294,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		colorUsedFld.setEnabled(editable);
 		form.add(colorUsedFld);
 		
-		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
+		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
@@ -340,11 +328,11 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				}
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
 		
-		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
+		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
@@ -369,7 +357,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				warn("Deleted term " + originalUName);
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.trash_o);
 		deleteBtn.setEnabled(editable);
 //		deleteBtn.setVisible(editMode == EditMode.MODIFY);
 		deleteBtn.setVisible(false);

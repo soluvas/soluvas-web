@@ -1,16 +1,17 @@
 package org.soluvas.web.bootstrap.category;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.*;
+import com.google.common.base.Objects;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.Select2Choice;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -24,20 +25,12 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.NumberTextField;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.*;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -48,11 +41,7 @@ import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.impl.CategoryImpl;
-import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.CommonsFactory;
-import org.soluvas.commons.NotNullPredicate;
-import org.soluvas.commons.SlugUtils;
-import org.soluvas.commons.Translation;
+import org.soluvas.commons.*;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
@@ -62,17 +51,9 @@ import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 
-import com.google.common.base.Function;
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -442,7 +423,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
 		
-		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
+		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 				super.updateAjaxAttributes(attributes);
@@ -462,7 +443,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 				warn("Deleted category " + originalUName);
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.trash_o);
 		deleteBtn.setEnabled(editable);
 		deleteBtn.setVisible(false); // don't allow them to delete because old products might have inconsistent data. if want to delete, ask developers :)
 		add(deleteBtn);

@@ -390,6 +390,7 @@ public enum Interaction implements Enumerator {
 	/**
 	 * The '<em><b>Loading heavy</b></em>' literal value.
 	 * <!-- begin-user-doc -->
+	 * Loading loop for heavy/long operations, usually with either AJAX spinner or progress bar. e.g. {@link de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton}.
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Loading loop for heavy/long operations, usually with either AJAX spinner or progress bar. e.g. {@link org.soluvas.web.site.widget.AutoDisableAjaxButton}.

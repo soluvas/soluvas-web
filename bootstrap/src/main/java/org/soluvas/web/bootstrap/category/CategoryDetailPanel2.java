@@ -1,19 +1,16 @@
 package org.soluvas.web.bootstrap.category;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
+import com.mongodb.DuplicateKeyException;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxLink;
 import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -23,36 +20,20 @@ import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.NumberTextField;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.*;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.category.Category;
-import org.soluvas.category.Category2;
-import org.soluvas.category.CategoryStatus;
-import org.soluvas.category.FormalCategory;
-import org.soluvas.category.FormalCategoryRepository;
-import org.soluvas.category.MongoCategoryRepository;
-import org.soluvas.category.MongoCategoryRepositoryImpl;
+import org.soluvas.category.*;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
@@ -61,16 +42,16 @@ import org.soluvas.data.MixinManager;
 import org.soluvas.data.PropertyDefinition;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
-import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
-import com.mongodb.DuplicateKeyException;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -403,7 +384,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final WebMarkupContainer wmcPropertyOverrideList = new WebMarkupContainer("wmcPropertyOverrides");
 		wmcPropertyOverrideList.setOutputMarkupId(true);
 		
-		final AutoDisableAjaxButton btnAddNewPropertyDefinition = new AutoDisableAjaxButton("btnAddNewPropertyDefinition") {
+		final LaddaAjaxButton btnAddNewPropertyDefinition = new LaddaAjaxButton("btnAddNewPropertyDefinition", new Model<>("Add New"), Buttons.Type.Default) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
@@ -451,7 +432,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		wmcPropertyOverrideList.add(propertyOverridesLv);
 		form.add(wmcPropertyOverrideList);
 		
-		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
+		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
@@ -500,11 +481,11 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
 		
-		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
+		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 				super.updateAjaxAttributes(attributes);
@@ -524,7 +505,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				warn("Deleted category " + originalId);
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.trash_o);
 		deleteBtn.setEnabled(editable);
 		deleteBtn.setVisible(false); // don't allow them to delete because old products might have inconsistent data. if want to delete, ask developers :)
 		add(deleteBtn);
@@ -535,7 +516,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		wmcLocales.add(new ListView<Locale>("locales", localesModel) {
 			@Override
 			protected void populateItem(final ListItem<Locale> item) {
-				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
+				final Model<String> lblModel = new Model<>(
+						item.getModelObject().getDisplayLanguage() +
+								"-" + item.getModelObject().getDisplayCountry() +
+								(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
+				);
+				final LaddaAjaxLink<Void> btnLocale = new LaddaAjaxLink<Void>("btnLocale", new Model<>(), Buttons.Type.Default, lblModel) {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						selectedLocaleModel.setObject(item.getModelObject());
@@ -555,13 +541,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						}
 					}
 				};
-				
-				final Label lblLocale = new Label("lblLocale", new Model<>(
-							item.getModelObject().getDisplayLanguage() + 
-							"-" + item.getModelObject().getDisplayCountry() +
-							(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
-						));
-				btnLocale.add(lblLocale);
 				item.add(btnLocale);
 			}
 		});
