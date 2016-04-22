@@ -314,7 +314,7 @@ public class BootstrapPage extends ExtensiblePage {
 		if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
 			try {
 				add(new DebugBar("dev"));
-				log.trace("Enabled Wicket development utilities: DebugBar");
+				log.debug("Enabled Wicket development utilities: DebugBar");
 			} catch (NoClassDefFoundError e) {
 				log.debug("Cannot enable DebugBar in development mode, if you want to use it please add 'wicket-devutils' dependency", e);
 				add(new EmptyPanel("dev").setVisible(false));

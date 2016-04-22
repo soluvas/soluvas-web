@@ -40,14 +40,17 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	private final IModel<List<PropertyDefinition>> dataPropDefListModel;
 
 	private final IModel<Collection<PropertyDefinition>> model;
+
+	private final IModel<Boolean> fromRepoModel;
 	
 	public PropertyDefinitionChoiceProvider(final IModel<Collection<PropertyDefinition>> model, final IModel<List<PropertyDefinition>> excludedsModel,
-			final IModel<List<PropertyDefinition>> dataPropDefListModel) {
+			final IModel<List<PropertyDefinition>> dataPropDefListModel, IModel<Boolean> notFromRepoModel) {
 		super();
 		Injector.get().inject(this);
 		this.model = model;
 		this.excludedsModel = excludedsModel;
 		this.dataPropDefListModel = dataPropDefListModel;
+		this.fromRepoModel = notFromRepoModel; 
 	}
 
 	@Override
@@ -63,18 +66,18 @@ public class PropertyDefinitionChoiceProvider extends TextChoiceProvider<Propert
 	@Override
 	public void query(String term, int page, Response<PropertyDefinition> response) {
 		final Page<PropertyDefinition> result;
-		if (dataPropDefListModel.getObject() != null && !dataPropDefListModel.getObject().isEmpty()) {
+		final List<String> excludedPropertyDefIds = excludedsModel.getObject().stream().
+				map(it -> it.getId()).collect(Collectors.toList());
+		if (!fromRepoModel.getObject()) {
 //			log.debug("dataPropDefList has {} rows", dataPropDefListModel.getObject().size());
 			final List<PropertyDefinition> filteredPropDefList = dataPropDefListModel.getObject().stream().filter(new Predicate<PropertyDefinition>() {
 				@Override
 				public boolean test(PropertyDefinition t) {
-					return t.getName().toLowerCase().startsWith(term.trim().toLowerCase());
+					return !excludedPropertyDefIds.contains(t.getId()) && t.getName().toLowerCase().startsWith(term.trim().toLowerCase());
 				}
 			}).collect(Collectors.toList());
 			result = new PageImpl<>(filteredPropDefList, new PageRequest(page, 10L, Direction.ASC, "name"), filteredPropDefList.size() - model.getObject().size());
 		} else {
-			final List<String> excludedPropertyDefIds = excludedsModel.getObject().stream().
-					map(it -> it.getId()).collect(Collectors.toList());
 			result = repo.findAllBaseBySearchText(term.trim(),
 					ImmutableSet.copyOf(excludedPropertyDefIds),
 					new PageRequest(page, 10L, Direction.ASC, "name"));
