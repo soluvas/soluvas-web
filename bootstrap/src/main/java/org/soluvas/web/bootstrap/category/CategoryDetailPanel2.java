@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxLink;
 import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -134,13 +136,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
 	 * @param id
-	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param backPage
 	 * @param parentModel Parent {@link Category#getUName()} (non-editable).
-	 * @param defaultEnumsModel 
-	 * @param defaultMixinUName Default {@link Category#setDefaultMixin(String)}, this is app specific e.g. {@code base_Apparel}.
-	 * 		The {@link Mixin} must exist in the {@link MixinManager}. Only used if {@code parentUName} is specified,
-	 * 		otherwise it will use the parent's {@code defaultMixin}.
+	 * @param formalCategoryModel
+	 * @param defaultEnumsModel
 	 */
 	public CategoryDetailPanel2(final String id, final Class<? extends Page> backPage,
 			@Nullable final IModel<Category2> parentModel, final IModel<FormalCategory> formalCategoryModel,
@@ -177,11 +176,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	/**
 	 * For viewing or editing an existing {@link Category}.
 	 * @param id
-	 * @param categoryRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param originalId
-	 * @param kindNsPrefix
-	 * @param kindName
-	 * @param kindDisplayName
+	 * @param backPage
+	 * @param defaultEnumsModel
 	 * @param backPage
 	 */
 	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage, final IModel<List<String>> defaultEnumsModel) {
@@ -535,7 +532,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		wmcLocales.add(new ListView<Locale>("locales", localesModel) {
 			@Override
 			protected void populateItem(final ListItem<Locale> item) {
-				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
+				final Model<String> lblModel = new Model<>(
+						item.getModelObject().getDisplayLanguage() +
+								"-" + item.getModelObject().getDisplayCountry() +
+								(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
+				);
+				final LaddaAjaxLink<Void> btnLocale = new LaddaAjaxLink<Void>("btnLocale", null, Buttons.Type.Default, lblModel) {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						selectedLocaleModel.setObject(item.getModelObject());
@@ -555,13 +557,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						}
 					}
 				};
-				
-				final Label lblLocale = new Label("lblLocale", new Model<>(
-							item.getModelObject().getDisplayLanguage() + 
-							"-" + item.getModelObject().getDisplayCountry() +
-							(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
-						));
-				btnLocale.add(lblLocale);
 				item.add(btnLocale);
 			}
 		});
