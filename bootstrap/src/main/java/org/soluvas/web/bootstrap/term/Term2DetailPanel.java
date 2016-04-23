@@ -1,17 +1,15 @@
 package org.soluvas.web.bootstrap.term;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
+import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.eventbus.EventBus;
+import com.mongodb.DuplicateKeyException;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.AttributeModifier;
@@ -24,7 +22,6 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -35,11 +32,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.*;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -57,16 +50,14 @@ import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
-import org.soluvas.web.site.widget.AutoDisableAjaxButton;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.eventbus.EventBus;
-import com.mongodb.DuplicateKeyException;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -359,7 +350,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		colorUsedFld.setEnabled(editable);
 		form.add(colorUsedFld);
 		
-		final IndicatingAjaxButton saveBtn = new AutoDisableAjaxButton("saveBtn", form) {
+		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
@@ -418,12 +409,11 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 //				params.set("termKind", termKindModel.getObject().name());
 				setResponsePage(backPage, params);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
 		add(saveBtn);
 		
-		final IndicatingAjaxButton deleteBtn = new AutoDisableAjaxButton("deleteBtn", form) {
-
+		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 				super.updateAjaxAttributes(attributes);
@@ -448,7 +438,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 				warn("Deleted term " + termId);
 				setResponsePage(backPage);
 			}
-		};
+		}.setIconType(FontAwesomeIconType.trash_o);
 		deleteBtn.setEnabled(editable);
 //		deleteBtn.setVisible(editMode == EditMode.MODIFY);
 		deleteBtn.setVisible(false);

@@ -4,15 +4,11 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.attributes.ThrottlingSettings;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.util.time.Duration;
-import org.soluvas.web.site.widget.AutoDisableAjaxButton;
-import org.soluvas.web.site.widget.AutoDisableAjaxCallListener;
 
 /**
  * {@link OnChangeThrottledBehavior} with {@link ThrottlingSettings} (default 400ms).
  * 
  * @author ceefour
- * @see AutoDisableAjaxButton
- * @see AutoDisableAjaxCallListener
  */
 public abstract class OnChangeThrottledBehavior extends OnChangeAjaxBehavior {
 
