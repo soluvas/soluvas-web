@@ -1,15 +1,17 @@
 package org.soluvas.web.bootstrap.term;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.eventbus.EventBus;
-import com.mongodb.DuplicateKeyException;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.AttributeModifier;
@@ -32,7 +34,11 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.*;
+import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -53,11 +59,17 @@ import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.*;
-import java.util.Map.Entry;
+import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.eventbus.EventBus;
+import com.mongodb.DuplicateKeyException;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -140,7 +152,8 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		final Term2 term = new Term2();
 		term.setEnumerationId(termKindModel.getObject().getId());
 		term.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
-		setModel(new Model<Term2>(term));
+		final Model<Term2> mode = new Model<Term2>(term);
+		setModel(mode);
 	}
 
 	/**
@@ -180,16 +193,17 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		final boolean editable = !Strings.isNullOrEmpty(getModelObject().getFormalId()) ? getModelObject().getFormalId().startsWith(tenant.getTenantId() + "_") : true;
 		add(new Label("kind", kindDisplayName));
 		 
+		final Form<Void> form = new Form<>("form");
+		add(form);
+		
 		final PageParameters params = new PageParameters();
 		params.set("termKindId", termKindModel.getObject().getId());
-		add(new BookmarkablePageLink<>("backLink", backPage, params));
+		form.add(new BookmarkablePageLink<>("backLink", backPage, params));
 		 
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "id"));
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
 		
-		final Form<Void> form = new Form<>("form");
-		add(form);
 		
 		final TextField<String> idFld = new TextField<>("name", new PropertyModel<String>(getModel(), "id"));
 		idFld.setEnabled(false);
@@ -411,7 +425,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 			}
 		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
-		add(saveBtn);
+		form.add(saveBtn);
 		
 		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 			@Override
@@ -442,7 +456,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		deleteBtn.setEnabled(editable);
 //		deleteBtn.setVisible(editMode == EditMode.MODIFY);
 		deleteBtn.setVisible(false);
-		add(deleteBtn);
+		form.add(deleteBtn);
 		
 		/*LANGUAGE BUTTONS*/
 		final WebMarkupContainer wmcLocales = new WebMarkupContainer("wmcLocales");
