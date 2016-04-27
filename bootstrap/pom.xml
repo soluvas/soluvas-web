@@ -33,6 +33,11 @@
 			<artifactId>org.soluvas.geo</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.couchdb</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-devutils</artifactId>
 			<optional>true</optional>
