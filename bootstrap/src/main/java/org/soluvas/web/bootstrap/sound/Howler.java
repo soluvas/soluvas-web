@@ -23,7 +23,6 @@ import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
 import org.soluvas.web.bootstrap.sound.feather.FeatherSounds;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.soluvas.web.site.widget.AutoDisableAjaxCallListener;
 
 import com.google.common.base.Optional;
 
@@ -47,9 +46,6 @@ public class Howler {
 	static {
 		themes.put(FeatherSounds.ID, new FeatherSounds());
 		themes.put(Cleanus1Sounds.ID, new Cleanus1Sounds());
-		// FIXME: better way to do this
-		AutoDisableAjaxCallListener.beforeHook = play(Interaction.LOADING_HEAVY, getActive());
-		AutoDisableAjaxCallListener.completeHook = stopLoop();
 	}
 	
 	public static Sounds get(String soundThemeId) {
@@ -69,8 +65,8 @@ public class Howler {
 	}
 	
 	/**
-	 * @param target
 	 * @param interaction
+	 * @param sounds
 	 */
 	public static String play(Interaction interaction, Sounds sounds) {
 		final Optional<QName> sprite = sounds.getSprite(interaction);
@@ -100,7 +96,6 @@ public class Howler {
 	 * 
 	 * <p>The {@code window.} part is required due to <a href="https://github.com/soluvas/soluvas-web/issues/39">an issue with Bootstrap-Modal</a>.
 	 * 
-	 * @param target
 	 * @param sprite must contain {@link QName#getPrefix()}.
 	 * @param loop
 	 */
