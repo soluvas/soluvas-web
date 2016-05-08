@@ -53,10 +53,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<wicket.version>6.22.0</wicket.version>
+		<wicket.version>6.23.0</wicket.version>
 		<wicketstuff.version>6.22.0</wicketstuff.version><!-- used by wicketstuff 
 			e.g. wicket-datetime -->
-		<wicket-atmosphere.version>0.25</wicket-atmosphere.version><!-- linked 
+		<wicket-atmosphere.version>0.26</wicket-atmosphere.version><!-- linked
 			to wicket.version -->
 		<atmosphere.version>2.2.8</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version, 
 			but there's also atmosphere-runtime-native -->
@@ -176,12 +176,12 @@
 				<artifactId>wicket-auth-roles</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-devutils</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
+
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-core</artifactId>
@@ -195,7 +195,7 @@
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-stateless</artifactId>
-				<version>${wicket.version}</version>
+				<version>${wicketstuff.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
@@ -206,12 +206,12 @@
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-gmap3</artifactId>
-				<version>${wicket.version}</version>
+				<version>${wicketstuff.version}</version>
 			</dependency>
 			<!-- <dependency> -->
 			<!-- <groupId>org.wicketstuff</groupId> -->
 			<!-- <artifactId>wicketstuff-tinymce</artifactId> -->
-			<!-- <version>${wicket.version}</version> -->
+			<!-- <version>${wicketstuff.version}</version> -->
 			<!-- </dependency> -->
 
 			<dependency>
