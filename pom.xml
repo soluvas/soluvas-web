@@ -172,12 +172,12 @@
 				<artifactId>wicket-auth-roles</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-devutils</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
+
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-core</artifactId>
@@ -191,7 +191,7 @@
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-stateless</artifactId>
-				<version>${wicket.version}</version>
+				<version>${wicketstuff.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
@@ -202,7 +202,7 @@
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-gmap3</artifactId>
-				<version>${wicket.version}</version>
+				<version>${wicketstuff.version}</version>
 			</dependency>
 			<!-- <dependency> -->
 			<!-- <groupId>org.wicketstuff</groupId> -->
