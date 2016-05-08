@@ -36,22 +36,35 @@ import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.*;
+import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.category.*;
+import org.soluvas.category.Category;
+import org.soluvas.category.Category2;
+import org.soluvas.category.CategoryStatus;
+import org.soluvas.category.FormalCategory;
+import org.soluvas.category.FormalCategoryRepository;
+import org.soluvas.category.MongoCategoryRepository;
+import org.soluvas.category.MongoCategoryRepositoryImpl;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
-import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
 import org.soluvas.data.PropertyDefinition;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
@@ -213,15 +226,16 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	protected void onInitialize() {
 		super.onInitialize();
 		
+		form = new Form<>("form");
+		add(form);
+		
 		categoryLocaleModel.setObject(Locale.forLanguageTag(getModelObject().getLanguage()));
 		initLocalesAndTranslationMapModel();
 		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
-		add(new BookmarkablePageLink<>("backLink", backPage));
+		form.add(new BookmarkablePageLink<>("backLink", backPage));
 		
-		form = new Form<>("form");
-		add(form);
 		
 		form.add(new Label("parentUName", new AbstractReadOnlyModel<String>() {
 			@Override
@@ -484,7 +498,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			}
 		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
-		add(saveBtn);
+		form.add(saveBtn);
 		
 		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 			@Override
@@ -509,7 +523,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		}.setIconType(FontAwesomeIconType.trash_o);
 		deleteBtn.setEnabled(editable);
 		deleteBtn.setVisible(false); // don't allow them to delete because old products might have inconsistent data. if want to delete, ask developers :)
-		add(deleteBtn);
+		form.add(deleteBtn);
 		
 		/*LANGUAGE BUTTONS*/
 		final WebMarkupContainer wmcLocales = new WebMarkupContainer("wmcLocales");

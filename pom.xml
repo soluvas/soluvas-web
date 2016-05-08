@@ -207,7 +207,7 @@
 			<!-- <dependency> -->
 			<!-- <groupId>org.wicketstuff</groupId> -->
 			<!-- <artifactId>wicketstuff-tinymce</artifactId> -->
-			<!-- <version>${wicket.version}</version> -->
+			<!-- <version>${wicketstuff.version}</version> -->
 			<!-- </dependency> -->
 
 			<dependency>
