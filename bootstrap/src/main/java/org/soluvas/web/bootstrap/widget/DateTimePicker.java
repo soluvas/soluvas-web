@@ -4,13 +4,14 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.datetime.Date
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.datetime.DatetimePickerConfig;
 import org.apache.wicket.model.IModel;
 import org.joda.time.DateTime;
-import org.soluvas.web.site.DateTimeModel;
+import org.soluvas.web.site.DatePropertyModel;
 
 import java.util.Date;
 
 /**
  * Convenience component to use {@link DatetimePicker} with a {@link DateTime} model instead of {@link Date}.
  * Created by ceefour on 18/04/2016.
+ * @see LocalDatePicker
  */
 public class DateTimePicker extends DatetimePicker {
     /**
@@ -29,7 +30,7 @@ public class DateTimePicker extends DatetimePicker {
      * @param datePattern
      */
     public DateTimePicker(String id, IModel<DateTime> model, String datePattern) {
-        super(id, new DateTimeModel(model), datePattern);
+        super(id, new DatePropertyModel(model, DateTime.class), datePattern);
     }
 
     public DateTimePicker(String id, DatetimePickerConfig config) {
@@ -37,6 +38,6 @@ public class DateTimePicker extends DatetimePicker {
     }
 
     public DateTimePicker(String id, IModel<DateTime> model, DatetimePickerConfig config) {
-        super(id, new DateTimeModel(model), config);
+        super(id, new DatePropertyModel(model, DateTime.class), config);
     }
 }

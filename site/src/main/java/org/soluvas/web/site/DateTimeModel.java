@@ -10,6 +10,8 @@ import java.util.Date;
  * Wraps a {@link DateTime} model as regular {@link Date} model,
  * for use with {@code de.agilecoders.wicket.extensions.markup.html.bootstrap.form.datetime.DateTimePicker}.
  * Created by ceefour on 18/04/2016.
+ * @see DatePropertyModel
+ * @deprecated Use {@link DatePropertyModel}
  */
 public class DateTimeModel implements IModel<Date> {
 

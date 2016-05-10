@@ -7,17 +7,23 @@ import org.joda.time.*;
 import java.util.Date;
 
 /**
+ * Wraps a {@link DateTime}/{@link LocalDate}/{@link LocalDateTime}/{@link LocalTime} model as regular {@link Date} model,
+ * for use with {@code de.agilecoders.wicket.extensions.markup.html.bootstrap.form.datetime.DateTimePicker}.
  * Created by ceefour on 9/29/15.
  */
 public class DatePropertyModel implements IModel<Date> {
 
-    final PropertyModel<Object> innerModel;
+    final IModel<Object> innerModel;
     private final Class<?> clazz;
 
     public DatePropertyModel(final Object modelObject, final String expression,
-                             final Class<?> clazz)
-    {
+                             final Class<?> clazz) {
         this.innerModel = new PropertyModel<>(modelObject, expression);
+        this.clazz = clazz;
+    }
+
+    public <T> DatePropertyModel(final IModel<T> innerModel, final Class<T> clazz) {
+        this.innerModel = (IModel) innerModel;
         this.clazz = clazz;
     }
 
@@ -45,7 +51,12 @@ public class DatePropertyModel implements IModel<Date> {
             if (LocalDate.class.isAssignableFrom(clazz)) {
                 innerModel.setObject(new LocalDate(object));
             } else if (DateTime.class.isAssignableFrom(clazz)) {
-                innerModel.setObject(new DateTime(object));
+                if (innerModel != null && innerModel.getObject() instanceof DateTime) {
+                    final DateTimeZone zone = ((DateTime) innerModel.getObject()).getZone();
+                    innerModel.setObject(new DateTime(object).withZone(zone));
+                } else {
+                    innerModel.setObject(new DateTime(object));
+                }
             } else if (LocalDateTime.class.isAssignableFrom(clazz)) {
                 innerModel.setObject(new LocalDateTime(object));
             } else if (LocalTime.class.isAssignableFrom(clazz)) {
