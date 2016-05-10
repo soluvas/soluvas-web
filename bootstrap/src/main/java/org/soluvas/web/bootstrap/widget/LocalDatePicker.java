@@ -18,7 +18,7 @@ import java.util.Date;
  * // must be at least 13 years old
  * final Date maxDate = new LocalDate().minusYears(13).toDate();
  * final DatetimePickerConfig dtpConfig = new DatetimePickerConfig()
- *     .withFormat("dd-MM-yyyy").useLocale(getLocale().toLanguageTag())
+ *     .withFormat("dd-MM-YYYY").useLocale(getLocale().toLanguageTag())
  *     .useView(DatetimePickerConfig.ViewModeType.YEARS)
  *     .useCurrent(false).withMaxDate(maxDate);
  * editForm.add(new LocalDatePicker("birthDate", new PropertyModel<>(personModel, "birthDate"), dtpConfig)
@@ -31,7 +31,7 @@ import java.util.Date;
 public class LocalDatePicker extends DatetimePicker {
     /**
      * @param id
-     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/yyyy}.
+     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/YYYY}.
      */
     public LocalDatePicker(String id, String datePattern) {
         super(id, datePattern);
@@ -39,7 +39,7 @@ public class LocalDatePicker extends DatetimePicker {
 
     /**
      * @param id
-     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/yyyy}.
+     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/YYYY}.
      * @param id
      * @param model
      * @param datePattern

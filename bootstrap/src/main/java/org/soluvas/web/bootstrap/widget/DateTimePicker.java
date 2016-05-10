@@ -16,7 +16,7 @@ import java.util.Date;
 public class DateTimePicker extends DatetimePicker {
     /**
      * @param id
-     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/yyyy}.
+     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/YYYY}.
      */
     public DateTimePicker(String id, String datePattern) {
         super(id, datePattern);
@@ -24,7 +24,7 @@ public class DateTimePicker extends DatetimePicker {
 
     /**
      * @param id
-     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/yyyy}.
+     * @param datePattern See <a href="http://momentjs.com/docs/#/displaying/format/">momentjs' docs</a> for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker. Default is {@code MM/dd/YYYY}.
      * @param id
      * @param model
      * @param datePattern
