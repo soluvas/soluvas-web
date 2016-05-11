@@ -1,5 +1,7 @@
 package org.soluvas.web.bootstrap.category;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -30,6 +33,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -56,8 +61,17 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.MixinManager;
 import org.soluvas.data.PropertyDefinition;
+import org.soluvas.image.DisplayImage;
+import org.soluvas.image.ImageManager;
+import org.soluvas.image.ImageStyles;
+import org.soluvas.image.ImageType;
+import org.soluvas.image.ImageTypes;
+import org.soluvas.image.store.Image;
+import org.soluvas.image.store.ImageRepository;
+import org.soluvas.image.store.ImageStyle;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
+import org.soluvas.web.site.widget.DisplayImageContainer;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
@@ -118,6 +132,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private MongoCategoryRepository catRepo;
 	@Inject
 	private CacheManager cacheMgr;
+	@SpringBean
+	private ImageManager imageMgr;
+	@SpringBean(name="categoryImageRepo")
+	private ImageRepository categoryImageRepo;
 	
 	private final EditMode editMode;
 	private final String originalId;
@@ -387,6 +405,80 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		form.add(new CheckBox("status", statusModel));
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
+		
+		LoadableDetachableModel<DisplayImage> displayImageModel = new LoadableDetachableModel<DisplayImage>() {
+			@Override
+			protected DisplayImage load() {
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				log.debug("category image id is {}", category.getImageId());
+				if (category.getImageId() != null) {
+					return imageMgr.getSafeImage(ImageTypes.CATEGORY, category.getImageId(), ImageStyles.SMALL);
+				} else {
+					return null;
+				}
+			}
+		};
+		
+		WebMarkupContainer imageCtr = new WebMarkupContainer("imageCtr");
+		imageCtr.add(new DisplayImageContainer("categoryImage", displayImageModel));
+		imageCtr.setOutputMarkupId(true);
+		form.add(imageCtr);
+		
+		FileUploadField uploadImageField = new FileUploadField("img");
+		uploadImageField.add(new AjaxFormSubmitBehavior("change") {
+			@Override
+			protected void onSubmit(AjaxRequestTarget target) {
+				super.onSubmit(target);
+				final FileUpload uploadedFile = uploadImageField.getFileUpload();
+				try {
+					if (uploadedFile == null) throw new IllegalArgumentException("Cannot process null image");
+					File file = uploadedFile.writeToTempFile();
+					Image image = new Image(file, uploadedFile.getContentType(), uploadedFile.getClientFileName());
+					
+					log.debug("attempting to upload category image");
+					Image addedImage = categoryImageRepo.add(image);
+					final Category2 category = CategoryDetailPanel2.this.getModelObject();
+					log.debug("added image id {}", addedImage.getId());
+					category.setImageId(addedImage.getId());
+					displayImageModel.detach();
+					file.delete();
+					target.add(imageCtr);
+				} catch (IllegalArgumentException ex) {
+					error(ex.getMessage());
+				} catch (IOException e) {
+					log.error("Cannot upload category image because of {}", e.getMessage());
+					error("Cannot upload category image");
+				}
+				
+//				if (uploadedFile != null) {
+//					try {
+//						final File tmpFile = uploadedFile.writeToTempFile();
+//						log.debug("Tmp File: {}", tmpFile);
+//				    	try {
+//				    		final Image newImage = new Image(tmpFile, uploadedFile.getContentType(), uploadedFile.getClientFileName());
+//        					final Image added = Preconditions.checkNotNull(personImageRepo.add(newImage),
+//        							"Cannot upload image %s (%s bytes) in temporary file %s using %s",
+//        							uploadedFile.getClientFileName(), uploadedFile.getSize(), tmpFile, personImageRepo);
+//							final String imageId = added.getId();
+//							log.debug("PhotoID before: {}", personModel.getObject().getPhotoId());
+//							personModel.getObject().setPhotoId(imageId);
+//							log.debug("PhotoID after: {}", personModel.getObject().getPhotoId());
+//						} finally {
+//							log.debug("Deleting {}", tmpFile);
+//							tmpFile.delete();
+//						}
+//					} catch (Exception e) {
+//						log.error("Cannot process image " + uploadedFile, e);
+//						throw new RuntimeException("Cannot process image " + uploadedFile, e);
+//					}
+//				}
+//				
+//				target.add(FileUploaderForm.this);
+			}
+		});
+		form.add(uploadImageField);
+		
+		
 		
 		
 		curPropertyOverridesModel.setObject(new ArrayList<>(getModelObject().getPropertyOverrides()));
