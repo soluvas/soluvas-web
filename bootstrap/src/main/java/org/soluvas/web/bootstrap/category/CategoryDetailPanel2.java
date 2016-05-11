@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -14,7 +15,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.inject.Inject;
+import javax.measure.unit.Dimension;
 
 import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
@@ -425,6 +430,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		FileUploadField uploadImageField = new FileUploadField("img");
 		uploadImageField.add(new AjaxFormSubmitBehavior("change") {
+			@SuppressWarnings("deprecation")
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
@@ -435,6 +441,36 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					Image image = new Image(file, uploadedFile.getContentType(), uploadedFile.getClientFileName());
 					
 					log.debug("attempting to upload category image");
+					// 
+					try(ImageInputStream in = ImageIO.createImageInputStream(file)){
+						final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
+					    if (readers.hasNext()) {
+					        ImageReader reader = readers.next();
+					        try {
+					            reader.setInput(in);
+					            final java.awt.Dimension dimension = new java.awt.Dimension(reader.getWidth(0), reader.getHeight(0));
+					            Double xxxhdpiWidth = new Double(dimension.getWidth() * 4.0);
+					            Double xxxhdpiHeight = new Double(dimension.getHeight() * 4.0);
+					            categoryImageRepo.addStyle("xxxhdpi", "xxxhdpi", xxxhdpiWidth.intValue(), xxxhdpiHeight.intValue());
+					            
+					            Double xxhdpiWidth = new Double(dimension.getWidth() * 3.0);
+					            Double xxhdpiHeight = new Double(dimension.getHeight() * 3.0);
+								categoryImageRepo.addStyle("xxhdpi", "xxhdpi", xxhdpiWidth.intValue(), xxhdpiHeight.intValue());
+								
+								Double xhdpiWidth = new Double(dimension.getWidth() * 2.0);
+					            Double xhdpiHeight = new Double(dimension.getHeight() * 2.0);
+								categoryImageRepo.addStyle("xhdpi", "xhdpi", xhdpiWidth.intValue(), xhdpiHeight.intValue());
+								
+								Double hdpiWidth = new Double(dimension.getWidth() * 1.5);
+					            Double hdpiHeight = new Double(dimension.getHeight() * 1.5);
+								categoryImageRepo.addStyle("hdpi", "hdpi", hdpiWidth.intValue(), hdpiHeight.intValue());
+					        } finally {
+					            reader.dispose();
+					        }
+					    }
+					}
+					
+					log.debug("attempting to save new image category");
 					Image addedImage = categoryImageRepo.add(image);
 					final Category2 category = CategoryDetailPanel2.this.getModelObject();
 					log.debug("added image id {}", addedImage.getId());
@@ -443,6 +479,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					file.delete();
 					target.add(imageCtr);
 				} catch (IllegalArgumentException ex) {
+					ex.printStackTrace();
+					log.error("ada error: {}", ex.getMessage());
 					error(ex.getMessage());
 				} catch (IOException e) {
 					log.error("Cannot upload category image because of {}", e.getMessage());
