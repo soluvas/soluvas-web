@@ -184,6 +184,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			if (parentModel.getObject().getPropertyOverrides() != null && !parentModel.getObject().getPropertyOverrides().isEmpty()) {
 				newCategory.getPropertyOverrides().addAll(parentModel.getObject().getPropertyOverrides());
 			}
+			newCategory.setGoogleFormalId(parentModel.getObject().getGoogleFormalId());
 		}
 		if (parentModel.getObject() == null && formalCategoryModel.getObject() != null) {
 			newCategory.setGoogleFormalId(formalCategoryModel.getObject().getGoogleId());
