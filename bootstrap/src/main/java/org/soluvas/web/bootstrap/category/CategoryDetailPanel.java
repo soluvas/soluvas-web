@@ -1,17 +1,16 @@
 package org.soluvas.web.bootstrap.category;
 
-import com.google.common.base.*;
-import com.google.common.base.Objects;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
-import com.vaynberg.wicket.select2.Response;
-import com.vaynberg.wicket.select2.Select2Choice;
-import com.vaynberg.wicket.select2.TextChoiceProvider;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -24,12 +23,20 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.*;
+import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -40,7 +47,11 @@ import org.soluvas.category.Category;
 import org.soluvas.category.CategoryRepository;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.impl.CategoryImpl;
-import org.soluvas.commons.*;
+import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.CommonsFactory;
+import org.soluvas.commons.NotNullPredicate;
+import org.soluvas.commons.SlugUtils;
+import org.soluvas.commons.Translation;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Mixin;
 import org.soluvas.data.MixinManager;
@@ -49,9 +60,22 @@ import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.Map.Entry;
+import com.google.common.base.Function;
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
+import com.vaynberg.wicket.select2.Response;
+import com.vaynberg.wicket.select2.Select2Choice;
+import com.vaynberg.wicket.select2.TextChoiceProvider;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -176,16 +200,17 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 					"Mixin '%s' referred by new category must exist.", mixinUName);
 		}
 		
+		final Form<Void> form = new Form<>("form");
+		add(form);
+		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
-		add(new BookmarkablePageLink<>("backLink", backPage));
+		form.add(new BookmarkablePageLink<>("backLink", backPage));
 		
 		final Label headerUNameLabel = new Label("headerUName", new PropertyModel<>(getModel(), "uName"));
 		headerUNameLabel.setOutputMarkupId(true);
 		add(headerUNameLabel);
 		
-		final Form<Void> form = new Form<>("form");
-		add(form);
 		
 		form.add(new Label("parentUName", new AbstractReadOnlyModel<String>() {
 			@Override
@@ -419,7 +444,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 			}
 		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
-		add(saveBtn);
+		form.add(saveBtn);
 		
 		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 			@Override
@@ -444,7 +469,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
 		}.setIconType(FontAwesomeIconType.trash_o);
 		deleteBtn.setEnabled(editable);
 		deleteBtn.setVisible(false); // don't allow them to delete because old products might have inconsistent data. if want to delete, ask developers :)
-		add(deleteBtn);
+		form.add(deleteBtn);
 		
 		/*LANGUAGE BUTTONS*/
 		final WebMarkupContainer wmcLocales = new WebMarkupContainer("wmcLocales");
