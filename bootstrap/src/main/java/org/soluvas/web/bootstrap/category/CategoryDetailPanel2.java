@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.inject.Inject;
-import javax.measure.unit.Dimension;
 
 import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
@@ -69,11 +68,9 @@ import org.soluvas.data.PropertyDefinition;
 import org.soluvas.image.DisplayImage;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
-import org.soluvas.image.ImageType;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.image.store.Image;
 import org.soluvas.image.store.ImageRepository;
-import org.soluvas.image.store.ImageStyle;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.DisplayImageContainer;
@@ -123,7 +120,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		ADD,
 		MODIFY
 	}
-	private static final String kindDisplayName = "Categories";
 	private final Class<? extends Page> backPage;
 	@SpringBean
 	private TenantRef tenant;
@@ -152,6 +148,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	
 	private final IModel<Map<Locale, String>> transNameMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<Map<Locale, String>> transMetaTitleMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<Map<Locale, String>> transMetaKeywordsMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<Map<Locale, String>> transMetaDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
 	private Form<Void> form;
 	private final IModel<List<String>> defaultEnumsModel;
@@ -259,7 +258,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		initLocalesAndTranslationMapModel();
 		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
-		add(new Label("kind", kindDisplayName));
 		form.add(new BookmarkablePageLink<>("backLink", backPage));
 		
 		
@@ -355,7 +353,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						target.add(uNameDiv, slugPathDiv);
 					}
 				} else {
-					updateAttributeTranslations(selectedLocale, Category.NAME_ATTR, displayNameModel.getObject());
+					updateAttributeTranslations(selectedLocale, Category2.NAME_ATTR, displayNameModel.getObject());
 					transNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
 				}
 			}
@@ -398,7 +396,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				if (Objects.equal(selectedLocale, categoryLocale)) {
 					category.setDescription(descriptionModel.getObject());
 				} else {
-					updateAttributeTranslations(selectedLocale, Category.DESCRIPTION_ATTR, descriptionModel.getObject());
+					updateAttributeTranslations(selectedLocale, Category2.DESCRIPTION_ATTR, descriptionModel.getObject());
 					transDescriptionMapModel.getObject().put(selectedLocale, descriptionModel.getObject());
 				}
 			}
@@ -516,9 +514,140 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		});
 		form.add(uploadImageField);
 		
+		/*SEO*/
+		final IModel<String> metaTitleModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading name for locale '{}': {}", selectedLocale, getModelObject().getName());
+					return getModel().getObject().getMetaTitle();
+				} else {
+					final String translation = transMetaTitleMapModel.getObject().get(selectedLocale);
+//					log.debug("loading name for locale '{}': {}", selectedLocale, translation);
+					return translation;
+				}
+			}
+		};
+		final TextField<String> metaTitle = new TextField<String>("metaTitle", metaTitleModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			}
+		};
+		metaTitle.add(new OnChangeAjaxBehavior() {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+					category.setMetaTitle(metaTitleModel.getObject());
+				} else {
+					updateAttributeTranslations(selectedLocale, Category2.META_TITLE_ATTR, metaTitleModel.getObject());
+					transMetaTitleMapModel.getObject().put(selectedLocale, metaTitleModel.getObject());
+				}
+			}
+		});
+		metaTitle.setOutputMarkupId(true);
+		form.add(metaTitle);
+		
+		final IModel<String> metaKeywordsModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading description for locale '{}': {}", selectedLocale, getModelObject().getDescription());
+					return getModel().getObject().getMetaKeywords();
+				} else {
+					final String translation = transMetaKeywordsMapModel.getObject().get(selectedLocale);
+//					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
+					return translation;
+				}
+			}
+		};
+		final TextArea<String> metaKeywords = new TextArea<String>("metaKeywords", metaKeywordsModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			}
+		};
+		metaKeywords.add(new OnChangeThrottledBehavior() {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+					category.setMetaKeywords(metaKeywordsModel.getObject());
+				} else {
+					updateAttributeTranslations(selectedLocale, Category2.META_KEYWORDS_ATTR, metaKeywordsModel.getObject());
+					transMetaKeywordsMapModel.getObject().put(selectedLocale, metaKeywordsModel.getObject());
+				}
+			}
+		});
+		metaKeywords.setOutputMarkupId(true);
+		form.add(metaKeywords);
+		
+		final IModel<String> metaDescriptionModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					log.debug("loading description for locale '{}': {}", selectedLocale, getModelObject().getDescription());
+					return getModel().getObject().getMetaDescription();
+				} else {
+					final String translation = transMetaDescriptionMapModel.getObject().get(selectedLocale);
+//					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
+					return translation;
+				}
+			}
+		};
+		final TextArea<String> metaDescription = new TextArea<String>("metaDescription", metaDescriptionModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			}
+		};
+		metaDescription.add(new OnChangeThrottledBehavior() {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+					category.setMetaDescription(metaDescriptionModel.getObject());
+				} else {
+					updateAttributeTranslations(selectedLocale, Category2.META_DESCRIPTION_ATTR, metaDescriptionModel.getObject());
+					transMetaDescriptionMapModel.getObject().put(selectedLocale, metaDescriptionModel.getObject());
+				}
+			}
+		});
+		metaDescription.setOutputMarkupId(true);
+		form.add(metaDescription);
 		
 		
-		
+		/*ADVANCED*/
 		curPropertyOverridesModel.setObject(new ArrayList<>(getModelObject().getPropertyOverrides()));
 		final IModel<Collection<PropertyDefinition>> newPropertyOverridesModel = (IModel) new ListModel<>(new ArrayList<>());
 		
@@ -674,8 +803,11 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					public void onClick(AjaxRequestTarget target) {
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
-						descriptionModel.detach();
-						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrideList);
+						metaDescriptionModel.detach();
+						metaTitle.detach();
+						metaKeywords.detach();
+						metaDescription.detach();
+						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription);
 					}
 					
 					@Override
@@ -713,12 +845,24 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final Map<String, String> translation = entry.getValue();
 				for (final Entry<String, String> messageEntry : translation.entrySet()) {
 					//name
-					if (messageEntry.getKey().equals(Category.NAME_ATTR)) {
+					if (messageEntry.getKey().equals(Category2.NAME_ATTR)) {
 						transNameMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 					//description
-					if (messageEntry.getKey().equals(Category.DESCRIPTION_ATTR)) {
+					if (messageEntry.getKey().equals(Category2.DESCRIPTION_ATTR)) {
 						transDescriptionMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					//meta title
+					if (messageEntry.getKey().equals(Category2.META_TITLE_ATTR)) {
+						transMetaTitleMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					//meta keywords
+					if (messageEntry.getKey().equals(Category2.META_KEYWORDS_ATTR)) {
+						transMetaKeywordsMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					//meta description
+					if (messageEntry.getKey().equals(Category2.META_DESCRIPTION_ATTR)) {
+						transMetaDescriptionMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
 			}

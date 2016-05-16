@@ -3,7 +3,7 @@
 		<div class="col-sm-12">
 			<section class="panel">
 				<header class="panel-heading">
-					<span wicket:id="kind">Colors</span>
+					<span>General</span>
 				</header>
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" wicket:id="form">
@@ -93,6 +93,35 @@
 								<input wicket:id="img" type="file" accept="image/*"/>
 								<div wicket:id="imageCtr">
 									<img wicket:id="categoryImage" class="img-thumbnail"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#accordion" href="#seo"> SEO Editor </a>
+								</h4>
+							</div>
+							<div id="seo" class="panel-collapse collapse">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaTitle">Meta Title</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<input type="text" wicket:id="metaTitle" class="col-xs-12">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaKeywords">Meta Keywords</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea type="text" wicket:id="metaKeywords"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaDescription">Meta Description</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea type="text" wicket:id="metaDescription"></textarea>
+									</div>
 								</div>
 							</div>
 						</div>
