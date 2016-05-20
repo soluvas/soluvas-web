@@ -151,6 +151,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private final IModel<Map<Locale, String>> transMetaTitleMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transMetaKeywordsMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transMetaDescriptionMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<Map<Locale, String>> transTitleMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
 	private Form<Void> form;
 	private final IModel<List<String>> defaultEnumsModel;
@@ -327,7 +328,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			}
 		};
 		displayNameFld.setOutputMarkupId(true);
-		displayNameFld.setRequired(true);
 		displayNameFld.setEnabled(editable);
 		displayNameFld.setLabel(new Model<>("Display name"));
 		displayNameFld.add(new OnChangeAjaxBehavior() {
@@ -359,6 +359,48 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			}
 		});
 		form.add(displayNameFld);
+		
+		final IModel<String> titleModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+					return getModel().getObject().getTitle();
+				} else {
+					final String translation = transTitleMapModel.getObject().get(selectedLocale);
+					return translation;
+				}
+			}
+		};
+		final TextArea<String> titleFld = new TextArea<String>("titleTxtArea", titleModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			}
+		};
+		titleFld.add(new OnChangeThrottledBehavior() {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale categoryLocale = categoryLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, categoryLocale)) {
+					category.setTitle(titleModel.getObject());
+				} else {
+					updateAttributeTranslations(selectedLocale, Category2.TITLE_ATTR, titleModel.getObject());
+					transTitleMapModel.getObject().put(selectedLocale, titleModel.getObject());
+				}
+			}
+		});
+		titleFld.setEnabled(editable);
+		form.add(titleFld);
 		
 		final IModel<String> descriptionModel = new LoadableDetachableModel<String>() {
 			@Override
@@ -714,6 +756,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				
+				if (Strings.isNullOrEmpty(category.getName())) {
+					info("Nama tidak boleh kosong.");
+					return;
+				}
+				
 				if (editMode == EditMode.ADD) {
 					final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
 						@Override
@@ -803,11 +851,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					public void onClick(AjaxRequestTarget target) {
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
+						descriptionModel.detach();
+						metaTitleModel.detach();
+						metaKeywordsModel.detach();
 						metaDescriptionModel.detach();
-						metaTitle.detach();
-						metaKeywords.detach();
-						metaDescription.detach();
-						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription);
+						titleModel.detach();
+						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
 					}
 					
 					@Override
@@ -863,6 +912,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					//meta description
 					if (messageEntry.getKey().equals(Category2.META_DESCRIPTION_ATTR)) {
 						transMetaDescriptionMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					//title
+					if (messageEntry.getKey().equals(Category2.TITLE_ATTR)) {
+						transTitleMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
 			}
