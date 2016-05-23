@@ -29,11 +29,12 @@ import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
-import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
@@ -51,13 +52,16 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
 import org.soluvas.category.Category2;
+import org.soluvas.category.CategoryException;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.FormalCategory;
 import org.soluvas.category.FormalCategoryRepository;
+import org.soluvas.category.LayoutCategory;
 import org.soluvas.category.MongoCategoryRepository;
 import org.soluvas.category.MongoCategoryRepositoryImpl;
 import org.soluvas.commons.AppManifest;
@@ -82,6 +86,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.mongodb.DuplicateKeyException;
 
@@ -477,6 +482,28 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		descriptionWysihtml.setEnabled(editable);
 		wmcDescriptionWysihtml.add(descriptionWysihtml);
 		form.add(wmcDescriptionWysihtml);
+		
+		form.add( new DropDownChoice<LayoutCategory>("ddcLayout", new PropertyModel<>(getModel(), "layout"),
+				new ListModel<>(ImmutableList.copyOf(LayoutCategory.values())), new IChoiceRenderer<LayoutCategory>() {
+
+					@Override
+					public Object getDisplayValue(LayoutCategory object) {
+						switch (object) {
+						case FULL_HORIZONTAL:
+							return "Full Horizontal";
+						case THREE_COLUMNS:
+							return "3 Columns";
+						default:
+							throw new CategoryException(String.format("Unsupported for layout '%s'", object));
+						}
+					}
+
+					@Override
+					public String getIdValue(LayoutCategory object, int index) {
+						return object.name();
+					}
+			
+				}) );
 		
 		final IModel<Boolean> statusModel = new Model<>( getModelObject().getStatus() == CategoryStatus.ACTIVE );
 		form.add(new CheckBox("status", statusModel));
