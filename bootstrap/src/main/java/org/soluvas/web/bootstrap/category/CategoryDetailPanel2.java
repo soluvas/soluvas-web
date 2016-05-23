@@ -71,6 +71,7 @@ import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
 import org.soluvas.image.store.Image;
 import org.soluvas.image.store.ImageRepository;
+import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.DisplayImageContainer;
@@ -417,7 +418,37 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 			}
 		};
-		final TextArea<String> descriptionFld = new TextArea<String>("description", descriptionModel){
+//		final TextArea<String> descriptionFld = new TextArea<String>("description", descriptionModel){
+//			@Override
+//			protected void onConfigure() {
+//				super.onConfigure();
+//				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+//					add(new AttributeModifier("class", "form-control"));
+//				} else {
+//					add(new AttributeModifier("class", "form-control focus"));
+//				}
+//			}
+//		};
+//		descriptionFld.add(new OnChangeThrottledBehavior() {
+//			
+//			@Override
+//			protected void onUpdate(AjaxRequestTarget target) {
+//				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+//				final Locale selectedLocale = selectedLocaleModel.getObject();
+//				final Locale categoryLocale = categoryLocaleModel.getObject();
+//				if (Objects.equal(selectedLocale, categoryLocale)) {
+//					category.setDescription(descriptionModel.getObject());
+//				} else {
+//					updateAttributeTranslations(selectedLocale, Category2.DESCRIPTION_ATTR, descriptionModel.getObject());
+//					transDescriptionMapModel.getObject().put(selectedLocale, descriptionModel.getObject());
+//				}
+//			}
+//		});
+//		descriptionFld.setEnabled(editable);
+//		form.add(descriptionFld);
+		final WebMarkupContainer wmcDescriptionWysihtml = new WebMarkupContainer("wmcDescriptionWysihtml");
+		wmcDescriptionWysihtml.setOutputMarkupId(true);
+		final WysihtmlTextArea descriptionWysihtml = new WysihtmlTextArea("descriptionWysihtml", descriptionModel){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -426,9 +457,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				} else {
 					add(new AttributeModifier("class", "form-control focus"));
 				}
-			}
+			};
 		};
-		descriptionFld.add(new OnChangeThrottledBehavior() {
+		descriptionWysihtml.add(new OnChangeThrottledBehavior() {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
@@ -443,8 +474,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 			}
 		});
-		descriptionFld.setEnabled(editable);
-		form.add(descriptionFld);
+		descriptionWysihtml.setEnabled(editable);
+		wmcDescriptionWysihtml.add(descriptionWysihtml);
+		form.add(wmcDescriptionWysihtml);
 		
 		final IModel<Boolean> statusModel = new Model<>( getModelObject().getStatus() == CategoryStatus.ACTIVE );
 		form.add(new CheckBox("status", statusModel));
@@ -856,7 +888,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						metaKeywordsModel.detach();
 						metaDescriptionModel.detach();
 						titleModel.detach();
-						target.add(displayNameFld, descriptionFld, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
+						target.add(displayNameFld, wmcDescriptionWysihtml, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
 					}
 					
 					@Override
