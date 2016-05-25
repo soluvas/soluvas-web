@@ -161,6 +161,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
 	private Form<Void> form;
 	private final IModel<List<String>> defaultEnumsModel;
+	private final IModel<String> descriptionModel = new Model<String>();
 
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
@@ -408,77 +409,22 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		titleFld.setEnabled(editable);
 		form.add(titleFld);
 		
-		final IModel<String> descriptionModel = new LoadableDetachableModel<String>() {
-			@Override
-			protected String load() {
-				final Locale selectedLocale = selectedLocaleModel.getObject();
-				final Locale categoryLocale = categoryLocaleModel.getObject();
-				if (Objects.equal(selectedLocale, categoryLocale)) {
-//					log.debug("loading description for locale '{}': {}", selectedLocale, getModelObject().getDescription());
-					return getModel().getObject().getDescription();
-				} else {
-					final String translation = transDescriptionMapModel.getObject().get(selectedLocale);
-//					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
-					return translation;
-				}
-			}
-		};
-//		final TextArea<String> descriptionFld = new TextArea<String>("description", descriptionModel){
-//			@Override
-//			protected void onConfigure() {
-//				super.onConfigure();
-//				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
-//					add(new AttributeModifier("class", "form-control"));
-//				} else {
-//					add(new AttributeModifier("class", "form-control focus"));
-//				}
-//			}
-//		};
-//		descriptionFld.add(new OnChangeThrottledBehavior() {
-//			
-//			@Override
-//			protected void onUpdate(AjaxRequestTarget target) {
-//				final Category2 category = CategoryDetailPanel2.this.getModelObject();
-//				final Locale selectedLocale = selectedLocaleModel.getObject();
-//				final Locale categoryLocale = categoryLocaleModel.getObject();
-//				if (Objects.equal(selectedLocale, categoryLocale)) {
-//					category.setDescription(descriptionModel.getObject());
-//				} else {
-//					updateAttributeTranslations(selectedLocale, Category2.DESCRIPTION_ATTR, descriptionModel.getObject());
-//					transDescriptionMapModel.getObject().put(selectedLocale, descriptionModel.getObject());
-//				}
-//			}
-//		});
-//		descriptionFld.setEnabled(editable);
-//		form.add(descriptionFld);
 		final WebMarkupContainer wmcDescriptionWysihtml = new WebMarkupContainer("wmcDescriptionWysihtml");
 		wmcDescriptionWysihtml.setOutputMarkupId(true);
 		final WysihtmlTextArea descriptionWysihtml = new WysihtmlTextArea("descriptionWysihtml", descriptionModel){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
+				log.debug("Onconfiguring description..");
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					descriptionModel.setObject(CategoryDetailPanel2.this.getModelObject().getDescription());
 					add(new AttributeModifier("class", "form-control"));
 				} else {
+					descriptionModel.setObject(transDescriptionMapModel.getObject().get(selectedLocaleModel.getObject()));
 					add(new AttributeModifier("class", "form-control focus"));
 				}
 			};
 		};
-		descriptionWysihtml.add(new OnChangeThrottledBehavior() {
-			
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
-				final Locale selectedLocale = selectedLocaleModel.getObject();
-				final Locale categoryLocale = categoryLocaleModel.getObject();
-				if (Objects.equal(selectedLocale, categoryLocale)) {
-					category.setDescription(descriptionModel.getObject());
-				} else {
-					updateAttributeTranslations(selectedLocale, Category2.DESCRIPTION_ATTR, descriptionModel.getObject());
-					transDescriptionMapModel.getObject().put(selectedLocale, descriptionModel.getObject());
-				}
-			}
-		});
 		descriptionWysihtml.setEnabled(editable);
 		wmcDescriptionWysihtml.add(descriptionWysihtml);
 		form.add(wmcDescriptionWysihtml);
@@ -908,9 +854,11 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final LaddaAjaxLink<Void> btnLocale = new LaddaAjaxLink<Void>("btnLocale", null, Buttons.Type.Default, lblModel) {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
+						updateDescription();
+						
 						selectedLocaleModel.setObject(item.getModelObject());
+						
 						displayNameModel.detach();
-						descriptionModel.detach();
 						metaTitleModel.detach();
 						metaKeywordsModel.detach();
 						metaDescriptionModel.detach();
@@ -933,6 +881,21 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			}
 		});
 		form.add(wmcLocales);
+	}
+	
+	private void updateDescription() {
+		final Category2 category = CategoryDetailPanel2.this.getModelObject();
+		final Locale selectedLocale = selectedLocaleModel.getObject();
+		final Locale categoryLocale = categoryLocaleModel.getObject();
+		final String descriptionValue = descriptionModel.getObject();
+		log.debug("Updating description '{}' for selectedLocale '{}' - categoryLocale '{}'",
+				descriptionValue, selectedLocale.toLanguageTag(), categoryLocale.toLanguageTag());
+		if (Objects.equal(selectedLocale, categoryLocale)) {
+			category.setDescription(descriptionValue);
+		} else {
+			updateAttributeTranslations(selectedLocale, Category2.DESCRIPTION_ATTR, descriptionValue);
+			transDescriptionMapModel.getObject().put(selectedLocale, descriptionValue);
+		}
 	}
 	
 	private void initLocalesAndTranslationMapModel() {

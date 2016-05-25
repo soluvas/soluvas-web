@@ -24,16 +24,6 @@ import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
  */
 public class Bootstrap3Wysihtml5v2 {
 	
-//	public static final CssHeaderItem CSS_BOOTSTRAP3_WYSIHTML5 = CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(
-//			Bootstrap3Wysihtml5v2.class, "bootstrap3-wysihtml5.css"));
-//	public static final CssHeaderItem CSS_BOOTSTRAP3_WYSIHTML5_EDITOR = CssHeaderItem.forReference(new AfterBootstrapCssResourceReference(
-//			Bootstrap3Wysihtml5v2.class, "bootstrap3-wysihtml5-editor.css"));
-//	public static final JavaScriptHeaderItem WYSIHTML5X_TOOLBAR_MIN = JavaScriptHeaderItem.forReference(new AfterBootstrapJavaScriptResourceReference(
-//			Bootstrap3Wysihtml5v2.class, "wysihtml5x-toolbar.min.js"));
-//	public static final JavaScriptHeaderItem BOOTSTRAP3_WYSIHTML5 = JavaScriptHeaderItem.forReference(new AfterBootstrapJavaScriptResourceReference(
-//			Bootstrap3Wysihtml5v2.class, "bootstrap3-wysihtml5.js"));
-	
-	
 	public static final CssReferenceHeaderItem WYSIWYG_COLOR_CSS = CssHeaderItem.forReference(
 			new AfterBootstrapCssResourceReference(Bootstrap3Wysihtml5v2.class, "wysiwyg-color.css"));
 	
