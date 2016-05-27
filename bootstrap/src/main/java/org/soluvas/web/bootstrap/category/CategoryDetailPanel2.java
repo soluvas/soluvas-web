@@ -94,7 +94,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButt
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxLink;
 
 /**
  * View/edit a {@link Category}, only editable if nsPrefix != base.
@@ -161,7 +160,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private final IModel<List<PropertyDefinition>> curPropertyOverridesModel = new ListModel<>();
 	private Form<Void> form;
 	private final IModel<List<String>> defaultEnumsModel;
-	private final IModel<String> descriptionModel = new Model<String>();
+	private final IModel<String> descriptionModel = new Model<>();
 
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
@@ -429,7 +428,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		wmcDescriptionWysihtml.add(descriptionWysihtml);
 		form.add(wmcDescriptionWysihtml);
 		
-		form.add( new DropDownChoice<LayoutCategory>("ddcLayout", new PropertyModel<>(getModel(), "layout"),
+		form.add( new DropDownChoice<>("ddcLayout", new PropertyModel<>(getModel(), "layout"),
 				new ListModel<>(ImmutableList.copyOf(LayoutCategory.values())), new IChoiceRenderer<LayoutCategory>() {
 
 					@Override
@@ -456,7 +455,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
 		
-		LoadableDetachableModel<DisplayImage> displayImageModel = new LoadableDetachableModel<DisplayImage>() {
+		final IModel<DisplayImage> displayImageModel = new LoadableDetachableModel<DisplayImage>() {
 			@Override
 			protected DisplayImage load() {
 				final Category2 category = CategoryDetailPanel2.this.getModelObject();
@@ -469,7 +468,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			}
 		};
 		
-		WebMarkupContainer imageCtr = new WebMarkupContainer("imageCtr");
+		final WebMarkupContainer imageCtr = new WebMarkupContainer("imageCtr");
 		imageCtr.add(new DisplayImageContainer("categoryImage", displayImageModel));
 		imageCtr.setOutputMarkupId(true);
 		form.add(imageCtr);
@@ -851,9 +850,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 								"-" + item.getModelObject().getDisplayCountry() +
 								(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
 				);
-				final LaddaAjaxLink<Void> btnLocale = new LaddaAjaxLink<Void>("btnLocale", null, Buttons.Type.Default, lblModel) {
+				final LaddaAjaxButton btnLocale = new LaddaAjaxButton("btnLocale", lblModel, Buttons.Type.Default) {
 					@Override
-					public void onClick(AjaxRequestTarget target) {
+					protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+						super.onSubmit(target, form);
 						updateDescription();
 						
 						selectedLocaleModel.setObject(item.getModelObject());
@@ -865,6 +865,19 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						titleModel.detach();
 						target.add(displayNameFld, wmcDescriptionWysihtml, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
 					}
+//					@Override
+//					public void onClick(AjaxRequestTarget target) {
+//						updateDescription();
+//						
+//						selectedLocaleModel.setObject(item.getModelObject());
+//						
+//						displayNameModel.detach();
+//						metaTitleModel.detach();
+//						metaKeywordsModel.detach();
+//						metaDescriptionModel.detach();
+//						titleModel.detach();
+//						target.add(displayNameFld, wmcDescriptionWysihtml, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
+//					}
 					
 					@Override
 					protected void onConfigure() {
