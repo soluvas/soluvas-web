@@ -58,13 +58,6 @@
 							</div>
 						</div>
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="col-lg-2 col-md-3 col-sm-3 control-label" -->
-<!-- 								wicket:for="description">Description</label> -->
-<!-- 							<div class="col-lg-4 col-md-7 col-sm-9"> -->
-<!-- 								<textarea wicket:id="description" class="form-control">Clothing for women</textarea> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
 						<div class="form-group" wicket:id="wmcDescriptionWysihtml">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
 								wicket:for="descriptionWysihtml">Description</label>
@@ -80,6 +73,37 @@
 							</div>
 						</div>
 						
+						<div wicket:id="wmcContents">
+							<div wicket:id="fullHorizontal">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentFullHorizontal">Content Full Horizontal</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentFullHorizontal" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+							</div>
+							
+							<div wicket:id="threeColumns">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns1">Content Column 1</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns1" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns2">Content Column 2</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns2" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns3">Content Column 3</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns3" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<div class="form-group" wicket:id="slugPathDiv">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
@@ -270,6 +294,7 @@
 								</div>
 							</div>
 						</div>
+						
 					</form>
 
 					<hr>

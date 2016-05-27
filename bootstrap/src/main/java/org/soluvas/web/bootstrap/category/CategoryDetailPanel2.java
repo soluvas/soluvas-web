@@ -161,6 +161,18 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	private Form<Void> form;
 	private final IModel<List<String>> defaultEnumsModel;
 	private final IModel<String> descriptionModel = new Model<>();
+	
+	private final IModel<String> fullHorizontalModel = new Model<>();
+	private final IModel<Map<Locale, String>> transFullHorizontalMapModel = new MapModel<>(new HashMap<Locale, String>());
+	
+	private final IModel<String> threeColumns1Model = new Model<>();
+	private final IModel<Map<Locale, String>> transThreeColumns1MapModel = new MapModel<>(new HashMap<Locale, String>());
+	
+	private final IModel<String> threeColumns2Model = new Model<>();
+	private final IModel<Map<Locale, String>> transThreeColumns2MapModel = new MapModel<>(new HashMap<Locale, String>());
+	
+	private final IModel<String> threeColumns3Model = new Model<>();
+	private final IModel<Map<Locale, String>> transThreeColumns3MapModel = new MapModel<>(new HashMap<Locale, String>());
 
 	/**
 	 * For creating a new {@link Category}. The nsPrefix is always the tenantId.
@@ -200,6 +212,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		}
 		newCategory.setStatus(CategoryStatus.ACTIVE);
 		newCategory.setPositioner(0);
+		newCategory.setLayout(LayoutCategory.FULL_HORIZONTAL);
 		setModel(new Model<>(newCategory));
 	}
 
@@ -414,7 +427,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				log.debug("Onconfiguring description..");
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
 					descriptionModel.setObject(CategoryDetailPanel2.this.getModelObject().getDescription());
 					add(new AttributeModifier("class", "form-control"));
@@ -424,11 +436,13 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				}
 			};
 		};
-		descriptionWysihtml.setEnabled(editable);
 		wmcDescriptionWysihtml.add(descriptionWysihtml);
 		form.add(wmcDescriptionWysihtml);
 		
-		form.add( new DropDownChoice<>("ddcLayout", new PropertyModel<>(getModel(), "layout"),
+		final WebMarkupContainer wmcContents = new WebMarkupContainer("wmcContents");
+		wmcContents.setOutputMarkupId(true);
+		
+		final DropDownChoice<LayoutCategory> ddcLayout = new DropDownChoice<>("ddcLayout", new PropertyModel<>(getModel(), "layout"),
 				new ListModel<>(ImmutableList.copyOf(LayoutCategory.values())), new IChoiceRenderer<LayoutCategory>() {
 
 					@Override
@@ -448,7 +462,93 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						return object.name();
 					}
 			
-				}) );
+				});
+		ddcLayout.add(new OnChangeAjaxBehavior() {
+			
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				target.add(wmcContents);
+			}
+		});
+		form.add( ddcLayout );
+		
+		//full horizontal
+		final WebMarkupContainer fullHorizontal = new WebMarkupContainer("fullHorizontal"){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setVisible(CategoryDetailPanel2.this.getModelObject().getLayout() == LayoutCategory.FULL_HORIZONTAL);
+			}
+		};
+		final WysihtmlTextArea contentFullHorizontal = new WysihtmlTextArea("contentFullHorizontal", fullHorizontalModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					fullHorizontalModel.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_FULL_HORIZONTAL));
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					fullHorizontalModel.setObject(transFullHorizontalMapModel.getObject().get(selectedLocaleModel.getObject()));
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			};
+		};
+		fullHorizontal.add(contentFullHorizontal);
+		wmcContents.add(fullHorizontal);
+		
+		//three columns
+		final WebMarkupContainer threeColumns = new WebMarkupContainer("threeColumns"){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setVisible(CategoryDetailPanel2.this.getModelObject().getLayout() == LayoutCategory.THREE_COLUMNS);
+			}
+		};
+		final WysihtmlTextArea contentThreeColumns1 = new WysihtmlTextArea("contentThreeColumns1", threeColumns1Model){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					threeColumns1Model.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_1));
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					threeColumns1Model.setObject(transThreeColumns1MapModel.getObject().get(selectedLocaleModel.getObject()));
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			};
+		};
+		threeColumns.add(contentThreeColumns1);
+		final WysihtmlTextArea contentThreeColumns2 = new WysihtmlTextArea("contentThreeColumns2", threeColumns2Model){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					threeColumns2Model.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_2));
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					threeColumns2Model.setObject(transThreeColumns2MapModel.getObject().get(selectedLocaleModel.getObject()));
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			};
+		};
+		threeColumns.add(contentThreeColumns2);
+		final WysihtmlTextArea contentThreeColumns3 = new WysihtmlTextArea("contentThreeColumns3", threeColumns3Model){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					threeColumns3Model.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_3));
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					threeColumns3Model.setObject(transThreeColumns3MapModel.getObject().get(selectedLocaleModel.getObject()));
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			};
+		};
+		threeColumns.add(contentThreeColumns3);
+		wmcContents.add(threeColumns);
+		
+		form.add(wmcContents);
 		
 		final IModel<Boolean> statusModel = new Model<>( getModelObject().getStatus() == CategoryStatus.ACTIVE );
 		form.add(new CheckBox("status", statusModel));
@@ -793,6 +893,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				final String category2StatusKey = String.format("category2:%s:%s", tenant.getTenantId(), "category2Status");
 				category2StatusCache.evict(category2StatusKey);
 				
+				updateDescription();
+				updateContents();
+				
 				switch (editMode) {
 				case ADD:
 					try {
@@ -855,6 +958,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 						super.onSubmit(target, form);
 						updateDescription();
+						updateContents();
 						
 						selectedLocaleModel.setObject(item.getModelObject());
 						
@@ -863,21 +967,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						metaKeywordsModel.detach();
 						metaDescriptionModel.detach();
 						titleModel.detach();
-						target.add(displayNameFld, wmcDescriptionWysihtml, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
+						target.add(displayNameFld, wmcDescriptionWysihtml, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld, wmcContents);
 					}
-//					@Override
-//					public void onClick(AjaxRequestTarget target) {
-//						updateDescription();
-//						
-//						selectedLocaleModel.setObject(item.getModelObject());
-//						
-//						displayNameModel.detach();
-//						metaTitleModel.detach();
-//						metaKeywordsModel.detach();
-//						metaDescriptionModel.detach();
-//						titleModel.detach();
-//						target.add(displayNameFld, wmcDescriptionWysihtml, wmcLocales, wmcPropertyOverrideList, metaTitle, metaKeywords, metaDescription, titleFld);
-//					}
 					
 					@Override
 					protected void onConfigure() {
@@ -901,8 +992,6 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final Locale selectedLocale = selectedLocaleModel.getObject();
 		final Locale categoryLocale = categoryLocaleModel.getObject();
 		final String descriptionValue = descriptionModel.getObject();
-		log.debug("Updating description '{}' for selectedLocale '{}' - categoryLocale '{}'",
-				descriptionValue, selectedLocale.toLanguageTag(), categoryLocale.toLanguageTag());
 		if (Objects.equal(selectedLocale, categoryLocale)) {
 			category.setDescription(descriptionValue);
 		} else {
@@ -911,12 +1000,68 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		}
 	}
 	
+	private void updateContents() {
+		final Category2 category = CategoryDetailPanel2.this.getModelObject();
+		final Locale selectedLocale = selectedLocaleModel.getObject();
+		final Locale categoryLocale = categoryLocaleModel.getObject();
+		
+		switch (category.getLayout()) {
+		case FULL_HORIZONTAL:
+			final String contentFullHorizontal = fullHorizontalModel.getObject();
+			if (Objects.equal(selectedLocale, categoryLocale)) {
+				category.getContents().put(Category2.KEY_CONTENT_FULL_HORIZONTAL, contentFullHorizontal);
+			} else {
+				updateAttributeTranslations(selectedLocale, Category2.KEY_CONTENT_FULL_HORIZONTAL, contentFullHorizontal);
+				transFullHorizontalMapModel.getObject().put(selectedLocale, contentFullHorizontal);
+			}
+			break;
+		case THREE_COLUMNS:
+			final String contentThreeColumn1 = threeColumns1Model.getObject();
+			if (Objects.equal(selectedLocale, categoryLocale)) {
+				category.getContents().put(Category2.KEY_CONTENT_THREE_COLUMNS_1, contentThreeColumn1);
+			} else {
+				updateAttributeTranslations(selectedLocale, Category2.KEY_CONTENT_THREE_COLUMNS_1, contentThreeColumn1);
+				transThreeColumns1MapModel.getObject().put(selectedLocale, contentThreeColumn1);
+			}
+			
+			final String contentThreeColumn2 = threeColumns2Model.getObject();
+			if (Objects.equal(selectedLocale, categoryLocale)) {
+				category.getContents().put(Category2.KEY_CONTENT_THREE_COLUMNS_2, contentThreeColumn2);
+			} else {
+				updateAttributeTranslations(selectedLocale, Category2.KEY_CONTENT_THREE_COLUMNS_2, contentThreeColumn2);
+				transThreeColumns2MapModel.getObject().put(selectedLocale, contentThreeColumn2);
+			}
+			
+			final String contentThreeColumn3 = threeColumns3Model.getObject();
+			if (Objects.equal(selectedLocale, categoryLocale)) {
+				category.getContents().put(Category2.KEY_CONTENT_THREE_COLUMNS_3, contentThreeColumn3);
+			} else {
+				updateAttributeTranslations(selectedLocale, Category2.KEY_CONTENT_THREE_COLUMNS_3, contentThreeColumn3);
+				transThreeColumns3MapModel.getObject().put(selectedLocale, contentThreeColumn3);
+			}
+			
+			break;
+		default:
+			throw new CategoryException(String.format("Unsupported for layout '%s'", category.getLayout()));
+		}
+		
+		
+	}
+	
 	private void initLocalesAndTranslationMapModel() {
 		//TODO: get languages from app manifest
 		final Collection<Locale> locales = new ArrayList<>(SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.values());
 		for (final Locale locale : locales) {
 			transNameMapModel.getObject().put(locale, null);
 			transDescriptionMapModel.getObject().put(locale, null);
+			transFullHorizontalMapModel.getObject().put(locale, null);
+			transMetaDescriptionMapModel.getObject().put(locale, null);
+			transMetaKeywordsMapModel.getObject().put(locale, null);
+			transMetaTitleMapModel.getObject().put(locale, null);
+			transThreeColumns1MapModel.getObject().put(locale, null);
+			transThreeColumns2MapModel.getObject().put(locale, null);
+			transThreeColumns3MapModel.getObject().put(locale, null);
+			transTitleMapModel.getObject().put(locale, null);
 		}
 		
 		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
@@ -951,6 +1096,19 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					//title
 					if (messageEntry.getKey().equals(Category2.TITLE_ATTR)) {
 						transTitleMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					//content - full horizontal
+					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_FULL_HORIZONTAL)) {
+						transFullHorizontalMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_THREE_COLUMNS_1)) {
+						transThreeColumns1MapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_THREE_COLUMNS_2)) {
+						transThreeColumns2MapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_THREE_COLUMNS_3)) {
+						transThreeColumns3MapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
 			}
