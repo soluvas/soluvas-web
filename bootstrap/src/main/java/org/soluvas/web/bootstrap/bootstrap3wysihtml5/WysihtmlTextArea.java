@@ -16,6 +16,13 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameApp
 @SuppressWarnings("serial")
 public class WysihtmlTextArea extends TextArea<String> {
 	
+	public enum SupportImage {
+		ENABLED,
+		DISABLED
+	}
+
+	private SupportImage supportImage = SupportImage.DISABLED;
+	
 	/**
 	 * @param id
 	 */
@@ -29,6 +36,11 @@ public class WysihtmlTextArea extends TextArea<String> {
 	 */
 	public WysihtmlTextArea(String id, IModel<String> model) {
 		super(id, model);
+	}
+	
+	public WysihtmlTextArea(String id, IModel<String> model, SupportImage supportImage) {
+		super(id, model);
+		this.supportImage  = supportImage;
 	}
 	
 	@Override
@@ -48,7 +60,7 @@ public class WysihtmlTextArea extends TextArea<String> {
 		
 		response.render(OnLoadHeaderItem.forScript(
 				"$('#" + getMarkupId() + "').wysihtml5({"
-						+ "\"image\": false,"
+						+ ( supportImage == SupportImage.ENABLED ? "\"image\": true," :  "\"image\": false," )
 						+ "\"color\": true,"
 						+"parser: function(html) { return html;},"		
 						+ "\"stylesheets\": [\"" + urlFor(Bootstrap3Wysihtml5v2.WYSIWYG_COLOR_CSS.getReference(), null) + "\"]"

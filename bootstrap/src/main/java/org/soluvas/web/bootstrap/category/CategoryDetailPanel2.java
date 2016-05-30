@@ -76,6 +76,7 @@ import org.soluvas.image.ImageTypes;
 import org.soluvas.image.store.Image;
 import org.soluvas.image.store.ImageRepository;
 import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea;
+import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea.SupportImage;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.soluvas.web.site.widget.DisplayImageContainer;
@@ -423,7 +424,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		
 		final WebMarkupContainer wmcDescriptionWysihtml = new WebMarkupContainer("wmcDescriptionWysihtml");
 		wmcDescriptionWysihtml.setOutputMarkupId(true);
-		final WysihtmlTextArea descriptionWysihtml = new WysihtmlTextArea("descriptionWysihtml", descriptionModel){
+		final WysihtmlTextArea descriptionWysihtml = new WysihtmlTextArea("descriptionWysihtml", descriptionModel, SupportImage.ENABLED){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -480,7 +481,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				setVisible(CategoryDetailPanel2.this.getModelObject().getLayout() == LayoutCategory.FULL_HORIZONTAL);
 			}
 		};
-		final WysihtmlTextArea contentFullHorizontal = new WysihtmlTextArea("contentFullHorizontal", fullHorizontalModel){
+		final WysihtmlTextArea contentFullHorizontal = new WysihtmlTextArea("contentFullHorizontal", fullHorizontalModel, SupportImage.ENABLED){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -504,7 +505,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				setVisible(CategoryDetailPanel2.this.getModelObject().getLayout() == LayoutCategory.THREE_COLUMNS);
 			}
 		};
-		final WysihtmlTextArea contentThreeColumns1 = new WysihtmlTextArea("contentThreeColumns1", threeColumns1Model){
+		final WysihtmlTextArea contentThreeColumns1 = new WysihtmlTextArea("contentThreeColumns1", threeColumns1Model, SupportImage.ENABLED){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -518,7 +519,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			};
 		};
 		threeColumns.add(contentThreeColumns1);
-		final WysihtmlTextArea contentThreeColumns2 = new WysihtmlTextArea("contentThreeColumns2", threeColumns2Model){
+		final WysihtmlTextArea contentThreeColumns2 = new WysihtmlTextArea("contentThreeColumns2", threeColumns2Model, SupportImage.ENABLED){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -532,7 +533,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			};
 		};
 		threeColumns.add(contentThreeColumns2);
-		final WysihtmlTextArea contentThreeColumns3 = new WysihtmlTextArea("contentThreeColumns3", threeColumns3Model){
+		final WysihtmlTextArea contentThreeColumns3 = new WysihtmlTextArea("contentThreeColumns3", threeColumns3Model, SupportImage.ENABLED){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -1004,7 +1005,10 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final Category2 category = CategoryDetailPanel2.this.getModelObject();
 		final Locale selectedLocale = selectedLocaleModel.getObject();
 		final Locale categoryLocale = categoryLocaleModel.getObject();
-		
+
+		if (category.getLayout() == null) {
+			return;
+		}
 		switch (category.getLayout()) {
 		case FULL_HORIZONTAL:
 			final String contentFullHorizontal = fullHorizontalModel.getObject();
