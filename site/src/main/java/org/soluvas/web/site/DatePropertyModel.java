@@ -27,6 +27,10 @@ public class DatePropertyModel implements IModel<Date> {
         this.clazz = clazz;
     }
 
+    public IModel<Object> getInnerModel() {
+        return innerModel;
+    }
+
     @Override
     public Date getObject() {
         final Object inner = innerModel.getObject();
