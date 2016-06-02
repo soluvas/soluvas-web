@@ -106,12 +106,13 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 				super.onConfigure();
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
 					add(new AttributeModifier("class", "form-control"));
+					setRequired(true);
 				} else {
 					add(new AttributeModifier("class", "form-control focus"));
+					setRequired(false);
 				}
 			}
 		};
-		nameTxt.setRequired(true);
 		nameTxt.setLabel(new Model<>("Name property override"));
 		nameTxt.add(new OnChangeThrottledBehavior("onchange") {
 			@Override

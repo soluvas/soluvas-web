@@ -1,13 +1,17 @@
 package org.soluvas.web.bootstrap.term;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Optional;
-import com.google.common.base.*;
-import com.google.common.eventbus.EventBus;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.AttributeModifier;
@@ -30,7 +34,11 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.model.*;
+import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -55,10 +63,17 @@ import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.Map.Entry;
+import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.eventbus.EventBus;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 
 /**
  * View/edit a {@link Term}, only editable if nsPrefix != base.
@@ -174,16 +189,17 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		termLocaleModel.setObject(Locale.forLanguageTag(getModel().getObject().getLanguage()));
 		initLocalesAndTranslationMapModel();
 		
+		final Form<Void> form = new Form<>("form");
+		add(form);
+		
 		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
 		add(new Label("kind", kindDisplayName));
-		add(new BookmarkablePageLink<>("backLink", backPage));
+		form.add(new BookmarkablePageLink<>("backLink", backPage));
 		
 		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "qName"));
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
 		
-		final Form<Void> form = new Form<>("form");
-		add(form);
 		
 		form.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
 		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "name"));
@@ -330,7 +346,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			}
 		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
-		add(saveBtn);
+		form.add(saveBtn);
 		
 		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
 
@@ -361,7 +377,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		deleteBtn.setEnabled(editable);
 //		deleteBtn.setVisible(editMode == EditMode.MODIFY);
 		deleteBtn.setVisible(false);
-		add(deleteBtn);
+		form.add(deleteBtn);
 		
 		/*LANGUAGE BUTTONS*/
 		final WebMarkupContainer wmcLocales = new WebMarkupContainer("wmcLocales");

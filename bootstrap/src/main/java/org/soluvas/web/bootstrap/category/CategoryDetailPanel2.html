@@ -3,7 +3,7 @@
 		<div class="col-sm-12">
 			<section class="panel">
 				<header class="panel-heading">
-					<span wicket:id="kind">Colors</span>
+					<span>General</span>
 				</header>
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" wicket:id="form">
@@ -52,9 +52,59 @@
 
 						<div class="form-group">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-								wicket:for="description">Description</label>
+								wicket:for="titleTxtArea">Title</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
-								<textarea wicket:id="description" class="form-control">Clothing for women</textarea>
+								<textarea wicket:id="titleTxtArea" class="form-control">Clothing for women</textarea>
+							</div>
+						</div>
+						
+						<div class="form-group" wicket:id="wmcDescriptionWysihtml">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="descriptionWysihtml">Description</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<textarea wicket:id="descriptionWysihtml" rows="8" style="height:450px"></textarea>
+								<div class="clearfix" style="margin:5px 0;"></div>
+								
+								<small class="bg-warning" style="padding: 7px;">Untuk gambar kategori mohon gunakan ukuran 1170px x 200 px </small>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Layout</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<select wicket:id="ddcLayout"></select>
+							</div>
+						</div>
+						
+						<div wicket:id="wmcContents">
+							<div wicket:id="fullHorizontal">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentFullHorizontal">Content Full Horizontal</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentFullHorizontal" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+							</div>
+							
+							<div wicket:id="threeColumns">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns1">Content Column 1</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns1" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns2">Content Column 2</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns2" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns3">Content Column 3</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns3" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
 							</div>
 						</div>
 
@@ -83,6 +133,46 @@
 								wicket:for="positioner">Position</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<input type="number" wicket:id="positioner" class="form-control">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="img">Image</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<input wicket:id="img" type="file" accept="image/*"/>
+								<div wicket:id="imageCtr">
+									<img wicket:id="categoryImage" class="img-thumbnail"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#accordion" href="#seo"> SEO Editor </a>
+								</h4>
+							</div>
+							<div id="seo" class="panel-collapse collapse">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaTitle">Meta Title</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<input type="text" wicket:id="metaTitle" class="col-xs-12">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaKeywords">Meta Keywords</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea type="text" wicket:id="metaKeywords"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaDescription">Meta Description</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea type="text" wicket:id="metaDescription"></textarea>
+									</div>
+								</div>
 							</div>
 						</div>
 
@@ -207,6 +297,7 @@
 								</div>
 							</div>
 						</div>
+						
 					</form>
 
 					<hr>
