@@ -462,6 +462,18 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					public String getIdValue(LayoutCategory object, int index) {
 						return object.name();
 					}
+
+					@Override
+					public LayoutCategory getObject(String id, IModel<? extends List<? extends LayoutCategory>> choices) {
+						return choices.getObject().stream().filter(new java.util.function.Predicate<LayoutCategory>() {
+
+							@Override
+							public boolean test(LayoutCategory t) {
+								return t.name().equals(id);
+							}
+							
+						}).findFirst().get();
+					}
 			
 				});
 		ddcLayout.add(new OnChangeAjaxBehavior() {
@@ -631,6 +643,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				} catch (IOException e) {
 					log.error("Cannot upload category image because of {}", e.getMessage());
 					error("Cannot upload category image");
+				} catch (Exception e) {
+					log.error(String.format("Cannot upload category image: %s", e), e);
+					error("Cannot upload category image: " + e);
 				}
 				
 //				if (uploadedFile != null) {
