@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -12,6 +13,8 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -27,6 +30,11 @@ import org.soluvas.data.domain.Sort;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.web.site.widget.EnumColumn;
 import org.soluvas.web.site.widget.LinkColumn;
+
+import com.google.common.collect.ImmutableList;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 
 /**
  * List {@link Category}s in a {@link ProductCatalog}.
@@ -57,8 +65,11 @@ public class CategoryTablePanel2 extends Panel {
 
 	public CategoryTablePanel2(String id, final Class<? extends Page> addPage, final Class<? extends Page> detailPage) {
 		super(id);
-		add(new Label("kindDisplayName", "Categories"));
-		add(new BookmarkablePageLink<>("addLink", addPage));
+		final Form<Void> form = new Form<>("form");
+		form.add(new Label("kindDisplayName", "Categories"));
+		form.add(new BookmarkablePageLink<>("addLink", addPage));
+		
+		final IModel<String> txtSearchModel = new Model<>();
 		
 		final SortableDataProvider<Category2, String> termDp = new SortableDataProvider<Category2, String>() {
 
@@ -67,13 +78,13 @@ public class CategoryTablePanel2 extends Panel {
 				final SortParam<String> sortParam = getSort();
 				final Sort sort = sortParam != null ? new Sort(sortParam.isAscending() ? Direction.ASC : Direction.DESC, sortParam.getProperty())
 					: new Sort("positioner");
-				final org.soluvas.data.domain.Page<Category2> page = catRepo.findAll(new PageOffsetRequest(first, count, sort));
+				final org.soluvas.data.domain.Page<Category2> page = catRepo.findAll(txtSearchModel.getObject(),  ImmutableList.of(), new PageOffsetRequest(first, count, sort));
 				return page.getContent().iterator();
 			}
 
 			@Override
 			public long size() {
-				return catRepo.count();
+				return catRepo.countAll(txtSearchModel.getObject(), ImmutableList.of());
 			}
 
 			@Override
@@ -91,7 +102,21 @@ public class CategoryTablePanel2 extends Panel {
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Position"), "positioner", "positioner"));
 		columns.add(new AddChildColumn2(new Model<>("New Child Category"), addPage));
-		add(new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20));
+		final AjaxFallbackDefaultDataTable<Category2, String> tblCategory = new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20);
+		tblCategory.setOutputMarkupId(true);
+		form.add(tblCategory);
+		
+		//search
+		form.add(new TextField<>("txtSearch", txtSearchModel));
+		form.add(new LaddaAjaxButton("btnSearch", new Model<>("Search"), Buttons.Type.Default){
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				super.onSubmit(target, form);
+				target.add(tblCategory);
+			}
+		});
+		
+		add(form);
 	}
 	
 }
