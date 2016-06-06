@@ -1120,12 +1120,15 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_FULL_HORIZONTAL)) {
 						transFullHorizontalMapModel.getObject().put(locale, messageEntry.getValue());
 					}
+					//content - three columns 1
 					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_THREE_COLUMNS_1)) {
 						transThreeColumns1MapModel.getObject().put(locale, messageEntry.getValue());
 					}
+					//content - three columns 2
 					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_THREE_COLUMNS_2)) {
 						transThreeColumns2MapModel.getObject().put(locale, messageEntry.getValue());
 					}
+					//content - three columns 3
 					if (messageEntry.getKey().equals(Category2.KEY_CONTENT_THREE_COLUMNS_3)) {
 						transThreeColumns3MapModel.getObject().put(locale, messageEntry.getValue());
 					}
@@ -1166,6 +1169,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			log.info("No need for translating different language with default (get from appManifest)");
 			return;
 		}
+		log.info("Updating translation for different language with default (get from appManifest)");
 		//set the language as default of product
 		getModelObject().setLanguage(defaultLanguageTag);
 		if (getModelObject().getTranslations() == null) {
@@ -1177,16 +1181,39 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			if (getModelObject().getDescription() != null) {
 				updateAttributeTranslations(oldLocale, Category2.DESCRIPTION_ATTR, getModelObject().getDescription());
 			}
+			if (getModelObject().getTitle() != null) {
+				updateAttributeTranslations(oldLocale, Category2.TITLE_ATTR, getModelObject().getTitle());
+			}
+			if (getModelObject().getContents() != null && !getModelObject().getContents().isEmpty()) {
+				for (final Entry<String, String> entry : getModelObject().getContents().entrySet()) {
+					updateAttributeTranslations(oldLocale, entry.getKey(), entry.getValue());
+				}
+			}
 		}
 		
 		if (getModelObject().getTranslations().containsKey(defaultLanguageTag)) {
 			//update attribute from translation if exists
 			final Map<String, String> translation = getModelObject().getTranslations().get(defaultLanguageTag);
 			if (translation.containsKey(Category2.NAME_ATTR)) {
-				getModelObject().setName(translation.get(Category.NAME_ATTR));
+				getModelObject().setName(translation.get(Category2.NAME_ATTR));
 			}
 			if (translation.containsKey(Category2.DESCRIPTION_ATTR)) {
-				getModelObject().setDescription(translation.get(Category.DESCRIPTION_ATTR));
+				getModelObject().setDescription(translation.get(Category2.DESCRIPTION_ATTR));
+			}
+			if (translation.containsKey(Category2.TITLE_ATTR)) {
+				getModelObject().setTitle(translation.get(Category2.TITLE_ATTR));
+			}
+			if (translation.containsKey(Category2.KEY_CONTENT_FULL_HORIZONTAL)) {
+				getModelObject().getContents().put(Category2.KEY_CONTENT_FULL_HORIZONTAL, translation.get(Category2.KEY_CONTENT_FULL_HORIZONTAL));
+			}
+			if (translation.containsKey(Category2.KEY_CONTENT_THREE_COLUMNS_1)) {
+				getModelObject().getContents().put(Category2.KEY_CONTENT_THREE_COLUMNS_1, translation.get(Category2.KEY_CONTENT_THREE_COLUMNS_1));
+			}
+			if (translation.containsKey(Category2.KEY_CONTENT_THREE_COLUMNS_2)) {
+				getModelObject().getContents().put(Category2.KEY_CONTENT_THREE_COLUMNS_2, translation.get(Category2.KEY_CONTENT_THREE_COLUMNS_2));
+			}
+			if (translation.containsKey(Category2.KEY_CONTENT_THREE_COLUMNS_3)) {
+				getModelObject().getContents().put(Category2.KEY_CONTENT_THREE_COLUMNS_3, translation.get(Category2.KEY_CONTENT_THREE_COLUMNS_3));
 			}
 			
 			//remove translation as default language product
