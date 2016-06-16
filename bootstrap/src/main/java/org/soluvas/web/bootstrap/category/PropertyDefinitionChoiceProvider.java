@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
@@ -17,10 +18,10 @@ import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageImpl;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
-
-import com.google.common.collect.ImmutableSet;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * @author rudi
@@ -28,6 +29,8 @@ import org.wicketstuff.select2.Response;
  */
 public class PropertyDefinitionChoiceProvider extends ChoiceProvider<PropertyDefinition> {
 	
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger log = LoggerFactory
 			.getLogger(PropertyDefinitionChoiceProvider.class);
 	
@@ -42,13 +45,13 @@ public class PropertyDefinitionChoiceProvider extends ChoiceProvider<PropertyDef
 	private final IModel<Boolean> fromRepoModel;
 	
 	public PropertyDefinitionChoiceProvider(final IModel<Collection<PropertyDefinition>> model, final IModel<List<PropertyDefinition>> excludedsModel,
-			final IModel<List<PropertyDefinition>> dataPropDefListModel, IModel<Boolean> notFromRepoModel) {
+			final IModel<List<PropertyDefinition>> dataPropDefListModel, IModel<Boolean> fromRepoModel) {
 		super();
 		Injector.get().inject(this);
 		this.model = model;
 		this.excludedsModel = excludedsModel;
 		this.dataPropDefListModel = dataPropDefListModel;
-		this.fromRepoModel = notFromRepoModel; 
+		this.fromRepoModel = fromRepoModel; 
 	}
 
 	@Override
@@ -71,12 +74,12 @@ public class PropertyDefinitionChoiceProvider extends ChoiceProvider<PropertyDef
 			final List<PropertyDefinition> filteredPropDefList = dataPropDefListModel.getObject().stream().filter(new Predicate<PropertyDefinition>() {
 				@Override
 				public boolean test(PropertyDefinition t) {
-					return !excludedPropertyDefIds.contains(t.getId()) && t.getName().toLowerCase().startsWith(term.trim().toLowerCase());
+					return !excludedPropertyDefIds.contains(t.getId()) && t.getName().toLowerCase().startsWith(Optional.fromNullable(term).or("").trim().toLowerCase());
 				}
 			}).collect(Collectors.toList());
 			result = new PageImpl<>(filteredPropDefList, new PageRequest(page, 10L, Direction.ASC, "name"), filteredPropDefList.size() - model.getObject().size());
 		} else {
-			result = repo.findAllBaseBySearchText(term.trim(),
+			result = repo.findAllBaseBySearchText(Optional.fromNullable(term).or("").trim(),
 					ImmutableSet.copyOf(excludedPropertyDefIds),
 					new PageRequest(page, 10L, Direction.ASC, "name"));
 		}

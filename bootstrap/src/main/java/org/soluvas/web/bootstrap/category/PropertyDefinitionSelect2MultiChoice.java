@@ -33,9 +33,9 @@ public class PropertyDefinitionSelect2MultiChoice extends BootstrapSelect2MultiC
 	}
 	
 	public PropertyDefinitionSelect2MultiChoice(final String id, final IModel<Collection<PropertyDefinition>> model,
-			final IModel<List<PropertyDefinition>> excludedsModel, final IModel<List<PropertyDefinition>> dataListModel, IModel<Boolean> notFromRepoModel) {
+			final IModel<List<PropertyDefinition>> excludedsModel, final IModel<List<PropertyDefinition>> dataListModel, IModel<Boolean> fromRepoModel) {
 		super(id, model);
-		setProvider(new PropertyDefinitionChoiceProvider(model, excludedsModel, dataListModel, notFromRepoModel));
+		setProvider(new PropertyDefinitionChoiceProvider(model, excludedsModel, dataListModel, fromRepoModel));
 	}
 
 	@Override

@@ -465,6 +465,9 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 
 					@Override
 					public LayoutCategory getObject(String id, IModel<? extends List<? extends LayoutCategory>> choices) {
+						if (Strings.isNullOrEmpty(id)) {
+							return null;
+						}
 						return choices.getObject().stream().filter(new java.util.function.Predicate<LayoutCategory>() {
 
 							@Override

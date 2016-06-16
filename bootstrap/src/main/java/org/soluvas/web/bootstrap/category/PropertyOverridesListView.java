@@ -15,7 +15,11 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
@@ -198,6 +202,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 				updatePropertyOverride(item.getModelObject(), target);
 			}
 		});
+		usableAsOption.setEnabled(item.getModelObject().isEditabled());
 		item.add(usableAsOption);
 		
 		final DropDownChoice<PropertyKind> ddcDefaultKind = new DropDownChoice<>("ddcDefaultKind", new PropertyModel<>(item.getModel(), "defaultKind"),
@@ -227,6 +232,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 				updatePropertyOverride(propOver, target);
 			}
 		});
+		ddcDefaultKind.setEnabled(item.getModelObject().isEditabled());
 		item.add(ddcDefaultKind);
 		
 		final WebMarkupContainer measurementUnit = new WebMarkupContainer("measurementUnit"){
@@ -257,6 +263,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 		final DropDownChoice<String> selDefaultEnum = new DropDownChoice<>("selDefaultEnum", new PropertyModel<String>(item.getModel(), "defaultEnum"),
 				defaultEnumsModel, new ChoiceRenderer<>());
 		defaultEnum.add(selDefaultEnum);
+		defaultEnum.setEnabled(item.getModelObject().isEditabled());
 		item.add(defaultEnum);
 		
 		item.getModelObject().getTranslations();
