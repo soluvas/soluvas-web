@@ -16,11 +16,12 @@ import org.soluvas.data.customerrole.CustomerRoleRepository;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort;
-
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 
 public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole> {
 	
@@ -47,7 +48,7 @@ public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole> {
 
 	@Override
 	public void query(String term, int page, Response<CustomerRole> response) {
-		final String trimmedTerm = term.trim();
+		final String trimmedTerm = Optional.fromNullable(term).or("").trim();
 		final Page<CustomerRole> pageCustomerRole = customerRoleRepo.findAll(StatusMask.ACTIVE_ONLY, trimmedTerm, 
 				new PageRequest(page, 20, Sort.Direction.ASC, "name"));
 		log.trace("Search '{}' page '{}' returned '{}'", trimmedTerm, page, pageCustomerRole.getContent());

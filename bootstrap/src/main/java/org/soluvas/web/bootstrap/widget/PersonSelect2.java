@@ -1,5 +1,13 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -20,12 +28,7 @@ import org.soluvas.web.site.EmfModel;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import com.google.common.base.Optional;
 
 /**
  * For without {@link ImageManager} dependency, use {@link TextPersonSelect2}.
@@ -64,7 +67,7 @@ public class PersonSelect2 extends BootstrapSelect2Choice<Person> {
 
 		@Override
 		public void query(String term, int page, Response<Person> response) {
-			term = term.trim();
+			term = Optional.fromNullable(term).or("").trim();
 			final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
 			//FIXME: do not hard coded for STATUS
 			final Page<Person> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
