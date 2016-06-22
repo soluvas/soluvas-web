@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
@@ -21,7 +22,6 @@ import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.site.EmfListModel;
-
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
@@ -69,7 +69,7 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 		
 		final Page<Term2> result;
 		if (!Strings.isNullOrEmpty(enumerationId)) {
-			result = termRepo.findAll(enumerationId, term.trim(), pageable);
+			result = termRepo.findAll(enumerationId, Optional.fromNullable(term).or("").trim(), pageable);
 		} else {
 			final List<String> whiteValues = whiteListValuesModel.getObject().stream().map(new Function<Value<?>, String>() {
 				@Override
