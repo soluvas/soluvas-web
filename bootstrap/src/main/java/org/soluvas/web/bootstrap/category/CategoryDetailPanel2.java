@@ -599,7 +599,14 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				try {
 					if (uploadedFile == null) throw new IllegalArgumentException("Cannot process null image");
 					File file = uploadedFile.writeToTempFile();
-					Image image = new Image(file, uploadedFile.getContentType(), uploadedFile.getClientFileName());
+					final Predicate<String> predicate = new Predicate<String>() {
+						@Override
+						public boolean apply(String input) {
+							return !categoryImageRepo.exists(input);
+						}
+					};
+					Image image = new Image(file, uploadedFile.getContentType(), uploadedFile.getClientFileName(),
+							predicate);
 					
 					log.debug("attempting to upload category image");
 					// 
