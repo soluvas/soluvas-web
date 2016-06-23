@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,7 +22,6 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -53,6 +51,8 @@ import org.soluvas.data.Term;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermKind;
 import org.soluvas.mongo.MongoTermRepository;
+import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea;
+import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea.SupportImage;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
@@ -127,6 +127,8 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 	
 	private final IModel<Map<Locale, String>> transDisplayNameMapModel = new MapModel<>(new HashMap<Locale, String>());
 	private final IModel<Map<Locale, String>> transDescMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<String> contentModel = new Model<>();
+	private final IModel<Map<Locale, String>> transContentMapModel = new MapModel<>(new HashMap<Locale, String>());
 
 	private final IModel<TermKind> termKindModel;
 
@@ -313,6 +315,24 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		});
 		form.add(descFld);
 		
+		final WebMarkupContainer wmcContent = new WebMarkupContainer("wmcContent");
+		wmcContent.setOutputMarkupId(true);
+		final WysihtmlTextArea contentWysihtml = new WysihtmlTextArea("contentTxt", contentModel, SupportImage.ENABLED){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					contentModel.setObject(Term2DetailPanel.this.getModelObject().getContent());
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					contentModel.setObject(transContentMapModel.getObject().get(selectedLocaleModel.getObject()));
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			};
+		};
+		wmcContent.add(contentWysihtml);
+		form.add(wmcContent);
+		
 		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
 
 			@Override
@@ -383,6 +403,8 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 				final Cache term2EnumIdCache = cacheMgr.getCache("term2EnumId");
 				final String term2EnumIdKey = String.format("term2:%s:%s", tenant.getTenantId(), term.getEnumerationId());
 				term2EnumIdCache.evict(term2EnumIdKey);
+				
+				updateContent();
 				
 				switch (editMode) {
 				case ADD:
@@ -464,14 +486,22 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		wmcLocales.add(new ListView<Locale>("locales", localesModel) {
 			@Override
 			protected void populateItem(final ListItem<Locale> item) {
-				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
+				final IModel<String> lblModel = new Model<>(
+						item.getModelObject().getDisplayLanguage() + 
+						"-" + item.getModelObject().getDisplayCountry() +
+						(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : ""));
+				final LaddaAjaxButton btnLocale = new LaddaAjaxButton("btnLocale", lblModel, Buttons.Type.Info) {
 					@Override
-					public void onClick(AjaxRequestTarget target) {
+					protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+						super.onSubmit(target, form);
+						
+						updateContent();
+						
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
 						descModel.detach();
 //						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
-						target.add(nameFld, descFld, wmcLocales);
+						target.add(nameFld, descFld, wmcLocales, wmcContent);
 					}
 					
 					@Override
@@ -485,13 +515,6 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 						}
 					}
 				};
-				
-				final Label lblLocale = new Label("lblLocale", new Model<>(
-							item.getModelObject().getDisplayLanguage() + 
-							"-" + item.getModelObject().getDisplayCountry() +
-							(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
-						));
-				btnLocale.add(lblLocale);
 				item.add(btnLocale);
 			}
 		});
@@ -504,6 +527,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		for (final Locale locale : locales) {
 			transDisplayNameMapModel.getObject().put(locale, null);
 			transDescMapModel.getObject().put(locale, null);
+			transContentMapModel.getObject().put(locale, null);
 		}
 		
 		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
@@ -515,12 +539,14 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 				
 				final Map<String, String> translation = entry.getValue();
 				for (final Entry<String, String> messageEntry : translation.entrySet()) {
-					//display name
 					if (messageEntry.getKey().equals(Term2.NAME_ATTR)) {
 						transDisplayNameMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 					if (messageEntry.getKey().equals(Term2.DESCRIPTION_ATTR)) {
 						transDescMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Term2.CONTENT_ATTR)) {
+						transContentMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
 			}
@@ -529,8 +555,20 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		localesModel.getObject().addAll(locales);
 	}
 	
-	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
-			@Nonnull final String upValue) {
+	private void updateContent() {
+		final Term2 term = Term2DetailPanel.this.getModelObject();
+		final Locale selectedLocale = selectedLocaleModel.getObject();
+		final Locale termLocale = termLocaleModel.getObject();
+		final String contentValue = contentModel.getObject();
+		if (Objects.equal(selectedLocale, termLocale)) {
+			term.setContent(contentValue);
+		} else {
+			updateAttributeTranslations(selectedLocale, Term2.CONTENT_ATTR, contentValue);
+			transContentMapModel.getObject().put(selectedLocale, contentValue);
+		}
+	}
+	
+	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute, final String upValue) {
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
 			final Map<String, String> translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
 			if (!Strings.isNullOrEmpty(upValue)) {
@@ -561,6 +599,8 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 		if (!getModelObject().getTranslations().containsKey(oldLanguageTag)) {
 			//create translation for old language
 			updateAttributeTranslations(oldLocale, Term2.NAME_ATTR, getModelObject().getName());
+			updateAttributeTranslations(oldLocale, Term2.DESCRIPTION_ATTR, getModelObject().getDescription());
+			updateAttributeTranslations(oldLocale, Term2.CONTENT_ATTR, getModelObject().getContent());
 		}
 		
 		if (getModelObject().getTranslations().containsKey(defaultLanguageTag)) {
@@ -568,6 +608,12 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 			final Map<String, String> translation = getModelObject().getTranslations().get(defaultLanguageTag);
 			if (translation.containsKey(Term2.NAME_ATTR)) {
 				getModelObject().setName(translation.get(Term2.NAME_ATTR));
+			}
+			if (translation.containsKey(Term2.DESCRIPTION_ATTR)) {
+				getModelObject().setDescription(translation.get(Term2.DESCRIPTION_ATTR));
+			}
+			if (translation.containsKey(Term2.CONTENT_ATTR)) {
+				getModelObject().setContent(translation.get(Term2.CONTENT_ATTR));
 			}
 			
 			//remove translation as default language product
