@@ -21,11 +21,12 @@ import org.soluvas.geo.Country;
 import org.soluvas.geo.District;
 import org.soluvas.geo.DistrictRepository;
 import org.soluvas.geo.Province;
-
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 
 /**
  * @author anton
@@ -77,7 +78,7 @@ public class DistrictSelect2 extends BootstrapSelect2Choice<District> {
 			@Nullable final Province province = provinceModel.getObject();
 			@Nullable final Country country = countryModel.getObject();
 			
-			final String trimedTerm = term.trim();
+			final String trimedTerm = Optional.fromNullable(term).or("").trim();
 			final Page<District> pageDistrict; 
 			log.debug("Querying districtSelect2 for term '{}', city {}, province {} and country {}", trimedTerm, city, province, country);
 			if (city != null && province != null && country != null){
