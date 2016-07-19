@@ -18,12 +18,13 @@ import org.soluvas.data.domain.PageRequest;
 import org.soluvas.geo.Country;
 import org.soluvas.geo.CountryRepository;
 import org.soluvas.web.site.FlagsCssResourceReference;
-
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
+
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 
 /**
  * {@link Select2Choice} UI component for Joda {@link Country}.
@@ -54,7 +55,7 @@ public class CountrySelect2 extends BootstrapSelect2Choice<Country> {
 
 		@Override
 		public void query(String term, int page, Response<Country> response) {
-			final String trimmedTerm = term.trim();
+			final String trimmedTerm = Optional.fromNullable(term).or("").trim();
 			final Page<Country> countries = countryRepo.searchCountry(trimmedTerm, new PageRequest(page, 20));
 			response.addAll(countries.getContent());
 			response.setHasMore(!countries.isLastPage());

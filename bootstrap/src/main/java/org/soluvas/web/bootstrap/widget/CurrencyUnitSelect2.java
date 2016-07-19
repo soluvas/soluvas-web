@@ -1,9 +1,14 @@
 package org.soluvas.web.bootstrap.widget;
 
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Ordering;
+import java.util.Collection;
+import java.util.Currency;
+import java.util.Locale;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
@@ -22,13 +27,11 @@ import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Locale;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Ordering;
 
 /**
  * {@link Select2Choice} UI component for {@link CurrencyUnit}.
@@ -59,7 +62,7 @@ public class CurrencyUnitSelect2 extends BootstrapSelect2Choice<CurrencyUnit> {
 
         @Override
         public void query(String term, int page, Response<CurrencyUnit> response) {
-            final String trimmedTerm = term.trim();
+        	final String trimmedTerm = Optional.fromNullable(term).or("").trim();
             final PageRequest pageable = new PageRequest(page, 20);
             final Collection<CurrencyUnit> unsorted = Monetary.getCurrencies();
             final ImmutableList<CurrencyUnit> sorted = Ordering.natural().immutableSortedCopy(
