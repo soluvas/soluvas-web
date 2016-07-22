@@ -78,7 +78,7 @@ public class PersonSitemapSupplier implements SitemapSupplier {
                                     ImmutableList.of(input.getImageId()) : ImmutableList.<String>of();
                         }
                     }).toSet();
-            final Map<String, DisplayImage> personImages = imageMgr.getSafeImagesById(ImageTypes.PERSON, imageIds, ImageStyles.LARGE);
+            final Map<String, DisplayImage> personImages = imageMgr.getSafeImagesByIds(ImageTypes.PERSON, imageIds, ImageStyles.LARGE);
             result.addAll(
                     FluentIterable.from(people)
                         .transform(new Function<Person, Url>() {
