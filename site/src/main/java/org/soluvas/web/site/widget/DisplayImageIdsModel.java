@@ -45,7 +45,7 @@ public class DisplayImageIdsModel extends LoadableDetachableModel<Map<String, Di
 	protected Map<String, DisplayImage> load() {
 		final Collection<String> imageIds = imageIdsModel.getObject();
 		if (imageIds != null) {
-			return imageMgr.getSafeImagesById(namespace, imageIds, imageStyle);
+			return imageMgr.getSafeImagesByIds(namespace, imageIds, imageStyle);
 		} else {
 			return ImmutableMap.<String, DisplayImage>of();
 		}

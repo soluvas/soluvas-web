@@ -76,7 +76,7 @@ public class DisplayImagesModel<T extends Imageable> extends LoadableDetachableM
 	@Override
 	protected Map<String, DisplayImage> load() {
 		final Set<String> imageIds = getImageIds();
-		return imageMgr.getSafeImagesById(namespace, imageIds, imageStyle);
+		return imageMgr.getSafeImagesByIds(namespace, imageIds, imageStyle);
 	}
 	
 }
