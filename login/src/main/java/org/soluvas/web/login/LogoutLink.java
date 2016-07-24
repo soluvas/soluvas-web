@@ -29,7 +29,7 @@ public class LogoutLink extends Link<Void> {
 		final Class<? extends Page> homePageClass = getApplication().getHomePage();
 		log.info("Logging out {} and redirecting to {}", currentUser.getPrincipal(), homePageClass.getName());
 		currentUser.logout();
-		Interaction.LOGOUT.info("Anda telah log out."); // TODO: why is this not in FeedbackMessages?
+		Interaction.LOGOUT.info(getString("loggedOut")); // TODO: why is this not in FeedbackMessages?
 		setResponsePage(homePageClass);
 		/* For some reason at this point Wicket (6.8.0) throws:
 		 *  
