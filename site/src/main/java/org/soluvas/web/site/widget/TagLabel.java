@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 
 /**
- * {@link Label} that can change its tag.
+ * {@link Label} that can change its HTML tag.
  * @author ceefour
  */
 @SuppressWarnings("serial")

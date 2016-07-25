@@ -6,19 +6,21 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
  * {@link LinkPanel} / {@link LinkColumn} can be used by anything (e.g. name), not just ID.
+ * Contains either {@link BookmarkablePageLink} or {@link ExternalLink}.
  *
- * @param <T>
- * @param <S>
  * @author rudi
  * @see LinkColumn
  */
-public class LinkPanel<T, S> extends Panel {
+@SuppressWarnings("serial")
+public class LinkPanel extends GenericPanel<String> {
 
 	public LinkPanel(final String componentId,
 			final Class<? extends Page> pageClass, final PageParameters params,
@@ -38,8 +40,6 @@ public class LinkPanel<T, S> extends Panel {
 		}
 		add(link);
 		add(new WebMarkupContainer("lock") {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -48,4 +48,28 @@ public class LinkPanel<T, S> extends Panel {
 		});
 	}
 	
+	public LinkPanel(final String componentId,
+			final IModel<String> hrefModel, final IModel<String> labelModel, @Nullable TagType tagType) {
+		super(componentId);
+		final ExternalLink link = new ExternalLink("link", hrefModel);
+		if (tagType != null) {
+			link.add(new TagLabel("label", labelModel, tagType));
+		} else {
+			link.add(new Label("label", labelModel));
+		}
+		add(link);
+		add(new WebMarkupContainer("lock") {
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setVisible(!isEnabledInHierarchy());
+			}
+		});
+	}
+
+	public LinkPanel(final String componentId,
+			final IModel<String> hrefModel, final IModel<String> labelModel) {
+		this(componentId, hrefModel, labelModel, null);
+	}
+
 }

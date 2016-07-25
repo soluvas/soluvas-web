@@ -11,9 +11,8 @@ import org.soluvas.web.site.EmfModel;
  * @author rudi
  *
  */
+@SuppressWarnings("serial")
 public class CustomerRoleSelect2 extends BootstrapSelect2Choice<CustomerRole> {
-	
-	private static final long serialVersionUID = 1L;
 	
 	public CustomerRoleSelect2(final String id) {
 		super(id, new EmfModel<CustomerRole>(), new CustomerRoleChoiceProvider());
@@ -42,5 +41,4 @@ public class CustomerRoleSelect2 extends BootstrapSelect2Choice<CustomerRole> {
 				"}");
 	}
 
-	
 }

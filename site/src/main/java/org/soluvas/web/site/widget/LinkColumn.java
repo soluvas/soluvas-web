@@ -161,7 +161,7 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 	
 	/**
 	 * Override this for conditional enabling of link.
-	 * @param Model
+	 * @param model
 	 * @return
 	 */
 	protected boolean isLinkEnabled(IModel<T> model) {
@@ -181,7 +181,7 @@ public class LinkColumn<T, S> extends PropertyColumn<T, S> {
 					.add(paramName, paramValue);
 //			final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClass, params,
 //					labelModel.or((IModel) getDataModel(model)), tagType);
-			final LinkPanel<T, S> linkPanel = new LinkPanel<T, S>(componentId, pageClassModel.getObject(), params,
+			final LinkPanel linkPanel = new LinkPanel(componentId, pageClassModel.getObject(), params,
 					labelModel.or((IModel) getDataModel(model)), tagType);
 			if (enabled != null) {
 				linkPanel.setEnabled(enabled.apply(model.getObject()));
