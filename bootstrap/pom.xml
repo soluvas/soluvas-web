@@ -54,22 +54,22 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-core</artifactId>
-			<version>0.10.6</version>
+			<version>0.10.7</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-extensions</artifactId>
-			<version>0.10.6</version>
+			<version>0.10.7</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-themes</artifactId>
-			<version>0.10.6</version>
+			<version>0.10.7</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-less</artifactId>
-			<version>0.10.6</version>
+			<version>0.10.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
