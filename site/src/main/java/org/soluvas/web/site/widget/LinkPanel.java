@@ -3,6 +3,7 @@ package org.soluvas.web.site.widget;
 import javax.annotation.Nullable;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -21,6 +22,8 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
  */
 @SuppressWarnings("serial")
 public class LinkPanel extends GenericPanel<String> {
+
+	private String iconClassNames;
 
 	public LinkPanel(final String componentId,
 			final Class<? extends Page> pageClass, final PageParameters params,
@@ -70,6 +73,23 @@ public class LinkPanel extends GenericPanel<String> {
 	public LinkPanel(final String componentId,
 			final IModel<String> hrefModel, final IModel<String> labelModel) {
 		this(componentId, hrefModel, labelModel, null);
+	}
+
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		final WebMarkupContainer icon = new WebMarkupContainer("icon");
+		if (null != iconClassNames) {
+			icon.add(new AttributeAppender("class", iconClassNames, " "));
+		} else {
+			icon.setVisible(false);
+		}
+		add(icon);
+	}
+
+	public LinkPanel setIconType(String classNames) {
+		this.iconClassNames = classNames;
+		return this;
 	}
 
 }
