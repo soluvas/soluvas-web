@@ -8,16 +8,21 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.web.site.semantic.ItemPropContentBehavior;
 import org.soluvas.web.site.semantic.SchemaOrgProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nullable;
 
 /**
- * Displays a {@link DateTime} model, by default with time zone (for safety), and also uses <code>abbr</code>.
- * 
+ * Displays a {@link DateTime} model converted to {@link AppManifest#getDefaultTimeZone()} (if available), and also uses <code>abbr</code>.
+ * By default time zone is not displayed to save UI space and because time zone is consistent,
+ * this can be changed with {@link #zone(boolean)}.
+ *
  * <p>Time zone can be hidden by calling {@link #zone(boolean)}.
  * @author ceefour
  * @see DateColumn2
@@ -25,7 +30,18 @@ import javax.annotation.Nullable;
 @SuppressWarnings("serial")
 public class DateTimeLabel2 extends Label {
 
-	boolean displayZone = true;
+	public enum ZoneConversion {
+		ORIGINAL,
+		TENANT,
+		CUSTOM
+	}
+
+	@Autowired(required = false)
+	private AppManifest appManifest;
+
+	private ZoneConversion zoneConversion = ZoneConversion.TENANT;
+	private DateTimeZone customZone;
+	boolean displayZone = false;
 	private String tagName = "abbr";
 	
 	public DateTimeLabel2(String id, final IModel<DateTime> model) {
@@ -41,6 +57,22 @@ public class DateTimeLabel2 extends Label {
 		super(id, new Model<>(dateTime));
 	}
 
+	public DateTimeLabel2 withOriginalZone() {
+		this.zoneConversion = ZoneConversion.ORIGINAL;
+		return this;
+	}
+
+	public DateTimeLabel2 withTenantZone() {
+		this.zoneConversion = ZoneConversion.TENANT;
+		return this;
+	}
+
+	public DateTimeLabel2 withCustomZone(DateTimeZone zone) {
+		this.zoneConversion = ZoneConversion.CUSTOM;
+		this.customZone = zone;
+		return this;
+	}
+
 	/**
 	 * Change tag name, default is {@code abbr}. If {@code null}, tag name will be specified by markup.
 	 * @param tagName
@@ -54,6 +86,18 @@ public class DateTimeLabel2 extends Label {
 		this.displayZone = displayZone;
 		return this;
 	}
+
+	protected DateTime getConvertedModelObject() {
+		DateTime dateTime = (DateTime) getDefaultModelObject();
+		if (dateTime != null) {
+			if (ZoneConversion.TENANT == zoneConversion && null != appManifest && null != appManifest.getDefaultTimeZone()) {
+				dateTime = dateTime.withZone(appManifest.getDefaultTimeZone());
+			} else if (ZoneConversion.CUSTOM == zoneConversion && null != customZone) {
+				dateTime = dateTime.withZone(customZone);
+			}
+		}
+		return dateTime;
+	}
 	
 	@Override
 	protected void onInitialize() {
@@ -61,7 +105,7 @@ public class DateTimeLabel2 extends Label {
 		add(new AttributeModifier("title", new AbstractReadOnlyModel<Object>() {
 			@Override
 			public Object getObject() {
-				return getDefaultModelObject();
+				return getConvertedModelObject();
 			}
 		}));
 	}
@@ -76,7 +120,7 @@ public class DateTimeLabel2 extends Label {
 	
 	@Override
 	public void onComponentTagBody(final MarkupStream markupStream, final ComponentTag openTag) {
-		final DateTime dateTime = (DateTime) getDefaultModelObject();
+		final DateTime dateTime = getConvertedModelObject();
 		if (dateTime != null) {
 			DateTimeFormatter format = DateTimeFormat.forStyle("MS")
 					.withLocale(getLocale())
