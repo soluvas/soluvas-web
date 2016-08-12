@@ -32,6 +32,7 @@ import org.soluvas.web.site.widget.EnumColumn;
 import org.soluvas.web.site.widget.LinkColumn;
 
 import com.google.common.collect.ImmutableList;
+import com.restfb.types.ads.ProductCatalog;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
@@ -66,7 +67,7 @@ public class CategoryTablePanel2 extends Panel {
 	public CategoryTablePanel2(String id, final Class<? extends Page> addPage, final Class<? extends Page> detailPage) {
 		super(id);
 		final Form<Void> form = new Form<>("form");
-		form.add(new Label("kindDisplayName", "Categories"));
+		form.add(new Label("kindDisplayName", "Kategori"));
 		form.add(new BookmarkablePageLink<>("addLink", addPage));
 		
 		final IModel<String> txtSearchModel = new Model<>();
