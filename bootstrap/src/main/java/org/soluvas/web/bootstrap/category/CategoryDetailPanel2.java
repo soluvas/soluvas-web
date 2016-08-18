@@ -363,8 +363,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
 							@Override
 							public boolean apply(@Nullable String input) {
-								//FIXME: how??
-								return !catRepo.exists(tenant.getTenantId() + "_" + input);
+//								return !catRepo.exists(tenant.getTenantId() + "_" + input); //udh ga pk nsPrefix lg
+								return !catRepo.exists(input);
 							}
 						});
 						category.setId(id);
@@ -897,7 +897,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						@Override
 						public boolean apply(@Nullable String input) {
 							//FIXME: how??
-							return !catRepo.exists(tenant.getTenantId() + "_" + input);
+//							return !catRepo.exists(tenant.getTenantId() + "_" + input); //udh ga pk nsPrefix lg
+							return !catRepo.exists(input);
 						}
 					});
 					category.setId(id);
@@ -928,6 +929,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						catRepo.add(category);
 						info("Added category " + category.getNsPrefix() + "_" + category.getName());
 					} catch (DuplicateKeyException dke) {
+						log.error(String.format("Duplicate Key exception: %s", dke), dke);
 						error("Duplikat kode/uname, mohon ubah nama.");
 						return;
 					}
