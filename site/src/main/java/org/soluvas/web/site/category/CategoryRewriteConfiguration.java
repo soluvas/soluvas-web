@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
-import org.ocpsoft.rewrite.annotation.RewriteConfiguration;
 import org.ocpsoft.rewrite.config.Configuration;
 import org.ocpsoft.rewrite.config.ConfigurationBuilder;
 import org.ocpsoft.rewrite.config.ConfigurationRuleBuilderPerform;
@@ -22,6 +21,7 @@ import org.soluvas.commons.tenant.TenantBeans;
 import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantState;
 import org.soluvas.web.site.SeoBookmarkableMapper;
+import org.springframework.stereotype.Component;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -29,7 +29,7 @@ import com.google.common.collect.ImmutableSet;
  * Works in conjunction with {@link CategoryRequestMapper}.
  * @author ceefour
  */
-@RewriteConfiguration
+@Component
 public class CategoryRewriteConfiguration extends HttpConfigurationProvider {
 
 	private static final Logger log = LoggerFactory

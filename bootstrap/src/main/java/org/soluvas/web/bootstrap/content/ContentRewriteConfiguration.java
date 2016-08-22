@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
-import org.ocpsoft.rewrite.annotation.RewriteConfiguration;
 import org.ocpsoft.rewrite.config.Configuration;
 import org.ocpsoft.rewrite.config.ConfigurationBuilder;
 import org.ocpsoft.rewrite.config.ConfigurationRuleBuilderPerform;
@@ -21,12 +20,13 @@ import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantState;
 import org.soluvas.data.StatusMask;
 import org.soluvas.web.site.SeoBookmarkableMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * Works in conjunction with {@link ContentRequestMapper}.
  * @author ceefour
  */
-@RewriteConfiguration
+@Component
 public class ContentRewriteConfiguration extends HttpConfigurationProvider {
 
 	private static final Logger log = LoggerFactory
