@@ -213,7 +213,7 @@
 			<dependency>
 				<groupId>org.ocpsoft.rewrite</groupId>
 				<artifactId>rewrite-servlet</artifactId>
-					<version>3.4.1.Final</version>
+				<version>3.4.1.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ocpsoft.rewrite</groupId>
@@ -416,15 +416,6 @@
 			<id>typesafe</id>
 			<name>Typesafe Repository</name>
 			<url>http://repo.typesafe.com/typesafe/releases/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<!-- FIXME: Workaround until tomorrow: https://github.com/ocpsoft/rewrite/issues/241 -->
-			<id>orgocpsoft-1058</id>
-			<name>orgocpsoft-1058</name>
-			<url>https://oss.sonatype.org/content/repositories/orgocpsoft-1058</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
