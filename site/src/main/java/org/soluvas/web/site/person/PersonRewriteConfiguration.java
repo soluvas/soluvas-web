@@ -20,13 +20,13 @@ import org.soluvas.commons.tenant.TenantState;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.web.site.SeoBookmarkableMapper;
-import org.springframework.stereotype.Component;
 
 /**
  * Works in conjunction with {@link PersonRequestMapper}.
  * @author ceefour
  */
-@Component
+// Old person URIs, which were never used anyway!
+//@Component
 public class PersonRewriteConfiguration extends HttpConfigurationProvider {
 
 	private static final Logger log = LoggerFactory
@@ -42,7 +42,7 @@ public class PersonRewriteConfiguration extends HttpConfigurationProvider {
 	 */
 	@Override
 	public Configuration getConfiguration(ServletContext context) {
-		log.debug("Preparing Person rewrite configuration");
+		log.debug("Preparing legacy Person rewrite configuration");
 		final ConfigurationBuilder builder = ConfigurationBuilder.begin();
 		for (Map.Entry<String, TenantState> entry : tenantRepo.getStates().entrySet()) {
 			if (entry.getValue() == TenantState.ACTIVE) {
