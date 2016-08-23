@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -109,13 +110,15 @@ public class CategoryTablePanel2 extends Panel {
 		
 		//search
 		form.add(new TextField<>("txtSearch", txtSearchModel));
-		form.add(new LaddaAjaxButton("btnSearch", new Model<>("Search"), Buttons.Type.Default){
+		final LaddaAjaxButton btnSearch = new LaddaAjaxButton("btnSearch", new Model<>("Cari"), Buttons.Type.Default){
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
 				target.add(tblCategory);
 			}
-		});
+		};
+		btnSearch.add(new AttributeAppender("class", " btn-sm "));
+		form.add(btnSearch);
 		
 		add(form);
 	}

@@ -21,8 +21,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Formal
-								Category</label>
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Kategori Umum</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<label> <wicket:container wicket:id="formalCategory">formalCategory</wicket:container>
 								</label>
@@ -44,7 +43,7 @@
 
 						<div class="form-group">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-								wicket:for="displayName">Name</label>
+								wicket:for="displayName">Nama</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<input wicket:id="displayName" class="form-control">
 							</div>
@@ -52,7 +51,7 @@
 
 						<div class="form-group">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-								wicket:for="titleTxtArea">Title</label>
+								wicket:for="titleTxtArea">Judul</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<textarea wicket:id="titleTxtArea" class="form-control">Clothing for women</textarea>
 							</div>
@@ -60,7 +59,7 @@
 						
 						<div class="form-group" wicket:id="wmcDescriptionWysihtml">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-								wicket:for="descriptionWysihtml">Description</label>
+								wicket:for="descriptionWysihtml">Deskripsi</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<textarea wicket:id="descriptionWysihtml" rows="8" style="height:450px"></textarea>
 								<div class="clearfix" style="margin:5px 0;"></div>
@@ -70,7 +69,7 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Layout</label>
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Tampilan</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<select wicket:id="ddcLayout"></select>
 							</div>
@@ -79,7 +78,7 @@
 						<div wicket:id="wmcContents">
 							<div wicket:id="fullHorizontal">
 								<div class="form-group">
-									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentFullHorizontal">Content Full Horizontal</label>
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentFullHorizontal">Konten</label>
 									<div class="col-lg-4 col-md-7 col-sm-9">
 										<textarea wicket:id="contentFullHorizontal" rows="8" style="height:450px"></textarea>
 									</div>
@@ -130,7 +129,7 @@
 
 						<div class="form-group">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-								wicket:for="positioner">Position</label>
+								wicket:for="positioner">Posisi</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<input type="number" wicket:id="positioner" class="form-control">
 							</div>
@@ -138,7 +137,7 @@
 						
 						<div class="form-group">
 							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-								wicket:for="img">Image</label>
+								wicket:for="img">Gambar</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<input wicket:id="img" type="file" accept="image/*"/>
 								<div wicket:id="imageCtr">
@@ -192,8 +191,7 @@
 										<div class="col-lg-4 col-md-7 col-sm-9">
 											<select type="hidden" wicket:id="acPropertyDefinition"
 												class="col-xs-12"></select>
-											<button wicket:id="btnAddNewPropertyDefinition">Add
-												New</button>
+											<button wicket:id="btnAddNewPropertyDefinition">Tambah Baru</button>
 										</div>
 									</div>
 
@@ -211,7 +209,7 @@
 
 														<div class="form-group">
 															<label for="displayName5be"
-																class="col-sm-3 control-label">Name</label>
+																class="col-sm-3 control-label">Nama</label>
 															<div class="col-sm-9">
 																<input type="text" wicket:id="name"></input>
 															</div>
@@ -219,7 +217,7 @@
 
 														<div class="form-group">
 															<label for="displayName5be"
-																class="col-sm-3 control-label">Description</label>
+																class="col-sm-3 control-label">Deskripsi</label>
 															<div class="col-sm-9">
 																<textarea wicket:id="description"></textarea>
 															</div>
@@ -287,13 +285,13 @@
 								<label class="col-lg-2 col-md-3 col-sm-3 control-label"></label>
 								<div class="col-lg-4 col-md-7 col-sm-9">
 									<button wicket:id="saveBtn" class="btn btn-primary">
-										<i class="fa fa-check"></i> Save
+										<i class="fa fa-check"></i> Simpan
 									</button>
 									<button wicket:id="deleteBtn" class="btn btn-danger">
-										<i class="fa fa-trash-o"></i> Delete
+										<i class="fa fa-trash-o"></i> Hapus
 									</button>
 									<a wicket:id="backLink" href="#" class="btn btn-warning"><i
-										class="fa fa-chevron-circle-left"></i> Back to List</a>
+										class="fa fa-chevron-circle-left"></i> Kembali ke Daftar</a>
 								</div>
 							</div>
 						</div>

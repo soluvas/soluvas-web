@@ -881,7 +881,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		wmcPropertyOverrideList.add(propertyOverridesLv);
 		form.add(wmcPropertyOverrideList);
 		
-		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
+		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Simpan"), Buttons.Type.Primary) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
