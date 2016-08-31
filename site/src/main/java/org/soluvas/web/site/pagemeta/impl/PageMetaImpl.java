@@ -818,6 +818,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 				ogMeta = result.getOpenGraph();
 			}
 			ogMeta.setTitle(ogMeta.getTitle() != null ? ogMeta.getTitle() : result.getTitle());
+			ogMeta.setType(ogMeta.getType() != null ? ogMeta.getType() : "website");
 			
 			return result;
 		case FINAL:
