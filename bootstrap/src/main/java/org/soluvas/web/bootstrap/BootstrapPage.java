@@ -530,10 +530,12 @@ public class BootstrapPage extends ExtensiblePage {
 			}
 		};
 		final PropertyModel<String> ogImageModel = new PropertyModel<>(pageMetaModel,"openGraph.image");
+		final PropertyModel<String> ogDescriptionModel = new PropertyModel<>(pageMetaModel,"openGraph.description");
 		add(new WebMarkupContainer("ogTitle").add(new AttributeModifier("content", ogTitleModel)).add(new ModelVisibilityBehavior(ogTitleModel)),
 			new WebMarkupContainer("ogType").add(new AttributeModifier("content", ogTypeModel)).add(new ModelVisibilityBehavior(ogTypeModel)),
 			new WebMarkupContainer("ogUrl").add(new AttributeModifier("content", ogUrlModel)).add(new ModelVisibilityBehavior(ogUrlModel)),
-			new WebMarkupContainer("ogImage").add(new AttributeModifier("content", ogImageModel)).add(new ModelVisibilityBehavior(ogImageModel)) );
+			new WebMarkupContainer("ogImage").add(new AttributeModifier("content", ogImageModel)).add(new ModelVisibilityBehavior(ogImageModel)),
+			new WebMarkupContainer("ogDescription").add(new AttributeModifier("content", ogDescriptionModel)).add(new ModelVisibilityBehavior(ogDescriptionModel)));
 	}
 
 	@Override
@@ -591,6 +593,7 @@ public class BootstrapPage extends ExtensiblePage {
 	 * @return
 	 */
 	protected IModel<PageMeta> createPageMetaModel() {
+		log.debug("Creating PageMeta..");
 		// do NOT use AsyncModel here because we need it to load LAST
 		// (i.e. after all scopes has been attached as page model using
 		// addModelForPageMeta)

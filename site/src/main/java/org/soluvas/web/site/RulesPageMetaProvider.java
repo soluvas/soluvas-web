@@ -64,6 +64,7 @@ public class RulesPageMetaProvider implements PageMetaProvider {
 	 */
 	@Override
 	public PageMeta get(PageRequestContext context) {
+		log.debug("get pageMeta from context..");
 		// create blank (should be from somewhere)
 		final PageMeta pageMeta = PagemetaFactory.eINSTANCE.createPageMeta();
 		pageMeta.setIcon(PagemetaFactory.eINSTANCE.createPageIcon());
