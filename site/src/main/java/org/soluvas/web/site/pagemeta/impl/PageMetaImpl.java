@@ -24,6 +24,7 @@ import org.soluvas.web.site.pagemeta.OpenGraphVideo;
 import org.soluvas.web.site.pagemeta.PageIcon;
 import org.soluvas.web.site.pagemeta.PageMeta;
 import org.soluvas.web.site.pagemeta.PageMetaPhase;
+import org.soluvas.web.site.pagemeta.PagemetaFactory;
 import org.soluvas.web.site.pagemeta.PagemetaPackage;
 
 import com.github.mustachejava.DefaultMustacheFactory;
@@ -722,6 +723,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getRobots() {
 		return robots;
 	}
@@ -731,6 +733,7 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRobots(String newRobots) {
 		String oldRobots = robots;
 		robots = newRobots;
@@ -744,8 +747,10 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 */
 	@Override
 	public PageMeta toText(final Object context) {
+//		log.debug("toText..");
 		switch (phase) {
 		case TEMPLATE:
+//			log.debug("Masuk sini gan :O");
 			final PageMetaImpl result = EcoreUtil.copy(this);
 			final DefaultMustacheFactory mf = new DefaultMustacheFactory();
 			renderMustache(mf, PagemetaPackage.eINSTANCE.getPageMeta_Title(), result, context);
@@ -797,10 +802,24 @@ public class PageMetaImpl extends EObjectImpl implements PageMeta {
 	 */
 	@Override
 	public PageMeta toFinal(String appTitle) {
+//		log.debug("PageMeta toFinal..");
+		log.debug("OpenGraphMeta: {}", this.getOpenGraph());
 		switch (phase) {
 		case TEXT:
 			final PageMetaImpl result = EcoreUtil.copy(this);
 			result.setTitle(result.getTitle() != null ? result.getTitle() + " | " + appTitle : appTitle);
+			
+			//open graph
+			final OpenGraphMeta ogMeta;
+			if (result.getOpenGraph() == null) {
+				ogMeta = PagemetaFactory.eINSTANCE.createOpenGraphMeta();
+				result.setOpenGraph(ogMeta);
+			} else {
+				ogMeta = result.getOpenGraph();
+			}
+			ogMeta.setTitle(ogMeta.getTitle() != null ? ogMeta.getTitle() : result.getTitle());
+			ogMeta.setType(ogMeta.getType() != null ? ogMeta.getType() : "website");
+			
 			return result;
 		case FINAL:
 			return EcoreUtil.copy(this);
