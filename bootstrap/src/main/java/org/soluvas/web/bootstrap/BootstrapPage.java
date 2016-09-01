@@ -529,25 +529,12 @@ public class BootstrapPage extends ExtensiblePage {
 				}
 			}
 		};
-		final IModel<String> ogImageModel = new AbstractReadOnlyModel<String>() {
-			@Override
-			public String getObject() {
-				if (pageMetaModel.getObject().getOpenGraphImage() != null) {
-					return pageMetaModel.getObject().getOpenGraphImage().getUrl();
-				} else if (pageMetaModel.getObject().getOpenGraph() != null) {
-					return pageMetaModel.getObject().getOpenGraph().getImage();
-				} else {
-					return null;
-				}
-			};
-		}; 
-		final PropertyModel<String> ogImageSecureModel = new PropertyModel<>(pageMetaModel,"openGraphImage.secureUrl");
+		final PropertyModel<String> ogImageModel = new PropertyModel<>(pageMetaModel,"openGraph.image");
 		final PropertyModel<String> ogDescriptionModel = new PropertyModel<>(pageMetaModel,"openGraph.description");
 		add(new WebMarkupContainer("ogTitle").add(new AttributeModifier("content", ogTitleModel)).add(new ModelVisibilityBehavior(ogTitleModel)),
 			new WebMarkupContainer("ogType").add(new AttributeModifier("content", ogTypeModel)).add(new ModelVisibilityBehavior(ogTypeModel)),
 			new WebMarkupContainer("ogUrl").add(new AttributeModifier("content", ogUrlModel)).add(new ModelVisibilityBehavior(ogUrlModel)),
 			new WebMarkupContainer("ogImage").add(new AttributeModifier("content", ogImageModel)).add(new ModelVisibilityBehavior(ogImageModel)),
-			new WebMarkupContainer("ogImageSecure").add(new AttributeModifier("content", ogImageSecureModel)).add(new ModelVisibilityBehavior(ogImageSecureModel)),
 			new WebMarkupContainer("ogDescription").add(new AttributeModifier("content", ogDescriptionModel)).add(new ModelVisibilityBehavior(ogDescriptionModel)));
 	}
 
