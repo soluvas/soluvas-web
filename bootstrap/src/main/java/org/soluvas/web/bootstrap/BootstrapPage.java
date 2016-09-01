@@ -525,8 +525,7 @@ public class BootstrapPage extends ExtensiblePage {
 				if (pageMetaModel.getObject().getOpenGraph() != null && pageMetaModel.getObject().getOpenGraph().getUrl() != null) {
 					return pageMetaModel.getObject().getOpenGraph().getUrl();
 				} else {
-//					return canonicalUri;
-					return canonicalUri.replace("https", "http");
+					return canonicalUri;
 				}
 			}
 		};
