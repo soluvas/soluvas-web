@@ -1,7 +1,9 @@
 package org.soluvas.web.site;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 
 /**
  * Social Web Application helper methods.
@@ -22,5 +24,9 @@ public interface ISocialApplication {
 	BookmarkablePageLink<? extends Page> newCategoryLink(
 			String componentId, String localePrefId, String slugPath,
 			String displayName);
+
+	Link<? extends Page> newCategoryLink2(String componentId, String localePrefId, String slugPath, String displayName);
+
+	WebMarkupContainer newCategoryLink3(String componentId, String localePrefId, String slugPath, String displayName);
 
 }
