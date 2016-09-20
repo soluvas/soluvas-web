@@ -13,11 +13,12 @@ import org.soluvas.category.MongoCategoryRepository;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 
 @SuppressWarnings("serial")
 public class Category2ChoiceProvider extends ChoiceProvider<Category2> {
@@ -59,7 +60,7 @@ public class Category2ChoiceProvider extends ChoiceProvider<Category2> {
 	@Override
 	public void query(final String term, int page, Response<Category2> response) {
 		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "localSku");
-		final Page<Category2> result = categoryRepo.findAll(term.trim(), ImmutableList.of(CategoryStatus.ACTIVE), pageable);
+		final Page<Category2> result = categoryRepo.findAll(Optional.fromNullable(term).or("").trim(), ImmutableList.of(CategoryStatus.ACTIVE), pageable);
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}
