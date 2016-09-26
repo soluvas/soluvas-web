@@ -39,6 +39,7 @@ public class CustomerRoleSelect2 extends BootstrapSelect2Choice<CustomerRole> {
 				"  .append(document.createTextNode(object.text)).append($('<small>').text(object.formalId));" +
 				"return thediv;" +
 				"}");
+		getSettings().setCloseOnSelect(true);
 	}
 
 }

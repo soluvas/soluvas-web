@@ -153,6 +153,7 @@ public class PersonSelect2 extends BootstrapSelect2Choice<Person> {
 				"  ' '," +
 				"  document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') ') ];" +
 				"}");
+		getSettings().setCloseOnSelect(true);
 	}
 
 }
