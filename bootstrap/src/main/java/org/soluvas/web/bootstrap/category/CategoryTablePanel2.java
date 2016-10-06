@@ -98,11 +98,11 @@ public class CategoryTablePanel2 extends Panel {
 		final List<IColumn<Category2, String>> columns = new ArrayList<>();
 		columns.add(new EnumColumn<Category2>(new Model<>("Status"), "status", CategoryPackage.Literals.CATEGORY_STATUS,
 				CategoryStatus.ICON_MAPPING).enumVisible(false).headerIcon("cog"));
-		columns.add(new LinkColumn<Category2, String>(new Model<>("Name"), "name", "name", detailPage,
+		columns.add(new LinkColumn<Category2, String>(new Model<>("Nama"), "name", "name", detailPage,
 				"id", "id"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Slug Path"), "slugPath", "slugPath"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
-		columns.add(new PropertyColumn<Category2, String>(new Model<>("Position"), "positioner", "positioner"));
+		columns.add(new PropertyColumn<Category2, String>(new Model<>("Posisi"), "positioner", "positioner"));
 		columns.add(new AddChildColumn2(new Model<>("New Child Category"), addPage));
 		final AjaxFallbackDefaultDataTable<Category2, String> tblCategory = new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20);
 		tblCategory.setOutputMarkupId(true);
