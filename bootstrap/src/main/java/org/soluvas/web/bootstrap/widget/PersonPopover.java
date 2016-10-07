@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
@@ -23,6 +24,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig
  * Renders {@link PersonInfo} with {@link Gender} image.
  * @author ceefour
  */
+@SuppressWarnings("serial")
 public class PersonPopover extends GenericPanel<PersonInfo> {
 	
 	@SpringBean
@@ -66,7 +68,8 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 					}
 				}
 			};
-			add(new PopoverBehavior(labelModel, bodyModel, config) {
+//			add(new PopoverBehavior(labelModel, bodyModel, config) {
+			add(new PopoverBehavior(new Model<>(), bodyModel, config) {
 //			@Override
 //			protected CharSequence createInitializerScript(Component component,
 //					AbstractConfig config) {

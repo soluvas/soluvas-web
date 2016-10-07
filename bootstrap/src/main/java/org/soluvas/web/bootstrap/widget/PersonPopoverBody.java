@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.CustomerRole;
@@ -51,6 +52,9 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 			}
 		};
 		add(new DisplayImageContainer("photo", displayImage));
+		
+		add( new Label("lblName", new PropertyModel<>(getModel(), "name")) );
+		
 		if (getModelObject() != null && !Strings.isNullOrEmpty(getModelObject().getSlug())) {
 			add(new BookmarkablePageLink<>("profileLink",
 					((ISocialApplication) getApplication()).getPersonShowPage(),

@@ -1,14 +1,16 @@
 <wicket:panel>
 <div class="row">
-	<div class="span2">
+	<div class="col-sm-12">
 		<div class="media">
-			<a class="pull-left polaroid" href="#"> <img style="width:50px; height:50px;" wicket:id="photo" />
+			<a class="pull-left" href="#"> <img class="img-circle" style="width:50px; height:50px;" wicket:id="photo" />
 			</a>
 			<div class="media-body">
-				<a wicket:id="profileLink" class="" target="_blank"> View Profile</a>
+				<span wicket:id="lblName" style="color:#333"></span>
 				<br/>
-				<span class="label label-success" wicket:id="customerRole">Special
+				<span class="text text-muted cusrole" wicket:id="customerRole" style="font-size:85%; color:#777;">Special
 				Agent</span>
+				<a wicket:id="profileLink" class="" target="_blank"> <small style="color:#1fb5ad" class="text-muted">View Profile</small></a>
+				<br/>
 			</div>
 		</div>
 	</div>
