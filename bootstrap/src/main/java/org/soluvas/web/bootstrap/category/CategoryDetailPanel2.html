@@ -3,7 +3,7 @@
 		<div class="col-sm-12">
 			<section class="panel">
 				<header class="panel-heading">
-					<span>General</span>
+					<span>Informasi Umum</span>
 				</header>
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" wicket:id="form">
@@ -14,7 +14,7 @@
 						</div>
 						<div class="clearfix"></div>
 						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Parent</label>
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Kategori</label>
 							<div class="col-lg-4 col-md-7 col-sm-9">
 								<label> <wicket:container wicket:id="parentUName">parentUName</wicket:container>
 								</label>
@@ -153,6 +153,7 @@
 										data-parent="#accordion" href="#seo"> SEO Editor </a>
 								</h4>
 							</div>
+							<br>
 							<div id="seo" class="panel-collapse collapse">
 								<div class="form-group">
 									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaTitle">Meta Title</label>
@@ -179,7 +180,7 @@
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a class="accordion-toggle" data-toggle="collapse"
-										data-parent="#accordion" href="#collapseTwo"> Advanced </a>
+										data-parent="#accordion" href="#collapseTwo"> Detail </a>
 								</h4>
 							</div>
 
@@ -187,18 +188,18 @@
 								<div class="panel-body">
 									<div class="form-group" wicket:id="wmcPropertyOverride">
 										<label class="col-lg-2 col-md-3 col-sm-3 control-label"
-											wicket:for="acPropertyDefinition">Property Definition</label>
+											wicket:for="acPropertyDefinition">Properti Baru</label>
 										<div class="col-lg-4 col-md-7 col-sm-9">
 											<select type="hidden" wicket:id="acPropertyDefinition"
 												class="col-xs-12"></select>
-											<button wicket:id="btnAddNewPropertyDefinition">Tambah Baru</button>
+												
+											<button style="margin-top:5px;" class="btn btn-xs" wicket:id="btnAddNewPropertyDefinition">Tambah Baru</button>
 										</div>
 									</div>
 
 									<div class="form-group" wicket:id="wmcPropertyOverrides">
-										<label class="col-lg-2 col-md-3 col-sm-3 control-label">Property
-											Overrides</label>
-										<div class="col-lg-4 col-md-7 col-sm-9">
+										<label class="col-lg-2 col-md-3 col-sm-3 control-label">Daftar Properti:</label>
+										<div class="col-lg-4 col-md-7 col-sm-9 listprop">
 
 											<!--collapse start-->
 											<div class="panel-group m-bot20 coll-prop-over"
@@ -225,7 +226,7 @@
 
 														<div class="form-group">
 															<label for="displayName5be"
-																class="col-sm-3 control-label">Enabled</label>
+																class="col-sm-3 control-label">Aktifkan</label>
 															<div class="col-sm-9">
 																<input wicket:id="enabled" type="checkbox"
 																	value="Enabled">
@@ -234,7 +235,7 @@
 
 														<div class="form-group">
 															<label for="displayName5be"
-																class="col-sm-3 control-label">Usable As Option</label>
+																class="col-sm-3 control-label">Sebagai Varian</label>
 															<div class="col-sm-9">
 																<input wicket:id="usableAsOption" type="checkbox"
 																	value="Usable As Option">
@@ -243,7 +244,7 @@
 
 														<div class="form-group">
 															<label for="displayName5be"
-																class="col-sm-3 control-label">Default Kind</label>
+																class="col-sm-3 control-label">Jenis</label>
 															<div class="col-sm-9">
 																<select wicket:id="ddcDefaultKind"></select>
 															</div>
@@ -259,7 +260,7 @@
 
 														<div class="form-group" wicket:id="defaultEnum">
 															<label for="displayName5be"
-																class="col-sm-3 control-label">Default Enum</label>
+																class="col-sm-3 control-label">Enum</label>
 															<div class="col-sm-9">
 																<select wicket:id="selDefaultEnum"></select>
 															</div>

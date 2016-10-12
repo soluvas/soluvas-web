@@ -833,7 +833,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final WebMarkupContainer wmcPropertyOverrideList = new WebMarkupContainer("wmcPropertyOverrides");
 		wmcPropertyOverrideList.setOutputMarkupId(true);
 		
-		final LaddaAjaxButton btnAddNewPropertyDefinition = new LaddaAjaxButton("btnAddNewPropertyDefinition", new Model<>("Add New"), Buttons.Type.Default) {
+		final LaddaAjaxButton btnAddNewPropertyDefinition = new LaddaAjaxButton("btnAddNewPropertyDefinition", new Model<>("Tambah Baru"), Buttons.Type.Default) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);

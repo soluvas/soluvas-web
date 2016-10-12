@@ -17,7 +17,6 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvid
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -90,9 +89,9 @@ public class Term2TablePanel extends Panel {
 			final SortableDataProvider<Term2, String> termDp = new Term2SDP(termKindModel);
 			termDp.setSort("name", SortOrder.ASCENDING);
 			final List<IColumn<Term2, String>> columns = new ArrayList<>();
-			columns.add(new LinkColumn<Term2, String>(new Model<>("ID"), "id", "id", detailPage,
+			columns.add(new LinkColumn<Term2, String>(new Model<>("Kode"), "id", "id", detailPage,
 					"formalId", "formalId").tag(TagType.CODE));
-			columns.add(new PropertyColumn<Term2, String>(new Model<>("Display Name"), "name", "name"));
+			columns.add(new PropertyColumn<Term2, String>(new Model<>("Nama"), "name", "name"));
 //			columns.add(new PropertyColumn<Term2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 			final AjaxFallbackDefaultDataTable<Term2, String> table = new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20);
 			table.setOutputMarkupId(true);
