@@ -162,7 +162,7 @@ public class GrowlBehavior extends Behavior {
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
                 // Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
                 final String growlType;
-                final String howlerScript = "";
+                final String howlerScript;
                 final Optional<Interaction> interaction = msg.getMessage() instanceof InteractionMessage ?
                         Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
                 log.trace("{} message: {}", interaction, msg);
@@ -170,24 +170,19 @@ public class GrowlBehavior extends Behavior {
                 final Sounds sounds = Howler.getActive();
                 if (msg.isError()) {
                     growlType = "danger";
-                  //tuneeca minta di off-in
-//                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);
+                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);
                 } else if (msg.isWarning()) {
                     growlType = "warning";
-                  //tuneeca minta di off-in
-//                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);
+                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);
                 } else if (msg.isInfo()) {
                     growlType = "success";
-                    //tuneeca minta di off-in
-//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
                 } else if (msg.isDebug()) {
                     growlType = "info";
-                  //tuneeca minta di off-in
-//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
                 } else {
                     growlType = "info";
-                  //tuneeca minta di off-in
-//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
                 }
 
 //				log.debug("Path Icon is: {}", pathIcon);
@@ -200,7 +195,8 @@ public class GrowlBehavior extends Behavior {
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
                 msg.markRendered();
 
-                script += howlerScript;
+              //tuneeca minta di off-in
+//                script += howlerScript;
                 script += "$.bootstrapGrowl(" +
                         JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 5000});\n";
             }
