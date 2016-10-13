@@ -1,10 +1,10 @@
 package org.soluvas.web.bootstrap;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import java.util.List;
+import java.util.Objects;
+
+import javax.annotation.Nullable;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -30,9 +30,12 @@ import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.InteractionMessage;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 /**
  * <a href="https://github.com/ifightcrime/bootstrap-growl">bootstrap-growl</a> based {@link FeedbackMessage} notifier
@@ -159,7 +162,7 @@ public class GrowlBehavior extends Behavior {
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
                 // Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
                 final String growlType;
-                final String howlerScript;
+                final String howlerScript = "";
                 final Optional<Interaction> interaction = msg.getMessage() instanceof InteractionMessage ?
                         Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
                 log.trace("{} message: {}", interaction, msg);
@@ -167,19 +170,24 @@ public class GrowlBehavior extends Behavior {
                 final Sounds sounds = Howler.getActive();
                 if (msg.isError()) {
                     growlType = "danger";
-                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);
+                  //tuneeca minta di off-in
+//                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);
                 } else if (msg.isWarning()) {
                     growlType = "warning";
-                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);
+                  //tuneeca minta di off-in
+//                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);
                 } else if (msg.isInfo()) {
                     growlType = "success";
-                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+                    //tuneeca minta di off-in
+//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
                 } else if (msg.isDebug()) {
                     growlType = "info";
-                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+                  //tuneeca minta di off-in
+//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
                 } else {
                     growlType = "info";
-                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+                  //tuneeca minta di off-in
+//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
                 }
 
 //				log.debug("Path Icon is: {}", pathIcon);
@@ -194,7 +202,7 @@ public class GrowlBehavior extends Behavior {
 
                 script += howlerScript;
                 script += "$.bootstrapGrowl(" +
-                        JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 3000});\n";
+                        JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 5000});\n";
             }
             return Strings.emptyToNull(script);
         } else {
