@@ -1,10 +1,10 @@
 package org.soluvas.web.bootstrap;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.settings.IBootstrapSettings;
+import java.util.List;
+import java.util.Objects;
+
+import javax.annotation.Nullable;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -30,9 +30,12 @@ import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.InteractionMessage;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 
 /**
  * <a href="https://github.com/ifightcrime/bootstrap-growl">bootstrap-growl</a> based {@link FeedbackMessage} notifier
@@ -192,9 +195,10 @@ public class GrowlBehavior extends Behavior {
 //						JsonUtils.asJson(messageText) + ", pathIcon: \"" + pathIcon + "\"});");
                 msg.markRendered();
 
-                script += howlerScript;
+              //tuneeca minta di off-in
+//                script += howlerScript;
                 script += "$.bootstrapGrowl(" +
-                        JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 3000});\n";
+                        JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 5000});\n";
             }
             return Strings.emptyToNull(script);
         } else {
