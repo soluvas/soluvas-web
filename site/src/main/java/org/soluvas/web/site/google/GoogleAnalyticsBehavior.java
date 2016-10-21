@@ -1,5 +1,7 @@
 package org.soluvas.web.site.google;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -7,6 +9,7 @@ import org.apache.wicket.markup.head.StringHeaderItem;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.AppManifest;
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
 
 import com.google.common.base.Optional;
@@ -29,6 +32,8 @@ public class GoogleAnalyticsBehavior extends Behavior {
 	
 	@SpringBean
 	private GoogleAnalyticsSysConfig sysConfig;
+	@Inject
+	private AppManifest appManifest;
 	
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
@@ -51,6 +56,10 @@ public class GoogleAnalyticsBehavior extends Behavior {
 				if (sysConfig.isGoogleAnalyticsDisplayFeatures()) {
 					googleAnalyticScript += "ga('require', 'displayfeatures');\n";
 				}
+				googleAnalyticScript += "ga('require', 'ec');\n";
+				
+				final String currencyCode = Optional.fromNullable(appManifest.getDefaultCurrencyCode()).or("IDR");
+				googleAnalyticScript += "ga('set', 'currencyCode', '" + currencyCode + "');\n";
 				googleAnalyticScript += "ga('send', 'pageview');\n";
 				// do not put in footer-container, so we use StringHeaderItem instead of JavaScriptHeaderItem
 				// to "fool" de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator
