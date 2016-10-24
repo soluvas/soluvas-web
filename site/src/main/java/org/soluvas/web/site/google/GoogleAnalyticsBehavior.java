@@ -56,10 +56,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 				if (sysConfig.isGoogleAnalyticsDisplayFeatures()) {
 					googleAnalyticScript += "ga('require', 'displayfeatures');\n";
 				}
-				googleAnalyticScript += "ga('require', 'ec');\n";
 				
-				final String currencyCode = Optional.fromNullable(appManifest.getDefaultCurrencyCode()).or("IDR");
-				googleAnalyticScript += "ga('set', 'currencyCode', '" + currencyCode + "');\n";
 				googleAnalyticScript += "ga('send', 'pageview');\n";
 				// do not put in footer-container, so we use StringHeaderItem instead of JavaScriptHeaderItem
 				// to "fool" de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator
