@@ -53,8 +53,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<wicket.version>6.25.0</wicket.version>
-		<wicketstuff.version>6.25.0</wicketstuff.version><!-- used by wicketstuff
+		<wicket.version>6.24.0</wicket.version>
+		<wicketstuff.version>6.24.0</wicketstuff.version><!-- used by wicketstuff
 			e.g. wicket-datetime -->
 		<wicket-atmosphere.version>0.28</wicket-atmosphere.version><!-- linked
 			to wicket.version -->
