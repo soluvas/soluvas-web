@@ -377,7 +377,7 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-sm-3" : "";
+				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-xs-12 col-sm-6 col-md-3 col-lg-3 text-center" : "";
 			}
 		}));
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
@@ -390,7 +390,7 @@ public class BootstrapPage extends ExtensiblePage {
 			@Override
 			public String getObject() {
 //				log.debug("Sidebar Visibility is {}", BootstrapPage.this.sidebarVisibility);
-				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-sm-9 col-md-9" : "col-md-12";
+				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "product-section col-xs-12 col-sm-6 col-md-9 col-lg-9" : "col-md-12";
 			}
 		}));
 		add(contentColumn);
