@@ -14,6 +14,10 @@
 	<packaging>jar</packaging>
 	<name>Soluvas Web Bootstrap</name>
 	<description>Twitter bootstrap HTML5 template.</description>
+	
+	<properties>
+		<agilecoders.wicket.version>0.10.11</agilecoders.wicket.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -54,22 +58,22 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-core</artifactId>
-			<version>0.10.7</version>
+			<version>${agilecoders.wicket.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-extensions</artifactId>
-			<version>0.10.7</version>
+			<version>${agilecoders.wicket.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-themes</artifactId>
-			<version>0.10.7</version>
+			<version>${agilecoders.wicket.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-less</artifactId>
-			<version>0.10.7</version>
+			<version>${agilecoders.wicket.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
