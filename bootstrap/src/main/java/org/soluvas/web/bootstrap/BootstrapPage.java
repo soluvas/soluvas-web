@@ -377,7 +377,7 @@ public class BootstrapPage extends ExtensiblePage {
 		sidebarColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-xs-12 col-sm-6 col-md-3 col-lg-3 text-center" : "";
+				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-xs-12 col-sm-6 col-md-3 col-lg-3" : "";
 			}
 		}));
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
