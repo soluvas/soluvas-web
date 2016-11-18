@@ -359,7 +359,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				if (Objects.equal(selectedLocale, categoryLocale)) {
 					category.setName(displayNameModel.getObject());
 					
-					if (editMode == EditMode.ADD) {
+					if (editMode == EditMode.ADD && !Strings.isNullOrEmpty(category.getName())) {
 						final String id = SlugUtils.generateValidId(category.getName(), new Predicate<String>() {
 							@Override
 							public boolean apply(@Nullable String input) {
@@ -370,8 +370,12 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						category.setId(id);
 						category.setSlug(null);
 						category.resolve(catRepo);
-						target.add(uNameDiv, slugPathDiv);
+					} else {
+						category.setId(null);
+						category.setSlug(null);
+						category.resolve(null);
 					}
+					target.add(uNameDiv, slugPathDiv);
 				} else {
 					updateAttributeTranslations(selectedLocale, Category2.NAME_ATTR, displayNameModel.getObject());
 					transNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
