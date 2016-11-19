@@ -4,6 +4,4 @@ branches:
 language: java
 jdk: oraclejdk8
 # https://coderwall.com/p/9b_lfq/deploying-maven-artifacts-from-travis
-script:
-- mvn sources:jar javadoc:jar
-- mvn -DskipTests deploy --settings settings.xml
+script: mvn --settings settings.xml -DskipTests source:jar javadoc:jar deploy
