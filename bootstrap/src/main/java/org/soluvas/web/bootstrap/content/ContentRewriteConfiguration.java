@@ -20,6 +20,7 @@ import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantState;
 import org.soluvas.data.StatusMask;
 import org.soluvas.web.site.SeoBookmarkableMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,9 +33,9 @@ public class ContentRewriteConfiguration extends HttpConfigurationProvider {
 	private static final Logger log = LoggerFactory
 			.getLogger(ContentRewriteConfiguration.class);
 	
-	@Inject
+	@Autowired(required = false)
 	private TenantBeans<? extends ContentRepository> contentRepos;
-	@Inject
+	@Autowired(required = false)
 	private TenantRepository<?> tenantRepo;
 
 	/* (non-Javadoc)
@@ -42,27 +43,32 @@ public class ContentRewriteConfiguration extends HttpConfigurationProvider {
 	 */
 	@Override
 	public Configuration getConfiguration(ServletContext context) {
-		log.debug("Preparing Content Pages rewrite configuration");
-		ConfigurationRuleBuilderPerform builder = ConfigurationBuilder.begin()
-				// legacy URIs: shouldn't be needed after Bippo 7.0, but hey... Google doesn't forget :(
-				.addRule().when(Direction.isInbound().and(Path.matches("/p/{slugPath}")))
-				.perform(Redirect.permanent("/" + SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID + "/{slugPath}"));
-		for (Map.Entry<String, TenantState> entry : tenantRepo.getStates().entrySet()) {
-			if (entry.getValue() == TenantState.ACTIVE) {
-				final String tenantId = entry.getKey();
-				final ContentRepository contentRepo = contentRepos.get(tenantId);
-				final Set<String> slugPaths = contentRepo.findAllSlugPathsByStatus(StatusMask.ACTIVE_ONLY);
-				if (!slugPaths.isEmpty()) {
-					log.debug("{}» Rewriting {} old Content Page URIs", tenantId, slugPaths.size());
-					for (String slugPath : slugPaths) {
-						builder.addRule()
-							.when(Direction.isInbound().and(Path.matches("/" + slugPath)))
-							.perform(Redirect.permanent("/" + SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID + "/" + slugPath));
+		if (contentRepos != null && tenantRepo != null) {
+			log.info("Preparing Content Pages rewrite configuration");
+			ConfigurationRuleBuilderPerform builder = ConfigurationBuilder.begin()
+					// legacy URIs: shouldn't be needed after Bippo 7.0, but hey... Google doesn't forget :(
+					.addRule().when(Direction.isInbound().and(Path.matches("/p/{slugPath}")))
+					.perform(Redirect.permanent("/" + SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID + "/{slugPath}"));
+			for (Map.Entry<String, TenantState> entry : tenantRepo.getStates().entrySet()) {
+				if (entry.getValue() == TenantState.ACTIVE) {
+					final String tenantId = entry.getKey();
+					final ContentRepository contentRepo = contentRepos.get(tenantId);
+					final Set<String> slugPaths = contentRepo.findAllSlugPathsByStatus(StatusMask.ACTIVE_ONLY);
+					if (!slugPaths.isEmpty()) {
+						log.debug("{}» Rewriting {} old Content Page URIs", tenantId, slugPaths.size());
+						for (String slugPath : slugPaths) {
+							builder.addRule()
+									.when(Direction.isInbound().and(Path.matches("/" + slugPath)))
+									.perform(Redirect.permanent("/" + SeoBookmarkableMapper.DEFAULT_LOCALE_PREF_ID + "/" + slugPath));
+						}
 					}
 				}
 			}
+			return builder;
+		} else {
+			log.info("Skipping Content Pages rewrite configuration due to either no contentRepos or no tenantRepo");
+			return null;
 		}
-		return builder;
 	}
 
 	/* (non-Javadoc)
