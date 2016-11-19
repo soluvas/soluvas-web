@@ -395,7 +395,7 @@
 			<id>sonatype-nexus</id>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 		<repository>
