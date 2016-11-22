@@ -70,7 +70,6 @@ import com.google.common.collect.Ordering;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.MetaTag;
 /**
  * Base page for Twitter Bootstrap-powered Wicket pages.
@@ -374,25 +373,26 @@ public class BootstrapPage extends ExtensiblePage {
 
 		// SIDEBAR
 		sidebarColumn = new TransparentWebMarkupContainer("sidebarColumn");
-		sidebarColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
-			@Override
-			public String getObject() {
-				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-xs-12 col-sm-6 col-md-3 col-lg-3" : "";
-			}
-		}));
+//		sidebarColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
+//			@Override
+//			public String getObject() {
+//				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "col-xs-12 col-sm-6 col-md-3 col-lg-3" : "";
+//			}
+//		}));
 		sidebarBlocks = new RepeatingView("sidebarBlocks");
 		sidebarColumn.add(sidebarBlocks);
 		add(sidebarColumn);
 
 		// CONTENT
 		contentColumn = new TransparentWebMarkupContainer("contentColumn");
-		contentColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
-			@Override
-			public String getObject() {
-//				log.debug("Sidebar Visibility is {}", BootstrapPage.this.sidebarVisibility);
-				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "product-section col-xs-12 col-sm-6 col-md-9 col-lg-9" : "col-md-12";
-			}
-		}));
+		//pindah ke anak page sebenernya..
+//		contentColumn.add(new CssClassNameAppender(new AbstractReadOnlyModel<String>() {
+//			@Override
+//			public String getObject() {
+////				log.debug("Sidebar Visibility is {}", BootstrapPage.this.sidebarVisibility);
+//				return BootstrapPage.this.sidebarVisibility == SidebarVisibility.VISIBLE ? "product-section col-xs-12 col-sm-6 col-md-9 col-lg-9" : "col-md-12";
+//			}
+//		}));
 		add(contentColumn);
 
 		add(new FeedbackPanel("feedback").setVisible(false));
