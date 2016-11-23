@@ -19,6 +19,7 @@ import org.apache.wicket.util.time.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
+import org.soluvas.commons.tenant.TenantAdded;
 import org.soluvas.commons.tenant.TenantRepository;
 import org.soluvas.commons.tenant.TenantRepositoryListener;
 import org.soluvas.commons.tenant.TenantXmiBeans;
@@ -208,6 +209,10 @@ public class ThemeManagerImpl implements TenantRepositoryListener, ThemeManager 
 	@Override
 	public Set<String> getStyles() {
 		return this.styles;
+	}
+
+	@Override
+	public void onTenantAdded(TenantAdded tenantAdded) throws Exception {
 	}
 
 }
