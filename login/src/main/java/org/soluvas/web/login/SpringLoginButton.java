@@ -122,13 +122,13 @@ public class SpringLoginButton extends StatelessAjaxButton {
 					final User user = new User(person.getId(), "", ImmutableList.of());
 					final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()
 							.map(it -> new SimpleGrantedAuthority("ROLE_" + it)).collect(Collectors.toList());
-					final PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(user, "",
+					final PreAuthenticatedAuthenticationToken preAuthenticated = new PreAuthenticatedAuthenticationToken(user, "",
 							authorities);
 					log.info("User {}'s Authorities: {}", person.getGoogleUsername(), authorities);
-					token.setDetails(new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(
+					preAuthenticated.setDetails(new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(
 							(HttpServletRequest) getRequest().getContainerRequest(), authorities));
 					// if exception here means Spring Security misconfiguration
-					authentication = authMgr.authenticate(token);
+					authentication = authMgr.authenticate(preAuthenticated);
 					authenticated = true;
 				}
 			}
