@@ -31,7 +31,10 @@ import javax.inject.Inject;
 /**
  * Get Facebook Login , token Access, FB Photo profile.
  * Security roles are provided by {@link Person#getSecurityRoleIds()}, e.g. {@code ADMIN}, {@code SYSADMIN}, {@code USER}.
+
  * @author haidar
+ * @see FacebookRecipient
+ * @see SpringFacebookRecipientPage
  */
 @SuppressWarnings("serial")
 public abstract class AbstractFacebookRecipient extends WebPage {

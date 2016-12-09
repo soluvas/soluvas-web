@@ -13,9 +13,16 @@ import org.soluvas.web.site.Interaction;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
- * Get Facebook Login , token Access, FB Photo profile
- * @author haidar
+ * Get Facebook Login , token Access, FB Photo profile.
  *
+ * To use, add in your {@link org.apache.wicket.protocol.http.WebApplication}:
+ *
+ * <pre>{@code
+ * new AnnotatedMountScanner().scanPackage("org.soluvas.web.login").mount(this);
+ * }</pre>
+ *
+ * @author haidar
+ * @see FacebookLoginLink
  */
 @SuppressWarnings("serial")
 @MountPath("fb_recipient/")

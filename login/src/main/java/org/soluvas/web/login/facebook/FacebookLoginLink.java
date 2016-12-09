@@ -23,9 +23,11 @@ import java.util.stream.Collectors;
 
 /**
  * {@link ExternalLink} that gets its source from {@link FacebookApp} settings.
- * Facebook Callback/Redirect will be handled by {@link FacebookRecipient}.
+ * Facebook Callback/Redirect will be handled by {@link FacebookRecipient} or {@link SpringFacebookRecipientPage}.
  *
  * @author ceefour
+ * @see FacebookRecipient
+ * @see SpringFacebookRecipientPage
  */
 @SuppressWarnings("serial")
 public class FacebookLoginLink extends ExternalLink {

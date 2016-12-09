@@ -22,7 +22,15 @@ import java.util.stream.Collectors;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile
+ *
+ * To use, add in your {@link org.apache.wicket.protocol.http.WebApplication}:
+ *
+ * <pre>{@code
+ * new AnnotatedMountScanner().scanPackage("org.soluvas.web.login").mount(this);
+ * }</pre>
+ *
  * @author haidar
+ * @see FacebookLoginLink
  */
 @SuppressWarnings("serial")
 @MountPath("fb_recipient_spring")
