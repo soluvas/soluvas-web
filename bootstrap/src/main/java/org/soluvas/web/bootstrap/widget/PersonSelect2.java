@@ -93,7 +93,6 @@ public class PersonSelect2 extends BootstrapSelect2Choice<Person> {
 		public void toJson(Person choice, JSONWriter writer)
 				throws JSONException {
 			writer.key("id").value(choice.getId())
-				.key("customerId").value(choice.getId())
 				.key("text").value(choice.getName())
 				.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 				.key("location").value(choice.getPrimaryAddress() != null ? choice.getPrimaryAddress().getCity() : "");
@@ -141,7 +140,7 @@ public class PersonSelect2 extends BootstrapSelect2Choice<Person> {
 			"var d1 = $('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50});" +
 			"var d2 = $('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri);" +
 			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(document.createTextNode(object.text)).append(' (ID : '+ object.customerId + ') <br>')" +
+			"  .append(document.createTextNode(object.text)).append(' (ID : '+ object.id + ') <br>')" +
 			"  .append($('<small>').css({color: '#666'}).text(object.location));" +
 			"thediv.css({height: '45px'});" +
 			"return [d1, d2, thediv];" +
@@ -151,7 +150,7 @@ public class PersonSelect2 extends BootstrapSelect2Choice<Person> {
 				"return [" +
 				"  $('<img>').attr('src', object.genderIconUri)," +
 				"  ' '," +
-				"  document.createTextNode(object.text + '  (ID : ' +  object.customerId + ') ') ];" +
+				"  document.createTextNode(object.text + '  (ID : ' +  object.id + ') ') ];" +
 				"}");
 		getSettings().setCloseOnSelect(true);
 	}
