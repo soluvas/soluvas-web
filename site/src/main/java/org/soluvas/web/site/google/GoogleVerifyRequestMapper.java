@@ -1,12 +1,9 @@
 package org.soluvas.web.site.google;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-
-import javax.annotation.Nullable;
-import javax.servlet.ServletRequest;
-
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.IRequestMapper;
 import org.apache.wicket.request.Request;
@@ -17,14 +14,17 @@ import org.apache.wicket.request.resource.ByteArrayResource;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.soluvas.web.site.GoogleSysConfig;
+import org.soluvas.web.site.GoogleSysConfig2;
 import org.soluvas.web.site.SiteException;
+import org.springframework.beans.BeansException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.github.mustachejava.DefaultMustacheFactory;
-import com.github.mustachejava.Mustache;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
+import javax.annotation.Nullable;
+import javax.servlet.ServletRequest;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  * @author ceefour
@@ -37,10 +37,6 @@ public class GoogleVerifyRequestMapper implements IRequestMapper {
 
 	private ResourceReference resourceReference;
 	
-	/**
-	 * @param path
-	 * @param resourceReference
-	 */
 	@SuppressWarnings("serial")
 	public GoogleVerifyRequestMapper() {
 		super();
@@ -73,18 +69,35 @@ public class GoogleVerifyRequestMapper implements IRequestMapper {
 	public IRequestHandler mapRequest(Request request) {
 		final WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 				((ServletRequest) request.getContainerRequest()).getServletContext());
-		final GoogleSysConfig sysConfig = appCtx.getBean(GoogleSysConfig.class);
-		if (!Strings.isNullOrEmpty(sysConfig.getGoogleVerifyId())) {
-			final Url url = new Url(request.getUrl());
-			final String googleVerifyPath = sysConfig.getGoogleVerifyId() + ".html";
-			if (googleVerifyPath.equals(url.getPath())) {
-				return new ResourceReferenceRequestHandler(resourceReference, 
-						new PageParameters().set("googleVerifyId", sysConfig.getGoogleVerifyId()));
+
+		try {
+			final GoogleSysConfig2 sysConfig = appCtx.getBean(GoogleSysConfig2.class);
+			if (!Strings.isNullOrEmpty(sysConfig.getGoogleVerifyId())) {
+				final Url url = new Url(request.getUrl());
+				final String googleVerifyPath = sysConfig.getGoogleVerifyId() + ".html";
+				if (googleVerifyPath.equals(url.getPath())) {
+					return new ResourceReferenceRequestHandler(resourceReference,
+							new PageParameters().set("googleVerifyId", sysConfig.getGoogleVerifyId()));
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
-		} else {
-			return null;
+		} catch (BeansException e) {
+			final GoogleSysConfig sysConfig = appCtx.getBean(GoogleSysConfig.class);
+			if (!Strings.isNullOrEmpty(sysConfig.getGoogleVerifyId())) {
+				final Url url = new Url(request.getUrl());
+				final String googleVerifyPath = sysConfig.getGoogleVerifyId() + ".html";
+				if (googleVerifyPath.equals(url.getPath())) {
+					return new ResourceReferenceRequestHandler(resourceReference,
+							new PageParameters().set("googleVerifyId", sysConfig.getGoogleVerifyId()));
+				} else {
+					return null;
+				}
+			} else {
+				return null;
+			}
 		}
 	}
 

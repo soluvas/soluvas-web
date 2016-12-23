@@ -394,6 +394,11 @@ public class StarterSysConfigImpl extends GeneralSysConfigImpl implements Starte
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.STARTER_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN, oldGoogleAnalyticsCookieDomain, googleAnalyticsCookieDomain));
 	}
 
+	@Override
+	public Boolean getGoogleAnalyticsDisplayFeatures() {
+		return isGoogleAnalyticsDisplayFeatures();
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

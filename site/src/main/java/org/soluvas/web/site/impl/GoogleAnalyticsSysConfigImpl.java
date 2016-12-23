@@ -200,6 +200,11 @@ public class GoogleAnalyticsSysConfigImpl extends EObjectImpl implements GoogleA
 			eNotify(new ENotificationImpl(this, Notification.SET, SitePackage.GOOGLE_ANALYTICS_SYS_CONFIG__GOOGLE_ANALYTICS_COOKIE_DOMAIN, oldGoogleAnalyticsCookieDomain, googleAnalyticsCookieDomain));
 	}
 
+	@Override
+	public Boolean getGoogleAnalyticsDisplayFeatures() {
+		return isGoogleAnalyticsDisplayFeatures();
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

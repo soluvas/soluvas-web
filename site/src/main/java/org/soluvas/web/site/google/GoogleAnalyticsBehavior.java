@@ -14,6 +14,7 @@ import org.soluvas.web.site.GoogleAnalyticsSysConfig;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
 
 /**
  * Puts <a href="http://stackoverflow.com/a/10712960/122441">Google Analytics script in {@code head}</a>.
@@ -30,15 +31,13 @@ public class GoogleAnalyticsBehavior extends Behavior {
 	private static final Logger log = LoggerFactory
 			.getLogger(GoogleAnalyticsBehavior.class);
 	
-	@SpringBean
-	private GoogleAnalyticsSysConfig sysConfig;
 	@Inject
-	private AppManifest appManifest;
-	
+	private IGoogleAnalyticsSysConfig sysConfig;
+
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		if (sysConfig.getGoogleAnalyticsEnabled()) {
+		if (Boolean.TRUE == sysConfig.getGoogleAnalyticsEnabled()) {
 			// Google Analytics is required for server timing
 			if (Strings.isNullOrEmpty(sysConfig.getGoogleAnalyticsTrackingId())) {
 				log.warn("Google Analytics Tracking ID must be set");
@@ -53,7 +52,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 						+ "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n"
 						+ "\n"
 						+ "ga('create', '" + sysConfig.getGoogleAnalyticsTrackingId() + "', '" + realCookieDomain + "');\n";
-				if (sysConfig.isGoogleAnalyticsDisplayFeatures()) {
+				if (Boolean.TRUE == sysConfig.getGoogleAnalyticsDisplayFeatures()) {
 					googleAnalyticScript += "ga('require', 'displayfeatures');\n";
 				}
 				

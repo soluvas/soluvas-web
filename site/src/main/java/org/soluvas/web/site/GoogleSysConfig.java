@@ -25,8 +25,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.soluvas.web.site.SitePackage#getGoogleSysConfig()
  * @model
- * @generated
+ * @deprecated Use {@link GoogleSysConfig2}.
  */
+@Deprecated
 public interface GoogleSysConfig extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Google Api Key</b></em>' attribute.
