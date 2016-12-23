@@ -1,24 +1,18 @@
 package org.soluvas.web.site.sitemap;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
+import com.google.common.collect.ImmutableSet;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
+import org.soluvas.commons.ITenant;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.web.site.SiteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.ImmutableSet;
+import javax.inject.Inject;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Serves the Google XML Sitemap index at {@code /sitemap_index.xml}, and individual {@link SitemapController} sitemaps
@@ -64,7 +65,7 @@ public class SitemapController {
 	// TODO: per tenant active-sitemaps configuration
 	public static final ImmutableSet<SitemapPart> activeSitemaps = ImmutableSet.of(
 			SitemapPart.PAGE, SitemapPart.CATEGORY, SitemapPart.SHOP, SitemapPart.PRODUCT, SitemapPart.PRODUCT_RELEASE,
-			/*SitemapPart.PERSON,*/ SitemapPart.PLACE, SitemapPart.EVENT);
+			/*SitemapPart.PERSON,*/ SitemapPart.PROFILE, SitemapPart.PLACE, SitemapPart.EVENT);
 
 	private static final Marshaller marshaller;
 
@@ -81,13 +82,25 @@ public class SitemapController {
 	}
 
 	@Inject
-	private AppManifest appManifest;
+	private Environment env;
 	@Inject
+	private ITenant tenant;
+	@Autowired(required = false)
 	private WebAddress webAddress;
-	@Inject
+	@Autowired(required = false)
 	private GeneralSysConfig sysConfig;
 	@Autowired(required=false)
 	private List<SitemapSupplier> sitemapSuppliers;
+
+	private String getBaseUri() {
+		final String baseUri;
+		if (null != sysConfig && null != webAddress) {
+			baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
+		} else {
+			baseUri = "https://" + env.getRequiredProperty("appDomain") + "/";
+		}
+		return baseUri;
+	}
 
 	/**
 	 * <?xml-stylesheet type="text/xsl" href="//yoast.com/main-sitemap.xsl"?>
@@ -97,31 +110,34 @@ public class SitemapController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "sitemap_index.xml")
 	public ResponseEntity<String> getSitemapIndex() throws JAXBException, IOException {
-		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
+		final String baseUri = getBaseUri();
 		final SitemapIndex index = new SitemapIndex();
 		if (activeSitemaps.contains(SitemapPart.PAGE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.PERSON)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+		}
+		if (activeSitemaps.contains(SitemapPart.PROFILE)) {
+			index.getSitemaps().add(new Sitemap(baseUri + "profile-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.CATEGORY)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.SHOP)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.PRODUCT)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.PRODUCT_RELEASE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.PLACE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		if (activeSitemaps.contains(SitemapPart.EVENT)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
 		}
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
@@ -149,6 +165,11 @@ public class SitemapController {
 	@RequestMapping(method = RequestMethod.GET, value = "person-sitemap.xml")
 	public ResponseEntity<String> getPersonSitemap() throws JAXBException {
 		return getSitemapIfActive(SitemapPart.PERSON);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "profile-sitemap.xml")
+	public ResponseEntity<String> getProfileSitemap() throws JAXBException {
+		return getSitemapIfActive(SitemapPart.PROFILE);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "shop-sitemap.xml")
@@ -182,10 +203,10 @@ public class SitemapController {
 					.body("Sitemap " + part + " is not active.");
 		}
 
-		final String baseUri = sysConfig.getSslSupported() ? webAddress.getSecureBaseUri() : webAddress.getBaseUri();
+		final String baseUri = getBaseUri();
 		final UrlSet urlSet = new UrlSet();
 		if (part == SitemapPart.PAGE) {
-			final Url homePage = new Url(baseUri, new DateTime(appManifest.getDefaultTimeZone()), ChangeFreq.daily, 1);
+			final Url homePage = new Url(baseUri, new DateTime(tenant.getDefaultTimeZone()), ChangeFreq.daily, 1);
 			urlSet.getUrls().add(homePage);
 		}
 
@@ -212,7 +233,8 @@ public class SitemapController {
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("text/xsl"));
 		headers.setExpires(new DateTime().plusWeeks(1).getMillis());
-		return new ResponseEntity<>(IOUtils.toString(SitemapController.class.getResource("main-sitemap.xsl")), 
+		return new ResponseEntity<>(
+				IOUtils.toString(SitemapController.class.getResource("main-sitemap.xsl"), StandardCharsets.UTF_8),
 				headers, HttpStatus.OK);
 	}
 

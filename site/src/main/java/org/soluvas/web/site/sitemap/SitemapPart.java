@@ -12,6 +12,10 @@ import java.lang.annotation.Target;
 public enum SitemapPart {
     PAGE,
     PERSON,
+    /**
+     * Like {@link #PERSON}, but is meant to be (partially) public.
+     */
+    PROFILE,
     CATEGORY,
     ARTICLE,
     SHOP,
