@@ -17,14 +17,14 @@ import com.google.common.base.Strings;
  *
  */
 @SuppressWarnings("serial")
-public class CriteoBehavior extends Behavior {
+public class CriteoViewHomeBehavior extends Behavior {
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(CriteoBehavior.class);
+			.getLogger(CriteoViewHomeBehavior.class);
 	
 	private final String email;
 	
-	public CriteoBehavior(String email) {
+	public CriteoViewHomeBehavior(String email) {
 		super();
 		this.email = email;
 	}
