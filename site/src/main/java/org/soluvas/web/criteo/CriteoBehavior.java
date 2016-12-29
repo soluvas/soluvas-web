@@ -41,15 +41,15 @@ public class CriteoBehavior extends Behavior {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
-				String criteoScript = "<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
+				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
 				String mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 						+ "\t\twindow.criteo_q.push(\n"
 						+ "\t\t{event: \"setAccount\", account: %s},\n"
-						+ "\t\t{event: \"setEmail\", email: %s},\n"
+						+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
 						+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
 						+ "\t\t{event: \"viewHome\"}\n"
 						+ ");", criteoPartnerId, email);
-				criteoScript += "<script type=\"text/javascript\">"+ mainScript +"</script>";
+				criteoScript += "<script type=\"text/javascript\">\n"+ mainScript +"</script>";
 				response.render(StringHeaderItem.forString(criteoScript));
 			}
 		}
