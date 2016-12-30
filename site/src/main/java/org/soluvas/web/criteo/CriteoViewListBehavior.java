@@ -51,11 +51,11 @@ public class CriteoViewListBehavior extends Behavior {
 						+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
 						+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
 						+ "\t\t{event: \"viewItem\", item: [%s]}\n"
-						+ ");", 
+						+ "\t\t);\n", 
 						criteoPartnerId, 
 						email, 
 						itemIdArr);
-				criteoScript += "<script type=\"text/javascript\">\n"+ mainScript +"</script>";
+				criteoScript += "<script type=\"text/javascript\">\n"+ mainScript +"</script>\n";
 				response.render(StringHeaderItem.forString(criteoScript));
 			}
 		}
