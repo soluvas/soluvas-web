@@ -10,8 +10,10 @@ import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.StringHeaderItem;
+import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.PersonInfo;
 
 import com.google.common.base.Strings;
 
@@ -23,22 +25,25 @@ import com.google.common.base.Strings;
 public class CriteoViewListBehavior extends Behavior {
 	private static final Logger log = LoggerFactory
 			.getLogger(CriteoViewListBehavior.class);
+	
 	private final List<String> itemIds;
-
-	public CriteoViewListBehavior(List<String> itemIds) {
+	private final String criteoPartnerId;
+	private final boolean isCriteoEnabled;
+	
+	public CriteoViewListBehavior(boolean isCriteoEnabled, 
+			String criteoPartnerId, List<String> itemIds, IModel<PersonInfo> personInfoModel) {
 		super();
+		this.isCriteoEnabled = isCriteoEnabled;
+		this.criteoPartnerId = criteoPartnerId;
 		this.itemIds = itemIds;
 	}
 	
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		//TODO: ambil dari sysconfig
-		final boolean isCriteoEnable = true;
-		final String criteoPartnerId = "35754";
 		final String email = "atang@bippo.co.id";
 		
-		if (isCriteoEnable) {
+		if (isCriteoEnabled) {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {

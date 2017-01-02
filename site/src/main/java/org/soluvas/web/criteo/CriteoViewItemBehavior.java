@@ -7,8 +7,10 @@ import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.StringHeaderItem;
+import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.commons.PersonInfo;
 
 import com.google.common.base.Strings;
 
@@ -23,7 +25,8 @@ public class CriteoViewItemBehavior extends Behavior {
 	
 	private final String itemId;
 
-	public CriteoViewItemBehavior(String itemId) {
+	public CriteoViewItemBehavior(boolean isCriteoEnabled, 
+			String criteoPartnerId, String itemId, IModel<PersonInfo> personInfoModel) {
 		super();
 		this.itemId = itemId;
 	}
