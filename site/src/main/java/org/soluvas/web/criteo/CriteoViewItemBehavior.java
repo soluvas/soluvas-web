@@ -48,7 +48,7 @@ public class CriteoViewItemBehavior extends Behavior {
 			} else {
 				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
 				String mainScript;
-				if (personInfoModel.getObject() != null) {
+				if (personInfoModel.getObject().getEmail() != null) {
 					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
