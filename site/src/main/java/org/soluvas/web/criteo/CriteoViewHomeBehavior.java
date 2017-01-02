@@ -52,17 +52,18 @@ public class CriteoViewHomeBehavior extends Behavior {
 					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
-							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
-							+ "\t\t{event: \"viewHome\"}\n"
-							+ ");", criteoPartnerId);
-				} else {
-					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
-							+ "\t\twindow.criteo_q.push(\n"
-							+ "\t\t{event: \"setAccount\", account: %s},\n"
 							+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
 							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
 							+ "\t\t{event: \"viewHome\"}\n"
 							+ ");", criteoPartnerId, DigestUtils.md5Hex(personInfoModel.getObject().getEmail()));
+				} else {
+					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+							+ "\t\twindow.criteo_q.push(\n"
+							+ "\t\t{event: \"setAccount\", account: %s},\n"
+							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"viewHome\"}\n"
+							+ ");", criteoPartnerId);
+
 				}
 				
 				criteoScript += "<script type=\"text/javascript\">\n"+ mainScript +"</script>\n";

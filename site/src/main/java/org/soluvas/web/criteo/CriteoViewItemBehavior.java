@@ -23,11 +23,17 @@ public class CriteoViewItemBehavior extends Behavior {
 	private static final Logger log = LoggerFactory
 			.getLogger(CriteoViewItemBehavior.class);
 	
+	private final String criteoPartnerId;
+	private final boolean isCriteoEnabled;
+	private final IModel<PersonInfo> personInfoModel;
 	private final String itemId;
 
 	public CriteoViewItemBehavior(boolean isCriteoEnabled, 
 			String criteoPartnerId, String itemId, IModel<PersonInfo> personInfoModel) {
 		super();
+		this.isCriteoEnabled = isCriteoEnabled;
+		this.criteoPartnerId = criteoPartnerId;
+		this.personInfoModel = personInfoModel;
 		this.itemId = itemId;
 	}
 	
