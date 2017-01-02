@@ -26,20 +26,23 @@ public class CriteoViewHomeBehavior extends Behavior {
 			.getLogger(CriteoViewHomeBehavior.class);
 	
 	private final IModel<PersonInfo> personInfoModel;
+	private final String criteoPartnerId;
+	private final boolean isCriteoEnabled;
 	
-	public CriteoViewHomeBehavior(IModel<PersonInfo> personInfoModel) {
+	public CriteoViewHomeBehavior(boolean isCriteoEnabled, String criteoPartnerId, 
+			IModel<PersonInfo> personInfoModel) {
 		super();
+		this.isCriteoEnabled = isCriteoEnabled;
+		this.criteoPartnerId = criteoPartnerId;
 		this.personInfoModel = personInfoModel;
 	}
+	
 	
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		//TODO: ambil dari sysconfig
-		final boolean isCriteoEnable = true;
-		final String criteoPartnerId = "35754";
 		
-		if (isCriteoEnable) {
+		if (isCriteoEnabled) {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
