@@ -3,6 +3,7 @@
  */
 package org.soluvas.web.criteo;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -41,22 +42,33 @@ public class CriteoViewItemBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 		//TODO: ambil dari sysconfig
-		final boolean isCriteoEnable = true;
-		final String criteoPartnerId = "35754";
-		final String email = "atang@bippo.co.id";
-		
-		if (isCriteoEnable) {
+		if (isCriteoEnabled) {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
 				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
-				String mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
-						+ "\t\twindow.criteo_q.push(\n"
-						+ "\t\t{event: \"setAccount\", account: %s},\n"
-						+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
-						+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
-						+ "\t\t{event: \"viewItem\", item: \"%s\"}\n"
-						+ ");", criteoPartnerId, email, itemId);
+				String mainScript;
+				if (personInfoModel.getObject() != null) {
+					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+							+ "\t\twindow.criteo_q.push(\n"
+							+ "\t\t{event: \"setAccount\", account: %s},\n"
+							+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
+							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"viewItem\", item: \"%s\"}\n"
+							+ ");", 
+							criteoPartnerId, 
+							DigestUtils.md5Hex(personInfoModel.getObject().getEmail()), 
+							itemId);
+				} else {
+					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+							+ "\t\twindow.criteo_q.push(\n"
+							+ "\t\t{event: \"setAccount\", account: %s},\n"
+							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"viewItem\", item: \"%s\"}\n"
+							+ ");", 
+							criteoPartnerId, 
+							itemId);
+				}
 				criteoScript += "<script type=\"text/javascript\">\n"+ mainScript +"</script>";
 				response.render(StringHeaderItem.forString(criteoScript));
 			}
