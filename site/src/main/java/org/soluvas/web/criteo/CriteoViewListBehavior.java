@@ -49,6 +49,9 @@ public class CriteoViewListBehavior extends Behavior {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
+				String mobileDetectLib = "\n<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.3.5/mobile-detect.min.js\"></script>\n";
+				response.render(StringHeaderItem.forString(mobileDetectLib));
+				
 				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
 				String mainScript;
 				String itemIdArr = StringUtils.join(itemIds, ",");
