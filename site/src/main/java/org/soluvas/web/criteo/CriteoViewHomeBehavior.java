@@ -46,12 +46,13 @@ public class CriteoViewHomeBehavior extends Behavior {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
-//				String mobileDetectLib = "\n<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.3.5/mobile-detect.min.js\"></script>\n";
-//				response.render(StringHeaderItem.forString(mobileDetectLib));
+				String mobileDetectLib = "\n<script type=\"text/javascript\" src=\"//wurfl.io/wurfl.js\"></script>\n";
+				response.render(StringHeaderItem.forString(mobileDetectLib));
 				
 				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
-				String mainScript = "\n\tvar isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); \n"
-						+ "\tvar siteType = \"d\"; \n\tif (isMobile) { \n\tsiteType = \"m\"}\n console.debug(siteType); \n";
+				String mainScript = "\t\tvar siteType = \"d\";\n";
+				mainScript += "\t\tif (WURFL.is_mobile === true && WURFL.form_factor === \"Smartphone\") { siteType = \"m\"; }\n";
+				mainScript += "\t\tif (WURFL.is_mobile === true && WURFL.form_factor === \"Tablet\") { siteType = \"t\"; }\n";
 				if (personInfoModel.getObject().getEmail() != null) {
 					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"

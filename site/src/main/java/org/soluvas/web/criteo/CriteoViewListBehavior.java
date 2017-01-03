@@ -49,28 +49,30 @@ public class CriteoViewListBehavior extends Behavior {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
-				String mobileDetectLib = "\n<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.3.5/mobile-detect.min.js\"></script>\n";
+				String mobileDetectLib = "\n<script type=\"text/javascript\" src=\"//wurfl.io/wurfl.js\"></script>\n";
 				response.render(StringHeaderItem.forString(mobileDetectLib));
 				
 				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
-				String mainScript;
+				String mainScript = "\t\tvar siteType = \"d\";\n";
+				mainScript += "\t\tif (WURFL.is_mobile === true && WURFL.form_factor === \"Smartphone\") { siteType = \"m\"; }\n";
+				mainScript += "\t\tif (WURFL.is_mobile === true && WURFL.form_factor === \"Tablet\") { siteType = \"t\"; }\n";
 				String itemIdArr = StringUtils.join(itemIds, ",");
 				if (personInfoModel.getObject().getEmail() != null) {
-					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
 							+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
-							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
 							+ "\t\t{event: \"viewItem\", item: [%s]}\n"
 							+ "\t\t);\n", 
 							criteoPartnerId, 
 							DigestUtils.md5Hex(personInfoModel.getObject().getEmail()), 
 							itemIdArr);
 				} else {
-					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
-							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
 							+ "\t\t{event: \"viewItem\", item: [%s]}\n"
 							+ "\t\t);\n", 
 							criteoPartnerId, 
