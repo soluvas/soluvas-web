@@ -46,21 +46,25 @@ public class CriteoViewHomeBehavior extends Behavior {
 			if (Strings.isNullOrEmpty(criteoPartnerId)) {
 				log.warn("Criteo Partner ID must be set");
 			} else {
+//				String mobileDetectLib = "\n<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.3.5/mobile-detect.min.js\"></script>\n";
+//				response.render(StringHeaderItem.forString(mobileDetectLib));
+				
 				String criteoScript = "\n<script type=\"text/javascript\" src=\"//static.criteo.net/js/ld/ld.js\" async=\"true\"></script>\n";
-				String mainScript;
+				String mainScript = "\n\tvar isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); \n"
+						+ "\tvar siteType = \"d\"; \n\tif (isMobile) { \n\tsiteType = \"m\"}\n console.debug(siteType); \n";
 				if (personInfoModel.getObject().getEmail() != null) {
-					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
 							+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
-							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
 							+ "\t\t{event: \"viewHome\"}\n"
 							+ ");", criteoPartnerId, DigestUtils.md5Hex(personInfoModel.getObject().getEmail()));
 				} else {
-					mainScript = String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
-							+ "\t\t{event: \"setSiteType\", type: \"d\"},\n"
+							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
 							+ "\t\t{event: \"viewHome\"}\n"
 							+ ");", criteoPartnerId);
 
