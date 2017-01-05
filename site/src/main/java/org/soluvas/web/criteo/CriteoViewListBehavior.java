@@ -63,7 +63,7 @@ public class CriteoViewListBehavior extends Behavior {
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
 							+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
 							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
-							+ "\t\t{event: \"viewItem\", item: [%s]}\n"
+							+ "\t\t{event: \"viewList\", item: [%s]}\n"
 							+ "\t\t);\n", 
 							criteoPartnerId, 
 							DigestUtils.md5Hex(personInfoModel.getObject().getEmail()), 
@@ -73,7 +73,7 @@ public class CriteoViewListBehavior extends Behavior {
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
 							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
-							+ "\t\t{event: \"viewItem\", item: [%s]}\n"
+							+ "\t\t{event: \"viewList\", item: [%s]}\n"
 							+ "\t\t);\n", 
 							criteoPartnerId, 
 							itemIdArr);
