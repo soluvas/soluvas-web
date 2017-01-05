@@ -1,10 +1,11 @@
 package org.soluvas.web.login.twitter;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -12,12 +13,10 @@ import org.soluvas.twitter.TwitterManager;
 import org.soluvas.web.login.LoginException;
 import org.soluvas.web.login.TwitterRecipient;
 import org.soluvas.web.site.SoluvasWebSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
-
-import com.google.common.base.Strings;
 
 @SuppressWarnings("serial")
 public class TwitterLoginLink extends StatelessLink<Void> {
@@ -25,9 +24,9 @@ public class TwitterLoginLink extends StatelessLink<Void> {
 	private static final Logger log = LoggerFactory
 			.getLogger(TwitterLoginLink.class);
 	
-	@SpringBean(required=false)
+	@Autowired(required=false)
 	private TwitterManager twitterMgr;
-	@SpringBean
+	@Autowired(required=false)
 	private WebAddress webAddress;
 
 	private final Class<? extends Page> recipientPage;
@@ -48,6 +47,7 @@ public class TwitterLoginLink extends StatelessLink<Void> {
 	
 	@Override
 	public void onClick() {
+		Preconditions.checkNotNull(webAddress, "TwitterLoginLink requires webAddress");
 //		final String redirectUri = webAddress.getBaseUri() + "twitter_recipient/";
 		final String redirectUri = webAddress.getBaseUri() + 
 				getRequestCycle().mapUrlFor(recipientPage, new PageParameters()).toString();

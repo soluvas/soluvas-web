@@ -16,10 +16,10 @@ import org.apache.wicket.request.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
-import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
+import org.soluvas.web.login.facebook.FacebookLoginLink2;
 import org.soluvas.web.login.facebook.SpringFacebookRecipientPage;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
 import org.soluvas.web.site.SoluvasWebSession;
@@ -122,9 +122,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	
 	public class FormSignIn extends Form<LoginToken> {
 		
-		@Inject
-		private WebAddress webAddress;
-		@Inject @Named("personLookup")
+		@Inject @Named("personRepo")
 		private EntityLookup<Person, String> personLookup;
 		@Inject
 		private TenantRef tenant;
@@ -162,7 +160,7 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 			normal.add(normalLoginBtn);
 			add(normal);
 			
-			final FacebookLoginLink facebookLoginLink = new FacebookLoginLink("btnLoginWithFb", facebookRecipientPage);
+			final FacebookLoginLink2 facebookLoginLink = new FacebookLoginLink2("btnLoginWithFb", facebookRecipientPage);
 			add(facebookLoginLink);
 			final TwitterLoginLink twitterLoginLink = new TwitterLoginLink("btnLoginWithTwitter", twitterRecipientPage);
 			add(twitterLoginLink);
