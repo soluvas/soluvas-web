@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
-import org.soluvas.web.login.facebook.FacebookLoginLink;
 import org.soluvas.web.login.facebook.FacebookLoginLink2;
 import org.soluvas.web.login.facebook.SpringFacebookRecipientPage;
 import org.soluvas.web.login.twitter.TwitterLoginLink;
@@ -26,7 +25,6 @@ import org.soluvas.web.site.SoluvasWebSession;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
@@ -122,8 +120,6 @@ public class SpringDedicatedLoginPanel extends GenericPanel<LoginToken> {
 	
 	public class FormSignIn extends Form<LoginToken> {
 		
-		@Inject @Named("personRepo")
-		private EntityLookup<Person, String> personLookup;
 		@Inject
 		private TenantRef tenant;
 
