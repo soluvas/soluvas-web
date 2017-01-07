@@ -272,7 +272,7 @@ public class CategoryDetailPanel extends GenericPanel<Category> {
         displayNameFld.setOutputMarkupId(true);
         displayNameFld.setRequired(true);
         displayNameFld.setEnabled(editable);
-        displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
+        displayNameFld.add(new OnChangeThrottledBehavior("change") {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
                 final Category category = CategoryDetailPanel.this.getModelObject();

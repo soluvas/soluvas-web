@@ -35,7 +35,7 @@ public class SelectFormalCategoryPanel extends GenericPanel<FormalCategory> {
 			acFormalCategory.setLabel(new Model<>("Formal Category"));
 //			acFormalCategory.getSettings().setMinimumInputLength(3);	
 			acFormalCategory.setRequired(true);
-			acFormalCategory.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			acFormalCategory.add(new AjaxFormComponentUpdatingBehavior("change") {
 				
 				@Override
 				protected void onUpdate(AjaxRequestTarget target) {

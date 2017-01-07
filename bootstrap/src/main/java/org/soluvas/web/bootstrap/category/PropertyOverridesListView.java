@@ -118,7 +118,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			}
 		};
 		nameTxt.setLabel(new Model<>("Name property override"));
-		nameTxt.add(new OnChangeThrottledBehavior("onchange") {
+		nameTxt.add(new OnChangeThrottledBehavior("change") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final PropertyDefinition propertyDef = item.getModelObject();
@@ -168,7 +168,7 @@ public class PropertyOverridesListView extends ListView<PropertyDefinition> {
 			}
 		};
 		descriptionTxt.setLabel(new Model<>("Description property override"));
-		descriptionTxt.add(new OnChangeThrottledBehavior("onchange") {
+		descriptionTxt.add(new OnChangeThrottledBehavior("change") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final PropertyDefinition propertyDef = item.getModelObject();

@@ -232,7 +232,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			}
 		};
 		displayNameFld.setEnabled(editable);
-		displayNameFld.add(new OnChangeThrottledBehavior("onchange") {
+		displayNameFld.add(new OnChangeThrottledBehavior("change") {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {

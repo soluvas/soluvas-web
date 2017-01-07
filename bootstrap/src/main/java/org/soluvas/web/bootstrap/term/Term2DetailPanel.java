@@ -238,7 +238,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 			}
 		};
 		nameFld.setEnabled(editable);
-		nameFld.add(new OnChangeThrottledBehavior("onchange") {
+		nameFld.add(new OnChangeThrottledBehavior("change") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
@@ -296,7 +296,7 @@ public class Term2DetailPanel extends GenericPanel<Term2> {
 			}
 		};
 		descFld.setEnabled(editable);
-		descFld.add(new OnChangeThrottledBehavior("onchange") {
+		descFld.add(new OnChangeThrottledBehavior("change") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
