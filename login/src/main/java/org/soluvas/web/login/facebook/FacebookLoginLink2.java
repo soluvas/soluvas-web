@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * {@link ExternalLink} that gets its source from {@link FacebookApp} settings.
+ * {@link ExternalLink} that gets its source from {@link FacebookApp} settings, but uses {@link IWebAddress2}.
  * Facebook Callback/Redirect will be handled by {@link FacebookRecipient} or {@link SpringFacebookRecipientPage}.
  *
  * @author ceefour
