@@ -57,8 +57,7 @@ public class CriteoViewListBehavior extends Behavior {
 				mainScript += "\t\tif (WURFL.is_mobile === true && WURFL.form_factor === \"Smartphone\") { siteType = \"m\"; }\n";
 				mainScript += "\t\tif (WURFL.is_mobile === true && WURFL.form_factor === \"Tablet\") { siteType = \"t\"; }\n";
 				String itemIdArr = StringUtils.join(itemIds, ",");
-				if (personInfoModel.getObject().getEmail() != null) {
-					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
+				mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
 							+ "\t\twindow.criteo_q.push(\n"
 							+ "\t\t{event: \"setAccount\", account: %s},\n"
 							+ "\t\t{event: \"setEmail\", email: \"%s\"},\n"
@@ -66,19 +65,10 @@ public class CriteoViewListBehavior extends Behavior {
 							+ "\t\t{event: \"viewList\", item: [%s]}\n"
 							+ "\t\t);\n", 
 							criteoPartnerId, 
-							DigestUtils.md5Hex(personInfoModel.getObject().getEmail()), 
-							itemIdArr);
-				} else {
-					mainScript += String.format("\t\twindow.criteo_q = window.criteo_q || [];\n"
-							+ "\t\twindow.criteo_q.push(\n"
-							+ "\t\t{event: \"setAccount\", account: %s},\n"
-							+ "\t\t{event: \"setSiteType\", type: siteType},\n"
-							+ "\t\t{event: \"viewList\", item: [%s]}\n"
-							+ "\t\t);\n", 
-							criteoPartnerId, 
-							itemIdArr);
-					
-				}
+							personInfoModel.getObject().getEmail() != null ? DigestUtils.md5Hex(personInfoModel.getObject().getEmail()) : "", 
+							itemIdArr
+						);
+				
 				criteoScript += "<script type=\"text/javascript\">\n"+ mainScript +"</script>\n";
 				response.render(StringHeaderItem.forString(criteoScript));
 			}
