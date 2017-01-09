@@ -60,7 +60,7 @@ public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
             final Page<Country> countries = countryRepo.searchCountryWithCallingCode(trimmedTerm, new PageRequest(page, 20));
             response.addAll(countries.getContent());
             response.setHasMore(!countries.isLastPage());
-            log.info("Query {} {} = {}", term, page, countries.getContent());
+            log.debug("Query {} {} = {}", term, page, countries.getContent());
         }
 
         @Override
@@ -72,7 +72,7 @@ public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
         protected void toJson(Country choice, JSONWriter writer)
                 throws JSONException {
             super.toJson(choice, writer);
-            log.info("toJson {}", choice);
+            log.debug("toJson {}", choice);
             writer.key("callingCode").value(choice.getCallingCodes().get(0));
         }
 
