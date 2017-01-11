@@ -39,7 +39,6 @@ import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -93,6 +92,7 @@ import com.mongodb.DuplicateKeyException;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.extensions.javascript.jasny.FileUploadField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeIconType;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 
@@ -371,9 +371,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 						category.setSlug(null);
 						category.resolve(catRepo);
 					} else {
-						category.setId(null);
 						category.setSlug(null);
-						category.resolve(null);
+						category.resolve(catRepo);
 					}
 					target.add(uNameDiv, slugPathDiv);
 				} else {

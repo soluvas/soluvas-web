@@ -26,6 +26,7 @@ public class FormalCategorySelect2 extends BootstrapSelect2Choice<FormalCategory
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		add(new AttributeModifier("placeholder", "Choose Formal Category"));
 		getSettings().getAjax().setDelay(250);
+		getSettings().setCloseOnSelect(true);
 	}
 
 }
