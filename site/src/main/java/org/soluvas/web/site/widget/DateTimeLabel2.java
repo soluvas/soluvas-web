@@ -1,5 +1,9 @@
 package org.soluvas.web.site.widget;
 
+import java.util.Locale;
+
+import javax.annotation.Nullable;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
@@ -16,7 +20,7 @@ import org.soluvas.web.site.semantic.ItemPropContentBehavior;
 import org.soluvas.web.site.semantic.SchemaOrgProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Nullable;
+import com.google.common.base.Optional;
 
 /**
  * Displays a {@link DateTime} model converted to {@link AppManifest#getDefaultTimeZone()} (if available), and also uses <code>abbr</code>.
@@ -72,7 +76,7 @@ public class DateTimeLabel2 extends Label {
 		this.customZone = zone;
 		return this;
 	}
-
+	
 	/**
 	 * Change tag name, default is {@code abbr}. If {@code null}, tag name will be specified by markup.
 	 * @param tagName
@@ -120,14 +124,20 @@ public class DateTimeLabel2 extends Label {
 	
 	@Override
 	public void onComponentTagBody(final MarkupStream markupStream, final ComponentTag openTag) {
+		final Locale locale;
+		if (appManifest != null) {
+			locale = Optional.fromNullable(appManifest.getDefaultLocale()).or(getLocale());
+		} else {
+			locale = getLocale();
+		}
 		final DateTime dateTime = getConvertedModelObject();
 		if (dateTime != null) {
 			DateTimeFormatter format = DateTimeFormat.forStyle("MS")
-					.withLocale(getLocale())
+					.withLocale(locale)
 					.withPivotYear(2000);
 			final String str;
 			if (displayZone) {
-				DateTimeFormatter zoneFormat = DateTimeFormat.forPattern("ZZ").withLocale(getLocale());
+				DateTimeFormatter zoneFormat = DateTimeFormat.forPattern("ZZ").withLocale(locale);
 				str = format.print(dateTime) + " " + zoneFormat.print(dateTime);
 			} else {
 				str = format.print(dateTime);
