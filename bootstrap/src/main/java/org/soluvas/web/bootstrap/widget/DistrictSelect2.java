@@ -170,6 +170,7 @@ public class DistrictSelect2 extends BootstrapSelect2Choice<District> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
 		getSettings().getAjax().setDelay(250);
+		getSettings().setCloseOnSelect(true);
 		getSettings().setTemplateResult(
 				"function(object) {" +
 				"if (!object.id) return object.text;" +

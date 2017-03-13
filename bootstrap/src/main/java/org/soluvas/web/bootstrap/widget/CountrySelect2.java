@@ -103,6 +103,7 @@ public class CountrySelect2 extends BootstrapSelect2Choice<Country> {
 		super.onInitialize();
 		add(new AttributeAppender("class", new Model<>("input-xlarge"), " "));
 		getSettings().getAjax().setDelay(400);
+		getSettings().setCloseOnSelect(true);
 		getSettings().setTemplateResult(
 			"function(object) {" +
 			"if (!object.id) return object.text;" +

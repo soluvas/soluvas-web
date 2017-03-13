@@ -1,8 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
-import com.google.common.base.Function;
-import com.google.common.base.Strings;
-import com.google.common.collect.FluentIterable;
+import java.util.Collection;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -20,9 +22,9 @@ import org.soluvas.geo.ProvinceRepository;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.Collection;
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+import com.google.common.collect.FluentIterable;
 
 /**
  * @author anton
@@ -107,6 +109,7 @@ public class ProvinceSelect2 extends BootstrapSelect2Choice<Province> {
         super.onInitialize();
         add(new AttributeAppender("class", new Model<>("input-xxlarge"), " "));
         getSettings().getAjax().setDelay(250);
+        getSettings().setCloseOnSelect(true);
         getSettings().setTemplateResult(
                 "function(object) {" +
                         "if (!object.id) return object.text;" +
