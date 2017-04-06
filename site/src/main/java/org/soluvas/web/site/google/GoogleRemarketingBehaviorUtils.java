@@ -3,6 +3,7 @@ package org.soluvas.web.site.google;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.wicket.markup.head.StringHeaderItem;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
@@ -59,9 +60,9 @@ public class GoogleRemarketingBehaviorUtils {
 						+ "<img height=\"1\" width=\"1\" style=\"border-style:none;\" alt=\"\" src=\"//googleads.g.doubleclick.net/pagead/viewthroughconversion/%s/?guid=ON&amp;script=0\"/> \n"
 						+ "</div>"
 						+ "</noscript>";
-				String.format(script,
-						localSkuModel.getObject(), "product", finalPriceProductModel.getObject().setScale(2, RoundingMode.HALF_EVEN),
-						localSkuModel.getObject(), "product", finalPriceProductModel.getObject().setScale(2, RoundingMode.HALF_EVEN),
+				script = String.format(script,
+						StringEscapeUtils.escapeEcmaScript(localSkuModel.getObject()), "product", finalPriceProductModel.getObject().setScale(2, RoundingMode.HALF_EVEN),
+						StringEscapeUtils.escapeEcmaScript(localSkuModel.getObject()), "product", finalPriceProductModel.getObject().setScale(2, RoundingMode.HALF_EVEN),
 						sysConfig.getGoogleRemarketingTagId(), sysConfig.getGoogleRemarketingTagId());
 				
 				return StringHeaderItem.forString("\n" + script + "\n");
