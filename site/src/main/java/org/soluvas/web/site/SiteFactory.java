@@ -231,6 +231,15 @@ public interface SiteFactory extends EFactory {
 	StarterSysConfig createStarterSysConfig();
 
 	/**
+	 * Returns a new object of class '<em>Google Remarketing Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Google Remarketing Sys Config</em>'.
+	 * @generated
+	 */
+	GoogleRemarketingSysConfig createGoogleRemarketingSysConfig();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1787,6 +1787,43 @@ public interface SitePackage extends EPackage {
 	int ZENDESK_CONFIG_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.impl.GoogleRemarketingSysConfigImpl <em>Google Remarketing Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.impl.GoogleRemarketingSysConfigImpl
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleRemarketingSysConfig()
+	 * @generated
+	 */
+	int GOOGLE_REMARKETING_SYS_CONFIG = 32;
+
+	/**
+	 * The feature id for the '<em><b>Google Remarketing Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_ENABLED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Google Remarketing Tag Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_TAG_ID = 1;
+
+	/**
+	 * The number of structural features of the '<em>Google Remarketing Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GOOGLE_REMARKETING_SYS_CONFIG_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1794,7 +1831,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 32;
+	int JAVA_SCRIPT_MODE = 33;
 
 
 	/**
@@ -1805,7 +1842,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 33;
+	int INTERACTION = 34;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1815,7 +1852,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 34;
+	int LIVE_CHAT_PROVIDER = 35;
 
 
 	/**
@@ -2744,6 +2781,38 @@ public interface SitePackage extends EPackage {
 	EAttribute getZendeskConfig_ZendeskToken();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.GoogleRemarketingSysConfig <em>Google Remarketing Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Google Remarketing Sys Config</em>'.
+	 * @see org.soluvas.web.site.GoogleRemarketingSysConfig
+	 * @generated
+	 */
+	EClass getGoogleRemarketingSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleRemarketingSysConfig#isGoogleRemarketingEnabled <em>Google Remarketing Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Remarketing Enabled</em>'.
+	 * @see org.soluvas.web.site.GoogleRemarketingSysConfig#isGoogleRemarketingEnabled()
+	 * @see #getGoogleRemarketingSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleRemarketingSysConfig_GoogleRemarketingEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.GoogleRemarketingSysConfig#getGoogleRemarketingTagId <em>Google Remarketing Tag Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Google Remarketing Tag Id</em>'.
+	 * @see org.soluvas.web.site.GoogleRemarketingSysConfig#getGoogleRemarketingTagId()
+	 * @see #getGoogleRemarketingSysConfig()
+	 * @generated
+	 */
+	EAttribute getGoogleRemarketingSysConfig_GoogleRemarketingTagId();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3555,6 +3624,32 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ZENDESK_CONFIG__ZENDESK_TOKEN = eINSTANCE.getZendeskConfig_ZendeskToken();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.impl.GoogleRemarketingSysConfigImpl <em>Google Remarketing Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.impl.GoogleRemarketingSysConfigImpl
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getGoogleRemarketingSysConfig()
+		 * @generated
+		 */
+		EClass GOOGLE_REMARKETING_SYS_CONFIG = eINSTANCE.getGoogleRemarketingSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Remarketing Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_ENABLED = eINSTANCE.getGoogleRemarketingSysConfig_GoogleRemarketingEnabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Google Remarketing Tag Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_TAG_ID = eINSTANCE.getGoogleRemarketingSysConfig_GoogleRemarketingTagId();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.

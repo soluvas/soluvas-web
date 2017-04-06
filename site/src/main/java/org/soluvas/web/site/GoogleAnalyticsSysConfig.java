@@ -37,6 +37,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @model default="false"
 	 * @generated
 	 */
+	@Override
 	Boolean getGoogleAnalyticsEnabled();
 
 	/**
@@ -47,6 +48,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @see #getGoogleAnalyticsEnabled()
 	 * @generated
 	 */
+	@Override
 	void setGoogleAnalyticsEnabled(Boolean value);
 
 	/**
@@ -62,6 +64,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @model
 	 * @generated
 	 */
+	@Override
 	String getGoogleAnalyticsTrackingId();
 
 	/**
@@ -72,6 +75,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @see #getGoogleAnalyticsTrackingId()
 	 * @generated
 	 */
+	@Override
 	void setGoogleAnalyticsTrackingId(String value);
 
 	/**
@@ -87,6 +91,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @model
 	 * @generated
 	 */
+	@Override
 	String getGoogleAnalyticsCookieDomain();
 
 	/**
@@ -97,6 +102,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @see #getGoogleAnalyticsCookieDomain()
 	 * @generated
 	 */
+	@Override
 	void setGoogleAnalyticsCookieDomain(String value);
 
 	/**
@@ -149,6 +155,7 @@ public interface GoogleAnalyticsSysConfig extends EObject, IGoogleAnalyticsSysCo
 	 * @see #isGoogleAnalyticsDisplayFeatures()
 	 * @generated
 	 */
+	@Override
 	void setGoogleAnalyticsDisplayFeatures(boolean value);
 
 	/**

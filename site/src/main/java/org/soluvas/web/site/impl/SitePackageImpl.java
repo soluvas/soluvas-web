@@ -23,6 +23,7 @@ import org.soluvas.web.site.EntityTablePage;
 import org.soluvas.web.site.GenericPage;
 import org.soluvas.web.site.GoogleAnalyticsSysConfig;
 import org.soluvas.web.site.GooglePlusSysConfig;
+import org.soluvas.web.site.GoogleRemarketingSysConfig;
 import org.soluvas.web.site.GoogleSysConfig;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.JavaScriptMode;
@@ -279,6 +280,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass zendeskConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass googleRemarketingSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1234,6 +1242,33 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGoogleRemarketingSysConfig() {
+		return googleRemarketingSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleRemarketingSysConfig_GoogleRemarketingEnabled() {
+		return (EAttribute)googleRemarketingSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGoogleRemarketingSysConfig_GoogleRemarketingTagId() {
+		return (EAttribute)googleRemarketingSysConfigEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1406,6 +1441,10 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_DOMAIN);
 		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_USER_NAME);
 		createEAttribute(zendeskConfigEClass, ZENDESK_CONFIG__ZENDESK_TOKEN);
+
+		googleRemarketingSysConfigEClass = createEClass(GOOGLE_REMARKETING_SYS_CONFIG);
+		createEAttribute(googleRemarketingSysConfigEClass, GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_ENABLED);
+		createEAttribute(googleRemarketingSysConfigEClass, GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_TAG_ID);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1610,6 +1649,10 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEAttribute(getZendeskConfig_ZendeskDomain(), ecorePackage.getEString(), "zendeskDomain", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getZendeskConfig_ZendeskUserName(), ecorePackage.getEString(), "zendeskUserName", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getZendeskConfig_ZendeskToken(), ecorePackage.getEString(), "zendeskToken", null, 0, 1, ZendeskConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(googleRemarketingSysConfigEClass, GoogleRemarketingSysConfig.class, "GoogleRemarketingSysConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGoogleRemarketingSysConfig_GoogleRemarketingEnabled(), ecorePackage.getEBoolean(), "googleRemarketingEnabled", "false", 0, 1, GoogleRemarketingSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGoogleRemarketingSysConfig_GoogleRemarketingTagId(), ecorePackage.getEString(), "googleRemarketingTagId", null, 0, 1, GoogleRemarketingSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
@@ -2045,7 +2088,7 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		  (interactionEEnum.getELiterals().get(11), 
 		   source, 
 		   new String[] {
-			 "documentation", "Loading loop for light/short operations, usually without progress bar. e.g. {@link org.wicketstuff.select2.Select2Choice}."
+			 "documentation", "Loading loop for light/short operations, usually without progress bar. e.g. {@link com.vaynberg.wicket.select2.Select2Choice}."
 		   });	
 		addAnnotation
 		  (interactionEEnum.getELiterals().get(12), 

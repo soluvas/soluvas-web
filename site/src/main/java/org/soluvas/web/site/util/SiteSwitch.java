@@ -290,6 +290,12 @@ public class SiteSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SitePackage.GOOGLE_REMARKETING_SYS_CONFIG: {
+				GoogleRemarketingSysConfig googleRemarketingSysConfig = (GoogleRemarketingSysConfig)theEObject;
+				T result = caseGoogleRemarketingSysConfig(googleRemarketingSysConfig);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -771,6 +777,21 @@ public class SiteSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseZendeskConfig(ZendeskConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Google Remarketing Sys Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Google Remarketing Sys Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGoogleRemarketingSysConfig(GoogleRemarketingSysConfig object) {
 		return null;
 	}
 
