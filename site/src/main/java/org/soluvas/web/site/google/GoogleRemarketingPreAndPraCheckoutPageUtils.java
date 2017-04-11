@@ -49,7 +49,11 @@ public class GoogleRemarketingPreAndPraCheckoutPageUtils {
 					}).collect(Collectors.toList()), "','");
 					productIdsString += "']";
 				} else {
-					productIdsString += "'" + StringEscapeUtils.escapeEcmaScript(productMap.keySet().iterator().next()) + "'";
+					if (productMap.isEmpty()) {
+						productIdsString += "null";
+					} else {
+						productIdsString += "'" + StringEscapeUtils.escapeEcmaScript(productMap.keySet().iterator().next()) + "'";
+					}
 				}
 				
 				final List<BigDecimal> scaledPriceList = productMap.values().stream().map(new Function<BigDecimal, BigDecimal>() {
@@ -67,8 +71,8 @@ public class GoogleRemarketingPreAndPraCheckoutPageUtils {
 						+ "dynx_itemid: %s, \n"
 						+ "dynx_pagetype: '%s', \n"
 						+ "dynx_totalvalue: %s, \n"
-						+ "}; \n", productIdsString, "purchase", scaledPriceList.size() > 1 ? scaledPriceList : scaledPriceList.get(0),
-						productIdsString, "conversion", scaledPriceList.size() > 1 ? scaledPriceList : scaledPriceList.get(0));
+						+ "}; \n", productIdsString, "purchase", scaledPriceList.size() > 1 ? scaledPriceList : (scaledPriceList.isEmpty() ? "null" : scaledPriceList.get(0)),
+						productIdsString, "conversion", scaledPriceList.size() > 1 ? scaledPriceList : (scaledPriceList.isEmpty() ? "null" : scaledPriceList.get(0)));
 				scriptList.add(JavaScriptHeaderItem.forScript(script1, null));
 				
 				final String script2 = String.format("var google_conversion_id = %s; \n"
