@@ -2,12 +2,7 @@ package org.soluvas.web.bootstrap.widget;
 
 import java.util.Collection;
 
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.http.WebRequest;
-import org.soluvas.web.bootstrap.sound.Howler;
-import org.soluvas.web.site.Interaction;
-
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Select2BootstrapTheme;
 import org.wicketstuff.select2.Select2MultiChoice;

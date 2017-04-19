@@ -24,8 +24,6 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.json.JsonUtils;
-import org.soluvas.web.bootstrap.sound.Howler;
-import org.soluvas.web.bootstrap.sound.Sounds;
 import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.InteractionMessage;
@@ -112,7 +110,7 @@ public class GrowlBehavior extends Behavior {
         response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
 //		}
 //		Howler.renderHead(component, response, Howler.get(soundThemeId));
-        Howler.renderHead(component, response, Howler.getActive());
+//        Howler.renderHead(component, response, Howler.getActive());//disabled for sound, klo mau aktifin lagi, cari komen ini
 
         final String script = getNotifyScript("renderHead", component.getPage());
         if (script != null) {
@@ -167,22 +165,22 @@ public class GrowlBehavior extends Behavior {
                         Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
                 log.trace("{} message: {}", interaction, msg);
 //				final Sounds sounds = Howler.get(soundThemeId);
-                final Sounds sounds = Howler.getActive();
+//                final Sounds sounds = Howler.getActive();//disabled for sound, klo mau aktifin lagi, cari komen ini
                 if (msg.isError()) {
                     growlType = "danger";
-                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);
+//                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
                 } else if (msg.isWarning()) {
                     growlType = "warning";
-                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);
+//                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
                 } else if (msg.isInfo()) {
                     growlType = "success";
-                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
                 } else if (msg.isDebug()) {
                     growlType = "info";
-                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
                 } else {
                     growlType = "info";
-                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);
+//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
                 }
 
 //				log.debug("Path Icon is: {}", pathIcon);
