@@ -32,6 +32,11 @@ public class DateTimeLabel extends DateLabel {
 		super(id, converter);
 	}
 
+	/**
+	 * @param id
+	 * @param model
+	 * @param converter for example: new StyleDateConverter("MS", true)
+	 */
 	public DateTimeLabel(String id, final IModel<? extends AbstractInstant> model, DateConverter converter) {
 		super(id, new AbstractReadOnlyModel<Date>() {
 			@Override
