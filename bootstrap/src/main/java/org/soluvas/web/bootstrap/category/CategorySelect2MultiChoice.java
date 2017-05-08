@@ -37,10 +37,13 @@ import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 
 /**
+ * Use {@link Category2Select2MultiChoice}
+ * 
  * @author atang
  *
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class CategorySelect2MultiChoice extends
 		BootstrapSelect2MultiChoice<Category> {
 	

@@ -51,10 +51,10 @@ public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<Displ
 	@Inject
 	private PropertyDefinitionRepository propDefRepo;
 	
-	private final IModel<EMap<String, EList<Value<?>>>> sourceModel;
+	private final IModel<Map<String, List<Value<?>>>> sourceModel;
 	private final IModel<Map<String, List<String>>> sourceStrModel = new MapModel<>();
 	
-	public DisplayAttributeListModel2(IModel<EMap<String, EList<Value<?>>>> sourceModel) {
+	public DisplayAttributeListModel2(IModel<Map<String, List<Value<?>>>> sourceModel) {
 		super();
 		this.sourceModel = sourceModel;
 		this.sourceStrModel.setObject(ImmutableMap.<String, List<String>>of());
@@ -65,9 +65,9 @@ public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<Displ
 	public DisplayAttributeListModel2(Map<String, List<String>> sourceStrMap) {
 		super();
 		
-		this.sourceModel = new LoadableDetachableModel<EMap<String,EList<Value<?>>>>() {
+		this.sourceModel = new LoadableDetachableModel<Map<String,List<Value<?>>>>() {
 			@Override
-			protected EMap<String, EList<Value<?>>> load() {
+			protected Map<String, List<Value<?>>> load() {
 				return null;
 			}
 		};
@@ -81,7 +81,7 @@ public class DisplayAttributeListModel2 extends AbstractReadOnlyModel<List<Displ
 		Map<String, List<String>> source = null;
 		if (sourceModel.getObject() != null) {
 			source = new HashMap<>();
-			for (final Entry<String, EList<Value<?>>> entry : sourceModel.getObject().entrySet()) {
+			for (final Entry<String, List<Value<?>>> entry : sourceModel.getObject().entrySet()) {
 				source.put(entry.getKey(), entry.getValue().stream().map(new Function<Value<?>, String>() {
 					@Override
 					public String apply(Value<?> t) {

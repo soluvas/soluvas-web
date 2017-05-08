@@ -58,7 +58,7 @@ public class Category2Select2 extends BootstrapSelect2Choice<Category2> {
 	public Category2Select2(String id, @Nullable Category2 currentCategory) {
 		super(id);
 		setModel(new LoadableCategoryModel(currentCategory));
-		setProvider(new Category2ChoiceProvider());
+		setProvider(new Category2ChoiceProvider(null));
 	}
 	/**
 	 * @param id
@@ -66,7 +66,7 @@ public class Category2Select2 extends BootstrapSelect2Choice<Category2> {
 	 */
 	public Category2Select2(String id, IModel<Category2> model) {
 		super(id, model);
-		setProvider(new Category2ChoiceProvider());
+		setProvider(new Category2ChoiceProvider(null));
 	}
 	
 	

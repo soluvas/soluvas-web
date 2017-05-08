@@ -1,12 +1,15 @@
 package org.soluvas.web.bootstrap.category;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
+import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soluvas.category.Category;
 import org.soluvas.category.Category2;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.MongoCategoryRepository;
@@ -22,16 +25,18 @@ import com.google.common.collect.ImmutableList;
 
 @SuppressWarnings("serial")
 public class Category2ChoiceProvider extends ChoiceProvider<Category2> {
-	
-	private static final Logger log = LoggerFactory
-			.getLogger(Category2ChoiceProvider.class);
-		
+
+	private static final Logger log = LoggerFactory.getLogger(Category2ChoiceProvider.class);
+
 	@Inject
 	private MongoCategoryRepository categoryRepo;
 	
-	public Category2ChoiceProvider() {
+	private final IModel<List<Category2>> sortedCategoriesModel;
+	 
+	public Category2ChoiceProvider(IModel<List<Category2>> sortedActiveCategoriesModel) {
 		super();
 		Injector.get().inject(this);
+		this.sortedCategoriesModel = sortedActiveCategoriesModel;
 	}
 
 	@Override
@@ -60,7 +65,8 @@ public class Category2ChoiceProvider extends ChoiceProvider<Category2> {
 	@Override
 	public void query(final String term, int page, Response<Category2> response) {
 		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "localSku");
-		final Page<Category2> result = categoryRepo.findAll(Optional.fromNullable(term).or("").trim(), ImmutableList.of(CategoryStatus.ACTIVE), pageable);
+		final Page<Category2> result = categoryRepo.findAll(Optional.fromNullable(term).or("").trim(),
+				ImmutableList.of(CategoryStatus.ACTIVE), pageable);
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}
@@ -69,5 +75,5 @@ public class Category2ChoiceProvider extends ChoiceProvider<Category2> {
 	public Collection<Category2> toChoices(Collection<String> ids) {
 		return categoryRepo.findAll(ids);
 	}
-	
+
 }

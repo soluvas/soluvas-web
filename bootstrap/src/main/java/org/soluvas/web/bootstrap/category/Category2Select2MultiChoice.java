@@ -24,7 +24,7 @@ public class Category2Select2MultiChoice extends
 	
 	public Category2Select2MultiChoice(String id, IModel<Collection<Category2>> model) {
 		super(id, model);
-		setProvider(new Category2ChoiceProvider());
+		setProvider(new Category2ChoiceProvider(null));
 	}
 	
 	@Override
