@@ -11,7 +11,7 @@ import org.soluvas.web.site.MustachePanel;
  * 
  * <code>@{literal
  * <!-- Start Alexa Certify Javascript -->
- * <script type="text/javascript">
+ * &lt;script type="text/javascript">
  * _atrk_opts = { atrk_acct:"QB0hh1a0k700Eo", domain:"berbatik.com",dynamic: true};
  * (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
  * </script>
