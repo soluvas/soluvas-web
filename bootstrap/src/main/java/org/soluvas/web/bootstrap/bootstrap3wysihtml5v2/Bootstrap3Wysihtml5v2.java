@@ -12,10 +12,10 @@ import org.soluvas.web.bootstrap.AfterBootstrapJavaScriptResourceReference;
  * <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css" /> <!-- Please use the newest Version of Bootstrap 3.0.X -->
 <link rel="stylesheet" type="text/css" href="src/bootstrap3-wysihtml5.css" />
 <link rel="stylesheet" type="text/css" href="src/bootstrap3-wysihtml5-editor.css" />
-<script src="lib/js/jquery-1.11.1.min.js"></script>
-<script src="lib/js/bootstrap.min.js"></script>
-<script src="lib/js/wysihtml5x-toolbar.min.js"></script>
-<script src="src/bootstrap3-wysihtml5.min.js"></script>
+&lt;script src="lib/js/jquery-1.11.1.min.js"></script>
+&lt;script src="lib/js/bootstrap.min.js"></script>
+&lt;script src="lib/js/wysihtml5x-toolbar.min.js"></script>
+&lt;script src="src/bootstrap3-wysihtml5.min.js"></script>
  * 
  * 
  * https://github.com/Waxolunist/bootstrap3-wysihtml5-bower/
