@@ -8,6 +8,7 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.commons.Person;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
@@ -28,9 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("serial")
-public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person> {
+public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person2> {
 
-    public PersonSelect2Multichoice(String id, IModel<Collection<Person>> model) {
+    public PersonSelect2Multichoice(String id, IModel<Collection<Person2>> model) {
         super(id, model);
         setProvider(new PersonChoiceProvider());
     }
@@ -48,7 +49,7 @@ public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person
         super.onDetach();
     }
 
-    private static class PersonChoiceProvider extends ChoiceProvider<Person> {
+    private static class PersonChoiceProvider extends ChoiceProvider<Person2> {
 
         /**
          * Preload image URIs to make it quicker to display.
@@ -67,21 +68,21 @@ public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person
         }
 
         @Override
-        public String getDisplayValue(Person object) {
+        public String getDisplayValue(Person2 object) {
             return object.getName();
         }
 
         @Override
-        public String getIdValue(Person object) {
+        public String getIdValue(Person2 object) {
             return object.getId();
         }
 
         @Override
-        public void query(String term, int page, Response<Person> response) {
+        public void query(String term, int page, Response<Person2> response) {
             term = term.trim();
             final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
             //FIXME: do not hard coded for STATUS
-            final Page<Person> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
+            final Page<Person2> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
             response.addAll(peoplePage.getContent());
             response.setHasMore(!peoplePage.isLastPage());
             // preload image URIs
@@ -89,19 +90,19 @@ public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person
         }
 
         @Override
-        public Collection<Person> toChoices(Collection<String> ids) {
+        public Collection<Person2> toChoices(Collection<String> ids) {
             //FIXME: do not hard coded for STATUS
-            final List<Person> found = personRepo.findAll(StatusMask.ACTIVE_ONLY, ids);
+            final List<Person2> found = personRepo.findAll(StatusMask.ACTIVE_ONLY, ids);
             // Workaround for Select2Choice "bug": https://github.com/ivaynberg/wicket-select2/issues/56
             if (!ids.isEmpty() && found.isEmpty()) {
-                return Arrays.asList(new Person[]{null});
+                return Arrays.asList(new Person2[]{null});
             } else {
                 return found;
             }
         }
 
         @Override
-        public void toJson(Person choice, JSONWriter writer)
+        public void toJson(Person2 choice, JSONWriter writer)
                 throws JSONException {
             writer.key("id").value(choice.getId())
                     .key("customerId").value(choice.getId())

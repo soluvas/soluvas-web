@@ -14,6 +14,7 @@ import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.CappedRequest;
 import org.soluvas.data.domain.Page;
@@ -65,15 +66,15 @@ public class PersonSitemapSupplier implements SitemapSupplier {
 
             final UriComponentsBuilder personUriBuilder = UriComponentsBuilder.fromUriString(baseUri)
                     .path("/{localePrefId}/{slug}");
-            final Page<Person> people = personRepo.findAll(StatusMask.ACTIVE_ONLY,
+            final Page<Person2> people = personRepo.findAll(StatusMask.ACTIVE_ONLY,
                     Projection.only("slug", "name", "photoId", "modificationTime"),
                     new CappedRequest(10000l, Sort.Direction.DESC, "modificationTime"));
             final DateTime oneMonthAgo = new DateTime().minusMonths(1);
 
             final ImmutableSet<String> imageIds = FluentIterable.from(people)
-                    .transformAndConcat(new Function<Person, ImmutableList<String>>() {
+                    .transformAndConcat(new Function<Person2, ImmutableList<String>>() {
                         @Nullable @Override
-                        public ImmutableList<String> apply(@Nullable Person input) {
+                        public ImmutableList<String> apply(@Nullable Person2 input) {
                             return !Strings.isNullOrEmpty(input.getImageId()) ?
                                     ImmutableList.of(input.getImageId()) : ImmutableList.<String>of();
                         }
@@ -81,9 +82,9 @@ public class PersonSitemapSupplier implements SitemapSupplier {
             final Map<String, DisplayImage> personImages = imageMgr.getSafeImagesByIds(ImageTypes.PERSON, imageIds, ImageStyles.LARGE);
             result.addAll(
                     FluentIterable.from(people)
-                        .transform(new Function<Person, Url>() {
+                        .transform(new Function<Person2, Url>() {
                             @Nullable @Override
-                            public Url apply(Person input) {
+                            public Url apply(Person2 input) {
                                 double priority = 0.1;
                                 if (input.getModificationTime().isAfter(oneMonthAgo)) {
                                     priority += 0.2;

@@ -4,6 +4,7 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.commons.Person;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.ImageManager;
 
@@ -14,14 +15,14 @@ import java.util.Collection;
  * @author mahendri
  *
  */
-public class PeopleSelect2 extends BootstrapSelect2MultiChoice<Person> {
+public class PeopleSelect2 extends BootstrapSelect2MultiChoice<Person2> {
 	
 	@Inject
 	private PersonRepository personRepo;
 	@Inject
 	private ImageManager imageMgr;
 
-	public PeopleSelect2(String id, IModel<Collection<Person>> model) {
+	public PeopleSelect2(String id, IModel<Collection<Person2>> model) {
 		super(id, model);
 	}
 

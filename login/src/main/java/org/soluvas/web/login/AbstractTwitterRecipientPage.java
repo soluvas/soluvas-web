@@ -33,7 +33,7 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-
+import org.soluvas.commons.entity.Person2;
 import javax.annotation.Nullable;
 
 
@@ -91,7 +91,7 @@ public class AbstractTwitterRecipientPage extends WebPage {
 			Preconditions.checkNotNull("User should not be null", twitterUser);
 			log.debug("Got user {}", JsonUtils.asJson(twitterUser));
 			
-			Person curPerson = personRepo.findOneByTwitter(Long.valueOf(twitterUser.getId()), null);
+			Person2 curPerson = personRepo.findOneByTwitter(Long.valueOf(twitterUser.getId()), null);
 			if (curPerson == null) {
 				curPerson = personRepo.findOneByTwitter(null, twitterUser.getScreenName());
 			}
@@ -116,7 +116,7 @@ public class AbstractTwitterRecipientPage extends WebPage {
 					}
 				});
 				final PersonName personName = NameUtils.splitName(personFullName);
-				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);
+				curPerson = new Person2().createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				personRepo.add(curPerson);
@@ -142,7 +142,7 @@ public class AbstractTwitterRecipientPage extends WebPage {
 					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
 			}
-			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
+			final Person2 modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
