@@ -1,6 +1,7 @@
 branches:
   only:
   - master
+  - 2.3.x
   - 2.2.x
 language: java
 jdk: oraclejdk8
