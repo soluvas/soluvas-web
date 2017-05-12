@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.soluvas.commons.Person;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.Interaction;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,7 +48,7 @@ public class SpringFacebookRecipientPage extends AbstractFacebookRecipient {
 	}
 
 	@Override
-	protected void doLogin(String personId, Person person) {
+	protected void doLogin(String personId, Person2 person) {
 		final User user = new User(personId, "", ImmutableList.of());
 		final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()
 				.map(it -> new SimpleGrantedAuthority("ROLE_" + it)).collect(Collectors.toList());

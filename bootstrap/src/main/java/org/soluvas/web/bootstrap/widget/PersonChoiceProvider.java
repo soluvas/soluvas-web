@@ -11,7 +11,7 @@ import java.util.Map;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.model.IModel;
-import org.soluvas.commons.Person;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
@@ -31,7 +31,7 @@ import com.google.common.collect.ImmutableMap;
  * @author mahendri
  *
  */
-public class PersonChoiceProvider extends ChoiceProvider<Person> {
+public class PersonChoiceProvider extends ChoiceProvider<Person2> {
 	
 	private final PersonRepository personRepo;
 	private final ImageManager imageMgr;
@@ -48,21 +48,21 @@ public class PersonChoiceProvider extends ChoiceProvider<Person> {
 	private final IModel<Map<String, DisplayImage>> displayImagesModel = new EmfMapModel<>(ImmutableMap.<String, DisplayImage>of());
 
 	@Override
-	public String getDisplayValue(Person choice) {
+	public String getDisplayValue(Person2 choice) {
 		return choice.getName();
 	}
 
 	@Override
-	public String getIdValue(Person choice) {
+	public String getIdValue(Person2 choice) {
 		return choice.getId();
 	}
 
 	@Override
-	public void query(String term, int page, Response<Person> response) {
+	public void query(String term, int page, Response<Person2> response) {
 		term = term.trim();
 		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
 		//FIXME: do not hard coded for STATUS
-		final Page<Person> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
+		final Page<Person2> peoplePage = personRepo.findBySearchText(StatusMask.ACTIVE_ONLY, term, pageable);
 		response.addAll(peoplePage.getContent());
 		response.setHasMore(!peoplePage.isLastPage());
 		// preload image URIs
@@ -70,19 +70,19 @@ public class PersonChoiceProvider extends ChoiceProvider<Person> {
 	}
 
 	@Override
-	public Collection<Person> toChoices(Collection<String> ids) {
+	public Collection<Person2> toChoices(Collection<String> ids) {
 		//FIXME: do not hard coded for STATUS
-		final List<Person> found = personRepo.findAll(StatusMask.ACTIVE_ONLY, ids);
+		final List<Person2> found = personRepo.findAll(StatusMask.ACTIVE_ONLY, ids);
 		// Workaround for Select2Choice "bug": https://github.com/ivaynberg/wicket-select2/issues/56
 		if (!ids.isEmpty() && found.isEmpty()) {
-			return Arrays.asList(new Person[] { null });
+			return Arrays.asList(new Person2[] { null });
 		} else {
 			return found;
 		}
 	}
 	
 	@Override
-	public void toJson(Person choice, JSONWriter writer)
+	public void toJson(Person2 choice, JSONWriter writer)
 			throws JSONException {
 		writer.key("id").value(choice.getId())
 			.key("customerId").value(choice.getId())

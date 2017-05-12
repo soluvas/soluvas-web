@@ -11,7 +11,7 @@ import org.apache.wicket.markup.head.StringHeaderItem;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.PersonInfo;
+import org.soluvas.commons.PersonInfo2;
 
 import com.google.common.base.Strings;
 
@@ -26,11 +26,11 @@ public class CriteoViewItemBehavior extends Behavior {
 	
 	private final String criteoPartnerId;
 	private final boolean isCriteoEnabled;
-	private final IModel<PersonInfo> personInfoModel;
+	private final IModel<PersonInfo2> personInfoModel;
 	private final String itemId;
 
 	public CriteoViewItemBehavior(boolean isCriteoEnabled, 
-			String criteoPartnerId, String itemId, IModel<PersonInfo> personInfoModel) {
+			String criteoPartnerId, String itemId, IModel<PersonInfo2> personInfoModel) {
 		super();
 		this.isCriteoEnabled = isCriteoEnabled;
 		this.criteoPartnerId = criteoPartnerId;

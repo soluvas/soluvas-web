@@ -27,8 +27,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.Person;
 import org.soluvas.commons.config.DefaultsConfig;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.locale.LocaleContext;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.geo.Country;
@@ -250,7 +250,7 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			// Used by token flow. Won't work with {@link Person}.
 			// http://stackoverflow.com/a/9823467/1343587
 			final PersonRepository personRepo = getApplicationContext().getBean(PersonRepository.class);
-			final Person person = personRepo.findOne((String) SecurityUtils.getSubject().getPrincipal());
+			final Person2 person = personRepo.findOne((String) SecurityUtils.getSubject().getPrincipal());
 			if (person.getClientAccessToken() == null) {
 				person.setClientAccessToken(UUID.randomUUID().toString());
 				personRepo.modify(person.getId(), person);

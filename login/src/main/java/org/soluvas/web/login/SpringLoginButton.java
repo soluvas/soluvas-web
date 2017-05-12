@@ -17,7 +17,7 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.Person;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
@@ -120,7 +120,7 @@ public class SpringLoginButton extends StatelessAjaxButton {
 				Preconditions.checkNotNull(personRepo, "loginAsEnabled requires personRepo");
 				final String sysadminPassword = env.getRequiredProperty("security.user.password");
 				if (sysadminPassword.equals(upPassword)) {
-					final Person person = Preconditions.checkNotNull(personRepo.findOneByEmail(StatusMask.RAW, upUsername),
+					final Person2 person = Preconditions.checkNotNull(personRepo.findOneByEmail(StatusMask.RAW, upUsername),
 							"Cannot find person by email '%s'", upUsername);
 					final User user = new User(person.getId(), "", ImmutableList.of());
 					final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()
