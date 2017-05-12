@@ -6,19 +6,19 @@ import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.soluvas.commons.CustomerRole;
-import org.soluvas.commons.Person;
 import org.soluvas.commons.PersonInfo;
+import org.soluvas.commons.entity.Person2;
+import org.soluvas.commons.impl.CustomerRole2;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.data.customerrole.CustomerRoleRepository;
 import org.soluvas.image.DisplayImage;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
-import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.ISocialApplication;
 import org.soluvas.web.site.widget.DisplayImageContainer;
 
@@ -34,7 +34,7 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 	@SpringBean
 	private ImageManager imageMgr;
 	@SpringBean(name="personLookup")
-	private EntityLookup<Person, String> personLookup;
+	private EntityLookup<Person2, String> personLookup;
 	@SpringBean
 	private CustomerRoleRepository customerRoleRepo;
 
@@ -63,7 +63,7 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 			add(new EmptyPanel("profileLink"));
 		}
 
-		final IModel<Person> customerModel = new EmfModel<>(personLookup.findOne(model.getObject().getId()));
+		final IModel<Person2> customerModel = new Model<>(personLookup.findOne(model.getObject().getId()));
 		final IModel<String> currentCustomerRoleModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
@@ -73,7 +73,7 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 				if (Strings.isNullOrEmpty(customerModel.getObject().getCustomerRole())) {
 					return null;
 				}
-				final CustomerRole customerRole = customerRoleRepo.findOne(customerModel.getObject().getCustomerRole());
+				final CustomerRole2 customerRole = customerRoleRepo.findOne(customerModel.getObject().getCustomerRole());
 				return customerRole != null ? customerRole.getName() : null; 
 			}
 		};

@@ -37,6 +37,7 @@ import com.google.common.collect.Lists;
  *		by also serializing the identity of the EPackage, and making sure it's loaded before parsing the serialized buf. 
  * @author haidar
  */
+@Deprecated
 public class EmfModel<T extends EObject> extends LoadableDetachableModel<T> {
 
 	/**

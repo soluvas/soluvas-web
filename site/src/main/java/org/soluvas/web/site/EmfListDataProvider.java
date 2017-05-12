@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
  * @param <T>
  * 
  */
+@Deprecated
 public class EmfListDataProvider<T extends EObject> implements IDataProvider<T>
 {
 	private static final long serialVersionUID = 1L;

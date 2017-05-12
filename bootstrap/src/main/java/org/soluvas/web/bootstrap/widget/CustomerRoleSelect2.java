@@ -5,6 +5,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.commons.CustomerRole;
+import org.soluvas.commons.impl.CustomerRole2;
 import org.soluvas.web.site.EmfModel;
 
 /**
@@ -12,13 +13,13 @@ import org.soluvas.web.site.EmfModel;
  *
  */
 @SuppressWarnings("serial")
-public class CustomerRoleSelect2 extends BootstrapSelect2Choice<CustomerRole> {
+public class CustomerRoleSelect2 extends BootstrapSelect2Choice<CustomerRole2> {
 	
 	public CustomerRoleSelect2(final String id) {
-		super(id, new EmfModel<CustomerRole>(), new CustomerRoleChoiceProvider());
+		super(id, new Model<CustomerRole2>(), new CustomerRoleChoiceProvider());
 	}
 	
-	public CustomerRoleSelect2(final String id, final IModel<CustomerRole> model) {
+	public CustomerRoleSelect2(final String id, final IModel<CustomerRole2> model) {
 		super(id, model, new CustomerRoleChoiceProvider());
 	}
 	

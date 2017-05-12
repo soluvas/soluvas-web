@@ -5,6 +5,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.commons.CustomerRole;
+import org.soluvas.commons.impl.CustomerRole2;
 import org.wicketstuff.select2.Select2MultiChoice;
 
 import java.util.Collection;
@@ -13,9 +14,9 @@ import java.util.Collection;
  * @author rudi
  *
  */
-public class CustomerRoleSelect2Multi extends Select2MultiChoice<CustomerRole> {
+public class CustomerRoleSelect2Multi extends Select2MultiChoice<CustomerRole2> {
 	
-	public CustomerRoleSelect2Multi(final String id, final IModel<Collection<CustomerRole>> model) {
+	public CustomerRoleSelect2Multi(final String id, final IModel<Collection<CustomerRole2>> model) {
 		super(id, model, new CustomerRoleChoiceProvider());
 	}
 	

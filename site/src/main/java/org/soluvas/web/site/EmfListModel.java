@@ -23,6 +23,7 @@ import com.google.common.collect.Lists;
  * @param <T>
  *            type of object inside list
  */
+@Deprecated
 public class EmfListModel<T extends EObject> extends LoadableDetachableModel<List<T>> {
 	/**
 	 * A list larger than this (bytes) will be logged WARN and should not be stored in {@link EmfListModel}.
