@@ -1,10 +1,14 @@
 package org.soluvas.web.login.facebook;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.soluvas.commons.Person;
-import org.soluvas.commons.entity.Person2;
 import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.Interaction;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,10 +20,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile
@@ -47,7 +48,7 @@ public class SpringFacebookRecipientPage extends AbstractFacebookRecipient {
 	}
 
 	@Override
-	protected void doLogin(String personId, Person2 person) {
+	protected void doLogin(String personId, Person person) {
 		final User user = new User(personId, "", ImmutableList.of());
 		final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()
 				.map(it -> new SimpleGrantedAuthority("ROLE_" + it)).collect(Collectors.toList());

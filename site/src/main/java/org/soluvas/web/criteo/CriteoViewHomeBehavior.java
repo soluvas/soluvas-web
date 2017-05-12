@@ -12,7 +12,6 @@ import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.PersonInfo;
-import org.soluvas.commons.PersonInfo2;
 
 import com.google.common.base.Strings;
 
@@ -26,12 +25,12 @@ public class CriteoViewHomeBehavior extends Behavior {
 	private static final Logger log = LoggerFactory
 			.getLogger(CriteoViewHomeBehavior.class);
 	
-	private final IModel<PersonInfo2> personInfoModel;
+	private final IModel<PersonInfo> personInfoModel;
 	private final String criteoPartnerId;
 	private final boolean isCriteoEnabled;
 	
 	public CriteoViewHomeBehavior(boolean isCriteoEnabled, String criteoPartnerId, 
-			IModel<PersonInfo2> personInfoModel) {
+			IModel<PersonInfo> personInfoModel) {
 		super();
 		this.isCriteoEnabled = isCriteoEnabled;
 		this.criteoPartnerId = criteoPartnerId;

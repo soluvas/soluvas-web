@@ -1,28 +1,28 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.Collection;
+
+import javax.inject.Inject;
+
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.commons.Person;
-import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.image.ImageManager;
-
-import javax.inject.Inject;
-import java.util.Collection;
 
 /**
  * @author mahendri
  *
  */
-public class PeopleSelect2 extends BootstrapSelect2MultiChoice<Person2> {
+public class PeopleSelect2 extends BootstrapSelect2MultiChoice<Person> {
 	
 	@Inject
 	private PersonRepository personRepo;
 	@Inject
 	private ImageManager imageMgr;
 
-	public PeopleSelect2(String id, IModel<Collection<Person2>> model) {
+	public PeopleSelect2(String id, IModel<Collection<Person>> model) {
 		super(id, model);
 	}
 

@@ -1,17 +1,17 @@
 package org.soluvas.web.login.facebook;
 
-import com.google.common.base.Strings;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.soluvas.commons.Person;
-import org.soluvas.commons.entity.Person2;
 import org.soluvas.security.AutologinToken;
 import org.soluvas.web.login.LoginException;
 import org.soluvas.web.site.Interaction;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import com.google.common.base.Strings;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile.
@@ -36,7 +36,7 @@ public class FacebookRecipient extends AbstractFacebookRecipient {
 	}
 
 	@Override
-	protected void doLogin(final String personId, Person2 person) {
+	protected void doLogin(final String personId, Person person) {
 		final AuthenticationToken token = new AutologinToken(
 				Strings.nullToEmpty(personId), tenant.getTenantId());
 		log.debug("Logging in via Facebook using AutologinToken {} ...", token.getPrincipal());

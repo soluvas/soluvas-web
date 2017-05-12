@@ -1,10 +1,7 @@
 package org.soluvas.web.login.facebook;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
-import facebook4j.Facebook;
-import facebook4j.FacebookFactory;
-import facebook4j.auth.AccessToken;
+import javax.inject.Inject;
+
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.protocol.http.ClientProperties;
@@ -14,7 +11,13 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.*;
+import org.soluvas.commons.AccountStatus;
+import org.soluvas.commons.CommonsFactory;
+import org.soluvas.commons.Email;
+import org.soluvas.commons.Gender;
+import org.soluvas.commons.Person;
+import org.soluvas.commons.SlugUtils;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
@@ -25,8 +28,13 @@ import org.soluvas.json.JsonUtils;
 import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.socmed.FacebookApp;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.soluvas.commons.entity.Person2;
-import javax.inject.Inject;
+
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
+import facebook4j.auth.AccessToken;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile.
@@ -88,7 +96,7 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 			Preconditions.checkNotNull("User should not be null", fbUser);
 			log.debug("Got user and user details {}", JsonUtils.asJson(fbUser));
 			
-			Person2 curPerson = personRepo.findOneByFacebook(Long.valueOf(fbUser.getId()), null);
+			Person curPerson = personRepo.findOneByFacebook(Long.valueOf(fbUser.getId()), null);
 			if (curPerson == null) {
 				curPerson = personRepo.findOneByFacebook(null, fbUser.getUsername());
 			}
@@ -106,7 +114,7 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 						input -> !personRepo.exists(input));
 				final String personSlug = SlugUtils.generateValidId(fbUser.getName(),
 						input -> !personRepo.existsBySlug(StatusMask.RAW, input).isPresent());
-				curPerson = new Person2().createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
+				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				curPerson.setAccountStatus(AccountStatus.ACTIVE);
@@ -138,10 +146,10 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 			if (!Strings.isNullOrEmpty(fbUser.getEmail())) {
 				log.debug("User {} from Facebook ID {} has email {}",
 						curPerson.getId(), fbUser.getId(), fbUser.getEmail());
-				final java.util.Optional<Email2> existingEmail = curPerson.getEmails().stream()
+				final java.util.Optional<Email> existingEmail = curPerson.getEmails().stream()
 						.filter(it -> it.getEmail().equals(fbUser.getEmail())).findAny();
 				if (!existingEmail.isPresent()) {
-					final Email2 email = new Email2();//CommonsFactory.eINSTANCE.createEmail();
+					final Email email = CommonsFactory.eINSTANCE.createEmail();
 					email.setEmail(fbUser.getEmail());
 					if (Strings.isNullOrEmpty(curPerson.getEmail())) {
 						email.setPrimary(true);
@@ -178,6 +186,6 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 		}
 	}
 
-	protected abstract void doLogin(final String personId, Person2 person);
+	protected abstract void doLogin(final String personId, Person person);
 
 }

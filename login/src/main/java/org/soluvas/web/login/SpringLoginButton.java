@@ -1,8 +1,13 @@
 package org.soluvas.web.login;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
@@ -13,14 +18,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
-import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
 import org.soluvas.security.impl.StaticAppRealm;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,11 +36,9 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 import org.wicketstuff.stateless.components.StatelessAjaxButton;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Generic {@link IndicatingAjaxButton} that can be used with Spring Security {@link org.springframework.security.authentication.ProviderManager}.
@@ -119,7 +120,7 @@ public class SpringLoginButton extends StatelessAjaxButton {
 				Preconditions.checkNotNull(personRepo, "loginAsEnabled requires personRepo");
 				final String sysadminPassword = env.getRequiredProperty("security.user.password");
 				if (sysadminPassword.equals(upPassword)) {
-					final Person2 person = Preconditions.checkNotNull(personRepo.findOneByEmail(StatusMask.RAW, upUsername),
+					final Person person = Preconditions.checkNotNull(personRepo.findOneByEmail(StatusMask.RAW, upUsername),
 							"Cannot find person by email '%s'", upUsername);
 					final User user = new User(person.getId(), "", ImmutableList.of());
 					final List<SimpleGrantedAuthority> authorities = person.getSecurityRoleIds().stream()

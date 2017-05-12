@@ -1,8 +1,7 @@
 package org.soluvas.web.login;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
+import javax.annotation.Nullable;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,8 +13,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.*;
+import org.soluvas.commons.AccountStatus;
+import org.soluvas.commons.CommonsFactory;
+import org.soluvas.commons.Gender;
+import org.soluvas.commons.NameUtils;
 import org.soluvas.commons.NameUtils.PersonName;
+import org.soluvas.commons.Person;
+import org.soluvas.commons.SlugUtils;
+import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
@@ -27,14 +32,16 @@ import org.soluvas.twitter.TwitterManager;
 import org.soluvas.twitter.TwitterUtils;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.SoluvasWebSession;
-import org.wicketstuff.annotation.mount.MountPath;
+
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-import org.soluvas.commons.entity.Person2;
-import javax.annotation.Nullable;
 
 
 /**
@@ -91,7 +98,7 @@ public class AbstractTwitterRecipientPage extends WebPage {
 			Preconditions.checkNotNull("User should not be null", twitterUser);
 			log.debug("Got user {}", JsonUtils.asJson(twitterUser));
 			
-			Person2 curPerson = personRepo.findOneByTwitter(Long.valueOf(twitterUser.getId()), null);
+			Person curPerson = personRepo.findOneByTwitter(Long.valueOf(twitterUser.getId()), null);
 			if (curPerson == null) {
 				curPerson = personRepo.findOneByTwitter(null, twitterUser.getScreenName());
 			}
@@ -116,7 +123,7 @@ public class AbstractTwitterRecipientPage extends WebPage {
 					}
 				});
 				final PersonName personName = NameUtils.splitName(personFullName);
-				curPerson = new Person2().createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);
+				curPerson = CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, personName.getFirstName(), personName.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				personRepo.add(curPerson);
@@ -142,7 +149,7 @@ public class AbstractTwitterRecipientPage extends WebPage {
 					log.error("Cannot refresh photo from Twitter for person " + curPerson.getId() + " " + curPerson.getName(), e);
 				}
 			}
-			final Person2 modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
+			final Person modifiedPerson = personRepo.modify(curPerson.getId(), curPerson);
 			
 			// Set Token And Set Session
 			final AuthenticationToken token = new AutologinToken(
