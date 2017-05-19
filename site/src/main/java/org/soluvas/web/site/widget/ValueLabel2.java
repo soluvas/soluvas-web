@@ -18,7 +18,10 @@ import org.soluvas.data.MeasureValue;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermManager;
 import org.soluvas.data.TermValue;
-import org.soluvas.data.Value;
+
+//import org.soluvas.data.TermValue;
+//import org.soluvas.data.Value;
+import id.co.bippo.product.hand.Value; 
 import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.site.EmfModel;
 
