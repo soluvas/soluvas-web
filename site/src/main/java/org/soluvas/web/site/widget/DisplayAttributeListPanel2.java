@@ -16,7 +16,7 @@ import org.soluvas.data.DataFactory;
 import org.soluvas.data.DisplayAttribute;
 import org.soluvas.data.DisplayAttribute2;
 import org.soluvas.data.Term2;
-import org.soluvas.data.TermValue;
+import org.soluvas.data.entity.TermValue;
 import org.soluvas.mongo.MongoTermRepository;
 
 /**
@@ -68,7 +68,7 @@ public class DisplayAttributeListPanel2 extends GenericPanel<List<DisplayAttribu
 					protected void populateItem(ListItem<String> valueItem) {
 						@Nullable Term2 term2 = termRepo.findOne(valueItem.getModelObject());
 						if (term2 != null) {
-							final TermValue termValue = DataFactory.eINSTANCE.createTermValue();
+							final TermValue termValue = new TermValue();
 							termValue.copyFromMongo(term2);
 							valueItem.add(new ValueLabel2("value", termValue));
 						} else {

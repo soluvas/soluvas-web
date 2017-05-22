@@ -16,8 +16,6 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.util.MapModel;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.DisplayAttribute;
@@ -25,7 +23,7 @@ import org.soluvas.data.DisplayAttribute2;
 import org.soluvas.data.EntityLookupException;
 import org.soluvas.data.PropertyDefinition;
 import org.soluvas.data.PropertyDefinitionRepository;
-import org.soluvas.data.Value;
+import org.soluvas.data.entity.Value;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

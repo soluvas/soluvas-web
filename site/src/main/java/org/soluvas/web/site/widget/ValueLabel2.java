@@ -1,6 +1,7 @@
 package org.soluvas.web.site.widget;
 
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
@@ -18,10 +19,9 @@ import org.soluvas.data.MeasureValue;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermManager;
 import org.soluvas.data.TermValue;
-
+import org.soluvas.data.entity.Value;
 //import org.soluvas.data.TermValue;
 //import org.soluvas.data.Value;
-import id.co.bippo.product.hand.Value; 
 import org.soluvas.mongo.MongoTermRepository;
 import org.soluvas.web.site.EmfModel;
 
@@ -48,7 +48,7 @@ public class ValueLabel2 extends Label {
 	}
 
 	public ValueLabel2(String id, Value<?> value) {
-		this(id, new EmfModel<Value<?>>(value));
+		this(id, new Model<Value<?>>(value));
 	}
 	
 	public ValueLabel2(String id, IModel<Value<?>> model, boolean hideTextIfImageExists) {
@@ -57,7 +57,7 @@ public class ValueLabel2 extends Label {
 	}
 
 	public ValueLabel2(String id, Value<?> value, boolean hideTextIfImageExists) {
-		this(id, new EmfModel<Value<?>>(value), hideTextIfImageExists);
+		this(id, new Model<Value<?>>(value), hideTextIfImageExists);
 	}
 	
 	public ValueLabel2(String id, IModel<Value<?>> model, IModel<Locale> originalLocaleModel) {
@@ -88,20 +88,20 @@ public class ValueLabel2 extends Label {
 			if (originalLocaleModel.getObject().toLanguageTag().equals(languageTag)) {
 				displayName = valueObj.getDisplayValue();
 			} else {
-				final EMap<String, Translation> translations = valueObj.getTranslations();
+				final Map<String, Map<String, String>> translations = valueObj.getTranslations();
 				if (translations.isEmpty()) {
 					displayName = valueObj.getDisplayValue();
 				} else {
 					if (!translations.containsKey(languageTag)) {
 						displayName = valueObj.getDisplayValue();
 					} else {
-						final Translation translation = translations.get(languageTag);
-						if (!translation.getMessages().containsKey(Value.DISPLAY_VALUE_ATTR)) {
+						final Map<String, String> translation = translations.get(languageTag);
+						if (!translation.containsKey(Value.DISPLAY_VALUE_ATTR)) {
 //							log.debug("Got translation by {}, but not value by attribute {}",
 //									languageTag, Value.DISPLAY_VALUE_ATTR);
 							displayName = valueObj.getDisplayValue();
 						} else {
-							displayName = translation.getMessages().get(Value.DISPLAY_VALUE_ATTR);
+							displayName = translation.get(Value.DISPLAY_VALUE_ATTR);
 //							log.debug("Got translation by {} with value by attribute {}: {}",
 //									languageTag, Value.DISPLAY_VALUE_ATTR, displayName);
 						}
