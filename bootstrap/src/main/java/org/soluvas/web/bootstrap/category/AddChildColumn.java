@@ -7,6 +7,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColu
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.soluvas.category.Category;
+import org.soluvas.category.Category2;
 
 /**
  * Contains a link to new {@link Category} page inside a parent (current row) {@link Category}.
@@ -14,7 +15,7 @@ import org.soluvas.category.Category;
  */
 @SuppressWarnings("serial")
 public class AddChildColumn extends
-		AbstractColumn<Category, String> {
+		AbstractColumn<Category2, String> {
 	
 	private final Class<? extends Page> addPage;
 
@@ -29,8 +30,8 @@ public class AddChildColumn extends
 	}
 	
 	@Override
-	public void populateItem(Item<ICellPopulator<Category>> cellItem,
-			String componentId, IModel<Category> rowModel) {
+	public void populateItem(Item<ICellPopulator<Category2>> cellItem,
+			String componentId, IModel<Category2> rowModel) {
 		cellItem.add(new AddChildPanel(componentId, rowModel, addPage));
 	}
 	

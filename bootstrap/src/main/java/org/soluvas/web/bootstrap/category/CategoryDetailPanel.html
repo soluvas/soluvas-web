@@ -1,94 +1,304 @@
 <wicket:panel>
 	<div class="row">
 		<div class="col-sm-12">
-	    	<section class="panel">
-	        	<header class="panel-heading">
-	          			<span wicket:id="kind">Colors</span> &gt; <span wicket:id="headerUName">base_red</span>
+			<section class="panel">
+				<header class="panel-heading">
+					<span>Informasi Umum</span>
 				</header>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" wicket:id="form" >
-						<div wicket:id="wmcLocales">
+					<form class="form-horizontal" role="form" wicket:id="form">
+						<div wicket:id="wmcLocales" class="wrapp-multilang">
 							<div wicket:id="locales">
-								<a class="btn btn-default" wicket:id="btnLocale"><span wicket:id="lblLocale"></span></a>
+								<a class="btn btn-default" wicket:id="btnLocale">lblLocale</a>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Kategori</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<label> <wicket:container wicket:id="parentUName">parentUName</wicket:container>
+								</label>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Parent</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-                            	<label>
-									<wicket:container wicket:id="parentUName">parentUName</wicket:container>
-                            	</label>
-                            </div>
-                        </div>	
-                        		
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Kategori Umum</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<label> <wicket:container wicket:id="formalCategory">formalCategory</wicket:container>
+								</label>
+							</div>
+						</div>
+
 						<div class="form-group" wicket:id="uNameDiv">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="name"><abbr title="(Underscored) Unique Name">UName</abbr></label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-                            	<div class="input-group m-bot15">
-	                                <span class="input-group-addon btn-primary" wicket:id="nsPrefix"></span>
-	                                <input wicket:id="name" class="form-control" placeholder="Name">
-	                            </div>
-                            </div>
-                        </div>			
-                          					
-						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="displayName">Name</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-								<input wicket:id="displayName" class="form-control">
-                            </div>
-                        </div>			
-                          					
-						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="description">Description</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-								<textarea wicket:id="description" class="form-control">Clothing for women</textarea>
-                            </div>
-                        </div>			
-                          					
-						<div class="form-group" wicket:id="slugPathDiv">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="slugPath">Slug Path</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-								<input wicket:id="slugPath" class="form-control">
-                            </div>
-                        </div>			
-                          					
-						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="status">Status</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-                            	<div class="checkbox">
-                            		<label>
-										<input wicket:id="status" type="checkbox"> Active
-                            		</label>
-                            	</div>
-                            </div>
-                        </div>			
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="name"><abbr
+								title="(Underscored) Unique Name">UName</abbr></label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<div class="input-group m-bot15">
+									<span class="input-group-addon btn-primary"
+										wicket:id="nsPrefix"></span> <input wicket:id="name"
+										class="form-control" placeholder="Name">
+								</div>
+							</div>
+						</div>
 
 						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="positioner">Positionnn</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-								<input type="number" wicket:id="positioner" class="form-control">
-                            </div>
-                        </div>			
-                          					
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="displayName">Nama</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<input wicket:id="displayName" class="form-control">
+							</div>
+						</div>
+
 						<div class="form-group">
-							<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="defaultMixin">Default Mixin</label>
-                            <div class="col-lg-4 col-md-7 col-sm-9">
-								<select type="hidden" wicket:id="defaultMixin" class="col-xs-12"/>
-                            </div>
-                        </div>			
-                          					
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="titleTxtArea">Judul</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<textarea wicket:id="titleTxtArea" class="form-control">Clothing for women</textarea>
+							</div>
+						</div>
+						
+						<div class="form-group" wicket:id="wmcDescriptionWysihtml">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="descriptionWysihtml">Deskripsi</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<textarea wicket:id="descriptionWysihtml" rows="8" style="height:450px"></textarea>
+								<div class="clearfix" style="margin:5px 0;"></div>
+								
+								<small class="bg-warning" style="padding: 7px;">Untuk gambar kategori mohon gunakan ukuran 1170px x 200 px </small>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label">Tampilan</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<select wicket:id="ddcLayout"></select>
+							</div>
+						</div>
+						
+						<div wicket:id="wmcContents">
+							<div wicket:id="fullHorizontal">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentFullHorizontal">Konten</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentFullHorizontal" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+							</div>
+							
+							<div wicket:id="threeColumns">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns1">Content Column 1</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns1" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns2">Content Column 2</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns2" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="contentThreeColumns3">Content Column 3</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea wicket:id="contentThreeColumns3" rows="8" style="height:450px"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group" wicket:id="slugPathDiv">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="slugPath">Slug Path</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<input wicket:id="slugPath" class="form-control">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="status">Status</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<div class="checkbox">
+									<label> <input wicket:id="status" type="checkbox">
+										Active
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="positioner">Posisi</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<input type="number" wicket:id="positioner" class="form-control">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+								wicket:for="img">Gambar</label>
+							<div class="col-lg-4 col-md-7 col-sm-9">
+								<input wicket:id="img" type="file" accept="image/*"/>
+								<div wicket:id="imageCtr">
+									<img wicket:id="categoryImage" class="img-thumbnail"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#accordion" href="#seo"> SEO Editor </a>
+								</h4>
+							</div>
+							<br>
+							<div id="seo" class="panel-collapse collapse">
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaTitle">Meta Title</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<input type="text" wicket:id="metaTitle" class="col-xs-12">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaKeywords">Meta Keywords</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea type="text" wicket:id="metaKeywords"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 col-md-3 col-sm-3 control-label" wicket:for="metaDescription">Meta Description</label>
+									<div class="col-lg-4 col-md-7 col-sm-9">
+										<textarea type="text" wicket:id="metaDescription"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse"
+										data-parent="#accordion" href="#collapseTwo"> Detail </a>
+								</h4>
+							</div>
+
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="form-group" wicket:id="wmcPropertyOverride">
+										<label class="col-lg-2 col-md-3 col-sm-3 control-label"
+											wicket:for="acPropertyDefinition">Properti Baru</label>
+										<div class="col-lg-4 col-md-7 col-sm-9">
+											<select type="hidden" wicket:id="acPropertyDefinition"
+												class="col-xs-12"></select>
+												
+											<button style="margin-top:5px;" class="btn btn-xs" wicket:id="btnAddNewPropertyDefinition">Tambah Baru</button>
+										</div>
+									</div>
+
+									<div class="form-group" wicket:id="wmcPropertyOverrides">
+										<label class="col-lg-2 col-md-3 col-sm-3 control-label">Daftar Properti:</label>
+										<div class="col-lg-4 col-md-7 col-sm-9 listprop">
+
+											<!--collapse start-->
+											<div class="panel-group m-bot20 coll-prop-over"
+												id="accordion">
+
+												<ol>
+													<li wicket:id="propertyOverrides">
+
+														<div class="form-group">
+															<label for="displayName5be"
+																class="col-sm-3 control-label">Nama</label>
+															<div class="col-sm-9">
+																<input type="text" wicket:id="name"></input>
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label for="displayName5be"
+																class="col-sm-3 control-label">Deskripsi</label>
+															<div class="col-sm-9">
+																<textarea wicket:id="description"></textarea>
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label for="displayName5be"
+																class="col-sm-3 control-label">Aktifkan</label>
+															<div class="col-sm-9">
+																<input wicket:id="enabled" type="checkbox"
+																	value="Enabled">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label for="displayName5be"
+																class="col-sm-3 control-label">Sebagai Varian</label>
+															<div class="col-sm-9">
+																<input wicket:id="usableAsOption" type="checkbox"
+																	value="Usable As Option">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label for="displayName5be"
+																class="col-sm-3 control-label">Jenis</label>
+															<div class="col-sm-9">
+																<select wicket:id="ddcDefaultKind"></select>
+															</div>
+														</div>
+
+														<div class="form-group" wicket:id="measurementUnit">
+															<label for="displayName5be"
+																class="col-sm-3 control-label"> Unit </label>
+															<div class="col-sm-9">
+																<select wicket:id="selMeasurementUnit"></select>
+															</div>
+														</div>
+
+														<div class="form-group" wicket:id="defaultEnum">
+															<label for="displayName5be"
+																class="col-sm-3 control-label">Enum</label>
+															<div class="col-sm-9">
+																<select wicket:id="selDefaultEnum"></select>
+															</div>
+														</div>
+
+
+
+													</li>
+												</ol>
+											</div>
+											<!--collapse end-->
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
 						<div class="form-horizontal">
 							<div class="form-group">
 								<label class="col-lg-2 col-md-3 col-sm-3 control-label"></label>
-	                            <div class="col-lg-4 col-md-7 col-sm-9">
-									<button wicket:id="saveBtn" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-									<button wicket:id="deleteBtn" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
-									<a wicket:id="backLink" href="#" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i> Back to List</a>
-	                            </div>
-	                        </div>			
+								<div class="col-lg-4 col-md-7 col-sm-9">
+									<button wicket:id="saveBtn" class="btn btn-primary">
+										<i class="fa fa-check"></i> Simpan
+									</button>
+									<button wicket:id="deleteBtn" class="btn btn-danger">
+										<i class="fa fa-trash-o"></i> Hapus
+									</button>
+									<a wicket:id="backLink" href="#" class="btn btn-default"><i
+										class="fa fa-chevron-circle-left"></i> Kembali ke Daftar</a>
+								</div>
+							</div>
 						</div>
+						
 					</form>
-					
+
 					<hr>
 				</div>
 			</section>

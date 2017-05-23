@@ -103,7 +103,7 @@ public class CategoryTablePanel2 extends Panel {
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Slug Path"), "slugPath", "slugPath"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Namespace"), "nsPrefix", "nsPrefix"));
 		columns.add(new PropertyColumn<Category2, String>(new Model<>("Posisi"), "positioner", "positioner"));
-		columns.add(new AddChildColumn2(new Model<>("New Child Category"), addPage));
+		columns.add(new AddChildColumn(new Model<>("New Child Category"), addPage));
 		final AjaxFallbackDefaultDataTable<Category2, String> tblCategory = new AjaxFallbackDefaultDataTable<>("table", columns, termDp, 20);
 		tblCategory.setOutputMarkupId(true);
 		form.add(tblCategory);

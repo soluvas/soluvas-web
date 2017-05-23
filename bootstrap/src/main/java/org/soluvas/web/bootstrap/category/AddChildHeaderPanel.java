@@ -1,4 +1,4 @@
-package org.soluvas.web.bootstrap.category;
+  package org.soluvas.web.bootstrap.category;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -7,9 +7,8 @@ import org.apache.wicket.model.IModel;
  * @author ceefour
  *
  */
+@SuppressWarnings("serial")
 public class AddChildHeaderPanel extends Panel {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param id

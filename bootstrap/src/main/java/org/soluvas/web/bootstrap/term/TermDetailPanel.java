@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -23,12 +22,11 @@ import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.json.JSONObject;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -41,34 +39,32 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.model.util.MapModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.PatternValidator;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
-import org.soluvas.commons.CommonsFactory;
 import org.soluvas.commons.SlugUtils;
-import org.soluvas.commons.Translation;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.Term;
-import org.soluvas.data.TermRepository;
-import org.soluvas.data.Value;
-import org.soluvas.data.event.AddedTermEvent;
-import org.soluvas.data.event.ModifiedTermEvent;
-import org.soluvas.data.event.RemovedTermEvent;
-import org.soluvas.data.impl.TermImpl;
+import org.soluvas.data.Term2;
+import org.soluvas.data.TermKind;
+import org.soluvas.mongo.MongoTermRepository;
+import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea;
+import org.soluvas.web.bootstrap.bootstrap3wysihtml5.WysihtmlTextArea.SupportImage;
 import org.soluvas.web.bootstrap.widget.ColorPickerTextField;
-import org.soluvas.web.site.EmfModel;
 import org.soluvas.web.site.OnChangeThrottledBehavior;
 import org.soluvas.web.site.SeoBookmarkableMapper;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
+import com.mongodb.DuplicateKeyException;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapAjaxButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
@@ -97,7 +93,7 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxBut
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class TermDetailPanel extends GenericPanel<Term> {
+public class TermDetailPanel extends GenericPanel<Term2> {
 	
 	private static final Logger log = LoggerFactory
 			.getLogger(TermDetailPanel.class);
@@ -110,47 +106,56 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	}
 	private final String kindDisplayName;
 	private final Class<? extends Page> backPage;
+	
+	@SpringBean
+	private MongoTermRepository termCatalogRepo;
 	@SpringBean
 	private TenantRef tenant;
 	@SpringBean
 	private EventBus ev;
 	@SpringBean
 	private AppManifest appManifest;
+	@Inject
+	private CacheManager cacheMgr;
 	
-	private final TermRepository termRepo;
 	private final EditMode editMode;
-	private final String originalUName;
+	private final String termId;
 	
 	private final IModel<List<Locale>> localesModel = new ListModel<>(new ArrayList<Locale>());
 	private final IModel<Locale> termLocaleModel = new Model<>();
 	private final IModel<Locale> selectedLocaleModel = new Model<>(appManifest.getDefaultLocale());
 	
 	private final IModel<Map<Locale, String>> transDisplayNameMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<Map<Locale, String>> transDescMapModel = new MapModel<>(new HashMap<Locale, String>());
+	private final IModel<String> contentModel = new Model<>();
+	private final IModel<Map<Locale, String>> transContentMapModel = new MapModel<>(new HashMap<Locale, String>());
+
+	private final IModel<TermKind> termKindModel;
 
 	/**
 	 * For creating a new {@link Term}. The nsPrefix is always the tenantId.
 	 * @param id
 	 * @param termRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param uName
-	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
+	 * @param shoeSize 
+	 * @param string 
 	 * @param backPage
 	 */
-	public TermDetailPanel(String id, TermRepository termRepo, final String kindNsPrefix, final String kindName, String kindDisplayName,
-			final Class<? extends Page> backPage) {
+	public TermDetailPanel(String id, final Class<? extends Page> backPage, IModel<TermKind> termKindModel) {
 		super(id);
 		this.editMode = EditMode.ADD;
-		this.originalUName = null;
-		this.termRepo = termRepo;
-		this.kindDisplayName = kindDisplayName;
+		this.termId = null;
 		this.backPage = backPage;
-		final TermImpl term = new TermImpl();
-		term.setKindNsPrefix(kindNsPrefix);
-		term.setKindName(kindName);
-		term.setNsPrefix(tenant.getTenantId());
+		this.termKindModel= termKindModel;
+		this.kindDisplayName = termKindModel.getObject().getName();
+		
+		final Term2 term = new Term2();
+		term.setEnumerationId(termKindModel.getObject().getId());
 		term.setLanguage(appManifest.getDefaultLocale().toLanguageTag());
-		setModel(new EmfModel<Term>(term));
+		final Model<Term2> mode = new Model<Term2>(term);
+		setModel(mode);
 	}
 
 	/**
@@ -158,21 +163,19 @@ public class TermDetailPanel extends GenericPanel<Term> {
 	 * @param id
 	 * @param termRepo MUST be Serializable or a Wicket-friendly injection.
 	 * @param uName
-	 * @param kindNsPrefix
 	 * @param kindName
 	 * @param kindDisplayName
 	 * @param backPage
 	 */
-	public TermDetailPanel(String id, TermRepository termRepo, String uName, final String kindNsPrefix, final String kindName, String kindDisplayName,
-			final Class<? extends Page> backPage) {
-		super(id, new EmfModel<>(
-				Preconditions.checkNotNull(termRepo.findOne(uName),
-						"Cannot find term %s using %s", uName, termRepo)
-			));
+	public TermDetailPanel(final String id, final IModel<Term2> model, final Class<? extends Page> backPage,
+			final IModel<TermKind> termKindModel) {
+		super(id, model);
+		
+		
 		this.editMode = EditMode.MODIFY;
-		this.termRepo = termRepo;
-		this.originalUName = uName;
-		this.kindDisplayName = kindDisplayName;
+		this.termId = model.getObject().getId();
+		this.termKindModel = termKindModel;
+		this.kindDisplayName = termKindModel.getObject().getName();
 		this.backPage = backPage;
 		
 		if (getModel().getObject().getLanguage() == null) {
@@ -189,30 +192,33 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		termLocaleModel.setObject(Locale.forLanguageTag(getModel().getObject().getLanguage()));
 		initLocalesAndTranslationMapModel();
 		
+		final boolean editable = !Strings.isNullOrEmpty(getModelObject().getFormalId()) ? getModelObject().getFormalId().startsWith(tenant.getTenantId() + "_") : true;
+		add(new Label("kind", kindDisplayName));
+		 
 		final Form<Void> form = new Form<>("form");
 		add(form);
 		
-		final boolean editable = !"base".equals(getModelObject().getNsPrefix());
-		add(new Label("kind", kindDisplayName));
-		form.add(new BookmarkablePageLink<>("backLink", backPage));
-		
-		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "qName"));
+		final PageParameters params = new PageParameters();
+		params.set("termKindId", termKindModel.getObject().getId());
+		form.add(new BookmarkablePageLink<>("backLink", backPage, params));
+		 
+		final Label uNameLabel = new Label("termUName", new PropertyModel<>(getModel(), "id"));
 		uNameLabel.setOutputMarkupId(true);
 		add(uNameLabel);
 		
 		
-		form.add(new Label("nsPrefix", new PropertyModel<>(getModel(), "nsPrefix")));
-		final TextField<String> nameFld = new TextField<>("name", new PropertyModel<String>(getModel(), "name"));
-		nameFld.setEnabled(false);
-		nameFld.setOutputMarkupId(true);
-		form.add(nameFld);
+		final TextField<String> idFld = new TextField<>("name", new PropertyModel<String>(getModel(), "id"));
+		idFld.setEnabled(false);
+		idFld.setOutputMarkupId(true);
+		form.add(idFld);
+		
 		final IModel<String> displayNameModel = new LoadableDetachableModel<String>() {
 			@Override
 			protected String load() {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale productReleaseLocale = termLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, productReleaseLocale)) {
-					return getModel().getObject().getDisplayName();
+					return getModel().getObject().getName();
 				} else {
 					final String translation = transDisplayNameMapModel.getObject().get(selectedLocale);
 					log.debug("loading display name for locale '{}': {}", selectedLocale, translation);
@@ -220,7 +226,7 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				}
 			}
 		};
-		final TextField displayNameFld = new TextField<String>("displayName", displayNameModel){
+		final TextField<String> nameFld = new TextField<String>("displayName", displayNameModel){
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -231,34 +237,102 @@ public class TermDetailPanel extends GenericPanel<Term> {
 				}
 			}
 		};
-		displayNameFld.setEnabled(editable);
-		displayNameFld.add(new OnChangeThrottledBehavior("change") {
-			
+		nameFld.setEnabled(editable);
+		nameFld.add(new OnChangeThrottledBehavior("change") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale productReleaseLocale = termLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, productReleaseLocale)) {
-					getModelObject().setDisplayName(displayNameModel.getObject());
-					
+					getModelObject().setName(displayNameModel.getObject());
 					if (editMode == EditMode.ADD) {
-						final String id = SlugUtils.generateValidId(getModelObject().getDisplayName(),
-								new Predicate<String>() {
-							@Override
-							public boolean apply(@Nullable String input) {
-								return !termRepo.exists(getModelObject().getNsPrefix() + "_" + input);
-							}
-						});
-						getModelObject().setName(id);
-						target.add(nameFld, uNameLabel);
+						if (displayNameModel.getObject() != null) {
+							final String formalId = SlugUtils.generateValidId(tenant.getTenantId() + " " + getModelObject().getName(),
+									new Predicate<String>() {
+								@Override
+								public boolean apply(@Nullable String input) {
+									return !termCatalogRepo.existsByEnumerationId(getModelObject().getEnumerationId(), input).isPresent();
+								}
+							});
+							getModelObject().setFormalId(formalId);
+							getModelObject().setId(getModelObject().getEnumerationId() + "/" + formalId);
+						} else {
+							getModelObject().setFormalId(null);
+							getModelObject().setId(null);
+						}
+						target.add(idFld, uNameLabel);
 					}
 				} else {
-					updateAttributeTranslations(selectedLocale, Value.DISPLAY_NAME_ATTR, displayNameModel.getObject());
+					updateAttributeTranslations(selectedLocale, Term2.NAME_ATTR, displayNameModel.getObject());
 					transDisplayNameMapModel.getObject().put(selectedLocale, displayNameModel.getObject());
 				}
 			}
 		});
-		form.add(displayNameFld);
+		form.add(nameFld);
+		
+		final IModel<String> descModel = new LoadableDetachableModel<String>() {
+			@Override
+			protected String load() {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale productReleaseLocale = termLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, productReleaseLocale)) {
+					return getModel().getObject().getDescription();
+				} else {
+					final String translation = transDescMapModel.getObject().get(selectedLocale);
+					log.debug("loading description for locale '{}': {}", selectedLocale, translation);
+					return translation;
+				}
+			}
+		};
+		final TextArea<String> descFld = new TextArea<String>("desc", descModel){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			}
+		};
+		descFld.setEnabled(editable);
+		descFld.add(new OnChangeThrottledBehavior("change") {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				final Locale selectedLocale = selectedLocaleModel.getObject();
+				final Locale termLocale = termLocaleModel.getObject();
+				if (Objects.equal(selectedLocale, termLocale)) {
+					getModelObject().setDescription(descModel.getObject());
+//					log.debug("Updated desc for locale '{}': {}", selectedLocale.toLanguageTag(),
+//							getModelObject().getDescription());
+				} else {
+					updateAttributeTranslations(selectedLocale, Term2.DESCRIPTION_ATTR, descModel.getObject());
+					transDescMapModel.getObject().put(selectedLocale, descModel.getObject());
+//					log.debug("Updated desc for locale '{}': {}", selectedLocale.toLanguageTag(),
+//							getModelObject().getTranslations());
+				}
+			}
+		});
+		form.add(descFld);
+		
+		final WebMarkupContainer wmcContent = new WebMarkupContainer("wmcContent");
+		wmcContent.setOutputMarkupId(true);
+		final WysihtmlTextArea contentWysihtml = new WysihtmlTextArea("contentTxt", contentModel, SupportImage.ENABLED){
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
+					contentModel.setObject(TermDetailPanel.this.getModelObject().getContent());
+					add(new AttributeModifier("class", "form-control"));
+				} else {
+					contentModel.setObject(transContentMapModel.getObject().get(selectedLocaleModel.getObject()));
+					add(new AttributeModifier("class", "form-control focus"));
+				}
+			};
+		};
+		wmcContent.add(contentWysihtml);
+		form.add(wmcContent);
+		
 		final TextField<String> imageId = new TextField<String>("imageId", new PropertyModel<String>(getModel(), "imageId")){
 
 			@Override
@@ -310,53 +384,79 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		colorUsedFld.setEnabled(editable);
 		form.add(colorUsedFld);
 		
-		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
+		final BootstrapAjaxButton saveBtn = new LaddaAjaxButton("saveBtn", new Model<>("Simpan"), Buttons.Type.Primary) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Term term = TermDetailPanel.this.getModelObject();
-				if (Strings.isNullOrEmpty(term.getDisplayName())) {
+				final Term2 term = TermDetailPanel.this.getModelObject();
+				if (Strings.isNullOrEmpty(term.getName())) {
 					error("Display Name must not be null or empty");
 					return;
 				}
+//				log.debug("Desc: {}", term.getDescription());
+//				log.debug("Trans: {}", term.getTranslations());
 				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
 					term.setColor(null);
 				}
+				
+				// delete cache
+				final Cache term2EnumIdCache = cacheMgr.getCache("term2EnumId");
+				final String term2EnumIdKey = String.format("term2:%s:%s", tenant.getTenantId(), term.getEnumerationId());
+				term2EnumIdCache.evict(term2EnumIdKey);
+				
+				updateContent();
+				
 				switch (editMode) {
 				case ADD:
-					final String id = SlugUtils.generateValidId(term.getDisplayName(),
+					final String formalId = SlugUtils.generateValidId(tenant.getTenantId() + " " + term.getName(),
 							new Predicate<String>() {
-								@Override
-								public boolean apply(@Nullable String input) {
-									return !termRepo.exists(term.getNsPrefix() + "_" + input);
-								}
-							});
-					term.setName(id);
-					termRepo.add(term);
-					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
-					info("Added term " + term.getQName());
+						@Override
+						public boolean apply(@Nullable String input) {
+							return !termCatalogRepo.existsByEnumerationId(term.getEnumerationId(), input).isPresent();
+						}
+					});
+					term.setFormalId(formalId);
+					term.setId(term.getEnumerationId() + "/" + formalId);
+					try {
+						termCatalogRepo.add(term);
+					} catch (DuplicateKeyException dke) {
+						log.info("Term for '{}' - {} has already exists: {}", term.getId(), term.getName(), dke);
+						info(String.format("Term '%s' sudah ada!!", term.getName()));
+						return;
+					}
+					//FIXME: ga perlu cpp + update on memory
+//					ev.post(new AddedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
+					info("Added term " + term.getId());
 					break;
 				case MODIFY:
-					termRepo.modify(originalUName, term);
-					ev.post(new ModifiedTermEvent(originalUName, EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
-					info("Modified term " + term.getQName());
+					termCatalogRepo.modify(termId, term);
+					
+					// delete cache for this term
+					final Cache slugsCache = cacheMgr.getCache("term2ids");
+					final String key = String.format("term2:%s:%s", tenant.getTenantId(), term.getId());
+					slugsCache.evict(key);
+					
+					//FIXME: ga perlu cpp + update on memory
+//					ev.post(new ModifiedTermEvent(termId, EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
+					info("Modified term " + term.getId());
 					break;
 				}
-				setResponsePage(backPage);
+//				final PageParameters params = new PageParameters();
+//				params.set("termKind", termKindModel.getObject().name());
+				setResponsePage(backPage, params);
 			}
 		}.setIconType(FontAwesomeIconType.check);
 		saveBtn.setEnabled(editable);
 		form.add(saveBtn);
 		
 		final BootstrapAjaxButton deleteBtn = new LaddaAjaxButton("deleteBtn", new Model<>("Delete"), Buttons.Type.Danger) {
-
 			@Override
 			protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 				super.updateAjaxAttributes(attributes);
 				attributes.getAjaxCallListeners().add(new AjaxCallListener() {
 					@Override
 					public CharSequence getPrecondition(Component component) {
-						return "return confirm('Do you want to delete term ' + " + JSONObject.quote(originalUName) + " + '?')";
+						return "return confirm('Do you want to delete term ' + " + JSONObject.quote(termId) + " + '?')";
 					}
 				});
 			}
@@ -364,13 +464,14 @@ public class TermDetailPanel extends GenericPanel<Term> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Term term = TermDetailPanel.this.getModelObject();
+				final Term2 term = TermDetailPanel.this.getModelObject();
 //				if (!Optional.fromNullable(colorUsed.getObject()).or(false)) {
 					term.setColor(null);
 //				}
-				termRepo.delete(originalUName);
-				ev.post(new RemovedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
-				warn("Deleted term " + originalUName);
+				termCatalogRepo.delete(termId);
+				//FIXME: ga perlu cpp + update on memory
+//				ev.post(new RemovedTermEvent(EcoreUtil.copy(term), tenant.getTenantId(), UUID.randomUUID().toString()));
+				warn("Deleted term " + termId);
 				setResponsePage(backPage);
 			}
 		}.setIconType(FontAwesomeIconType.trash_o);
@@ -385,13 +486,22 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		wmcLocales.add(new ListView<Locale>("locales", localesModel) {
 			@Override
 			protected void populateItem(final ListItem<Locale> item) {
-				final AjaxLink<Void> btnLocale = new AjaxLink<Void>("btnLocale") {
+				final IModel<String> lblModel = new Model<>(
+						item.getModelObject().getDisplayLanguage() + 
+						"-" + item.getModelObject().getDisplayCountry() +
+						(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : ""));
+				final LaddaAjaxButton btnLocale = new LaddaAjaxButton("btnLocale", lblModel, Buttons.Type.Info) {
 					@Override
-					public void onClick(AjaxRequestTarget target) {
+					protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+						super.onSubmit(target, form);
+						
+						updateContent();
+						
 						selectedLocaleModel.setObject(item.getModelObject());
 						displayNameModel.detach();
-						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
-						target.add(displayNameFld, wmcLocales);
+						descModel.detach();
+//						log.debug("Selected locale '{}', displayName '{}'", selectedLocaleModel.getObject().toLanguageTag(), displayNameModel.getObject());
+						target.add(nameFld, descFld, wmcLocales, wmcContent);
 					}
 					
 					@Override
@@ -399,19 +509,12 @@ public class TermDetailPanel extends GenericPanel<Term> {
 						super.onConfigure();
 						setOutputMarkupId(true);
 						if (Objects.equal(selectedLocaleModel.getObject(), item.getModelObject())) {
-							add(new AttributeAppender("class", "btn btn-default active"));
+							add(new AttributeModifier("class", "btn-sm btn-info active multilang pull-left"));
 						} else {
-							add(new AttributeAppender("class", "btn btn-default"));
+							add(new AttributeModifier("class", "btn-sm btn-default multilang pull-left"));
 						}
 					}
 				};
-				
-				final Label lblLocale = new Label("lblLocale", new Model<>(
-							item.getModelObject().getDisplayLanguage() + 
-							"-" + item.getModelObject().getDisplayCountry() +
-							(Objects.equal(appManifest.getDefaultLocale(), item.getModelObject()) ? " AS DEFAULT" : "")
-						));
-				btnLocale.add(lblLocale);
 				item.add(btnLocale);
 			}
 		});
@@ -423,20 +526,27 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		final Collection<Locale> locales = new ArrayList<>(SeoBookmarkableMapper.SUPPORTED_LOCALE_PREFS.values());
 		for (final Locale locale : locales) {
 			transDisplayNameMapModel.getObject().put(locale, null);
+			transDescMapModel.getObject().put(locale, null);
+			transContentMapModel.getObject().put(locale, null);
 		}
 		
 		if (getModelObject().getTranslations() != null && !getModelObject().getTranslations().isEmpty()) {
-			for (final Entry<String, Translation> entry : getModelObject().getTranslations().entrySet()) {
+			for (final Entry<String, Map<String, String>> entry : getModelObject().getTranslations().entrySet()) {
 				final Locale locale = Locale.forLanguageTag(entry.getKey());
 				if (!locales.contains(locale)) {
 					locales.add(locale);
 				}
 				
-				final Translation translation = entry.getValue();
-				for (final Entry<String, String> messageEntry : translation.getMessages()) {
-					//display name
-					if (messageEntry.getKey().equals(Value.DISPLAY_NAME_ATTR)) {
+				final Map<String, String> translation = entry.getValue();
+				for (final Entry<String, String> messageEntry : translation.entrySet()) {
+					if (messageEntry.getKey().equals(Term2.NAME_ATTR)) {
 						transDisplayNameMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Term2.DESCRIPTION_ATTR)) {
+						transDescMapModel.getObject().put(locale, messageEntry.getValue());
+					}
+					if (messageEntry.getKey().equals(Term2.CONTENT_ATTR)) {
+						transContentMapModel.getObject().put(locale, messageEntry.getValue());
 					}
 				}
 			}
@@ -445,22 +555,33 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		localesModel.getObject().addAll(locales);
 	}
 	
-	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute,
-			@Nonnull final String upValue) {
+	private void updateContent() {
+		final Term2 term = TermDetailPanel.this.getModelObject();
+		final Locale selectedLocale = selectedLocaleModel.getObject();
+		final Locale termLocale = termLocaleModel.getObject();
+		final String contentValue = contentModel.getObject();
+		if (Objects.equal(selectedLocale, termLocale)) {
+			term.setContent(contentValue);
+		} else {
+			updateAttributeTranslations(selectedLocale, Term2.CONTENT_ATTR, contentValue);
+			transContentMapModel.getObject().put(selectedLocale, contentValue);
+		}
+	}
+	
+	private void updateAttributeTranslations(final Locale selectedLocale, final String attribute, final String upValue) {
 		if (getModelObject().getTranslations().containsKey(selectedLocale.toLanguageTag())) {
-			final Translation translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
+			final Map<String, String> translation = getModelObject().getTranslations().get(selectedLocale.toLanguageTag());
 			if (!Strings.isNullOrEmpty(upValue)) {
 				log.debug("Putting translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
-				translation.getMessages().put(attribute, upValue);
+				translation.put(attribute, upValue);
 			} else {
 				log.debug("Removing translation {} for {}", attribute, selectedLocale.toLanguageTag());
-				translation.getMessages().remove(attribute);
+				translation.remove(attribute);
 			}
 		} else {
 			log.debug("Putting new translation {} - {} for {}", attribute, upValue, selectedLocale.toLanguageTag());
-			final Translation newTranslation = CommonsFactory.eINSTANCE.createTranslation();
-			newTranslation.setLanguage(selectedLocale.toLanguageTag());
-			newTranslation.getMessages().put(attribute, upValue);
+			final Map<String, String> newTranslation = new HashMap<>();
+			newTranslation.put(attribute, upValue);
 			getModelObject().getTranslations().put(selectedLocale.toLanguageTag(), newTranslation);
 		}
 	}
@@ -477,14 +598,22 @@ public class TermDetailPanel extends GenericPanel<Term> {
 		getModelObject().setLanguage(defaultLanguageTag);
 		if (!getModelObject().getTranslations().containsKey(oldLanguageTag)) {
 			//create translation for old language
-			updateAttributeTranslations(oldLocale, Value.DISPLAY_NAME_ATTR, getModelObject().getDisplayName());
+			updateAttributeTranslations(oldLocale, Term2.NAME_ATTR, getModelObject().getName());
+			updateAttributeTranslations(oldLocale, Term2.DESCRIPTION_ATTR, getModelObject().getDescription());
+			updateAttributeTranslations(oldLocale, Term2.CONTENT_ATTR, getModelObject().getContent());
 		}
 		
 		if (getModelObject().getTranslations().containsKey(defaultLanguageTag)) {
 			//update attribute from translation if exists
-			final Translation translation = getModelObject().getTranslations().get(defaultLanguageTag);
-			if (translation.getMessages().containsKey(Value.DISPLAY_NAME_ATTR)) {
-				getModelObject().setDisplayName(translation.getMessages().get(Value.DISPLAY_NAME_ATTR));
+			final Map<String, String> translation = getModelObject().getTranslations().get(defaultLanguageTag);
+			if (translation.containsKey(Term2.NAME_ATTR)) {
+				getModelObject().setName(translation.get(Term2.NAME_ATTR));
+			}
+			if (translation.containsKey(Term2.DESCRIPTION_ATTR)) {
+				getModelObject().setDescription(translation.get(Term2.DESCRIPTION_ATTR));
+			}
+			if (translation.containsKey(Term2.CONTENT_ATTR)) {
+				getModelObject().setContent(translation.get(Term2.CONTENT_ATTR));
 			}
 			
 			//remove translation as default language product

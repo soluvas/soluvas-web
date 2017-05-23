@@ -11,6 +11,8 @@ import java.util.Collection;
  */
 public class Term2Select2Multi extends BootstrapSelect2MultiChoice<Term2> {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Term2Select2Multi(String id, IModel<? extends Collection<Term2>> model, final String enumerationId) {
 		super(id, (IModel) model, new Term2ChoiceProvider(enumerationId));
 	}

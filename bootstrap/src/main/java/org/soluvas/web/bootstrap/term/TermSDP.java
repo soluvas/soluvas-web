@@ -19,7 +19,7 @@ import org.soluvas.mongo.MongoTermRepository;
  * @author anton
  *
  */
-public class Term2SDP extends SortableDataProvider<Term2, String> {
+public class TermSDP extends SortableDataProvider<Term2, String> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -28,7 +28,7 @@ public class Term2SDP extends SortableDataProvider<Term2, String> {
 	
 	private final IModel<TermKind> termKindModel;
 	
-	public Term2SDP(final IModel<TermKind> termKindModel) {
+	public TermSDP(final IModel<TermKind> termKindModel) {
 		super();
 		Injector.get().inject(this);
 		

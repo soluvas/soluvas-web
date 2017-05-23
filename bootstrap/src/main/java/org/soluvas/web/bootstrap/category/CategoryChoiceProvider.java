@@ -1,105 +1,79 @@
 package org.soluvas.web.bootstrap.category;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
+import java.util.Collection;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.category.Category;
-import org.soluvas.category.CategoryRepository;
-import org.soluvas.commons.NotNullPredicate;
+import org.soluvas.category.Category2;
+import org.soluvas.category.CategoryStatus;
+import org.soluvas.category.MongoCategoryRepository;
+import org.soluvas.data.domain.Page;
+import org.soluvas.data.domain.PageRequest;
+import org.soluvas.data.domain.Sort.Direction;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.List;
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 
 @SuppressWarnings("serial")
-class CategoryChoiceProvider extends ChoiceProvider<Category> {
+public class CategoryChoiceProvider extends ChoiceProvider<Category2> {
 
-    private static final Logger log = LoggerFactory
-            .getLogger(CategoryChoiceProvider.class);
+	private static final Logger log = LoggerFactory.getLogger(CategoryChoiceProvider.class);
 
-    @Inject
-    private CategoryRepository categoryRepo;
-    private final IModel<List<Category>> sortedCategoriesModel;
+	@Inject
+	private MongoCategoryRepository categoryRepo;
+	
+	private final IModel<List<Category2>> sortedCategoriesModel;
+	 
+	public CategoryChoiceProvider(IModel<List<Category2>> sortedActiveCategoriesModel) {
+		super();
+		Injector.get().inject(this);
+		this.sortedCategoriesModel = sortedActiveCategoriesModel;
+	}
 
-    public CategoryChoiceProvider(IModel<List<Category>> sortedActiveCategoriesModel) {
-        super();
-        Injector.get().inject(this);
-        this.sortedCategoriesModel = sortedActiveCategoriesModel;
-    }
+	@Override
+	public String getDisplayValue(Category2 choice) {
+		final String displayTxt = getParentPrefix(choice) + choice.getName();
+		return displayTxt;
+	}
 
-    @Override
-    public String getDisplayValue(Category choice) {
-//			log.debug("Choice {} has {} - parentUname", choice.getUName(), choice.getParentUName());
-        final String displayTxt = getParentPrefix(choice) + choice.getName();
-//			log.debug("Display Text: {}", displayTxt);
-        return displayTxt;
-    }
+	protected String getParentPrefix(Category2 child) {
+		if (!Strings.isNullOrEmpty(child.getParentId())) {
+			final Category2 parent = categoryRepo.findOne(child.getParentId());
+			if (parent != null) {
+				return getParentPrefix(parent) + "" + parent.getName() + " > ";
+			}
+			return "";
+		} else {
+			return "";
+		}
+	}
 
-    protected String getParentPrefix(Category child) {
-//			if (child.getParent() != null) {
-        if (!Strings.isNullOrEmpty(child.getParentUName())) {
-            final Category parent = categoryRepo.findOne(child.getParentUName());
-            if (parent != null) {
-                log.debug("Parent of {} is {}", child.getUName(), parent.getUName());
-                return getParentPrefix(parent) + "" + parent.getName() + " > ";
-            }
-            return "";
-        } else {
-            return "";
-        }
-    }
+	@Override
+	public String getIdValue(Category2 choice) {
+		return choice.getId();
+	}
 
-    @Override
-    public String getIdValue(Category choice) {
-        return choice.getUName();
-    }
+	@Override
+	public void query(final String term, int page, Response<Category2> response) {
+		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "localSku");
+		final Page<Category2> result = categoryRepo.findAll(Optional.fromNullable(term).or("").trim(),
+				ImmutableList.of(CategoryStatus.ACTIVE), pageable);
+		response.addAll(result.getContent());
+		response.setHasMore(result.hasNextPage());
+	}
 
-    @Override
-    public void query(final String term, int page, Response<Category> response) {
-        final Collection<Category> catList = Collections2.filter(sortedCategoriesModel.getObject(), new Predicate<Category>() {
-            @Override
-            public boolean apply(@Nullable Category input) {
-                return StringUtils.containsIgnoreCase(input.getName(), term.trim());
-            }
-        });
-        response.addAll(catList);
-    }
-
-    @Override
-    public Collection<Category> toChoices(Collection<String> ids) {
-        return FluentIterable.from(ids).transform(new Function<String, Category>() {
-            @Override
-            @Nullable
-            public Category apply(@Nullable final String uName) {
-                log.trace("Category UName is {}. Sorted category has {} records", uName, sortedCategoriesModel.getObject().size());
-                @Nullable
-                Category found = categoryRepo.findOne(uName);
-                if (found == null) {
-                    log.warn("Invalid category UName '{}', {} valid category UNames are: {}",
-                            uName, sortedCategoriesModel.getObject().size(),
-                            Lists.transform(sortedCategoriesModel.getObject(), new Function<Category, String>() {
-                                @Override
-                                public String apply(Category input) {
-                                    return input.getUName();
-                                }
-                            }));
-                }
-                return found;
-            }
-        })
-                .filter(new NotNullPredicate<>())
-                .toList();
-    }
+	@Override
+	public Collection<Category2> toChoices(Collection<String> ids) {
+		return categoryRepo.findAll(ids);
+	}
 
 }

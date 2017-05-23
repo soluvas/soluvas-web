@@ -10,20 +10,21 @@ import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.data.Term2;
-import org.soluvas.data.Value;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
+import org.soluvas.data.entity.Value;
 import org.soluvas.mongo.MongoTermRepository;
-import org.soluvas.web.site.EmfListModel;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import com.google.common.base.Strings;
 
 public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 
@@ -43,7 +44,7 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 		super();
 		Injector.get().inject(this);
 		this.enumerationId = enumerationId;
-		this.whiteListValuesModel = new EmfListModel<>();
+		this.whiteListValuesModel = new ListModel<>();
 	}
 	
 	public Term2ChoiceProvider(final IModel<List<Value<?>>> whiteListValusModel) {
