@@ -1,13 +1,13 @@
 package org.soluvas.web.bootstrap.widget;
 
+import java.util.List;
+
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.soluvas.data.Term2;
-import org.soluvas.data.Value;
+import org.soluvas.data.entity.Value;
 import org.wicketstuff.select2.Select2Choice;
-
-import java.util.List;
 
 /**
  * A {@link Select2Choice} autocomplete component that provides {@link Term2} as a choice.
@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class Term2Select2 extends BootstrapSelect2Choice<Term2> {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Term2Select2(String id, IModel<Term2> model, final String enumerationId) {
 		super(id, model, new Term2ChoiceProvider(enumerationId));
 	}
