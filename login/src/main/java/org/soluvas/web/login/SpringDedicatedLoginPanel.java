@@ -15,7 +15,7 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.Person;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.login.facebook.FacebookLoginLink2;
@@ -34,7 +34,7 @@ import java.security.Principal;
  * <p>It uses {@link SpringLoginButton}, therefore its requirements:</p>
  *
  * <ol>
- *     <li>{@link EntityLookup} for {@link Person}</li>
+ *     <li>{@link EntityLookup} for {@link Person2}</li>
  *     <li>A {@link org.springframework.security.authentication.ProviderManager} with one or more {@link org.springframework.security.authentication.AuthenticationProvider}s</li>
  *     <li>TODO: {@link org.springframework.security.web.authentication.RememberMeServices}</li>
  *     <li>{@link org.apache.wicket.protocol.http.WebApplication#newSession(Request, Response)} must return {@link SoluvasWebSession}</li>

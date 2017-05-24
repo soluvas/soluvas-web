@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AccountStatus;
 import org.soluvas.commons.Email2;
 import org.soluvas.commons.Gender;
-import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.commons.entity.Person2;
@@ -38,7 +37,7 @@ import facebook4j.auth.AccessToken;
 
 /**
  * Get Facebook Login , token Access, FB Photo profile.
- * Security roles are provided by {@link Person#getSecurityRoleIds()}, e.g. {@code ADMIN}, {@code SYSADMIN}, {@code USER}.
+ * Security roles are provided by {@link Person2#getSecurityRoleIds()}, e.g. {@code ADMIN}, {@code SYSADMIN}, {@code USER}.
 
  * @author haidar
  * @see FacebookRecipient

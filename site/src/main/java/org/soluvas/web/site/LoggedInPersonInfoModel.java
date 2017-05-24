@@ -1,24 +1,23 @@
 package org.soluvas.web.site;
 
+import java.util.Optional;
+
+import javax.inject.Inject;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.soluvas.commons.CommonsFactory;
-import org.soluvas.commons.Person;
 import org.soluvas.commons.Person2;
 import org.soluvas.commons.PersonInfo;
+import org.soluvas.commons.impl.PersonInfoImpl;
 import org.soluvas.data.EntityLookup;
-
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository2;
 
-import javax.inject.Inject;
-import java.util.Optional;
-
 /**
  * Returns the logged in {@link PersonInfo} using Shiro {@link Subject}
- * then lookup the {@link Person} via {@link EntityLookup} bean named {@code personLookup}.
+ * then lookup the {@link Person2} via {@link EntityLookup} bean named {@code personLookup}.
  *
  * Currently only used by Quikdo 2.x. Bippo uses its own id.co.bippo.web.LoggedInPersonInfoModel.
  *
@@ -26,6 +25,9 @@ import java.util.Optional;
  * @author mahendri
  */
 public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo> {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private final String tenantId;
 	@Inject
 	private PersonRepository2 personRepo;
@@ -51,7 +53,7 @@ public class LoggedInPersonInfoModel extends LoadableDetachableModel<PersonInfo>
 		}
 		final Optional<Person2> socialPerson = personId != null ? personRepo.findOne(tenantId, StatusMask.RAW, personId) : Optional.empty();
 		if (!socialPerson.isPresent()) {
-			return CommonsFactory.eINSTANCE.createPersonInfo();
+			return new PersonInfoImpl();
 		} else {
 			return socialPerson.get().toInfo();
 		}

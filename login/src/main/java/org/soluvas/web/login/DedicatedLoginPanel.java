@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.Person;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.web.login.facebook.FacebookLoginLink;
@@ -89,7 +90,7 @@ public class DedicatedLoginPanel extends GenericPanel<LoginToken> {
 		@Inject
 		private WebAddress webAddress;
 		@Inject @Named("personLookup")
-		private EntityLookup<Person, String> personLookup;
+		private EntityLookup<Person2, String> personLookup;
 		@Inject
 		private TenantRef tenant;
 		

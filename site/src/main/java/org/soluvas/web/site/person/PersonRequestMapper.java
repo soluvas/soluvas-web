@@ -8,8 +8,8 @@ import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.soluvas.commons.Person;
 import org.soluvas.commons.SlugUtils;
+import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.Existence;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.person.PersonRepository;
@@ -24,7 +24,7 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * Match request to a {@code PersonShow}{@link Page}, with {@code slug} parameter
- * based on {@link Person#getSlug()}, using {@link PersonRepository}.
+ * based on {@link Person2#getSlug()}, using {@link PersonRepository}.
  * <p>Usage:
  * <pre>
  * mount(new PersonRequestMapper(PersonShowPage.class));
