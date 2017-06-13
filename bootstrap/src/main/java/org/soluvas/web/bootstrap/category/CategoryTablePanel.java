@@ -21,7 +21,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.soluvas.category.Category;
 import org.soluvas.category.Category2;
 import org.soluvas.category.CategoryPackage;
 import org.soluvas.category.CategoryStatus;
@@ -39,7 +38,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxButton;
 
 /**
- * List {@link Category}s in a {@link ProductCatalog}.
+ * List {@link Category2}s in a {@link ProductCatalog}.
  * 
  * <pre>{@literal
  * @ManageMountPath("term/base/Color/")
@@ -60,12 +59,12 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxBut
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class CategoryTablePanel2 extends Panel {
+public class CategoryTablePanel extends Panel {
 	
 	@SpringBean
 	private MongoCategoryRepository catRepo;
 
-	public CategoryTablePanel2(String id, final Class<? extends Page> addPage, final Class<? extends Page> detailPage) {
+	public CategoryTablePanel(String id, final Class<? extends Page> addPage, final Class<? extends Page> detailPage) {
 		super(id);
 		final Form<Void> form = new Form<>("form");
 		form.add(new Label("kindDisplayName", "Kategori"));

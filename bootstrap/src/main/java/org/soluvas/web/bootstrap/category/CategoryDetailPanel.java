@@ -118,10 +118,10 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.ladda.LaddaAjaxBut
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class CategoryDetailPanel2 extends GenericPanel<Category2> {
+public class CategoryDetailPanel extends GenericPanel<Category2> {
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(CategoryDetailPanel2.class);
+			.getLogger(CategoryDetailPanel.class);
 	private enum EditMode {
 		ADD,
 		MODIFY
@@ -183,7 +183,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param formalCategoryModel
 	 * @param defaultEnumsModel
 	 */
-	public CategoryDetailPanel2(final String id, final Class<? extends Page> backPage,
+	public CategoryDetailPanel(final String id, final Class<? extends Page> backPage,
 			@Nullable final IModel<Category2> parentModel, final IModel<FormalCategory> formalCategoryModel,
 			final IModel<List<String>> defaultEnumsModel) {
 		super(id);
@@ -225,7 +225,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	 * @param defaultEnumsModel
 	 * @param backPage
 	 */
-	public CategoryDetailPanel2(String id, String originalId, final Class<? extends Page> backPage, final IModel<List<String>> defaultEnumsModel) {
+	public CategoryDetailPanel(String id, String originalId, final Class<? extends Page> backPage, final IModel<List<String>> defaultEnumsModel) {
 		super(id);
 		setModel(new Model<>(Preconditions.checkNotNull(catRepo.findOne(originalId),
 						"Cannot find category %s using %s", originalId, catRepo)));
@@ -254,8 +254,8 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			defaultEnumsByGoogle.forEach(new Consumer<String>() {
 				@Override
 				public void accept(String t) {
-					if (!CategoryDetailPanel2.this.defaultEnumsModel.getObject().contains(t)) {
-						CategoryDetailPanel2.this.defaultEnumsModel.getObject().add(t);
+					if (!CategoryDetailPanel.this.defaultEnumsModel.getObject().contains(t)) {
+						CategoryDetailPanel.this.defaultEnumsModel.getObject().add(t);
 					}
 				}
 			});
@@ -353,7 +353,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		displayNameFld.add(new OnChangeAjaxBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -411,7 +411,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -432,7 +432,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onConfigure() {
 				super.onConfigure();
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
-					descriptionModel.setObject(CategoryDetailPanel2.this.getModelObject().getDescription());
+					descriptionModel.setObject(CategoryDetailPanel.this.getModelObject().getDescription());
 					add(new AttributeModifier("class", "form-control"));
 				} else {
 					descriptionModel.setObject(transDescriptionMapModel.getObject().get(selectedLocaleModel.getObject()));
@@ -496,7 +496,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setVisible(CategoryDetailPanel2.this.getModelObject().getLayout() == LayoutCategory.FULL_HORIZONTAL);
+				setVisible(CategoryDetailPanel.this.getModelObject().getLayout() == LayoutCategory.FULL_HORIZONTAL);
 			}
 		};
 		final WysihtmlTextArea contentFullHorizontal = new WysihtmlTextArea("contentFullHorizontal", fullHorizontalModel, SupportImage.ENABLED){
@@ -504,7 +504,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onConfigure() {
 				super.onConfigure();
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
-					fullHorizontalModel.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_FULL_HORIZONTAL));
+					fullHorizontalModel.setObject(CategoryDetailPanel.this.getModelObject().getContents().get(Category2.KEY_CONTENT_FULL_HORIZONTAL));
 					add(new AttributeModifier("class", "form-control"));
 				} else {
 					fullHorizontalModel.setObject(transFullHorizontalMapModel.getObject().get(selectedLocaleModel.getObject()));
@@ -520,7 +520,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
-				setVisible(CategoryDetailPanel2.this.getModelObject().getLayout() == LayoutCategory.THREE_COLUMNS);
+				setVisible(CategoryDetailPanel.this.getModelObject().getLayout() == LayoutCategory.THREE_COLUMNS);
 			}
 		};
 		final WysihtmlTextArea contentThreeColumns1 = new WysihtmlTextArea("contentThreeColumns1", threeColumns1Model, SupportImage.ENABLED){
@@ -528,7 +528,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onConfigure() {
 				super.onConfigure();
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
-					threeColumns1Model.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_1));
+					threeColumns1Model.setObject(CategoryDetailPanel.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_1));
 					add(new AttributeModifier("class", "form-control"));
 				} else {
 					threeColumns1Model.setObject(transThreeColumns1MapModel.getObject().get(selectedLocaleModel.getObject()));
@@ -542,7 +542,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onConfigure() {
 				super.onConfigure();
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
-					threeColumns2Model.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_2));
+					threeColumns2Model.setObject(CategoryDetailPanel.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_2));
 					add(new AttributeModifier("class", "form-control"));
 				} else {
 					threeColumns2Model.setObject(transThreeColumns2MapModel.getObject().get(selectedLocaleModel.getObject()));
@@ -556,7 +556,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			protected void onConfigure() {
 				super.onConfigure();
 				if (Objects.equal(selectedLocaleModel.getObject(), appManifest.getDefaultLocale())) {
-					threeColumns3Model.setObject(CategoryDetailPanel2.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_3));
+					threeColumns3Model.setObject(CategoryDetailPanel.this.getModelObject().getContents().get(Category2.KEY_CONTENT_THREE_COLUMNS_3));
 					add(new AttributeModifier("class", "form-control"));
 				} else {
 					threeColumns3Model.setObject(transThreeColumns3MapModel.getObject().get(selectedLocaleModel.getObject()));
@@ -577,7 +577,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		final IModel<DisplayImage> displayImageModel = new LoadableDetachableModel<DisplayImage>() {
 			@Override
 			protected DisplayImage load() {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				log.debug("category image id is {}", category.getImageId());
 				if (category.getImageId() != null) {
 					return imageMgr.getSafeImage(ImageTypes.CATEGORY, category.getImageId(), ImageStyles.SMALL);
@@ -643,7 +643,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					
 					log.debug("attempting to save new image category");
 					Image addedImage = categoryImageRepo.add(image);
-					final Category2 category = CategoryDetailPanel2.this.getModelObject();
+					final Category2 category = CategoryDetailPanel.this.getModelObject();
 					log.debug("added image id {}", addedImage.getId());
 					category.setImageId(addedImage.getId());
 					displayImageModel.detach();
@@ -719,7 +719,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 		metaTitle.add(new OnChangeAjaxBehavior() {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -763,7 +763,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -807,7 +807,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				final Locale selectedLocale = selectedLocaleModel.getObject();
 				final Locale categoryLocale = categoryLocaleModel.getObject();
 				if (Objects.equal(selectedLocale, categoryLocale)) {
@@ -845,7 +845,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 					return;
 				}
 				for (final PropertyDefinition newPropDef : newPropertyOverridesModel.getObject()) {
-					CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(newPropDef);
+					CategoryDetailPanel.this.getModelObject().getPropertyOverrides().add(newPropDef);
 				}
 				addCurPropertyOverrides(newPropertyOverridesModel.getObject());
 				newPropertyOverridesModel.getObject().clear();
@@ -865,18 +865,18 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 				curPropertyOverridesModel, selectedLocaleModel, categoryLocaleModel, defaultEnumsModel){
 			@Override
 			protected void updatePropertyOverride(PropertyDefinition upPropertyOv, AjaxRequestTarget target) {
-				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel2.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
+				final PropertyDefinition prevPropertyOv = Iterables.find(CategoryDetailPanel.this.getModelObject().getPropertyOverrides(), new Predicate<PropertyDefinition>() {
 					@Override
 					public boolean apply(PropertyDefinition input) {
 						return input.getId().equals(upPropertyOv.getId());
 					}
 				});
 				log.debug("Found propertyOv: {}", prevPropertyOv);
-				if (!CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().remove(prevPropertyOv)) {
+				if (!CategoryDetailPanel.this.getModelObject().getPropertyOverrides().remove(prevPropertyOv)) {
 					error(String.format("Failed to update Property Override '%s'", upPropertyOv.getName()));
 					return;
 				}
-				CategoryDetailPanel2.this.getModelObject().getPropertyOverrides().add(upPropertyOv);
+				CategoryDetailPanel.this.getModelObject().getPropertyOverrides().add(upPropertyOv);
 				
 				target.add(wmcPropertyOverrideList);
 			}
@@ -888,7 +888,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				final Category2 category = CategoryDetailPanel2.this.getModelObject();
+				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				
 				if (Strings.isNullOrEmpty(category.getName())) {
 					info("Nama tidak boleh kosong.");
@@ -1019,7 +1019,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	}
 	
 	private void updateDescription() {
-		final Category2 category = CategoryDetailPanel2.this.getModelObject();
+		final Category2 category = CategoryDetailPanel.this.getModelObject();
 		final Locale selectedLocale = selectedLocaleModel.getObject();
 		final Locale categoryLocale = categoryLocaleModel.getObject();
 		final String descriptionValue = descriptionModel.getObject();
@@ -1032,7 +1032,7 @@ public class CategoryDetailPanel2 extends GenericPanel<Category2> {
 	}
 	
 	private void updateContents() {
-		final Category2 category = CategoryDetailPanel2.this.getModelObject();
+		final Category2 category = CategoryDetailPanel.this.getModelObject();
 		final Locale selectedLocale = selectedLocaleModel.getObject();
 		final Locale categoryLocale = categoryLocaleModel.getObject();
 

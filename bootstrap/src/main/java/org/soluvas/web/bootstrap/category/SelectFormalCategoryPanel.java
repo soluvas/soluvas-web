@@ -21,7 +21,7 @@ public class SelectFormalCategoryPanel extends GenericPanel<FormalCategory> {
 			.getLogger(SelectFormalCategoryPanel.class);
 	
 	public SelectFormalCategoryPanel(final String id, final IModel<FormalCategory> formalCatModel,
-			final CategoryDetailPanel2 detailPanel) {
+			final CategoryDetailPanel detailPanel) {
 		super(id, formalCatModel);
 		add(new SelectFormalCategoryForm("form", formalCatModel, detailPanel));
 	}
@@ -29,7 +29,7 @@ public class SelectFormalCategoryPanel extends GenericPanel<FormalCategory> {
 	private class SelectFormalCategoryForm extends Form<FormalCategory> {
 		
 		public SelectFormalCategoryForm(final String id, final IModel<FormalCategory> formalCatModel,
-				CategoryDetailPanel2 detailPanel) {
+				CategoryDetailPanel detailPanel) {
 			super(id, formalCatModel);
 			final FormalCategorySelect2 acFormalCategory = new FormalCategorySelect2("acFormalCategory", formalCatModel);
 			acFormalCategory.setLabel(new Model<>("Formal Category"));
