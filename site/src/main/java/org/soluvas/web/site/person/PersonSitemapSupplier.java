@@ -20,7 +20,7 @@ import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.Projection;
 import org.soluvas.data.domain.Sort;
 import org.soluvas.data.person.PersonRepository;
-import org.soluvas.image.DisplayImage;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
@@ -78,7 +78,7 @@ public class PersonSitemapSupplier implements SitemapSupplier {
                                     ImmutableList.of(input.getImageId()) : ImmutableList.<String>of();
                         }
                     }).toSet();
-            final Map<String, DisplayImage> personImages = imageMgr.getSafeImagesByIds(ImageTypes.PERSON, imageIds, ImageStyles.LARGE);
+            final Map<String, DisplayImage2> personImages = imageMgr.getSafeImagesByIds(ImageTypes.PERSON, imageIds, ImageStyles.LARGE);
             result.addAll(
                     FluentIterable.from(people)
                         .transform(new Function<Person2, Url>() {
@@ -96,7 +96,7 @@ public class PersonSitemapSupplier implements SitemapSupplier {
                                         Optional.fromNullable(input.getModificationTime()).or(new DateTime()).withZone(appManifest.getDefaultTimeZone()),
                                         ChangeFreq.monthly, priority);
                                 if (!Strings.isNullOrEmpty(input.getImageId())) {
-                                    final DisplayImage img = personImages.get(input.getImageId());
+                                    final DisplayImage2 img = personImages.get(input.getImageId());
                                     url.getImages().add(new Image(img.getSrc(),
                                     		StringEscapeUtils.escapeHtml3(input.getName()),
                                     		StringEscapeUtils.escapeHtml3(img.getTitle())));

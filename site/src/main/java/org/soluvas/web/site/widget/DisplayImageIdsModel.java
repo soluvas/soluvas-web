@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.soluvas.image.DisplayImage;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyle;
 import org.soluvas.image.ImageType;
@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableMap;
  * @author ceefour
  * @see DisplayImagesModel
  */
-public class DisplayImageIdsModel extends LoadableDetachableModel<Map<String, DisplayImage>> {
+public class DisplayImageIdsModel extends LoadableDetachableModel<Map<String, DisplayImage2>> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,12 +42,12 @@ public class DisplayImageIdsModel extends LoadableDetachableModel<Map<String, Di
 	}
 	
 	@Override
-	protected Map<String, DisplayImage> load() {
+	protected Map<String, DisplayImage2> load() {
 		final Collection<String> imageIds = imageIdsModel.getObject();
 		if (imageIds != null) {
 			return imageMgr.getSafeImagesByIds(namespace, imageIds, imageStyle);
 		} else {
-			return ImmutableMap.<String, DisplayImage>of();
+			return ImmutableMap.<String, DisplayImage2>of();
 		}
 	}
 	

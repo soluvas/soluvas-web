@@ -15,7 +15,7 @@ import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.impl.CustomerRole2;
 import org.soluvas.data.EntityLookup;
 import org.soluvas.data.customerrole.CustomerRoleRepository;
-import org.soluvas.image.DisplayImage;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
@@ -40,9 +40,9 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 
 	public PersonPopoverBody(String id, IModel<PersonInfo> model) {
 		super(id, model);
-		final IModel<DisplayImage> displayImage = new LoadableDetachableModel<DisplayImage>() {
+		final IModel<DisplayImage2> displayImage = new LoadableDetachableModel<DisplayImage2>() {
 			@Override
-			protected DisplayImage load() {
+			protected DisplayImage2 load() {
 				final PersonInfo person = getModelObject();
 				if (person != null) {
 					return imageMgr.getSafePersonPhoto(ImageTypes.PERSON, person.getPhotoId(), ImageStyles.THUMBNAIL, person.getGender());

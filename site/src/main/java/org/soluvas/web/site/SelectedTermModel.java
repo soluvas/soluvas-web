@@ -1,9 +1,11 @@
 package org.soluvas.web.site;
 
 import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.Term;
+import org.soluvas.data.Term2;
 
 /**
  * For using single-select {@link DropDownChoice} components with {@link Term} model.
@@ -20,7 +22,7 @@ import org.soluvas.data.Term;
  * 
  * @author ceefour
  */
-public class SelectedTermModel extends EmfModel<Term> {
+public class SelectedTermModel extends Model<Term2> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory
 			.getLogger(SelectedTermModel.class);
@@ -36,7 +38,7 @@ public class SelectedTermModel extends EmfModel<Term> {
 //		this.termRepo = termRepo;
 //	}
 	
-	public SelectedTermModel(final Term term) {
+	public SelectedTermModel(final Term2 term) {
 		super(term);
 	}
 

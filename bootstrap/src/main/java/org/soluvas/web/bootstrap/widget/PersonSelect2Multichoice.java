@@ -21,7 +21,7 @@ import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.data.person.PersonRepository;
-import org.soluvas.image.DisplayImage;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
@@ -55,7 +55,7 @@ public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person
          * Preload image URIs to make it quicker to display.
          */
         @Nullable
-        private transient Map<String, DisplayImage> displayImages;
+        private transient Map<String, DisplayImage2> displayImages;
 
         @Inject
         private PersonRepository personRepo;
@@ -110,7 +110,7 @@ public class PersonSelect2Multichoice extends BootstrapSelect2MultiChoice<Person
                     .key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
                     .key("location").value(choice.getPrimaryAddress() != null ? choice.getPrimaryAddress().getCity() : "");
             if (displayImages != null && choice.getId() != null) {
-                final DisplayImage displayImage = displayImages.get(choice.getId());
+                final DisplayImage2 displayImage = displayImages.get(choice.getId());
                 if (displayImage != null) {
                     writer.key("photoUri").value(displayImage.getSrc());
                 }

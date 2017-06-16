@@ -68,7 +68,7 @@ import org.soluvas.commons.SlugUtils;
 import org.soluvas.commons.tenant.TenantRef;
 import org.soluvas.data.MixinManager;
 import org.soluvas.data.PropertyDefinition;
-import org.soluvas.image.DisplayImage;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
@@ -574,9 +574,9 @@ public class CategoryDetailPanel extends GenericPanel<Category2> {
 		
 		form.add(new NumberTextField<>("positioner", new PropertyModel<Integer>(getModel(), "positioner"), Integer.class));
 		
-		final IModel<DisplayImage> displayImageModel = new LoadableDetachableModel<DisplayImage>() {
+		final IModel<DisplayImage2> displayImageModel = new LoadableDetachableModel<DisplayImage2>() {
 			@Override
-			protected DisplayImage load() {
+			protected DisplayImage2 load() {
 				final Category2 category = CategoryDetailPanel.this.getModelObject();
 				log.debug("category image id is {}", category.getImageId());
 				if (category.getImageId() != null) {

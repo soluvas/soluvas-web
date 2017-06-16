@@ -9,7 +9,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.image.DisplayImage;
-import org.soluvas.web.site.EmfModel;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.web.site.semantic.ImageMicrodataBehavior;
 import org.soluvas.web.site.semantic.ItemPropBehavior;
 import org.soluvas.web.site.semantic.SchemaOrgProperty;
@@ -28,7 +28,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	private WebAddress webAddress;
 	private final IModel<String> titleModel;
 	
-	public DisplayImageContainer(String id, IModel<DisplayImage> model) {
+	public DisplayImageContainer(String id, IModel<DisplayImage2> model) {
 		super(id, model);
 		this.titleModel = new Model<>();
 	}
@@ -38,7 +38,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	 * @param model
 	 * @param title Title to override alt & title attributes.
 	 */
-	public DisplayImageContainer(String id, IModel<DisplayImage> model, @Nullable String title) {
+	public DisplayImageContainer(String id, IModel<DisplayImage2> model, @Nullable String title) {
 		super(id, model);
 		this.titleModel = new Model<>(title);
 	}
@@ -48,13 +48,13 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	 * @param model
 	 * @param title Title to override alt & title attributes.
 	 */
-	public DisplayImageContainer(String id, IModel<DisplayImage> model, IModel<String> titleModel) {
+	public DisplayImageContainer(String id, IModel<DisplayImage2> model, IModel<String> titleModel) {
 		super(id, model);
 		this.titleModel = titleModel;
 	}
 	
-	public DisplayImageContainer(String id, DisplayImage image) {
-		super(id, new EmfModel<>(image));
+	public DisplayImageContainer(String id, DisplayImage2 image) {
+		super(id, new Model<>(image));
 		this.titleModel = new Model<>();
 	}
 	
@@ -63,8 +63,8 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	 * @param image
 	 * @param title Title to override alt & title attributes.
 	 */
-	public DisplayImageContainer(String id, DisplayImage image, @Nullable String title) {
-		super(id, new EmfModel<>(image));
+	public DisplayImageContainer(String id, DisplayImage2 image, @Nullable String title) {
+		super(id, new Model<>(image));
 		this.titleModel = new Model<>(title);
 	}
 	
@@ -77,7 +77,7 @@ public class DisplayImageContainer extends WebMarkupContainer {
 	@Override
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
-		final DisplayImage image = (DisplayImage) getDefaultModelObject();
+		final DisplayImage2 image = (DisplayImage2) getDefaultModelObject();
 		if (image == null) {
 			return;
 		}

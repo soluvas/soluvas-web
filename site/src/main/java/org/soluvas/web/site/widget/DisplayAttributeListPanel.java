@@ -10,7 +10,7 @@ import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.soluvas.data.DisplayAttribute;
-import org.soluvas.data.Value;
+import org.soluvas.data.entity.Value;
 
 /**
  * Displays a list of {@link DisplayAttribute} in a &lt;dl&gt;.
@@ -44,7 +44,7 @@ public class DisplayAttributeListPanel extends
 			protected void populateItem(ListItem<DisplayAttribute> item) {
 				item.setRenderBodyOnly(true);
 				item.add(new Label("attrDisplayName", new PropertyModel<>(item.getModel(), "attrDisplayName")));
-				item.add(new ValueLabel("value", new PropertyModel<Value<?>>(item.getModel(), "value")));
+				item.add(new ValueLabel2("value", new PropertyModel<Value<?>>(item.getModel(), "value")));
 			}
 		});
 	}

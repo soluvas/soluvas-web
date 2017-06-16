@@ -11,17 +11,17 @@ import java.util.Map;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONWriter;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.util.MapModel;
 import org.soluvas.commons.entity.Person2;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.data.person.PersonRepository;
-import org.soluvas.image.DisplayImage;
+import org.soluvas.image.DisplayImage2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.image.ImageStyles;
 import org.soluvas.image.ImageTypes;
-import org.soluvas.web.site.EmfMapModel;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
@@ -45,7 +45,7 @@ public class PersonChoiceProvider extends ChoiceProvider<Person2> {
 	/**
 	 * Preload image URIs to make it quicker to display. 
 	 */
-	private final IModel<Map<String, DisplayImage>> displayImagesModel = new EmfMapModel<>(ImmutableMap.<String, DisplayImage>of());
+	private final IModel<Map<String, DisplayImage2>> displayImagesModel = new MapModel<>(ImmutableMap.<String, DisplayImage2>of());
 
 	@Override
 	public String getDisplayValue(Person2 choice) {
@@ -90,7 +90,7 @@ public class PersonChoiceProvider extends ChoiceProvider<Person2> {
 			.key("genderIconUri").value(imageMgr.getPersonIconUri(choice.getGender()))
 			.key("location").value(choice.getPrimaryAddress() != null ? choice.getPrimaryAddress().getCity() : "");
 		if (choice.getId() != null && displayImagesModel.getObject() != null) {
-			final DisplayImage displayImage = displayImagesModel.getObject().get(choice.getId());
+			final DisplayImage2 displayImage = displayImagesModel.getObject().get(choice.getId());
 			if (displayImage != null) {
 				writer.key("photoUri").value(displayImage.getSrc());
 			}
