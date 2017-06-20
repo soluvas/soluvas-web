@@ -8,7 +8,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.image.DisplayImage;
 import org.soluvas.image.DisplayImage2;
 import org.soluvas.web.site.semantic.ImageMicrodataBehavior;
 import org.soluvas.web.site.semantic.ItemPropBehavior;
@@ -17,7 +16,7 @@ import org.soluvas.web.site.semantic.SchemaOrgProperty;
 import com.google.common.base.Strings;
 
 /**
- * Displays a {@link DisplayImage} with itemprop={@link SchemaOrgProperty#CONTENT_URL}.
+ * Displays a {@link DisplayImage2} with itemprop={@link SchemaOrgProperty#CONTENT_URL}.
  * @author rio
  * @see ImageMicrodataBehavior
  */
