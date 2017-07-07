@@ -13,6 +13,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 import org.soluvas.commons.Gender;
 import org.soluvas.commons.PersonInfo;
+import org.soluvas.commons.PersonInfo2;
 import org.soluvas.image.ImageManager;
 import org.soluvas.web.site.widget.IconImageContainer;
 
@@ -25,12 +26,12 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.components.TooltipConfig
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class PersonPopover extends GenericPanel<PersonInfo> {
+public class PersonPopover extends GenericPanel<PersonInfo2> {
 	
 	@SpringBean
 	private ImageManager imageMgr;
 	
-	public PersonPopover(String id, IModel<PersonInfo> model) {
+	public PersonPopover(String id, IModel<PersonInfo2> model) {
 		super(id, model);
 	}
 
@@ -51,7 +52,7 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 		final IModel<String> labelModel = new AbstractReadOnlyModel<String>() {
 			@Override
 			public String getObject() {
-				final PersonInfo person = getModelObject();
+				final PersonInfo2 person = getModelObject();
 				return person != null && person.getName() != null ? "<strong>" + Strings.escapeMarkup(person.getName()) + "</strong>" : "";
 			}
 		};
@@ -60,7 +61,7 @@ public class PersonPopover extends GenericPanel<PersonInfo> {
 			final IModel<String> bodyModel = new AbstractReadOnlyModel<String>() {
 				@Override
 				public String getObject() {
-					final PersonInfo person = getModelObject();
+					final PersonInfo2 person = getModelObject();
 					if (person != null) {
 						return ComponentRenderer.renderComponent(body).toString();
 					} else {

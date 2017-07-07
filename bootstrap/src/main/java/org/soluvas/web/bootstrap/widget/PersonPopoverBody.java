@@ -10,7 +10,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.soluvas.commons.PersonInfo;
+import org.soluvas.commons.PersonInfo2;
 import org.soluvas.commons.entity.Person2;
 import org.soluvas.commons.impl.CustomerRole2;
 import org.soluvas.data.EntityLookup;
@@ -29,7 +29,7 @@ import com.google.common.base.Strings;
  * @author ceefour
  */
 @SuppressWarnings("serial")
-public class PersonPopoverBody extends GenericPanel<PersonInfo> {
+public class PersonPopoverBody extends GenericPanel<PersonInfo2> {
 
 	@SpringBean
 	private ImageManager imageMgr;
@@ -38,12 +38,12 @@ public class PersonPopoverBody extends GenericPanel<PersonInfo> {
 	@SpringBean
 	private CustomerRoleRepository customerRoleRepo;
 
-	public PersonPopoverBody(String id, IModel<PersonInfo> model) {
+	public PersonPopoverBody(String id, IModel<PersonInfo2> model) {
 		super(id, model);
 		final IModel<DisplayImage2> displayImage = new LoadableDetachableModel<DisplayImage2>() {
 			@Override
 			protected DisplayImage2 load() {
-				final PersonInfo person = getModelObject();
+				final PersonInfo2 person = getModelObject();
 				if (person != null) {
 					return imageMgr.getSafePersonPhoto(ImageTypes.PERSON, person.getPhotoId(), ImageStyles.THUMBNAIL, person.getGender());
 				} else {
