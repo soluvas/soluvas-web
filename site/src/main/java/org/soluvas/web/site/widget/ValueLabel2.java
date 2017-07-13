@@ -10,20 +10,15 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
-import org.eclipse.emf.common.util.EMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.Translation;
 import org.soluvas.commons.WebAddress;
-import org.soluvas.data.MeasureValue;
 import org.soluvas.data.Term2;
 import org.soluvas.data.TermManager;
-import org.soluvas.data.TermValue;
+import org.soluvas.data.entity.MeasureValue;
+import org.soluvas.data.entity.TermValue;
 import org.soluvas.data.entity.Value;
-//import org.soluvas.data.TermValue;
-//import org.soluvas.data.Value;
 import org.soluvas.mongo.MongoTermRepository;
-import org.soluvas.web.site.EmfModel;
 
 /**
  * Formats a {@link Value}, and if lookup successful via {@link TermManager}, with associated
@@ -78,7 +73,7 @@ public class ValueLabel2 extends Label {
 	}
 
 	private String getDefaultModelObjectAsFormattedString() {
-		final Value<?> valueObj = (Value<?>) getDefaultModelObject();
+		final Value<?> valueObj =  (Value<?>) getDefaultModelObject();
 //		log.debug("Value obj: {}", valueObj);
 //		final Locale locale = getLocale();
 		if (valueObj != null) {

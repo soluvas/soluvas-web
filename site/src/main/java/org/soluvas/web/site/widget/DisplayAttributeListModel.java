@@ -1,24 +1,28 @@
 package org.soluvas.web.site.widget;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.util.MapModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.BasicEMap;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.data.DisplayAttribute;
-import org.soluvas.data.Term;
-import org.soluvas.data.TermRepository;
-import org.soluvas.data.Value;
+import org.soluvas.data.EntityLookupException;
+import org.soluvas.data.PropertyDefinition;
+import org.soluvas.data.PropertyDefinitionRepository;
+import org.soluvas.data.entity.Value;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -33,33 +37,34 @@ import com.google.common.collect.ImmutableMap;
  * item.add(new DisplayAttributeListPanel("principals", displayAttrsModel));
  * }</pre>
  * 
- * @author haidar
+ * @author rudi
  */
 public class DisplayAttributeListModel extends AbstractReadOnlyModel<List<DisplayAttribute>> {
 	
 	private static final long serialVersionUID = 1L;
-	private final IModel<EMap<String, EList<Value<?>>>> sourceModel;
-	private final IModel<Map<String, String>> sourceStrModel = new MapModel<>();
 	
-	@SpringBean(name="colorTermRepo")
-	private TermRepository colorTermRepo;
-	@SpringBean(name="sizeTermRepo")
-	private TermRepository sizeTermRepo;
+	private static final Logger log = LoggerFactory.getLogger(DisplayAttributeListModel.class);
 	
-	public DisplayAttributeListModel(IModel<EMap<String, EList<Value<?>>>> sourceModel) {
+	@Inject
+	private PropertyDefinitionRepository propDefRepo;
+	
+	private final IModel<Map<String, List<Value<?>>>> sourceModel;
+	private final IModel<Map<String, List<String>>> sourceStrModel = new MapModel<>();
+	
+	public DisplayAttributeListModel(IModel<Map<String, List<Value<?>>>> sourceModel) {
 		super();
 		this.sourceModel = sourceModel;
-		this.sourceStrModel.setObject(ImmutableMap.<String, String>of());
+		this.sourceStrModel.setObject(ImmutableMap.<String, List<String>>of());
 		
 		Injector.get().inject(this);
 	}
 	
-	public DisplayAttributeListModel(Map<String, String> sourceStrMap) {
+	public DisplayAttributeListModel(Map<String, List<String>> sourceStrMap) {
 		super();
 		
-		this.sourceModel = new LoadableDetachableModel<EMap<String,EList<Value<?>>>>() {
+		this.sourceModel = new LoadableDetachableModel<Map<String,List<Value<?>>>>() {
 			@Override
-			protected EMap<String, EList<Value<?>>> load() {
+			protected Map<String, List<Value<?>>> load() {
 				return null;
 			}
 		};
@@ -68,58 +73,35 @@ public class DisplayAttributeListModel extends AbstractReadOnlyModel<List<Displa
 		Injector.get().inject(this);
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	public List<DisplayAttribute> getObject() {
-		EMap<String, EList<Value<?>>> source = null;
+		Map<String, List<String>> source = null;
 		if (sourceModel.getObject() != null) {
-			source = sourceModel.getObject();
+			source = new HashMap<>();
+			for (final Entry<String, List<Value<?>>> entry : sourceModel.getObject().entrySet()) {
+				source.put(entry.getKey(), entry.getValue().stream().map(new Function<Value<?>, String>() {
+					@Override
+					public String apply(Value<?> t) {
+						return t.getString();
+					}
+				}).collect(Collectors.toList()));
+			}
 		}
 		if (sourceStrModel.getObject() != null && !sourceStrModel.getObject().isEmpty()) {
-			source = new BasicEMap<String, EList<Value<?>>>();
-			for (final Entry<String, String> entry : sourceStrModel.getObject().entrySet()) {
-				switch (entry.getKey()) {
-				case "base_color":
-					final Term colorTerm = colorTermRepo.findOne(entry.getValue());
-					if (colorTerm != null) {
-						final EList<Value<?>> colorValues = new BasicEList<>();
-						colorValues.add(colorTerm.toValue());
-						source.put("base_color", colorValues);
-					}
-					break;
-				case "base_size":
-					final Term sizeTerm = sizeTermRepo.findOne(entry.getValue());
-					if (sizeTerm != null) {
-						final EList<Value<?>> sizeValues = new BasicEList<>();
-						sizeValues.add(sizeTerm.toValue());
-						source.put("base_size", sizeValues);
-					}
-					break;
-				default:
-					throw new RuntimeException(String.format("Unrecognize principal type %s (%s)", entry.getKey(), entry.getValue()));
-				}
-			}
+			source = sourceStrModel.getObject();
 		}
 		
 		if (source != null) {
 			final List<DisplayAttribute> displayAttrs = new ArrayList<>();
-			for (Entry<String, EList<Value<?>>> entry : source.entrySet()) {
-				// TODO: do not hardcode principal displayName, get from mixin
-				final String principalDisplayName;
-				switch (entry.getKey()) {
-				case "base_color":
-					principalDisplayName = "Color";
-					break;
-				case "base_size":
-					principalDisplayName = "Size";
-					break;
-				default:
-					principalDisplayName = entry.getKey();
-				}
-				if (!entry.getValue().isEmpty()) {
-					displayAttrs.add(new DisplayAttribute(principalDisplayName, entry.getValue().get(0)));
-				} else {
-					displayAttrs.add(new DisplayAttribute(principalDisplayName, null));
+			for (final Entry<String, List<String>> entry : source.entrySet()) {
+				final String keyOfPropDefByOptionPropKey = entry.getKey().replace("base_", "");
+				try {
+					@Nullable PropertyDefinition propertyDefinition = propDefRepo.findOneBase(keyOfPropDefByOptionPropKey);
+					if (propertyDefinition != null) {
+						displayAttrs.add(new DisplayAttribute(propertyDefinition, entry.getValue()));
+					}
+				} catch (EntityLookupException e) {
+					log.error(String.format("Can not find propertyDefinition by id '%s'", keyOfPropDefByOptionPropKey), e);
 				}
 			}
 			return displayAttrs;
