@@ -1,17 +1,13 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Locale;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Ordering;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -27,11 +23,13 @@ import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Ordering;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import java.util.Collection;
+import java.util.Currency;
+import java.util.Locale;
 
 /**
  * {@link Select2Choice} UI component for {@link CurrencyUnit}.
@@ -94,7 +92,7 @@ public class CurrencyUnitSelect2 extends BootstrapSelect2Choice<CurrencyUnit> {
         }
 
         @Override
-        public void toJson(CurrencyUnit choice, JSONWriter writer)
+        public void toJson(CurrencyUnit choice, JSONStringer writer)
                 throws JSONException {
             writer.key("id").value(choice.getCurrencyCode())
                     .key("text").value(MoneyUtils.getName(Locale.US, choice))

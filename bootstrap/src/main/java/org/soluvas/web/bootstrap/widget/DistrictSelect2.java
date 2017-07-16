@@ -1,12 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -16,17 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.data.domain.Page;
 import org.soluvas.data.domain.PageRequest;
-import org.soluvas.geo.City;
-import org.soluvas.geo.Country;
-import org.soluvas.geo.District;
-import org.soluvas.geo.DistrictRepository;
-import org.soluvas.geo.Province;
+import org.soluvas.geo.*;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.Collection;
 
 /**
  * @author anton
@@ -112,7 +106,7 @@ public class DistrictSelect2 extends BootstrapSelect2Choice<District> {
 		}
 
 		@Override
-		public void toJson(District choice, JSONWriter writer) throws JSONException {
+		public void toJson(District choice, JSONStringer writer) throws JSONException {
 //			log.debug("District.toJson {}", choice);
 			writer.key("id").value(districtRepo.getKeyForDistrict(choice))
 				.key("text").value(choice.getName())

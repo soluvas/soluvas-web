@@ -1,11 +1,7 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
@@ -21,6 +17,10 @@ import org.soluvas.data.domain.Sort.Direction;
 import org.soluvas.data.person.PersonRepository;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author ceefour
@@ -71,7 +71,7 @@ public class TextPersonSelect2 extends BootstrapSelect2Choice<Person2> {
         }
 
         @Override
-        public void toJson(Person2 choice, JSONWriter writer)
+        public void toJson(Person2 choice, JSONStringer writer)
                 throws JSONException {
             writer.key("id").value(choice.getId())
                     .key("customerId").value(choice.getId())

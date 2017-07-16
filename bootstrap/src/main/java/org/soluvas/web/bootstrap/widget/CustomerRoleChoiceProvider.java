@@ -1,16 +1,14 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.CustomerRole;
 import org.soluvas.commons.impl.CustomerRole2;
 import org.soluvas.data.StatusMask;
 import org.soluvas.data.customerrole.CustomerRoleRepository;
@@ -20,9 +18,8 @@ import org.soluvas.data.domain.Sort;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
+import javax.annotation.Nullable;
+import java.util.Collection;
 
 public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole2> {
 	
@@ -58,7 +55,7 @@ public class CustomerRoleChoiceProvider extends ChoiceProvider<CustomerRole2> {
 	}
 
 	@Override
-	public void toJson(CustomerRole2 choice, JSONWriter writer)
+	public void toJson(CustomerRole2 choice, JSONStringer writer)
 			throws JSONException {
 		writer.key("id").value(choice.getId())
 				.key("text").value(choice.getName());

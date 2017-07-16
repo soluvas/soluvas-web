@@ -1,15 +1,11 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
@@ -24,16 +20,14 @@ import org.soluvas.data.Value;
 import org.soluvas.data.ValueFunction;
 import org.soluvas.data.domain.PageRequest;
 import org.soluvas.web.site.TermListModel;
-
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class TermChoiceProvider extends ChoiceProvider<Term> {
 
@@ -150,7 +144,7 @@ public class TermChoiceProvider extends ChoiceProvider<Term> {
 	}
 
 	@Override
-	public void toJson(Term choice, JSONWriter writer)
+	public void toJson(Term choice, JSONStringer writer)
 			throws JSONException {
 		writer.key("id").value(choice.getQName())
 			.key("text").value(choice.getDisplayName());

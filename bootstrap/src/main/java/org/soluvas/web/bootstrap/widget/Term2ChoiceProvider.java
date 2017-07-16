@@ -1,13 +1,9 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
+import com.google.common.base.Strings;
 import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.util.ListModel;
@@ -24,7 +20,10 @@ import org.soluvas.mongo.MongoTermRepository;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import com.google.common.base.Strings;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 
@@ -90,7 +89,7 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 	}
 
 	@Override
-	public void toJson(Term2 choice, JSONWriter writer)
+	public void toJson(Term2 choice, JSONStringer writer)
 			throws JSONException {
 		writer.key("id").value(choice.getId())
 			.key("text").value(choice.getName());

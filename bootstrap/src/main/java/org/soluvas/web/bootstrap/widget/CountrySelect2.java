@@ -1,11 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -22,9 +21,8 @@ import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
+import javax.annotation.Nullable;
+import java.util.Collection;
 
 /**
  * {@link Select2Choice} UI component for Joda {@link Country}.
@@ -72,7 +70,7 @@ public class CountrySelect2 extends BootstrapSelect2Choice<Country> {
 		}
 		
 		@Override
-		public void toJson(Country choice, JSONWriter writer)
+		public void toJson(Country choice, JSONStringer writer)
 				throws JSONException {
 			writer.key("id").value(choice.getIso()).key("text").value(choice.getName());
 		}

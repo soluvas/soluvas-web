@@ -5,7 +5,7 @@ import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -88,7 +88,7 @@ public class LocaleSelect2 extends BootstrapSelect2Choice<Locale> {
 		}
 		
 		@Override
-		public void toJson(Locale choice, JSONWriter writer)
+		public void toJson(Locale choice, JSONStringer writer)
 				throws JSONException {
 			writer.key("id").value(choice.toLanguageTag())
 				.key("text").value(choice.getDisplayName())

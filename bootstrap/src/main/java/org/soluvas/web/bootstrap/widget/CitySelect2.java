@@ -1,12 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+import com.google.common.collect.FluentIterable;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -23,9 +21,9 @@ import org.soluvas.geo.Province;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import com.google.common.base.Function;
-import com.google.common.base.Strings;
-import com.google.common.collect.FluentIterable;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.Collection;
 
 /**
  * @author rudi
@@ -91,7 +89,7 @@ public class CitySelect2 extends BootstrapSelect2Choice<City> {
         }
 
         @Override
-        public void toJson(City choice, JSONWriter writer) throws JSONException {
+        public void toJson(City choice, JSONStringer writer) throws JSONException {
             super.toJson(choice, writer);
             writer.key("country").value(choice.getCountry().getName())
                     .key("countryCode").value(choice.getCountry().getIso());

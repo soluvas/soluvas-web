@@ -3,13 +3,9 @@
  */
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.ImmutableMap;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.util.MapModel;
 import org.soluvas.commons.entity.Person2;
@@ -25,7 +21,10 @@ import org.soluvas.image.ImageTypes;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author mahendri
@@ -82,7 +81,7 @@ public class PersonChoiceProvider extends ChoiceProvider<Person2> {
 	}
 	
 	@Override
-	public void toJson(Person2 choice, JSONWriter writer)
+	public void toJson(Person2 choice, JSONStringer writer)
 			throws JSONException {
 		writer.key("id").value(choice.getId())
 			.key("customerId").value(choice.getId())

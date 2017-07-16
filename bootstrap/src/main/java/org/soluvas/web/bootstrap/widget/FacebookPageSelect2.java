@@ -1,25 +1,23 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
-import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.restfb.types.Account;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONStringer;
+import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 import org.wicketstuff.select2.Select2Choice;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A {@link Select2Choice} for Facebook {@link Account} (managed page),
@@ -60,7 +58,7 @@ public class FacebookPageSelect2 extends BootstrapSelect2Choice<Account> {
 		}
 
 		@Override
-		public void toJson(Account choice, JSONWriter writer)
+		public void toJson(Account choice, JSONStringer writer)
 				throws JSONException {
 			writer.key("id").value(choice.getId())
 				.key("text").value(choice.getName())

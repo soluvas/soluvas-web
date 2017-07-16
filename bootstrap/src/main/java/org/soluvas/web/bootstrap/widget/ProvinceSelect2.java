@@ -1,12 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+import com.google.common.collect.FluentIterable;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -22,9 +20,9 @@ import org.soluvas.geo.ProvinceRepository;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import com.google.common.base.Function;
-import com.google.common.base.Strings;
-import com.google.common.collect.FluentIterable;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.Collection;
 
 /**
  * @author anton
@@ -77,7 +75,7 @@ public class ProvinceSelect2 extends BootstrapSelect2Choice<Province> {
         }
 
         @Override
-        protected void toJson(Province choice, JSONWriter writer)
+        protected void toJson(Province choice, JSONStringer writer)
                 throws JSONException {
 //			log.debug("toJson province: {}", choice);
             writer.key("id").value(provinceRepo.getKeyForProvince(choice))

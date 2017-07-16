@@ -2,7 +2,7 @@ package org.soluvas.web.bootstrap.widget;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.soluvas.data.StatusMask;
@@ -70,7 +70,7 @@ public class MediaMultiSelect extends BootstrapSelect2MultiChoice<Media> {
 		}
 		
 		@Override
-		public void toJson(Media choice, JSONWriter writer)
+		public void toJson(Media choice, JSONStringer writer)
 				throws JSONException {
 			writer.key("id").value(choice.getId())
 				.key("text").value(choice.getName());

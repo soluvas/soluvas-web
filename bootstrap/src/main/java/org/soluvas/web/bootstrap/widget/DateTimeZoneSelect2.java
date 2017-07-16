@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -76,7 +76,7 @@ public class DateTimeZoneSelect2 extends BootstrapSelect2Choice<DateTimeZone> {
         }
 
         @Override
-        public void toJson(DateTimeZone choice, JSONWriter writer)
+        public void toJson(DateTimeZone choice, JSONStringer writer)
                 throws JSONException {
             writer.key("id").value(choice.getID())
                     .key("text").value(choice.getID());

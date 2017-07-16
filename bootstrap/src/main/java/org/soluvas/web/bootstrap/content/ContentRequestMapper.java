@@ -1,7 +1,10 @@
 package org.soluvas.web.bootstrap.content;
 
-import javax.servlet.ServletRequest;
-
+import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
 import org.apache.wicket.request.Request;
@@ -15,12 +18,7 @@ import org.soluvas.web.site.SeoBookmarkableMapper;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Joiner;
-import com.google.common.base.Optional;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
-import com.hp.hpl.jena.assembler.Content;
+import javax.servlet.ServletRequest;
 
 /**
  * Match request to a {@code ContentShow} {@link Page} containing {@link org.soluvas.web.bootstrap.content.ContentPanel}, with {@code slugPath} parameter

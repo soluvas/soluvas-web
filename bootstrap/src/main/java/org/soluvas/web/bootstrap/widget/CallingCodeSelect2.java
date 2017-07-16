@@ -2,7 +2,7 @@ package org.soluvas.web.bootstrap.widget;
 
 import com.google.common.base.Strings;
 import org.apache.wicket.ajax.json.JSONException;
-import org.apache.wicket.ajax.json.JSONWriter;
+import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -69,7 +69,7 @@ public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
         }
 
         @Override
-        protected void toJson(Country choice, JSONWriter writer)
+        protected void toJson(Country choice, JSONStringer writer)
                 throws JSONException {
             super.toJson(choice, writer);
             log.debug("toJson {}", choice);
