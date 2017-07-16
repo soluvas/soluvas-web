@@ -86,11 +86,6 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.eclipse.persistence</groupId>
-		    <artifactId>org.eclipse.persistence.moxy</artifactId>
-		    <version>2.5.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>stringtemplate</artifactId>
 		</dependency>
