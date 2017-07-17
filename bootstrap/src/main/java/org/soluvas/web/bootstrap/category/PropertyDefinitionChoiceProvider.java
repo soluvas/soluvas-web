@@ -2,12 +2,12 @@ package org.soluvas.web.bootstrap.category;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.slf4j.Logger;
@@ -74,12 +74,12 @@ public class PropertyDefinitionChoiceProvider extends ChoiceProvider<PropertyDef
 			final List<PropertyDefinition> filteredPropDefList = dataPropDefListModel.getObject().stream().filter(new Predicate<PropertyDefinition>() {
 				@Override
 				public boolean test(PropertyDefinition t) {
-					return !excludedPropertyDefIds.contains(t.getId()) && t.getName().toLowerCase().startsWith(Optional.fromNullable(term).or("").trim().toLowerCase());
+					return !excludedPropertyDefIds.contains(t.getId()) && t.getName().toLowerCase().startsWith(Optional.ofNullable(term).orElse("").trim().toLowerCase());
 				}
 			}).collect(Collectors.toList());
 			result = new PageImpl<>(filteredPropDefList, new PageRequest(page, 10L, Direction.ASC, "name"), filteredPropDefList.size() - model.getObject().size());
 		} else {
-			result = repo.findAllBaseBySearchText(Optional.fromNullable(term).or("").trim(),
+			result = repo.findAllBaseBySearchText(Optional.ofNullable(term).orElse("").trim(),
 					ImmutableSet.copyOf(excludedPropertyDefIds),
 					new PageRequest(page, 10L, Direction.ASC, "name"));
 		}

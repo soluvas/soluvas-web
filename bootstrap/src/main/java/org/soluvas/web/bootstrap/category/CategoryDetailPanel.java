@@ -2,13 +2,7 @@ package org.soluvas.web.bootstrap.category;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -20,7 +14,6 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.inject.Inject;
 
-import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
@@ -242,7 +235,7 @@ public class CategoryDetailPanel extends GenericPanel<Category2> {
 			final List<String> defaultEnumsByGoogle = this.formalCategoryModel.getObject().getPropertyOverrides().stream().filter(new java.util.function.Predicate<PropertyDefinition>() {
 				@Override
 				public boolean test(PropertyDefinition t) {
-					return Optional.fromNullable(t.getUsableAsOption()).or(new Boolean(false)).booleanValue();
+					return Optional.ofNullable(t.getUsableAsOption()).orElse(new Boolean(false)).booleanValue();
 				}
 			}).map(new Function<PropertyDefinition, String>() {
 				@Override

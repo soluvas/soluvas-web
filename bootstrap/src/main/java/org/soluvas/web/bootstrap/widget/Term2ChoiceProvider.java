@@ -1,7 +1,6 @@
 package org.soluvas.web.bootstrap.widget;
 
 import com.google.common.base.Strings;
-import org.apache.jena.ext.com.google.common.base.Optional;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
@@ -22,6 +21,7 @@ import org.wicketstuff.select2.Response;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -69,7 +69,7 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 		
 		final Page<Term2> result;
 		if (!Strings.isNullOrEmpty(enumerationId)) {
-			result = termRepo.findAll(enumerationId, Optional.fromNullable(term).or("").trim(), pageable);
+			result = termRepo.findAll(enumerationId, Optional.ofNullable(term).orElse("").trim(), pageable);
 		} else {
 			final List<String> whiteValues = whiteListValuesModel.getObject().stream().map(new Function<Value<?>, String>() {
 				@Override
