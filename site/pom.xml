@@ -56,8 +56,29 @@
 		<dependency>
 			<groupId>org.pegdown</groupId>
 			<artifactId>pegdown</artifactId>
-			<version>1.5.0</version>
+			<version>1.6.0</version>
 		</dependency>
+		<!-- Cannot use asm 4.x used by cglib 3.1, so if you get asm 4.2 please add the following in your app project -->
+		<!--<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-util</artifactId>
+			<version>5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-tree</artifactId>
+			<version>5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-analysis</artifactId>
+			<version>5.2</version>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.wicketstuff</groupId>
