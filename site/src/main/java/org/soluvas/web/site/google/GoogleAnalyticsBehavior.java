@@ -56,9 +56,9 @@ public class GoogleAnalyticsBehavior extends Behavior {
 				// result e.g. "id/search?4&religion=BUDDHISM"
 				final Url baseUrl = component.getRequestCycle().getUrlRenderer().getBaseUrl();
 				final String fixedUrl;
-				if (baseUrl.toString().matches(".+?\\d+")) {
+				if (baseUrl.toString().matches(".+\\?\\d+")) {
 					fixedUrl = "/" + baseUrl.toString().replaceFirst("\\?\\d+", "");
-				} else if (baseUrl.toString().matches(".+?\\d+&.*")) {
+				} else if (baseUrl.toString().matches(".+\\?\\d+&.*")) {
 					fixedUrl = "/" + baseUrl.toString().replaceFirst("\\?\\d+&", "?");
 				} else {
 					fixedUrl = "/" + baseUrl.toString();
