@@ -157,7 +157,7 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 					curPerson.getEmails().add(email);
 				}
 			} else {
-				log.warn("User {} from Facebook ID {} has no email address",
+				log.info("User {} from Facebook ID {} has no email address",
 					curPerson.getId(), fbUser.getId());
 			}
 			if (curPerson.getPhotoId() == null) {
