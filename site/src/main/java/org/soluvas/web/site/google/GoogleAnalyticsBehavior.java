@@ -1,20 +1,18 @@
 package org.soluvas.web.site.google;
 
-import javax.inject.Inject;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.StringHeaderItem;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.request.Url;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.commons.AppManifest;
-import org.soluvas.web.site.GoogleAnalyticsSysConfig;
-
-import com.google.common.base.Optional;
-import com.google.common.base.Strings;
 import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
+
+import javax.inject.Inject;
 
 /**
  * Puts <a href="http://stackoverflow.com/a/10712960/122441">Google Analytics script in {@code head}</a>.
@@ -55,8 +53,20 @@ public class GoogleAnalyticsBehavior extends Behavior {
 				if (Boolean.TRUE == sysConfig.getGoogleAnalyticsDisplayFeatures()) {
 					googleAnalyticScript += "ga('require', 'displayfeatures');\n";
 				}
-				
-				googleAnalyticScript += "ga('send', 'pageview');\n";
+				// result e.g. "id/search?4&religion=BUDDHISM"
+				final Url baseUrl = component.getRequestCycle().getUrlRenderer().getBaseUrl();
+				final String fixedUrl;
+				if (baseUrl.toString().matches(".+?\\d+")) {
+					fixedUrl = "/" + baseUrl.toString().replaceFirst("\\?\\d+", "");
+				} else if (baseUrl.toString().matches(".+?\\d+&.*")) {
+					fixedUrl = "/" + baseUrl.toString().replaceFirst("\\?\\d+&", "?");
+				} else {
+					fixedUrl = "/" + baseUrl.toString();
+				}
+				log.trace("Current URL: base={}, fixeds={}", baseUrl, fixedUrl);
+				// https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hit
+//				googleAnalyticScript += "ga('send', 'pageview');\n";
+				googleAnalyticScript += "ga('send', {'hitType': 'pageview', 'page': " + JSONObject.quote(fixedUrl) + "});\n";
 				// do not put in footer-container, so we use StringHeaderItem instead of JavaScriptHeaderItem
 				// to "fool" de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator
 				response.render(StringHeaderItem.forString("<script>\n" + googleAnalyticScript + "</script>\n"));
