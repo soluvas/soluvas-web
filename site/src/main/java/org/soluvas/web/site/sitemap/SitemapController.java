@@ -74,7 +74,10 @@ public class SitemapController {
 			final JAXBContext jaxb = JAXBContext.newInstance(SitemapIndex.class, UrlSet.class);
 			marshaller = jaxb.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
+			// https://stackoverflow.com/a/33199912/122441
+//			marshaller.setProperty("com.sun.xml.bind.xmlHeaders",
+//					"<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
+			marshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders",
 					"<?xml-stylesheet type=\"text/xsl\" href=\"/main-sitemap.xsl\"?>");
 		} catch (Exception e) {
 			throw new SiteException(e, "Cannot create JAXBContext and/or Marshaller: %s", e);
