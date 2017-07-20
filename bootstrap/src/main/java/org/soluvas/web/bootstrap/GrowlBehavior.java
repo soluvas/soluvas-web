@@ -15,16 +15,15 @@ import org.apache.wicket.event.IEvent;
 import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.injection.Injector;
-import org.apache.wicket.markup.head.HeaderItem;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.head.OnLoadHeaderItem;
+import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.UrlResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.json.JsonUtils;
-import org.soluvas.web.bootstrap.sound.cleanus1.Cleanus1Sounds;
 import org.soluvas.web.site.Interaction;
 import org.soluvas.web.site.InteractionMessage;
 
@@ -68,47 +67,40 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 public class GrowlBehavior extends Behavior {
 
     private static Logger log = LoggerFactory.getLogger(GrowlBehavior.class);
-    private static JavaScriptResourceReference GROWL_JS = new JavaScriptResourceReference(GrowlBehavior.class, "jquery.bootstrap-growl-20e918de.js") {
+    private static CssResourceReference ANIMATE_CSS = new CssResourceReference(
+            GrowlBehavior.class, "animate.min.css");
+    private static UrlResourceReference ANIMATE_CSS_CDN = new UrlResourceReference(Url.parse(
+            "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"));
+    private static JavaScriptResourceReference NOTIFY_JS = new JavaScriptResourceReference(
+            GrowlBehavior.class, "bootstrap-notify.min.js") {
         @Override
         public List<HeaderItem> getDependencies() {
             return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
         }
     };
-//	private static UrlResourceReference GROWL_CDN = new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js")) {
-//		@Override
-//		public java.lang.Iterable<? extends org.apache.wicket.markup.head.HeaderItem> getDependencies() {
-//			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
-//		};
-//	};
+	private static UrlResourceReference NOTIFY_JS_CDN = new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js")) {
+		@Override
+		public List<HeaderItem> getDependencies() {
+			return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
+		};
+	};
 
-//	private final String soundThemeId;
-
-    /**
-     * Use {@link Cleanus1Sounds} theme.
-     */
     public GrowlBehavior() {
         super();
         Injector.get().inject(this);
-//		this(Cleanus1Sounds.ID); 
     }
-
-//	public GrowlBehavior(String soundThemeId) {
-//		super();
-//		Injector.get().inject(this);
-//		this.soundThemeId = soundThemeId;
-//	}
 
     @Override
     public void renderHead(Component component, IHeaderResponse response) {
         super.renderHead(component, response);
         final IBootstrapSettings settings = Bootstrap.getSettings(component.getApplication());
-//		if (settings.useCdnResources()) { // BC-1940
-//			response.render(JavaScriptHeaderItem.forReference(GROWL_CDN));
-//		} else {
-        response.render(JavaScriptHeaderItem.forReference(GROWL_JS));
-//		}
-//		Howler.renderHead(component, response, Howler.get(soundThemeId));
-//        Howler.renderHead(component, response, Howler.getActive());//disabled for sound, klo mau aktifin lagi, cari komen ini
+		if (settings.useCdnResources()) { // BC-1940
+            response.render(CssHeaderItem.forReference(ANIMATE_CSS));
+            response.render(JavaScriptHeaderItem.forReference(NOTIFY_JS));
+		} else {
+            response.render(CssHeaderItem.forReference(ANIMATE_CSS_CDN));
+            response.render(JavaScriptHeaderItem.forReference(NOTIFY_JS_CDN));
+		}
 
         final String script = getNotifyScript("renderHead", component.getPage());
         if (script != null) {
@@ -158,27 +150,25 @@ public class GrowlBehavior extends Behavior {
 //						JavaScriptUtils.escapeQuotes(msg.getMessage().toString()) + "\"}); });");
                 // Wicket's JavaScriptUtils.escapeQuotes() does not escape \n :-(
                 final String growlType;
-                final String howlerScript;
+                final String glyphicon;
                 final Optional<Interaction> interaction = msg.getMessage() instanceof InteractionMessage ?
                         Optional.of(((InteractionMessage) msg.getMessage()).getInteraction()) : Optional.<Interaction>absent();
                 log.trace("{} message: {}", interaction, msg);
-//				final Sounds sounds = Howler.get(soundThemeId);
-//                final Sounds sounds = Howler.getActive();//disabled for sound, klo mau aktifin lagi, cari komen ini
                 if (msg.isError()) {
                     growlType = "danger";
-//                    howlerScript = Howler.play(interaction.or(Interaction.ERROR), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
+                    glyphicon = "remove-sign";
                 } else if (msg.isWarning()) {
                     growlType = "warning";
-//                    howlerScript = Howler.play(interaction.or(Interaction.WARNING), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
+                    glyphicon = "warning-sign";
                 } else if (msg.isInfo()) {
                     growlType = "success";
-//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
+                    glyphicon = "ok-sign";
                 } else if (msg.isDebug()) {
                     growlType = "info";
-//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
+                    glyphicon = "info-sign";
                 } else {
                     growlType = "info";
-//                    howlerScript = Howler.play(interaction.or(Interaction.INFO), sounds);//disabled for sound, klo mau aktifin lagi, cari komen ini
+                    glyphicon = "info-sign";
                 }
 
 //				log.debug("Path Icon is: {}", pathIcon);
@@ -192,9 +182,8 @@ public class GrowlBehavior extends Behavior {
                 msg.markRendered();
 
               //tuneeca minta di off-in
-//                script += howlerScript;
-                script += "$.bootstrapGrowl(" +
-                        JsonUtils.asJson(messageText) + ", {type: '" + growlType + "', delay: 5000});\n";
+                script += "$.notify({icon: 'glyphicon glyphicon-" + glyphicon + "', message: " +
+                        JsonUtils.asJson(messageText) + "}, {type: '" + growlType + "', delay: 5000});\n";
             }
             return Strings.emptyToNull(script);
         } else {
