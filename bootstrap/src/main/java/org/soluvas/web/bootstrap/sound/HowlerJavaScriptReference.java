@@ -48,6 +48,7 @@ import de.agilecoders.wicket.core.settings.IBootstrapSettings;
  * @see Howler
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class HowlerJavaScriptReference extends JavaScriptResourceReference {
 
 	private static final String HOWLER_CDN = "//cdnjs.cloudflare.com/ajax/libs/howler/1.1.17/howler.min.js";
@@ -67,14 +68,13 @@ public class HowlerJavaScriptReference extends JavaScriptResourceReference {
 	public static ResourceReference instance() {
 		return new HowlerJavaScriptReference();
 	}
-	
+
+	/**
+	 * does nothing
+	 * @param component
+	 * @param headerResponse
+	 */
 	public static void renderHead(final Component component, final IHeaderResponse headerResponse) {
-		final IBootstrapSettings settings = Bootstrap.getSettings(component.getApplication());
-		if (settings.useCdnResources()) {
-			headerResponse.render(JavaScriptHeaderItem.forUrl(HOWLER_CDN));
-		} else {
-			headerResponse.render(JavaScriptHeaderItem.forReference(instance()));
-		}
 	}
 
 }
