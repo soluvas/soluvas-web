@@ -73,8 +73,6 @@ public class GrowlBehavior extends Behavior {
         public List<HeaderItem> getDependencies() {
             return ImmutableList.of(JavaScriptHeaderItem.forReference(Application.get().getJavaScriptLibrarySettings().getJQueryReference()));
         }
-
-        ;
     };
 //	private static UrlResourceReference GROWL_CDN = new UrlResourceReference(Url.parse("//cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.6/bootstrap-growl.min.js")) {
 //		@Override
