@@ -37,7 +37,9 @@ import com.google.common.base.Optional;
  * 
  * @author ceefour
  * @see HowlerJavaScriptReference
+ * @deprecated Flawed UX idea, and flaky browser support.
  */
+@Deprecated
 public class Howler {
 	
 	private static final Logger log = LoggerFactory.getLogger(Howler.class);
