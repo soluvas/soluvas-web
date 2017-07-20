@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 
 /**
  * {@code <div wicket:id="fbPagePlugin"></div>}
+ *
+ * Requirement: Facebook SDK script for the parent {@link org.apache.wicket.markup.html.WebPage} (after {@code <body>})
+ *
  * Created by ceefour on 18/06/2016.
  */
 public class FacebookPagePlugin extends WebComponent {
@@ -53,7 +56,8 @@ public class FacebookPagePlugin extends WebComponent {
     @Override
     public void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) {
         super.onComponentTagBody(markupStream, openTag);
-        getRequestCycle().getResponse().write("<blockquote cite=\"" + getDefaultModelObject() + "\" class=\"fb-xfbml-parse-ignore\"><a href=\"\" + getDefaultModelObject() + \"\">Facebook page</a></blockquote>");
+        getWebResponse().write("<blockquote cite=\"" + getDefaultModelObject() +
+                "\" class=\"fb-xfbml-parse-ignore\"><a href=" + getDefaultModelObject() + ">Facebook page</a></blockquote>");
     }
 
     public List<FacebookPagePluginTab> getTabs() {
