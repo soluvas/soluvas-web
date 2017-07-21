@@ -7,6 +7,8 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.json.JsonUtils;
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.feedback.FeedbackCollector;
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.StringHeaderItem;
 import org.apache.wicket.request.Url;
@@ -16,6 +18,7 @@ import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Puts <a href="http://stackoverflow.com/a/10712960/122441">Google Analytics script in {@code head}</a>.
@@ -121,6 +124,22 @@ public class GoogleAnalyticsBehavior extends Behavior {
 					JSONObject.quote(label) + ", " + (null != value ? value : "null") + ", {transport: 'beacon'});";
 		}
 		return script;
+	}
+
+	/**
+	 * Reports component errors (usually form validation) as Google Analytics events.
+	 * See {@code com.satukancinta.web.TrackingLaddaAjaxButton} for sample usage.
+	 * @param config
+	 * @param target
+	 * @param component
+	 */
+	public static void reportErrors(IGoogleAnalyticsSysConfig config, AjaxRequestTarget target,
+									Component component) {
+		final List<FeedbackMessage> messages = new FeedbackCollector(component).collect();
+		messages.forEach(msg ->
+				GoogleAnalyticsBehavior.appendSendEvent(config, target,
+						component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
+						messages.toString(), msg.getLevel()));
 	}
 
 }
