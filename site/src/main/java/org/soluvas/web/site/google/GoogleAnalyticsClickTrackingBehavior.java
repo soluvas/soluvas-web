@@ -36,7 +36,7 @@ public class GoogleAnalyticsClickTrackingBehavior extends Behavior {
     public void onComponentTag(Component component, ComponentTag tag) {
         super.onComponentTag(component, tag);
         if (isEnabled(component) && tag.getType() != XmlTag.TagType.CLOSE) {
-            final String script = GoogleAnalyticsBehavior.getOnClickScript(config, category, action, label, this.value);
+            final String script = GoogleAnalyticsBehavior.getEventBeaconScript(config, category, action, label, this.value);
             if (!Strings.isNullOrEmpty(script)) {
                 tag.getAttributes().put("onclick", script);
             }

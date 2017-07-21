@@ -101,8 +101,17 @@ public class GoogleAnalyticsBehavior extends Behavior {
 		}
 	}
 
-	public static String getOnClickScript(IGoogleAnalyticsSysConfig config,
-										  String category, String action, String label, Integer value) {
+	/**
+	 * Gets the send event JavaScript usable for onclick handler because it asks for beacon transport.
+	 * @param config
+	 * @param category
+	 * @param action
+	 * @param label
+	 * @param value
+	 * @return
+	 */
+	public static String getEventBeaconScript(IGoogleAnalyticsSysConfig config,
+											  String category, String action, String label, Integer value) {
 		String script = "";
 		final String consoleLog = String.format("ga.send.event[beacon] category=%s action=%s label=%s value=%s",
 				category, action, label, value);
