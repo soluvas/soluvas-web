@@ -3,13 +3,12 @@ package org.soluvas.web.site.google;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.WebComponent;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.parser.XmlTag;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
 
 /**
- * Script tag for sending event during page load.
+ * Script tag for sending non-interaction event during page load.
  * Created by ceefour on 21/07/2017.
  */
 public class GoogleAnalyticsEventScript extends WebComponent {
@@ -42,7 +41,7 @@ public class GoogleAnalyticsEventScript extends WebComponent {
     @Override
     public void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) {
         super.onComponentTagBody(markupStream, openTag);
-        final String script = GoogleAnalyticsBehavior.getEventBeaconScript(gaConfig, category, action, label, value);
+        final String script = GoogleAnalyticsBehavior.getNonInteractionEventScript(gaConfig, category, action, label, value);
         replaceComponentTagBody(markupStream, openTag, script);
     }
 }

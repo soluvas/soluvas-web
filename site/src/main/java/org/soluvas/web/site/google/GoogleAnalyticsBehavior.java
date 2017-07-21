@@ -5,7 +5,6 @@ import com.google.common.base.Strings;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.json.JSONObject;
-import org.apache.wicket.ajax.json.JsonUtils;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -70,9 +69,10 @@ public class GoogleAnalyticsBehavior extends Behavior {
 					fixedUrl = "/" + baseUrl.toString();
 				}
 				log.trace("Current URL: base={}, fixeds={}", baseUrl, fixedUrl);
+				// Sets the page value on the tracker.
+				googleAnalyticScript += "ga('set', 'page', " + JSONObject.quote(fixedUrl) + ");\n";
 				// https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hit
-//				googleAnalyticScript += "ga('send', 'pageview');\n";
-				googleAnalyticScript += "ga('send', {'hitType': 'pageview', 'page': " + JSONObject.quote(fixedUrl) + "});\n";
+				googleAnalyticScript += "ga('send', 'pageview');\n";
 				// do not put in footer-container, so we use StringHeaderItem instead of JavaScriptHeaderItem
 				// to "fool" de.agilecoders.wicket.core.markup.html.RenderJavaScriptToFooterHeaderResponseDecorator
 				response.render(StringHeaderItem.forString("<script>\n" + googleAnalyticScript + "</script>\n"));
@@ -122,6 +122,28 @@ public class GoogleAnalyticsBehavior extends Behavior {
 		if (null != config && Boolean.TRUE == config.getGoogleAnalyticsEnabled() && !Strings.isNullOrEmpty(config.getGoogleAnalyticsTrackingId())) {
 			script += " ga('send', 'event', " + JSONObject.quote(category) + ", " + JSONObject.quote(action) + ", " +
 					JSONObject.quote(label) + ", " + (null != value ? value : "null") + ", {transport: 'beacon'});";
+		}
+		return script;
+	}
+
+	/**
+	 * Gets the send event JavaScript usable for page load because it marks nonInteraction=true.
+	 * @param config
+	 * @param category
+	 * @param action
+	 * @param label
+	 * @param value
+	 * @return
+	 */
+	public static String getNonInteractionEventScript(IGoogleAnalyticsSysConfig config,
+											  String category, String action, String label, Integer value) {
+		String script = "";
+		final String consoleLog = String.format("ga.send.event[beacon] category=%s action=%s label=%s value=%s",
+				category, action, label, value);
+		script += "console.debug(" + JSONObject.quote(consoleLog) + "); ";
+		if (null != config && Boolean.TRUE == config.getGoogleAnalyticsEnabled() && !Strings.isNullOrEmpty(config.getGoogleAnalyticsTrackingId())) {
+			script += " ga('send', 'event', " + JSONObject.quote(category) + ", " + JSONObject.quote(action) + ", " +
+					JSONObject.quote(label) + ", " + (null != value ? value : "null") + ", {nonInteraction: true});";
 		}
 		return script;
 	}
