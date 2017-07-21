@@ -48,6 +48,8 @@ public class FacebookLoginLink2 extends ExternalLink {
     private IWebAddress2 webAddress2;
     @SpringBean(required = false)
     private IGoogleAnalyticsSysConfig gaConfig;
+    private String eventCategory = "Login";
+    private String eventAction = "before login facebook";
 
     public FacebookLoginLink2(String id) {
         this(id, FacebookRecipient.class);
@@ -88,11 +90,34 @@ public class FacebookLoginLink2 extends ExternalLink {
             } catch (final Exception ex) {
                 throw new LoginException(ex, "Error building Facebook URI for App ID %s Redirect URI %s", fbAppId, redirectUri);
             }
-
-            add(new GoogleAnalyticsClickTrackingBehavior(gaConfig, "Login", "before login facebook", null, null));
         } else {
             log.debug("Disabling Facebook login because facebookAppId is empty");
             setVisible(false);
+        }
+    }
+
+    public FacebookLoginLink2 category(String newEventCategory) {
+        this.eventCategory = newEventCategory;
+        return this;
+    }
+
+    public FacebookLoginLink2 action(String newEventAction) {
+        this.eventAction = newEventAction;
+        return this;
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        final String fbAppId;
+        if (facebookApp != null && facebookApp.getApiKey() != null) {
+            fbAppId = facebookApp.getApiKey();
+        } else {
+            fbAppId = null;
+        }
+        if (fbAppId != null) {
+            add(new GoogleAnalyticsClickTrackingBehavior(gaConfig,
+                    this.eventCategory, this.eventAction, null, null));
         }
     }
 
