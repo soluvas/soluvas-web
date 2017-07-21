@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.soluvas.commons.IWebAddress2;
 import org.soluvas.socmed.FacebookApp;
 import org.soluvas.web.login.LoginException;
+import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
+import org.soluvas.web.site.google.GoogleAnalyticsClickTrackingBehavior;
 
 import javax.inject.Inject;
 import java.util.Set;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 /**
  * {@link ExternalLink} that gets its source from {@link FacebookApp} settings, but uses {@link IWebAddress2}.
  * Facebook Callback/Redirect will be handled by {@link FacebookRecipient} or {@link SpringFacebookRecipientPage}.
+ * Uses {@link org.soluvas.web.site.google.GoogleAnalyticsClickTrackingBehavior}.
  *
  * @author ceefour
  * @see FacebookRecipient
@@ -43,6 +46,8 @@ public class FacebookLoginLink2 extends ExternalLink {
     private FacebookApp facebookApp;
     @Inject
     private IWebAddress2 webAddress2;
+    @SpringBean(required = false)
+    private IGoogleAnalyticsSysConfig gaConfig;
 
     public FacebookLoginLink2(String id) {
         this(id, FacebookRecipient.class);
@@ -83,13 +88,15 @@ public class FacebookLoginLink2 extends ExternalLink {
             } catch (final Exception ex) {
                 throw new LoginException(ex, "Error building Facebook URI for App ID %s Redirect URI %s", fbAppId, redirectUri);
             }
+
+            add(new GoogleAnalyticsClickTrackingBehavior(gaConfig, "Login", "before login facebook", null, null));
         } else {
             log.debug("Disabling Facebook login because facebookAppId is empty");
             setVisible(false);
         }
     }
 
-//	@Override
+    //	@Override
 //	public void onClick(AjaxRequestTarget target) {
 ////					final String token_url = "https://graph.facebook.com/oauth/access_token?";
 //		// must use webAddress.baseUri since we need actual external URI, not 'localhost'

@@ -3,7 +3,9 @@ package org.soluvas.web.site.google;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.json.JSONObject;
+import org.apache.wicket.ajax.json.JsonUtils;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.StringHeaderItem;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 /**
@@ -73,5 +76,42 @@ public class GoogleAnalyticsBehavior extends Behavior {
 			}
 		}
 	}
-	
+
+	/**
+	 * Sends a Google Analytics event tracking over AJAX, while also logging to JavaScript console.
+	 * Checks if Google Analytics is enabled before adding JavaScript.
+	 *
+	 * Important: It's a Google Analytics terms violation to send user ID or any user-identifiable information!
+	 *
+	 * @param config
+	 * @param target
+	 * @param category
+	 * @param action
+	 * @param label
+	 * @param value
+	 */
+	public static void appendSendEvent(@Nullable IGoogleAnalyticsSysConfig config, AjaxRequestTarget target,
+									   String category, String action, String label, Integer value) {
+		final String consoleLog = String.format("ga.send.event category=%s action=%s label=%s value=%s",
+			category, action, label, value);
+		target.appendJavaScript("console.debug(" + JSONObject.quote(consoleLog) + ");\n");
+		if (null != config && Boolean.TRUE == config.getGoogleAnalyticsEnabled() && !Strings.isNullOrEmpty(config.getGoogleAnalyticsTrackingId())) {
+			target.appendJavaScript("ga('send', 'event', " + JSONObject.quote(category) + ", " + JSONObject.quote(action )+ ", " +
+					JSONObject.quote(label) + ", " + (null != value ? value : "null") + ");\n");
+		}
+	}
+
+	public static String getOnClickScript(IGoogleAnalyticsSysConfig config,
+										  String category, String action, String label, Integer value) {
+		String script = "";
+		final String consoleLog = String.format("ga.send.event[beacon] category=%s action=%s label=%s value=%s",
+				category, action, label, value);
+		script += "console.debug(" + JSONObject.quote(consoleLog) + "); ";
+		if (null != config && Boolean.TRUE == config.getGoogleAnalyticsEnabled() && !Strings.isNullOrEmpty(config.getGoogleAnalyticsTrackingId())) {
+			script += " ga('send', 'event', " + JSONObject.quote(category) + ", " + JSONObject.quote(action) + ", " +
+					JSONObject.quote(label) + ", " + (null != value ? value : "null") + ", {transport: 'beacon'});";
+		}
+		return script;
+	}
+
 }
