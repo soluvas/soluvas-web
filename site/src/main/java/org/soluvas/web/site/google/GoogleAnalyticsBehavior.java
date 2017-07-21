@@ -138,7 +138,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 	public static String getNonInteractionEventScript(IGoogleAnalyticsSysConfig config,
 											  String category, String action, String label, Integer value) {
 		String script = "";
-		final String consoleLog = String.format("ga.send.event[beacon] category=%s action=%s label=%s value=%s",
+		final String consoleLog = String.format("ga.send.event[nonInteraction] category=%s action=%s label=%s value=%s",
 				category, action, label, value);
 		script += "console.debug(" + JSONObject.quote(consoleLog) + "); ";
 		if (null != config && Boolean.TRUE == config.getGoogleAnalyticsEnabled() && !Strings.isNullOrEmpty(config.getGoogleAnalyticsTrackingId())) {
