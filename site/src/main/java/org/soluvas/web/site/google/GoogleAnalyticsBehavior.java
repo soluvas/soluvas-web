@@ -161,7 +161,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 		messages.forEach(msg ->
 				GoogleAnalyticsBehavior.appendSendEvent(config, target,
 						component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
-						messages.toString(), msg.getLevel()));
+						msg.toString(), msg.getLevel()));
 	}
 
 }
