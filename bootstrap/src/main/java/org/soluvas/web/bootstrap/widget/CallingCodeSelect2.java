@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  *
  * @author ceefour
  * @see CountrySelect2
+ * @see org.soluvas.web.site.widget.CallingCodeChoice
  */
 @SuppressWarnings("serial")
 public class CallingCodeSelect2 extends BootstrapSelect2Choice<Country> {
