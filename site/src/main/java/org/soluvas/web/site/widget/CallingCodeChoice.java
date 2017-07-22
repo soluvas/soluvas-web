@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Opera Mini-compatible {@link DropDownChoice} UI component for Joda {@link Country#getCallingCodes()}.
+ * Opera Mini-compatible {@link DropDownChoice} UI component for {@link Country#getCallingCodes()}.
  *
  * @author ceefour
  */
@@ -35,17 +35,14 @@ public class CallingCodeChoice extends DropDownChoice<Country> {
         setChoiceRenderer(new ChoiceRenderer<Country>() {
             @Override
             public Object getDisplayValue(Country object) {
-                return object.getName() + (displayCallingCode ? " (+" + object.getCallingCodes().get(0) + ")" : "");
+                return object != null ?
+                        object.getName() + (displayCallingCode ? " (+" + object.getCallingCodes().get(0) + ")" : "")
+                        : "";
             }
 
             @Override
             public String getIdValue(Country object, int index) {
-                return super.getIdValue(object, index);
-            }
-
-            @Override
-            public Country getObject(String id, IModel<? extends List<? extends Country>> choices) {
-                return super.getObject(id, choices);
+                return object != null ? object.getIso() : "";
             }
         });
     }

@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * {@link Select2Choice} UI component for Joda {@link Country#getCallingCodes()}.
+ * {@link Select2Choice} UI component for {@link Country#getCallingCodes()}.
  *
  * @author ceefour
  * @see CountrySelect2
