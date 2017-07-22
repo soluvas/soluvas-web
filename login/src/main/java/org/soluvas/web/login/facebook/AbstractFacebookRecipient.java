@@ -94,7 +94,8 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 			final facebook4j.User fbUser = facebook.getMe();
 			Preconditions.checkNotNull("User should not be null", fbUser);
 			log.debug("Got user and user details {}", JsonUtils.asJson(fbUser));
-			
+
+			// FIXME: not transactional, see com.satukancinta.web.SatukanCintaFacebookRecipientPage for better version
 			Person2 curPerson = personRepo.findOneByFacebook(Long.valueOf(fbUser.getId()), null);
 			if (curPerson == null) {
 				curPerson = personRepo.findOneByFacebook(null, fbUser.getUsername());
