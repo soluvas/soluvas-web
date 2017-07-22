@@ -55,6 +55,11 @@ public class SpringWebSession extends SoluvasWebSession {
 
     @Override
     protected void guessLocale() {
-        // not supported!
+        // not supported... but probably we need to revisit our uses cases
+        log.debug("Using application's locale defaults because using SpringWebSession");
+        setLocale(defaultsConfig.getDefaultLocale());
+        if (getClientInfo().getProperties().getTimeZone() == null) {
+            getClientInfo().getProperties().setTimeZone(defaultsConfig.getDefaultTimeZone().toTimeZone());
+        }
     }
 }

@@ -12,7 +12,12 @@ import org.slf4j.LoggerFactory;
 /**
  * Captures all segments, useful for e.g. categorySlug ({@literal fabrics/batik/lawasan@}).
  * @author atang
+ * @deprecated You can use a mount path such as "${localePrefId}/error" then set trailing path segments
+ * using {@link PageParameters#set(int, Object)}, and retrieve it via {@link PageParameters#get(int)}.
+ * See {@code com.satukancinta.web.WicketErrorPage} for example.
+ * Sample result URL is {@code /id/error/WicketRuntimeException/InvocationTargetException/RuntimeException?1&b=/%3Fref%3Derror}
  */
+@Deprecated
 public class MultiMountedMapper extends MountedMapper {
 	private static final Logger log = LoggerFactory
 			.getLogger(MultiMountedMapper.class);
