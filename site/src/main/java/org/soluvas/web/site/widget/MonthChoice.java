@@ -6,11 +6,7 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.geotoolkit.util.collection.IntegerList;
-import org.soluvas.geo.Country;
-import org.soluvas.geo.CountryRepository;
 
-import javax.inject.Inject;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.List;
@@ -23,8 +19,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class MonthChoice extends DropDownChoice<Integer> {
 
-    @Inject
-    private CountryRepository countryRepo;
     private TextStyle textStyle = TextStyle.FULL;
 
     public MonthChoice(String id, IModel<Integer> model) {

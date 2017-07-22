@@ -6,9 +6,7 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.soluvas.geo.CountryRepository;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,9 +17,6 @@ import java.util.Objects;
  */
 @SuppressWarnings("serial")
 public class DayOfMonthChoice extends DropDownChoice<Integer> {
-
-    @Inject
-    private CountryRepository countryRepo;
 
     public DayOfMonthChoice(String id, IModel<Integer> model) {
         super(id);
