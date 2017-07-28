@@ -179,6 +179,7 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 			curPerson = personRepo.modify(curPerson.getId(), curPerson);
 			// Set Token And Set Session
 			doLogin(curPerson.getId(), curPerson);
+			WebSession.get().bind();
 			// Redirect Url
 			((SoluvasWebSession) getSession()).postLoginSuccess();
 		} catch (final Exception e) {
