@@ -120,7 +120,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 			category, action, label, value);
 		target.appendJavaScript("console.debug(" + JSONObject.quote(consoleLog) + ");\n");
 		if (isReallyEnabled(config)) {
-			target.appendJavaScript("ga('send', 'event', " + JSONObject.quote(category) + ", " + JSONObject.quote(action )+ ", " +
+			target.appendJavaScript("ga('send', 'event', " + JSONObject.quote(category) + ", " + JSONObject.quote(action) + ", " +
 					JSONObject.quote(label) + ", " + (null != value ? value : "null") + ");\n");
 		}
 	}
@@ -178,13 +178,12 @@ public class GoogleAnalyticsBehavior extends Behavior {
 	 */
 	public static void reportErrors(IGoogleAnalyticsSysConfig config, AjaxRequestTarget target,
 									Component component) {
-		if (isReallyEnabled(config)) {
-			final List<FeedbackMessage> messages = new FeedbackCollector(component).collect();
-			messages.forEach(msg ->
-					GoogleAnalyticsBehavior.appendSendEvent(config, target,
-							component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
-							msg.toString(), msg.getLevel()));
-		}
+		final List<FeedbackMessage> messages = new FeedbackCollector(component).collect();
+		// appendSendEvent already calls isReallyEnabled()
+		messages.forEach(msg ->
+				GoogleAnalyticsBehavior.appendSendEvent(config, target,
+						component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
+						msg.toString(), msg.getLevel()));
 	}
 
 }
