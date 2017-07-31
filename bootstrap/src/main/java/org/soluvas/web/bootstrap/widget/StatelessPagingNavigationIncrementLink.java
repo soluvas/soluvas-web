@@ -51,7 +51,7 @@ public class StatelessPagingNavigationIncrementLink<C extends Page> extends
 	}
 
 	public StatelessPagingNavigationIncrementLink<C> exclude(Set<String> excludedParameters) {
-		excludedParameters.addAll(excludedParameters);
+		this.excludedParameters.addAll(excludedParameters);
 		return this;
 	}
 

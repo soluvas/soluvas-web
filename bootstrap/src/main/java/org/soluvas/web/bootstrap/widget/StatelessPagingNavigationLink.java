@@ -49,7 +49,7 @@ public class StatelessPagingNavigationLink<C extends Page> extends
 	}
 
 	public StatelessPagingNavigationLink exclude(Set<String> excludedParameters) {
-		excludedParameters.addAll(excludedParameters);
+		this.excludedParameters.addAll(excludedParameters);
 		return this;
 	}
 
