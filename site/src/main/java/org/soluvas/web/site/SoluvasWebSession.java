@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
@@ -239,12 +240,12 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 	 * <ol>
 	 * 	<li>{@link TokenRecipientPage}, if {@link #isTokenFlow()} != {@code true}</li>
 	 * 	<li>{@link #getOriginalUrl()}, if set</li>
-	 *  <li>{@link WebApplication#getHomePage()} otherwise</li>
+	 *  <li>{@link #getAfterLoginPage()} otherwise</li>
 	 * </ol>
 	 */
 	public final void postLoginSuccess() {
 		beforeLoginSuccess();
-		log.debug("postLoginSuccess() will redirect to token or to original URI or to home page");
+		log.trace("postLoginSuccess() will redirect to token or to original URI or to home page");
 		if (isTokenFlow()) {
 			// get or create access token
 			// Used by token flow. Won't work with {@link Person}.
@@ -273,11 +274,19 @@ public class SoluvasWebSession extends AuthenticatedWebSession {
 			throw new RedirectToUrlException(destUri);
 		} else {
 			// If Regular User
-			final Class<? extends Page> homePage = getApplication().getHomePage();
+			final Class<? extends Page> homePage = getAfterLoginPage();
 //			RedirectByUserTyperType;
 			log.debug("Session has no original URI, redirecting to {}", homePage.getName());
 			throw new RestartResponseException(homePage);
 		}
+	}
+
+	/**
+	 * Override this if your after login page is not {@link Application#getHomePage()}.
+	 * @return
+	 */
+	public Class<? extends Page> getAfterLoginPage() {
+		return getApplication().getHomePage();
 	}
 	
 }
