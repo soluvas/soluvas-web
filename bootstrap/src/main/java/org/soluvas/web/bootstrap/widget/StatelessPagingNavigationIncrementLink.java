@@ -4,6 +4,9 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.navigation.paging.IPageable;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by ceefour on 28/12/14.
  * 
@@ -15,6 +18,7 @@ public class StatelessPagingNavigationIncrementLink<C extends Page> extends
 
 	private final IPageable pageable;
 	private final int increment;
+	private Set<String> excludedParameters = new HashSet<>();
 
 	public StatelessPagingNavigationIncrementLink(String id,
 			IPageable pageable, int increment, Class<C> pageClass) {
@@ -44,6 +48,11 @@ public class StatelessPagingNavigationIncrementLink<C extends Page> extends
 			getPageParameters().set(StatelessDataView.PAGE_NUMBER_PARAMETER, realPageNumber);
 		}
 		setEnabled(realPageNumber != getPage().getPageParameters().get(StatelessDataView.PAGE_NUMBER_PARAMETER).toInt(0));
+	}
+
+	public StatelessPagingNavigationIncrementLink<C> exclude(Set<String> excludedParameters) {
+		excludedParameters.addAll(excludedParameters);
+		return this;
 	}
 
 }
