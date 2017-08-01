@@ -1,7 +1,10 @@
 package org.soluvas.web.site.google;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Strings;
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.json.JSONObject;
@@ -17,9 +20,8 @@ import org.soluvas.web.site.IGoogleAnalyticsSysConfig;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.List;
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 
 /**
  * Puts <a href="http://stackoverflow.com/a/10712960/122441">Google Analytics script in {@code head}</a>.
@@ -59,7 +61,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
-		if (Boolean.TRUE == sysConfig.getGoogleAnalyticsEnabled()) {
+		if (Boolean.TRUE == Optional.fromNullable(sysConfig.getGoogleAnalyticsEnabled()).or(false)) {
 			// Google Analytics is required for server timing
 			if (Strings.isNullOrEmpty(sysConfig.getGoogleAnalyticsTrackingId())) {
 				log.warn("Google Analytics Tracking ID must be set");
