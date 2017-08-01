@@ -186,7 +186,7 @@ public class GoogleAnalyticsBehavior extends Behavior {
 						component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
 						msg.toString(), msg.getLevel());
 			} catch (Exception e) {
-				log.error("Cannot report error", e);
+				log.error("Cannot report error: component={} msg={}", component, msg, e);
 				throw e;
 			}
 		});
