@@ -180,10 +180,16 @@ public class GoogleAnalyticsBehavior extends Behavior {
 									Component component) {
 		final List<FeedbackMessage> messages = new FeedbackCollector(component).collect();
 		// appendSendEvent already calls isReallyEnabled()
-		messages.forEach(msg ->
+		messages.forEach(msg -> {
+			try {
 				GoogleAnalyticsBehavior.appendSendEvent(config, target,
 						component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
-						msg.toString(), msg.getLevel()));
+						msg.toString(), msg.getLevel());
+			} catch (Exception e) {
+				log.error("Cannot report error", e);
+				throw e;
+			}
+		});
 	}
 
 }
