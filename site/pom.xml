@@ -26,6 +26,7 @@
 		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.geo</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.soluvas</groupId>
