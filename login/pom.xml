@@ -50,6 +50,7 @@
 		<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.image</artifactId>
+			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
