@@ -22,7 +22,7 @@ public class JQueryScrollTo {
 	public static final JavaScriptResourceReference SCROLLTO = 
 			new JQueryPluginResourceReference(JQueryScrollTo.class, "scrollTo/jquery.scrollTo.min.js");
 	private static final UrlResourceReference SCROLLTO_CDN = new JQueryPluginUrlResourceReference(
-			Url.parse("//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js"));
+			Url.parse("//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"));
 	
 	/**
 	 * Uses CDN by {@link IBootstrapSettings#useCdnResources()}.
