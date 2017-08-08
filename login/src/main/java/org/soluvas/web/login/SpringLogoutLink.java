@@ -1,18 +1,12 @@
 package org.soluvas.web.login;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.link.StatelessLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.web.site.Interaction;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
-
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
+import org.springframework.security.core.userdetails.User;
 
 /**
  * Logs the current user out and returns to "after logout page", using Spring Security.
@@ -32,10 +26,15 @@ public class SpringLogoutLink extends Link<Void> {
 
 	@Override
 	public void onClick() {
-		final SecurityContextHolderAwareRequestWrapper request = (SecurityContextHolderAwareRequestWrapper) getRequest().getContainerRequest();
-		final Principal prevUserPrincipal = request.getUserPrincipal();
+		final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final String prevUserId;
+		if (principal instanceof User) {
+			prevUserId = ((User) principal).getUsername();
+		} else {
+			prevUserId = null;
+		}
 		final Class<? extends Page> homePageClass = getApplication().getHomePage();
-		log.info("Logging out '{}' and redirecting to {}", prevUserPrincipal != null ? prevUserPrincipal.getName() : null, homePageClass.getName());
+		log.info("Logging out '{}' and redirecting to {}", prevUserId, homePageClass.getName());
 		SecurityContextHolder.getContext().setAuthentication(null);
 		Interaction.LOGOUT.info(getString("loggedOut")); // TODO: why is this not in FeedbackMessages?
 		setResponsePage(homePageClass);
