@@ -62,6 +62,11 @@ public enum SchemaOrgClass {
 	 */
 	WEB_PAGE,
 	/**
+	 * <a href="http://schema.org/WebSite">schema:WebSite</a> -
+	 * https://developers.google.com/search/docs/data-types/sitename
+	 */
+	WEB_SITE,
+	/**
 	 * <a href="http://schema.org/CollectionPage">schema:CollectionPage</a> - Web page type: Collection page.
 	 * @see #ITEM_PAGE
 	 * @see #IMAGE_GALLERY
