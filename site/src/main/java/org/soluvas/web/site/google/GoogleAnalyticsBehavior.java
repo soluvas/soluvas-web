@@ -189,7 +189,6 @@ public class GoogleAnalyticsBehavior extends Behavior {
 						msg.toString(), msg.getLevel());
 			} catch (Exception e) {
 				log.error("Cannot report error: component={} msg={}", component, msg, e);
-				throw e;
 			}
 		});
 	}
