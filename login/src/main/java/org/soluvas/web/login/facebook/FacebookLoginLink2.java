@@ -27,8 +27,10 @@ import java.util.stream.Collectors;
  * @author ceefour
  * @see FacebookRecipient
  * @see SpringFacebookRecipientPage
+ * @deprecated Use {@link FacebookLoginButton}, because a link has a risk of being preloaded by browser
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class FacebookLoginLink2 extends ExternalLink {
 
     private static final Logger log = LoggerFactory
