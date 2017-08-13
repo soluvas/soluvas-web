@@ -185,7 +185,8 @@ public class GoogleAnalyticsBehavior extends Behavior {
 		messages.forEach(msg -> {
 			try {
 				GoogleAnalyticsBehavior.appendSendEvent(config, target,
-						component.getPage().getPageClass().getSimpleName(), "error " + msg.getReporter().getId(),
+						component.getPage().getPageClass().getSimpleName(),
+						"error" + (null != msg.getReporter() ? msg.getReporter().getId() : ""),
 						msg.toString(), msg.getLevel());
 			} catch (Exception e) {
 				log.error("Cannot report error: component={} msg={}", component, msg, e);
