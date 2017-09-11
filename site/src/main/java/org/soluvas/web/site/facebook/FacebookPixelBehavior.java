@@ -32,7 +32,7 @@ public class FacebookPixelBehavior extends Behavior {
 	
 	@SpringBean(required=false)
 	private FacebookSysConfig facebookSysConfig;
-
+	
 	private final IModel<String> emailModel;
 	
 	public FacebookPixelBehavior(final IModel<String> emailModel) {
