@@ -48,6 +48,10 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.soluvas</groupId>
+			<artifactId>org.soluvas.jpa</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-devutils</artifactId>
 			<optional>true</optional>
