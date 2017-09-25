@@ -1,10 +1,16 @@
 package org.soluvas.web.bootstrap.widget;
 
-import com.google.common.base.Strings;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
@@ -19,11 +25,8 @@ import org.soluvas.mongo.MongoTermRepository;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 
 public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 
@@ -36,20 +39,28 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 	@SpringBean
 	private WebAddress webAddress;
 	
-	private final String enumerationId;
+	private final IModel<String> enumerationIdModel;
 	private final IModel<List<Value<?>>> whiteListValuesModel;
 	
 	public Term2ChoiceProvider(final String enumerationId) {
 		super();
 		Injector.get().inject(this);
-		this.enumerationId = enumerationId;
-		this.whiteListValuesModel = new ListModel<>();
+		this.enumerationIdModel = new Model<>(enumerationId);
+		this.whiteListValuesModel = new ListModel<>(ImmutableList.of());
 	}
 	
-	public Term2ChoiceProvider(final IModel<List<Value<?>>> whiteListValusModel) {
+	public Term2ChoiceProvider(final IModel<String> enumerationIdModel) {
 		super();
 		Injector.get().inject(this);
-		this.enumerationId = null;
+		this.enumerationIdModel = enumerationIdModel;
+		this.whiteListValuesModel = new ListModel<>(ImmutableList.of());
+	}
+	
+	public Term2ChoiceProvider(final IModel<String> enumerationIdModel,
+			final IModel<List<Value<?>>> whiteListValusModel) {
+		super();
+		Injector.get().inject(this);
+		this.enumerationIdModel = enumerationIdModel;
 		this.whiteListValuesModel = whiteListValusModel;
 	}
 
@@ -68,8 +79,8 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "name");
 		
 		final Page<Term2> result;
-		if (!Strings.isNullOrEmpty(enumerationId)) {
-			result = termRepo.findAll(enumerationId, Optional.ofNullable(term).orElse("").trim(), pageable);
+		if (!Strings.isNullOrEmpty(enumerationIdModel.getObject())) {
+			result = termRepo.findAll(enumerationIdModel.getObject(), Optional.ofNullable(term).orElse("").trim(), pageable);
 		} else {
 			final List<String> whiteValues = whiteListValuesModel.getObject().stream().map(new Function<Value<?>, String>() {
 				@Override
@@ -79,7 +90,9 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 			}).collect(Collectors.toList());
 			result = termRepo.findAll(whiteValues, pageable);
 		}
-		response.addAll(result.getContent());
+		final List<Term2> content = result.getContent();
+		log.debug("Got {} size(s)", content.size());
+		response.addAll(content);
 		response.setHasMore(result.hasNextPage());
 	}
 

@@ -21,14 +21,19 @@ public class Term2Select2 extends BootstrapSelect2Choice<Term2> {
 		super(id, model, new Term2ChoiceProvider(enumerationId));
 	}
 	
+	public Term2Select2(String id, IModel<Term2> model, final IModel<String> enumerationIdModel) {
+		super(id, model, new Term2ChoiceProvider(enumerationIdModel));
+	}
+	
 	/**
 	 * Filter only terms which match the values provided by whitelist. The whitelist can be dynamic.
 	 * @param id
 	 * @param model
 	 * @param whitelistModel
 	 */
-	public Term2Select2(String id, IModel<Term2> model, final IModel<List<Value<?>>> whitelistModel) {
-		super(id, model, new Term2ChoiceProvider(whitelistModel));
+	public Term2Select2(String id, IModel<Term2> model,
+			final IModel<String> enumerationIdModel, final IModel<List<Value<?>>> whitelistModel) {
+		super(id, model, new Term2ChoiceProvider(enumerationIdModel, whitelistModel));
 	}
 	
 	@Override
@@ -58,6 +63,8 @@ public class Term2Select2 extends BootstrapSelect2Choice<Term2> {
 				"}" +
 				"return [d1, ' ', document.createTextNode(object.text)];" +
 				"}");
+		
+		getSettings().setCloseOnSelect(true);
 	}
 	
 }

@@ -83,7 +83,7 @@ public class PropertyDefinitionChoiceProvider extends ChoiceProvider<PropertyDef
 					ImmutableSet.copyOf(excludedPropertyDefIds),
 					new PageRequest(page, 10L, Direction.ASC, "name"));
 		}
-//		log.debug("by page {} and result.getContent(): {}", page, result.getContent().size());
+		log.debug("by page {} and result.getContent(): {}", page, result.getContent().size());
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}

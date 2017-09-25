@@ -20,5 +20,12 @@ public class TermKindSelect2 extends BootstrapSelect2Choice<TermKind> {
 		setProvider(new TermKindChoiceProvider());
 		
 	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		
+		getSettings().setCloseOnSelect(true);
+	}
 
 }
