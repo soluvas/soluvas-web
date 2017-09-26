@@ -142,23 +142,23 @@ public class PersonInfoJpaSelect2 extends BootstrapSelect2Choice<PersonInfo> {
 		add(new AttributeAppender("class", new Model<>("input-" + inputSize), " "));
 		getSettings().getAjax().setDelay(250);
 		getSettings().setTemplateResult(
-			"function(object) {" +
-			"if (!object.id) return object.text;" +
-			"var d1 = $('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50});" +
-			"var d2 = $('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri);" +
-			"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
-			"  .append(document.createTextNode(object.text)).append(' (ID : '+ object.id + ') <br>')" +
-			"  .append($('<small>').css({color: '#666'});" +
-			"thediv.css({height: '45px'});" +
-			"return [d1, d2, thediv];" +
-			"}");
-		getSettings().setTemplateSelection(
 				"function(object) {" +
-				"return [" +
-				"  $('<img>').attr('src', object.genderIconUri)," +
-				"  ' '," +
-				"  document.createTextNode(object.text + '  (ID : ' +  object.id + ') ') ];" +
+				"if (!object.id) return object.text;" +
+				"var d1 = $('<img>').css({float: 'left'}).attr({src: object.photoUri, width: 50, height: 50});" +
+				"var d2 = $('<img>').css({float: 'right', marginTop: '6px'}).attr('src', object.genderIconUri);" +
+				"var thediv = $('<div>').css({marginLeft: '60px', marginRight: '20px', marginTop: '5px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'})" +
+				"  .append(document.createTextNode(object.text)).append(' (ID : '+ object.id + ') <br>')" +
+				"  ;" +
+				"thediv.css({height: '45px'});" +
+				"return [d1, d2, thediv];" +
 				"}");
+		getSettings().setTemplateSelection(
+					"function(object) {" +
+					"return [" +
+					"  $('<img>').attr('src', object.genderIconUri)," +
+					"  ' '," +
+					"  document.createTextNode(object.text + '  (ID : ' +  object.id + ') ') ];" +
+					"}");
 		getSettings().setCloseOnSelect(true);
 	}
 
