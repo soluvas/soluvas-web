@@ -1824,6 +1824,34 @@ public interface SitePackage extends EPackage {
 	int GOOGLE_REMARKETING_SYS_CONFIG_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.soluvas.web.site.ZendeskChatSysConfig <em>Zendesk Chat Sys Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.soluvas.web.site.ZendeskChatSysConfig
+	 * @see org.soluvas.web.site.impl.SitePackageImpl#getZendeskChatSysConfig()
+	 * @generated
+	 */
+	int ZENDESK_CHAT_SYS_CONFIG = 33;
+
+	/**
+	 * The feature id for the '<em><b>Zendesk Chat Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CHAT_SYS_CONFIG__ZENDESK_CHAT_ENABLED = 0;
+
+	/**
+	 * The number of structural features of the '<em>Zendesk Chat Sys Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ZENDESK_CHAT_SYS_CONFIG_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1831,7 +1859,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getJavaScriptMode()
 	 * @generated
 	 */
-	int JAVA_SCRIPT_MODE = 33;
+	int JAVA_SCRIPT_MODE = 34;
 
 
 	/**
@@ -1842,7 +1870,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getInteraction()
 	 * @generated
 	 */
-	int INTERACTION = 34;
+	int INTERACTION = 35;
 
 	/**
 	 * The meta object id for the '<em>Live Chat Provider</em>' data type.
@@ -1852,7 +1880,7 @@ public interface SitePackage extends EPackage {
 	 * @see org.soluvas.web.site.impl.SitePackageImpl#getLiveChatProvider()
 	 * @generated
 	 */
-	int LIVE_CHAT_PROVIDER = 35;
+	int LIVE_CHAT_PROVIDER = 36;
 
 
 	/**
@@ -2813,6 +2841,27 @@ public interface SitePackage extends EPackage {
 	EAttribute getGoogleRemarketingSysConfig_GoogleRemarketingTagId();
 
 	/**
+	 * Returns the meta object for class '{@link org.soluvas.web.site.ZendeskChatSysConfig <em>Zendesk Chat Sys Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Zendesk Chat Sys Config</em>'.
+	 * @see org.soluvas.web.site.ZendeskChatSysConfig
+	 * @generated
+	 */
+	EClass getZendeskChatSysConfig();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.soluvas.web.site.ZendeskChatSysConfig#isZendeskChatEnabled <em>Zendesk Chat Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zendesk Chat Enabled</em>'.
+	 * @see org.soluvas.web.site.ZendeskChatSysConfig#isZendeskChatEnabled()
+	 * @see #getZendeskChatSysConfig()
+	 * @generated
+	 */
+	EAttribute getZendeskChatSysConfig_ZendeskChatEnabled();
+
+	/**
 	 * Returns the meta object for enum '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3650,6 +3699,24 @@ public interface SitePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_TAG_ID = eINSTANCE.getGoogleRemarketingSysConfig_GoogleRemarketingTagId();
+
+		/**
+		 * The meta object literal for the '{@link org.soluvas.web.site.ZendeskChatSysConfig <em>Zendesk Chat Sys Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.soluvas.web.site.ZendeskChatSysConfig
+		 * @see org.soluvas.web.site.impl.SitePackageImpl#getZendeskChatSysConfig()
+		 * @generated
+		 */
+		EClass ZENDESK_CHAT_SYS_CONFIG = eINSTANCE.getZendeskChatSysConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Zendesk Chat Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ZENDESK_CHAT_SYS_CONFIG__ZENDESK_CHAT_ENABLED = eINSTANCE.getZendeskChatSysConfig_ZendeskChatEnabled();
 
 		/**
 		 * The meta object literal for the '{@link org.soluvas.web.site.JavaScriptMode <em>Java Script Mode</em>}' enum.
