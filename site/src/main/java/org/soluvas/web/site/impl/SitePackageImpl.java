@@ -48,6 +48,7 @@ import org.soluvas.web.site.SiteFactory;
 import org.soluvas.web.site.SitePackage;
 import org.soluvas.web.site.StarterSysConfig;
 import org.soluvas.web.site.ThemePref;
+import org.soluvas.web.site.ZendeskChatSysConfig;
 import org.soluvas.web.site.ZendeskConfig;
 
 /**
@@ -287,6 +288,13 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * @generated
 	 */
 	private EClass googleRemarketingSysConfigEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass zendeskChatSysConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1269,6 +1277,24 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getZendeskChatSysConfig() {
+		return zendeskChatSysConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getZendeskChatSysConfig_ZendeskChatEnabled() {
+		return (EAttribute)zendeskChatSysConfigEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getJavaScriptMode() {
 		return javaScriptModeEEnum;
@@ -1445,6 +1471,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		googleRemarketingSysConfigEClass = createEClass(GOOGLE_REMARKETING_SYS_CONFIG);
 		createEAttribute(googleRemarketingSysConfigEClass, GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_ENABLED);
 		createEAttribute(googleRemarketingSysConfigEClass, GOOGLE_REMARKETING_SYS_CONFIG__GOOGLE_REMARKETING_TAG_ID);
+
+		zendeskChatSysConfigEClass = createEClass(ZENDESK_CHAT_SYS_CONFIG);
+		createEAttribute(zendeskChatSysConfigEClass, ZENDESK_CHAT_SYS_CONFIG__ZENDESK_CHAT_ENABLED);
 
 		// Create enums
 		javaScriptModeEEnum = createEEnum(JAVA_SCRIPT_MODE);
@@ -1653,6 +1682,9 @@ public class SitePackageImpl extends EPackageImpl implements SitePackage {
 		initEClass(googleRemarketingSysConfigEClass, GoogleRemarketingSysConfig.class, "GoogleRemarketingSysConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGoogleRemarketingSysConfig_GoogleRemarketingEnabled(), ecorePackage.getEBoolean(), "googleRemarketingEnabled", "false", 0, 1, GoogleRemarketingSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGoogleRemarketingSysConfig_GoogleRemarketingTagId(), ecorePackage.getEString(), "googleRemarketingTagId", null, 0, 1, GoogleRemarketingSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(zendeskChatSysConfigEClass, ZendeskChatSysConfig.class, "ZendeskChatSysConfig", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getZendeskChatSysConfig_ZendeskChatEnabled(), ecorePackage.getEBoolean(), "zendeskChatEnabled", "false", 0, 1, ZendeskChatSysConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(javaScriptModeEEnum, JavaScriptMode.class, "JavaScriptMode");
