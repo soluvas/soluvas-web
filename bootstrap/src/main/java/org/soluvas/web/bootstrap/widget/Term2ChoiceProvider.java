@@ -6,13 +6,14 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.ListModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.WebAddress;
@@ -34,9 +35,9 @@ public class Term2ChoiceProvider extends ChoiceProvider<Term2> {
 	private static final Logger log = LoggerFactory
 			.getLogger(Term2ChoiceProvider.class);
 	
-	@SpringBean
+	@Inject
 	private MongoTermRepository termRepo;
-	@SpringBean
+	@Inject
 	private WebAddress webAddress;
 	
 	private final IModel<String> enumerationIdModel;
