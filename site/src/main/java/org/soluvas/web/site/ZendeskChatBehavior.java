@@ -13,6 +13,8 @@ import org.apache.wicket.markup.head.StringHeaderItem;
  */
 public class ZendeskChatBehavior extends Behavior {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@Inject
 	private ZendeskChatSysConfig sysConfig;
 	
