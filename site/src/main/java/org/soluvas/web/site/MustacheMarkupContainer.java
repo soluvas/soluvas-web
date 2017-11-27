@@ -2,6 +2,8 @@ package org.soluvas.web.site;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupElement;
@@ -13,11 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.WebAddress;
+import org.soluvas.commons.locale.FormatCurrency;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import com.google.common.collect.ImmutableMap;
 
 /**
  * Renders a Mustache template, template is contained within HTML markup itself.
@@ -62,9 +64,14 @@ public class MustacheMarkupContainer extends WebMarkupContainer {
 			final Mustache mainMustache = mf.compile(new StringReader(template), "main");
 			
 			final StringWriter writer = new StringWriter();
-			mainMustache.execute(writer, new Object[] { getDefaultModelObject(),
-					ImmutableMap.of("id", getId(), "markupId", getMarkupId(),
-							"nl2br", new Nl2Br(), "appManifest", appManifest, "webAddress", webAddress) });
+			final Map<String, Object> mapper = new HashMap<>();
+			mapper.put("id", getId());
+			mapper.put("markupId", getMarkupId());
+			mapper.put("nl2br", new Nl2Br());
+			mapper.put("appManifest", appManifest);
+			mapper.put("webAddress", webAddress);
+			mapper.put( "formatCurrency", new FormatCurrency(appManifest.getDefaultLocale(), appManifest.getDefaultCurrency()) );
+			mainMustache.execute(writer, new Object[] { getDefaultModelObject(), mapper });
 			final String body = writer.toString();
 			replaceComponentTagBody(markupStream, openTag, body);
 		} catch (Throwable e) {
