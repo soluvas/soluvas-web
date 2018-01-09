@@ -2,6 +2,7 @@ package org.soluvas.web.login.facebook;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.protocol.http.ClientProperties;
@@ -28,6 +29,7 @@ import org.soluvas.security.NotLoggedWithFacebookException;
 import org.soluvas.socmed.FacebookApp;
 import org.soluvas.web.site.SoluvasWebSession;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
@@ -114,7 +116,20 @@ public abstract class AbstractFacebookRecipient extends WebPage {
 						input -> !personRepo.exists(input));
 				final String personSlug = SlugUtils.generateValidId(fbUser.getName(),
 						input -> !personRepo.existsBySlug(StatusMask.RAW, input).isPresent());
-				curPerson = Person2.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
+				
+				String firstName = null;
+				String lastName = null;
+				if (!Strings.isNullOrEmpty(fbUser.getName())) {
+					final String[] nameArray = StringUtils.split(fbUser.getName(), " ", 2);
+					firstName = nameArray[0];
+					if (nameArray.length > 1) {
+						lastName = nameArray[1];
+					}
+					
+				}
+				curPerson = Person2.createPerson(personId, personSlug,
+						Optional.fromNullable(fbUser.getFirstName()).or(firstName),
+						Optional.fromNullable(fbUser.getLastName()).or(lastName), null, Gender.UNKNOWN);//CommonsFactory.eINSTANCE.createPerson(personId, personSlug, fbUser.getFirstName(), fbUser.getLastName(), null, Gender.UNKNOWN);
 				curPerson.setCreationTime(new DateTime());
 				curPerson.setModificationTime(new DateTime());
 				curPerson.setAccountStatus(AccountStatus.ACTIVE);
