@@ -97,7 +97,7 @@ public class OffsetDateTimeLabel extends Label {
 			if (ZoneConversion.TENANT == zoneConversion) {
 				if (null != tenant && null != tenant.getDefaultTimeZone()) {
 					log.trace("Converting {} using {} to {}", dateTime, zoneConversion, tenant.getDefaultTimeZone());
-					dateTime = dateTime.atZoneSameInstant(ZoneId.of(tenant.getDefaultTimeZone().toString())).toOffsetDateTime();
+					dateTime = dateTime.atZoneSameInstant(tenant.getDefaultTimeZone()).toOffsetDateTime();
 				} else {
 					log.warn("Not converting {} using {}, tenant={} tenant.defaultTimeZone={}",
 							dateTime, zoneConversion, tenant, tenant != null ? tenant.getDefaultTimeZone() : null);
