@@ -7,10 +7,12 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.soluvas.commons.Tenant;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.soluvas.commons.ITenant;
 import org.soluvas.web.site.semantic.ItemPropContentBehavior;
 import org.soluvas.web.site.semantic.SchemaOrgProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nullable;
 import java.time.OffsetDateTime;
@@ -19,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 /**
- * Displays a {@link java.time.OffsetDateTime} model converted to {@link Tenant#getDefaultTimeZone()} (if available), and also uses <code>abbr</code>.
+ * Displays a {@link java.time.OffsetDateTime} model converted to {@link ITenant#getDefaultTimeZone()} (if available), and also uses <code>abbr</code>.
  * By default time zone is not displayed to save UI space and because time zone is consistent,
  * this can be changed with {@link #zone(boolean)}.
  *
@@ -30,14 +32,16 @@ import java.time.format.FormatStyle;
 @SuppressWarnings("serial")
 public class OffsetDateTimeLabel extends Label {
 
+	private static final Logger log = LoggerFactory.getLogger(OffsetDateTimeLabel.class);
+
 	public enum ZoneConversion {
 		ORIGINAL,
 		TENANT,
 		CUSTOM
 	}
 
-	@Autowired(required = false)
-	private Tenant tenant;
+	@SpringBean(required = false)
+	private ITenant tenant;
 
 	private ZoneConversion zoneConversion = ZoneConversion.TENANT;
 	private ZoneId customZone;
@@ -90,10 +94,19 @@ public class OffsetDateTimeLabel extends Label {
 	protected OffsetDateTime getConvertedModelObject() {
 		OffsetDateTime dateTime = (OffsetDateTime) getDefaultModelObject();
 		if (dateTime != null) {
-			if (ZoneConversion.TENANT == zoneConversion && null != tenant && null != tenant.getDefaultTimeZone()) {
-				dateTime = dateTime.atZoneSameInstant(ZoneId.of(tenant.getDefaultTimeZone().toString())).toOffsetDateTime();
+			if (ZoneConversion.TENANT == zoneConversion) {
+				if (null != tenant && null != tenant.getDefaultTimeZone()) {
+					log.trace("Converting {} using {} to {}", dateTime, zoneConversion, tenant.getDefaultTimeZone());
+					dateTime = dateTime.atZoneSameInstant(tenant.getDefaultTimeZone()).toOffsetDateTime();
+				} else {
+					log.warn("Not converting {} using {}, tenant={} tenant.defaultTimeZone={}",
+							dateTime, zoneConversion, tenant, tenant != null ? tenant.getDefaultTimeZone() : null);
+				}
 			} else if (ZoneConversion.CUSTOM == zoneConversion && null != customZone) {
+				log.trace("Converting {} using {} to {}", dateTime, zoneConversion, customZone);
 				dateTime = dateTime.atZoneSameInstant(customZone).toOffsetDateTime();
+			} else {
+				log.trace("Not converting {}", dateTime);
 			}
 		}
 		return dateTime;
