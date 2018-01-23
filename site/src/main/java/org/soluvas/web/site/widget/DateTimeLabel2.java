@@ -15,6 +15,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.web.site.semantic.ItemPropContentBehavior;
 import org.soluvas.web.site.semantic.SchemaOrgProperty;
@@ -33,6 +35,8 @@ import com.google.common.base.Optional;
  */
 @SuppressWarnings("serial")
 public class DateTimeLabel2 extends Label {
+	
+	private static final Logger log = LoggerFactory.getLogger(DateTimeLabel2.class);
 
 	public enum ZoneConversion {
 		ORIGINAL,
@@ -100,6 +104,7 @@ public class DateTimeLabel2 extends Label {
 				dateTime = dateTime.withZone(customZone);
 			}
 		}
+		log.trace(String.format("dateTime '%s' withZone '{}'", dateTime, dateTime.getZone()));
 		return dateTime;
 	}
 	
