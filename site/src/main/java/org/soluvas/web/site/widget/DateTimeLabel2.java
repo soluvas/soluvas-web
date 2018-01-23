@@ -104,7 +104,9 @@ public class DateTimeLabel2 extends Label {
 				dateTime = dateTime.withZone(customZone);
 			}
 		}
-		log.trace(String.format("dateTime '%s' withZone '{}'", dateTime, dateTime.getZone()));
+		if (dateTime != null) {
+			log.trace(String.format("dateTime '%s' withZone '{}'", dateTime, dateTime.getZone()));
+		}
 		return dateTime;
 	}
 	
