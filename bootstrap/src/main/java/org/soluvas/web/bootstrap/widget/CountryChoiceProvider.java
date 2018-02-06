@@ -1,7 +1,10 @@
 package org.soluvas.web.bootstrap.widget;
 
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONStringer;
 import org.apache.wicket.injection.Injector;
@@ -16,9 +19,9 @@ import org.soluvas.geo.CountryRepository;
 import org.wicketstuff.select2.ChoiceProvider;
 import org.wicketstuff.select2.Response;
 
-import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.List;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 
 public class CountryChoiceProvider extends ChoiceProvider<Country> {
 	
@@ -45,7 +48,7 @@ public class CountryChoiceProvider extends ChoiceProvider<Country> {
 
 	@Override
 	public void query(String term, int page, Response<Country> response) {
-		final String trimmedTerm = term.trim();
+		final String trimmedTerm = Optional.fromNullable(term).or("").trim();
 		final Page<Country> pageCountry = countryRepo.searchCountry(trimmedTerm,
 				new PageRequest(page, 20, Sort.Direction.ASC, "name"));
 		log.debug("Search '{}' page '{}' returned {} countries", trimmedTerm, page, pageCountry.getContent().size());
