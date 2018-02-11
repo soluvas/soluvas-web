@@ -9,6 +9,8 @@ import org.apache.wicket.model.IModel;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import javax.annotation.Nullable;
+
 /**
  * Renders the {@link DateTime}-typed {@link IColumn} as a {@link DateTimeLabel2}.
  * @author ceefour
@@ -19,12 +21,32 @@ import org.joda.time.DateTimeZone;
 public class DateColumn2<T> extends PropertyColumn<T, String> {
 
 	private String cssClass = "time";
-	private final DateTimeZone dtZone;
-	
-	public DateColumn2(IModel<String> displayModel, String propertyExpression,
-			DateTimeZone dtZone) {
+	/**
+	 * If null, means uses {@link org.soluvas.web.site.widget.DateTimeLabel2.ZoneConversion#TENANT}.
+	 */
+	@Nullable
+	private final DateTimeZone customZone;
+
+	/**
+	 * {@link DateTime} column using {@link org.soluvas.web.site.widget.DateTimeLabel2.ZoneConversion#TENANT}-specified time zone.
+	 * @param displayModel
+	 * @param propertyExpression
+	 */
+	public DateColumn2(IModel<String> displayModel, String propertyExpression) {
 		super(displayModel, propertyExpression, propertyExpression);
-		this.dtZone = dtZone;
+		this.customZone = null;
+	}
+
+	/**
+	 * {@link DateTime} column using {@link org.soluvas.web.site.widget.DateTimeLabel2.ZoneConversion#CUSTOM} time zone.
+	 * @param displayModel
+	 * @param propertyExpression
+	 * @param customZone
+	 */
+	public DateColumn2(IModel<String> displayModel, String propertyExpression,
+			DateTimeZone customZone) {
+		super(displayModel, propertyExpression, propertyExpression);
+		this.customZone = customZone;
 	}
 
 	public DateColumn2<T> cssClass(String cssClass) {
@@ -34,7 +56,11 @@ public class DateColumn2<T> extends PropertyColumn<T, String> {
 
 	@Override
 	public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> model) {
-		item.add(new DateTimeLabel2(componentId, (IModel) getDataModel(model)).withCustomZone(dtZone));
+		final DateTimeLabel2 dateTimeLabel2 = new DateTimeLabel2(componentId, (IModel) getDataModel(model));
+		if (customZone != null) {
+			dateTimeLabel2.withCustomZone(customZone);
+		}
+		item.add(dateTimeLabel2);
 		item.add(new AttributeAppender("class", cssClass));
 	}
 }
