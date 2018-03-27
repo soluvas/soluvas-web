@@ -16,7 +16,7 @@
 	<description>Twitter bootstrap HTML5 template.</description>
 	
 	<properties>
-		<agilecoders.wicket.version>0.10.11</agilecoders.wicket.version>
+		<agilecoders.wicket.version>0.10.17</agilecoders.wicket.version>
 	</properties>
 
 	<dependencies>
