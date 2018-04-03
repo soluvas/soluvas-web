@@ -2,8 +2,15 @@ package org.soluvas.web.bootstrap.category;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -79,6 +86,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
+import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.mongodb.DuplicateKeyException;
@@ -924,9 +932,14 @@ public class CategoryDetailPanel extends GenericPanel<Category2> {
 					try {
 						catRepo.add(category);
 						info("Added category " + category.getNsPrefix() + "_" + category.getName());
-					} catch (DuplicateKeyException dke) {
-						log.error(String.format("Duplicate Key exception: %s", dke), dke);
-						error("Duplikat kode/uname, mohon ubah nama.");
+					} catch (Exception e) {
+						final List<Throwable> causes = Throwables.getCausalChain(e);
+						log.error(String.format("Failed to add category: %e", e), e);
+						if (causes.stream().anyMatch((it) -> it instanceof DuplicateKeyException)) {
+							error("Duplikat kode/uname, mohon ubah nama.");
+						} else {
+							error("Gangguan sistem, mohon hubungi bagian teknis.");
+						}
 						return;
 					}
 					break;
