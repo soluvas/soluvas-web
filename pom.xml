@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.soluvas</groupId>
 	<artifactId>org.soluvas.web.parent</artifactId>
-	<version>2.4.0-SNAPSHOT</version>
+	<version>2.4.0-DEVELOP-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Soluvas Web Build</name>
 	<description>Soluvas Web Framework.</description>
@@ -84,7 +84,7 @@
 			<dependency>
 				<groupId>org.soluvas</groupId>
 				<artifactId>org.soluvas.parent</artifactId>
-				<version>2.4.0-SNAPSHOT</version>
+				<version>2.4.0-DEVELOP-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
