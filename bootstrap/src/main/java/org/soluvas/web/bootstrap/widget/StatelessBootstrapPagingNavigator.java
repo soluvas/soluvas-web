@@ -14,8 +14,10 @@ import java.util.Set;
 
 /**
  * Created by ceefour on 28/12/14.
+ * @deprecated Painfully slow, use {@link StatelessCursorPagingNavigator} instead.
  */
 @SuppressWarnings("serial")
+@Deprecated
 public class StatelessBootstrapPagingNavigator extends BootstrapPagingNavigator {
 
     /**
