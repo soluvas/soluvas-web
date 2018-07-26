@@ -1,13 +1,21 @@
 package org.soluvas.web.site.sitemap;
 
-import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.commons.AppManifest;
 import org.soluvas.commons.GeneralSysConfig;
-import org.soluvas.commons.ITenant;
 import org.soluvas.commons.WebAddress;
 import org.soluvas.web.site.SiteException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Serves the Google XML Sitemap index at {@code /sitemap_index.xml}, and individual {@link SitemapController} sitemaps
@@ -86,8 +87,8 @@ public class SitemapController {
 
 	@Inject
 	private Environment env;
-	@Inject
-	private ITenant tenant;
+	@Autowired(required = false)
+	private AppManifest appManifest;
 	@Autowired(required = false)
 	private WebAddress webAddress;
 	@Autowired(required = false)
@@ -116,31 +117,67 @@ public class SitemapController {
 		final String baseUri = getBaseUri();
 		final SitemapIndex index = new SitemapIndex();
 		if (activeSitemaps.contains(SitemapPart.PAGE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "page-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.PERSON)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "person-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.PROFILE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "profile-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "profile-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "profile-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.CATEGORY)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "category-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.SHOP)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "shop-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.PRODUCT)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "product-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.PRODUCT_RELEASE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "product-release-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.PLACE)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "place-sitemap.xml", new DateTime()));
+			}
 		}
 		if (activeSitemaps.contains(SitemapPart.EVENT)) {
-			index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime(tenant.getDefaultTimeZone())));
+			if (appManifest != null) {
+				index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime(appManifest.getDefaultTimeZone())));
+			} else {
+				index.getSitemaps().add(new Sitemap(baseUri + "event-sitemap.xml", new DateTime()));
+			}
 		}
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
@@ -209,7 +246,12 @@ public class SitemapController {
 		final String baseUri = getBaseUri();
 		final UrlSet urlSet = new UrlSet();
 		if (part == SitemapPart.PAGE) {
-			final Url homePage = new Url(baseUri, new DateTime(tenant.getDefaultTimeZone()), ChangeFreq.daily, 1);
+			final Url homePage;
+			if (appManifest != null) {
+				homePage = new Url(baseUri, new DateTime(appManifest.getDefaultTimeZone()), ChangeFreq.daily, 1);
+			} else {
+				homePage = new Url(baseUri, new DateTime(), ChangeFreq.daily, 1);
+			}
 			urlSet.getUrls().add(homePage);
 		}
 
