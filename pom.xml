@@ -55,6 +55,7 @@
 		<wicket.version>7.10.0</wicket.version>
 		<wicketstuff.version>7.10.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
 		<wicket-atmosphere.version>0.33</wicket-atmosphere.version><!-- linked to wicket.version -->
+		<wicketkendo.version>7.2.1</wicketkendo.version>
 		<atmosphere.version>2.2.8</atmosphere.version><!-- somewhat linked to wicket-atmosphere.version, but there's also atmosphere-runtime-native -->
 	</properties>
 
@@ -94,7 +95,7 @@
 				<artifactId>javassist</artifactId>
 				<version>3.20.0-GA</version>
 			</dependency>
-
+			
 			<dependency>
 				<groupId>org.wicketstuff</groupId>
 				<artifactId>wicketstuff-select2</artifactId>
@@ -118,6 +119,19 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+			
+			<!-- kendo wicket -->
+			<dependency>
+				<groupId>com.googlecode.wicket-jquery-ui</groupId>
+				<artifactId>wicket-kendo-ui-theme-moonlight</artifactId>
+				<version>${wicketkendo.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.wicket-jquery-ui</groupId>
+				<artifactId>wicket-kendo-ui</artifactId>
+				<version>${wicketkendo.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>org.atmosphere</groupId>
 				<artifactId>atmosphere-runtime</artifactId>
