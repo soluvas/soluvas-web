@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.soluvas</groupId>
 		<artifactId>org.soluvas.web.parent</artifactId>
-		<version>2.4.0-DEVELOP-SNAPSHOT</version>
+		<version>2.4.0-POINT-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>org.soluvas.web.bootstrap</artifactId>
