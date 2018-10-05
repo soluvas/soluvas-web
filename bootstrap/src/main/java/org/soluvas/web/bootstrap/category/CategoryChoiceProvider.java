@@ -7,9 +7,9 @@ import javax.inject.Inject;
 
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.util.ListModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.category.Category;
 import org.soluvas.category.Category2;
 import org.soluvas.category.CategoryStatus;
 import org.soluvas.category.MongoCategoryRepository;
@@ -31,12 +31,12 @@ public class CategoryChoiceProvider extends ChoiceProvider<Category2> {
 	@Inject
 	private MongoCategoryRepository categoryRepo;
 	
-	private final IModel<List<Category2>> sortedCategoriesModel;
+	private final IModel<List<CategoryStatus>> statusesModel;
 	 
-	public CategoryChoiceProvider(IModel<List<Category2>> sortedActiveCategoriesModel) {
+	public CategoryChoiceProvider(final IModel<List<CategoryStatus>> statusesModel) {
 		super();
 		Injector.get().inject(this);
-		this.sortedCategoriesModel = sortedActiveCategoriesModel;
+		this.statusesModel = new ListModel<>(ImmutableList.of(CategoryStatus.ACTIVE));
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class CategoryChoiceProvider extends ChoiceProvider<Category2> {
 	public void query(final String term, int page, Response<Category2> response) {
 		final PageRequest pageable = new PageRequest(page, 10L, Direction.ASC, "localSku");
 		final Page<Category2> result = categoryRepo.findAll(Optional.fromNullable(term).or("").trim(),
-				ImmutableList.of(CategoryStatus.ACTIVE), pageable);
+				statusesModel.getObject(), pageable);
 		response.addAll(result.getContent());
 		response.setHasMore(result.hasNextPage());
 	}
