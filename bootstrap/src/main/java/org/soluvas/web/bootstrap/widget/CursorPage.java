@@ -1,10 +1,15 @@
 package org.soluvas.web.bootstrap.widget;
 
+import org.apache.wicket.markup.html.navigation.paging.IPageable;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * Similar to {@link org.apache.wicket.markup.html.navigation.paging.IPageable} but for cursor-based pagination.
+ * Similar to {@link org.apache.wicket.markup.html.navigation.paging.IPageable} but intended for cursor-based pagination.
+ * However, it's still work in progress, meaning that the "current page" is not exactly a cursor.
+ * The primary difference is that it doesn't have {@link IPageable#getPageCount()}
+ * which is not possible in curser-based pagination.
  */
 public class CursorPage<T> implements Serializable {
     private long currentPage;
