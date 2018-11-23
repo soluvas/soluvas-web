@@ -102,6 +102,11 @@
 				<version>${wicketstuff.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.wicketstuff</groupId>
+				<artifactId>wicketstuff-clipboardjs</artifactId>
+				<version>${wicketstuff.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-datetime</artifactId>
 				<version>${wicket.version}</version>
