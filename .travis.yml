@@ -5,6 +5,7 @@ branches:
   - 2.2.x
   - develop
   - feature
+  - cashback
 language: java
 jdk: oraclejdk8
 # https://coderwall.com/p/9b_lfq/deploying-maven-artifacts-from-travis
