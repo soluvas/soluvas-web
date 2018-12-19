@@ -25,8 +25,8 @@ public class FacebookPixelEventTrackingSalesOrderSummaryPageUtil {
 	private static final Logger log = LoggerFactory
 			.getLogger(FacebookPixelEventTrackingSalesOrderSummaryPageUtil.class);
 	
-	public static OnDomReadyHeaderItem get(final IModel<List<String>> contentIdsModel, final IModel<BigDecimal> amountModel,
-			final IModel<CurrencyUnit> currenyModel) {
+	public static OnDomReadyHeaderItem get(final IModel<List<String>> contentIdsModel, final IModel<List<String>> contentsModel,
+			final IModel<BigDecimal> amountModel, final IModel<CurrencyUnit> currenyModel) {
 		
 		String contentIds;
 		if (contentIdsModel.getObject() != null && !contentIdsModel.getObject().isEmpty()) {
@@ -37,11 +37,21 @@ public class FacebookPixelEventTrackingSalesOrderSummaryPageUtil {
 			contentIds = "[]";
 		}
 		
+		String contents;
+		if (contentsModel.getObject() != null && !contentsModel.getObject().isEmpty()) {
+			contents = "[";
+			contents += Strings.join(contentsModel.getObject(), ",");
+			contents += "]";
+		} else {
+			contents = "[]";
+		}
+		
 		final String script = "fbq('track', 'Purchase', { \n"
 				+ "content_ids: " + contentIds + ", \n"
 				+ "content_type: 'product', \n"
 				+ "value: " + amountModel.getObject().setScale(2, RoundingMode.CEILING) + ", \n"
-				+ "currency: '" + currenyModel.getObject().getCurrencyCode() + "' \n"
+				+ "currency: '" + currenyModel.getObject().getCurrencyCode() + "', \n"
+				+ "contents: " + contents + " \n"
 				+ "});";
 		
 		
