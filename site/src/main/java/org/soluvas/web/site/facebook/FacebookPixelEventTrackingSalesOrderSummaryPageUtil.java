@@ -30,9 +30,9 @@ public class FacebookPixelEventTrackingSalesOrderSummaryPageUtil {
 		
 		String contentIds;
 		if (contentIdsModel.getObject() != null && !contentIdsModel.getObject().isEmpty()) {
-			contentIds = "['";
-			contentIds += Strings.join(contentIdsModel.getObject(), "','");
-			contentIds += "']";
+			contentIds = "[";
+			contentIds += Strings.join(contentIdsModel.getObject(), ",");
+			contentIds += "]";
 		} else {
 			contentIds = "[]";
 		}
