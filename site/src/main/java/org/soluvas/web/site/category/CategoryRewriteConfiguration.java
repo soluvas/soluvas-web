@@ -29,15 +29,16 @@ import com.google.common.collect.ImmutableSet;
  * Works in conjunction with {@link CategoryRequestMapper}.
  * @author ceefour
  */
-@Component
+//@Component
+@Deprecated
 public class CategoryRewriteConfiguration extends HttpConfigurationProvider {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(CategoryRewriteConfiguration.class);
 	
-	@Inject
+//	@Inject
 	private TenantBeans<? extends CategoryRepository> categoryRepos;
-	@Inject
+//	@Inject
 	private TenantRepository<?> tenantRepo;
 
 	/* (non-Javadoc)
