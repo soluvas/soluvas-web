@@ -43,7 +43,7 @@ public class FacebookLoginButton extends Button {
      * @todo App-specific login permissions.
      */
     public static final ImmutableSet<String> DEFAULT_LOGIN_PERMISSIONS =
-            ImmutableSet.of("public_profile", "user_friends", "email");
+            ImmutableSet.of("public_profile", "email");
     private static final long serialVersionUID = 1L;
 
     private final Class<? extends Page> recipientPage;
