@@ -52,7 +52,7 @@
 		<!-- http://stackoverflow.com/a/3018152 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<wicket.version>7.10.0</wicket.version>
+		<wicket.version>7.17.0</wicket.version>
 		<wicketstuff.version>7.10.0</wicketstuff.version><!-- used by wicketstuff e.g. wicket-datetime -->
 		<wicket-atmosphere.version>0.33</wicket-atmosphere.version><!-- linked to wicket.version -->
 		<wicketkendo.version>7.2.1</wicketkendo.version>
